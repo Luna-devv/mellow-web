@@ -8,28 +8,32 @@ import { RouteErrorResponse } from "@/typings";
 type Props = {
     name: string;
     url: string;
-    items: {
-        name: string;
-        value: string;
-        error?: string;
-    }[];
+    dataName: string;
+    items: { name: string; value: string; error?: string }[];
     disabled?: boolean;
     description?: string;
+    defaultV?: string;
 };
 
 
-const SelectInput: FunctionComponent<Props> = ({ name, url, items, disabled, description }) => {
+const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, disabled, description, defaultV }) => {
     const width = widthStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [value, setValue] = useState<{ name: string; value: string; error?: string }>();
+    const [defaultvalue, setDefaultalue] = useState<string | undefined>();
+    const [value, setValue] = useState<{ name: string; value: string; error?: string } | undefined>();
+
+    useEffect(() => {
+        setValue(items.find((i) => i.value === defaultV));
+        setDefaultalue(defaultV);
+    }, [items]);
 
     useEffect(() => {
         setError(undefined);
-        if (!value || value.error) {
+        if (!value || value.error || value.value === defaultvalue) {
             setState(undefined);
             return;
         }
@@ -38,8 +42,10 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, items, disabled, des
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "POST",
             headers: {
+                "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
-            }
+            },
+            body: JSON.stringify({ [dataName]: value.value })
         })
             .then(async (res) => {
                 const response = await res.json();
@@ -105,6 +111,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, items, disabled, des
                                 key={item.name}
                                 onClick={() => {
                                     setOpen(false);
+                                    if (value?.value) setDefaultalue(value.value);
                                     setValue(item);
                                 }}
                             >
