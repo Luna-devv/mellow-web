@@ -2,12 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 
+import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
-import { userStore } from "@/common/user";
-import { widthStore } from "@/common/width";
 import { ErrorBanner } from "@/components/Error";
 import { ListTab } from "@/components/List";
 import { ApiV1GuildsGetResponse, RouteErrorResponse } from "@/typings";
@@ -17,11 +16,9 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const width = widthStore((w) => w);
-    const user = userStore((s) => s);
+    const error = errorStore((e) => e);
     const guild = guildStore((g) => g);
 
-    const [error, setError] = useState<string>();
     const params = useParams();
 
     useEffect(() => {
@@ -41,14 +38,14 @@ export default function RootLayout({
                     }
                     default: {
                         guildStore.setState(undefined);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        errorStore.setState((response as unknown as RouteErrorResponse).message);
                         break;
                     }
                 }
 
             })
             .catch(() => {
-                setError("Error while fetching guilds");
+                errorStore.setState("Error while fetching guilds");
             });
     }, []);
 
