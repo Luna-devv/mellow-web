@@ -1,5 +1,5 @@
-import { useRouter } from "next/navigation";
-import React, { FunctionComponent, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { FunctionComponent } from "react";
 
 interface Props {
     tabs: {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const ListTab: FunctionComponent<Props> = ({ tabs, url }) => {
-    const [state, setState] = useState<string>("/");
+    const path = usePathname();
     const router = useRouter();
 
     return (
@@ -20,11 +20,8 @@ export const ListTab: FunctionComponent<Props> = ({ tabs, url }) => {
                 {tabs.map((tab) => (
                     <li className="mr-2" key={tab.name}>
                         <button
-                            className={`inline-block p-3 border-b-2 border-transparent rounded-t-lg ${state === tab.value ? "text-violet-500 border-b-2 border-violet-500" : ""} hover:text-violet-400 duration-200 drop-shadow-lg`}
-                            onClick={() => {
-                                setState(tab.value);
-                                router.push(`${url}${tab.value}`);
-                            }}
+                            className={`inline-block p-3 border-b-2 border-transparent rounded-t-lg ${path.endsWith(`${url}${tab.value === "/" ? "" : tab.value}`) ? "text-violet-500 border-b-2 border-violet-500" : ""} hover:text-violet-400 duration-200 drop-shadow-lg`}
+                            onClick={() => router.push(`${url}${tab.value}`)}
                         >
                             {tab.name}
                         </button>
