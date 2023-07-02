@@ -16,3 +16,9 @@ export interface ApiV1GuildsGetResponse {
     name: string;
     icon: string | null;
 }
+
+export interface ApiV1GuildsChannelsGetResponse {
+    name: string;
+    id: string;
+    missingPermissions: string[]
+}
