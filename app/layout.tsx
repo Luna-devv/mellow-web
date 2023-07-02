@@ -79,10 +79,8 @@ export default function RootLayout({
     );
 
     return (
-        <html lang="en" className="flex justify-center min-h-screen h-full max-w-full">
-            <Head>
-                <title>Wamellow</title>
-            </Head>
+        <html lang="en" className="flex justify-center min-h-screen h-full max-w-full overflow-x-hidden">
+            <title>Wamellow</title>
 
             <body className={`${inter.className} w-full max-w-6xl`}>
 
@@ -103,12 +101,12 @@ export default function RootLayout({
                 </div>
 
                 {user?.id && menu &&
-                    <div className="pr-4 flex text-base font-medium text-neutral-300 select-none">
-                        <div className="ml-auto"><div className="absolute z-10">{UserDropdown}</div></div>
+                    <div className="pr-4 flex text-base font-medium text-neutral-300 select-none overflow-x-hidden">
+                        <div className="ml-auto overflow-x-hidden"><div className="absolute z-10">{UserDropdown}</div></div>
                     </div>
                 }
 
-                <main className="text-neutral-300 flex flex-col items-center justify-between p-5 w-6xl max-w-full mt-10">
+                <main className={`text-neutral-300 flex flex-col items-center justify-between p-5 w-6xl max-w-full mt-${width > 512 ? 10 : 2}`}>
                     {children}
                 </main>
 
