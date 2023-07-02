@@ -2,13 +2,13 @@
 import "./globals.css";
 
 import { Inter } from "next/font/google";
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiArrowNarrowRight, HiOutlineChevronDown, HiTemplate } from "react-icons/hi";
 
+import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { widthStore } from "@/common/width";
 import authorizeUser from "@/components/authorizeUser";
@@ -38,6 +38,7 @@ export default function RootLayout({
     const path = usePathname() || "/";
     useEffect(() => {
         if (!["/login", "/logout"].includes(path.split("?")[0])) localStorage.setItem("lastpage", path);
+        if (!path.startsWith("/dashboard/")) guildStore.setState(undefined);
     }, [path]);
 
     const user = userStore((s) => s);
@@ -50,6 +51,9 @@ export default function RootLayout({
     const width = widthStore((w) => w);
     useEffect(() => {
         widthStore.setState(window?.innerWidth);
+        setInterval(() => {
+            if (window?.innerWidth !== width) widthStore.setState(window?.innerWidth);
+        }, 1000);
     }, []);
 
     const UserButton = (
