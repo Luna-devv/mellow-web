@@ -16,7 +16,7 @@ export default async function Home() {
                 <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-64 drop-shadow-md" key={Math.random().toString()}>
                     <Image src={guild.icon || "https://cdn.waya.one/r/discord.png"} width={46} height={46} alt="Server" className="rounded-lg" />
                     <div className="ml-3 text-sm">
-                        <div className="text-lg text-slate-200">{guild.name.slice(0, 16)}{guild.name.length > 16 && "..."}</div>
+                        <div className="text-lg dark:text-slate-200 text-slate-800 font-medium">{guild.name.slice(0, 16)}{guild.name.length > 16 && "..."}</div>
                         <div>{guild.memberCount} members</div>
                     </div>
                 </div>
@@ -61,11 +61,11 @@ export default async function Home() {
 
             <div className="text-left lg:mt-24 mt-16 max-w-full w-full">
                 <h2 className="lg:text-4xl text-3xl dark:text-slate-100 text-slate-900 font-medium">Used by your mum</h2>
-                <div className="md:text-xl text-sm pt-4 max-w-2xl">
-                    Wamellow is widely embraced in various servers, including those frequented by your mum, and a wide range of joes.
+                <div className="md:text-xl text-sm pt-4">
+                    Wamellow is widely embraced in various servers, including those frequented by your mum.
                 </div>
 
-                <div className="relative flex overflow-x-hidden">
+                <div className="relative flex overflow-x-hidden mt-[-26px]">
                     <div className="py-12 animate-marquee whitespace-nowrap flex gap-3">
                         {InnerMarquee}
                     </div>
@@ -74,10 +74,10 @@ export default async function Home() {
                     </div>
                 </div>
 
-                <div className="relative bottom-32">
-                    <div className="w-full h-20" style={{ background: "linear-gradient(90deg, rgb(24, 25, 28) 0%, rgba(0,0,0,0) 4%, rgba(0,0,0,0) 96%, rgb(24, 25, 28) 100%)" }} />
+                <div className="relative">
+                    <div className="absolute bottom-10 w-full h-24" style={{ background: "linear-gradient(90deg, var(--background-rgb) 0%, rgba(0,0,0,0) 4%, rgba(0,0,0,0) 96%, var(--background-rgb) 100%)" }} />
                 </div>
-                <span className="relative bottom-[120px] dark:text-neutral-500 text-neutral-400">{topGuilds.length} featured servers</span>
+                <span className="relative bottom-10 dark:text-neutral-500 text-neutral-400">{topGuilds.length} featured servers</span>
             </div>
 
         </div>

@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 
 import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
+import { widthStore } from "@/common/width";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import MessageCreatorEmbed from "@/components/messageCreator/Embed";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
+    const width = widthStore((w) => w);
     const guild = guildStore((g) => g);
 
     const [channels, setChannels] = useState<ApiV1GuildsChannelsGetResponse[]>([]);
@@ -77,7 +79,7 @@ export default function Home() {
     return (
         <div>
 
-            <div className="flex gap-4">
+            <div className="flex md:gap-4 gap-3">
                 <SelectMenu
                     name="Channel"
                     url={`/guilds/${guild?.id}/modules/welcome`}
@@ -89,7 +91,7 @@ export default function Home() {
 
                 <button
                     id="test-button"
-                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg mt-8 h-12 w-32"
+                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg mt-8 h-12 md:w-32"
                     onClick={() => {
                         if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
                         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome/test`, {
@@ -127,7 +129,7 @@ export default function Home() {
                             });
                     }}
                 >
-                    <span>Send Test</span>
+                    {width > 768 ? <span>Send Test</span> : <span>Test</span>}
                 </button>
             </div>
 
@@ -135,16 +137,17 @@ export default function Home() {
                 name="Message"
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="message"
+                defaultMessage={welcome.message}
             >
                 <Switch
                     name="Enabled"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="enabled"
-                    defaultState={false}
+                    defaultState={welcome.enabled}
                     disabled={false}
                 />
             </MessageCreatorEmbed>
 
-        </div>
+        </div >
     );
 }
