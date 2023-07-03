@@ -7,7 +7,7 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 
 import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
-import { ErrorBanner } from "@/components/Error";
+import ErrorBanner from "@/components/Error";
 import { ListTab } from "@/components/List";
 import { ApiV1GuildsGetResponse, RouteErrorResponse } from "@/typings";
 

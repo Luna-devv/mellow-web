@@ -67,7 +67,7 @@ export default function Home() {
 
             })
             .catch(() => {
-                errorStore.setState("Error while fetching channels");
+                errorStore.setState("Error while fetching welcome data");
             });
     }, []);
 
@@ -106,17 +106,18 @@ export default function Home() {
                             }
                         })
                             .then(async (res) => {
+                                console.log(res);
                                 const response = await res.json() as ApiV1GuildsModulesWelcomeGetResponse;
                                 if (!response) return;
 
                                 switch (res.status) {
                                     case 200: {
-                                        document.getElementById("test-button")?.classList.add("bg-green-500 hover:bg-green-400 cursor-not-allowed");
-                                        document.getElementById("test-button")?.classList.remove("bg-violet-500 hover:bg-violet-400");
+                                        document.getElementById("test-button")?.classList.add(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
+                                        document.getElementById("test-button")?.classList.remove(..."bg-violet-600 hover:bg-violet-500".split(" "));
 
                                         setTimeout(() => {
-                                            document.getElementById("test-button")?.classList.remove("bg-green-500 hover:bg-green-400 cursor-not-allowed");
-                                            document.getElementById("test-button")?.classList.add("bg-violet-500 hover:bg-violet-400");
+                                            document.getElementById("test-button")?.classList.remove(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
+                                            document.getElementById("test-button")?.classList.add(..."bg-violet-600 hover:bg-violet-500".split(" "));
                                         }, 1_000 * 8);
 
                                         break;
@@ -129,7 +130,7 @@ export default function Home() {
 
                             })
                             .catch(() => {
-                                errorStore.setState("Error while fetching channels");
+                                errorStore.setState("Error while sending test");
                             });
                     }}
                 >

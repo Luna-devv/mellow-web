@@ -6,7 +6,7 @@ import { HiPlus } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import { widthStore } from "@/common/width";
-import { ErrorBanner } from "@/components/Error";
+import ErrorBanner from "@/components/Error";
 import LoginButton from "@/components/LoginButton";
 import { RouteErrorResponse, UserGuild } from "@/typings";
 
