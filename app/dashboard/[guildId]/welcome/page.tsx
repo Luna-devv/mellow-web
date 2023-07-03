@@ -76,6 +76,14 @@ export default function Home() {
     return (
         <div>
 
+            <Switch
+                name="Enabled"
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="enabled"
+                defaultState={false}
+                disabled={false}
+            />
+
             <div className="flex gap-4">
                 <SelectMenu
                     name="Channel"
