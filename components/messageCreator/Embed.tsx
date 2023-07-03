@@ -1,7 +1,9 @@
 import React, { FunctionComponent, useState } from "react";
 
-import { RouteErrorResponse } from "@/typings";
+import { GuildEmbed, RouteErrorResponse } from "@/typings";
 
+import DiscordMessage from "../discord/Message";
+import DiscordMessageEmbed from "../discord/MessageEmbed";
 import TextInput from "./TextInput";
 
 interface Props {
@@ -11,16 +13,16 @@ interface Props {
     url: string;
     dataName: string;
 
-    defaultEmbed?: { title: string; description: string; color: number; footer: { icon_url: string; text: string; } }
+    defaultMessage?: { content?: string, embed?: GuildEmbed };
 }
 
-const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, dataName, defaultEmbed }) => {
+const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, dataName, defaultMessage }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
-    const [content, setContent] = useState<string>("");
-    const [embed, setEmbed] = useState<string>(JSON.stringify(defaultEmbed || {}));
-    const [embedfooter, setEmbedfooter] = useState<string>(JSON.stringify(defaultEmbed?.footer || {}));
+    const [content, setContent] = useState<string>(defaultMessage?.content || "");
+    const [embed, setEmbed] = useState<string>(JSON.stringify(defaultMessage?.embed || {}));
+    const [embedfooter, setEmbedfooter] = useState<string>(JSON.stringify(defaultMessage?.embed?.footer || {}));
 
     const saveHook = () => {
         setError(undefined);
@@ -61,8 +63,8 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
     return (
         <div>
-            <div className={`mt-16 border-2 border-wamellow rounded-xl px-4 pb-4 ${(error || state === "ERRORED") && "outline outline-red-500 outline-1"}`}>
-                <span className="relative bottom-4 text-lg dark:text-slate-300 text-slate-700 font-medium p-2" style={{ backgroundColor: "#18191c" }}>{name}</span>
+            <div className={`mt-16 border-2 dark:border-wamellow border-wamellow-100 rounded-xl px-4 pb-4 ${(error || state === "ERRORED") && "outline outline-red-500 outline-1"}`}>
+                <span className="relative bottom-4 text-lg dark:text-wamellow-light text-slate-300 font-medium px-2" style={{ backgroundColor: "var(--background-rgb)" }}>{name}</span>
                 <div className="m-1 relative">
 
                     {children &&
@@ -71,9 +73,9 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                         </div>
                     }
 
-                    <div className="flex gap-1">
+                    <div className="lg:flex gap-1">
 
-                        <div className="w-3/6 m-1">
+                        <div className="lg:w-3/6 m-1">
 
                             <TextInput placeholder="Content" value={content} setValue={setContent} max={2000} />
                             <TextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" />
@@ -97,12 +99,28 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
                         </div>
 
-                        <div className="w-3/6 m-1 mt-2 min-h-full rounded-md p-4" style={{ backgroundColor: "rgb(49, 51, 56)" }}>
+                        <div className="lg:w-3/6 lg:mt-2 m-1 mt-8 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-slate-200" style={{ backgroundColor: "rgb(49, 51, 56)" }}>
 
-                            {embed}
-                            <br />
-                            <br />
-                            {embedfooter}
+                            <DiscordMessage
+                                user={{
+                                    username: "Wamellow",
+                                    avatar: "/waya-legacy1.png",
+                                    bot: true
+                                }}
+                            >
+                                {content}
+
+                                <DiscordMessageEmbed
+                                    title={JSON.parse(embed).title}
+                                    color={JSON.parse(embed).color}
+                                    thumbnail={JSON.parse(embed).thumbnail}
+                                    image={JSON.parse(embed).image}
+                                    footer={JSON.parse(embedfooter)}
+                                >
+                                    {JSON.parse(embed).description}
+                                </DiscordMessageEmbed>
+
+                            </DiscordMessage>
 
                         </div>
 
