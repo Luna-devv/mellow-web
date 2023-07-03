@@ -98,7 +98,7 @@ export default function Home() {
 
     return (
         <div className="w-full">
-            <ErrorBanner message={"Page could not be found"} removeButton={true} />
+            <ErrorBanner message={error} removeButton={true} />
             <div className="ml-1 relative bottom-4 flex gap-2">
                 <Link href="/" className="text-blurple hover:opacity-80 dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center">
                     <HiArrowNarrowLeft />
