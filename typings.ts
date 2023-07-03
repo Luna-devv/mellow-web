@@ -1,3 +1,13 @@
+export interface ApiV1TopguildsGetResponse {
+    name: string;
+    icon: string | null;
+    memberCount: number;
+
+    verified: boolean;
+    partnered: boolean;
+}
+
+
 export interface UserGuild {
     id: string;
     name: string;
