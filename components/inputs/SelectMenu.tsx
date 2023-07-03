@@ -104,25 +104,27 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
 
             {open &&
                 <div className="pt-2 relative">
-                    <div className="absolute z-9 w-full dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md drop-shadow-lg max-h-40 overflow-y-scroll" >
-                        {items.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
-                            <button
-                                className="p-4 py-2 w-full dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha text-left duration-200 flex items-center"
-                                key={item.name}
-                                onClick={() => {
-                                    setOpen(false);
-                                    if (value?.value) setDefaultalue(value.value);
-                                    setValue(item);
-                                }}
-                            >
-                                <div>{item.name}</div>
-                                {item.error &&
-                                    <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
-                                        <HiExclamationCircle /> {item.error}
-                                    </div>
-                                }
-                            </button>
-                        ))}
+                    <div className="absolute w-full dark:bg-wamellow bg-wamellow-100 rounded-md drop-shadow-lg max-h-40 overflow-y-scroll" style={{ zIndex: 99 }}>
+                        <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
+                            {items.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
+                                <button
+                                    className="p-4 py-2 w-full dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha text-left duration-200 flex items-center"
+                                    key={item.name}
+                                    onClick={() => {
+                                        setOpen(false);
+                                        if (value?.value) setDefaultalue(value.value);
+                                        setValue(item);
+                                    }}
+                                >
+                                    <div>{item.name}</div>
+                                    {item.error &&
+                                        <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
+                                            <HiExclamationCircle /> {item.error}
+                                        </div>
+                                    }
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
             }
