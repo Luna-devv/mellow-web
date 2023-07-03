@@ -33,7 +33,7 @@ export interface ApiV1GuildsChannelsGetResponse {
     missingPermissions: string[]
 }
 
-interface GuildEmbed {
+export interface GuildEmbed {
     title: string | null;
     description: string | null;
     thumbnail: string | null;

@@ -36,11 +36,12 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                     placeholder={placeholder}
                     onChange={(e) => {
                         if (dataName) {
-                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value })));
+                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined })));
                         } else {
-                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value);
+                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
+                    defaultValue={dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     rows={2}
                 />
@@ -50,11 +51,12 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                     placeholder={placeholder}
                     onChange={(e) => {
                         if (dataName) {
-                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value })));
+                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined })));
                         } else {
-                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value);
+                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
+                    defaultValue={dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     type={type}
                 />
