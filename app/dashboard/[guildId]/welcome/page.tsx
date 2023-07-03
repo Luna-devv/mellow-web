@@ -7,6 +7,7 @@ import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
+import MessageCreatorEmbed from "@/components/messageCreator/Embed";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
@@ -76,14 +77,6 @@ export default function Home() {
     return (
         <div>
 
-            <Switch
-                name="Enabled"
-                url={`/guilds/${guild?.id}/modules/welcome`}
-                dataName="enabled"
-                defaultState={false}
-                disabled={false}
-            />
-
             <div className="flex gap-4">
                 <SelectMenu
                     name="Channel"
@@ -137,6 +130,20 @@ export default function Home() {
                     <span>Send Test</span>
                 </button>
             </div>
+
+            <MessageCreatorEmbed
+                name="Message"
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="message"
+            >
+                <Switch
+                    name="Enabled"
+                    url={`/guilds/${guild?.id}/modules/welcome`}
+                    dataName="enabled"
+                    defaultState={false}
+                    disabled={false}
+                />
+            </MessageCreatorEmbed>
 
         </div>
     );
