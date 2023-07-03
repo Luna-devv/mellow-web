@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/SelectMenu";
+import Switch from "@/components/inputs/Switch";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
@@ -79,7 +80,7 @@ export default function Home() {
                 <SelectMenu
                     name="Channel"
                     url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName={"channel"}
+                    dataName="channel"
                     items={channels.map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the welcome message should be send into"
                     defaultV={welcome.channel}
@@ -87,7 +88,7 @@ export default function Home() {
 
                 <button
                     id="test-button"
-                    className="flex justify-center items-center bg-violet-500 hover:bg-violet-400 text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg mt-8 h-12 w-32"
+                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg mt-8 h-12 w-32"
                     onClick={() => {
                         if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
                         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome/test`, {
@@ -102,18 +103,12 @@ export default function Home() {
 
                                 switch (res.status) {
                                     case 200: {
-                                        document.getElementById("test-button")?.classList.add("bg-green-500");
-                                        document.getElementById("test-button")?.classList.add("hover:bg-green-400");
-                                        document.getElementById("test-button")?.classList.add("cursor-not-allowed");
-                                        document.getElementById("test-button")?.classList.remove("bg-violet-500");
-                                        document.getElementById("test-button")?.classList.remove("hover:bg-violet-400");
+                                        document.getElementById("test-button")?.classList.add("bg-green-500 hover:bg-green-400 cursor-not-allowed");
+                                        document.getElementById("test-button")?.classList.remove("bg-violet-500 hover:bg-violet-400");
 
                                         setTimeout(() => {
-                                            document.getElementById("test-button")?.classList.remove("bg-green-500");
-                                            document.getElementById("test-button")?.classList.remove("hover:bg-green-400");
-                                            document.getElementById("test-button")?.classList.remove("cursor-not-allowed");
-                                            document.getElementById("test-button")?.classList.add("bg-violet-500");
-                                            document.getElementById("test-button")?.classList.add("hover:bg-violet-400");
+                                            document.getElementById("test-button")?.classList.remove("bg-green-500 hover:bg-green-400 cursor-not-allowed");
+                                            document.getElementById("test-button")?.classList.add("bg-violet-500 hover:bg-violet-400");
                                         }, 1_000 * 8);
 
                                         break;

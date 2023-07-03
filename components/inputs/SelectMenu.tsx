@@ -75,14 +75,14 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
     return (
         <div className="select-none w-full max-w-full h-12">
             <div className="flex items-center gap-2">
-                <span className="text-lg text-slate-300 font-medium">{name}</span>
+                <span className="text-lg dark:text-slate-300 text-slate-700 font-medium">{name}</span>
                 {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
             <button
-                className={`mt-1 h-full w-full bg-wamellow rounded-md flex items-center p-4 ${open && "outline outline-violet-400 outline-2"} ${(value?.error || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${disabled && "cursor-not-allowed opacity-50"}`}
+                className={`mt-1 h-full w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center p-4 ${open && "outline outline-violet-400 outline-2"} ${(value?.error || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${(disabled || state === "LOADING") && "cursor-not-allowed opacity-50"}`}
                 onClick={() => setOpen(!open)}
-                disabled={disabled}
+                disabled={disabled || state === "LOADING"}
             >
                 <div className={`text-neutral-${value ? "400" : "500"}`}>
                     {value?.name || "Select.."}
@@ -96,7 +96,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
 
             {!open &&
                 <div className={`${width > 880 && "flex"} mt-1`}>
-                    {description && <div className="text-neutral-500 text-sm">{description}</div>}
+                    {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
                     {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
                     {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">{"Saved"}</div>}
                 </div>
@@ -104,10 +104,10 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
 
             {open &&
                 <div className="pt-2 relative">
-                    <div className="absolute z-9 w-full bg-wamellow-alpha rounded-md drop-shadow-lg max-h-40 overflow-y-scroll" >
+                    <div className="absolute z-9 w-full dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md drop-shadow-lg max-h-40 overflow-y-scroll" >
                         {items.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
                             <button
-                                className="p-4 py-2 w-full hover:bg-wamellow-alpha text-left duration-200 flex items-center"
+                                className="p-4 py-2 w-full dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha text-left duration-200 flex items-center"
                                 key={item.name}
                                 onClick={() => {
                                     setOpen(false);
