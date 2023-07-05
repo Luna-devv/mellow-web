@@ -22,7 +22,8 @@ export const metadata: Metadata = {
         description: "Wamellow revolutionizes your experience with a plethora of free features and extensive customization options, offering a superior alternative to popular bots like MEE6.",
         type: "website",
         url: "https://wamellow.com",
-        siteName: "Wamellow - Next version of discord bots"
+        siteName: "Wamellow",
+        images: "https://wamellow.com/waya-legacy1.png"
     },
 
     twitter: {
