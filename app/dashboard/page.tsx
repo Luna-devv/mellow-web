@@ -58,7 +58,12 @@ export default function Home() {
                         <HiPlus className="relative top-1" />
                         <span className="ml-2">Add to Server</span>
                     </Link>
-                    <LoginButton loginstate={undefined} width={width} message={"Reload Guilds"} />
+                    <LoginButton
+                        className="w-full md:w-fit text-center"
+                        addClassName="justify-center"
+                        width={width}
+                        message={"Reload Guilds"}
+                    />
                 </div>
             </div>
             <hr className="mx-0 p-1 my-4 dark:border-wamellow-light border-wamellow-100-light w-full" />
