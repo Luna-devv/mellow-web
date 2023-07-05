@@ -91,7 +91,7 @@ export default function Home() {
 
                 <button
                     id="test-button"
-                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg mt-8 h-12 md:w-32"
+                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-8 h-12 md:w-32"
                     onClick={() => {
                         if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
                         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome/test`, {

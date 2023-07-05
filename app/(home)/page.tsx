@@ -47,11 +47,11 @@ export default async function Home() {
                 Wamellow revolutionizes your experience with a plethora of free features and extensive customization options, offering a superior alternative to popular bots like MEE6.
 
                 <div className="flex mt-6 justify-center gap-2 text-xl">
-                    <Link href="/login" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg">
+                    <Link href="/login" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200">
                         <HiPlus className="relative top-1" />
                         <span className="ml-2">Wamellow</span>
                     </Link>
-                    <Link href="/support" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg">
+                    <Link href="/support" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200">
                         <BsDiscord className="relative top-1" />
                         <span className="ml-2">Support</span>
                     </Link>

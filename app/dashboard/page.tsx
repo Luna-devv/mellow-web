@@ -48,13 +48,13 @@ export default function Home() {
         <div className="flex flex-col w-full">
 
             {error && <ErrorBanner message={error} />}
-            <div className={`flex ${width > 512 ? "items-center" : "flex-col gap-2"}`}>
+            <div className="md:flex md:items-center">
                 <div>
                     <div className="text-2xl dark:text-slate-100 text-slate-900 font-semibold mb-2">👋 Heyia, {user?.global_name || `@${user?.username}`}</div>
                     <div className="text-lg">Select a server you want to manage.</div>
                 </div>
-                <div className={`${width > 512 && "ml-auto"} flex gap-3`}>
-                    <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg">
+                <div className="md:ml-auto flex gap-3 mt-4 md:mt-0">
+                    <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 w-full md:w-fit justify-center">
                         <HiPlus className="relative top-1" />
                         <span className="ml-2">Add to Server</span>
                     </Link>

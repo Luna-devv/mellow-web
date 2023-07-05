@@ -27,6 +27,9 @@ module.exports = {
                 "128": "32rem",
                 "160": "40rem"
             },
+            fontSize: {
+                "xxs": "0.6rem"
+            },
             animation: {
                 marquee: "marquee 25s linear infinite",
                 marquee2: "marquee2 25s linear infinite"

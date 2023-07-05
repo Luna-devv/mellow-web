@@ -56,7 +56,7 @@ export default function RootLayout({
         <div className="flex flex-col w-full">
 
             <div className="flex mb-5">
-                <Link href="/dashboard" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-3 rounded-md duration-200 drop-shadow-lg text-sm">
+                <Link href="/dashboard" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-3 rounded-md duration-200 text-sm">
                     <HiArrowNarrowLeft className="relative top-1" />
                     <span className="ml-2">Serverlist</span>
                 </Link>

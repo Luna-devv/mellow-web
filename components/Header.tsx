@@ -51,7 +51,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const UserButton = (
         <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
-            <Image src={user?.avatar as string} width={30} height={30} style={{ height: 30, width: 30 }} alt="your avatar" className="rounded-full mr-2 drop-shadow-lg" />
+            <Image src={user?.avatar as string} width={30} height={30} style={{ height: 30, width: 30 }} alt="your avatar" className="rounded-full mr-2" />
             <div className="mr-2">@{user?.username}</div>
             <HiOutlineChevronDown />
         </button>

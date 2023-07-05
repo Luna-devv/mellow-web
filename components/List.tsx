@@ -21,7 +21,7 @@ export const ListTab: FunctionComponent<Props> = ({ tabs, url, disabled }) => {
                 {tabs.map((tab) => (
                     <li className="mr-2" key={tab.name}>
                         <button
-                            className={`inline-block p-3 border-b-2 border-transparent rounded-t-lg ${path.endsWith(`${url}${tab.value === "/" ? "" : tab.value}`) && "text-violet-500 border-b-2 border-violet-500"} hover:text-violet-400 duration-200 drop-shadow-lg ${disabled && "cursor-not-allowed"}`}
+                            className={`inline-block p-3 border-b-2 border-transparent rounded-t-lg ${path.endsWith(`${url}${tab.value === "/" ? "" : tab.value}`) && "text-violet-500 border-b-2 border-violet-500"} hover:text-violet-400 duration-200 ${disabled && "cursor-not-allowed"}`}
                             onClick={() => { if (!disabled) router.push(`${url}${tab.value}`); }}
                         >
                             {tab.name}
