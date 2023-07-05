@@ -1,7 +1,9 @@
 import React, { FunctionComponent, useState } from "react";
+import { BiMoon, BiSun } from "react-icons/bi";
 
 import { GuildEmbed, RouteErrorResponse } from "@/typings";
 
+import Highlight from "../discord/Markdown";
 import DiscordMessage from "../discord/Message";
 import DiscordMessageEmbed from "../discord/MessageEmbed";
 import TextInput from "./TextInput";
@@ -23,6 +25,8 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
     const [content, setContent] = useState<string>(defaultMessage?.content || "");
     const [embed, setEmbed] = useState<string>(JSON.stringify(defaultMessage?.embed || {}));
     const [embedfooter, setEmbedfooter] = useState<string>(JSON.stringify(defaultMessage?.embed?.footer || {}));
+
+    const [mode, setMode] = useState<"DARK" | "LIGHT">("DARK");
 
     const saveHook = () => {
         setError(undefined);
@@ -91,7 +95,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                             </div>
 
                             <button
-                                className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 drop-shadow-lg mt-1 h-12 w-full"
+                                className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-1 h-12 w-full"
                                 onClick={saveHook}
                             >
                                 Update
@@ -99,25 +103,39 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
                         </div>
 
-                        <div className="lg:w-3/6 lg:mt-2 m-1 mt-8 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-slate-200" style={{ backgroundColor: "rgb(49, 51, 56)" }}>
+                        <div className="relative lg:w-3/6 lg:mt-2 m-1 mt-8 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-slate-200" style={{ backgroundColor: mode === "DARK" ? "rgb(49, 51, 56)" : "rgb(255, 255, 255)" }}>
+
+                            <div className={`absolute top-2 right-2 ${mode === "DARK" ? "bg-wamellow-light" : "bg-wamellow-100-light"} flex gap-1 text-neutral-400 rounded-md overflow-hidden`}>
+                                <button onClick={() => setMode("DARK")} className={`py-2 px-3 rounded-md ${mode === "DARK" ? "bg-wamellow" : "hover:bg-wamellow-100-alpha"}`}>
+                                    <BiMoon className="h-5 w-5" />
+                                </button>
+                                <button onClick={() => setMode("LIGHT")} className={`py-2 px-3 rounded-md ${mode === "LIGHT" ? "bg-wamellow-100" : "hover:bg-wamellow-alpha"}`}>
+                                    <BiSun className="h-5 w-5" />
+                                </button>
+                            </div>
 
                             <DiscordMessage
+                                mode={mode}
                                 user={{
                                     username: "Wamellow",
                                     avatar: "/waya-legacy1.png",
                                     bot: true
                                 }}
                             >
-                                {content}
+                                <Highlight
+                                    mode={mode}
+                                    text={content || ""}
+                                />
 
                                 <DiscordMessageEmbed
+                                    mode={mode}
                                     title={JSON.parse(embed).title}
                                     color={JSON.parse(embed).color}
                                     thumbnail={JSON.parse(embed).thumbnail}
                                     image={JSON.parse(embed).image}
                                     footer={JSON.parse(embedfooter)}
                                 >
-                                    {JSON.parse(embed).description}
+                                    {JSON.parse(embed).description && <Highlight mode={mode} text={JSON.parse(embed).description} />}
                                 </DiscordMessageEmbed>
 
                             </DiscordMessage>
@@ -125,6 +143,10 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                         </div>
 
                     </div>
+                    <div className="text-sm m-1 text-neutral-500">
+                        The preview might display things wrong*
+                    </div>
+
                 </div>
 
             </div>

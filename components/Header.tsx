@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { HiArrowNarrowRight, HiOutlineChevronDown, HiTemplate } from "react-icons/hi";
+import { HiArrowNarrowRight, HiIdentification, HiOutlineChevronDown, HiTemplate } from "react-icons/hi";
 
 import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
@@ -59,10 +59,16 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const UserDropdown = (
         <div className="relative bottom-2 right-56 dark:bg-wamellow bg-wamellow-100 rounded-md w-56 text-base overflow-hidden shadow-md">
+
             <Link href="/dashboard" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha pt-3 pb-2 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
                 <HiTemplate />
                 <span className="ml-2">Dashboard</span>
             </Link>
+            <Link href="/profile" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha pt-3 pb-2 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
+                <HiIdentification />
+                <span className="ml-2">Profile</span>
+            </Link>
+
             <hr className="my-1 mx-0 dark:border-wamellow-light border-wamellow-100-light" />
             <Link href="/login?logout=true" className="hover:bg-danger dark:text-red-400 text-red-500 dark:hover:text-red-100 hover:text-neutral-800 pt-2 pb-3 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
                 <HiArrowNarrowRight />
@@ -90,7 +96,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
                 <div className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7">
                     <Link href="/" className="flex items-center mr-2">
-                        <Image src="/waya-legacy1.png" width={34} height={34} alt="wamellow" className="rounded-full mr-2 drop-shadow-lg" />
+                        <Image src="/waya-legacy1.png" width={34} height={34} alt="wamellow" className="rounded-full mr-2" />
                         <span className="text-xl dark:text-slate-100 text-slate-900">Wamellow</span>
                     </Link>
 
@@ -110,7 +116,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                     </div>
                 }
 
-                <main className={`dark:text-neutral-300 text-neutral-700 flex flex-col items-center justify-between p-5 w-6xl max-w-full mt-${width > 512 ? 10 : 2}`}>
+                <main className="dark:text-neutral-300 text-neutral-700 flex flex-col items-center justify-between p-5 w-6xl max-w-full mt-2 md:mt-10">
                     {children}
                 </main>
 
