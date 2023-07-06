@@ -115,6 +115,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                                     key={item.name}
                                     onClick={() => {
                                         setOpen(false);
+                                        setState(undefined);
                                         if (value?.value) setDefaultalue(value.value);
                                         setValue(item);
                                     }}
