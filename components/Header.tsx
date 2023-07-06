@@ -118,7 +118,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                     </div>
                 }
 
-                <main className="dark:text-neutral-300 text-neutral-700 flex flex-col items-center justify-between p-5 w-6xl max-w-full mt-2 md:mt-10">
+                <main className="dark:text-neutral-300 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
                     {children}
                 </main>
 
