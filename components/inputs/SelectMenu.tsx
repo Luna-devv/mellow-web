@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { HiExclamationCircle } from "react-icons/hi";
+import { HiChevronDown, HiExclamationCircle } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
 import { widthStore } from "@/common/width";
@@ -87,11 +87,14 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                 <div className={`text-neutral-${value ? "400" : "500"}`}>
                     {value?.name || "Select.."}
                 </div>
-                {value?.error &&
-                    <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
-                        <HiExclamationCircle /> {value.error}
-                    </div>
-                }
+                <div className="ml-auto flex items-center gap-2">
+                    {value?.error &&
+                        <div className="text-sm flex items-center gap-1 text-red-500">
+                            <HiExclamationCircle /> {value.error}
+                        </div>
+                    }
+                    <HiChevronDown />
+                </div>
             </button>
 
             {!open &&
