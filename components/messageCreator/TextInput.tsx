@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 
 import { widthStore } from "@/common/width";
 
@@ -22,11 +22,25 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
     const width = widthStore((w) => w);
     const className = `mt-1 ${max > 300 ? "h-28" : "h-14"} resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center p-4 focus:outline outline-violet-400 outline-2 ${disabled && "cursor-not-allowed opacity-50"}`;
 
+    const [length, setLength] = useState(0);
+
+    useEffect(() => {
+        setLength(dataName ? JSON.parse(value)[dataName]?.length : value?.length || 0);
+    }, [value]);
+
     return (
-        <div className={`select-none w-full max-w-full h-12 ${max > 300 ? "mb-20" : "mb-6"}`}>
+        <div className={`relative select-none w-full max-w-full h-12 ${max > 300 ? "mb-20" : "mb-6"}`}>
             {name &&
                 <div className="flex items-center gap-2">
                     <span className="text-lg dark:text-slate-300 text-slate-700 font-medium">{name}</span>
+                </div>
+            }
+
+            {type !== "color" && max && (max - 64 < length) &&
+                <div className={`ml-auto text-xs absolute top-1 right-2 ${max - 8 < length ? "dark:text-red-500 text-red-400" : "dark:text-neutral-500 text-neutral-400"}`}>
+                    {value && <span>{length}</span>}
+                    /
+                    <span>{max}</span>
                 </div>
             }
 
@@ -41,9 +55,10 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                             setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
-                    defaultValue={dataName ? JSON.parse(value)[dataName] : value}
+                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value).toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     rows={2}
+                    maxLength={max || Infinity}
                 />
                 :
                 <input
@@ -56,9 +71,10 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                             setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
-                    defaultValue={dataName ? JSON.parse(value)[dataName] : value}
+                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value).toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     type={type}
+                    maxLength={max || Infinity}
                 />
             }
 
