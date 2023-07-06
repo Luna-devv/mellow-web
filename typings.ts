@@ -80,3 +80,11 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
         textColor?: number;
     }
 }
+
+export interface ApiV1MeGetResponse {
+    activity: {
+        messages: number;
+        voiceminutes: number;
+        invites: number;
+    };
+}
