@@ -52,7 +52,7 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                             setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
-                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value).toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
+                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     rows={2}
                     maxLength={max || Infinity}
@@ -68,7 +68,7 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                             setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
-                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value).toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
+                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     type={type}
                     maxLength={max || Infinity}
