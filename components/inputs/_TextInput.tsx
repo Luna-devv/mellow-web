@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 
-import { widthStore } from "@/common/width";
-
 type Props = {
     name?: string;
     placeholder?: string;
@@ -19,7 +17,6 @@ type Props = {
 
 
 const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, max = 0, type, dataName }) => {
-    const width = widthStore((w) => w);
     const className = `mt-1 ${max > 300 ? "h-28" : "h-14"} resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center p-4 focus:outline outline-violet-400 outline-2 ${disabled && "cursor-not-allowed opacity-50"}`;
 
     const [length, setLength] = useState(0);
@@ -29,14 +26,14 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
     }, [value]);
 
     return (
-        <div className={`relative select-none w-full max-w-full h-12 ${max > 300 ? "mb-20" : "mb-6"}`}>
+        <div className="relative select-none w-full max-w-full mb-3">
             {name &&
                 <div className="flex items-center gap-2">
                     <span className="text-lg dark:text-slate-300 text-slate-700 font-medium">{name}</span>
                 </div>
             }
 
-            {type !== "color" && max && (max - 64 < length) &&
+            {type !== "color" && (max - 64 < length) &&
                 <div className={`ml-auto text-xs absolute top-1 right-2 ${max - 8 < length ? "dark:text-red-500 text-red-400" : "dark:text-neutral-500 text-neutral-400"}`}>
                     {value && <span>{length}</span>}
                     /
@@ -78,9 +75,7 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                 />
             }
 
-            <div className={`${width > 880 && "flex"} mt-1`}>
-                {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
-            </div>
+            {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
 
         </div>
     );

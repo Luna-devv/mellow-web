@@ -6,7 +6,7 @@ import { GuildEmbed, RouteErrorResponse } from "@/typings";
 import Highlight from "../discord/Markdown";
 import DiscordMessage from "../discord/Message";
 import DiscordMessageEmbed from "../discord/MessageEmbed";
-import TextInput from "./TextInput";
+import TextInput from "../inputs/_TextInput";
 
 interface Props {
     children?: React.ReactNode
