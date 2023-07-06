@@ -29,8 +29,8 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
     }, [__defaultState]);
 
     useEffect(() => {
-        if (value?.length) setImagestate(undefined);
-        else setImagestate("SUCCESS");
+        if (!value?.length) setImagestate("SUCCESS");
+        // else setImagestate(undefind);
     }, [value]);
 
     useEffect(() => {
@@ -82,15 +82,14 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                 {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
-
             <div className="lg:flex mt-1 w-full gap-4">
 
                 <TextInput
-                    value={value}
+                    value={defaultvalue}
                     setValue={(v) => {
                         setValue(v);
-                        setImagestate(undefined);
                         setState(undefined);
+                        if (imagestate === "SUCCESS") setImagestate(undefined);
                     }}
                     placeholder="Paste a direct image url..."
                     max={256}
@@ -111,6 +110,8 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                                         <div>Recommended resolution: 1024x256</div>
                                         <div>Recommended type: .jpg</div>
                                     </div>
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={value} alt="" className="w-0 h-0" onLoad={() => setImagestate("SUCCESS")} />
                                 </div>
                                 :
                                 <span className="text-neutral-400">Enter a image url to preview</span>
