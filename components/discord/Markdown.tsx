@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import React, { FunctionComponent } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -9,9 +8,11 @@ interface Props {
     discord?: boolean;
 }
 const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => {
-    const plClassName = `${mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800"} border border-violet-400 m-1 p-[4px] rounded-lg opacity-80 font-light`;
+    text = text
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
 
-    // allowedElements
+    const plClassName = `${mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800"} border border-violet-400 m-1 p-[4px] rounded-lg opacity-80 font-light`;
 
     function parseDiscordMarkdown(content: string) {
         return content
@@ -52,7 +53,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
                     <span {...props} />
                 </div>,
                 code({ inline, children, ...props }) {
-                    if (!inline) return <div className={`${mode === "DARK" ? "bg-neutral-900" : "bg-neutral-200"} px-4 py-3 text-sm rounded-md min-w-full my-2`}>
+                    if (!inline) return <div className={`${mode === "DARK" ? "bg-neutral-900" : "bg-neutral-200"} px-4 py-3 text-sm rounded-md min-w-full max-w-full my-2 break-all`}>
                         {children}
                     </div>;
 

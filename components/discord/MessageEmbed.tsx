@@ -22,8 +22,8 @@ const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, title, color,
     return (
         <div className={`w-full ${mode === "DARK" ? "text-neutral-200" : "text-neutral-800"} font-light p-3 rounded border-l-4 mt-2`} style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(242, 243, 245)", borderLeftColor: `#${color?.toString(16)}` }}>
 
-            <div className="flex w-full">
-                <div className={`${thumbnail && "mr-6"} w-full`}>
+            <div className="flex w-full max-w-full">
+                <div className={thumbnail ? "w-9/12" : "w-full"}>
                     {title &&
                         <div className={`${mode === "DARK" ? "text-neutral-100" : "text-neutral-900"} font-semibold text-lg mb-2`}>
                             <Highlight mode={mode} text={title} discord={false} />
