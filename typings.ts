@@ -82,6 +82,15 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
 }
 
 export interface ApiV1MeGetResponse {
+    rank: {
+        background: string | null;
+        textColor?: number;
+        barColor?: number;
+        subText: {
+            type: 0 | 1 | 2 | 3 // 0: off, 1: date, 2: relative, 3: custom
+            content?: string;
+        };
+    };
     activity: {
         messages: number;
         voiceminutes: number;
