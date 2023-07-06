@@ -21,13 +21,13 @@ export default function RootLayout({
 
             {error && <ErrorBanner message={error} />}
 
-            <span className="text-lg flex items-center">
+            <div className="text-lg flex items-center">
                 <Image src={user?.avatar || "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Your profile picture" className="rounded-full h-14 w-14 mr-3" />
                 <div>
                     <div className="text-xl dark:text-slate-200 text-slate-800 font-medium">{user ? `@${user.username}` : "Unknown User"}</div>
                     <div className="text-sm">Manage your profile here</div>
                 </div>
-            </span>
+            </div>
 
             <ListTab
                 tabs={[

@@ -64,13 +64,13 @@ export default function RootLayout({
 
             {error && <ErrorBanner message={error} />}
 
-            <span className="text-lg flex items-center">
+            <div className="text-lg flex items-center">
                 <Image src={guild?.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=64` : "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Server" className="rounded-full h-14 w-14 mr-3" />
                 <div>
                     <div className="text-xl dark:text-slate-200 text-slate-800 font-medium">{guild?.name || "Unknown Server"}</div>
                     <div className="text-sm">Lorem ipsum</div>
                 </div>
-            </span>
+            </div>
 
             <ListTab
                 tabs={[
