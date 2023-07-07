@@ -29,7 +29,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     const path = usePathname() || "/";
     useEffect(() => {
         if (!["/login", "/logout"].includes(path.split("?")[0])) localStorage.setItem("lastpage", path);
-        if (!path.startsWith("/dashboard/")) {
+        if (!path.startsWith("/dashboard/") || !path.startsWith("/profile")) {
             guildStore.setState(undefined);
             errorStore.setState(undefined);
         }
@@ -79,10 +79,11 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     );
 
     return (
-        <html lang="en" className="flex justify-center min-h-screen h-full max-w-full overflow-x-hidden">
+        <html lang="en" className="flex justify-center min-h-full max-w-full overflow-x-hidden">
             <Analytics />
 
-            <body className={`${inter.className} w-full max-w-6xl`}>
+            {/* make this relative to support the footer, will break the header (lol) */}
+            <body className={`${inter.className} w-full max-w-6xl min-h-full`}>
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
                     {width > 512 ?
@@ -122,17 +123,17 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                     {children}
                 </main>
 
-            </body>
+                {/* <div className="absolute bottom-0 text-neutral-500 w-full max-w-6xl mt-10 mb-6">
+                    <div>&copy; Wamellow {new Date(1635609600000).getFullYear()} - {new Date().getFullYear()}, Not affiliated with Discord Inc.</div>
+                    <div className="flex gap-2 mt-2">
+                        <Link href="/docs" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Documentation</Link>
+                        <Link href="/terms" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Terms of Service</Link>
+                        <Link href="/terms#privacy" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Privacy Policy</Link>
+                        <Link href="/status" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Status</Link>
+                    </div>
+                </div> */}
 
-            {/* <div className=" text-neutral-500 w-full max-w-6xl mt-10 mb-6">
-                <div>&copy; Wamellow {new Date(1635609600000).getFullYear()} - {new Date().getFullYear()}, Not affiliated with Discord Inc.</div>
-                <div className="flex gap-2 mt-2">
-                    <Link href="/docs" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Documentation</Link>
-                    <Link href="/terms" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Terms of Service</Link>
-                    <Link href="/terms#privacy" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Privacy Policy</Link>
-                    <Link href="/status" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Status</Link>
-                </div>
-            </div> */}
+            </body>
 
         </html>
     );
