@@ -76,7 +76,7 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
                         type="checkbox"
                         className="sr-only peer"
                         checked={value}
-                        onClick={() => {
+                        onChange={() => {
                             setState(undefined);
                             setValue(!value);
                             setChanged(true);

@@ -102,7 +102,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img src={value} alt="" className="w-full rounded-md aspect-[4/1]" onError={() => setImagestate("ERRORED")} onLoad={() => setImagestate("SUCCESS")} />
                         :
-                        <div className={`w-full ${imagestate === "ERRORED" ? "border-red-500" : "border-wamellow"} border-2 rounded-md flex items-center justify-center aspect-[4/1]`}>
+                        <div className={`w-full ${imagestate === "ERRORED" ? "dark:border-red-500 border-red-300" : "dark:border-wamellow border-wamellow-100"} border-2 rounded-md flex items-center justify-center aspect-[4/1]`}>
                             {imagestate === "ERRORED" ?
                                 <div className="text-red-400 m-4">
                                     <div className="font-medium">Enter a <span className="underline underline-red-400">valid</span> image url!</div>

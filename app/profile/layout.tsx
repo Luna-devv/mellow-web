@@ -55,26 +55,28 @@ export default function RootLayout({
 
             {error && <ErrorBanner message={error} />}
 
-            <div className="text-lg flex items-center">
-                <Image src={user?.avatar || "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Your profile picture" className="rounded-full h-14 w-14 mr-3" />
-                <div>
-                    <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{user?.username ? `@${user.username}` : "Unknown User"}</div>
-                    <div className="text-sm">Manage your profile here</div>
+            <div className="text-lg sm:flex items-center">
+                <div className="flex items-center">
+                    <Image src={user?.avatar || "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Your profile picture" className="rounded-full h-14 w-14 mr-3" />
+                    <div>
+                        <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{user?.username ? `@${user.username}` : "Unknown User"}</div>
+                        <div className="text-sm">Manage your profile here</div>
+                    </div>
                 </div>
 
                 {user?.extended &&
-                    <div className="ml-auto flex items-center gap-5">
+                    <div className="ml-auto flex items-center gap-5 mt-6 sm:mt-0">
                         <div>
                             <div className="text-sm">Messages</div>
-                            <span className="text-2xl text-neutral-100 font-medium">{intl.format(user.extended.activity.messages + 4234234)}</span>
+                            <span className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(user.extended.activity.messages)}</span>
                         </div>
                         <div>
                             <div className="text-sm">Voice</div>
-                            <span className="text-2xl text-neutral-100 font-medium">{intl.format(user.extended.activity.voiceminutes)}</span>
+                            <span className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(user.extended.activity.voiceminutes)}</span>
                         </div>
                         <div>
                             <div className="text-sm">Invites</div>
-                            <span className="text-2xl text-neutral-100 font-medium">{intl.format(user.extended.activity.invites)}</span>
+                            <span className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(user.extended.activity.invites)}</span>
                         </div>
                     </div>
                 }
