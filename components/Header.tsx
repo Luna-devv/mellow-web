@@ -28,11 +28,10 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const path = usePathname() || "/";
     useEffect(() => {
-        if (!["/login", "/logout"].includes(path.split("?")[0])) localStorage.setItem("lastpage", path);
-        if (!path.startsWith("/dashboard/") || !path.startsWith("/profile")) {
-            guildStore.setState(undefined);
-            errorStore.setState(undefined);
-        }
+        if (!["/login", "/logout"].includes(path)) localStorage.setItem("lastpage", path);
+
+        if (!path.startsWith("/dashboard/")) guildStore.setState(undefined);
+        if (!path.startsWith("/dashboard/") && !path.startsWith("/profile")) errorStore.setState(undefined);
     }, [path]);
 
     const user = userStore((s) => s);
