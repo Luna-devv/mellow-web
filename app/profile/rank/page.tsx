@@ -2,10 +2,13 @@
 "use client";
 
 import { userStore } from "@/common/user";
+import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 
 export default function Home() {
     const user = userStore((s) => s);
+
+    if (user?.id && user.extended === undefined) return <ErrorBanner message={"Error while fetching user"} />;
 
     return (
         <div>
