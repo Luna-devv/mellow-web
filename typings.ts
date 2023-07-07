@@ -33,6 +33,14 @@ export interface ApiV1GuildsChannelsGetResponse {
     missingPermissions: string[]
 }
 
+export interface ApiV1GuildsRolesGetResponse {
+    name: string;
+    id: string;
+    missingPermissions: string[];
+    position: number;
+    color: number;
+}
+
 export interface GuildEmbed {
     title: string | null;
     description: string | null;

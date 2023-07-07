@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { guildStore } from "@/common/guilds";
 import { widthStore } from "@/common/width";
 import ErrorBanner from "@/components/Error";
+import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import MessageCreatorEmbed from "@/components/messageCreator/Embed";
-import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsModulesWelcomeGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
     const width = widthStore((w) => w);
@@ -17,36 +18,12 @@ export default function Home() {
 
     const [error, setError] = useState<string>();
     const [channels, setChannels] = useState<ApiV1GuildsChannelsGetResponse[]>([]);
+    const [roles, setRoles] = useState<ApiV1GuildsRolesGetResponse[]>([]);
     const [welcome, setWelcome] = useState<ApiV1GuildsModulesWelcomeGetResponse>();
 
     const params = useParams();
 
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/channels`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsChannelsGetResponse[];
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setChannels(response);
-                        break;
-                    }
-                    default: {
-                        setChannels([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching channels");
-            });
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome`, {
             headers: {
@@ -73,21 +50,84 @@ export default function Home() {
             .catch(() => {
                 setError("Error while fetching welcome data");
             });
+
+        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/channels`, {
+            headers: {
+                authorization: localStorage.getItem("token") as string
+            }
+        })
+            .then(async (res) => {
+                const response = await res.json() as ApiV1GuildsChannelsGetResponse[];
+                if (!response) return;
+
+                switch (res.status) {
+                    case 200: {
+                        setChannels(response);
+                        break;
+                    }
+                    default: {
+                        setChannels([]);
+                        setError((response as unknown as RouteErrorResponse).message);
+                        break;
+                    }
+                }
+
+            })
+            .catch(() => {
+                setError("Error while fetching channels");
+            });
+
+        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/roles`, {
+            headers: {
+                authorization: localStorage.getItem("token") as string
+            }
+        })
+            .then(async (res) => {
+                const response = await res.json() as ApiV1GuildsRolesGetResponse[];
+                if (!response) return;
+
+                switch (res.status) {
+                    case 200: {
+                        setRoles(response);
+                        break;
+                    }
+                    default: {
+                        setRoles([]);
+                        setError((response as unknown as RouteErrorResponse).message);
+                        break;
+                    }
+                }
+
+            })
+            .catch(() => {
+                setError("Error while fetching roles");
+            });
+
     }, []);
 
-    if (welcome === undefined && !error) return <></>;
+    if (welcome === undefined) return (
+        <div>
+            {error && <ErrorBanner message={error} />}
+        </div>
+    );
 
     return (
         <div>
 
-            {error && <ErrorBanner message={error} />}
+            <Switch
+                name="Enabled"
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="enabled"
+                defaultState={welcome?.enabled || false}
+                disabled={false}
+            />
 
             <div className="flex md:gap-4 gap-3">
                 <SelectMenu
                     name="Channel"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="channel"
-                    items={channels.map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
+                    items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the welcome message should be send into"
                     defaultV={welcome?.channel}
                 />
@@ -136,21 +176,23 @@ export default function Home() {
                 </button>
             </div>
 
+            <MultiSelectMenu
+                name="Roles"
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="roles"
+                items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
+                description="Select roles which members should get"
+                defaultV={welcome?.roles || []}
+                max={5}
+            />
+
             <MessageCreatorEmbed
                 name="Message"
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="message"
                 defaultMessage={welcome?.message}
-            >
-                <Switch
-                    name="Enabled"
-                    url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName="enabled"
-                    defaultState={welcome?.enabled || false}
-                    disabled={false}
-                />
-            </MessageCreatorEmbed>
+            />
 
-        </div >
+        </div>
     );
 }
