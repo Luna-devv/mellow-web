@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { HiChevronDown, HiExclamationCircle } from "react-icons/hi";
+import { HiCheck, HiChevronDown, HiExclamationCircle } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
 import { widthStore } from "@/common/width";
@@ -73,18 +73,18 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
     }, [value]);
 
     return (
-        <div className="select-none w-full max-w-full h-12">
+        <div className="select-none w-full max-w-full mb-3 relative">
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
                 {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
             <button
-                className={`mt-1 h-full w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center p-4 ${open && "outline outline-violet-400 outline-2"} ${(value?.error || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${(disabled || state === "LOADING") && "cursor-not-allowed opacity-50"}`}
+                className={`mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3 ${open && "outline outline-violet-400 outline-2"} ${(value?.error || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${(disabled || state === "LOADING") && "cursor-not-allowed opacity-50"}`}
                 onClick={() => setOpen(!open)}
                 disabled={disabled || state === "LOADING"}
             >
-                <div className={`text-neutral-${value ? "400" : "500"}`}>
+                <div className={value ? "dark:text-neutral-400 text-neutral-600" : "dark:text-neutral-600 text-neutral-400"}>
                     {value?.name || "Select.."}
                 </div>
                 <div className="ml-auto flex items-center gap-2">
@@ -97,38 +97,36 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                 </div>
             </button>
 
-            {!open &&
-                <div className={`${width > 880 && "flex"} mt-1`}>
-                    {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
-                    {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                    {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">{"Saved"}</div>}
-                </div>
-            }
+            <div className={`${width > 880 && "flex"} mt-1`}>
+                {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
+                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
+                {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
+            </div>
+
 
             {open &&
-                <div className="pt-2 relative">
-                    <div className="absolute w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll" style={{ zIndex: 99 }}>
-                        <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
-                            {items.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
-                                <button
-                                    className="p-4 py-2 w-full dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha text-left duration-200 flex items-center"
-                                    key={item.name}
-                                    onClick={() => {
-                                        setOpen(false);
-                                        setState(undefined);
-                                        if (value?.value) setDefaultalue(value.value);
-                                        setValue(item);
-                                    }}
-                                >
-                                    <div>{item.name}</div>
-                                    {item.error &&
-                                        <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
-                                            <HiExclamationCircle /> {item.error}
-                                        </div>
-                                    }
-                                </button>
-                            ))}
-                        </div>
+                <div className="absolute top-[88px] w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll shadow-xl" style={{ zIndex: 99 }}>
+                    <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
+                        {items.map((item) => (
+                            <button
+                                className={`p-4 py-2 w-full ${item.error ? "dark:bg-red-500/10 hover:dark:bg-red-500/25" : "dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha"} text-left duration-200 flex items-center`}
+                                key={item.name}
+                                onClick={() => {
+                                    setOpen(false);
+                                    setState(undefined);
+                                    if (value?.value) setDefaultalue(value.value);
+                                    setValue(item);
+                                }}
+                            >
+                                <div>{item.name}</div>
+                                {value?.value === item.value && <HiCheck className="ml-1" />}
+                                {item.error &&
+                                    <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
+                                        <HiExclamationCircle /> {item.error}
+                                    </div>
+                                }
+                            </button>
+                        ))}
                     </div>
                 </div>
             }

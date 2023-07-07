@@ -78,7 +78,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
     return (
         <div>
-            <div className={`mt-16 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 pb-2 ${(error || state === "ERRORED") && "outline outline-red-500 outline-1"}`}>
+            <div className={`mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 pb-2 ${(error || state === "ERRORED") && "outline outline-red-500 outline-1"}`}>
                 <span className="relative bottom-4 text-lg dark:text-wamellow-light text-neutral-300 font-medium px-2" style={{ backgroundColor: "var(--background-rgb)" }}>{name}</span>
                 <div className="md:m-1 relative">
 
