@@ -2,10 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 
-import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
 import ErrorBanner from "@/components/Error";
 import { ListTab } from "@/components/List";
@@ -16,8 +15,9 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const error = errorStore((e) => e);
     const guild = guildStore((g) => g);
+
+    const [error, setError] = useState<string>();
 
     const params = useParams();
 
@@ -33,20 +33,20 @@ export default function RootLayout({
 
                 switch (res.status) {
                     case 200: {
-                        errorStore.setState(undefined);
+                        setError(undefined);
                         guildStore.setState(response);
                         break;
                     }
                     default: {
                         guildStore.setState(undefined);
-                        errorStore.setState((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
                 }
 
             })
             .catch(() => {
-                errorStore.setState("Error while fetching guilds");
+                setError("Error while fetching guilds");
             });
     }, []);
 

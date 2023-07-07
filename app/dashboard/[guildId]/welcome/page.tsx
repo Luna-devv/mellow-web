@@ -3,9 +3,9 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
 import { widthStore } from "@/common/width";
+import ErrorBanner from "@/components/Error";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import MessageCreatorEmbed from "@/components/messageCreator/Embed";
@@ -15,6 +15,7 @@ export default function Home() {
     const width = widthStore((w) => w);
     const guild = guildStore((g) => g);
 
+    const [error, setError] = useState<string>();
     const [channels, setChannels] = useState<ApiV1GuildsChannelsGetResponse[]>([]);
     const [welcome, setWelcome] = useState<ApiV1GuildsModulesWelcomeGetResponse>();
 
@@ -37,14 +38,14 @@ export default function Home() {
                     }
                     default: {
                         setChannels([]);
-                        errorStore.setState((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
                 }
 
             })
             .catch(() => {
-                errorStore.setState("Error while fetching channels");
+                setError("Error while fetching channels");
             });
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome`, {
@@ -63,21 +64,23 @@ export default function Home() {
                     }
                     default: {
                         setWelcome(undefined);
-                        errorStore.setState((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
                 }
 
             })
             .catch(() => {
-                errorStore.setState("Error while fetching welcome data");
+                setError("Error while fetching welcome data");
             });
     }, []);
 
-    if (!welcome) return <></>;
+    if (welcome === undefined && !error) return <></>;
 
     return (
         <div>
+
+            {error && <ErrorBanner message={error} />}
 
             <div className="flex md:gap-4 gap-3">
                 <SelectMenu
@@ -86,7 +89,7 @@ export default function Home() {
                     dataName="channel"
                     items={channels.map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the welcome message should be send into"
-                    defaultV={welcome.channel}
+                    defaultV={welcome?.channel}
                 />
 
                 <button
@@ -118,14 +121,14 @@ export default function Home() {
                                         break;
                                     }
                                     default: {
-                                        errorStore.setState((response as unknown as RouteErrorResponse).message);
+                                        setError((response as unknown as RouteErrorResponse).message);
                                         break;
                                     }
                                 }
 
                             })
                             .catch(() => {
-                                errorStore.setState("Error while sending test");
+                                setError("Error while sending test");
                             });
                     }}
                 >
@@ -137,13 +140,13 @@ export default function Home() {
                 name="Message"
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="message"
-                defaultMessage={welcome.message}
+                defaultMessage={welcome?.message}
             >
                 <Switch
                     name="Enabled"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="enabled"
-                    defaultState={welcome.enabled}
+                    defaultState={welcome?.enabled || false}
                     disabled={false}
                 />
             </MessageCreatorEmbed>

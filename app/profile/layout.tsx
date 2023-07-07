@@ -1,8 +1,7 @@
 "use client";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { errorStore } from "@/common/error";
 import { userStore } from "@/common/user";
 import ErrorBanner from "@/components/Error";
 import { ListTab } from "@/components/List";
@@ -13,8 +12,9 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const error = errorStore((e) => e);
     const user = userStore((g) => g);
+
+    const [error, setError] = useState<string>();
 
     const intl = new Intl.NumberFormat(user?.locale, { notation: "compact" });
 
@@ -32,19 +32,19 @@ export default function RootLayout({
 
                 switch (res.status) {
                     case 200: {
-                        errorStore.setState(undefined);
+                        setError(undefined);
                         userStore.setState({ ...user, extended: response });
                         break;
                     }
                     default: {
-                        errorStore.setState((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
                 }
 
             })
             .catch(() => {
-                errorStore.setState("Error while fetching user");
+                setError("Error while fetching user");
             });
     }, [user]);
 

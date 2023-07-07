@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { HiArrowNarrowRight, HiIdentification, HiOutlineChevronDown, HiTemplate } from "react-icons/hi";
 
-import { errorStore } from "@/common/error";
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { widthStore } from "@/common/width";
@@ -31,7 +30,6 @@ const Header: FunctionComponent<Props> = ({ children }) => {
         if (!["/login", "/logout"].includes(path)) localStorage.setItem("lastpage", path);
 
         if (!path.startsWith("/dashboard/")) guildStore.setState(undefined);
-        if (!path.startsWith("/dashboard/") && !path.startsWith("/profile")) errorStore.setState(undefined);
     }, [path]);
 
     const user = userStore((s) => s);
