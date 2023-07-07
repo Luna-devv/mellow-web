@@ -58,7 +58,7 @@ export default function RootLayout({
             <div className="text-lg flex items-center">
                 <Image src={user?.avatar || "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Your profile picture" className="rounded-full h-14 w-14 mr-3" />
                 <div>
-                    <div className="text-xl dark:text-slate-200 text-slate-800 font-medium">{user ? `@${user.username}` : "Unknown User"}</div>
+                    <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{user?.username ? `@${user.username}` : "Unknown User"}</div>
                     <div className="text-sm">Manage your profile here</div>
                 </div>
 

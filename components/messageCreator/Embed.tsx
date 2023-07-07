@@ -79,7 +79,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
     return (
         <div>
             <div className={`mt-16 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 pb-2 ${(error || state === "ERRORED") && "outline outline-red-500 outline-1"}`}>
-                <span className="relative bottom-4 text-lg dark:text-wamellow-light text-slate-300 font-medium px-2" style={{ backgroundColor: "var(--background-rgb)" }}>{name}</span>
+                <span className="relative bottom-4 text-lg dark:text-wamellow-light text-neutral-300 font-medium px-2" style={{ backgroundColor: "var(--background-rgb)" }}>{name}</span>
                 <div className="md:m-1 relative">
 
                     {children &&
@@ -117,7 +117,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                         <div className="md:hidden flex m-2 mt-4">
 
                             <div className="flex items-center w-full">
-                                <span className="text-lg dark:text-slate-300 text-slate-700 font-medium">Color Theme</span>
+                                <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">Color Theme</span>
 
                                 <div className="ml-auto flex items-center">
                                     {modeToggle}
@@ -126,7 +126,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
                         </div>
 
-                        <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-slate-200" style={{ backgroundColor: mode === "DARK" ? "rgb(49, 51, 56)" : "rgb(255, 255, 255)" }}>
+                        <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200" style={{ backgroundColor: mode === "DARK" ? "rgb(49, 51, 56)" : "rgb(255, 255, 255)" }}>
 
                             <div className="absolute top-2 right-2 hidden md:block">
                                 {modeToggle}

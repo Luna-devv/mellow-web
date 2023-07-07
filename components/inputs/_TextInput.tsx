@@ -29,7 +29,7 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
         <div className="relative select-none w-full max-w-full mb-3">
             {name &&
                 <div className="flex items-center gap-2">
-                    <span className="text-lg dark:text-slate-300 text-slate-700 font-medium">{name}</span>
+                    <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
                 </div>
             }
 

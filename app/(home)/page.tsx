@@ -16,7 +16,7 @@ export default async function Home() {
                 <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-64 drop-shadow-md" key={Math.random().toString()}>
                     <Image src={guild.icon || "https://cdn.waya.one/r/discord.png"} width={46} height={46} alt="Server" className="rounded-lg" />
                     <div className="ml-3 text-sm">
-                        <div className="text-lg dark:text-slate-200 text-slate-800 font-medium">{guild.name.slice(0, 16)}{guild.name.length > 16 && "..."}</div>
+                        <div className="text-lg dark:text-neutral-200 text-neutral-800 font-medium">{guild.name.slice(0, 16)}{guild.name.length > 16 && "..."}</div>
                         <div>{guild.memberCount} members</div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@ export default async function Home() {
     return (
         <div className="text-center flex items-center flex-col w-full">
 
-            <div className="lg:text-6xl text-4xl flex font-medium relative mb-1 dark:text-slate-100 text-slate-900 break-words">
+            <div className="lg:text-6xl text-4xl flex font-medium relative mb-1 dark:text-neutral-100 text-neutral-900 break-words">
                 <h1>
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next version</span>
                     {" of "}
@@ -60,7 +60,7 @@ export default async function Home() {
             </div>
 
             <div className="text-left lg:mt-24 mt-16 max-w-full w-full">
-                <h2 className="lg:text-4xl text-3xl dark:text-slate-100 text-slate-900 font-medium">Used by your mum</h2>
+                <h2 className="lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-medium">Used by your mum</h2>
                 <div className="md:text-xl text-sm pt-4">
                     Wamellow is widely embraced in various servers, including those frequented by your mum.
                 </div>
