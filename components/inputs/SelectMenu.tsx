@@ -80,9 +80,9 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
             </div>
 
             <button
-                className={`mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3 ${open && "outline outline-violet-400 outline-2"} ${(value?.error || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${(disabled || state === "LOADING") && "cursor-not-allowed opacity-50"}`}
+                className={`mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3 ${open && "outline outline-violet-400 outline-2"} ${(value?.error || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${((state === "LOADING" || disabled)) && "cursor-not-allowed opacity-50"}`}
                 onClick={() => setOpen(!open)}
-                disabled={disabled || state === "LOADING"}
+                disabled={(state === "LOADING" || disabled)}
             >
                 <div className={value ? "dark:text-neutral-400 text-neutral-600" : "dark:text-neutral-600 text-neutral-400"}>
                     {value?.name || "Select.."}

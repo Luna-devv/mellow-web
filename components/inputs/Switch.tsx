@@ -35,7 +35,11 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
             },
-            body: JSON.stringify({ [dataName]: value })
+            body: JSON.stringify(dataName.includes(".") ?
+                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: value } }
+                :
+                { [dataName]: value }
+            )
         })
             .then(async (res) => {
                 const response = await res.json();
@@ -67,11 +71,11 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
 
             <div className="flex items-center mb-6">
                 <div className="flex items-center gap-2">
-                    <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
+                    <span className={`sm:text-lg ${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-400 text-neutral-600"} font-medium`}>{name}</span>
                     {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
                 </div>
 
-                <label className={`ml-auto relative inline-flex items-center cursor-pointer ${(disabled || state === "LOADING") && "cursor-not-allowed opacity-50"}`}>
+                <label className={`ml-auto relative inline-flex items-center cursor-pointer ${(state === "LOADING" || disabled) && "cursor-not-allowed opacity-50"}`}>
                     <input
                         type="checkbox"
                         className="sr-only peer"
@@ -81,9 +85,11 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
                             setValue(!value);
                             setChanged(true);
                         }}
-                        disabled={disabled}
+                        disabled={(state === "LOADING" || disabled)}
                     />
-                    <div className="w-11 h-6 bg-neutral-300 rounded-full peer dark:bg-neutral-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-600"></div>
+                    <div
+                        className={`w-11 h-6 bg-neutral-300 rounded-full peer dark:bg-neutral-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-600 ${(state === "LOADING" || disabled) && "cursor-not-allowed"}`}
+                    />
                 </label>
 
             </div>
