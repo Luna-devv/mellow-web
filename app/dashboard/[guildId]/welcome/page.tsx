@@ -193,6 +193,22 @@ export default function Home() {
                 defaultMessage={welcome?.message}
             />
 
+            <MessageCreatorEmbed
+                name="Direct Message"
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="dm.message"
+                defaultMessage={welcome?.dm?.message}
+                collapseable={true}
+            >
+                <Switch
+                    name="Enabled"
+                    url={`/guilds/${guild?.id}/modules/welcome`}
+                    dataName="dm.enabled"
+                    defaultState={welcome?.dm?.enabled || false}
+                    disabled={false}
+                />
+            </MessageCreatorEmbed>
+
         </div>
     );
 }

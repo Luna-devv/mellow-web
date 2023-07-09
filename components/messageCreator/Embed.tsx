@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
+import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 import { GuildEmbed, RouteErrorResponse } from "@/typings";
 
@@ -16,9 +17,10 @@ interface Props {
     dataName: string;
 
     defaultMessage?: { content?: string, embed?: GuildEmbed };
+    collapseable?: boolean;
 }
 
-const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, dataName, defaultMessage }) => {
+const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, dataName, defaultMessage, collapseable }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -26,6 +28,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
     const [embed, setEmbed] = useState<string>(JSON.stringify(defaultMessage?.embed || {}));
     const [embedfooter, setEmbedfooter] = useState<string>(JSON.stringify(defaultMessage?.embed?.footer || {}));
 
+    const [open, setOpen] = useState<boolean>(!collapseable);
     const [mode, setMode] = useState<"DARK" | "LIGHT">("DARK");
 
     const modeToggle = (
@@ -43,13 +46,19 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
         setError(undefined);
         setState("LOADING");
 
+        const body = { content, embed: Object.assign(JSON.parse(embed), embedfooter.length > 2 ? { footer: JSON.parse(embedfooter) } : {}) };
+
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
             },
-            body: JSON.stringify({ [dataName]: { content, embed: Object.assign(JSON.parse(embed), embedfooter.length > 2 ? { footer: JSON.parse(embedfooter) } : {}) } })
+            body: JSON.stringify(dataName.includes(".") ?
+                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: body } }
+                :
+                { [dataName]: body }
+            )
         })
             .then(async (res) => {
                 const response = await res.json();
@@ -80,99 +89,122 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
         <div>
             <div className={`mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 pb-2 ${(error || state === "ERRORED") && "outline outline-red-500 outline-1"}`}>
                 <span className="relative bottom-4 text-lg dark:text-wamellow-light text-neutral-300 font-medium px-2" style={{ backgroundColor: "var(--background-rgb)" }}>{name}</span>
-                <div className="md:m-1 relative">
 
-                    {children &&
-                        <div className="mx-3">
-                            {children}
-                        </div>
-                    }
+                {collapseable &&
+                    <div className={`md:mx-2 mx-1 ${open ? "lg:mb-0 mb-2" : "mb-2"}`}>
+                        <button
+                            className="dark:bg-wamellow hover:dark:bg-wamellow-light bg-wamellow-100 hover:bg-wamellow-100-light duration-200 cursor-pointer rounded-md dark:text-neutral-400 text-neutral-600 flex items-center h-12 px-3 w-full"
+                            onClick={() => setOpen(!open)}
+                        >
+                            {open ?
+                                <>
+                                    <span>Collaps</span>
+                                    <HiChevronUp className="ml-auto h-4 w-4" />
+                                </>
+                                :
+                                <>
+                                    <span>Expand</span>
+                                    <HiChevronDown className="ml-auto h-4 w-4" />
+                                </>
+                            }
+                        </button>
+                    </div>
+                }
 
-                    <div className="lg:flex gap-1">
+                {open &&
+                    <div className="md:m-1 relative">
 
-                        <div className="lg:w-3/6 m-1">
-
-                            <TextInput placeholder="Content" value={content} setValue={setContent} max={2000} />
-                            <TextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" />
-                            <TextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" />
-                            <div className="flex gap-2">
-                                <TextInput placeholder="Embed Color" value={embed} setValue={setEmbed} type="color" dataName="color" />
-                                <TextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" />
+                        {children &&
+                            <div className={`mx-3 ${collapseable && "mt-6"}`}>
+                                {children}
                             </div>
-                            <TextInput placeholder="Embed Image" value={embed} setValue={setEmbed} max={256} dataName="image" />
-                            <div className="flex gap-2">
-                                <TextInput placeholder="Embed Footer Icon" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="icon_url" />
-                                <TextInput placeholder="Embed Footer" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="text" />
+                        }
+
+                        <div className="lg:flex gap-1">
+
+                            <div className="lg:w-3/6 m-1">
+
+                                <TextInput placeholder="Content" value={content} setValue={setContent} max={2000} />
+                                <TextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" />
+                                <TextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" />
+                                <div className="flex gap-2">
+                                    <TextInput placeholder="Embed Color" value={embed} setValue={setEmbed} type="color" dataName="color" />
+                                    <TextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" />
+                                </div>
+                                <TextInput placeholder="Embed Image" value={embed} setValue={setEmbed} max={256} dataName="image" />
+                                <div className="flex gap-2">
+                                    <TextInput placeholder="Embed Footer Icon" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="icon_url" />
+                                    <TextInput placeholder="Embed Footer" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="text" />
+                                </div>
+
+                                <button
+                                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-1 h-12 w-full"
+                                    onClick={saveHook}
+                                >
+                                    Update
+                                </button>
+
                             </div>
 
-                            <button
-                                className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-1 h-12 w-full"
-                                onClick={saveHook}
-                            >
-                                Update
-                            </button>
+                            <div className="md:hidden flex m-2 mt-4">
 
-                        </div>
+                                <div className="flex items-center w-full">
+                                    <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">Color Theme</span>
 
-                        <div className="md:hidden flex m-2 mt-4">
+                                    <div className="ml-auto flex items-center">
+                                        {modeToggle}
+                                    </div>
+                                </div>
 
-                            <div className="flex items-center w-full">
-                                <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">Color Theme</span>
+                            </div>
 
-                                <div className="ml-auto flex items-center">
+                            <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200" style={{ backgroundColor: mode === "DARK" ? "rgb(49, 51, 56)" : "rgb(255, 255, 255)" }}>
+
+                                <div className="absolute top-2 right-2 hidden md:block">
                                     {modeToggle}
                                 </div>
-                            </div>
 
-                        </div>
-
-                        <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200" style={{ backgroundColor: mode === "DARK" ? "rgb(49, 51, 56)" : "rgb(255, 255, 255)" }}>
-
-                            <div className="absolute top-2 right-2 hidden md:block">
-                                {modeToggle}
-                            </div>
-
-                            <DiscordMessage
-                                mode={mode}
-                                user={{
-                                    username: "Wamellow",
-                                    avatar: "/waya-legacy1.png",
-                                    bot: true
-                                }}
-                            >
-                                <Highlight
+                                <DiscordMessage
                                     mode={mode}
-                                    text={content || ""}
-                                />
-
-                                <DiscordMessageEmbed
-                                    mode={mode}
-                                    title={JSON.parse(embed).title}
-                                    color={JSON.parse(embed).color}
-                                    thumbnail={JSON.parse(embed).thumbnail}
-                                    image={JSON.parse(embed).image}
-                                    footer={JSON.parse(embedfooter)}
+                                    user={{
+                                        username: "Wamellow",
+                                        avatar: "/waya-legacy1.png",
+                                        bot: true
+                                    }}
                                 >
-                                    {JSON.parse(embed).description && <Highlight mode={mode} text={JSON.parse(embed).description} />}
-                                </DiscordMessageEmbed>
+                                    <Highlight
+                                        mode={mode}
+                                        text={content || ""}
+                                    />
 
-                            </DiscordMessage>
+                                    <DiscordMessageEmbed
+                                        mode={mode}
+                                        title={JSON.parse(embed).title}
+                                        color={JSON.parse(embed).color}
+                                        thumbnail={JSON.parse(embed).thumbnail}
+                                        image={JSON.parse(embed).image}
+                                        footer={JSON.parse(embedfooter)}
+                                    >
+                                        {JSON.parse(embed).description && <Highlight mode={mode} text={JSON.parse(embed).description} />}
+                                    </DiscordMessageEmbed>
+
+                                </DiscordMessage>
+
+                            </div>
 
                         </div>
+                        <div className="text-sm m-1 text-neutral-500">
+                            The preview might display things wrong*
+                        </div>
 
-                    </div>
-                    <div className="text-sm m-1 text-neutral-500">
-                        The preview might display things wrong*
-                    </div>
-
-                </div>
+                    </div>}
 
             </div>
 
             <div className="flex">
                 <div className="ml-auto mb-2">
                     {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                    {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">{"Saved"}</div>}
+                    {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
                 </div>
             </div>
 
