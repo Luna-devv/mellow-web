@@ -97,15 +97,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                 </div>
             </button>
 
-            <div className={`${width > 880 && "flex"} mt-1`}>
-                {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
-                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
-            </div>
-
-
             {open &&
-                <div className="absolute top-[88px] w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll shadow-xl" style={{ zIndex: 99 }}>
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll shadow-xl" style={{ zIndex: 99 }}>
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
@@ -130,6 +123,12 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                     </div>
                 </div>
             }
+
+            <div className={`${width > 880 && "flex"} mt-1`}>
+                {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
+                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
+                {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
+            </div>
 
         </div>
     );

@@ -36,7 +36,6 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
 
         const start = Date.now();
         intervalRef.current = setInterval(() => {
-            console.log(Date.now() - start);
             if (Date.now() - start < 200) return;
             if (hold === "+") setValue((prevCount) => (prevCount ?? 0) + 1);
             else setValue((prevCount) => {
@@ -96,9 +95,13 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
     return (
         <div className="relative">
             <div className="flex items-center mb-6">
-                <div className="flex items-center gap-2">
-                    <span className={`sm:text-lg ${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-400 text-neutral-600"} font-medium`}>{name}</span>
-                    {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                <div>
+                    <div className="flex gap-2">
+                        <span className={`sm:text-lg ${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-400 text-neutral-600"} font-medium`}>{name}</span>
+                        {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                    </div>
+
+                    {description && <div className={`${width > 880 && "flex"} w-full relative bottom-1 text-neutral-500 text-sm`}> {description} </div>}
                 </div>
 
                 <div className={`ml-auto relative flex items-center cursor-pointer h-8 ${(disabled || (state === "LOADING" || disabled)) && "opacity-50"}`}>
@@ -145,14 +148,12 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
                         <HiPlus className="m-auto text-2xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
                     </button>
 
+                    <div className="absolute top-8 right-0">
+                        {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
+                        {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
+                    </div>
+
                 </div>
-            </div>
-
-
-            <div className={`${width > 880 && "flex"} mt-1 absolute top-[22px] w-full`}>
-                {description && <div className="text-neutral-500 text-sm">{description}</div>}
-                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">{"Saved"}</div>}
             </div>
 
         </div>
