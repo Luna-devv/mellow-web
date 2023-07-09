@@ -7,6 +7,7 @@ import { guildStore } from "@/common/guilds";
 import { widthStore } from "@/common/width";
 import ErrorBanner from "@/components/Error";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
+import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import MessageCreatorEmbed from "@/components/messageCreator/Embed";
@@ -115,10 +116,27 @@ export default function Home() {
         <div>
 
             <Switch
-                name="Enabled"
+                name="Welcome module enabled."
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="enabled"
                 defaultState={welcome?.enabled || false}
+                disabled={false}
+            />
+
+            <Switch
+                name="Restore members roles and nickname on rejoin."
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="restore"
+                defaultState={welcome?.restore || false}
+                disabled={false}
+            />
+
+            <NumberInput
+                name="After how many seconds the message should be deleted."
+                description="Set to 0 to disable"
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="deleteAfter"
+                defaultState={welcome?.deleteAfter ?? 0}
                 disabled={false}
             />
 
@@ -134,7 +152,7 @@ export default function Home() {
 
                 <button
                     id="test-button"
-                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-8 h-12 md:w-32"
+                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-600/80 text-white py-2 px-4 rounded-md duration-200 mt-8 h-12 md:w-32"
                     onClick={() => {
                         if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
                         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome/test`, {
@@ -151,11 +169,11 @@ export default function Home() {
                                 switch (res.status) {
                                     case 200: {
                                         document.getElementById("test-button")?.classList.add(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
-                                        document.getElementById("test-button")?.classList.remove(..."bg-violet-600 hover:bg-violet-500".split(" "));
+                                        document.getElementById("test-button")?.classList.remove(..."bg-violet-600 hover:bg-violet-600/80".split(" "));
 
                                         setTimeout(() => {
                                             document.getElementById("test-button")?.classList.remove(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
-                                            document.getElementById("test-button")?.classList.add(..."bg-violet-600 hover:bg-violet-500".split(" "));
+                                            document.getElementById("test-button")?.classList.add(..."bg-violet-600 hover:bg-violet-600/80".split(" "));
                                         }, 1_000 * 8);
 
                                         break;
@@ -176,15 +194,27 @@ export default function Home() {
                 </button>
             </div>
 
-            <MultiSelectMenu
-                name="Roles"
-                url={`/guilds/${guild?.id}/modules/welcome`}
-                dataName="roles"
-                items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
-                description="Select roles which members should get"
-                defaultV={welcome?.roles || []}
-                max={5}
-            />
+            <div className="lg:flex gap-3">
+                <MultiSelectMenu
+                    name="Roles"
+                    url={`/guilds/${guild?.id}/modules/welcome`}
+                    dataName="roles"
+                    items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
+                    description="Select roles which members should get"
+                    defaultV={welcome?.roles || []}
+                    max={5}
+                />
+
+                <MultiSelectMenu
+                    name="Pings"
+                    url={`/guilds/${guild?.id}/modules/welcome`}
+                    dataName="pings"
+                    items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
+                    description="Select in what channels user should get ghostpinged"
+                    defaultV={welcome?.roles || []}
+                    max={5}
+                />
+            </div>
 
             <MessageCreatorEmbed
                 name="Message"
