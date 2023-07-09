@@ -195,25 +195,29 @@ export default function Home() {
             </div>
 
             <div className="lg:flex gap-3">
-                <MultiSelectMenu
-                    name="Roles"
-                    url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName="roles"
-                    items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
-                    description="Select roles which members should get"
-                    defaultV={welcome?.roles || []}
-                    max={5}
-                />
+                <div className="lg:w-1/2">
+                    <MultiSelectMenu
+                        name="Roles"
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="roles"
+                        items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
+                        description="Select roles which members should get"
+                        defaultV={welcome?.roles || []}
+                        max={50}
+                    />
+                </div>
 
-                <MultiSelectMenu
-                    name="Pings"
-                    url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName="pings"
-                    items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
-                    description="Select in what channels user should get ghostpinged"
-                    defaultV={welcome?.roles || []}
-                    max={5}
-                />
+                <div className="lg:w-1/2">
+                    <MultiSelectMenu
+                        name="Pings"
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="pings"
+                        items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
+                        description="Select in what channels user should get ghostpinged"
+                        defaultV={welcome?.roles || []}
+                        max={5}
+                    />
+                </div>
             </div>
 
             <MessageCreatorEmbed
