@@ -12,7 +12,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;");
 
-    const plClassName = `${mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800"} border border-violet-400 m-1 p-[4px] rounded-lg opacity-80 font-light`;
+    const plClassName = `${mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800"} border border-violet-400 p-[3px] rounded-lg opacity-80 font-light`;
 
     function parseDiscordMarkdown(content: string) {
         return content
