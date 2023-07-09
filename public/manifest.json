@@ -1,0 +1,63 @@
+{
+    "name": "Wamellow Dashboard",
+    "short_name": "Wamellow",
+    "description": "Dashboard for the wamellow discord bot",
+    "scope": "/",
+    "start_url": "/dashboard",
+    "display": "standalone",
+    "background_color": "#18191c",
+    "theme_color": "#18191c",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/waya-legacy1-2x2.png",
+            "type": "image/png",
+            "sizes": "2x2"
+        },
+        {
+            "src": "/waya-legacy1-4x4.png",
+            "type": "image/png",
+            "sizes": "4x4"
+        },
+        {
+            "src": "/waya-legacy1-8x8.png",
+            "type": "image/png",
+            "sizes": "8x8"
+        },
+        {
+            "src": "/waya-legacy1-16x16.png",
+            "type": "image/png",
+            "sizes": "16x16"
+        },
+        {
+            "src": "/waya-legacy1-32x32.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "/waya-legacy1-64x64.png",
+            "type": "image/png",
+            "sizes": "64X64"
+        },
+        {
+            "src": "/waya-legacy1-128x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "/waya-legacy1-256x256.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        },
+        {
+            "src": "/waya-legacy1-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/waya-legacy1.png",
+            "type": "image/png",
+            "sizes": "675x675"
+        }
+    ]
+}

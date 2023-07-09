@@ -6,6 +6,13 @@ import { Metadata } from "next";
 import Header from "../components/Header";
 
 export const metadata: Metadata = {
+    manifest: "/manifest.json",
+    appleWebApp: {
+        capable: true,
+        title: "Wamellow",
+        startupImage: "/waya-legacy1.png",
+        statusBarStyle: "black-translucent"
+    },
     title: {
         default: "Wamellow - Next version of discord bots",
         template: "%s | Wamellow"
