@@ -3,7 +3,7 @@ import { TailSpin } from "react-loading-icons";
 
 import { RouteErrorResponse } from "@/typings";
 
-import TextInput from "./_TextInput";
+import DumbTextInput from "./Dumb_TextInput";
 
 type Props = {
     name: string;
@@ -84,13 +84,14 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
 
             <div className="lg:flex mt-1 w-full gap-4">
 
-                <TextInput
+                <DumbTextInput
                     value={defaultvalue}
                     setValue={(v) => {
                         setValue(v);
                         setState(undefined);
                         if (imagestate === "SUCCESS") setImagestate(undefined);
                     }}
+                    disabled={disabled}
                     placeholder="Paste a direct image url..."
                     max={256}
                     description={description}

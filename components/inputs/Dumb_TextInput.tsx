@@ -16,8 +16,8 @@ type Props = {
 };
 
 
-const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, max = 0, type, dataName }) => {
-    const className = `mt-1 ${max > 300 ? "h-28" : "h-14"} resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center p-4 focus:outline outline-violet-400 outline-2 ${disabled && "cursor-not-allowed opacity-50"}`;
+const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, max = 256, type, dataName }) => {
+    const className = `mt-1 ${max > 300 ? "h-28" : "h-12"} resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center p-4 focus:outline outline-violet-400 outline-2 ${disabled && "cursor-not-allowed opacity-50"}`;
 
     const [length, setLength] = useState(0);
 
@@ -52,7 +52,7 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                             setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
-                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
+                    value={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     rows={2}
                     maxLength={max || Infinity}
@@ -68,17 +68,17 @@ const TextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValu
                             setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
                         }
                     }}
-                    defaultValue={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
+                    value={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
                     disabled={disabled}
                     type={type}
                     maxLength={max || Infinity}
                 />
             }
 
-            {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
+            {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm mt-1">{description}</div>}
 
         </div>
     );
 };
 
-export default TextInput;
+export default DumbTextInput;

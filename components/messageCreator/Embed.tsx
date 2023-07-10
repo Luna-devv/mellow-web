@@ -7,7 +7,7 @@ import { GuildEmbed, RouteErrorResponse } from "@/typings";
 import Highlight from "../discord/Markdown";
 import DiscordMessage from "../discord/Message";
 import DiscordMessageEmbed from "../discord/MessageEmbed";
-import TextInput from "../inputs/_TextInput";
+import DumbTextInput from "../inputs/Dumb_TextInput";
 
 interface Props {
     children?: React.ReactNode
@@ -124,17 +124,17 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
                             <div className="lg:w-3/6 m-1">
 
-                                <TextInput placeholder="Content" value={content} setValue={setContent} max={2000} />
-                                <TextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" />
-                                <TextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" />
+                                <DumbTextInput placeholder="Content" value={content} setValue={setContent} max={2000} />
+                                <DumbTextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" />
+                                <DumbTextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" />
                                 <div className="flex gap-2">
-                                    <TextInput placeholder="Embed Color" value={embed} setValue={setEmbed} type="color" dataName="color" />
-                                    <TextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" />
+                                    <DumbTextInput placeholder="Embed Color" value={embed} setValue={setEmbed} type="color" dataName="color" />
+                                    <DumbTextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" />
                                 </div>
-                                <TextInput placeholder="Embed Image" value={embed} setValue={setEmbed} max={256} dataName="image" />
+                                <DumbTextInput placeholder="Embed Image" value={embed} setValue={setEmbed} max={256} dataName="image" />
                                 <div className="flex gap-2">
-                                    <TextInput placeholder="Embed Footer Icon" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="icon_url" />
-                                    <TextInput placeholder="Embed Footer" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="text" />
+                                    <DumbTextInput placeholder="Embed Footer Icon" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="icon_url" />
+                                    <DumbTextInput placeholder="Embed Footer" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="text" />
                                 </div>
 
                                 <button
