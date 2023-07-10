@@ -45,7 +45,11 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
             },
-            body: JSON.stringify({ [dataName]: value.value })
+            body: JSON.stringify(dataName.includes(".") ?
+                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: value.value } }
+                :
+                { [dataName]: value.value }
+            )
         })
             .then(async (res) => {
                 const response = await res.json();
