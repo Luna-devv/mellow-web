@@ -64,7 +64,7 @@ export default function RootLayout({
                     </div>
                 </div>
 
-                {user?.extended &&
+                {user?.extended?.activity &&
                     <div className="ml-auto flex items-center gap-5 mt-6 sm:mt-0">
                         <div>
                             <div className="text-sm">Messages</div>
@@ -92,6 +92,10 @@ export default function RootLayout({
                     {
                         name: "Rank",
                         value: "/rank"
+                    },
+                    {
+                        name: "Text to Speech",
+                        value: "/text-to-speech"
                     }
                 ]}
                 url={"/profile"}
