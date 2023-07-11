@@ -49,7 +49,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
         const body = { content, embed: Object.assign(JSON.parse(embed), embedfooter.length > 2 ? { footer: JSON.parse(embedfooter) } : {}) };
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
@@ -201,7 +201,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
             </div>
 
-            <div className="flex">
+            <div className="flex relative bottom-3">
                 <div className="ml-auto mb-2">
                     {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
                     {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}

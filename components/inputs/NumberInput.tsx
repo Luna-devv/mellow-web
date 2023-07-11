@@ -56,7 +56,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
         setState("LOADING");
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string

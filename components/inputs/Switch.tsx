@@ -30,7 +30,7 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
         setState("LOADING");
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
