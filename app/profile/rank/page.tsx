@@ -1,5 +1,6 @@
 "use client";
-import { userStore } from "@/common/user";
+import { User, userStore } from "@/common/user";
+import { deepMerge } from "@/components/deepMerge";
 import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import SelectInput from "@/components/inputs/SelectMenu";
@@ -39,7 +40,11 @@ export default function Home() {
                                 error: "Not done yet"
                             }
                         ]}
-                        defaultV={user?.extended?.rank.subText.type.toString()}
+                        __defaultState={user?.extended?.rank?.subText?.type?.toString()}
+                        onSave={(options) => {
+                            if (!user) return;
+                            userStore.setState(deepMerge<User>(user, { extended: { rank: { subText: { type: parseInt(options.value) as 0 | 1 | 2 | 3 } } } }));
+                        }}
                     />
                 </div>
 
@@ -53,7 +58,11 @@ export default function Home() {
                             dataName="textColor"
                             description="Color used for your username."
                             type="color"
-                            __defaultState={user?.extended?.rank.textColor ?? 0}
+                            __defaultState={user?.extended?.rank?.textColor ?? 0}
+                            onSave={(value) => {
+                                if (!user) return;
+                                userStore.setState(deepMerge<User>(user, { extended: { rank: { textColor: Number(value) } } }));
+                            }}
                         />
                     </div>
 
@@ -65,7 +74,11 @@ export default function Home() {
                             dataName="barColor"
                             description="Color used for the progress bar."
                             type="color"
-                            __defaultState={user?.extended?.rank.barColor ?? 0}
+                            __defaultState={user?.extended?.rank?.barColor ?? 0}
+                            onSave={(value) => {
+                                if (!user) return;
+                                userStore.setState(deepMerge<User>(user, { extended: { rank: { barColor: Number(value) } } }));
+                            }}
                         />
                     </div>
 
@@ -77,7 +90,11 @@ export default function Home() {
                 url="/users/@me/rank"
                 dataName="background"
                 description="Enter a url which should be the background of your /rank card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
-                __defaultState={user?.extended?.rank.background || ""}
+                __defaultState={user?.extended?.rank?.background || ""}
+                onSave={(value) => {
+                    if (!user) return;
+                    userStore.setState(deepMerge<User>(user, { extended: { rank: { background: value } } }));
+                }}
             />
 
         </div>

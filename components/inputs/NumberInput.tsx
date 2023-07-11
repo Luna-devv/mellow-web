@@ -136,6 +136,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
                         }}
                         value={value}
                         disabled={(state === "LOADING" || disabled)}
+                        inputMode="numeric"
                     />
 
                     <button

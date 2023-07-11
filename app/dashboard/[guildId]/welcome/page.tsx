@@ -147,7 +147,7 @@ export default function Home() {
                     dataName="channel"
                     items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the welcome message should be send into"
-                    defaultV={welcome?.channel}
+                    __defaultState={welcome?.channel}
                 />
 
                 <button
@@ -203,7 +203,7 @@ export default function Home() {
                         items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
                         description="Select roles which members should get"
                         defaultV={welcome?.roles || []}
-                        max={50}
+                        max={5}
                     />
                 </div>
 

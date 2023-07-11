@@ -12,10 +12,12 @@ type Props = {
     disabled?: boolean;
     description?: string;
     __defaultState: string;
+
+    onSave?: (value: string) => void;
 };
 
 
-const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState }) => {
+const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, onSave }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -54,6 +56,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                     case 200: {
                         setValue(value);
                         setDefaultvalue(value);
+                        onSave?.(value);
 
                         setState("SUCCESS");
                         setTimeout(() => setState(undefined), 1_000 * 8);
@@ -85,7 +88,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
             <div className="lg:flex mt-1 w-full gap-4">
 
                 <DumbTextInput
-                    value={defaultvalue}
+                    value={value}
                     setValue={(v) => {
                         setValue(v);
                         setState(undefined);

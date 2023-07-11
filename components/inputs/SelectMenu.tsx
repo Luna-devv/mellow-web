@@ -12,11 +12,13 @@ type Props = {
     items: { name: string; value: string; error?: string }[];
     disabled?: boolean;
     description?: string;
-    defaultV?: string;
+    __defaultState?: string;
+
+    onSave?: (options: { name: string; value: string; error?: string }) => void;
 };
 
 
-const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, disabled, description, defaultV }) => {
+const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, disabled, description, __defaultState, onSave }) => {
     const width = widthStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
@@ -27,8 +29,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
     const [value, setValue] = useState<{ name: string; value: string; error?: string } | undefined>();
 
     useEffect(() => {
-        setValue(items.find((i) => i.value === defaultV));
-        setDefaultalue(defaultV);
+        setValue(items.find((i) => i.value === __defaultState));
+        setDefaultalue(__defaultState);
     }, [items]);
 
     useEffect(() => {
@@ -57,6 +59,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
 
                 switch (res.status) {
                     case 200: {
+                        onSave?.(value);
                         setState("SUCCESS");
                         setTimeout(() => setState(undefined), 1_000 * 8);
                         break;
@@ -88,7 +91,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                 onClick={() => setOpen(!open)}
                 disabled={(state === "LOADING" || disabled)}
             >
-                <div className={value ? "dark:text-neutral-400 text-neutral-600" : "dark:text-neutral-600 text-neutral-400"}>
+                <div className={value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"}>
                     {value?.name || "Select.."}
                 </div>
                 <div className="ml-auto flex items-center gap-2">

@@ -17,10 +17,12 @@ type Props = {
     type?: string;
     max?: number;
     placeholder?: string;
+
+    onSave?: (value: string | number) => void;
 };
 
 
-const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, type, max, placeholder }) => {
+const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, type, max, placeholder, onSave }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -54,6 +56,7 @@ const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, de
                     case 200: {
                         setValue(value);
                         setDefaultvalue(value);
+                        onSave?.(value);
 
                         setState("SUCCESS");
                         setTimeout(() => setState(undefined), 1_000 * 8);

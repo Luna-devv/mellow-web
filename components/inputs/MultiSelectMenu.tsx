@@ -89,7 +89,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items,
                 disabled={(state === "LOADING" || disabled)}
             >
                 {/* style={{ scrollbarWidth: "none" }} */}
-                <div className={`flex flex-wrap overflow-x-hidden gap-1 py-3 ${values.length ? "dark:text-neutral-400 text-neutral-600" : "dark:text-neutral-600 text-neutral-400"}`} >
+                <div className={`flex flex-wrap overflow-x-hidden gap-1 py-3 ${values.length ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"}`} >
                     {!values.length && <span>Select..</span>}
                     {values.map((v) => (
                         <button
