@@ -67,7 +67,7 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
     }, [value]);
 
     return (
-        <div className="relative">
+        <div className={`relative ${description && "mb-8"}`}>
 
             <div className="flex items-center mb-6">
                 <div className="flex items-center gap-2">

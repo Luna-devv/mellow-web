@@ -9,12 +9,12 @@ type Props = {
     name: string;
     url: string;
     dataName: string;
-    items: { name: string; value: string; error?: string }[];
+    items: { icon?: React.ReactNode; name: string; value: string | number; error?: string }[];
     disabled?: boolean;
     description?: string;
-    __defaultState?: string;
+    __defaultState?: string | number;
 
-    onSave?: (options: { name: string; value: string; error?: string }) => void;
+    onSave?: (options: { name: string; value: string | number; error?: string }) => void;
 };
 
 
@@ -25,8 +25,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<string | undefined>();
-    const [value, setValue] = useState<{ name: string; value: string; error?: string } | undefined>();
+    const [defaultvalue, setDefaultalue] = useState<string | number | undefined>();
+    const [value, setValue] = useState<{ icon?: React.ReactNode; name: string; value: string | number; error?: string } | undefined>();
 
     useEffect(() => {
         setValue(items.find((i) => i.value === __defaultState));
@@ -91,7 +91,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                 onClick={() => setOpen(!open)}
                 disabled={(state === "LOADING" || disabled)}
             >
-                <div className={value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"}>
+                <div className={`${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"} flex items-center gap-2`}>
+                    {value?.icon}
                     {value?.name || "Select.."}
                 </div>
                 <div className="ml-auto flex items-center gap-2">
@@ -118,7 +119,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                                     setValue(item);
                                 }}
                             >
-                                <div>{item.name}</div>
+                                {value?.icon}
+                                <div className={value?.icon ? "ml-2" : ""}>{item.name}</div>
                                 {value?.value === item.value && <HiCheck className="ml-1" />}
                                 {item.error &&
                                     <div className="ml-auto text-sm flex items-center gap-1 text-red-500">

@@ -43,7 +43,7 @@ export default function Home() {
                         __defaultState={user?.extended?.rank?.subText?.type?.toString()}
                         onSave={(options) => {
                             if (!user) return;
-                            userStore.setState(deepMerge<User>(user, { extended: { rank: { subText: { type: parseInt(options.value) as 0 | 1 | 2 | 3 } } } }));
+                            userStore.setState(deepMerge<User>(user, { extended: { rank: { subText: { type: Number(options.value) as 0 | 1 | 2 | 3 } } } }));
                         }}
                     />
                 </div>
