@@ -81,6 +81,11 @@ export default function RootLayout({
                     {
                         name: "Welcome",
                         value: "/welcome"
+                    },
+                    // {
+                    //     name: "Custom Commands",
+                    //     value: "/actions"
+                    // },
                     }
                 ]}
                 url={`/dashboard/${params.guildId}`}
