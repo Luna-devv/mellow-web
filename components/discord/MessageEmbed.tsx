@@ -6,17 +6,23 @@ interface Props {
     children: React.ReactNode;
     mode: "DARK" | "LIGHT";
 
+    author?: {
+        icon_url?: string;
+        text: string;
+    }
+
     title?: string;
     color: number;
     thumbnail?: string;
     image?: string;
+
     footer?: {
         icon_url?: string;
         text: string;
     }
 }
 
-const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, title, color, thumbnail, image, footer, mode }) => {
+const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, author, title, color, thumbnail, image, footer, mode }) => {
     if (!title && !image && !footer?.text && !children) return <></>;
 
     return (
@@ -24,12 +30,21 @@ const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, title, color,
 
             <div className="flex w-full max-w-full">
                 <div className={thumbnail ? "w-9/12" : "w-full"}>
+                    {author &&
+                        <div className={`${mode === "DARK" ? "text-neutral-100" : "text-neutral-900"} font-semibold text-medium mb-2 flex gap-2 items-center`}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            {author.icon_url && <img src={author.icon_url} alt="" className="rounded-full h-6 w-6" />}
+                            <Highlight mode={mode} text={author.text} discord={false} />
+                        </div>
+                    }
                     {title &&
                         <div className={`${mode === "DARK" ? "text-neutral-100" : "text-neutral-900"} font-semibold text-lg mb-2`}>
                             <Highlight mode={mode} text={title} discord={false} />
                         </div>
                     }
-                    {children}
+                    <div className="text-sm">
+                        {children}
+                    </div>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {thumbnail && <img src={thumbnail} alt="" className="ml-auto h-20 w-20 rounded-md" />}

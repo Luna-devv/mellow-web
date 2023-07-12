@@ -133,7 +133,7 @@ export default function Home() {
 
             <NumberInput
                 name="After how many seconds the message should be deleted."
-                description="Set to 0 to disable"
+                description="Set to 0 to disable."
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="deleteAfter"
                 defaultState={welcome?.deleteAfter ?? 0}
@@ -144,10 +144,10 @@ export default function Home() {
                 <SelectMenu
                     name="Channel"
                     url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName="channel"
+                    dataName="channelId"
                     items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
-                    description="Select the channel where the welcome message should be send into"
-                    __defaultState={welcome?.channel}
+                    description="Select the channel where the welcome message should be send into."
+                    __defaultState={welcome?.channelId}
                 />
 
                 <button
@@ -199,10 +199,10 @@ export default function Home() {
                     <MultiSelectMenu
                         name="Roles"
                         url={`/guilds/${guild?.id}/modules/welcome`}
-                        dataName="roles"
+                        dataName="roleIds"
                         items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
-                        description="Select roles which members should get"
-                        defaultV={welcome?.roles || []}
+                        description="Select roles which members should get."
+                        defaultV={welcome?.roleIds || []}
                         max={5}
                     />
                 </div>
@@ -211,10 +211,10 @@ export default function Home() {
                     <MultiSelectMenu
                         name="Pings"
                         url={`/guilds/${guild?.id}/modules/welcome`}
-                        dataName="pings"
+                        dataName="pingIds"
                         items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
-                        description="Select in what channels user should get ghostpinged"
-                        defaultV={welcome?.roles || []}
+                        description="Select in what channels user should get ghostpinged."
+                        defaultV={welcome?.pingIds || []}
                         max={5}
                     />
                 </div>
