@@ -9,7 +9,7 @@ type Props = {
     name: string;
     url: string;
     dataName: string;
-    items: { icon?: React.ReactNode; name: string; value: string | number; error?: string }[];
+    items: { icon?: React.ReactNode; name: string; value: string | number; error?: string }[] | undefined;
     disabled?: boolean;
     description?: string;
     __defaultState?: string | number;
@@ -18,7 +18,7 @@ type Props = {
 };
 
 
-const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, disabled, description, __defaultState, onSave }) => {
+const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = [], disabled, description, __defaultState, onSave }) => {
     const width = widthStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
@@ -91,8 +91,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                 onClick={() => setOpen(!open)}
                 disabled={(state === "LOADING" || disabled)}
             >
-                <div className={`${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"} flex items-center gap-2`}>
-                    {value?.icon}
+                <div className={`${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"} flex items-center`}>
+                    {value?.icon && <span className="mr-2">{value?.icon}</span>}
                     {value?.name || "Select.."}
                 </div>
                 <div className="ml-auto flex items-center gap-2">
@@ -110,8 +110,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
-                                className={`p-4 py-2 w-full ${item.error ? "dark:bg-red-500/10 hover:dark:bg-red-500/25" : "dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha"} text-left duration-200 flex items-center`}
-                                key={item.name}
+                                className={`p-4 py-2 w-full ${item.error ? "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40" : "dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha"} text-left duration-200 flex items-center`}
+                                key={item.value}
                                 onClick={() => {
                                     setOpen(false);
                                     setState(undefined);
@@ -119,8 +119,8 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items, dis
                                     setValue(item);
                                 }}
                             >
-                                {value?.icon}
-                                <div className={value?.icon ? "ml-2" : ""}>{item.name}</div>
+                                {item?.icon && <span className="mr-2">{item?.icon}</span>}
+                                <div>{item.name}</div>
                                 {value?.value === item.value && <HiCheck className="ml-1" />}
                                 {item.error &&
                                     <div className="ml-auto text-sm flex items-center gap-1 text-red-500">

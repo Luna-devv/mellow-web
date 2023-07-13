@@ -9,7 +9,7 @@ type Props = {
     name: string;
     url: string;
     dataName: string;
-    items: { name: string; value: string; error?: string; color?: number; }[];
+    items: { name: string; value: string; error?: string; color?: number; }[] | undefined;
     disabled?: boolean;
     max?: number;
     description?: string;
@@ -17,7 +17,7 @@ type Props = {
 };
 
 
-const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items, disabled, max = Infinity, description, defaultV = [] }) => {
+const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items = [], disabled, max = Infinity, description, defaultV = [] }) => {
     const width = widthStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
@@ -125,7 +125,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items,
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
-                                className={`p-4 py-2 w-full ${item.error ? "dark:bg-red-500/10 hover:dark:bg-red-500/25" : "dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha"} text-left duration-200 flex items-center`}
+                                className={`p-4 py-2 w-full ${item.error ? "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40" : "dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha"} text-left duration-200 flex items-center`}
                                 style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
                                 key={item.name}
                                 onClick={() => {
