@@ -11,15 +11,13 @@ import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import MessageCreatorEmbed from "@/components/messageCreator/Embed";
-import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsModulesWelcomeGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
     const width = widthStore((w) => w);
     const guild = guildStore((g) => g);
 
     const [error, setError] = useState<string>();
-    const [channels, setChannels] = useState<ApiV1GuildsChannelsGetResponse[]>([]);
-    const [roles, setRoles] = useState<ApiV1GuildsRolesGetResponse[]>([]);
     const [welcome, setWelcome] = useState<ApiV1GuildsModulesWelcomeGetResponse>();
 
     const params = useParams();
@@ -50,58 +48,6 @@ export default function Home() {
             })
             .catch(() => {
                 setError("Error while fetching welcome data");
-            });
-
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/channels`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsChannelsGetResponse[];
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setChannels(response);
-                        break;
-                    }
-                    default: {
-                        setChannels([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching channels");
-            });
-
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/roles`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsRolesGetResponse[];
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setRoles(response);
-                        break;
-                    }
-                    default: {
-                        setRoles([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching roles");
             });
 
     }, []);
@@ -145,7 +91,7 @@ export default function Home() {
                     name="Channel"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="channelId"
-                    items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
+                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the welcome message should be send into."
                     __defaultState={welcome?.channelId}
                 />
@@ -200,7 +146,7 @@ export default function Home() {
                         name="Roles"
                         url={`/guilds/${guild?.id}/modules/welcome`}
                         dataName="roleIds"
-                        items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
+                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
                         description="Select roles which members should get."
                         defaultV={welcome?.roleIds || []}
                         max={5}
@@ -212,7 +158,7 @@ export default function Home() {
                         name="Pings"
                         url={`/guilds/${guild?.id}/modules/welcome`}
                         dataName="pingIds"
-                        items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
+                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
                         description="Select in what channels user should get ghostpinged."
                         defaultV={welcome?.pingIds || []}
                         max={5}

@@ -13,20 +13,17 @@ import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
-import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsModulesStarboardGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiV1GuildsModulesStarboardGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
     const guild = guildStore((g) => g);
 
     const [error, setError] = useState<string>();
-    const [channels, setChannels] = useState<ApiV1GuildsChannelsGetResponse[]>([]);
-    const [roles, setRoles] = useState<ApiV1GuildsRolesGetResponse[]>([]);
-    const [emojis, setEmojis] = useState<ApiV1GuildsEmojisGetResponse[]>([]);
     const [starboard, setStarboard] = useState<ApiV1GuildsModulesStarboardGetResponse>();
 
     const [example, setExample] = useState({
-        avatar: "",
-        username: "",
+        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
+        username: "@spacewolf.",
         color: 0,
         emoji: ""
     });
@@ -62,132 +59,54 @@ export default function Home() {
                 setError("Error while fetching starboard data");
             });
 
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/channels`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsChannelsGetResponse[];
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setChannels(response);
-                        break;
-                    }
-                    default: {
-                        setChannels([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching channels");
-            });
-
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/roles`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsRolesGetResponse[];
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setRoles(response);
-                        break;
-                    }
-                    default: {
-                        setRoles([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching roles");
-            });
-
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/emojis`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsEmojisGetResponse[];
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setEmojis(response);
-                        break;
-                    }
-                    default: {
-                        setEmojis([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching roles");
-            });
-
     }, []);
 
     const handleUserStyle = (value: number) => {
-        setStarboard((s) => {
-            if (!s) return s;
-            return {
-                ...s,
-                style: value
-            };
-        });
-        switch (value) {
-            case 0:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                        username: "@spacewolf."
-                    };
-                });
-                break;
-            case 1:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                        username: "Space Wolf"
-                    };
-                });
-                break;
-            case 2:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                        username: "Luna’s Grandpa <3"
-                    };
-                });
-                break;
-            case 3:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/a_3a2fa421f079827d31f4fd1b7a9971ba.gif",
-                        username: "Luna’s Grandpa <3"
-                    };
-                });
-                break;
-        }
+        // setStarboard((s) => {
+        //     if (!s) return s;
+        //     return {
+        //         ...s,
+        //         style: value
+        //     };
+        // });
+        // switch (value) {
+        //     case 0:
+        //         setExample((e) => {
+        //             return {
+        //                 ...e,
+        //                 avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
+        //                 username: "@spacewolf."
+        //             };
+        //         });
+        //         break;
+        //     case 1:
+        //         setExample((e) => {
+        //             return {
+        //                 ...e,
+        //                 avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
+        //                 username: "Space Wolf"
+        //             };
+        //         });
+        //         break;
+        //     case 2:
+        //         setExample((e) => {
+        //             return {
+        //                 ...e,
+        //                 avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
+        //                 username: "Luna’s Grandpa <3"
+        //             };
+        //         });
+        //         break;
+        //     case 3:
+        //         setExample((e) => {
+        //             return {
+        //                 ...e,
+        //                 avatar: "https://cdn.waya.one/r/a_3a2fa421f079827d31f4fd1b7a9971ba.gif",
+        //                 username: "Luna’s Grandpa <3"
+        //             };
+        //         });
+        //         break;
+        // }
     };
 
     if (starboard === undefined) return (
@@ -251,8 +170,8 @@ export default function Home() {
             />
 
             <Switch
-                name="Delete message on reaction lose."
-                description="If a message in the starboard loses the required reactions, it gets deleted."
+                name="Delete message on reaction loose."
+                description="If a message in the starboard looses the required reactions, it gets deleted."
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="delete"
                 defaultState={starboard?.delete || false}
@@ -266,13 +185,14 @@ export default function Home() {
                 dataName="requiredEmojis"
                 defaultState={starboard?.requiredEmojis ?? 0}
                 disabled={false}
+                min={1}
             />
 
             <SelectMenu
                 name="Channel"
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="channelId"
-                items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
+                items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                 description="Select the channel where the starboard messages should be send into."
                 __defaultState={starboard?.channelId}
             />
@@ -283,9 +203,13 @@ export default function Home() {
                         name="Emoji"
                         url={`/guilds/${guild?.id}/modules/starboard`}
                         dataName="emoji"
-                        items={emojis.sort((a, b) => a.name.localeCompare(b.name)).map((c) => {
-                            return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=24&quality=lossless`} className="rounded-md" alt={c.name} height={24} width={24} />, name: c.name.replace(/-|_/g, " "), value: c.id };
-                        })}
+                        items={[
+                            { icon: "⭐", name: "Star", value: "⭐" },
+                            { icon: "✨", name: "Sparkles", value: "✨" },
+                            ...guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => {
+                                return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=24&quality=lossless`} className="rounded-md" alt={c.name} height={24} width={24} />, name: c.name.replace(/-|_/g, " "), value: c.id };
+                            }) || []
+                        ]}
                         description="Select the emoji that needs to be reacted with."
                         __defaultState={starboard?.emoji}
                     />
@@ -327,7 +251,7 @@ export default function Home() {
                         name="Blacklisted Roles"
                         url={`/guilds/${guild?.id}/modules/starboard`}
                         dataName="blacklistRoleIds"
-                        items={roles.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, color: r.color }; })}
+                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, color: r.color }; })}
                         description="Select roles which should not be able to starboard."
                         defaultV={starboard?.blacklistRoleIds || []}
                         max={500}
@@ -339,7 +263,7 @@ export default function Home() {
                         name="Blacklisted Channels"
                         url={`/guilds/${guild?.id}/modules/starboard`}
                         dataName="blacklistChannelIds"
-                        items={channels.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
+                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
                         description="Select channels which should not be able to be in the starboard."
                         defaultV={starboard?.blacklistChannelIds || []}
                         max={500}

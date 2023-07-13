@@ -8,7 +8,7 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import { guildStore } from "@/common/guilds";
 import ErrorBanner from "@/components/Error";
 import { ListTab } from "@/components/List";
-import { ApiV1GuildsGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function RootLayout({
     children
@@ -22,6 +22,7 @@ export default function RootLayout({
     const params = useParams();
 
     useEffect(() => {
+
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}`, {
             headers: {
                 authorization: localStorage.getItem("token") as string
@@ -48,6 +49,107 @@ export default function RootLayout({
             .catch(() => {
                 setError("Error while fetching guilds");
             });
+
+
+
+        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/channels`, {
+            headers: {
+                authorization: localStorage.getItem("token") as string
+            }
+        })
+            .then(async (res) => {
+                const response = await res.json() as ApiV1GuildsChannelsGetResponse[];
+                if (!response) return;
+
+                switch (res.status) {
+                    case 200: {
+                        guildStore.setState({
+                            ...guild,
+                            channels: response
+                        });
+                        break;
+                    }
+                    default: {
+                        guildStore.setState({
+                            ...guild,
+                            channels: []
+                        });
+                        setError((response as unknown as RouteErrorResponse).message);
+                        break;
+                    }
+                }
+
+            })
+            .catch(() => {
+                setError("Error while fetching channels");
+            });
+
+        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/roles`, {
+            headers: {
+                authorization: localStorage.getItem("token") as string
+            }
+        })
+            .then(async (res) => {
+                const response = await res.json() as ApiV1GuildsRolesGetResponse[];
+                if (!response) return;
+
+                switch (res.status) {
+                    case 200: {
+                        guildStore.setState({
+                            ...guild,
+                            roles: response
+                        });
+                        break;
+                    }
+                    default: {
+                        guildStore.setState({
+                            ...guild,
+                            roles: response
+                        });
+                        setError((response as unknown as RouteErrorResponse).message);
+                        break;
+                    }
+                }
+
+            })
+            .catch(() => {
+                setError("Error while fetching roles");
+            });
+
+        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/emojis`, {
+            headers: {
+                authorization: localStorage.getItem("token") as string
+            }
+        })
+            .then(async (res) => {
+                const response = await res.json() as ApiV1GuildsEmojisGetResponse[];
+                if (!response) return;
+
+                switch (res.status) {
+                    case 200: {
+
+                        guildStore.setState({
+                            ...guild,
+                            emojis: response
+                        });
+                        break;
+                    }
+                    default: {
+
+                        guildStore.setState({
+                            ...guild,
+                            emojis: response
+                        });
+                        setError((response as unknown as RouteErrorResponse).message);
+                        break;
+                    }
+                }
+
+            })
+            .catch(() => {
+                setError("Error while fetching roles");
+            });
+
     }, []);
 
     if (guild === undefined && !error) return <></>;
