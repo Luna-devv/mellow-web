@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiPlus } from "react-icons/hi";
 
@@ -17,7 +18,10 @@ export default function Home() {
     const [error, setError] = useState<string>();
     const [guilds, setGuilds] = useState<UserGuild[]>([]);
 
+    const searchParams = useSearchParams();
+
     useEffect(() => {
+
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/@me`, {
             headers: {
                 authorization: localStorage.getItem("token") as string
@@ -42,6 +46,7 @@ export default function Home() {
             .catch(() => {
                 setError("Error while fetching guilds");
             });
+
     }, []);
 
     return (
@@ -73,7 +78,7 @@ export default function Home() {
                     <Image src={guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=64` : "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Server" className="rounded-lg h-16 w-16" />
                     <div className="ml-3 text-sm relative bottom-1">
                         <div className="text-lg dark:text-neutral-200 text-neutral-800 mb-3">{guild.name}</div>
-                        <Link href={`/dashboard/${guild.id}`} className="dark:bg-wamellow-alpha bg-wamellow-100-alpha dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200">Manage</Link>
+                        <Link href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`} className="dark:bg-wamellow-alpha bg-wamellow-100-alpha dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200">Manage</Link>
                     </div>
                 </div>
             ))}
