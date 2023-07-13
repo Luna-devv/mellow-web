@@ -184,6 +184,10 @@ export default function RootLayout({
                         name: "Welcome",
                         value: "/welcome"
                     },
+                    {
+                        name: "Bye",
+                        value: "/bye"
+                    },
                     // {
                     //     name: "Custom Commands",
                     //     value: "/actions"

@@ -95,6 +95,26 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
     };
 }
 
+export interface ApiV1GuildsModulesByeGetResponse {
+    enabled: boolean;
+    channelId?: string;
+    webhookURL?: string;
+
+    message: {
+        content?: string;
+        embed?: GuildEmbed
+    };
+
+    deleteAfter?: number;
+
+    card: {
+        enabled: boolean;
+        inEmbed: boolean;
+        background?: string;
+        textColor?: number;
+    };
+}
+
 export interface ApiV1GuildsModulesStarboardGetResponse {
     enabled: boolean;
     channelId?: string;
