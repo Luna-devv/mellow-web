@@ -13,10 +13,12 @@ type Props = {
     disabled?: boolean;
     description?: string;
     defaultState: number;
+
+    min?: number;
 };
 
 
-const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState }) => {
+const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState, min = 0 }) => {
     const width = widthStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
@@ -39,7 +41,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
             if (Date.now() - start < 200) return;
             if (hold === "+") setValue((prevCount) => (prevCount ?? 0) + 1);
             else setValue((prevCount) => {
-                if ((prevCount ?? 0) - 1 < 0) return 0;
+                if ((prevCount ?? 0) - 1 < min) return min;
                 return (prevCount ?? 0) - 1;
             });
         }, 50);
@@ -120,7 +122,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
                         onMouseDown={() => setHold("-")}
                         onMouseUp={() => setHold(undefined)}
                         onClick={() => {
-                            if ((value ?? 0) <= 0) setValue(0);
+                            if ((value ?? 0) - 1 < min) setValue(min);
                             else setValue((value ?? 0) - 1);
                         }}
                         className={`dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-l-md duration-100 ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-pointer"}`}
