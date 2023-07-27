@@ -6,11 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { HiArrowNarrowRight, HiIdentification, HiOutlineChevronDown, HiTemplate } from "react-icons/hi";
+import { HiArrowNarrowRight, HiBeaker, HiIdentification, HiOutlineChevronDown, HiTemplate } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
-import { widthStore } from "@/common/width";
+import { webStore } from "@/common/webstore";
 import authorizeUser from "@/components/authorizeUser";
 import LoginButton from "@/components/LoginButton";
 
@@ -39,12 +39,13 @@ const Header: FunctionComponent<Props> = ({ children }) => {
         });
     }, []);
 
-    const width = widthStore((w) => w);
+    const web = webStore((w) => w);
     useEffect(() => {
-        widthStore.setState(window?.innerWidth);
-        setInterval(() => {
-            if (window?.innerWidth !== width) widthStore.setState(window?.innerWidth);
-        }, 1000);
+        webStore.setState({ ...web, width: window?.innerWidth });
+        console.log(1);
+        // setInterval(() => {
+        //     if (window?.innerWidth !== web.width) webStore.setState({ ...web, width: window?.innerWidth });
+        // }, 1000);
     }, []);
 
     const UserButton = (
@@ -67,6 +68,31 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                 <span className="ml-2">Profile</span>
             </Link>
 
+            {user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY &&
+                <div className="mb-3 mt-1">
+                    <hr className="mb-3 dark:border-wamellow-light border-wamellow-100-light" />
+
+                    <div className="flex items-center px-4">
+                        <HiBeaker />
+                        <span className="ml-2">Admin tools</span>
+                        <label className="ml-auto relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                checked={web.devToolsEnabled}
+                                onClick={() => {
+                                    webStore.setState({ ...web, devToolsEnabled: !web.devToolsEnabled });
+                                }}
+                            />
+                            <div
+                                className="w-11 h-6 bg-neutral-300 rounded-full peer dark:bg-neutral-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-600"
+                            />
+                        </label>
+                    </div>
+
+                </div>
+            }
+
             <hr className="my-1 mx-0 dark:border-wamellow-light border-wamellow-100-light" />
             <Link href="/login?logout=true" className="hover:bg-danger dark:text-red-400 text-red-500 dark:hover:text-red-100 hover:text-neutral-800 pt-2 pb-3 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
                 <HiArrowNarrowRight />
@@ -83,9 +109,9 @@ const Header: FunctionComponent<Props> = ({ children }) => {
             <body className={`${inter.className} w-full max-w-6xl min-h-full`}>
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
-                    {width > 512 ?
+                    {web.width > 512 ?
                         <div>
-                            {user?.username && width > 624 && `Hey, @${user.username}!`} Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
+                            {user?.username && web.width > 624 && `Hey, @${user.username}!`} Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
                         </div>
                         :
                         <div>
@@ -100,14 +126,14 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>
 
-                    {width > 512 &&
+                    {web.width > 512 &&
                         <>
                             <Link href="/docs" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Guides</Link>
                             <Link href="/support" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
                         </>
                     }
 
-                    {!user?.id ? <LoginButton loginstate={loginstate} width={width} /> : UserButton}
+                    {!user?.id ? <LoginButton loginstate={loginstate} width={web.width} /> : UserButton}
                 </div>
 
                 {user?.id && menu &&

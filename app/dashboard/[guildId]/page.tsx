@@ -4,10 +4,8 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 
 import { userStore } from "@/common/user";
-import { widthStore } from "@/common/width";
 
 export default function Home() {
-    const width = widthStore((w) => w);
     const user = userStore((s) => s);
 
     return (

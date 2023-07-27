@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { HiCheck, HiChevronDown, HiExclamationCircle } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
-import { widthStore } from "@/common/width";
+import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 
 
 const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = [], disabled, description, __defaultState, onSave }) => {
-    const width = widthStore((w) => w);
+    const web = webStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
@@ -133,7 +133,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
                 </div>
             }
 
-            <div className={`${width > 880 && "flex"} mt-1`}>
+            <div className={`${web.width > 880 && "flex"} mt-1`}>
                 {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
                 {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
                 {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}

@@ -1,10 +1,11 @@
 
 "use client";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { guildStore } from "@/common/guilds";
-import { widthStore } from "@/common/width";
+import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import NumberInput from "@/components/inputs/NumberInput";
@@ -14,7 +15,7 @@ import MessageCreatorEmbed from "@/components/messageCreator/Embed";
 import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
-    const width = widthStore((w) => w);
+    const web = webStore((w) => w);
     const guild = guildStore((g) => g);
 
     const [error, setError] = useState<string>();
@@ -136,7 +137,7 @@ export default function Home() {
                             });
                     }}
                 >
-                    {width > 768 ? <span>Send Test</span> : <span>Test</span>}
+                    {web.width > 768 ? <span>Send Test</span> : <span>Test</span>}
                 </button>
             </div>
 
@@ -162,6 +163,44 @@ export default function Home() {
                         description="Select in what channels user should get ghostpinged."
                         __defaultState={welcome?.pingIds || []}
                         max={5}
+                    />
+                </div>
+            </div>
+
+            <div className="lg:flex gap-3">
+                <div className="lg:w-1/2">
+                    <MultiSelectMenu
+                        name="First user message reactions"
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="reactions.firstMessageEmojis"
+                        items={[
+                            { icon: "👋", name: "Wave", value: "👋" },
+                            { icon: "☕", name: "Coffee", value: "☕" },
+                            ...guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => {
+                                return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={c.name} height={64} width={64} />, name: c.name.replace(/-|_/g, " "), value: c.id };
+                            }) || []
+                        ]}
+                        description="Select emotes which will be reacted with on members first message."
+                        __defaultState={welcome?.reactions?.firstMessageEmojis}
+                        max={2}
+                    />
+                </div>
+
+                <div className="lg:w-1/2">
+                    <MultiSelectMenu
+                        name="Welcome message reactions"
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="reactions.welcomeMessageEmojis"
+                        items={[
+                            { icon: "👋", name: "Wave", value: "👋" },
+                            { icon: "☕", name: "Coffee", value: "☕" },
+                            ...guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => {
+                                return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={c.name} height={64} width={64} />, name: c.name.replace(/-|_/g, " "), value: c.id };
+                            }) || []
+                        ]}
+                        description="Select emotes which will be reacted with on welcome messages."
+                        __defaultState={welcome?.reactions?.welcomeMessageEmojis}
+                        max={2}
                     />
                 </div>
             </div>

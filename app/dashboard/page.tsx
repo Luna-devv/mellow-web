@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 import { HiPlus } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
-import { widthStore } from "@/common/width";
+import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
 import LoginButton from "@/components/LoginButton";
 import { RouteErrorResponse, UserGuild } from "@/typings";
 
 export default function Home() {
-    const width = widthStore((w) => w);
+    const web = webStore((w) => w);
     const user = userStore((s) => s);
 
     const [error, setError] = useState<string>();
@@ -66,7 +66,7 @@ export default function Home() {
                     <LoginButton
                         className="w-full md:w-fit text-center"
                         addClassName="justify-center"
-                        width={width}
+                        width={web.width}
                         message={"Reload Guilds"}
                     />
                 </div>

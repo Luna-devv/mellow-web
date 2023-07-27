@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
-import { widthStore } from "@/common/width";
+import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
 
 
@@ -19,7 +19,7 @@ type Props = {
 
 
 const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState, min = 0 }) => {
-    const width = widthStore((w) => w);
+    const web = webStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
@@ -103,7 +103,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
                         {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
                     </div>
 
-                    {description && <div className={`${width > 880 && "flex"} w-full relative bottom-1 text-neutral-500 text-sm`}> {description} </div>}
+                    {description && <div className={`${web.width > 880 && "flex"} w-full relative bottom-1 text-neutral-500 text-sm`}> {description} </div>}
                 </div>
 
                 <div className={`ml-auto relative flex items-center cursor-pointer h-8 ${(disabled || (state === "LOADING" || disabled)) && "opacity-50"}`}>

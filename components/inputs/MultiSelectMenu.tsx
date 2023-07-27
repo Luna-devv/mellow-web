@@ -2,14 +2,14 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { HiCheck, HiChevronDown, HiExclamationCircle, HiX } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
-import { widthStore } from "@/common/width";
+import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
 
 type Props = {
     name: string;
     url: string;
     dataName: string;
-    items: { name: string; value: string; error?: string; color?: number; }[] | undefined;
+    items: { icon?: React.ReactNode; name: string; value: string; error?: string; color?: number; }[] | undefined;
     disabled?: boolean;
     max?: number;
     description?: string;
@@ -17,8 +17,8 @@ type Props = {
 };
 
 
-const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items = [], disabled, max = Infinity, description, defaultV = [] }) => {
-    const width = widthStore((w) => w);
+const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items = [], disabled, max = Infinity, description, __defaultState = [] }) => {
+    const web = webStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
@@ -46,7 +46,11 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
             },
-            body: JSON.stringify({ [dataName]: values.map((v) => v.value) })
+            body: JSON.stringify(dataName.includes(".") ?
+                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: values.map((v) => v.value) } }
+                :
+                { [dataName]: values.map((v) => v.value) }
+            )
         })
             .then(async (res) => {
                 const response = await res.json();
@@ -94,7 +98,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
                     {values.map((v) => (
                         <button
                             key={v.value}
-                            className={`px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha ${open && "hover:bg-danger text-neutral-100"} rounded-md flex items-center gap-1`}
+                            className={`relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha ${open && "hover:bg-danger text-neutral-100"} rounded-md flex items-center gap-1`}
                             style={v.color ? { color: `#${v.color.toString(16)}` } : {}}
                             onClick={(e) => {
                                 if (!open) return;
@@ -104,7 +108,8 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
                                 });
                             }}
                         >
-                            <span>{v.name}</span>
+                            {v.icon && <span className="absolute left-0">{v.icon}</span>}
+                            <span className={v.icon ? "ml-6" : ""}>{v.name}</span>
                             {open && <HiX className="h-4 w-4" />}
                         </button>
                     ))}
@@ -136,6 +141,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
                                     });
                                 }}
                             >
+                                {item?.icon && <span className="mr-2">{item?.icon}</span>}
                                 <span>{item.name}</span>
                                 {values.find((v) => v.value === item.value) && <HiCheck className="ml-1" />}
                                 {item.error &&
@@ -149,7 +155,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
                 </div>
             }
 
-            <div className={`${width > 880 && "flex"} mt-1`}>
+            <div className={`${web.width > 880 && "flex"} mt-1`}>
                 {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
                 {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
                 {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}

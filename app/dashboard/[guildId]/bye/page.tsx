@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { guildStore } from "@/common/guilds";
-import { widthStore } from "@/common/width";
+import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
 import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
@@ -13,7 +13,7 @@ import MessageCreatorEmbed from "@/components/messageCreator/Embed";
 import { ApiV1GuildsModulesByeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
-    const width = widthStore((w) => w);
+    const web = webStore((w) => w);
     const guild = guildStore((g) => g);
 
     const [error, setError] = useState<string>();
@@ -127,7 +127,7 @@ export default function Home() {
                             });
                     }}
                 >
-                    {width > 768 ? <span>Send Test</span> : <span>Test</span>}
+                    {web.width > 768 ? <span>Send Test</span> : <span>Test</span>}
                 </button>
             </div>
 
