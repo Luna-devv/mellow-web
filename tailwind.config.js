@@ -32,7 +32,10 @@ module.exports = {
             },
             animation: {
                 marquee: "marquee 25s linear infinite",
-                marquee2: "marquee2 25s linear infinite"
+                marquee2: "marquee2 25s linear infinite",
+
+                "marquee-reverse": "marquee-reverse 25s linear infinite",
+                "marquee-reverse2": "marquee-reverse2 25s linear infinite"
             },
             keyframes: {
                 marquee: {
@@ -42,6 +45,15 @@ module.exports = {
                 marquee2: {
                     "0%": { transform: "translateX(100%)" },
                     "100%": { transform: "translateX(0%)" }
+                },
+
+                "marquee-reverse": {
+                    "100%": { transform: "translateX(0%)" },
+                    "0%": { transform: "translateX(-100%)" }
+                },
+                "marquee-reverse2": {
+                    "100%": { transform: "translateX(100%)" },
+                    "0%": { transform: "translateX(0%)" }
                 }
             }
         }
