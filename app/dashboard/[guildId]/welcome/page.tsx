@@ -148,7 +148,7 @@ export default function Home() {
                         dataName="roleIds"
                         items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
                         description="Select roles which members should get."
-                        defaultV={welcome?.roleIds || []}
+                        __defaultState={welcome?.roleIds || []}
                         max={5}
                     />
                 </div>
@@ -160,7 +160,7 @@ export default function Home() {
                         dataName="pingIds"
                         items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
                         description="Select in what channels user should get ghostpinged."
-                        defaultV={welcome?.pingIds || []}
+                        __defaultState={welcome?.pingIds || []}
                         max={5}
                     />
                 </div>

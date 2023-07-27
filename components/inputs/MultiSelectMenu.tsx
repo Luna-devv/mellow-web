@@ -13,7 +13,7 @@ type Props = {
     disabled?: boolean;
     max?: number;
     description?: string;
-    defaultV?: string[];
+    __defaultState?: string[];
 };
 
 
@@ -24,17 +24,17 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<string[]>([]);
-    const [values, setValues] = useState<{ name: string; value: string; error?: string; color?: number; }[]>([]);
+    const [__defaultStatealue, setDefaultalue] = useState<string[]>([]);
+    const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string; error?: string; color?: number; }[]>([]);
 
     useEffect(() => {
-        setValues(items.filter((i) => defaultV?.includes(i.value)));
-        setDefaultalue(defaultV);
+        setValues(items.filter((i) => __defaultState?.includes(i.value)));
+        setDefaultalue(__defaultState);
     }, [items]);
 
     useEffect(() => {
         setError(undefined);
-        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
+        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(__defaultStatealue)) {
             setState(undefined);
             return;
         }

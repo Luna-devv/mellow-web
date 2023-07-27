@@ -22,7 +22,7 @@ export default function Home() {
                     <SelectInput
                         name="Default Speaker"
                         url="/users/@me/text-to-speech"
-                        dataName="defaultVoice"
+                        dataName="__defaultStateoice"
                         description="This is the default voice for any text to speech conversion."
                         items={TTSVoicesArray.map((voice) => {
                             return {
@@ -30,10 +30,10 @@ export default function Home() {
                                 value: voice
                             };
                         })}
-                        __defaultState={user?.extended?.tts?.defaultVoice}
+                        __defaultState={user?.extended?.tts?.__defaultStateoice}
                         onSave={(options) => {
                             if (!user) return;
-                            userStore.setState(deepMerge<User>(user, { extended: { tts: { ...user.extended?.tts, defaultVoice: options.value as Voice } } }));
+                            userStore.setState(deepMerge<User>(user, { extended: { tts: { ...user.extended?.tts, __defaultStateoice: options.value as Voice } } }));
                         }}
                     />
                 </div>

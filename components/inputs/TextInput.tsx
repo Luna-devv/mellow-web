@@ -28,15 +28,15 @@ const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, de
 
     const [valuedebounced, setValuedebounced] = useStateDebounced<string | number>("", 1000);
     const [value, setValue] = useState<string | number>("");
-    const [defaultvalue, setDefaultvalue] = useState<string | number>("");
+    const [__defaultStatealue, set__defaultStatealue] = useState<string | number>("");
 
     useEffect(() => {
-        if (!defaultvalue) setDefaultvalue(__defaultState);
+        if (!__defaultStatealue) set__defaultStatealue(__defaultState);
         setValue(__defaultState);
     }, [__defaultState]);
 
     useEffect(() => {
-        if (defaultvalue === value || !valuedebounced || !value) return;
+        if (__defaultStatealue === value || !valuedebounced || !value) return;
         setError(undefined);
         setState("LOADING");
 
@@ -55,7 +55,7 @@ const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, de
                 switch (res.status) {
                     case 200: {
                         setValue(value);
-                        setDefaultvalue(value);
+                        set__defaultStatealue(value);
                         onSave?.(value);
 
                         setState("SUCCESS");

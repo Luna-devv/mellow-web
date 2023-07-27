@@ -25,7 +25,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<string | number | undefined>();
+    const [__defaultStatealue, setDefaultalue] = useState<string | number | undefined>();
     const [value, setValue] = useState<{ icon?: React.ReactNode; name: string; value: string | number; error?: string } | undefined>();
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
 
     useEffect(() => {
         setError(undefined);
-        if (!value || value.error || value.value === defaultvalue) {
+        if (!value || value.error || value.value === __defaultStatealue) {
             setState(undefined);
             return;
         }

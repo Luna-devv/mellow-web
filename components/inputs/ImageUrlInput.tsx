@@ -22,11 +22,11 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
     const [error, setError] = useState<string>();
 
     const [value, setValue] = useState<string>("");
-    const [defaultvalue, setDefaultvalue] = useState<string>("");
+    const [__defaultStatealue, set__defaultStatealue] = useState<string>("");
     const [imagestate, setImagestate] = useState<"ERRORED" | "SUCCESS" | undefined>(undefined);
 
     useEffect(() => {
-        if (!defaultvalue) setDefaultvalue(__defaultState);
+        if (!__defaultStatealue) set__defaultStatealue(__defaultState);
         setValue(__defaultState);
     }, [__defaultState]);
 
@@ -36,7 +36,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
     }, [value]);
 
     useEffect(() => {
-        if (imagestate !== "SUCCESS" || defaultvalue === value) return;
+        if (imagestate !== "SUCCESS" || __defaultStatealue === value) return;
         setError(undefined);
         setState("LOADING");
 
@@ -55,7 +55,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                 switch (res.status) {
                     case 200: {
                         setValue(value);
-                        setDefaultvalue(value);
+                        set__defaultStatealue(value);
                         onSave?.(value);
 
                         setState("SUCCESS");

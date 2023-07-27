@@ -28,7 +28,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const [value, setValue] = useState<number>();
-    const [defaultvalue, setDefaultalue] = useState<number>();
+    const [__defaultStatealue, setDefaultalue] = useState<number>();
 
     useEffect(() => {
         if (!hold) {
@@ -53,7 +53,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
     }, [defaultState]);
 
     function handleSave() {
-        if (defaultvalue === value) return;
+        if (__defaultStatealue === value) return;
         setError(undefined);
         setState("LOADING");
 
@@ -108,7 +108,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
 
                 <div className={`ml-auto relative flex items-center cursor-pointer h-8 ${(disabled || (state === "LOADING" || disabled)) && "opacity-50"}`}>
 
-                    {defaultvalue !== value &&
+                    {__defaultStatealue !== value &&
                         <button
                             onClick={handleSave}
                             className={`bg-violet-600 hover:bg-violet-600/80 duration-200 h-full w-12 rounded-md mr-2 ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-pointer"}`}

@@ -160,7 +160,7 @@ export interface ApiV1MeGetResponse {
         };
     };
     tts?: {
-        defaultVoice?: Voice;
+        __defaultStateoice?: Voice;
         defaultFiletype?: "ogg" | "wav" | "mp3";
         commandUses?: number;
     };

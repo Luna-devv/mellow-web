@@ -207,7 +207,7 @@ export default function Home() {
                             { icon: "⭐", name: "Star", value: "⭐" },
                             { icon: "✨", name: "Sparkles", value: "✨" },
                             ...guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => {
-                                return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=24&quality=lossless`} className="rounded-md" alt={c.name} height={24} width={24} />, name: c.name.replace(/-|_/g, " "), value: c.id };
+                                return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={c.name} height={64} width={64} />, name: c.name.replace(/-|_/g, " "), value: c.id };
                             }) || []
                         ]}
                         description="Select the emoji that needs to be reacted with."
@@ -253,7 +253,7 @@ export default function Home() {
                         dataName="blacklistRoleIds"
                         items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, color: r.color }; })}
                         description="Select roles which should not be able to starboard."
-                        defaultV={starboard?.blacklistRoleIds || []}
+                        __defaultState={starboard?.blacklistRoleIds || []}
                         max={500}
                     />
                 </div>
@@ -265,7 +265,7 @@ export default function Home() {
                         dataName="blacklistChannelIds"
                         items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
                         description="Select channels which should not be able to be in the starboard."
-                        defaultV={starboard?.blacklistChannelIds || []}
+                        __defaultState={starboard?.blacklistChannelIds || []}
                         max={500}
                     />
                 </div>
