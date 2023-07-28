@@ -3,7 +3,7 @@ import { TailSpin } from "react-loading-icons";
 
 import { RouteErrorResponse } from "@/typings";
 
-import { useStateDebounced } from "../useDebounce";
+import { useStateDebounced } from "../../utils/useDebounce";
 import DumbTextInput from "./Dumb_TextInput";
 
 type Props = {

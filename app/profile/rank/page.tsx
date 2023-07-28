@@ -1,6 +1,6 @@
 "use client";
 import { User, userStore } from "@/common/user";
-import { deepMerge } from "@/components/deepMerge";
+import { deepMerge } from "@/utils/deepMerge";
 import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import SelectInput from "@/components/inputs/SelectMenu";
