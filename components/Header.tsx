@@ -11,8 +11,8 @@ import { HiArrowNarrowRight, HiBeaker, HiIdentification, HiOutlineChevronDown, H
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
-import authorizeUser from "@/utils/authorizeUser";
 import LoginButton from "@/components/LoginButton";
+import authorizeUser from "@/utils/authorizeUser";
 
 const inter = Inter({ subsets: ["latin"] });
 

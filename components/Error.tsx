@@ -3,9 +3,15 @@ import { FunctionComponent } from "react";
 import { BsDiscord } from "react-icons/bs";
 import { HiExclamationCircle } from "react-icons/hi";
 
-const ErrorBanner: FunctionComponent<{ message: string, removeButton?: boolean }> = ({ message, removeButton }) => {
+interface Props {
+    message: string;
+    removeButton?: boolean;
+    type?: "error" | "info"
+}
+
+const ErrorBanner: FunctionComponent<Props> = ({ message, removeButton, type }) => {
     return (
-        <span className="w-full text-neutral-100 bg-danger-dark py-3 px-5 mb-6 rounded-md flex gap-2 items-center">
+        <span className={`w-full text-neutral-100 ${type === "info" ? "bg-blue-400/50" : "bg-red-400/50"} py-3 px-5 mb-6 rounded-md flex gap-2 items-center`}>
             <HiExclamationCircle style={{ height: 20, width: 20 }} />
             <div className="text-md">{message}</div>
 
