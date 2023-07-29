@@ -27,6 +27,14 @@ export interface ApiV1GuildsGetResponse {
     icon: string | null;
 }
 
+export interface ApiV1GuildsTopmembersGetResponse {
+    id: string;
+    globalName: string | null;
+    username: string | null;
+    avatar: string | null;
+    activity: ApiV1MeGetResponse["activity"];
+}
+
 export interface ApiV1GuildsChannelsGetResponse {
     name: string;
     id: string;
