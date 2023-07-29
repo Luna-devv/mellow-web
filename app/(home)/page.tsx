@@ -56,7 +56,7 @@ export default async function Home() {
                     </Link>
                     {/* <Link href="/dashboard" className="flex border-2 dark:border-wamellow border-wamellow-100 dark:hover:border-wamellow-light hover:border-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200">
                         <span className="mr-2">Dashboard</span>
-                        <BsArrowRightShort className="relative top-1" />
+                        <HiArrowRight className="relative top-1" />
                     </Link> */}
                 </div>
 
