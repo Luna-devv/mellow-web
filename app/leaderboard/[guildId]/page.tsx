@@ -1,9 +1,11 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 
 import ErrorBanner from "@/components/Error";
 import { ListTab } from "@/components/List";
-import { ApiV1GuildsGetResponse, ApiV1GuildsTopmembersGetResponse } from "@/typings";
+import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersGetResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
 import SideComponent from "./SideComponent";
@@ -14,11 +16,21 @@ type Types = "messages" | "voiceminutes" | "invites";
 async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}`, {
         headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 1_000 * 60 * 60 }
+        next: { revalidate: 60 * 60 }
     });
 
     const guild = await res.json();
     return guild;
+}
+
+async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLeaderboardGetResponse> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/leaderboard`, {
+        headers: { Authorization: process.env.API_SECRET as string },
+        next: { revalidate: 60 * 60 }
+    });
+
+    const design = await res.json();
+    return design;
 }
 
 async function getTopMembers(guildId: string, options: { page: number, type: string }): Promise<ApiV1GuildsTopmembersGetResponse[]> {
@@ -26,11 +38,11 @@ async function getTopMembers(guildId: string, options: { page: number, type: str
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/top-members?type=${options.type || "messages"}&page=${options.page}`, {
         headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 1_000 * 60 * 60 }
+        next: { revalidate: 60 }
     });
 
-    const guild = await res.json();
-    return guild;
+    const members = await res.json();
+    return members;
 }
 
 export const generateMetadata = async ({
@@ -64,24 +76,22 @@ export const generateMetadata = async ({
 };
 
 export default async function Home({ params, searchParams }: LeaderboardProps) {
-    const guild = await getGuild(params.guildId);
-    const members = await getTopMembers(params.guildId, { page: parseInt(searchParams.page || "0"), type: searchParams.type });
+    const guildPromise = getGuild(params.guildId);
+    const membersPromise = getTopMembers(params.guildId, { page: parseInt(searchParams.page || "0"), type: searchParams.type });
+    const designPromise = getDesign(params.guildId);
+
+    const [guild, members, design] = await Promise.all([guildPromise, membersPromise, designPromise]);
 
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
-    if (searchParams.type && searchParams.type !== "voiceminutes" && searchParams.type !== "invites") searchParams.type = "messages";
 
     return (
-        <div>
+        <div className="w-full">
 
-            <ErrorBanner
-                message="Sorting may be broken, banner config and more will come soon"
-                removeButton={true}
-                type="info"
-            />
-
-            <div className="relative mb-16">
-                <div className=" h-32 md:h-64 overflow-hidden rounded-xl">
-                    <Image src="/paint.jpg" width={3840 / 2} height={2160 / 2} alt="" />
+            <div className="relative mb-12 w-full">
+                <div className="h-32 md:h-64 overflow-hidden rounded-xl" style={{ background: `url(${design.banner})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                    {!design.banner &&
+                        <Image src="/paint.jpg" width={3840 / 2} height={2160 / 2} alt="" />
+                    }
                 </div>
 
                 <div style={{ backgroundColor: "var(--background-rgb)" }} className="text-lg flex items-center absolute bottom-[-44px] md:bottom-[-34px] left-[-6px] md:left-10 py-4 px-5 rounded-tr-3xl md:rounded-3xl">
@@ -118,19 +128,19 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                 <div className="md:w-3/4 md:mr-6">
                     {
                         !searchParams.type || searchParams.type === "voiceminutes" || searchParams.type === "invites" ?
-                            members.sort((a, b) => (b?.activity?.[searchParams.type as Types] ?? 0) - (a?.activity?.[searchParams.type as Types] ?? 0)).map((member) =>
+                            (members || []).sort((a, b) => (b?.activity?.[searchParams.type as Types] ?? 0) - (a?.activity?.[searchParams.type as Types] ?? 0)).map((member) =>
                                 <div
                                     key={member.id}
-                                    className="bg-wamellow mb-4 rounded-md p-3 flex items-center"
+                                    className="dark:bg-wamellow bg-wamellow-100 mb-4 rounded-md p-3 flex items-center"
                                 >
 
                                     <Image src={member.avatar ? `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.webp?size=56` : "https://cdn.waya.one/r/discord.png"} width={56} height={56} alt="User" className="rounded-full h-12 w-12 mr-3" />
                                     <div>
-                                        <div className="text-xl font-medium text-neutral-200">{member.globalName || member.username || "Unknown user"}</div>
-                                        <div className="text-sm text-neutral-300">@{member.username}</div>
+                                        <div className="text-xl font-medium dark:text-neutral-200 text-neutral-800">{member.globalName || member.username || "Unknown user"}</div>
+                                        <div className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</div>
                                     </div>
 
-                                    <div className="ml-auto flex text-xl font-medium text-neutral-200">
+                                    <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">
                                         <span>{typeof member.activity?.[searchParams.type as Types || "messages"] === "number" ? intl.format(member.activity?.[searchParams.type as Types || "messages"]) : member.activity?.[searchParams.type as Types || "messages"]}</span>
 
                                         <svg
@@ -155,9 +165,35 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                                 message="Invalid leaderboard type"
                             />
                     }
+
+                    <div className="flex h-10 w-full mt-5">
+
+                        <Link
+                            href={(searchParams.page && (parseInt(searchParams.page) || 0) !== 0) ? `?page=${(parseInt(searchParams.page) || 0) - 1}${searchParams.type ? `&type=${searchParams.type}` : ""}` : ""}
+                            className={`dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-1/3 rounded-l-md duration-100 flex items-center ${(!searchParams.page || (parseInt(searchParams.page) || 0) === 0) ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
+                        >
+                            <HiArrowLeft className="m-auto text-2xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
+                        </Link>
+
+                        <input
+                            className="outline-none text-center w-1/3 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-md flex items-center text-neutral-500 rounded-none"
+                            value={searchParams.page ?? 0}
+                            inputMode="numeric"
+                            disabled={true}
+                        />
+
+                        <Link
+                            href={members.length >= 10 ? `?page=${(parseInt(searchParams.page) || 0) + 1}${searchParams.type ? `&type=${searchParams.type}` : ""}` : ""}
+                            className={`dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-1/3 rounded-r-md duration-100 flex items-center ${members.length >= 10 ? "cursor-pointer" : "cursor-not-allowed opacity-50"}`}
+                        >
+                            <HiArrowRight className="m-auto text-2xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
+                        </Link>
+
+                    </div>
+
                 </div>
 
-                <div className="md:w-1/4">
+                <div className="md:w-1/4 mt-8 md:mt-0">
                     <SideComponent guild={guild} />
                 </div>
 

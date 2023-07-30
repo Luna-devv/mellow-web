@@ -142,6 +142,33 @@ export interface ApiV1GuildsModulesStarboardGetResponse {
     delete: boolean;
 }
 
+interface GuildLeaderboardApp {
+    channel: string | null;
+    message: string | null;
+
+    type: "daily" | "weekly" | "monthly" | "alltime";
+    display: "tag" | "username" | "nickname" | "id";
+
+    background: string | null;
+    emoji: string | null;
+
+    cardColor?: number;
+    textColor?: number;
+}
+
+export interface ApiV1GuildsModulesLeaderboardGetResponse {
+    banner: string | null;
+    emoji: string | null;
+
+    backgroundColor?: number;
+    textColor?: number;
+    accentColor?: number;
+
+    messages: GuildLeaderboardApp;
+    invites: GuildLeaderboardApp;
+    voice: GuildLeaderboardApp;
+}
+
 export type Voice =
     "en_us_001" | "en_us_002" | "en_us_006" | "en_us_007" | "en_us_008" | "en_us_009" | "en_us_010"
     | "en_uk_001" | "en_uk_003"
