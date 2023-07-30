@@ -1,10 +1,10 @@
 "use client";
 import { User, userStore } from "@/common/user";
-import { deepMerge } from "@/utils/deepMerge";
 import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import SelectInput from "@/components/inputs/SelectMenu";
 import TextInput from "@/components/inputs/TextInput";
+import { deepMerge } from "@/utils/deepMerge";
 
 export default function Home() {
     const user = userStore((s) => s);
@@ -88,6 +88,7 @@ export default function Home() {
             <ImageUrlInput
                 name="Background"
                 url="/users/@me/rank"
+                ratio="aspect-[4/1]"
                 dataName="background"
                 description="Enter a url which should be the background of your /rank card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
                 __defaultState={user?.extended?.rank?.background || ""}
