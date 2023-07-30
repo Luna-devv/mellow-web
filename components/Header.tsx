@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { HiArrowNarrowRight, HiBeaker, HiIdentification, HiOutlineChevronDown, HiTemplate } from "react-icons/hi";
+import { HiArrowNarrowRight, HiBeaker, HiIdentification, HiOutlineChevronDown, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
@@ -60,7 +60,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
         <div className="relative bottom-2 right-56 dark:bg-wamellow bg-wamellow-100 rounded-md w-56 text-base overflow-hidden shadow-md">
 
             <Link href="/dashboard" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha pt-3 pb-2 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
-                <HiTemplate />
+                <HiViewGridAdd />
                 <span className="ml-2">Dashboard</span>
             </Link>
             <Link href="/profile" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha pt-3 pb-2 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
