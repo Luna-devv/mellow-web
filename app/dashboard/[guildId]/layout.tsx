@@ -181,6 +181,10 @@ export default function RootLayout({
                         value: "/"
                     },
                     {
+                        name: "Leaderboards",
+                        value: "/leaderboards"
+                    },
+                    {
                         name: "Welcome",
                         value: "/welcome"
                     },

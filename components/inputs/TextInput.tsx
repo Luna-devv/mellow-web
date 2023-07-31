@@ -13,6 +13,7 @@ type Props = {
     disabled?: boolean;
     description?: string;
     __defaultState: string | number;
+    resetState?: string | number;
 
     type?: string;
     max?: number;
@@ -22,7 +23,7 @@ type Props = {
 };
 
 
-const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, type, max, placeholder, onSave }) => {
+const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, resetState, type, max, placeholder, onSave }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -36,7 +37,7 @@ const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, de
     }, [__defaultState]);
 
     useEffect(() => {
-        if (__defaultStatealue === value || !valuedebounced || !value) return;
+        if (__defaultStatealue === value) return;
         setError(undefined);
         setState("LOADING");
 
@@ -46,7 +47,7 @@ const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, de
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
             },
-            body: JSON.stringify({ [dataName]: value || null })
+            body: JSON.stringify({ [dataName]: value || 0x000000 })
         })
             .then(async (res) => {
                 const response = await res.json();
@@ -54,9 +55,9 @@ const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, de
 
                 switch (res.status) {
                     case 200: {
-                        setValue(value);
-                        set__defaultStatealue(value);
-                        onSave?.(value);
+                        setValue(value || 0x000000);
+                        onSave?.(value || 0x000000);
+                        set__defaultStatealue(value || 0x000000);
 
                         setState("SUCCESS");
                         setTimeout(() => setState(undefined), 1_000 * 8);
@@ -83,6 +84,20 @@ const TextInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, de
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
                 {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+
+                {(resetState && resetState !== value) &&
+                    <button
+                        className="text-sm ml-auto text-violet-400/60 hover:text-violet-400/90 duration-200"
+                        onClick={() => {
+                            setValue(resetState);
+                            setValuedebounced(resetState);
+                            setState(undefined);
+                        }}
+                        disabled={disabled}
+                    >
+                        reset
+                    </button>
+                }
             </div>
 
             <DumbTextInput

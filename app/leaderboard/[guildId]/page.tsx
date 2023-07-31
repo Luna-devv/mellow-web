@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 
 import ErrorBanner from "@/components/Error";
 import { ListTab } from "@/components/List";
 import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersGetResponse } from "@/typings";
+import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
 
+import PageComponent from "./PageComponent";
 import SideComponent from "./SideComponent";
 
 interface LeaderboardProps { params: { guildId: string }, searchParams: { page: string, type: string } }
@@ -25,8 +25,8 @@ async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse> {
 
 async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLeaderboardGetResponse> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/leaderboard`, {
-        headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 60 * 60 }
+        headers: { Authorization: process.env.API_SECRET as string }
+        // next: { revalidate: 60 * 60 }
     });
 
     const design = await res.json();
@@ -82,10 +82,21 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
 
     const [guild, members, design] = await Promise.all([guildPromise, membersPromise, designPromise]);
 
+    const backgroundRgb = decimalToRgb(design.backgroundColor || 0);
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     return (
         <div className="w-full">
+
+            {design.backgroundColor &&
+                <style>
+                    {`
+                        :root {
+                            --background-rgb: rgb(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b});
+                        }
+                    `}
+                </style>
+            }
 
             <div className="relative mb-12 w-full">
                 <div className="h-32 md:h-64 overflow-hidden rounded-xl" style={{ background: `url(${design.banner})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
@@ -131,7 +142,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                             (members || []).sort((a, b) => (b?.activity?.[searchParams.type as Types] ?? 0) - (a?.activity?.[searchParams.type as Types] ?? 0)).map((member) =>
                                 <div
                                     key={member.id}
-                                    className="dark:bg-wamellow bg-wamellow-100 mb-4 rounded-md p-3 flex items-center"
+                                    className={`${design.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100"} mb-4 rounded-md p-3 flex items-center`}
                                 >
 
                                     <Image src={member.avatar ? `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.webp?size=56` : "https://cdn.waya.one/r/discord.png"} width={56} height={56} alt="User" className="rounded-full h-12 w-12 mr-3" />
@@ -167,34 +178,13 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                     }
 
                     <div className="flex h-10 w-full mt-5">
-
-                        <Link
-                            href={(searchParams.page && (parseInt(searchParams.page) || 0) !== 0) ? `?page=${(parseInt(searchParams.page) || 0) - 1}${searchParams.type ? `&type=${searchParams.type}` : ""}` : ""}
-                            className={`dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-1/3 rounded-l-md duration-100 flex items-center ${(!searchParams.page || (parseInt(searchParams.page) || 0) === 0) ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
-                        >
-                            <HiArrowLeft className="m-auto text-2xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
-                        </Link>
-
-                        <input
-                            className="outline-none text-center w-1/3 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-md flex items-center text-neutral-500 rounded-none"
-                            value={searchParams.page ?? 0}
-                            inputMode="numeric"
-                            disabled={true}
-                        />
-
-                        <Link
-                            href={members.length >= 10 ? `?page=${(parseInt(searchParams.page) || 0) + 1}${searchParams.type ? `&type=${searchParams.type}` : ""}` : ""}
-                            className={`dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-1/3 rounded-r-md duration-100 flex items-center ${members.length >= 10 ? "cursor-pointer" : "cursor-not-allowed opacity-50"}`}
-                        >
-                            <HiArrowRight className="m-auto text-2xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
-                        </Link>
-
+                        <PageComponent searchParams={searchParams} membersLength={members.length} />
                     </div>
 
                 </div>
 
                 <div className="md:w-1/4 mt-8 md:mt-0">
-                    <SideComponent guild={guild} />
+                    <SideComponent guild={guild} design={design} />
                 </div>
 
             </div>
