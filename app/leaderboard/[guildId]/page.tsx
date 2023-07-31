@@ -184,7 +184,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                 </div>
 
                 <div className="md:w-1/4 mt-8 md:mt-0">
-                    <SideComponent guild={guild} design={design} />
+                    <SideComponent guildId={params.guildId} design={design} />
                 </div>
 
             </div>
