@@ -25,6 +25,9 @@ export interface ApiV1GuildsGetResponse {
     id: string;
     name: string;
     icon: string | null;
+    memberCount: number;
+    channelCount: number;
+    premiumTier: number;
 }
 
 export interface ApiV1GuildsTopmembersGetResponse {

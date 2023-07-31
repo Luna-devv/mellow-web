@@ -80,9 +80,9 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
     const membersPromise = getTopMembers(params.guildId, { page: parseInt(searchParams.page || "0"), type: searchParams.type });
     const designPromise = getDesign(params.guildId);
 
-    const [guild, members, design] = await Promise.all([guildPromise, membersPromise, designPromise]);
+    const [guild, members, design] = await Promise.all([guildPromise, membersPromise, designPromise]).catch(() => []);
 
-    const backgroundRgb = decimalToRgb(design.backgroundColor || 0);
+    const backgroundRgb = decimalToRgb(design?.backgroundColor || 0);
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     return (
@@ -109,7 +109,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                     <Image src={guild?.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=64` : "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Server" className="rounded-full h-14 w-14 mr-3" />
                     <div>
                         <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
-                        <div className="text-sm">Lorem ipsum</div>
+                        <div className="text-sm">{intl.format(guild?.memberCount || 0)} members</div>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
 
                 <div className="md:w-3/4 md:mr-6">
                     {
-                        !searchParams.type || searchParams.type === "voiceminutes" || searchParams.type === "invites" ?
+                        (guild && !("statusCode" in guild) && (!searchParams.type || searchParams.type === "voiceminutes" || searchParams.type === "invites")) ?
                             (members || []).sort((a, b) => (b?.activity?.[searchParams.type as Types] ?? 0) - (a?.activity?.[searchParams.type as Types] ?? 0)).map((member) =>
                                 <div
                                     key={member.id}
@@ -173,7 +173,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                             )
                             :
                             <ErrorBanner
-                                message="Invalid leaderboard type"
+                                message={(!guild || "statusCode" in guild) ? "Not Found" : "Invalid leaderboard type"}
                             />
                     }
 
