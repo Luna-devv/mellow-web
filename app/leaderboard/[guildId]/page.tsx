@@ -138,7 +138,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
 
                 <div className="md:w-3/4 md:mr-6">
                     {
-                        (guild && !("statusCode" in guild) && (!searchParams.type || searchParams.type === "voiceminutes" || searchParams.type === "invites")) ?
+                        (guild?.id && (!searchParams.type || searchParams.type === "voiceminutes" || searchParams.type === "invites")) ?
                             (members || []).sort((a, b) => (b?.activity?.[searchParams.type as Types] ?? 0) - (a?.activity?.[searchParams.type as Types] ?? 0)).map((member) =>
                                 <div
                                     key={member.id}
@@ -173,7 +173,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                             )
                             :
                             <ErrorBanner
-                                message={(!guild || "statusCode" in guild) ? "Not Found" : "Invalid leaderboard type"}
+                                message={!guild?.id ? "Not Found" : "Invalid leaderboard type"}
                             />
                     }
 
