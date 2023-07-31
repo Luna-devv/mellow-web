@@ -16,7 +16,7 @@ const SideComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse, design: 
         <div className="flex flex-col gap-3">
 
             <CopyToClipboardButton
-                className={design.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70" : "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light"}
+                className={design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70" : "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light"}
                 text={getCanonicalUrl("leaderboard", guild.id)}
             />
 
@@ -36,7 +36,7 @@ const SideComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse, design: 
                     </span>
                     <hr className="mt-2 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
 
-                    <Link href={getCanonicalUrl("dashboard", guild.id)} className={`flex ${design.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70" : "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light"} dark:hover:text-white py-2 px-4 rounded-md duration-200 w-full`}>
+                    <Link href={getCanonicalUrl("dashboard", guild.id)} className={`flex ${design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70" : "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light"} dark:hover:text-white py-2 px-4 rounded-md duration-200 w-full`}>
                         <HiViewGridAdd className="relative top-1" />
                         <span className="ml-2">Dashboard</span>
                     </Link>
