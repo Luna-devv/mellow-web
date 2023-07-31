@@ -41,8 +41,14 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const web = webStore((w) => w);
     useEffect(() => {
-        webStore.setState({ ...web, width: window?.innerWidth });
-        console.log(1);
+        const devToolsEnabled = localStorage.getItem("devToolsEnabled");
+
+        webStore.setState({
+            ...web,
+            width: window?.innerWidth,
+            devToolsEnabled: !!devToolsEnabled
+        });
+
         // setInterval(() => {
         //     if (window?.innerWidth !== web.width) webStore.setState({ ...web, width: window?.innerWidth });
         // }, 1000);
@@ -81,6 +87,9 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                                 className="sr-only peer"
                                 checked={web.devToolsEnabled}
                                 onClick={() => {
+                                    if (!web.devToolsEnabled) localStorage.setItem("devToolsEnabled", "true");
+                                    else localStorage.removeItem("devToolsEnabled");
+
                                     webStore.setState({ ...web, devToolsEnabled: !web.devToolsEnabled });
                                 }}
                             />
