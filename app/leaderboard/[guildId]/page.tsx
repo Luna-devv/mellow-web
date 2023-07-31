@@ -50,8 +50,8 @@ export const generateMetadata = async ({
 }: LeaderboardProps): Promise<Metadata> => {
     const guild = await getGuild(params.guildId);
 
-    const title = `${guild.name}'s Leaderboard`;
-    const description = `Easily access and view the top chatters, voice timers, and inviters from ${guild.name} in the web.`;
+    const title = `${guild?.name}'s Leaderboard`;
+    const description = `Easily access and view the top chatters, voice timers, and inviters from ${guild?.name} in the web.`;
     const url = getCanonicalUrl("leaderboard", params.guildId);
 
     return {
@@ -65,7 +65,7 @@ export const generateMetadata = async ({
             description,
             url,
             type: "website",
-            images: guild?.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=256` : "https://cdn.waya.one/r/discord.png"
+            images: guild?.icon ? `https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.webp?size=256` : "https://cdn.waya.one/r/discord.png"
         },
         twitter: {
             card: "summary",
@@ -88,7 +88,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
     return (
         <div className="w-full">
 
-            {design.backgroundColor &&
+            {design?.backgroundColor &&
                 <style>
                     {`
                         :root {
@@ -99,14 +99,14 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
             }
 
             <div className="relative mb-12 w-full">
-                <div className="h-32 md:h-64 overflow-hidden rounded-xl" style={{ background: `url(${design.banner})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                    {!design.banner &&
+                <div className="h-32 md:h-64 overflow-hidden rounded-xl" style={{ background: `url(${design?.banner})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                    {!design?.banner &&
                         <Image src="/paint.jpg" width={3840 / 2} height={2160 / 2} alt="" />
                     }
                 </div>
 
                 <div style={{ backgroundColor: "var(--background-rgb)" }} className="text-lg flex items-center absolute bottom-[-44px] md:bottom-[-34px] left-[-6px] md:left-10 py-4 px-5 rounded-tr-3xl md:rounded-3xl">
-                    <Image src={guild?.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=64` : "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Server" className="rounded-full h-14 w-14 mr-3" />
+                    <Image src={guild?.icon ? `https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.webp?size=64` : "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Server" className="rounded-full h-14 w-14 mr-3" />
                     <div>
                         <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
                         <div className="text-sm">{intl.format(guild?.memberCount || 0)} members</div>
@@ -142,7 +142,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                             (members || []).sort((a, b) => (b?.activity?.[searchParams.type as Types] ?? 0) - (a?.activity?.[searchParams.type as Types] ?? 0)).map((member) =>
                                 <div
                                     key={member.id}
-                                    className={`${design.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100"} mb-4 rounded-md p-3 flex items-center`}
+                                    className={`${design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100"} mb-4 rounded-md p-3 flex items-center`}
                                 >
 
                                     <Image src={member.avatar ? `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.webp?size=56` : "https://cdn.waya.one/r/discord.png"} width={56} height={56} alt="User" className="rounded-full h-12 w-12 mr-3" />
@@ -178,7 +178,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                     }
 
                     <div className="flex h-10 w-full mt-5">
-                        <PageComponent searchParams={searchParams} membersLength={members.length} />
+                        <PageComponent searchParams={searchParams} membersLength={members?.length || 0} />
                     </div>
 
                 </div>
