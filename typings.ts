@@ -198,7 +198,7 @@ export interface ApiV1MeGetResponse {
         };
     };
     tts?: {
-        __defaultStateoice?: Voice;
+        defaultVoice?: Voice;
         defaultFiletype?: "ogg" | "wav" | "mp3";
         commandUses?: number;
     };
