@@ -21,7 +21,7 @@ export const userStore = create<User | undefined>(() => ({
 
     id: "",
     username: "",
-    avatar: "https://cdn.waya.one/r/discord.png",
+    avatar: "/discord.png",
     locale: "en-US",
 
     extended: undefined

@@ -5,6 +5,7 @@ import { BsDiscord } from "react-icons/bs";
 import { HiHeart, HiPlus } from "react-icons/hi";
 
 import { ApiV1TopguildsGetResponse } from "@/typings";
+import { truncate } from "@/utils/truncate";
 
 export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
@@ -14,9 +15,9 @@ export default async function Home() {
         <>
             {topGuilds?.map((guild) => (
                 <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-64 drop-shadow-md" key={Math.random().toString()}>
-                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "https://cdn.waya.one/r/discord.png"} width={46} height={46} alt="Server" className="rounded-lg" />
+                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} width={46} height={46} alt="Server" className="rounded-lg" />
                     <div className="ml-3 text-sm">
-                        <div className="text-lg dark:text-neutral-200 text-neutral-800 font-medium">{guild.name.slice(0, 16)}{guild.name.length > 16 && "..."}</div>
+                        <div className="text-lg dark:text-neutral-200 text-neutral-800 font-medium">{truncate(guild.name, 16)}</div>
                         <div>{guild.memberCount} members</div>
                     </div>
                 </div>

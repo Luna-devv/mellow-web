@@ -75,7 +75,7 @@ export default function Home() {
 
             {guilds.map((guild) => (
                 <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 mb-4 flex items-center rounded-lg w-full drop-shadow-md" key={guild.id}>
-                    <Image src={guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=64` : "https://cdn.waya.one/r/discord.png"} width={64} height={64} alt="Server" className="rounded-lg h-16 w-16" />
+                    <Image src={guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=64` : "/discord.png"} width={64} height={64} alt="Server" className="rounded-lg h-16 w-16" />
                     <div className="ml-3 text-sm relative bottom-1">
                         <div className="text-lg dark:text-neutral-200 text-neutral-800 mb-3">{guild.name}</div>
                         <Link href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`} className="dark:bg-wamellow-alpha bg-wamellow-100-alpha dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200">Manage</Link>
