@@ -1,6 +1,5 @@
 "use client";
 
-import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -135,7 +134,6 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     return (
         <html lang="en" className="flex justify-center min-h-full max-w-full overflow-x-hidden">
-            <Analytics />
 
             {/* make this relative to support the footer, will break the header (lol) */}
             <body className={`${inter.className} w-full max-w-6xl min-h-full`}>
