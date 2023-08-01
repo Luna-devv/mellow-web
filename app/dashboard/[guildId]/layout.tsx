@@ -1,14 +1,17 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowNarrowLeft } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiCursorClick, HiSortDescending } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
+import { webStore } from "@/common/webstore";
+import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import ErrorBanner from "@/components/Error";
 import { ListTab } from "@/components/List";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
+import { getCanonicalUrl } from "@/utils/urls";
 
 export default function RootLayout({
     children
@@ -16,10 +19,12 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     const guild = guildStore((g) => g);
+    const web = webStore((w) => w);
 
     const [error, setError] = useState<string>();
 
     const params = useParams();
+    const path = usePathname();
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     useEffect(() => {
@@ -158,11 +163,20 @@ export default function RootLayout({
     return (
         <div className="flex flex-col w-full">
 
-            <div className="flex mb-5">
-                <Link href="/dashboard" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-3 rounded-md duration-200 text-sm">
+            <div className="flex gap-2 mb-5 text-sm">
+                <Link href="/dashboard" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-3 rounded-md duration-200">
                     <HiArrowNarrowLeft className="relative top-1" />
                     <span className="ml-2">Serverlist</span>
                 </Link>
+                {web.devToolsEnabled &&
+                    <CopyToClipboardButton
+                        text={getCanonicalUrl("leaderboard", params.guildId)}
+                        items={[
+                            { icon: <HiSortDescending />, name: "Copy page url", text: getCanonicalUrl(...path.split("/").slice(1)) },
+                            { icon: <HiCursorClick />, name: "Copy dash-to url", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
+                        ]}
+                    />
+                }
             </div>
 
             {error && <ErrorBanner message={error} />}
@@ -208,6 +222,6 @@ export default function RootLayout({
 
             {children}
 
-        </div>
+        </div >
     );
 }
