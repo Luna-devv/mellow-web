@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { HiArrowNarrowRight, HiBeaker, HiIdentification, HiOutlineChevronDown, HiViewGridAdd } from "react-icons/hi";
+import { HiArrowNarrowRight, HiBeaker, HiChevronDown, HiIdentification, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
@@ -57,8 +57,8 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     const UserButton = (
         <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
             <Image src={user?.avatar as string} width={30} height={30} style={{ height: 30, width: 30 }} alt="your avatar" className="rounded-full mr-2" />
-            <div className="mr-2">@{user?.username}</div>
-            <HiOutlineChevronDown />
+            <div className="mr-1">@{user?.username}</div>
+            <HiChevronDown />
         </button>
     );
 
