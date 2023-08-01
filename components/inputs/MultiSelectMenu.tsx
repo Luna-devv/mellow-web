@@ -4,6 +4,7 @@ import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
+import { truncate } from "@/utils/truncate";
 
 type Props = {
     name: string;
@@ -142,7 +143,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
                                 }}
                             >
                                 {item?.icon && <span className="mr-2">{item?.icon}</span>}
-                                <span>{item.name}</span>
+                                <span>{truncate(item.name, item.error ? 30 : 48)}</span>
                                 {values.find((v) => v.value === item.value) && <HiCheck className="ml-1" />}
                                 {item.error &&
                                     <div className="ml-auto text-sm flex items-center gap-1 text-red-500">

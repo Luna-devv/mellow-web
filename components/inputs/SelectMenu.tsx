@@ -4,6 +4,7 @@ import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
+import { truncate } from "@/utils/truncate";
 
 type Props = {
     name: string;
@@ -106,7 +107,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll shadow-xl" style={{ zIndex: 99 }}>
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl" style={{ zIndex: 99 }}>
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
@@ -120,7 +121,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
                                 }}
                             >
                                 {item?.icon && <span className="mr-2">{item?.icon}</span>}
-                                <div>{item.name}</div>
+                                <span>{truncate(item.name, item.error ? 30 : 48)}</span>
                                 {value?.value === item.value && <HiCheck className="ml-1" />}
                                 {item.error &&
                                     <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
