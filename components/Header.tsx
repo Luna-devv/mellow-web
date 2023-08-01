@@ -6,13 +6,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { HiArrowNarrowRight, HiBeaker, HiChevronDown, HiIdentification, HiViewGridAdd } from "react-icons/hi";
+import { HiArrowNarrowRight, HiBeaker, HiChevronDown, HiEyeOff, HiIdentification, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import LoginButton from "@/components/LoginButton";
 import authorizeUser from "@/utils/authorizeUser";
+
+import ImageReduceMotion from "./ImageReduceMotion";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,23 +58,44 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const UserButton = (
         <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
-            <Image src={user?.avatar as string} width={30} height={30} style={{ height: 30, width: 30 }} alt="your avatar" className="rounded-full mr-2" />
+            <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={32} alt="your avatar" className="rounded-full mr-2 h-[30px] w-[30px]" />
             <div className="mr-1">@{user?.username}</div>
             <HiChevronDown />
         </button>
     );
 
     const UserDropdown = (
-        <div className="relative bottom-2 right-56 dark:bg-wamellow bg-wamellow-100 rounded-md w-56 text-base overflow-hidden shadow-md">
+        <div className="relative bottom-2 right-60 dark:bg-wamellow bg-wamellow-100 rounded-md w-60 text-base overflow-hidden shadow-md">
 
             <Link href="/dashboard" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha pt-3 pb-2 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
                 <HiViewGridAdd />
                 <span className="ml-2">Dashboard</span>
             </Link>
-            <Link href="/profile" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha pt-3 pb-2 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
+            <Link href="/profile" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-3 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
                 <HiIdentification />
                 <span className="ml-2">Profile</span>
             </Link>
+
+            <div className="flex items-center px-4 pt-2 pb-3">
+                <HiEyeOff />
+                <span className="ml-2" title="Disables difs & animations.">Reduce Motion</span>
+                <label className="ml-auto relative inline-flex items-center cursor-pointer">
+                    <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        checked={web.reduceMotions}
+                        onClick={() => {
+                            if (!web.reduceMotions) localStorage.setItem("reduceMotions", "true");
+                            else localStorage.removeItem("reduceMotions");
+
+                            webStore.setState({ ...web, reduceMotions: !web.reduceMotions });
+                        }}
+                    />
+                    <div
+                        className="w-11 h-6 bg-neutral-300 rounded-full peer dark:bg-neutral-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-600"
+                    />
+                </label>
+            </div>
 
             {user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY &&
                 <div className="mb-3 mt-1">
@@ -137,7 +160,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
                     {web.width > 512 &&
                         <>
-                            <Link href="/docs" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Guides</Link>
+                            <Link href="/privacy" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Privacy</Link>
                             <Link href="/support" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
                         </>
                     }

@@ -14,8 +14,8 @@ export default async function Home() {
     const InnerMarquee = (
         <>
             {topGuilds?.map((guild) => (
-                <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-64 drop-shadow-md" key={Math.random().toString()}>
-                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} width={46} height={46} alt="Server" className="rounded-lg" />
+                <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-4 flex items-center rounded-lg w-64 drop-shadow-md" key={Math.random().toString()}>
+                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} width={46} height={46} alt="Server" className="rounded-full" />
                     <div className="ml-3 text-sm">
                         <div className="text-lg dark:text-neutral-200 text-neutral-800 font-medium">{truncate(guild.name, 16)}</div>
                         <div>{guild.memberCount} members</div>
