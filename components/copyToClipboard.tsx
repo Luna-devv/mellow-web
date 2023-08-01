@@ -1,3 +1,4 @@
+"use client";
 import { FunctionComponent, useRef, useState } from "react";
 import { HiChevronDown, HiLink } from "react-icons/hi";
 
