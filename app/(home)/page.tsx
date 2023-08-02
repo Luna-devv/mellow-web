@@ -4,8 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { BiCopyright } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
-import { HiCube, HiPlus } from "react-icons/hi";
+import { HiArrowRight, HiCube, HiPlus } from "react-icons/hi";
 
+import Highlight from "@/components/discord/Markdown";
+import DiscordMessage from "@/components/discord/Message";
+import DiscordMessageEmbed from "@/components/discord/MessageEmbed";
+import { ListTab } from "@/components/List";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import { truncate } from "@/utils/truncate";
 
@@ -20,10 +24,10 @@ export default async function Home() {
     const InnerMarquee = (
         <>
             {topGuilds?.map((guild) => (
-                <div className="dark:bg-wamellow bg-wamellow-100 py-3 px-4 flex items-center rounded-lg w-64 drop-shadow-md" key={Math.random().toString()}>
-                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} width={46} height={46} alt="Server" className="rounded-full" />
+                <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-72 drop-shadow-md" key={Math.random().toString()}>
+                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} width={52} height={52} alt="Server" className="rounded-full" />
                     <div className="ml-3 text-sm">
-                        <div className="text-lg dark:text-neutral-200 text-neutral-800 font-medium">{truncate(guild.name, 16)}</div>
+                        <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{truncate(guild.name, 16)}</div>
                         <div>{intl.format(guild.memberCount)} members</div>
                     </div>
                 </div>
@@ -32,9 +36,9 @@ export default async function Home() {
     );
 
     return (
-        <div className="sm:text-center flex items-center flex-col w-full">
+        <div className="flex items-center flex-col w-full">
 
-            <div className="lg:text-6xl px-4 text-5xl flex font-medium relative mb-1 dark:text-neutral-100 text-neutral-900 break-words">
+            <div className="lg:text-6xl px-4 text-5xl flex font-medium relative mb-2 dark:text-neutral-100 text-neutral-900 break-words sm:text-center">
                 <h1>
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next version</span>
                     {" of "}
@@ -48,10 +52,10 @@ export default async function Home() {
                 </div>
             </div>
 
-            <div className="md:text-xl text-md p-4 max-w-4xl">
-                Wamellow revolutionizes your experience with a plethora of features and extensive customization options, offering a superior alternative to popular bots like MEE6.
+            <div className="md:text-xl text-md p-4 max-w-4xl sm:text-center">
+                Wamellow revolutionizes your experience with a plethora of features and extensive customization options, offering a superior alternative to popular bots.
 
-                <div className="flex mt-6 justify-center gap-2 text-xl">
+                <div className="flex mt-6 justify-center gap-2 text-xl font-medium">
                     <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 w-1/2 sm:w-fit justify-center gap-2">
                         <HiPlus className="relative top-1" />
                         <span className="block sm:hidden">Wamellow</span>
@@ -70,13 +74,13 @@ export default async function Home() {
 
             </div>
 
-            <div className="text-left lg:mt-24 mt-16 max-w-full w-full">
+            <div className="lg:mt-24 mt-16 mb-4 max-w-full w-full">
                 <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium">Widely used in servers</h2>
-                <div className="md:text-xl text-md pt-2">
+                <div className="md:text-xl text-md pt-3">
                     Wamellow is widely embraced in many servers, including those frequented by your mum.
                 </div>
 
-                <div className="relative flex overflow-x-hidden mt-[-26px]">
+                <div className="relative flex overflow-x-hidden mt-[-32px]">
                     <div className="py-12 animate-marquee whitespace-nowrap flex gap-3">
                         {InnerMarquee}
                     </div>
@@ -95,8 +99,100 @@ export default async function Home() {
                 </div>
 
                 <div className="relative">
-                    <div className="absolute bottom-12 w-full h-[170px]" style={{ background: "linear-gradient(90deg, var(--background-rgb) 0%, rgba(0,0,0,0) 4%, rgba(0,0,0,0) 96%, var(--background-rgb) 100%)" }} />
+                    <div className="absolute bottom-12 w-full h-[190px]" style={{ background: "linear-gradient(90deg, var(--background-rgb) 0%, rgba(0,0,0,0) 4%, rgba(0,0,0,0) 96%, var(--background-rgb) 100%)" }} />
                 </div>
+            </div>
+
+            <div className="flex gap-8 my-10 items-center">
+
+                <div className="w-1/2">
+                    <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun Leveling and Lederboards</h2>
+                    <div className="text-md pt-6">
+                        Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
+                        Craft tailored access to channels and roles, granting exclusive permissions to dedicated members.
+                        By motivating your members to communicate, you{"’"}ll cultivate a more dynamic server community.
+                        Drive interaction and establish a feeling of accomplishment as users advance through our engaging leaderboard framework.
+                    </div>
+
+                    <div className="flex gap-2 mt-4">
+                        <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                            <HiPlus />
+                            <span className="block sm:hidden">Wamellow</span>
+                            <span className="hidden sm:block">Invite Wamellow</span>
+                        </Link>
+                        <Link href="/leaderboard/1055188344188973066" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 justify-center gap-1">
+                            <span className="mr-2">View Leaderboard</span>
+                            <HiArrowRight className="relative top-1" />
+                        </Link>
+                    </div>
+
+                </div>
+
+                <div className="ml-auto w-1/2 px-3 pb-3">
+                    <ListTab
+                        tabs={[
+                            {
+                                name: "Messages",
+                                value: ""
+                            },
+                            {
+                                name: "Voicetime",
+                                value: "voiceminutes"
+                            },
+                            {
+                                name: "Invites",
+                                value: "invites"
+                            }
+                        ]}
+                        url="/"
+                        searchParamName="type"
+                        disabled={true}
+                    />
+                    <Image src="/leaderboard.webp" width={1224} height={768} alt="leaderboards" />
+                </div>
+
+            </div>
+
+            <div className="flex gap-8 my-10 items-center">
+
+                <div className="ml-auto w-1/2 px-3 pb-3">
+                    <DiscordMessage
+                        mode={"DARK"}
+                        user={{
+                            username: "Wamellow",
+                            avatar: "/waya-legacy1.png",
+                            bot: true
+                        }}
+                    >
+                        <Highlight
+                            mode={"DARK"}
+                            text="Welcome @mwlica to **Someone's x Waya** 👋"
+                        />
+
+                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome banner" width={1024} height={256 + 16} className="w-[400px] h-[106px]" />
+
+                    </DiscordMessage>
+                </div>
+
+                <div className="text-left w-1/2">
+                    <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Heyho and bye 👋</h2>
+                    <div className="text-md pt-6">
+                        Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
+                        Ensure a positive, inclusive experience from the start, fostering community and engagement.
+                        Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
+                        Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
+                    </div>
+
+                    <div className="flex gap-2 mt-4">
+                        <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                            <HiPlus />
+                            <span className="block sm:hidden">Wamellow</span>
+                            <span className="hidden sm:block">Invite Wamellow</span>
+                        </Link>
+                    </div>
+
+                </div>
+
             </div>
 
             <div className="text-neutral-500 w-full mt-10 mb-6 text-left">
