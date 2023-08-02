@@ -57,8 +57,8 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const UserButton = (
         <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
-            <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={32} alt="your avatar" className="rounded-full mr-2 h-[30px] w-[30px]" />
-            <div className="mr-1">@{user?.username}</div>
+            <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={64} alt="your avatar" className="rounded-full mr-2 h-[30px] w-[30px]" />
+            <div className="mr-1 relative bottom-[1px]">@{user?.username}</div>
             <HiChevronDown />
         </button>
     );

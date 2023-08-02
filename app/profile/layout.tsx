@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { userStore } from "@/common/user";
 import ErrorBanner from "@/components/Error";
+import ImageReduceMotion from "@/components/ImageReduceMotion";
 import { ListTab } from "@/components/List";
 import { ApiV1MeGetResponse, RouteErrorResponse } from "@/typings";
 
@@ -52,12 +52,13 @@ export default function RootLayout({
 
     return (
         <div className="flex flex-col w-full">
+            <title>Your profile</title>
 
             {error && <ErrorBanner message={error} />}
 
             <div className="text-lg sm:flex items-center">
                 <div className="flex items-center">
-                    <Image src={user?.avatar || "/discord.png"} width={64} height={64} alt="Your profile picture" className="rounded-full h-14 w-14 mr-3" />
+                    <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={128} alt="your avatar" className="rounded-full h-14 w-14 mr-3" />
                     <div>
                         <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{user?.username ? `@${user.username}` : "Unknown User"}</div>
                         <div className="text-sm">Manage your profile here</div>
