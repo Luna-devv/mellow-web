@@ -7,52 +7,58 @@ import { getBaseUrl } from "@/utils/urls";
 
 import Header from "../components/Header";
 
-export const metadata: Metadata = {
-    metadataBase: new URL(getBaseUrl()),
+export const generateMetadata = async (): Promise<Metadata> => {
 
-    manifest: "/manifest.json",
-    appleWebApp: {
-        capable: true,
-        title: "Wamellow",
-        startupImage: "/waya-legacy1.png",
-        statusBarStyle: "black-translucent"
-    },
+    const title = "Wamellow - Next version of discord bots";
+    const description = "Wamellow revolutionizes your experience with a plethora of free features and extensive customization options, offering a superior alternative to popular bots like MEE6.";
 
-    title: {
-        default: "Wamellow - Next version of discord bots",
-        template: "%s | Wamellow"
-    },
+    return {
+        metadataBase: new URL(getBaseUrl()),
 
-    description: "Wamellow revolutionizes your experience with a plethora of free features and extensive customization options, offering a superior alternative to popular bots like MEE6.",
-    keywords: ["discord", "waya", "mwya", "wamellow", "waya bot", "discord bot", "bot"],
-    themeColor: "#bc7ed4",
-
-    alternates: {
-        canonical: getBaseUrl()
-    },
-
-    openGraph: {
-        title: {
-            default: "Wamellow - Next version of discord bots",
-            template: "%s on Wamellow"
+        manifest: "/manifest.json",
+        appleWebApp: {
+            capable: true,
+            title: "Wamellow",
+            startupImage: "/waya-legacy1.png",
+            statusBarStyle: "black-translucent"
         },
-        description: "Wamellow revolutionizes your experience with a plethora of free features and extensive customization options, offering a superior alternative to popular bots like MEE6.",
-        type: "website",
-        url: getBaseUrl(),
-        images: "https://wamellow.com/waya-legacy1.png"
-    },
 
-    twitter: {
-        card: "summary",
-        site: "wamellow.com",
-        title: "Wamellow - Next version of discord bots",
-        description: "Wamellow revolutionizes your experience with a plethora of free features and extensive customization options, offering a superior alternative to popular bots like MEE6."
-    },
+        title: {
+            default: title,
+            template: "%s"
+        },
 
-    creator: "Luna (lunish.nl)",
-    publisher: "Luna (lunish.nl)",
+        description: description,
+        keywords: ["discord", "waya", "mwya", "wamellow", "waya bot", "discord bot", "bot"],
+        themeColor: "#bc7ed4",
 
-    robots: "index, follow"
+        alternates: {
+            canonical: getBaseUrl()
+        },
+
+        openGraph: {
+            title: {
+                default: title,
+                template: "%s on Wamellow"
+            },
+            description: description,
+            type: "website",
+            url: getBaseUrl(),
+            images: "https://wamellow.com/waya-legacy1.png"
+        },
+
+        twitter: {
+            card: "summary",
+            site: "wamellow.com",
+            title: title,
+            description: description
+        },
+
+        creator: "Luna (lunish.nl)",
+        publisher: "Luna (lunish.nl)",
+
+        robots: "index, follow"
+    };
 };
 
 export default function RootLayout({

@@ -51,6 +51,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-col w-full">
+            <title>Dashboard</title>
 
             {error && <ErrorBanner message={error} />}
             <div className="md:flex md:items-center">

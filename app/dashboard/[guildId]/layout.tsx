@@ -162,6 +162,7 @@ export default function RootLayout({
 
     return (
         <div className="flex flex-col w-full">
+            <title>{`${guild?.name}'s Dashboard`}</title>
 
             <div className="flex gap-2 mb-5 text-sm">
                 <Link href="/dashboard" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-3 rounded-md duration-200">

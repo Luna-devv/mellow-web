@@ -26,8 +26,8 @@ async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse> {
 
 async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLeaderboardGetResponse> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/leaderboard`, {
-        headers: { Authorization: process.env.API_SECRET as string }
-        // next: { revalidate: 60 * 60 }
+        headers: { Authorization: process.env.API_SECRET as string },
+        next: { revalidate: 60 * 60 }
     });
 
     const design = await res.json();
