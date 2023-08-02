@@ -135,19 +135,15 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     return (
         <html lang="en" className="flex justify-center min-h-full max-w-full overflow-x-hidden">
 
-            {/* make this relative to support the footer, will break the header (lol) */}
             <body className={`${inter.className} w-full max-w-6xl min-h-full`}>
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
-                    {web.width > 512 ?
-                        <div>
-                            {user?.username && web.width > 624 && `Hey, @${user.username}!`} Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
-                        </div>
-                        :
-                        <div>
-                            This is an <span className="underline decoration-dotted break-word">early alpha version</span>!
-                        </div>
-                    }
+                    <div className="hidden md:block">
+                        {user?.username && web.width > 624 && `Hey, @${user.username}!`} Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
+                    </div>
+                    <div className="block md:hidden">
+                        This is an <span className="underline decoration-dotted break-word">early alpha version</span>!
+                    </div>
                 </div>
 
                 <div className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7">
@@ -156,12 +152,10 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>
 
-                    {web.width > 512 &&
-                        <>
-                            <Link href="/privacy" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Privacy</Link>
-                            <Link href="/support" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
-                        </>
-                    }
+                    <div className="hidden sm:block">
+                        <Link href="/privacy" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Privacy</Link>
+                        <Link href="/support" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
+                    </div>
 
                     {!user?.id ? <LoginButton loginstate={loginstate} width={web.width} /> : UserButton}
                 </div>
@@ -175,16 +169,6 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                 <main className="dark:text-neutral-300 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
                     {children}
                 </main>
-
-                {/* <div className="absolute bottom-0 text-neutral-500 w-full max-w-6xl mt-10 mb-6">
-                    <div>&copy; Wamellow {new Date(1635609600000).getFullYear()} - {new Date().getFullYear()}, Not affiliated with Discord Inc.</div>
-                    <div className="flex gap-2 mt-2">
-                        <Link href="/docs" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Documentation</Link>
-                        <Link href="/terms" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Terms of Service</Link>
-                        <Link href="/terms#privacy" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Privacy Policy</Link>
-                        <Link href="/status" className="bg-wamellow-alpha hover:bg-wamellow-light hover:text-neutral-300 py-1 px-2 rounded-md duration-200">Status</Link>
-                    </div>
-                </div> */}
 
             </body>
 

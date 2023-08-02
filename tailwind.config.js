@@ -31,11 +31,11 @@ module.exports = {
                 "xxs": "0.6rem"
             },
             animation: {
-                marquee: "marquee 25s linear infinite",
-                marquee2: "marquee2 25s linear infinite",
+                marquee: "marquee 35s linear infinite",
+                marquee2: "marquee2 35s linear infinite",
 
-                "marquee-reverse": "marquee-reverse 25s linear infinite",
-                "marquee-reverse2": "marquee-reverse2 25s linear infinite"
+                "marquee-reverse": "marquee-reverse 35s linear infinite",
+                "marquee-reverse2": "marquee-reverse2 35s linear infinite"
             },
             keyframes: {
                 marquee: {
