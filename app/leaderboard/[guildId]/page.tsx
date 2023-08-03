@@ -107,7 +107,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                 </div>
 
                 <div style={{ backgroundColor: "var(--background-rgb)" }} className="text-lg flex items-center absolute bottom-[-44px] md:bottom-[-34px] left-[-6px] md:left-10 py-4 px-5 rounded-tr-3xl md:rounded-3xl">
-                    <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 mr-3" />
+                    <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 mr-3" />
                     <div>
                         <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
                         <div className="text-sm">{intl.format(guild?.memberCount || 0)} members</div>
