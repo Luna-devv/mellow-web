@@ -195,6 +195,63 @@ export default async function Home() {
 
             </div>
 
+            <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
+
+                <div className="md:w-1/2">
+                    <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun with Starboards</h2>
+                    <div className="text-md pt-6">
+                        With Starboards, you have the power to elevate remarkable messages within our server.
+                        When you come across a post that deserves recognition, simply vote it up, and watch as it takes center stage for everyone to see.
+                        This feature ensures that exceptional content gets the attention it deserves, fostering a lively and engaging atmosphere.
+                        Join us in celebrating the best of our community by using Starboards to highlight and share messages that truly shine!
+                    </div>
+
+                    <div className="flex gap-2 mt-4">
+                        <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                            <HiPlus />
+                            <span className="block sm:hidden">Wamellow</span>
+                            <span className="hidden sm:block">Invite Wamellow</span>
+                        </Link>
+                    </div>
+
+                </div>
+
+                <div className="md:ml-auto md:w-1/2 px-3 pb-3">
+                    <DiscordMessage
+                        mode={"DARK"}
+                        user={{
+                            username: "Wamellow",
+                            avatar: "/waya-legacy1.png",
+                            bot: true
+                        }}
+                    >
+
+                        <DiscordMessageEmbed
+                            mode={"DARK"}
+                            color={0xbc7ed4}
+                            author={{
+                                text: "@mwlica",
+                                icon_url: "/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Favatars%2F821472922140803112%2Fa_cdc8644a3b252476c2cd801760d57180.gif%3Fsize%3D64&w=128&q=75"
+                            }}
+                            image="https://cdn.discordapp.com/attachments/883817635081506886/1113058694347894865/IMG_6864.png"
+                        >
+                            <Highlight mode={"DARK"} text="Like ok @sean I know you are gay but no I won’t date you" />
+
+                            <div className="flex gap-1 mt-4">
+                                <span className="font-bold flex gap-1 items-center">
+                                    <Image src="https://cdn.discordapp.com/emojis/858087981167542322.webp?size=24&quality=lossless" height={24} width={24} className="h-4 w-4 rounded" alt="" /> 9
+                                </span>
+                                •
+                                <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
+                            </div>
+                        </DiscordMessageEmbed>
+
+
+                    </DiscordMessage>
+                </div>
+
+            </div>
+
             <div className="text-neutral-500 w-full mt-10 mb-6 text-left">
 
                 <div className="flex items-center dark:text-neutral-100 text-neutral-900 gap-2">
