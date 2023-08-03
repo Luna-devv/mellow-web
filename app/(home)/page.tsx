@@ -21,9 +21,9 @@ export default async function Home() {
 
     const version = (await readFile(".git/FETCH_HEAD")).toString();
 
-    const InnerMarquee = (
+    const InnerMarquee = ({ id }: { id: number }) => (
         <>
-            {topGuilds?.map((guild) => (
+            {topGuilds.slice(id === 2 ? 10 : 0, id * 10)?.map((guild) => (
                 <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-72 drop-shadow-md" key={Math.random().toString()}>
                     <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} width={52} height={52} alt="Server" className="rounded-full" />
                     <div className="ml-3 text-sm">
@@ -82,19 +82,19 @@ export default async function Home() {
 
                 <div className="relative flex overflow-x-hidden mt-[-32px]">
                     <div className="py-12 animate-marquee whitespace-nowrap flex gap-3">
-                        {InnerMarquee}
+                        <InnerMarquee id={1} />
                     </div>
                     <div className="absolute top-0 py-12 animate-marquee2 whitespace-nowrap ml-3 flex gap-3">
-                        {InnerMarquee}
+                        <InnerMarquee id={1} />
                     </div>
                 </div>
 
                 <div className="relative flex overflow-x-hidden mt-[-78px]">
                     <div className="py-12 animate-marquee-reverse whitespace-nowrap flex gap-3">
-                        {InnerMarquee}
+                        <InnerMarquee id={2} />
                     </div>
                     <div className="absolute top-0 py-12 animate-marquee-reverse2 whitespace-nowrap ml-3 flex gap-3">
-                        {InnerMarquee}
+                        <InnerMarquee id={2} />
                     </div>
                 </div>
 
