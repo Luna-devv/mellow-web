@@ -74,8 +74,8 @@ export default async function Home() {
 
             </div>
 
-            <div className="lg:mt-24 mt-16 mb-4 max-w-full w-full">
-                <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium">Widely used in servers</h2>
+            <div className="lg:mt-24 mt-16 max-w-full w-full">
+                <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Widely used in servers</h2>
                 <div className="md:text-xl text-md pt-3">
                     Wamellow is widely embraced in many servers, including those frequented by your mum.
                 </div>
@@ -103,9 +103,9 @@ export default async function Home() {
                 </div>
             </div>
 
-            <div className="flex gap-8 my-10 items-center">
+            <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
 
-                <div className="w-1/2">
+                <div className="md:w-1/2">
                     <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun Leveling and Lederboards</h2>
                     <div className="text-md pt-6">
                         Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
@@ -128,7 +128,7 @@ export default async function Home() {
 
                 </div>
 
-                <div className="ml-auto w-1/2 px-3 pb-3">
+                <div className="md:ml-auto md:w-1/2 px-3 pb-3">
                     <ListTab
                         tabs={[
                             {
@@ -153,9 +153,9 @@ export default async function Home() {
 
             </div>
 
-            <div className="flex gap-8 my-10 items-center">
+            <div className="flex flex-col-reverse md:flex-row gap-8 md:my-12 my-6 items-center">
 
-                <div className="ml-auto w-1/2 px-3 pb-3">
+                <div className="md:ml-auto md:w-1/2 px-3 pb-3">
                     <DiscordMessage
                         mode={"DARK"}
                         user={{
@@ -169,12 +169,12 @@ export default async function Home() {
                             text="Welcome @mwlica to **Someone's x Waya** 👋"
                         />
 
-                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome banner" width={1024} height={256 + 16} className="w-[400px] h-[106px]" />
+                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome banner" width={1024} height={256 + 16} className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
 
                     </DiscordMessage>
                 </div>
 
-                <div className="text-left w-1/2">
+                <div className="text-left md:w-1/2">
                     <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Heyho and bye 👋</h2>
                     <div className="text-md pt-6">
                         Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
