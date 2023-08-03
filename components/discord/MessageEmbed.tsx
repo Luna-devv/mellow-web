@@ -31,7 +31,7 @@ const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, author, title
             <div className="flex w-full max-w-full">
                 <div className={thumbnail ? "w-9/12" : "w-full"}>
                     {author &&
-                        <div className={`${mode === "DARK" ? "text-neutral-100" : "text-neutral-900"} font-semibold text-medium mb-2 flex gap-2 items-center`}>
+                        <div className={`${mode === "DARK" ? "text-neutral-100" : "text-neutral-900"} font-semibold text-semibold mb-2 flex gap-2 items-center`}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             {author.icon_url && <img src={author.icon_url} alt="" className="rounded-full h-6 w-6" />}
                             <Highlight mode={mode} text={author.text} discord={false} />
