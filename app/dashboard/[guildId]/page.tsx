@@ -33,11 +33,11 @@ export default function Home() {
             <div className="flex items-center">
 
                 <div>
-                    <div className="text-sm mb-0.5">Posting updates into</div>
-                    <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">#{guild?.follownewsChannel?.name}</div>
-                    <button onClick={() => setModal(true)} className="flex text-violet-400/60 hover:text-violet-400/90 duration-200">
+                    <div className="text-sm mb-0.5">Posting updates {guild?.follownewsChannel?.name && "into"}</div>
+                    {guild?.follownewsChannel?.name && <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">#{guild?.follownewsChannel?.name}</div>}
+                    <button onClick={() => setModal(true)} className="flex dark:text-violet-400/60 dark:hover:text-violet-400/90 text-violet-600/60 hover:text-violet-600/90 duration-200">
                         <HiMail className="relative top-1" />
-                        <span className="ml-2">Change channel</span>
+                        <span className="ml-2">{guild?.follownewsChannel?.name ? "Change" : "Set"} channel</span>
                     </button>
                 </div>
 
