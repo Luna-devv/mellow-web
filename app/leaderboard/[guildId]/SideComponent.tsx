@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
 
 import { webStore } from "@/common/webstore";
-import Badge from "@/components/Badge";
+import Badge from "@/components/badge";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
