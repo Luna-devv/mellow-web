@@ -32,7 +32,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
     useEffect(() => {
         setValue(items.find((i) => i.value === __defaultState));
         setDefaultalue(__defaultState);
-    }, [items]);
+    }, [__defaultState]);
 
     useEffect(() => {
         setError(undefined);
@@ -41,13 +41,14 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
             return;
         }
 
-        setState("LOADING");
-
         if (!url) {
             if (!onSave) throw new Error("Warning: <SelectInput.onSave> must be defined when not using <SelectInput.url>.");
             onSave(value);
+            setState(undefined);
             return;
         }
+
+        setState("LOADING");
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",

@@ -10,11 +10,13 @@ interface Props {
     title: string;
     children: React.ReactNode;
     onSubmit?: () => Promise<Response>;
+    onSuccess?: () => void;
     onClose: () => void;
     dismissable?: boolean;
+    buttonName?: string
 }
 
-const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose }) => {
+const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, onSuccess, buttonName = "Submit" }) => {
 
     const [error, setError] = useState<string>();
 
@@ -48,21 +50,24 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose })
 
                                 onSubmit?.()
                                     .then(async (res) => {
-                                        if (res.ok) onClose();
+                                        if (res.ok) {
+                                            onClose();
+                                            onSuccess?.();
+                                        }
                                         else setError((await res.json() as RouteErrorResponse).message || "Unknown server error");
                                     })
                                     .catch((e) => setError(e || "Unknown server error"));
                             }}
                             className="ml-auto flex bg-violet-600 hover:bg-violet-700 text-neutral-200 py-2 px-4 duration-200 rounded-md"
                         >
-                            <span>Close</span>
+                            <span>{buttonName}</span>
                         </button>
 
                     </div>
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 
 };
