@@ -8,7 +8,7 @@ import { truncate } from "@/utils/truncate";
 
 type Props = {
     name: string;
-    url: string;
+    url?: string;
     dataName: string;
     items: { icon?: React.ReactNode; name: string; value: string | number; error?: string }[] | undefined;
     disabled?: boolean;
@@ -42,6 +42,13 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
         }
 
         setState("LOADING");
+
+        if (!url) {
+            if (!onSave) throw new Error("Warning: <SelectInput.onSave> must be defined when not using <SelectInput.url>.");
+            onSave(value);
+            return;
+        }
+
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
             headers: {
