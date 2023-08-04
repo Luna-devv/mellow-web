@@ -10,11 +10,12 @@ import Highlight from "@/components/discord/Markdown";
 import DiscordMessage from "@/components/discord/Message";
 import DiscordMessageEmbed from "@/components/discord/MessageEmbed";
 import { ListTab } from "@/components/List";
-import { ApiV1TopguildsGetResponse } from "@/typings";
+import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
 import { truncate } from "@/utils/truncate";
 
 export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
+    const stats = await fetch(`${process.env.NEXT_PUBLIC_API}/statistics`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1StatisticsGetResponse;
 
     const uwus = ["UwU", "uwu", "OwO", "owo", "QwQ", "qwq", ">:(", "Femboys ❤️"];
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
@@ -252,6 +253,42 @@ export default async function Home() {
 
             </div>
 
+            <div className="flex w-full rounded-md overflow-hidden">
+
+                <div className="dark:bg-wamellow bg-wamellow-100 p-5 md:w-1/4 w-1/2">
+                    <div className="text-sm mb-0.5">Guilds using us</div>
+                    <div className="flex">
+                        <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(stats.approximateGuildCount)}</span>
+                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(stats.guildsGained)} today</span>
+                    </div>
+                </div>
+
+                <div className="dark:bg-wamellow/75 bg-wamellow-100/70 p-5 md:w-1/4 w-1/2">
+                    <div className="text-sm mb-0.5">Users using us</div>
+                    <div className="flex">
+                        <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(stats.approximateUserCount)}</span>
+                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(stats.usersGained)} today</span>
+                    </div>
+                </div>
+
+                <div className="dark:bg-wamellow bg-wamellow-100 p-5 md:w-1/4 md:block hidden">
+                    <div className="text-sm mb-0.5">Votes for us</div>
+                    <div className="flex">
+                        <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(stats.approximateVoteCount)}</span>
+                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(stats.votesGained)} in {convertMonthToName(new Date().getMonth())}</span>
+                    </div>
+                </div>
+
+                <div className="dark:bg-wamellow/75 bg-wamellow-100/70 p-5 md:w-1/4 md:block hidden">
+                    <div className="text-sm mb-0.5">Clusters</div>
+                    <div className="flex">
+                        <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(1)}</span>
+                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(1)} shards ea.</span>
+                    </div>
+                </div>
+
+            </div>
+
             <div className="text-neutral-500 w-full mt-10 mb-6 text-left">
 
                 <div className="flex items-center dark:text-neutral-100 text-neutral-900 gap-2">
@@ -264,15 +301,20 @@ export default async function Home() {
                 <div className="mb-3 text-sm">
                     <span className="flex gap-1 items-center">
                         <BiCopyright />
-                        Waya {new Date(1635609600000).getFullYear()} - {new Date().getFullYear()}, not affiliated with Discord Inc.
+                        <span>
+                            <Link href="https://waya.one" className="hover:underline">Waya {new Date(1635609600000).getFullYear()} - {new Date().getFullYear()}</Link>,
+                            not affiliated with Discord Inc.
+                        </span>
                     </span>
                     <span className="flex gap-1 items-center">
                         <HiCube />
-                        Version {version.toString().slice(0, 7)} on {version.match(/'\w*'/)?.[0].slice(1, -1)}
+                        <span>
+                            Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl">lunish.nl</Link>
+                        </span>
                     </span>
                 </div>
 
-                <div className="flex gap-2 mt-2 dark:text-neutral-400 text-neutral-600 select-none">
+                <div className="flex flex-wrap gap-2 mt-2 dark:text-neutral-400 text-neutral-600 select-none">
                     <Link href="/terms" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Terms of Service</Link>
                     <Link href="/privacy" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Privacy Policy</Link>
                     <Link href="/support" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
@@ -282,4 +324,10 @@ export default async function Home() {
 
         </div>
     );
+}
+
+function convertMonthToName(monthNumber: number): string {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    return months[monthNumber];
 }
