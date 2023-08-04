@@ -22,12 +22,12 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
 
     return (
         <div id="modal-children" className="absolute top-0 left-0 w-full h-full bg-black/70 shadow-lg ml-auto flex items-center justify-center z-50">
-            <div className="w-[460px] p-4 bg-wamellow rounded-md">
+            <div className="md:w-[460px] w-full md:h-fit h-full p-4 dark:bg-wamellow bg-wamellow-100 md:rounded-md relative">
 
                 <div className="flex items-center">
-                    <span className="text-2xl font-medium text-neutral-100">{title}</span>
+                    <span className="text-2xl font-medium dark:text-neutral-100 text-neutral-900">{title}</span>
                     <button
-                        onClick={() => onClose()} className="ml-auto text-neutral-500 hover:text-neutral-400 duration-200"
+                        onClick={() => onClose()} className="ml-auto text-neutral-500 dark:hover:text-neutral-400 hover:text-neutral-600 duration-200"
                     >
                         <HiX className="h-5 w-5" />
                     </button>
@@ -39,10 +39,10 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
 
                 {children}
 
-                <div className="mt-8">
+                <div className="md:mt-8 md:static absolute bottom-0 left-0 w-full md:p-0 p-4">
                     <div className="flex w-full items-baseline">
 
-                        <span className="text-sm text-neutral-400">It feels so empty without anything</span>
+                        <span className="text-sm dark:text-neutral-400 text-neutral-600">It feels so empty without anything</span>
 
                         <button
                             onClick={() => {
