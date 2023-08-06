@@ -27,3 +27,17 @@ body {
     transform: scale(1.2) rotate(12deg);
   }
 }
+
+.svg-max svg {
+  height: 100%;
+  width: 100%;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

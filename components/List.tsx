@@ -19,7 +19,7 @@ export const ListTab: FunctionComponent<Props> = ({ tabs, url, searchParamName, 
     const router = useRouter();
 
     return (
-        <div className="text-sm font-medium text-center border-b dark:border-wamellow-light border-wamellow-100-light mt-2 mb-6 overflow-x-scroll">
+        <div className="text-sm font-medium text-center border-b dark:border-wamellow-light border-wamellow-100-light mt-2 mb-6 overflow-x-scroll scrollbar-none">
             <ul className="flex">
                 {tabs.map((tab) => (
                     <li className="mr-2" key={tab.name}>
