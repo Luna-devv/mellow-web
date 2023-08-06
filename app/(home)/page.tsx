@@ -1,10 +1,8 @@
 
-import { readFile } from "fs/promises";
 import Image from "next/image";
 import Link from "next/link";
-import { BiCopyright } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiCube, HiPlus } from "react-icons/hi";
+import { HiArrowRight, HiPlus } from "react-icons/hi";
 
 import Highlight from "@/components/discord/Markdown";
 import DiscordMessage from "@/components/discord/Message";
@@ -19,8 +17,6 @@ export default async function Home() {
 
     const uwus = ["UwU", "uwu", "OwO", "owo", "QwQ", "qwq", ">:(", "Femboys ❤️"];
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
-
-    const version = (await readFile(".git/FETCH_HEAD")).toString();
 
     const InnerMarquee = ({ id }: { id: number }) => (
         <>
@@ -149,7 +145,7 @@ export default async function Home() {
                         searchParamName="type"
                         disabled={true}
                     />
-                    <Image src="/leaderboard.webp" width={1224} height={768} alt="leaderboards" />
+                    <Image src="/leaderboard.webp" width={1224 / 2} height={768 / 2} alt="leaderboards" loading="lazy" />
                 </div>
 
             </div>
@@ -170,7 +166,7 @@ export default async function Home() {
                             text="Welcome @mwlica to **Someone's x Waya** 👋"
                         />
 
-                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome banner" width={1024} height={256 + 16} className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
+                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome banner" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
 
                     </DiscordMessage>
                 </div>
@@ -234,13 +230,13 @@ export default async function Home() {
                                 text: "@mwlica",
                                 icon_url: "/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Favatars%2F821472922140803112%2Fa_cdc8644a3b252476c2cd801760d57180.gif%3Fsize%3D64&w=128&q=75"
                             }}
-                            image="https://cdn.discordapp.com/attachments/883817635081506886/1113058694347894865/IMG_6864.png"
+                            image="/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F883817635081506886%2F1113058694347894865%2FIMG_6864.png&w=640&q=75"
                         >
                             <Highlight mode={"DARK"} text="Like ok @sean I know you are gay but no I won’t date you" />
 
                             <div className="flex gap-1 mt-4">
                                 <span className="font-bold flex gap-1 items-center">
-                                    <Image src="https://cdn.discordapp.com/emojis/858087981167542322.webp?size=24&quality=lossless" height={24} width={24} className="h-4 w-4 rounded" alt="" /> 9
+                                    <Image src="https://cdn.discordapp.com/emojis/858087981167542322.webp?size=24&quality=lossless" height={24} width={24} loading="lazy" className="h-4 w-4 rounded" alt="" /> 9
                                 </span>
                                 •
                                 <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
@@ -285,39 +281,6 @@ export default async function Home() {
                         <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(1)}</span>
                         <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(1)} shards ea.</span>
                     </div>
-                </div>
-
-            </div>
-
-            <div className="text-neutral-500 w-full mt-10 mb-6 text-left">
-
-                <div className="flex items-center dark:text-neutral-100 text-neutral-900 gap-2">
-                    <BsDiscord className="relative top-[1px] text-[#f8746e]" />
-                    <span className="text-xl bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text text-transparent">Wamellow</span>
-                    <span className="text-xl bg-gradient-to-r from-yellow-400 to-blue-400 bg-clip-text text-transparent">for</span>
-                    <span className="text-xl bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">discord</span>
-                </div>
-
-                <div className="mb-3 text-sm">
-                    <span className="flex gap-1 items-center">
-                        <BiCopyright />
-                        <span>
-                            <Link href="https://waya.one" className="hover:underline">Waya {new Date(1635609600000).getFullYear()} - {new Date().getFullYear()}</Link>,
-                            not affiliated with Discord Inc.
-                        </span>
-                    </span>
-                    <span className="flex gap-1 items-center">
-                        <HiCube />
-                        <span>
-                            Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl">lunish.nl</Link>
-                        </span>
-                    </span>
-                </div>
-
-                <div className="flex flex-wrap gap-2 mt-2 dark:text-neutral-400 text-neutral-600 select-none">
-                    <Link href="/terms" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Terms of Service</Link>
-                    <Link href="/privacy" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Privacy Policy</Link>
-                    <Link href="/support" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
                 </div>
 
             </div>

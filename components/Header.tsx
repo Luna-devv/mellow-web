@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { HiArrowNarrowRight, HiBeaker, HiChevronDown, HiEyeOff, HiIdentification, HiViewGridAdd } from "react-icons/hi";
+import { SiKofi } from "react-icons/si";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
@@ -13,6 +14,7 @@ import { webStore } from "@/common/webstore";
 import LoginButton from "@/components/LoginButton";
 import authorizeUser from "@/utils/authorizeUser";
 
+import TopggIcon from "./icons/topgg";
 import ImageReduceMotion from "./ImageReduceMotion";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -152,9 +154,13 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>
 
-                    <div className="hidden sm:block">
-                        <Link href="/privacy" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Privacy</Link>
-                        <Link href="/support" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
+                    <div className="hidden sm:flex gap-1">
+                        <Link href="https://lunish.nl/kofi" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
+                            <SiKofi className="group-hover:text-[#ff6c6b] duration-200" /> Support us
+                        </Link>
+                        <Link href="https://top.gg/bot/1125449347451068437/vote" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
+                            <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5" /> Vote
+                        </Link>
                     </div>
 
                     {!user?.id ? <LoginButton loginstate={loginstate} width={web.width} /> : UserButton}
