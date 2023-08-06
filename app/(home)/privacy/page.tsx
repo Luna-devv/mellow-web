@@ -13,7 +13,8 @@ export default async function Home() {
         .replaceAll(/waya#0325/gi, "Wamellow#1138")
         .replaceAll(/waya/gi, "wamellow")
         .replaceAll("/config command", "web dashboard (wamellow.com/dashboard)")
-        .replaceAll("@wamellow.com", "@waya.one");
+        .replaceAll("@wamellow.com", "@waya.one")
+        .replaceAll("If you wish to export server data, you may do so by navigating to the `/config` menu and selecting the ‘Export Data’ option.", "");
 
     return (
         <div>
