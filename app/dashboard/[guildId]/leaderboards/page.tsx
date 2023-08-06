@@ -2,6 +2,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { HiChartBar } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
@@ -10,7 +11,7 @@ import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import TextInput from "@/components/inputs/TextInput";
 import { ApiV1GuildsModulesLeaderboardGetResponse, RouteErrorResponse } from "@/typings";
 
-import OverviewLinkComponent from "../OverviewLinkComponent";
+import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -121,6 +122,7 @@ export default function Home() {
                 title="View Leaderboard"
                 message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
                 url={`/leaderboard/${params.guildId}`}
+                icon={<HiChartBar />}
             />
 
         </div >

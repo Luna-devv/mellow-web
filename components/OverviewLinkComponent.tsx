@@ -1,8 +1,16 @@
 import Link from "next/link";
 import { FunctionComponent } from "react";
-import { HiArrowRight, HiChartBar } from "react-icons/hi";
+import { HiArrowRight } from "react-icons/hi";
 
-const OverviewLinkComponent: FunctionComponent<{ title: string, message: string, url: string, className?: string }> = ({ title, message, url, className }) => {
+interface Props {
+    title: string;
+    message: string;
+    url: string;
+    className?: string;
+    icon: React.ReactNode;
+}
+
+const OverviewLinkComponent: FunctionComponent<Props> = ({ title, message, url, className, icon }) => {
     return (
         <div className={className}>
             <Link href={url}>
@@ -18,7 +26,9 @@ const OverviewLinkComponent: FunctionComponent<{ title: string, message: string,
                         <div className="text-sm">{message}</div>
                     </div>
 
-                    <HiChartBar className="ml-auto text-violet-400 group-hover/item:text-violet-500 duration-300" style={{ height: "3rem", width: "3rem" }} />
+                    <div className="svg-max h-12 w-12 ml-auto text-violet-400 group-hover/item:text-violet-500 duration-300">
+                        {icon}
+                    </div>
 
                 </div>
             </Link>

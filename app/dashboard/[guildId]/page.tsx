@@ -3,14 +3,14 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { BsDiscord } from "react-icons/bs";
-import { HiMail } from "react-icons/hi";
+import { HiChartBar, HiMail } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Modal from "@/components/Modal";
 
-import OverviewLinkComponent from "./OverviewLinkComponent";
+import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
 
 export default function Home() {
     const user = userStore((s) => s);
@@ -28,6 +28,7 @@ export default function Home() {
                 title="View Leaderboard"
                 message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
                 url={`/leaderboard/${params.guildId}`}
+                icon={<HiChartBar />}
             />
 
             <div className="flex items-center">
