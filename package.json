@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "tclean": "turbo daemon clean",
+    "tdev": "turbo dev",
+    "tbuild": "turbo build",
+    "tstart": "turbo start",
+    "tlint": "turbo lint",
     "build": "next build",
+    "dev": "next dev",
     "start": "next start -p 7000",
     "lint": "next lint"
   },
@@ -33,6 +38,7 @@
     "@typescript-eslint/parser": "^5.60.1",
     "eslint-plugin-path-alias": "^1.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-unused-imports": "^2.0.0"
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "turbo": "^1.10.12"
   }
 }
