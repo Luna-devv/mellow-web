@@ -20,6 +20,7 @@ export default function Home() {
 
     const [error, setError] = useState<string>();
     const [starboard, setStarboard] = useState<ApiV1GuildsModulesStarboardGetResponse>();
+    const [is, update] = useState<boolean>();
 
     const [example, setExample] = useState({
         avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
@@ -124,6 +125,11 @@ export default function Home() {
                 dataName="enabled"
                 defaultState={starboard?.enabled || false}
                 disabled={false}
+                onSave={(s) => {
+                    starboard.enabled = s;
+                    setStarboard(starboard);
+                    update(!is);
+                }}
             />
 
             <Switch
@@ -131,7 +137,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="allowBots"
                 defaultState={starboard?.allowBots || false}
-                disabled={false}
+                disabled={!starboard.enabled}
             />
 
             <Switch
@@ -139,7 +145,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="allowNSFW"
                 defaultState={starboard?.allowNSFW || false}
-                disabled={false}
+                disabled={!starboard.enabled}
             />
 
             <Switch
@@ -148,7 +154,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="allowEdits"
                 defaultState={starboard?.allowEdits || false}
-                disabled={false}
+                disabled={!starboard.enabled}
             />
 
             <Switch
@@ -157,7 +163,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="allowSelfReact"
                 defaultState={starboard?.allowSelfReact || false}
-                disabled={false}
+                disabled={!starboard.enabled}
             />
 
             <Switch
@@ -166,7 +172,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="displayReference"
                 defaultState={starboard?.displayReference || false}
-                disabled={false}
+                disabled={!starboard.enabled}
             />
 
             <Switch
@@ -175,7 +181,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="delete"
                 defaultState={starboard?.delete || false}
-                disabled={false}
+                disabled={!starboard.enabled}
             />
 
             <NumberInput
@@ -184,7 +190,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/starboard`}
                 dataName="requiredEmojis"
                 defaultState={starboard?.requiredEmojis ?? 0}
-                disabled={false}
+                disabled={!starboard.enabled}
                 min={1}
             />
 
@@ -195,6 +201,7 @@ export default function Home() {
                 items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                 description="Select the channel where the starboard messages should be send into."
                 __defaultState={starboard?.channelId}
+                disabled={!starboard.enabled}
             />
 
             <div className="lg:flex gap-3">
@@ -212,6 +219,7 @@ export default function Home() {
                         ]}
                         description="Select the emoji that needs to be reacted with."
                         __defaultState={starboard?.emoji}
+                        disabled={!starboard.enabled}
                     />
                 </div>
 
@@ -241,6 +249,7 @@ export default function Home() {
                         description="The style members profile gets displayed."
                         __defaultState={starboard?.style}
                         onSave={(options) => handleUserStyle(options.value as number)}
+                        disabled={!starboard.enabled}
                     />
                 </div>
             </div>
@@ -255,6 +264,7 @@ export default function Home() {
                         description="Select roles which should not be able to starboard."
                         __defaultState={starboard?.blacklistRoleIds || []}
                         max={500}
+                        disabled={!starboard.enabled}
                     />
                 </div>
 
@@ -267,6 +277,7 @@ export default function Home() {
                         description="Select channels which should not be able to be in the starboard."
                         __defaultState={starboard?.blacklistChannelIds || []}
                         max={500}
+                        disabled={!starboard.enabled}
                     />
                 </div>
             </div>

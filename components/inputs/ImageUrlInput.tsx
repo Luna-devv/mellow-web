@@ -47,7 +47,11 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                 "Content-Type": "application/json",
                 authorization: localStorage.getItem("token") as string
             },
-            body: JSON.stringify({ [dataName]: value || null })
+            body: JSON.stringify(dataName.includes(".") ?
+                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: value || null } }
+                :
+                { [dataName]: value || null }
+            )
         })
             .then(async (res) => {
                 const response = await res.json();

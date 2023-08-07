@@ -47,9 +47,9 @@ const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, set
                     placeholder={placeholder}
                     onChange={(e) => {
                         if (dataName) {
-                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined })));
+                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null })));
                         } else {
-                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
+                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null);
                         }
                     }}
                     value={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
@@ -63,9 +63,9 @@ const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, set
                     placeholder={placeholder}
                     onChange={(e) => {
                         if (dataName) {
-                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined })));
+                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null })));
                         } else {
-                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || undefined);
+                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null);
                         }
                     }}
                     value={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}

@@ -10,10 +10,12 @@ type Props = {
     disabled?: boolean;
     description?: string;
     defaultState: boolean;
+
+    onSave?: (state: boolean) => void;
 };
 
 
-const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState }) => {
+const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState, onSave }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -48,6 +50,7 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
                 switch (res.status) {
                     case 200: {
                         setState("SUCCESS");
+                        onSave?.(value);
                         setTimeout(() => setState(undefined), 1_000 * 8);
                         break;
                     }

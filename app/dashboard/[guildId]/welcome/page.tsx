@@ -5,8 +5,10 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { guildStore } from "@/common/guilds";
+import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
+import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
@@ -17,9 +19,11 @@ import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typi
 export default function Home() {
     const web = webStore((w) => w);
     const guild = guildStore((g) => g);
+    const user = userStore((s) => s);
 
     const [error, setError] = useState<string>();
     const [welcome, setWelcome] = useState<ApiV1GuildsModulesWelcomeGetResponse>();
+    const [is, update] = useState<boolean>();
 
     const params = useParams();
 
@@ -68,6 +72,11 @@ export default function Home() {
                 dataName="enabled"
                 defaultState={welcome?.enabled || false}
                 disabled={false}
+                onSave={(s) => {
+                    welcome.enabled = s;
+                    setWelcome(welcome);
+                    update(!is);
+                }}
             />
 
             <Switch
@@ -75,7 +84,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="restore"
                 defaultState={welcome?.restore || false}
-                disabled={false}
+                disabled={!welcome.enabled}
             />
 
             <NumberInput
@@ -84,7 +93,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="deleteAfter"
                 defaultState={welcome?.deleteAfter ?? 0}
-                disabled={false}
+                disabled={!welcome.enabled}
             />
 
             <div className="flex md:gap-4 gap-3">
@@ -95,11 +104,13 @@ export default function Home() {
                     items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the welcome message should be send into."
                     __defaultState={welcome?.channelId}
+                    disabled={!welcome.enabled || false}
                 />
 
                 <button
                     id="test-button"
-                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-600/80 text-white py-2 px-4 rounded-md duration-200 mt-8 h-12 md:w-32"
+                    className={`flex justify-center items-center bg-violet-600 hover:bg-violet-600/80 text-white py-2 px-4 rounded-md duration-100 mt-8 h-12 md:w-32 ${!welcome.enabled && "cursor-not-allowed opacity-50"}`}
+                    disabled={!welcome.enabled}
                     onClick={() => {
                         if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
                         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome/test`, {
@@ -151,6 +162,7 @@ export default function Home() {
                         description="Select roles which members should get."
                         __defaultState={welcome?.roleIds || []}
                         max={5}
+                        disabled={!welcome.enabled}
                     />
                 </div>
 
@@ -163,6 +175,7 @@ export default function Home() {
                         description="Select in what channels user should get ghostpinged."
                         __defaultState={welcome?.pingIds || []}
                         max={5}
+                        disabled={!welcome.enabled}
                     />
                 </div>
             </div>
@@ -183,6 +196,7 @@ export default function Home() {
                         description="Select emotes which will be reacted with on members first message."
                         __defaultState={welcome?.reactions?.firstMessageEmojis}
                         max={2}
+                        disabled={!welcome.enabled}
                     />
                 </div>
 
@@ -201,6 +215,7 @@ export default function Home() {
                         description="Select emotes which will be reacted with on welcome messages."
                         __defaultState={welcome?.reactions?.welcomeMessageEmojis}
                         max={2}
+                        disabled={!welcome.enabled}
                     />
                 </div>
             </div>
@@ -210,7 +225,60 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="message"
                 defaultMessage={welcome?.message}
-            />
+                messageAttachmentComponent={welcome.card.enabled && <Image src={`https://imagerenderer.waya.one/?type=join&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${welcome.card.background ? `&background=${encodeURIComponent(welcome.card.background)}` : ""}`} width={1024 / 2} height={(256 + 16) / 2} loading="lazy" alt="" />}
+                showMessageAttachmentComponentInEmbed={welcome.card.inEmbed}
+                disabled={!welcome.enabled}
+            >
+
+                <div className={`mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6 ${!welcome.card.enabled && "pb-[0px]"}`}>
+
+                    <Switch
+                        name="Show image card."
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="card.enabled"
+                        defaultState={welcome.card.enabled}
+                        disabled={!welcome.enabled}
+                        onSave={(s) => {
+                            welcome.card.enabled = s;
+                            setWelcome(welcome);
+                            update(!is);
+                        }}
+                    />
+
+                    {welcome.card.enabled &&
+                        <>
+                            <Switch
+                                name="Set image inside embed."
+                                url={`/guilds/${guild?.id}/modules/welcome`}
+                                dataName="card.inEmbed"
+                                defaultState={welcome.card.inEmbed || false}
+                                disabled={!welcome.card.enabled || !welcome.enabled}
+                                onSave={(s) => {
+                                    welcome.card.inEmbed = s;
+                                    setWelcome(welcome);
+                                    update(!is);
+                                }}
+                            />
+
+                            <ImageUrlInput
+                                name="Card Background"
+                                url={`/guilds/${guild?.id}/modules/welcome`}
+                                ratio="aspect-[4/1]"
+                                dataName="card.background"
+                                description="Enter a url which should be the background for the image card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
+                                __defaultState={welcome.card.background || ""}
+                                disabled={!welcome.card.enabled || !welcome.enabled}
+                                onSave={(v) => {
+                                    welcome.card.background = v;
+                                    setWelcome(welcome);
+                                    update(!is);
+                                }}
+                            />
+                        </>}
+
+                </div>
+
+            </MessageCreatorEmbed>
 
             <MessageCreatorEmbed
                 name="Direct Message"
@@ -218,14 +286,19 @@ export default function Home() {
                 dataName="dm.message"
                 defaultMessage={welcome?.dm?.message}
                 collapseable={true}
+                disabled={!welcome.enabled}
             >
-                <Switch
-                    name="Enabled"
-                    url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName="dm.enabled"
-                    defaultState={welcome?.dm?.enabled || false}
-                    disabled={false}
-                />
+
+                <div className="m-2">
+                    <Switch
+                        name="Enabled"
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="dm.enabled"
+                        defaultState={welcome?.dm?.enabled || false}
+                        disabled={!welcome.enabled}
+                    />
+                </div>
+
             </MessageCreatorEmbed>
 
         </div>

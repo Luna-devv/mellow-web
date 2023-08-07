@@ -18,9 +18,14 @@ interface Props {
 
     defaultMessage?: { content?: string, embed?: GuildEmbed };
     collapseable?: boolean;
+
+    messageAttachmentComponent?: React.ReactNode;
+    showMessageAttachmentComponentInEmbed?: boolean;
+
+    disabled?: boolean;
 }
 
-const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, dataName, defaultMessage, collapseable }) => {
+const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, dataName, defaultMessage, collapseable, messageAttachmentComponent, showMessageAttachmentComponentInEmbed, disabled }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -115,7 +120,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                     <div className="md:m-1 relative">
 
                         {children &&
-                            <div className={`mx-3 ${collapseable && "mt-6"}`}>
+                            <div className={`mx-1 ${collapseable && "mt-6"}`}>
                                 {children}
                             </div>
                         }
@@ -124,22 +129,23 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
                             <div className="lg:w-3/6 m-1">
 
-                                <DumbTextInput placeholder="Content" value={content} setValue={setContent} max={2000} />
-                                <DumbTextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" />
-                                <DumbTextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" />
+                                <DumbTextInput placeholder="Content" value={content} setValue={setContent} max={2000} disabled={disabled} />
+                                <DumbTextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" disabled={disabled} />
+                                <DumbTextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" disabled={disabled} />
                                 <div className="flex gap-2">
-                                    <DumbTextInput placeholder="Embed Color" value={embed} setValue={setEmbed} type="color" dataName="color" />
-                                    <DumbTextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" />
+                                    <DumbTextInput placeholder="Embed Color" value={embed} setValue={setEmbed} type="color" dataName="color" disabled={disabled} />
+                                    <DumbTextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" disabled={disabled} />
                                 </div>
-                                <DumbTextInput placeholder="Embed Image" value={embed} setValue={setEmbed} max={256} dataName="image" />
+                                <DumbTextInput placeholder="Embed Image" value={embed} setValue={setEmbed} max={256} dataName="image" disabled={disabled} />
                                 <div className="flex gap-2">
-                                    <DumbTextInput placeholder="Embed Footer Icon" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="icon_url" />
-                                    <DumbTextInput placeholder="Embed Footer" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="text" />
+                                    <DumbTextInput placeholder="Embed Footer Icon" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="icon_url" disabled={disabled} />
+                                    <DumbTextInput placeholder="Embed Footer" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="text" disabled={disabled} />
                                 </div>
 
                                 <button
-                                    className="flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-1 h-12 w-full"
+                                    className={`flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-1 h-12 w-full  ${disabled && "cursor-not-allowed opacity-50"}`}
                                     onClick={saveHook}
+                                    disabled={disabled}
                                 >
                                     Update
                                 </button>
@@ -186,7 +192,10 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                                         footer={JSON.parse(embedfooter)}
                                     >
                                         {JSON.parse(embed).description && <Highlight mode={mode} text={JSON.parse(embed).description} />}
+                                        {showMessageAttachmentComponentInEmbed && messageAttachmentComponent}
                                     </DiscordMessageEmbed>
+
+                                    {!showMessageAttachmentComponentInEmbed && messageAttachmentComponent}
 
                                 </DiscordMessage>
 
