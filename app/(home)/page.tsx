@@ -22,7 +22,7 @@ export default async function Home() {
         <>
             {topGuilds.slice(id === 2 ? 10 : 0, id * 10)?.map((guild) => (
                 <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-72 drop-shadow-md" key={Math.random().toString()}>
-                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} width={52} height={52} alt="Server" className="rounded-full" />
+                    <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} loading="lazy" width={52} height={52} alt="Server" className="rounded-full" />
                     <div className="ml-3 text-sm">
                         <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{truncate(guild.name, 16)}</div>
                         <div>{intl.format(guild.memberCount)} members</div>
@@ -166,7 +166,7 @@ export default async function Home() {
                             text="Welcome @mwlica to **Someone's x Waya** 👋"
                         />
 
-                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome banner" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
+                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome card example" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
 
                     </DiscordMessage>
                 </div>

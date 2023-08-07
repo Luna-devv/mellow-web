@@ -29,7 +29,7 @@ export default async function RootLayout({
                     <span className="text-xl bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">discord</span>
                 </div>
 
-                <div className="md:flex mb-3 text-sm">
+                <div className="md:flex mb-3 text-sm items-start">
 
                     <div>
                         <span className="flex gap-1 items-center">
@@ -42,31 +42,31 @@ export default async function RootLayout({
                         <span className="flex gap-1 items-center">
                             <HiCube />
                             <span>
-                                Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl">lunish.nl</Link>
+                                Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl" aria-label="Wamellow's developer">lunish.nl</Link>
                             </span>
                         </span>
                     </div>
 
                     <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
-                        <Link href="https://tiktok.com/@waya.one" className="text-neutral-400 hover:text-neutral-300 duration-200 h-5 w-5">
+                        <Link href="https://tiktok.com/@waya.one" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
                             <BiLogoTiktok />
                         </Link>
-                        <Link href="https://youtube.com/@wayabot" className="text-neutral-400 hover:text-neutral-300 duration-200 h-5 w-5">
+                        <Link href="https://youtube.com/@wayabot" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
                             <BiLogoYoutube />
                         </Link>
-                        <Link href="https://twitter.com/licamw" className="text-neutral-400 hover:text-neutral-300 duration-200 h-5 w-5">
+                        <Link href="https://twitter.com/licamw" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
                             <BiLogoTwitter />
                         </Link>
-                        <Link href="https://github.com/Luna-devv" className="text-neutral-400 hover:text-neutral-300 duration-200 h-5 w-5">
+                        <Link href="https://github.com/Luna-devv" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
                             <BiLogoGithub />
                         </Link>
-                        <Link href="mailto:support@waya.one" className="text-neutral-400 hover:text-neutral-300 duration-200 h-5 w-5">
+                        <Link href="mailto:support@waya.one" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Contaxt Wamellow via email">
                             <BiLogoGmail />
                         </Link>
-                        <Link href="https://lunish.nl/kofi" className="text-neutral-400 hover:text-neutral-300 duration-200 h-[18px] w-[18px]">
+                        <Link href="https://lunish.nl/kofi" className="text-neutral-400 hover:text-neutral-300 duration-200 h-[22px] w-[22px]" aria-label="Support Wamellow's developers monetarily on Kofi">
                             <SiKofi />
                         </Link>
-                        <Link href="https://top.gg/bot/1125449347451068437" className="text-neutral-400 hover:text-[#ff3366] duration-200 h-5 w-5">
+                        <Link href="https://top.gg/bot/1125449347451068437" className="text-neutral-400 hover:text-[#ff3366] duration-200 h-6 w-6" aria-label="Wamellow on top.gg">
                             <TopggIcon />
                         </Link>
                     </div>
