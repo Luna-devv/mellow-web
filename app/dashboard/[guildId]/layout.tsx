@@ -201,12 +201,8 @@ export default function RootLayout({
                         value: "/leaderboards"
                     },
                     {
-                        name: "Welcome",
-                        value: "/welcome"
-                    },
-                    {
-                        name: "Bye",
-                        value: "/bye"
+                        name: "Greetings",
+                        value: "/greeting"
                     },
                     // {
                     //     name: "Custom Commands",

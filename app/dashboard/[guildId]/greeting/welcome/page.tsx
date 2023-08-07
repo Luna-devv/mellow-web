@@ -8,6 +8,7 @@ import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
+import GoBack from "@/components/GoBack";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import NumberInput from "@/components/inputs/NumberInput";
@@ -59,12 +60,15 @@ export default function Home() {
 
     if (welcome === undefined) return (
         <div>
+            <GoBack url={`/dashboard/${guild?.id}/greeting`} />
             {error && <ErrorBanner message={error} />}
         </div>
     );
 
     return (
         <div>
+
+            <GoBack url={`/dashboard/${guild?.id}/greeting`} />
 
             <Switch
                 name="Welcome module enabled."
