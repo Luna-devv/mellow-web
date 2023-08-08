@@ -29,7 +29,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
 
         description: description,
-        keywords: ["discord", "waya", "mwya", "wamellow", "waya bot", "discord bot", "bot"],
+        keywords: ["discord", "waya", "mwya", "wamellow", "waya bot", "discord bot", "bot", "mwlica","lunish.nl","Luna-devv", "mee6 alternative"],
         themeColor: "#bc7ed4",
 
         alternates: {
@@ -51,7 +51,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
             card: "summary",
             site: "wamellow.com",
             title: title,
-            description: description
+            description: description,
+            images: "https://wamellow.com/waya-legacy1.png"
         },
 
         creator: "Luna (lunish.nl)",

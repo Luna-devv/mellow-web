@@ -100,154 +100,158 @@ export default async function Home() {
                 </div>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
+            <article itemScope itemType="http://schema.org/Article">
 
-                <div className="md:w-1/2">
-                    <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun Leveling and Lederboards</h2>
-                    <div className="text-md pt-6">
-                        Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
-                        Craft tailored access to channels and roles, granting exclusive permissions to dedicated members.
-                        By motivating your members to communicate, you{"’"}ll cultivate a more dynamic server community.
-                        Drive interaction and establish a feeling of accomplishment as users advance through our engaging leaderboard framework.
+                <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
+
+                    <div className="md:w-1/2">
+                        <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun Leveling and Lederboards</h2>
+                        <div className="text-md pt-6">
+                            Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
+                            Craft tailored access to channels and roles, granting exclusive permissions to dedicated members.
+                            By motivating your members to communicate, you{"’"}ll cultivate a more dynamic server community.
+                            Drive interaction and establish a feeling of accomplishment as users advance through our engaging leaderboard framework.
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                                <HiPlus />
+                                <span className="block sm:hidden">Wamellow</span>
+                                <span className="hidden sm:block">Invite Wamellow</span>
+                            </Link>
+                            <Link href="/leaderboard/1055188344188973066" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 justify-center gap-1">
+                                <span className="mr-2">View Leaderboard</span>
+                                <HiArrowRight className="relative top-1" />
+                            </Link>
+                        </div>
+
                     </div>
 
-                    <div className="flex gap-2 mt-4">
-                        <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                            <HiPlus />
-                            <span className="block sm:hidden">Wamellow</span>
-                            <span className="hidden sm:block">Invite Wamellow</span>
-                        </Link>
-                        <Link href="/leaderboard/1055188344188973066" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 justify-center gap-1">
-                            <span className="mr-2">View Leaderboard</span>
-                            <HiArrowRight className="relative top-1" />
-                        </Link>
-                    </div>
-
-                </div>
-
-                <div className="md:ml-auto md:w-1/2 px-3 pb-3">
-                    <ListTab
-                        tabs={[
-                            {
-                                name: "Messages",
-                                value: ""
-                            },
-                            {
-                                name: "Voicetime",
-                                value: "voiceminutes"
-                            },
-                            {
-                                name: "Invites",
-                                value: "invites"
-                            }
-                        ]}
-                        url="/"
-                        searchParamName="type"
-                        disabled={true}
-                    />
-                    <Image src="/leaderboard.webp" width={1224 / 2} height={768 / 2} alt="leaderboards" loading="lazy" />
-                </div>
-
-            </div>
-
-            <div className="flex flex-col-reverse md:flex-row gap-8 md:my-12 my-6 items-center">
-
-                <div className="md:ml-auto md:w-1/2 px-3 pb-3">
-                    <DiscordMessage
-                        mode={"DARK"}
-                        user={{
-                            username: "Wamellow",
-                            avatar: "/waya-legacy1.png",
-                            bot: true
-                        }}
-                    >
-                        <Highlight
-                            mode={"DARK"}
-                            text="Welcome @mwlica to **Someone's x Waya** 👋"
+                    <div className="md:ml-auto md:w-1/2 px-3 pb-3">
+                        <ListTab
+                            tabs={[
+                                {
+                                    name: "Messages",
+                                    value: ""
+                                },
+                                {
+                                    name: "Voicetime",
+                                    value: "voiceminutes"
+                                },
+                                {
+                                    name: "Invites",
+                                    value: "invites"
+                                }
+                            ]}
+                            url="/"
+                            searchParamName="type"
+                            disabled={true}
                         />
-
-                        <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" alt="Welcome card example" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
-
-                    </DiscordMessage>
-                </div>
-
-                <div className="text-left md:w-1/2">
-                    <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Heyho and bye 👋</h2>
-                    <div className="text-md pt-6">
-                        Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
-                        Ensure a positive, inclusive experience from the start, fostering community and engagement.
-                        Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
-                        Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
-                    </div>
-
-                    <div className="flex gap-2 mt-4">
-                        <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                            <HiPlus />
-                            <span className="block sm:hidden">Wamellow</span>
-                            <span className="hidden sm:block">Invite Wamellow</span>
-                        </Link>
+                        <Image src="/leaderboard.webp" itemProp="image" width={1224 / 2} height={768 / 2} alt="Example leaderboard webpage" loading="lazy" />
                     </div>
 
                 </div>
 
-            </div>
+                <div className="flex flex-col-reverse md:flex-row gap-8 md:my-12 my-6 items-center">
 
-            <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
-
-                <div className="md:w-1/2">
-                    <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun with Starboards</h2>
-                    <div className="text-md pt-6">
-                        With Starboards, you have the power to elevate remarkable messages within our server.
-                        When you come across a post that deserves recognition, simply vote it up, and watch as it takes center stage for everyone to see.
-                        This feature ensures that exceptional content gets the attention it deserves, fostering a lively and engaging atmosphere.
-                        Join us in celebrating the best of our community by using Starboards to highlight and share messages that truly shine!
-                    </div>
-
-                    <div className="flex gap-2 mt-4">
-                        <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                            <HiPlus />
-                            <span className="block sm:hidden">Wamellow</span>
-                            <span className="hidden sm:block">Invite Wamellow</span>
-                        </Link>
-                    </div>
-
-                </div>
-
-                <div className="md:ml-auto md:w-1/2 px-3 pb-3">
-                    <DiscordMessage
-                        mode={"DARK"}
-                        user={{
-                            username: "Wamellow",
-                            avatar: "/waya-legacy1.png",
-                            bot: true
-                        }}
-                    >
-
-                        <DiscordMessageEmbed
+                    <div className="md:ml-auto md:w-1/2 px-3 pb-3">
+                        <DiscordMessage
                             mode={"DARK"}
-                            color={0xbc7ed4}
-                            author={{
-                                text: "@mwlica",
-                                icon_url: "/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Favatars%2F821472922140803112%2Fa_cdc8644a3b252476c2cd801760d57180.gif%3Fsize%3D64&w=128&q=75"
+                            user={{
+                                username: "Wamellow",
+                                avatar: "/waya-legacy1.png",
+                                bot: true
                             }}
-                            image="/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F883817635081506886%2F1113058694347894865%2FIMG_6864.png&w=640&q=75"
                         >
-                            <Highlight mode={"DARK"} text="Like ok @sean I know you are gay but no I won’t date you" />
+                            <Highlight
+                                mode={"DARK"}
+                                text="Welcome @mwlica to **Someone's x Waya** 👋"
+                            />
 
-                            <div className="flex gap-1 mt-4">
-                                <span className="font-bold flex gap-1 items-center">
-                                    <Image src="https://cdn.discordapp.com/emojis/858087981167542322.webp?size=24&quality=lossless" height={24} width={24} loading="lazy" className="h-4 w-4 rounded" alt="" /> 9
-                                </span>
-                                •
-                                <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
-                            </div>
-                        </DiscordMessageEmbed>
+                            <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" itemProp="image" alt="Example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
 
+                        </DiscordMessage>
+                    </div>
 
-                    </DiscordMessage>
+                    <div className="text-left md:w-1/2">
+                        <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Heyho and bye 👋</h2>
+                        <div className="text-md pt-6">
+                            Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
+                            Ensure a positive, inclusive experience from the start, fostering community and engagement.
+                            Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
+                            Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                                <HiPlus />
+                                <span className="block sm:hidden">Wamellow</span>
+                                <span className="hidden sm:block">Invite Wamellow</span>
+                            </Link>
+                        </div>
+
+                    </div>
+
                 </div>
 
-            </div>
+                <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
+
+                    <div className="md:w-1/2">
+                        <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun with Starboards</h2>
+                        <div className="text-md pt-6">
+                            With Starboards, you have the power to elevate remarkable messages within our server.
+                            When you come across a post that deserves recognition, simply vote it up, and watch as it takes center stage for everyone to see.
+                            This feature ensures that exceptional content gets the attention it deserves, fostering a lively and engaging atmosphere.
+                            Join us in celebrating the best of our community by using Starboards to highlight and share messages that truly shine!
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                                <HiPlus />
+                                <span className="block sm:hidden">Wamellow</span>
+                                <span className="hidden sm:block">Invite Wamellow</span>
+                            </Link>
+                        </div>
+
+                    </div>
+
+                    <div className="md:ml-auto md:w-1/2 px-3 pb-3">
+                        <DiscordMessage
+                            mode={"DARK"}
+                            user={{
+                                username: "Wamellow",
+                                avatar: "/waya-legacy1.png",
+                                bot: true
+                            }}
+                        >
+
+                            <DiscordMessageEmbed
+                                mode={"DARK"}
+                                color={0xbc7ed4}
+                                author={{
+                                    text: "@mwlica",
+                                    icon_url: "/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Favatars%2F821472922140803112%2Fa_cdc8644a3b252476c2cd801760d57180.gif%3Fsize%3D64&w=128&q=75"
+                                }}
+                                image="/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F883817635081506886%2F1113058694347894865%2FIMG_6864.png&w=640&q=75"
+                            >
+                                <Highlight mode={"DARK"} text="Like ok @sean I know you are gay but no I won’t date you" />
+
+                                <div className="flex gap-1 mt-4">
+                                    <span className="font-bold flex gap-1 items-center">
+                                        <Image src="https://cdn.discordapp.com/emojis/858087981167542322.webp?size=24&quality=lossless" height={24} width={24} loading="lazy" className="h-4 w-4 rounded" alt="" /> 9
+                                    </span>
+                                    •
+                                    <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
+                                </div>
+                            </DiscordMessageEmbed>
+
+
+                        </DiscordMessage>
+                    </div>
+
+                </div>
+
+            </article>
 
             <div className="flex w-full rounded-md overflow-hidden">
 
@@ -284,6 +288,7 @@ export default async function Home() {
                 </div>
 
             </div>
+
 
         </div>
     );
