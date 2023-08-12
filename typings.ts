@@ -14,6 +14,7 @@ export interface ApiV1StatisticsGetResponse {
     usersGained: number;
     approximateVoteCount: number;
     votesGained: number;
+    globalGuilds: number;
 }
 
 export interface UserGuild {

@@ -1,6 +1,6 @@
 "use client";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -18,6 +18,7 @@ import TopggIcon from "./icons/topgg";
 import ImageReduceMotion from "./ImageReduceMotion";
 
 const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface Props {
     children: React.ReactNode
@@ -172,7 +173,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                 </div>
 
                 <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7">
-                    <Link href="/" className="flex items-center mr-2">
+                    <Link href="/" className={`${montserrat.className} font-semibold flex items-center mr-2`}>
                         <Image src="/waya-v3.webp" width={34} height={34} alt="wamellow" className="rounded-full mr-2" />
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>
@@ -186,7 +187,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                         </Link>
                     </div>
 
-                    {!user?.id ? <LoginButton loginstate={loginstate} width={web.width} /> : UserButton}
+                    {!user?.id ? <LoginButton loginstate={loginstate} /> : UserButton}
                 </nav>
 
                 <MotionConfig
@@ -205,7 +206,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                     </AnimatePresence>
                 </MotionConfig>
 
-                <main className="dark:text-neutral-300 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
+                <main className="dark:text-neutral-400 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
                     {children}
                 </main>
 
