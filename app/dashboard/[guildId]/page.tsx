@@ -49,47 +49,46 @@ export default function Home() {
 
             </div>
 
-            {modal && guild &&
-                <Modal
-                    title="Wamellow updates"
-                    onClose={() => setModal(false)}
-                    onSubmit={() => {
-                        return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild.id}/follow-updates`, {
-                            method: "PATCH",
-                            headers: {
-                                "Content-Type": "application/json",
-                                authorization: localStorage.getItem("token") as string
-                            },
-                            body: JSON.stringify({
-                                channelId: followchannel
-                            })
-                        });
-                    }}
-                    onSuccess={() => {
-                        guildStore.setState((g) => {
-                            if (!g) return g;
+            <Modal
+                title="Wamellow updates"
+                show={modal && !!guild}
+                onClose={() => setModal(false)}
+                onSubmit={() => {
+                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/follow-updates`, {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                            authorization: localStorage.getItem("token") as string
+                        },
+                        body: JSON.stringify({
+                            channelId: followchannel
+                        })
+                    });
+                }}
+                onSuccess={() => {
+                    guildStore.setState((g) => {
+                        if (!g) return g;
 
-                            g.follownewsChannel = {
-                                name: g?.channels?.find((c) => c.id === followchannel)?.name,
-                                id: followchannel
-                            };
+                        g.follownewsChannel = {
+                            name: g?.channels?.find((c) => c.id === followchannel)?.name,
+                            id: followchannel
+                        };
 
-                            return g;
-                        });
+                        return g;
+                    });
+                }}
+            >
+                <SelectMenu
+                    name="Channel"
+                    dataName="channelId"
+                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
+                    description="Select a channel where updates should be send into."
+                    __defaultState={guild?.follownewsChannel?.id}
+                    onSave={(o) => {
+                        setFollowchannel(o.value as string);
                     }}
-                >
-                    <SelectMenu
-                        name="Channel"
-                        dataName="channelId"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
-                        description="Select a channel where updates should be send into."
-                        __defaultState={guild?.follownewsChannel?.id}
-                        onSave={(o) => {
-                            setFollowchannel(o.value as string);
-                        }}
-                    />
-                </Modal>
-            }
+                />
+            </Modal>
 
             <hr className="mt-6 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
 
