@@ -19,7 +19,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         appleWebApp: {
             capable: true,
             title: "Wamellow",
-            startupImage: "/waya-legacy1.png",
+            startupImage: "/waya-v3.jpg",
             statusBarStyle: "black-translucent"
         },
 
@@ -29,7 +29,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
 
         description: description,
-        keywords: ["discord", "waya", "mwya", "wamellow", "waya bot", "discord bot", "bot", "mwlica","lunish.nl","Luna-devv", "mee6 alternative"],
+        keywords: ["discord", "bot", "discord bot", "waya", "waya bot", "waya.one", "mwya", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "tts", "free", "customizable"],
         themeColor: "#bc7ed4",
 
         alternates: {
@@ -44,7 +44,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             description: description,
             type: "website",
             url: getBaseUrl(),
-            images: "https://wamellow.com/waya-legacy1.png"
+            images: `${getBaseUrl()}/waya-v3.jpg`
         },
 
         twitter: {
@@ -52,7 +52,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             site: "wamellow.com",
             title: title,
             description: description,
-            images: "https://wamellow.com/waya-legacy1.png"
+            images: `${getBaseUrl()}/waya-v3.jpg`
         },
 
         creator: "Luna (lunish.nl)",

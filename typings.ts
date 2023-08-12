@@ -47,7 +47,7 @@ export interface ApiV1GuildsTopmembersGetResponse {
     globalName: string | null;
     username: string | null;
     avatar: string | null;
-    activity: ApiV1MeGetResponse["activity"];
+    activity: ApiV1MeGetResponse["activity"] & { formattedVoicetime: string };
 }
 
 export interface ApiV1GuildsChannelsGetResponse {
