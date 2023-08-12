@@ -8,8 +8,8 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                "wamellow": "#212226",
-                "wamellow-light": "#383b42",
+                "wamellow": "rgb(23, 24, 28)",
+                "wamellow-light": "rgb(33, 34, 38)",
                 "wamellow-alpha": "rgba(255, 255, 255, 0.06)",
 
 
