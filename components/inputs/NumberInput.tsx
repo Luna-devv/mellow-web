@@ -153,7 +153,6 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
 
                     <div className="absolute top-8 right-0">
                         {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                        {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
                     </div>
 
                 </div>

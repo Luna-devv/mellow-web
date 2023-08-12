@@ -26,7 +26,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [__defaultStatealue, setDefaultalue] = useState<string | number | undefined>();
+    const [defaultvalue, setDefaultalue] = useState<string | number | undefined>();
     const [value, setValue] = useState<{ icon?: React.ReactNode; name: string; value: string | number; error?: string } | undefined>();
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
 
     useEffect(() => {
         setError(undefined);
-        if (!value || value.error || value.value === __defaultStatealue) {
+        if (!value || value.error || value.value === defaultvalue) {
             setState(undefined);
             return;
         }
@@ -115,7 +115,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl" style={{ zIndex: 99 }}>
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-10">
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
@@ -145,7 +145,6 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
             <div className={`${web.width > 880 && "flex"} mt-1`}>
                 {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
                 {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
             </div>
 
         </div>

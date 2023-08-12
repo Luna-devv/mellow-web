@@ -100,7 +100,6 @@ const Switch: FunctionComponent<Props> = ({ name, url, dataName, disabled, descr
             <div className="absolute top-6">
                 {description && <div className="text-neutral-500 text-sm">{description}</div>}
                 {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">{"Saved"}</div>}
             </div>
 
         </div>

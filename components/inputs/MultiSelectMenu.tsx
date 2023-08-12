@@ -25,17 +25,17 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [__defaultStatealue, setDefaultalue] = useState<string[]>([]);
+    const [defaultvalue, setDefaultalue] = useState<string[]>([]);
     const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string; error?: string; color?: number; }[]>([]);
 
     useEffect(() => {
         setValues(items.filter((i) => __defaultState?.includes(i.value)));
         setDefaultalue(__defaultState);
-    }, [items]);
+    }, [__defaultState]);
 
     useEffect(() => {
         setError(undefined);
-        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(__defaultStatealue)) {
+        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
             setState(undefined);
             return;
         }
@@ -159,7 +159,6 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
             <div className={`${web.width > 880 && "flex"} mt-1`}>
                 {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
                 {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
             </div>
 
         </div>
