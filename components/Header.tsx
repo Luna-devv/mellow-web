@@ -1,5 +1,5 @@
 "use client";
-
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,7 +25,7 @@ interface Props {
 
 const Header: FunctionComponent<Props> = ({ children }) => {
 
-    const [menu, setMenu] = useState<boolean>(false);
+    const [menu, setMenu] = useState(false);
     const [loginstate, setLoginstate] = useState<"LOADING" | "ERRORED" | undefined>(undefined);
 
     const path = usePathname() || "/";
@@ -45,11 +45,13 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     const web = webStore((w) => w);
     useEffect(() => {
         const devToolsEnabled = localStorage.getItem("devToolsEnabled");
+        const reduceMotions = localStorage.getItem("reduceMotions");
 
         webStore.setState({
             ...web,
             width: window?.innerWidth,
-            devToolsEnabled: !!devToolsEnabled
+            devToolsEnabled: !!devToolsEnabled,
+            reduceMotions: !!reduceMotions
         });
 
         // setInterval(() => {
@@ -66,7 +68,28 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     );
 
     const UserDropdown = (
-        <div className="relative bottom-2 right-60 dark:bg-wamellow bg-wamellow-100 rounded-md w-60 text-base overflow-hidden shadow-md">
+        <motion.div
+            initial="closed"
+            animate={menu ? "open" : "closed"}
+            exit="closed"
+            variants={{
+                closed: {
+                    y: "var(--y-closed, 0)",
+                    opacity: "var(--opacity-closed)",
+                    scale: "var(--scale-closed, 1)"
+                },
+                open: {
+                    y: "var(--y-open, 0)",
+                    opacity: "var(--opacity-open)",
+                    scale: "var(--scale-open, 1)"
+                }
+            }}
+            className="
+                relative bottom-2 sm:right-60 w-full sm:w-60 dark:bg-wamellow bg-wamellow-100 rounded-md text-base overflow-hidden shadow-md
+                max-sm:[--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
+                max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
+            "
+        >
 
             <Link href="/dashboard" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha pt-3 pb-2 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
                 <HiViewGridAdd />
@@ -131,7 +154,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                 <HiArrowNarrowRight />
                 <span className="ml-2">Logout</span>
             </Link>
-        </div>
+        </motion.div>
     );
 
     return (
@@ -150,7 +173,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
                 <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7">
                     <Link href="/" className="flex items-center mr-2">
-                        <Image src="/waya-legacy1.png" width={34} height={34} alt="wamellow" className="rounded-full mr-2" />
+                        <Image src="/waya-v3.webp" width={34} height={34} alt="wamellow" className="rounded-full mr-2" />
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>
 
@@ -166,11 +189,21 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                     {!user?.id ? <LoginButton loginstate={loginstate} width={web.width} /> : UserButton}
                 </nav>
 
-                {user?.id && menu &&
-                    <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 select-none overflow-x-hidden">
-                        <div className="ml-auto overflow-x-hidden"><div className="absolute z-10">{UserDropdown}</div></div>
-                    </div>
-                }
+                <MotionConfig
+                    transition={web.reduceMotions ?
+                        { duration: 0 }
+                        :
+                        { type: "spring", bounce: 0.4, duration: menu ? 0.7 : 0.4 }
+                    }
+                >
+                    <AnimatePresence initial={false}>
+                        {user?.id && menu &&
+                            <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 select-none overflow-x-hidden">
+                                <div className="ml-auto overflow-x-hidden"><div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-10 w-full">{UserDropdown}</div></div>
+                            </div>
+                        }
+                    </AnimatePresence>
+                </MotionConfig>
 
                 <main className="dark:text-neutral-300 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
                     {children}

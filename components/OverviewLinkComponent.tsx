@@ -14,7 +14,7 @@ const OverviewLinkComponent: FunctionComponent<Props> = ({ title, message, url, 
     return (
         <div className={className}>
             <Link href={url}>
-                <div className="w-full dark:text-neutral-100 text-neutral-900 dark:bg-wamellow bg-wamellow-100 py-4 px-5 mb-6 rounded-md outline-violet-500 hover:outline flex gap-2 group/item ">
+                <div className="w-full dark:text-neutral-100 text-neutral-900 dark:bg-wamellow bg-wamellow-100 py-4 px-5 mb-6 rounded-md outline-violet-500 hover:outline flex gap-2 group/item duration-100">
 
                     <div>
 

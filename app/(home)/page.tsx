@@ -1,9 +1,9 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiArrowRight, HiPlus } from "react-icons/hi";
 
+import ClientCountUp from "@/components/ClientCountUp";
 import Highlight from "@/components/discord/Markdown";
 import DiscordMessage from "@/components/discord/Message";
 import DiscordMessageEmbed from "@/components/discord/MessageEmbed";
@@ -100,9 +100,9 @@ export default async function Home() {
                 </div>
             </div>
 
-            <article itemScope itemType="http://schema.org/Article">
+            <article itemScope itemType="http://schema.org/Article" className="flex flex-col gap-24 mb-12">
 
-                <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
+                <div className="flex flex-col md:flex-row gap-8 items-center">
 
                     <div className="md:w-1/2">
                         <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun Leveling and Lederboards</h2>
@@ -152,7 +152,7 @@ export default async function Home() {
 
                 </div>
 
-                <div className="flex flex-col-reverse md:flex-row gap-8 md:my-12 my-6 items-center">
+                <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
 
                     <div className="md:ml-auto md:w-1/2 px-3 pb-3">
                         <DiscordMessage
@@ -194,7 +194,7 @@ export default async function Home() {
 
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-8 md:my-12 my-6 items-center">
+                <div className="flex flex-col md:flex-row gap-8 items-center">
 
                     <div className="md:w-1/2">
                         <h2 className="lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-medium underline decoration-violet-400">Fun with Starboards</h2>
@@ -230,7 +230,7 @@ export default async function Home() {
                                 color={0xbc7ed4}
                                 author={{
                                     text: "@mwlica",
-                                    icon_url: "/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Favatars%2F821472922140803112%2Fa_cdc8644a3b252476c2cd801760d57180.gif%3Fsize%3D64&w=128&q=75"
+                                    icon_url: "/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Favatars%2F821472922140803112%2Fa_cdc8644a3b252476c2cd801760d57180.webp%3Fsize%3D64&w=128&q=75"
                                 }}
                                 image="/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F883817635081506886%2F1113058694347894865%2FIMG_6864.png&w=640&q=75"
                             >
@@ -258,24 +258,24 @@ export default async function Home() {
                 <div className="dark:bg-wamellow bg-wamellow-100 p-5 md:w-1/4 w-1/2">
                     <div className="text-sm mb-0.5">Guilds using us</div>
                     <div className="flex">
-                        <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(stats.approximateGuildCount)}</span>
-                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(stats.guildsGained)} today</span>
+                        <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateGuildCount} />
+                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.guildsGained} /> today</span>
                     </div>
                 </div>
 
                 <div className="dark:bg-wamellow/75 bg-wamellow-100/70 p-5 md:w-1/4 w-1/2">
                     <div className="text-sm mb-0.5">Users using us</div>
                     <div className="flex">
-                        <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(stats.approximateUserCount)}</span>
-                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(stats.usersGained)} today</span>
+                        <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateUserCount} />
+                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.usersGained} /> today</span>
                     </div>
                 </div>
 
                 <div className="dark:bg-wamellow bg-wamellow-100 p-5 md:w-1/4 md:block hidden">
                     <div className="text-sm mb-0.5">Votes for us</div>
                     <div className="flex">
-                        <span className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium">{intl.format(stats.approximateVoteCount)}</span>
-                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+{intl.format(stats.votesGained)} in {convertMonthToName(new Date().getMonth())}</span>
+                        <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateVoteCount} />
+                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.votesGained} /> in {convertMonthToName(new Date().getMonth())}</span>
                     </div>
                 </div>
 
