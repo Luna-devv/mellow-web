@@ -24,7 +24,6 @@ export default function Home() {
 
     const [error, setError] = useState<string>();
     const [welcome, setWelcome] = useState<ApiV1GuildsModulesWelcomeGetResponse>();
-    const [is, update] = useState<boolean>();
 
     const params = useParams();
 
@@ -77,9 +76,10 @@ export default function Home() {
                 defaultState={welcome?.enabled || false}
                 disabled={false}
                 onSave={(s) => {
-                    welcome.enabled = s;
-                    setWelcome(welcome);
-                    update(!is);
+                    setWelcome({
+                        ...welcome,
+                        enabled: s
+                    });
                 }}
             />
 
@@ -243,9 +243,13 @@ export default function Home() {
                         defaultState={welcome.card.enabled}
                         disabled={!welcome.enabled}
                         onSave={(s) => {
-                            welcome.card.enabled = s;
-                            setWelcome(welcome);
-                            update(!is);
+                            setWelcome({
+                                ...welcome,
+                                card: {
+                                    ...welcome.card,
+                                    enabled: s
+                                }
+                            });
                         }}
                     />
 
@@ -258,9 +262,13 @@ export default function Home() {
                                 defaultState={welcome.card.inEmbed || false}
                                 disabled={!welcome.card.enabled || !welcome.enabled}
                                 onSave={(s) => {
-                                    welcome.card.inEmbed = s;
-                                    setWelcome(welcome);
-                                    update(!is);
+                                    setWelcome({
+                                        ...welcome,
+                                        card: {
+                                            ...welcome.card,
+                                            inEmbed: s
+                                        }
+                                    });
                                 }}
                             />
 
@@ -273,9 +281,13 @@ export default function Home() {
                                 __defaultState={welcome.card.background || ""}
                                 disabled={!welcome.card.enabled || !welcome.enabled}
                                 onSave={(v) => {
-                                    welcome.card.background = v;
-                                    setWelcome(welcome);
-                                    update(!is);
+                                    setWelcome({
+                                        ...welcome,
+                                        card: {
+                                            ...welcome.card,
+                                            background: v
+                                        }
+                                    });
                                 }}
                             />
                         </>}

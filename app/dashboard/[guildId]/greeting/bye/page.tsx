@@ -23,7 +23,6 @@ export default function Home() {
 
     const [error, setError] = useState<string>();
     const [bye, setBye] = useState<ApiV1GuildsModulesByeGetResponse>();
-    const [is, update] = useState<boolean>();
 
     const params = useParams();
 
@@ -76,9 +75,10 @@ export default function Home() {
                 defaultState={bye?.enabled || false}
                 disabled={false}
                 onSave={(s) => {
-                    bye.enabled = s;
-                    setBye(bye);
-                    update(!is);
+                    setBye({
+                        ...bye,
+                        enabled: s
+                    });
                 }}
             />
 
@@ -165,9 +165,13 @@ export default function Home() {
                         defaultState={bye.card.enabled}
                         disabled={!bye.enabled}
                         onSave={(s) => {
-                            bye.card.enabled = s;
-                            setBye(bye);
-                            update(!is);
+                            setBye({
+                                ...bye,
+                                card: {
+                                    ...bye.card,
+                                    enabled: s
+                                }
+                            });
                         }}
                     />
 
@@ -180,9 +184,13 @@ export default function Home() {
                                 defaultState={bye.card.inEmbed || false}
                                 disabled={!bye.card.enabled || !bye.enabled}
                                 onSave={(s) => {
-                                    bye.card.inEmbed = s;
-                                    setBye(bye);
-                                    update(!is);
+                                    setBye({
+                                        ...bye,
+                                        card: {
+                                            ...bye.card,
+                                            inEmbed: s
+                                        }
+                                    });
                                 }}
                             />
 
@@ -195,9 +203,13 @@ export default function Home() {
                                 __defaultState={bye.card.background || ""}
                                 disabled={!bye.card.enabled || !bye.enabled}
                                 onSave={(v) => {
-                                    bye.card.background = v;
-                                    setBye(bye);
-                                    update(!is);
+                                    setBye({
+                                        ...bye,
+                                        card: {
+                                            ...bye.card,
+                                            background: v
+                                        }
+                                    });
                                 }}
                             />
                         </>}
