@@ -5,19 +5,34 @@ import rehypeRaw from "rehype-raw";
 
 const BeautifyMarkdown: FunctionComponent<{ markdown: string }> = ({ markdown }) => {
 
+    function parseDiscordMarkdown(content: string) {
+        return content
+            .replace(/__(.*?)__/g, "<u>$1</u>")
+            // .replace(/<a?:\w{2,32}:(.*?)>/g, "<img className='rounded-md' style='height: 1.375em; position: relative' src=\"https://cdn.discordapp.com/emojis/$1.webp?size=40&quality=lossless\" />")
+            .replace(/<a?:\w{2,32}:(.*?)>/g, "")
+            .replace(/<(@|@!)\d{15,21}>/g, "<span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>@User</span>")
+            .replace(/<(#)\d{15,21}>/g, "<span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>@Channel</span>");
+    }
 
     return (
         <ReactMarkdown
             rehypePlugins={[rehypeRaw]}
             components={{
-                h2: ({ ...props }) => <Link
+                h1: ({ ...props }) => <Link
                     href={`#${props.children.toString().toLowerCase().replace(/ +/g, "-")}`}
-                    className="flex mt-6 mb-2 cursor-pointer text-neutral-100 hover:underline"
+                    className="flex mt-10 mb-3 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
                 >
-                    <div id={props.children.toString().toLowerCase().replace(/ +/g, "-")} className="text-2xl font-semibold" {...props} />
+                    <h2 id={props.children.toString().toLowerCase().replace(/ +/g, "-")} className="text-3xl font-semibold" {...props} />
                 </Link>,
 
-                strong: ({ ...props }) => <span className="font-semibold text-neutral-200" {...props} />,
+                h2: ({ ...props }) => <Link
+                    href={`#${props.children.toString().toLowerCase().replace(/ +/g, "-")}`}
+                    className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
+                >
+                    <h1 id={props.children.toString().toLowerCase().replace(/ +/g, "-")} className="text-2xl font-semibold" {...props} />
+                </Link>,
+
+                strong: ({ ...props }) => <span className="font-semibold dark:text-neutral-200 text-neutral-800" {...props} />,
                 i: ({ ...props }) => <span className="italic" {...props} />,
                 a: ({ ...props }) => <a className="text-blue-500 hover:underline underline-blue-500" {...props} />,
                 del: ({ ...props }) => <span className="line-through" {...props} />,
@@ -28,7 +43,7 @@ const BeautifyMarkdown: FunctionComponent<{ markdown: string }> = ({ markdown })
                 </div>
             }}
         >
-            {markdown}
+            {parseDiscordMarkdown(markdown)}
         </ReactMarkdown>
     );
 
