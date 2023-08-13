@@ -9,8 +9,8 @@ import Header from "../components/Header";
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
-    const title = "Wamellow - Next version of discord bots";
-    const description = "Wamellow revolutionizes your experience with a plethora of free features and extensive customization options, offering a superior alternative to popular bots like MEE6.";
+    const title = "Wamellow: Next-gen of discord bots";
+    const description = "Experience the next-gen revolution with Wamellow, offering a list of features and extensive customization, providing a superior alternative to popular bots.";
 
     return {
         metadataBase: new URL(getBaseUrl()),
@@ -29,7 +29,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
 
         description: description,
-        keywords: ["discord", "bot", "discord bot", "waya", "waya bot", "waya.one", "mwya", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "tts", "free", "customizable"],
+        keywords: ["discord", "bot", "discord bot", "waya", "waya bot", "waya.one", "mwya", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "tts", "free", "customizable", "next-gen", "next generation"],
         themeColor: "#bc7ed4",
 
         alternates: {
