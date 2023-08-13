@@ -16,7 +16,7 @@ export default function RootLayout({
 
     const [error, setError] = useState<string>();
 
-    const intl = new Intl.NumberFormat(user?.locale, { notation: "compact" });
+    const intl = new Intl.NumberFormat("en", { notation: "compact" });
 
     useEffect(() => {
         if (user?.extended !== undefined) return;
