@@ -48,22 +48,22 @@ export default async function RootLayout({
                     </div>
 
                     <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
-                        <Link href="https://tiktok.com/@waya.one" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
+                        <Link href="https://tiktok.com/@waya.one" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
                             <BiLogoTiktok />
                         </Link>
-                        <Link href="https://youtube.com/@wayabot" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
+                        <Link href="https://youtube.com/@wayabot" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
                             <BiLogoYoutube />
                         </Link>
-                        <Link href="https://twitter.com/licamw" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
+                        <Link href="https://twitter.com/licamw" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
                             <BiLogoTwitter />
                         </Link>
-                        <Link href="https://github.com/Luna-devv" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
+                        <Link href="https://github.com/Luna-devv" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
                             <BiLogoGithub />
                         </Link>
-                        <Link href="mailto:support@waya.one" className="text-neutral-400 hover:text-neutral-300 duration-200 h-6 w-6" aria-label="Contaxt Wamellow via email">
+                        <Link href="mailto:support@waya.one" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Contaxt Wamellow via email">
                             <BiLogoGmail />
                         </Link>
-                        <Link href="https://lunish.nl/kofi" className="text-neutral-400 hover:text-neutral-300 duration-200 h-[22px] w-[22px]" aria-label="Support Wamellow's developers monetarily on Kofi">
+                        <Link href="https://lunish.nl/kofi" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-[22px] w-[22px]" aria-label="Support Wamellow's developers monetarily on Kofi">
                             <SiKofi />
                         </Link>
                         <Link href="https://top.gg/bot/1125449347451068437" className="text-neutral-400 hover:text-[#ff3366] duration-200 h-6 w-6" aria-label="Wamellow on top.gg">

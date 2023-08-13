@@ -181,7 +181,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                             />
                     }
 
-                    <div className="flex h-10 w-full mt-5">
+                    <div className="flex h-10 mt-5">
                         <PageComponent searchParams={searchParams} membersLength={members?.length || 0} />
                     </div>
 

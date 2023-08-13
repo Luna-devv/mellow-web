@@ -2,7 +2,7 @@ import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiInformationCircle, HiPlus } from "react-icons/hi";
+import { HiArrowRight, HiExternalLink, HiInformationCircle, HiPlus } from "react-icons/hi";
 
 import ClientCountUp from "@/components/ClientCountUp";
 import Highlight from "@/components/discord/Markdown";
@@ -15,7 +15,7 @@ import { truncate } from "@/utils/truncate";
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: { ref: string } }) {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
     const stats = await fetch(`${process.env.NEXT_PUBLIC_API}/statistics`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1StatisticsGetResponse;
 
@@ -24,7 +24,7 @@ export default async function Home() {
 
     const InnerMarquee = ({ id }: { id: number }) => (
         <>
-            {topGuilds.slice(id === 2 ? 10 : 0, id * 10)?.map((guild) => (
+            {[...topGuilds, ...topGuilds, ...topGuilds, ...topGuilds].slice(id === 2 ? 10 : 0, id * 10)?.map((guild) => (
                 <div className="dark:bg-wamellow bg-wamellow-100 py-4 px-5 flex items-center rounded-lg w-72 drop-shadow-md" key={Math.random().toString()}>
                     <Image src={(guild.icon && !guild.icon.includes("null")) ? guild.icon : "/discord.png"} loading="lazy" width={52} height={52} alt="Server" className="rounded-full" />
                     <div className="ml-3 text-sm">
@@ -53,7 +53,7 @@ export default async function Home() {
                 </div>
             </div>
 
-            <div className="md:text-xl text-md py-4 px-8 max-w-4xl sm:text-center flex flex-col items-center">
+            <div className="md:text-xl text-md md:py-4 py-2 px-4 max-w-4xl sm:text-center flex flex-col items-center">
                 <span className="tracking-wide">
                     Experience the next-gen revolution with Wamellow, offering a list of features and extensive customization, providing a superior alternative to popular bots.
                 </span>
@@ -64,7 +64,7 @@ export default async function Home() {
                         <span className="block sm:hidden">Wamellow</span>
                         <span className="hidden sm:block">Invite Wamellow</span>
                     </Link>
-                    <Link href="/support" className="flex text-neutral-300 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-neutral-100 py-2 px-4 rounded-md duration-200 w-1/2 sm:w-fit justify-center gap-2">
+                    <Link href="/support" className="flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 w-1/2 sm:w-fit justify-center gap-2">
                         <BsDiscord className="relative top-1" />
                         <span className="block sm:hidden">Support</span>
                         <span className="hidden sm:block">Join support</span>
@@ -83,9 +83,26 @@ export default async function Home() {
 
             </div>
 
-            <div className="lg:mt-20 mt-12 max-w-full w-full">
+            <div className="lg:mt-20 mt-12" />
+
+            {searchParams.ref === "waya.one" &&
+                <span className="w-full text-neutral-100 bg-violet-400/25 py-3 px-5 mb-6 rounded-md md:flex items-center">
+                    <div className="flex gap-2 items-center">
+                        <HiInformationCircle className="h-6 w-6" />
+                        <span className="text-md font-medium">Learn more about what Wamellow.com will do with Waya.one</span>
+                    </div>
+
+                    <Link href="/new" className="ml-auto md:mt-0 mt-3 w-fit flex text-blue-400 hover:text-blue-500 duration-300 items-center gap-2">
+                        <span>View article</span>
+                        <HiExternalLink className="h-5 w-5" />
+                    </Link>
+
+                </span>
+            }
+
+            <div className="max-w-full w-full">
                 <h2 className={`${montserrat.className} lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Widely used by you</h2>
-                <div className="md:text-xl text-md mt-3 tracking-wide">
+                <div className="md:text-xl text-md mt-3">
                     Wamellow is widely embraced across diverse servers, setting it apart as the go-to choice.
                 </div>
 
@@ -117,7 +134,7 @@ export default async function Home() {
                 <div className="flex flex-col md:flex-row gap-8 items-center">
 
                     <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun /ranks and /lederboards 🦄</h2>
+                        <h2 className={`${montserrat.className} lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun /ranks & /leaderboards 🦄</h2>
                         <div className="text-md pt-6">
                             Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
                             Craft tailored access to channels and roles, granting exclusive permissions to dedicated members.
@@ -292,7 +309,7 @@ export default async function Home() {
                 <div className="dark:bg-wamellow/75 bg-wamellow-100/70 p-5 md:w-1/4 md:block hidden">
                     <div className="flex">
                         <div className="text-sm mb-0.5">Our experience with</div>
-                        <Link href="https://discordlist.gg/user/821472922140803112" className="ml-auto hover:text-violet-400 duration-300">
+                        <Link href="https://discordlist.gg/user/821472922140803112" className="ml-auto dark:text-neutral-400 text-neutral-600 dark:hover:text-violet-400 hover:text-violet-600 duration-300">
                             <HiInformationCircle />
                         </Link>
                     </div>

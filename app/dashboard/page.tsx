@@ -76,8 +76,7 @@ export default function Home() {
                     <LoginButton
                         className="w-full md:w-fit text-center"
                         addClassName="justify-center"
-                        width={web.width}
-                        message="Reload Guilds"
+                        message="Reload"
                     />
                 </div>
             </div>
@@ -85,11 +84,11 @@ export default function Home() {
             <div className="flex gap-3">
                 <hr className="mx-0 p-1 my-4 dark:border-wamellow-light border-wamellow-100-light w-full" />
 
-                <div className="bg-wamellow md:flex gap-1 text-neutral-400 rounded-md overflow-hidden w-[72px] mb-5 hidden">
-                    <button onClick={() => setDisplay("GRID")} className={`h-7 w-8 flex items-center justify-center p-[4px] rounded-md ${display === "GRID" ? "bg-neutral-700/50" : "hover:bg-neutral-700/30"}`}>
+                <div className="dark:bg-wamellow bg-wamellow-100 md:flex gap-1 dark:text-neutral-400 text-neutral-600 rounded-md overflow-hidden w-[72px] mb-5 hidden">
+                    <button onClick={() => setDisplay("GRID")} className={`h-7 w-8 flex items-center justify-center p-[4px] rounded-md ${display === "GRID" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30"}`}>
                         <HiViewGrid />
                     </button>
-                    <button onClick={() => setDisplay("LIST")} className={`h-7 w-8 flex items-center justify-center p-[4px] rounded-md ${display === "LIST" ? "bg-neutral-700/50" : "hover:bg-neutral-700/30"}`}>
+                    <button onClick={() => setDisplay("LIST")} className={`h-7 w-8 flex items-center justify-center p-[4px] rounded-md ${display === "LIST" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30"}`}>
                         <HiViewList />
                     </button>
                 </div>
@@ -134,7 +133,7 @@ export default function Home() {
                             <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={56} alt={`Server icon of @${guild.name}`} className="rounded-lg h-14 w-14 z-1 relative drop-shadow-md" />
                             <div className="ml-3 text-sm relative bottom-1">
                                 <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-3">{truncate(guild.name, 20)}</div>
-                                <Link href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`} className="bg-neutral-500/40 hover:bg-neutral-400/40 hover:text-neutral-100 py-2 px-3 rounded-md duration-200">Manage</Link>
+                                <Link href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`} className="dark:bg-neutral-500/40 bg-neutral-400/40 dark:hover:bg-neutral-400/40 hover:bg-neutral-500/40 hover:text-neutral-900 dark:hover:text-neutral-200 py-2 px-3 rounded-md duration-200">Manage</Link>
                             </div>
 
                         </motion.li>
