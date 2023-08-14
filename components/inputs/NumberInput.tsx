@@ -132,7 +132,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
                     </button>
 
                     <input
-                        className={`outline-none text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-md flex items-center text-neutral-500 rounded-none ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-text"}`}
+                        className={`outline-none text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-lg flex items-center text-neutral-500 rounded-none ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-text"}`}
                         onChange={(e) => {
                             if (/^[0-9]+$/.test(e.target.value) || !e.target.value) setValue(e.target.value ? parseInt(e.target.value) : undefined);
                         }}

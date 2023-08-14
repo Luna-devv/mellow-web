@@ -15,7 +15,7 @@ const GoBack: FunctionComponent<Props> = ({ url, className }) => {
 
                     <div className="flex gap-2 items-center">
                         <HiArrowLeft className="group-hover/item:ml-[4px] duration-300" style={{ height: 18, width: 18 }} />
-                        <div className="text-md font-medium">Go back</div>
+                        <div className="text-lg font-medium">Go back</div>
                     </div>
 
                 </div>

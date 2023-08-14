@@ -161,7 +161,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     return (
         <html lang="en" className="flex justify-center min-h-full max-w-full overflow-x-hidden">
 
-            <body className={`${inter.className} w-full max-w-6xl min-h-full`}>
+            <body className={`${inter.className} w-full max-w-7xl min-h-full`}>
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
                     <div className="hidden md:block">

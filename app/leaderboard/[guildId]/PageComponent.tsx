@@ -27,7 +27,7 @@ const PageComponent: FunctionComponent<{ searchParams: { page: string, type: str
             </Link>
 
             <input
-                className="outline-none text-center w-14 min-h-full dark:bg-wamellow bg-wamellow-160 font-semibold text-md flex items-center text-neutral-500 rounded-none opacity-80"
+                className="outline-none text-center w-14 min-h-full dark:bg-wamellow bg-wamellow-160 font-semibold text-lg flex items-center text-neutral-500 rounded-none opacity-80"
                 value={searchParams.page ?? 0}
                 inputMode="numeric"
                 disabled={true}

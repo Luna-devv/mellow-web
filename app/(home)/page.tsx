@@ -39,7 +39,7 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="lg:text-6xl px-4 text-5xl flex font-semibold relative mb-2 dark:text-neutral-100 text-neutral-900 break-words sm:text-center">
+            <div className="lg:text-7xl px-4 text-5xl flex font-semibold relative mb-2 dark:text-neutral-100 text-neutral-900 break-words sm:text-center">
                 <h1 className={montserrat.className}>
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next-gen</span>
                     {" of "}
@@ -53,7 +53,7 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                 </div>
             </div>
 
-            <div className="md:text-xl text-md md:py-4 py-2 px-4 max-w-4xl sm:text-center flex flex-col items-center">
+            <div className="md:text-xl text-lg md:py-4 py-2 px-4 max-w-4xl sm:text-center flex flex-col items-center">
                 <span className="tracking-wide">
                     Experience the next-gen revolution with Wamellow, offering a list of features and extensive customization, providing a superior alternative to popular bots.
                 </span>
@@ -83,13 +83,13 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
 
             </div>
 
-            <div className="lg:mt-20 mt-12" />
+            <div className="lg:mt-24 mt-14" />
 
-            {searchParams.ref === "waya.one" &&
+            {false &&
                 <span className="w-full text-neutral-100 bg-violet-400/25 py-3 px-5 mb-6 rounded-md md:flex items-center">
                     <div className="flex gap-2 items-center">
                         <HiInformationCircle className="h-6 w-6" />
-                        <span className="text-md font-medium">Learn more about what Wamellow.com will do with Waya.one</span>
+                        <span className="text-lg font-medium">Learn more about what Wamellow.com will do with Waya.one</span>
                     </div>
 
                     <Link href="/new" className="ml-auto md:mt-0 mt-3 w-fit flex text-blue-400 hover:text-blue-500 duration-300 items-center gap-2">
@@ -101,8 +101,8 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
             }
 
             <div className="max-w-full w-full">
-                <h2 className={`${montserrat.className} lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Widely used by you</h2>
-                <div className="md:text-xl text-md mt-3">
+                <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Widely used by you</h2>
+                <div className="md:text-xl text-lg mt-3">
                     Wamellow is widely embraced across diverse servers, setting it apart as the go-to choice.
                 </div>
 
@@ -134,12 +134,12 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                 <div className="flex flex-col md:flex-row gap-8 items-center">
 
                     <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun /ranks & /leaderboards 🦄</h2>
-                        <div className="text-md pt-6">
+                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun /ranks & /leaderboards 🦄</h2>
+                        <div className="text-lg pt-6">
                             Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
                             Craft tailored access to channels and roles, granting exclusive permissions to dedicated members.
                             By motivating your members to communicate, you{"’"}ll cultivate a more dynamic server community.
-                            Drive interaction and establish a feeling of accomplishment as users advance through our engaging leaderboard framework.
+                            Drive interaction and establish a feeling of accomplishment as users advance through our engaging framework.
                         </div>
 
                         <div className="flex gap-2 mt-4">
@@ -203,8 +203,8 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                     </div>
 
                     <div className="text-left md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Heyho and bye 👋</h2>
-                        <div className="text-md pt-6">
+                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Heyho and bye 👋</h2>
+                        <div className="text-lg pt-6">
                             Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
                             Ensure a positive, inclusive experience from the start, fostering community and engagement.
                             Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
@@ -226,8 +226,8 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                 <div className="flex flex-col md:flex-row gap-8 items-center">
 
                     <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-3xl text-2xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun with Starboards ⭐</h2>
-                        <div className="text-md pt-6">
+                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun with Starboards ⭐</h2>
+                        <div className="text-lg pt-6">
                             With Starboards, you have the power to elevate remarkable messages within our server.
                             When you come across a post that deserves recognition, simply vote it up, and watch as it takes center stage for everyone to see.
                             This feature ensures that exceptional content gets the attention it deserves, fostering a lively and engaging atmosphere.
@@ -286,7 +286,7 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                     <div className="text-sm mb-0.5">Guilds using us</div>
                     <div className="flex">
                         <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateGuildCount} />
-                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.guildsGained} /> today</span>
+                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.guildsGained} /> today</span>
                     </div>
                 </div>
 
@@ -294,7 +294,7 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                     <div className="text-sm mb-0.5">Users using us</div>
                     <div className="flex">
                         <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateUserCount} />
-                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.usersGained} /> today</span>
+                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.usersGained} /> today</span>
                     </div>
                 </div>
 
@@ -302,7 +302,7 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                     <div className="text-sm mb-0.5">Votes for us</div>
                     <div className="flex">
                         <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateVoteCount} />
-                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.votesGained} /> in {convertMonthToName(new Date().getMonth())}</span>
+                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.votesGained} /> in {convertMonthToName(new Date().getMonth())}</span>
                     </div>
                 </div>
 
@@ -315,7 +315,7 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
                     </div>
                     <div className="flex">
                         <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.globalGuilds} />
-                        <span className="text-md dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">guilds, 5 bots</span>
+                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">guilds, 5 bots</span>
                     </div>
                 </div>
 
