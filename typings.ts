@@ -185,6 +185,32 @@ export interface ApiV1GuildsModulesLeaderboardGetResponse {
     voice: GuildLeaderboardApp;
 }
 
+export interface ApiV1GuildsModulesPassportGetResponse {
+    enabled: boolean;
+    channelId?: string;
+    /**
+     * We're currently on free tier
+     */
+    captchaType: "slide" | "word" | "icon" | "match" | "winlinze" | "nine" | "random";
+    /**
+     * 0 - Ban
+     * 1 - Kick
+     * 2 - Assign role
+     */
+    punishment: 0 | 1 | 2;
+    punishmentRoleId?: string;
+
+    successRoleId?: string;
+    unverifiedRoleId?: string;
+
+    sendFailedDm: boolean;
+    alsoFailIf: ("disposableEmailAddress")[]
+
+    backgroundColor?: number;
+    textColor?: number;
+    accentColor?: number;
+}
+
 export type Voice =
     "en_us_001" | "en_us_002" | "en_us_006" | "en_us_007" | "en_us_008" | "en_us_009" | "en_us_010"
     | "en_uk_001" | "en_uk_003"
