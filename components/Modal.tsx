@@ -52,31 +52,41 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
                             }}
                             className="
                             md:relative fixed bottom-0 min-h-[333px] md:min-h-fit m-2
-                            w-full md:w-[480px] p-4 dark:bg-wamellow bg-wamellow-100 rounded-md shadow-md
+                            w-full md:w-[480px] bg-[var(--background-rgb)] rounded-md shadow-md
                             max-sm:[--y-closed:16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                             max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
                         "
                         >
 
-                            <div className="flex items-center">
-                                <span className="text-2xl font-medium dark:text-neutral-100 text-neutral-900">{title}</span>
-                                <button
-                                    onClick={() => onClose()} className="ml-auto text-neutral-500 dark:hover:text-neutral-400 hover:text-neutral-600 duration-200"
-                                >
-                                    <HiX className="h-5 w-5" />
-                                </button>
+                            <div className="p-4">
+
+                                <div className="flex items-center">
+                                    <span className="text-2xl font-semibold dark:text-neutral-200 text-neutral-800">{title}</span>
+                                    <button
+                                        onClick={() => onClose()}
+                                        className="ml-auto dark:bg-neutral-800/50 bg-neutral-200/50 dark:hover:bg-neutral-700/50 hover:bg-neutral-300/50 dark:text-neutral-400 text-neutral-600 dark:hover:text-neutral-200 hover:text-neutral-800 duration-200 rounded-md p-1.5"
+                                    >
+                                        <HiX className="h-3.5 w-3.5" />
+                                    </button>
+                                </div>
+
+                                <hr className="mt-2 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
+
+                                {error && <ErrorBanner message={error} removeButton={true} />}
+
+                                {children}
+
                             </div>
 
-                            <hr className="mt-2 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
+                            <div className="md:relative absolute bottom-0 left-0 w-full dark:bg-wamellow/40 bg-wamellow-100/40 rounded-bl-md rounded-br-md">
+                                <div className="flex w-full items-baseline gap-4 p-4">
 
-                            {error && <ErrorBanner message={error} removeButton={true} />}
-
-                            {children}
-
-                            <div className="absolute bottom-0 left-0 p-4 md:static md:p-0 md:mt-5 w-full">
-                                <div className="flex w-full items-baseline">
-
-                                    <span className="text-sm dark:text-neutral-400 text-neutral-600">It feels so empty without anything</span>
+                                    <button
+                                        onClick={() => onClose()}
+                                        className="ml-auto text-sm font-medium dark:text-neutral-200 text-neutral-800"
+                                    >
+                                        Cancel
+                                    </button>
 
                                     <button
                                         onClick={() => {
@@ -92,7 +102,7 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
                                                 })
                                                 .catch((e) => setError(e || "Unknown server error"));
                                         }}
-                                        className="ml-auto flex bg-violet-600 hover:bg-violet-700 text-neutral-200 py-2 px-4 duration-200 rounded-md"
+                                        className="flex bg-violet-600 hover:bg-violet-700 text-neutral-200 font-medium py-2 px-5 duration-200 rounded-md"
                                     >
                                         <span>{buttonName}</span>
                                     </button>

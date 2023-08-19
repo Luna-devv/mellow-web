@@ -37,14 +37,14 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     }, [path]);
 
     const user = userStore((s) => s);
+    const web = webStore((w) => w);
+
     useEffect(() => {
+
         authorizeUser({ stateHook: setLoginstate, page: path }).then((_user) => {
             if (_user) userStore.setState(_user);
         });
-    }, []);
 
-    const web = webStore((w) => w);
-    useEffect(() => {
         const devToolsEnabled = localStorage.getItem("devToolsEnabled");
         const reduceMotions = localStorage.getItem("reduceMotions");
 
@@ -55,10 +55,8 @@ const Header: FunctionComponent<Props> = ({ children }) => {
             reduceMotions: !!reduceMotions
         });
 
-        // setInterval(() => {
-        //     if (window?.innerWidth !== web.width) webStore.setState({ ...web, width: window?.innerWidth });
-        // }, 1000);
     }, []);
+
 
     const UserButton = (
         <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
