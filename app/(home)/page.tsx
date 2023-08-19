@@ -8,6 +8,7 @@ import ClientCountUp from "@/components/ClientCountUp";
 import Highlight from "@/components/discord/Markdown";
 import DiscordMessage from "@/components/discord/Message";
 import DiscordMessageEmbed from "@/components/discord/MessageEmbed";
+import DiscordMessageFile from "@/components/discord/MessageFile";
 import { ListTab } from "@/components/List";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
 import { truncate } from "@/utils/truncate";
@@ -274,6 +275,48 @@ export default async function Home({ searchParams }: { searchParams: { ref: stri
 
 
                         </DiscordMessage>
+                    </div>
+
+                </div>
+
+                <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
+
+                    <div className="md:ml-auto w-full md:w-1/2 px-3 pb-3">
+                        <DiscordMessage
+                            mode={"DARK"}
+                            user={{
+                                username: "Wamellow",
+                                avatar: "/waya-legacy1.png",
+                                bot: true
+                            }}
+                        >
+                            <Highlight mode={"DARK"} text="[Change default voice & fileformat](/profile/text-to-speech)" />
+
+                            <DiscordMessageFile
+                                mode={"DARK"}
+
+                                duration={18}
+                            />
+
+                        </DiscordMessage>
+                    </div>
+
+                    <div className="md:w-1/2">
+                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Best Text to Speech, TTS</h2>
+                        <div className="text-lg pt-6">
+                            With Text to Speech, you{"'"}re in control of transforming text into captivating speech across various languages and over 40 distinct voices.
+                            Whether you need standalone audio files or want to bring your text to life in a voice chat, Wamellow{"'"}s TTS offers versatility.
+                            Embrace the power of VoiceWave and let your messages resonate with impact!
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                                <HiPlus />
+                                <span className="block sm:hidden">Wamellow</span>
+                                <span className="hidden sm:block">Invite Wamellow</span>
+                            </Link>
+                        </div>
+
                     </div>
 
                 </div>
