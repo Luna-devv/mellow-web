@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+
 import { User, userStore } from "@/common/user";
 import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
@@ -9,6 +11,8 @@ import { deepMerge } from "@/utils/deepMerge";
 export default function Home() {
     const user = userStore((s) => s);
 
+    const [is, up] = useState(false);
+
     if (user?.id && user.extended === undefined) return <ErrorBanner message={"Error while fetching user"} />;
 
     return (
@@ -17,7 +21,7 @@ export default function Home() {
             <div className="lg:flex gap-3">
                 <div className="lg:w-1/2">
                     <SelectInput
-                        name="Secondary Text"
+                        name="Secondary text"
                         url="/users/@me/rank"
                         dataName="subText.type"
                         description="This text will be displayed bellow the /rank progressbar."
@@ -53,7 +57,7 @@ export default function Home() {
                     <div className="w-1/2">
                         <TextInput
                             key="textColor"
-                            name="Text Color"
+                            name="Text color"
                             url="/users/@me/rank"
                             dataName="textColor"
                             description="Color used for your username."
@@ -69,7 +73,7 @@ export default function Home() {
                     <div className="w-1/2">
                         <TextInput
                             key="barColor"
-                            name="Bar Color"
+                            name="Bar color"
                             url="/users/@me/rank"
                             dataName="barColor"
                             description="Color used for the progress bar."
@@ -98,6 +102,88 @@ export default function Home() {
                 }}
             />
 
-        </div>
+            <div className="text-lg dark:text-neutral-300 text-neutral-700 font-medium mb-1 mt-3">Leaderboard syle</div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+
+                <button
+                    className="w-full"
+                    onClick={() => {
+                        if (user?.extended?.rank?.useLeaderboardList === false) return;
+
+                        fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/rank`, {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json",
+                                authorization: localStorage.getItem("token") as string
+                            },
+                            body: JSON.stringify({ useLeaderboardList: false })
+                        })
+                            .then(async (res) => {
+                                const response = await res.json();
+                                if (!response) return;
+
+                                switch (res.status) {
+                                    case 200: {
+                                        userStore.setState(deepMerge<User>(user, { extended: { rank: { useLeaderboardList: false } } }));
+                                        up(!is);
+                                        break;
+                                    }
+                                }
+
+                            });
+                    }}
+                >
+                    <div className={`border-2 ${user?.extended?.rank?.useLeaderboardList ? "dark:border-neutral-700 hover:border-neutral-500 border-neutral-300 " : "dark:border-violet-400/60 dark:hover:border-violet-400 border-violet-600/60 hover:border-violet-600"} duration-200 rounded-md group p-6 mt-1 grid grid-rows-5 grid-cols-2 gap-3`}>
+                        {new Array(10).fill("").map((_, i) =>
+                            <div key={i} className="flex gap-2">
+                                <div className={`${user?.extended?.rank?.useLeaderboardList ? "dark:bg-neutral-700/90 dark:group-hover:bg-neutral-400/60 bg-neutral-300 group-hover:bg-neutral-600/60" : "dark:bg-violet-400/50 dark:group-hover:bg-violet-400/70 bg-violet-600/50 group-hover:bg-violet-600/70"} duration-200 h-6 w-6 aspect-square rounded-full`} />
+                                <div className={`${user?.extended?.rank?.useLeaderboardList ? "dark:bg-neutral-700/80 dark:group-hover:bg-neutral-400/50 bg-neutral-300 group-hover:bg-neutral-600/50" : "dark:bg-violet-400/40 dark:group-hover:bg-violet-400/60 bg-violet-600/40 group-hover:bg-violet-600/60"} duration-200 h-6 rounded-full`} style={{ width: `${30 + ((i % 1.7) + (i % 3) + (i % 2)) * 10}%` }} />
+                            </div>
+                        )}
+                    </div>
+                </button>
+
+                <button
+                    className="w-full"
+                    onClick={() => {
+                        if (user?.extended?.rank?.useLeaderboardList === true) return;
+
+                        fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/rank`, {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json",
+                                authorization: localStorage.getItem("token") as string
+                            },
+                            body: JSON.stringify({ useLeaderboardList: true })
+                        })
+                            .then(async (res) => {
+                                const response = await res.json();
+                                if (!response) return;
+
+                                switch (res.status) {
+                                    case 200: {
+                                        userStore.setState(deepMerge<User>(user, { extended: { rank: { useLeaderboardList: true } } }));
+                                        up(!is);
+                                        break;
+                                    }
+                                }
+
+                            });
+                    }}
+                >
+                    <div className={`border-2 ${!user?.extended?.rank?.useLeaderboardList ? "dark:border-neutral-700 hover:border-neutral-500 border-neutral-300 " : "dark:border-violet-400/60 dark:hover:border-violet-400 border-violet-600/60 hover:border-violet-600"} duration-200 rounded-md p-4 mt-1 flex flex-col gap-2 group`}>
+                        {new Array(8).fill("").map((_, i) =>
+                            <div key={i} className="flex gap-2">
+                                <div className={`${!user?.extended?.rank?.useLeaderboardList ? "dark:bg-neutral-700/90 dark:group-hover:bg-neutral-400/60 bg-neutral-300 group-hover:bg-neutral-600/60" : "dark:bg-violet-400/50 dark:group-hover:bg-violet-400/70 bg-violet-600/50 group-hover:bg-violet-600/70"}duration-200 h-4 w-4 aspect-square rounded-full`} />
+                                <div className={`${!user?.extended?.rank?.useLeaderboardList ? "dark:bg-neutral-700/80 dark:group-hover:bg-neutral-400/50 bg-neutral-300 group-hover:bg-neutral-600/50" : "dark:bg-violet-400/40 dark:group-hover:bg-violet-400/60 bg-violet-600/40 group-hover:bg-violet-600/60"} duration-200 h-4 rounded-full`} style={{ width: `${30 + ((i % 1.7) + (i % 3) + (i % 2)) * 10}%` }} />
+                            </div>
+                        )}
+                    </div>
+                </button>
+
+            </div>
+
+        </div >
     );
 }

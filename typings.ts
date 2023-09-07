@@ -231,6 +231,7 @@ export interface ApiV1MeGetResponse {
         background?: string | null;
         textColor?: number;
         barColor?: number;
+        useLeaderboardList?: boolean;
         subText?: {
             type: 0 | 1 | 2 | 3 // 0: off, 1: date, 2: relative, 3: custom
             content?: string;

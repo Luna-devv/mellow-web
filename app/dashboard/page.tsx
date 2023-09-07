@@ -126,8 +126,8 @@ export default function Home() {
                             opacity: 1,
                             scale: 1,
                             transition: {
-                                delayChildren: 0.3,
-                                staggerChildren: 0.2
+                                delayChildren: guilds.length > 20 ? 0.2 : 0.3,
+                                staggerChildren: guilds.length > 20 ? 0.1 : 0.2
                             }
                         }
                     }}
@@ -159,8 +159,8 @@ export default function Home() {
                                             opacity: 1,
                                             transition: {
                                                 type: "spring",
-                                                bounce: 0.4,
-                                                duration: 0.7
+                                                bounce: guilds.length > 20 ? 0.2 : 0.4,
+                                                duration: guilds.length > 20 ? 0.35 : 0.7
                                             }
                                         }
                                     }}
