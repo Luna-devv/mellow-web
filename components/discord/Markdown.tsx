@@ -40,6 +40,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
 
     return (
         <ReactMarkdown
+            className="break-words"
             rehypePlugins={[rehypeRaw]}
             components={{
                 h1: ({ ...props }) => <div className="text-3xl font-semibold" {...props} />,

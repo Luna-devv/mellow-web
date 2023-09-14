@@ -32,7 +32,7 @@ const DiscordMessage: FunctionComponent<Props> = ({ children, user, mode }) => {
                             <span className="ml-1">BOT</span>
                         </div>
                         }
-                        <div className={`text-xs ${mode === "DARK" ? "text-neutral-400" : "text-neutral-600"}`}>{formatTime(new Date())}</div>
+                        <div className={`text-xs ml-1 ${mode === "DARK" ? "text-neutral-400" : "text-neutral-600"}`}>{formatTime(new Date())}</div>
                     </div>
                     {children}
                 </div>

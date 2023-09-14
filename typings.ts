@@ -248,3 +248,8 @@ export interface ApiV1MeGetResponse {
         invites: number;
     };
 }
+
+export interface ApiV1UsersMeConnectionsSpotifyGetResponse {
+    displayName: string;
+    avatar: string | null;
+}

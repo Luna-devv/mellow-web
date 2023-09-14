@@ -21,7 +21,7 @@ const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface Props {
-    children: React.ReactNode
+    children: React.ReactNode;
 }
 
 const Header: FunctionComponent<Props> = ({ children }) => {
@@ -31,7 +31,10 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const path = usePathname() || "/";
     useEffect(() => {
-        if (!["/login", "/logout"].includes(path)) localStorage.setItem("lastpage", path);
+        if (!["/login", "/login/spotify", "/logout"].includes(path)) localStorage.setItem("lastpage", path);
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("spotify_login_success") === "true" && path !== "/login/spotify") window.close();
 
         if (!path.startsWith("/dashboard/")) guildStore.setState(undefined);
     }, [path]);
@@ -157,9 +160,9 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     );
 
     return (
-        <html lang="en" className="flex justify-center min-h-full max-w-full overflow-x-hidden">
+        <html lang="en" className="flex justify-center min-h-screen max-w-screen overflow-x-hidden">
 
-            <body className={`${inter.className} w-full max-w-7xl min-h-full`}>
+            <body className={`${inter.className} w-full max-w-7xl`}>
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
                     <div className="hidden md:block">

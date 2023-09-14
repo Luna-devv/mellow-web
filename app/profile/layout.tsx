@@ -48,13 +48,12 @@ export default function RootLayout({
             });
     }, [user]);
 
-    if (user === undefined && !error) return <></>;
+    if (error) return <ErrorBanner message={error} />;
+    if (!user?.id) return <></>;
 
     return (
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full h-full">
             <title>Your profile</title>
-
-            {error && <ErrorBanner message={error} />}
 
             <div className="text-lg sm:flex items-center">
                 <div className="flex items-center">
@@ -97,7 +96,11 @@ export default function RootLayout({
                     {
                         name: "Text to Speech",
                         value: "/text-to-speech"
-                    }
+                    }// ,
+                    // {
+                    //     name: "Spotify",
+                    //     value: "/spotify"
+                    // }
                 ]}
                 url={"/profile"}
                 disabled={!user}
