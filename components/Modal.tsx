@@ -52,7 +52,7 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
                             }}
                             className="
                             md:relative fixed bottom-0 min-h-[333px] md:min-h-fit m-2
-                            w-full md:w-[480px] bg-[var(--background-rgb)] rounded-md shadow-md
+                            w-full md:w-[480px] bg-[var(--background-rgb)] rounded-xl shadow-md
                             max-sm:[--y-closed:16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                             max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
                         "

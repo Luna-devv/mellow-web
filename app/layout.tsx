@@ -28,9 +28,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
             template: "%s"
         },
 
-        description: description,
+        description,
         keywords: ["discord", "bot", "discord bot", "waya", "waya bot", "waya.one", "mwya", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "tts", "free", "customizable", "next-gen", "next generation"],
-        themeColor: "#bc7ed4",
+        themeColor: "#945682",
 
         alternates: {
             canonical: getBaseUrl()
@@ -41,7 +41,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
                 default: title,
                 template: "%s on Wamellow"
             },
-            description: description,
+            description,
             type: "website",
             url: getBaseUrl(),
             images: `${getBaseUrl()}/waya-v3.jpg`
@@ -50,8 +50,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
         twitter: {
             card: "summary",
             site: "wamellow.com",
-            title: title,
-            description: description,
+            title,
+            description,
             images: `${getBaseUrl()}/waya-v3.jpg`
         },
 

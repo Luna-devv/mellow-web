@@ -182,6 +182,7 @@ export default function Home() {
                         ))}
 
                     <motion.button
+                        onClick={() => window.open("/login?invite=true")}
                         key={guilds.length}
                         variants={{
                             hidden: { y: 20, opacity: 0 },
