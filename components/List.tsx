@@ -47,7 +47,7 @@ export const ListTab: FunctionComponent<ListProps> = ({ tabs, url, searchParamNa
                                     else router.push(`${url}${tab.value}`);
                                 }}
                             >
-                                {tab.name}
+                                <span dangerouslySetInnerHTML={{ __html: tab.name.replace(/ +/g, "&nbsp;") }} />
                             </button>
                         </li>
                     );
