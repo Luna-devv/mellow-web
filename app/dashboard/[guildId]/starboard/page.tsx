@@ -287,7 +287,7 @@ export default function Home() {
                     mode={"DARK"}
                     user={{
                         username: "Wamellow",
-                        avatar: "/waya-legacy1.png",
+                        avatar: "/waya-v3.webp",
                         bot: true
                     }}
                 >

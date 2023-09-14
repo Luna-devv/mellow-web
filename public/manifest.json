@@ -55,7 +55,7 @@
             "sizes": "512x512"
         },
         {
-            "src": "/waya-legacy1.png",
+            "src": "/waya-v3.webp",
             "type": "image/png",
             "sizes": "675x675",
             "purpose": "any maskable"
