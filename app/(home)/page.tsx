@@ -1,6 +1,7 @@
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { BsDiscord } from "react-icons/bs";
 import { HiArrowRight, HiInformationCircle, HiPlus } from "react-icons/hi";
 
@@ -106,25 +107,27 @@ export default async function Home() {
                     </div>
 
                     <div className="md:ml-auto md:w-1/2 px-3 pb-3">
-                        <ListTab
-                            tabs={[
-                                {
-                                    name: "Messages",
-                                    value: ""
-                                },
-                                {
-                                    name: "Voicetime",
-                                    value: "voiceminutes"
-                                },
-                                {
-                                    name: "Invites",
-                                    value: "invites"
-                                }
-                            ]}
-                            url="/"
-                            searchParamName="type"
-                            disabled={true}
-                        />
+                        <Suspense>
+                            <ListTab
+                                tabs={[
+                                    {
+                                        name: "Messages",
+                                        value: ""
+                                    },
+                                    {
+                                        name: "Voicetime",
+                                        value: "voiceminutes"
+                                    },
+                                    {
+                                        name: "Invites",
+                                        value: "invites"
+                                    }
+                                ]}
+                                url="/"
+                                searchParamName="type"
+                                disabled={true}
+                            />
+                        </Suspense>
                         <Image src="/leaderboard.webp" itemProp="image" width={1224 / 2} height={768 / 2} alt="Example leaderboard webpage" loading="lazy" />
                     </div>
 
