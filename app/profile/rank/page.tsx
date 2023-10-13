@@ -3,9 +3,9 @@ import { useState } from "react";
 
 import { User, userStore } from "@/common/user";
 import ErrorBanner from "@/components/Error";
+import ColorInput from "@/components/inputs/ColorInput";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import SelectInput from "@/components/inputs/SelectMenu";
-import TextInput from "@/components/inputs/TextInput";
 import { deepMerge } from "@/utils/deepMerge";
 
 export default function Home() {
@@ -55,13 +55,12 @@ export default function Home() {
                 <div className="lg:w-1/2 flex gap-2 w-full">
 
                     <div className="w-1/2">
-                        <TextInput
+                        <ColorInput
                             key="textColor"
                             name="Text color"
                             url="/users/@me/rank"
                             dataName="textColor"
                             description="Color used for your username."
-                            type="color"
                             __defaultState={user?.extended?.rank?.textColor ?? 0}
                             onSave={(value) => {
                                 if (!user) return;
@@ -71,13 +70,12 @@ export default function Home() {
                     </div>
 
                     <div className="w-1/2">
-                        <TextInput
+                        <ColorInput
                             key="barColor"
                             name="Bar color"
                             url="/users/@me/rank"
                             dataName="barColor"
                             description="Color used for the progress bar."
-                            type="color"
                             __defaultState={user?.extended?.rank?.barColor ?? 0}
                             onSave={(value) => {
                                 if (!user) return;

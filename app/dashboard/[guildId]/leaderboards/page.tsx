@@ -7,8 +7,8 @@ import { HiChartBar } from "react-icons/hi";
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
+import ColorInput from "@/components/inputs/ColorInput";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
-import TextInput from "@/components/inputs/TextInput";
 import { ApiV1GuildsModulesLeaderboardGetResponse, RouteErrorResponse } from "@/typings";
 
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
@@ -66,12 +66,11 @@ export default function Home() {
                 <div className="lg:w-1/2 flex gap-2 w-full">
 
                     <div className="w-1/2">
-                        <TextInput
+                        <ColorInput
                             name="Text Color"
                             url={`/guilds/${guild?.id}/modules/leaderboard`}
                             dataName="textColor"
                             description="Color used for text."
-                            type="color"
                             __defaultState={leaderboard?.textColor ?? 0xe5e5e5}
                             resetState={0xe5e5e5}
                             disabled={!web.devToolsEnabled}
@@ -79,12 +78,11 @@ export default function Home() {
                     </div>
 
                     <div className="w-1/2">
-                        <TextInput
+                        <ColorInput
                             name="Accent Color"
                             url={`/guilds/${guild?.id}/modules/leaderboard`}
                             dataName="accentColor"
                             description="Color used for secondary text."
-                            type="color"
                             __defaultState={leaderboard?.accentColor ?? 0x8b5cf6}
                             resetState={0x8b5cf6}
                             disabled={!web.devToolsEnabled}
@@ -94,12 +92,11 @@ export default function Home() {
                 </div>
 
                 <div className="w-1/2">
-                    <TextInput
+                    <ColorInput
                         name="Background Color"
                         url={`/guilds/${guild?.id}/modules/leaderboard`}
                         dataName="backgroundColor"
                         description="Color used for the background."
-                        type="color"
                         __defaultState={leaderboard?.backgroundColor ?? 0x18191c}
                         resetState={0x18191c}
                         disabled={!web.devToolsEnabled}

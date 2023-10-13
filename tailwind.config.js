@@ -17,6 +17,17 @@ module.exports = {
                 "wamellow-100-light": "#ced3da",
                 "wamellow-100-alpha": "rgba(0, 0, 0, 0.06)",
 
+                "wamellow-200": "#cdd5e1",
+                "wamellow-200-light": "#b4becb",
+                "wamellow-200-alpha": "rgba(0, 0, 0, 0.12)",
+                "wamellow-300-alpha": "rgba(0, 0, 0, 0.18)",
+                "wamellow-400-alpha": "rgba(0, 0, 0, 0.24)",
+                "wamellow-500-alpha": "rgba(0, 0, 0, 0.3)",
+                "wamellow-600-alpha": "rgba(0, 0, 0, 0.36)",
+                "wamellow-700-alpha": "rgba(0, 0, 0, 0.42)",
+                "wamellow-800-alpha": "rgba(0, 0, 0, 0.48)",
+                "wamellow-900-alpha": "rgba(0, 0, 0, 0.54)",
+
                 "blurple": "#5865f2",
                 "blurple-dark": "#454fbf",
 

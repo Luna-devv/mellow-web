@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, HTMLAttributes, useEffect, useState } from "react";
 
 type Props = {
     name?: string;
@@ -18,7 +18,7 @@ type Props = {
 
 
 const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, max = 256, thin, type, dataName }) => {
-    const className = `mt-1 ${max > 300 ? "h-28" : (thin ? "h-10" : "h-12")} ${thin && "relative bottom-1"} resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-4 py-2 focus:outline outline-violet-400 outline-2 ${disabled && "cursor-not-allowed opacity-50"}`;
+    const className = `mt-1 ${max > 300 ? "h-28" : (thin ? "h-10" : "h-12")} ${thin && "relative bottom-1"} resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-4 py-2 focus:outline outline-violet-400 outline-2 ${disabled && "cursor-not-allowed opacity-50"}` as HTMLAttributes<HTMLInputElement>["className"];
 
     const [length, setLength] = useState(0);
 
