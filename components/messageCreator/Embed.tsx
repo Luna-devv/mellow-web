@@ -7,6 +7,7 @@ import { GuildEmbed, RouteErrorResponse } from "@/typings";
 import Highlight from "../discord/Markdown";
 import DiscordMessage from "../discord/Message";
 import DiscordMessageEmbed from "../discord/MessageEmbed";
+import DumbColorInput from "../inputs/Dumb_ColorInput";
 import DumbTextInput from "../inputs/Dumb_TextInput";
 
 interface Props {
@@ -133,7 +134,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                                 <DumbTextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" disabled={disabled} />
                                 <DumbTextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" disabled={disabled} />
                                 <div className="flex gap-2">
-                                    <DumbTextInput placeholder="Embed Color" value={embed} setValue={setEmbed} type="color" dataName="color" disabled={disabled} />
+                                    <DumbColorInput placeholder="Embed Color" value={embed} setValue={setEmbed} dataName="color" disabled={disabled} />
                                     <DumbTextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" disabled={disabled} />
                                 </div>
                                 <DumbTextInput placeholder="Embed Image" value={embed} setValue={setEmbed} max={256} dataName="image" disabled={disabled} />

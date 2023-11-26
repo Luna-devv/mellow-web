@@ -24,6 +24,11 @@ const nextConfig = {
                 port: "",
                 pathname: "/"
             }
+        ],
+        domains: [
+            "cdn.discordapp.com",
+            "cdn.waya.one",
+            "imagerenderer.waya.one"
         ]
     }
 };
