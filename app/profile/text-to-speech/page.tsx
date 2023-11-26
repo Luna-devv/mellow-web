@@ -1,4 +1,5 @@
 "use client";
+
 import { User, userStore } from "@/common/user";
 import ErrorBanner from "@/components/Error";
 import SelectInput from "@/components/inputs/SelectMenu";
@@ -30,7 +31,7 @@ export default function Home() {
                                 value: voice
                             };
                         })}
-                        __defaultState={user?.extended?.tts?.defaultVoice}
+                        defaultState={user?.extended?.tts?.defaultVoice}
                         onSave={(options) => {
                             if (!user) return;
                             userStore.setState(deepMerge<User>(user, { extended: { tts: { ...user.extended?.tts, defaultVoice: options.value as Voice } } }));
@@ -50,7 +51,7 @@ export default function Home() {
                                 value: type
                             };
                         })}
-                        __defaultState={user?.extended?.tts?.defaultFiletype}
+                        defaultState={user?.extended?.tts?.defaultFiletype}
                         onSave={(options) => {
                             if (!user) return;
                             userStore.setState(deepMerge<User>(user, { extended: { tts: { defaultFiletype: options.value as "mp3" | "wav" | "ogg" } } }));

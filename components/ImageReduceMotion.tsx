@@ -8,7 +8,7 @@ interface Props {
     url: string | null | undefined;
     size: number;
     alt: string;
-    className: string;
+    className?: string;
     forceStatic?: boolean
 }
 

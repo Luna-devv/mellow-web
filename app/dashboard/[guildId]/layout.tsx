@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowNarrowLeft, HiCursorClick, HiSortDescending } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiCursorClick, HiShare } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
@@ -158,23 +158,24 @@ export default function RootLayout({
 
     }, []);
 
-    if (guild === undefined && !error) return <></>;
+    if (error) return <ErrorBanner message={error} />;
+    if (!guild?.id) return <></>;
 
     return (
         <div className="flex flex-col w-full">
             <title>{`${guild?.name}'s Dashboard`}</title>
 
             <div className="flex gap-2 mb-5 text-sm">
-                <Link href="/dashboard" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-3 rounded-md duration-200">
-                    <HiArrowNarrowLeft className="relative top-1" />
+                <Link href="/dashboard" className="flex items-center dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-lg duration-200">
+                    <HiArrowNarrowLeft />
                     <span className="ml-2">Serverlist</span>
                 </Link>
                 {web.devToolsEnabled &&
                     <CopyToClipboardButton
                         text={getCanonicalUrl("leaderboard", params.guildId)}
                         items={[
-                            { icon: <HiSortDescending />, name: "Copy page url", text: getCanonicalUrl(...path.split("/").slice(1)) },
-                            { icon: <HiCursorClick />, name: "Copy dash-to url", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
+                            { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
+                            { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
                         ]}
                     />
                 }

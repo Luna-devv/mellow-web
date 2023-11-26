@@ -1,9 +1,11 @@
+import { nextui } from "@nextui-org/react";
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
     content: [
-        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./app/**/*.{js,ts,jsx,tsx,mdx}"
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
     ],
     theme: {
         extend: {
@@ -58,5 +60,48 @@ module.exports = {
             }
         }
     },
-    plugins: []
+    darkMode: "class",
+    plugins: [nextui({
+        layout: {
+            radius: {
+                small: "0.375rem",
+                medium: "0.5rem",
+                large: "0.75rem"
+            },
+            fontSize: {
+                small: "0.875rem",
+                medium: "1rem",
+                large: "1.125rem"
+            }
+        },
+        themes: {
+            dark: {
+                colors: {
+                    secondary: {
+                        foreground: "rgb(255 255 255)",
+                        DEFAULT: "rgb(139 92 246)",
+                        divider: "rgb(23, 24, 28)",
+                        focus: "rgb(139 92 246)"
+                    },
+                    default: {
+                        foreground: "rgb(212 212 212)",
+                        DEFAULT: "rgb(23, 24, 28)",
+                        divider: "rgb(23, 24, 28)",
+                        focus: "rgb(139 92 246)"
+                    }
+                }
+            },
+            violet: {
+                extends: "dark",
+                colors: {
+                    default: {
+                        foreground: "rgb(255 255 255)",
+                        DEFAULT: "rgb(139 92 246)"
+                    }
+                }
+            }
+        }
+    })]
 };
+
+export default config;

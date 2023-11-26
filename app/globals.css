@@ -2,25 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background-rgb: rgb(246, 246, 246);
   --wamellow-rgb: rgb(226, 232, 240);
-}
+} */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-rgb: rgb(13, 15, 17);
-    --wamellow-rgb: rgb(23, 24, 28);
-  }
+:root {
+  --background-rgb: rgb(13, 15, 17);
+  --wamellow-rgb: rgb(23, 24, 28);
 }
 
 html {
   min-height: 100vh;
   min-height: 100svh;
-}
-
-body {
-  background: var(--background-rgb);
   scroll-behavior: smooth;
 }
 
@@ -42,4 +36,19 @@ body {
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+
+::-webkit-scrollbar {
+  width: 6px;
+  background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(139, 92, 246, 0.7);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(139, 92, 246, 1);
 }

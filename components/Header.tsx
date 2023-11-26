@@ -1,4 +1,5 @@
 "use client";
+import { NextUIProvider, Skeleton } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { Inter, Montserrat } from "next/font/google";
 import Image from "next/image";
@@ -27,7 +28,7 @@ interface Props {
 const Header: FunctionComponent<Props> = ({ children }) => {
 
     const [menu, setMenu] = useState(false);
-    const [loginstate, setLoginstate] = useState<"LOADING" | "ERRORED" | undefined>(undefined);
+    const [loginstate, setLoginstate] = useState<"LOADING" | "ERRORED" | undefined>("LOADING");
 
     const path = usePathname() || "/";
     useEffect(() => {
@@ -45,6 +46,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     useEffect(() => {
 
         authorizeUser({ stateHook: setLoginstate, page: path }).then((_user) => {
+            (_user || { __fetched: false }).__fetched = true;
             if (_user) userStore.setState(_user);
         });
 
@@ -63,9 +65,20 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
     const UserButton = (
         <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
-            <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={64} alt="your avatar" className="rounded-full mr-2 h-[30px] w-[30px]" />
-            <div className="mr-1 relative bottom-[1px]">@{user?.username}</div>
-            <HiChevronDown />
+
+            <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
+                <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={64} alt="your avatar" />
+            </Skeleton>
+
+            {!user?.id ?
+                <Skeleton className="rounded-xl w-20 h-4" />
+                :
+                <>
+                    <div className="mr-1 relative bottom-[1px]">@{user?.username}</div>
+                    <HiChevronDown />
+                </>
+            }
+
         </button>
     );
 
@@ -129,7 +142,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
                     <div className="flex items-center px-4">
                         <HiBeaker />
-                        <span className="ml-2">Admin tools</span>
+                        <span className="ml-2">Lunar Tools</span>
                         <label className="ml-auto relative inline-flex items-center cursor-pointer">
                             <input
                                 type="checkbox"
@@ -160,7 +173,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
     );
 
     return (
-        <html lang="en" className="flex justify-center min-h-screen max-w-screen overflow-x-hidden">
+        <html lang="en" className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden bg-[var(--background-rgb)]">
 
             <body className={`${inter.className} w-full max-w-7xl`}>
 
@@ -188,7 +201,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                         </Link>
                     </div>
 
-                    {!user?.id ? <LoginButton loginstate={loginstate} /> : UserButton}
+                    {!loginstate && !user?.id ? <LoginButton loginstate={loginstate} /> : UserButton}
                 </nav>
 
                 <MotionConfig
@@ -207,9 +220,11 @@ const Header: FunctionComponent<Props> = ({ children }) => {
                     </AnimatePresence>
                 </MotionConfig>
 
-                <main className="dark:text-neutral-400 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
-                    {children}
-                </main>
+                <NextUIProvider>
+                    <main className="dark:text-neutral-400 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
+                        {children}
+                    </main>
+                </NextUIProvider>
 
             </body>
 

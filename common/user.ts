@@ -12,6 +12,8 @@ export interface User {
     global_name?: string;
     avatar: string | null;
 
+    __fetched: boolean;
+
     extended: ApiV1MeGetResponse | undefined;
 }
 
@@ -22,5 +24,6 @@ export const userStore = create<User | undefined>(() => ({
     username: "",
     avatar: "/discord.png",
 
+    __fetched: false,
     extended: undefined
 }));

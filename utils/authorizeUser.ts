@@ -15,7 +15,6 @@ export default async function authorize({ stateHook, page }: Props): Promise<Use
     let serverError = false;
     if (localStorage.getItem("token")) {
 
-        stateHook("LOADING");
         res = await fetch(`${process.env.NEXT_PUBLIC_API}/sessions`, {
             headers: {
                 "Content-Type": "application/json",
