@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 
+import cn from "@/utils/cn";
+
 type Props = {
     name?: string;
     placeholder?: string;
@@ -42,38 +44,57 @@ const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, set
                 </div>
             }
 
-            {max > 300 ?
-                <textarea
-                    className={className}
-                    placeholder={placeholder}
-                    onChange={(e) => {
-                        if (dataName) {
-                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null })));
-                        } else {
-                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null);
-                        }
-                    }}
-                    value={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
-                    disabled={disabled}
-                    rows={2}
-                    maxLength={max || Infinity}
-                />
+            {type === "color" ?
+                <div className={cn(className, "mt-1 h-12 w-full rounded-md border dark:border-wamellow border-wamellow-100 bg-none")} style={{ backgroundColor: `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` }}>
+                    <input
+                        className="opacity-0 w-full h-full cursor-pointer"
+                        type="color"
+                        value={`#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}`}
+                        onChange={(e) => {
+                            const color = parseInt(e.target.value.replace(/#/, ""), 16);
+
+                            if (dataName) {
+                                setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: color || null })));
+                            } else {
+                                setValue(color || null);
+                            }
+                        }}
+                        disabled={disabled}
+                    />
+                </div>
                 :
-                <input
-                    className={className}
-                    placeholder={placeholder}
-                    onChange={(e) => {
-                        if (dataName) {
-                            setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null })));
-                        } else {
-                            setValue(type === "color" ? parseInt(e.target.value.slice(1), 16) : e.target.value || null);
-                        }
-                    }}
-                    value={type === "color" ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : dataName ? JSON.parse(value)[dataName] : value}
-                    disabled={disabled}
-                    type={type}
-                    maxLength={max || Infinity}
-                />
+                max > 300 ?
+                    <textarea
+                        className={className}
+                        placeholder={placeholder}
+                        onChange={(e) => {
+                            if (dataName) {
+                                setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: e.target.value || null })));
+                            } else {
+                                setValue(e.target.value || null);
+                            }
+                        }}
+                        value={dataName ? JSON.parse(value)[dataName] : value}
+                        disabled={disabled}
+                        rows={2}
+                        maxLength={max || Infinity}
+                    />
+                    :
+                    <input
+                        className={className}
+                        placeholder={placeholder}
+                        onChange={(e) => {
+                            if (dataName) {
+                                setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: e.target.value || null })));
+                            } else {
+                                setValue(e.target.value || null);
+                            }
+                        }}
+                        value={dataName ? JSON.parse(value)[dataName] : value}
+                        disabled={disabled}
+                        type={type}
+                        maxLength={max || Infinity}
+                    />
             }
 
             {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm mt-1">{description}</div>}

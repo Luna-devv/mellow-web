@@ -1,24 +1,34 @@
 "use client";
+import { Progress } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { FunctionComponent, useState } from "react";
 import { HiX } from "react-icons/hi";
+import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
 import { RouteErrorResponse } from "@/typings";
+import cn from "@/utils/cn";
 
 import ErrorBanner from "./Error";
 
 interface Props {
+    className?: string;
+    variant?: "default" | "danger";
+
     title: string;
     children: React.ReactNode;
+    subChildren?: React.ReactNode;
+
     onSubmit?: () => Promise<Response>;
     onSuccess?: () => void;
     onClose: () => void;
+
     show: boolean;
     buttonName?: string
 }
-const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, onSuccess, show, buttonName = "Submit" }) => {
+const Modal: FunctionComponent<Props> = ({ className, variant, title, children, subChildren, onSubmit, onClose, onSuccess, show, buttonName = "Submit" }) => {
 
-    const [error, setError] = useState<string>();
+    const [state, setState] = useState<"LOADING" | undefined>(undefined);
+    const [error, setError] = useState<string | undefined>(undefined);
 
     return (
         <MotionConfig
@@ -33,6 +43,7 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
                         exit="closed"
                         variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
                         className="fixed top-0 left-0 h-screen w-full inset-0 bg-black/70 flex items-center justify-center z-50"
+                        style={{ backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
                     >
                         <motion.div
                             initial="closed"
@@ -58,7 +69,7 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
                         "
                         >
 
-                            <div className="p-4">
+                            <div className="p-4 pb-0 mb-16 md:mb-0">
 
                                 <div className="flex items-center">
                                     <span className="text-2xl font-semibold dark:text-neutral-200 text-neutral-800">{title}</span>
@@ -70,16 +81,37 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
                                     </button>
                                 </div>
 
-                                <hr className="mt-2 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
+                                <Progress
+                                    size="sm"
+                                    isIndeterminate={state === "LOADING"}
+                                    aria-label="Loading..."
+                                    className="mt-2 mb-3 h-0.5"
+                                    classNames={{
+                                        track: "dark:bg-wamellow-light bg-wamellow-100-light",
+                                        indicator: "bg-violet-500"
+                                    }}
+                                    value={0}
+                                />
 
-                                {error && <ErrorBanner message={error} removeButton={true} />}
+                                <div className={"scrollbar-none p-0.5 pb-4 sm:max-h-[512px] max-h-[384px] overflow-y-scroll " + className}> {/* sm:max-h-[512px] max-h-[384px] overflow-y-scroll */}
+                                    {error && <ErrorBanner message={error} removeButton={true} />}
 
-                                {children}
+                                    {children}
+                                </div>
 
                             </div>
 
                             <div className="md:relative absolute bottom-0 left-0 w-full dark:bg-wamellow/40 bg-wamellow-100/40 rounded-bl-md rounded-br-md">
-                                <div className="flex w-full items-baseline gap-4 p-4">
+                                <div className="flex items-center w-full gap-4 p-4">
+
+                                    {state === "LOADING" ?
+                                        <div className="flex items-center gap-2">
+                                            <TailSpin stroke="#a3a3a3" strokeWidth={6} className="relative h-3 w-3 overflow-visible" />
+                                            Submitting...
+                                        </div>
+                                        :
+                                        subChildren
+                                    }
 
                                     <button
                                         onClick={() => onClose()}
@@ -90,10 +122,13 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
 
                                     <button
                                         onClick={() => {
+                                            if (state === "LOADING") return;
                                             if (!onSubmit) return onClose();
 
+                                            setState("LOADING");
                                             onSubmit?.()
                                                 .then(async (res) => {
+                                                    setState(undefined);
                                                     if (res.ok) {
                                                         onClose();
                                                         onSuccess?.();
@@ -102,7 +137,8 @@ const Modal: FunctionComponent<Props> = ({ title, children, onSubmit, onClose, o
                                                 })
                                                 .catch((e) => setError(e || "Unknown server error"));
                                         }}
-                                        className="flex bg-violet-600 hover:bg-violet-700 text-neutral-200 font-medium py-2 px-5 duration-200 rounded-md"
+                                        className={cn(`flex bg-violet-600 hover:bg-violet-700 text-neutral-200 font-medium py-2 px-5 duration-200 rounded-md ${state === "LOADING" && "opacity-50 cursor-wait"}`, variant === "danger" && "bg-red-500/80 hover:bg-red-600")}
+                                        disabled={state === "LOADING"}
                                     >
                                         <span>{buttonName}</span>
                                     </button>

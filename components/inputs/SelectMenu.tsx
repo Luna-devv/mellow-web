@@ -4,39 +4,43 @@ import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
+import cn from "@/utils/cn";
 import { truncate } from "@/utils/truncate";
 
 type Props = {
+    className?: string;
+
     name: string;
     url?: string;
-    dataName: string;
-    items: { icon?: React.ReactNode; name: string; value: string | number; error?: string }[] | undefined;
+    dataName?: string;
+    items: { icon?: React.ReactNode; name: string; value: string | number | null; error?: string }[] | undefined;
     disabled?: boolean;
     description?: string;
-    __defaultState?: string | number;
+    defaultState?: string | number | null;
 
-    onSave?: (options: { name: string; value: string | number; error?: string }) => void;
+    onSave?: (options: { name: string; value: string | number | null; error?: string }) => void;
 };
 
 
-const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = [], disabled, description, __defaultState, onSave }) => {
+const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName, items = [], disabled, description, defaultState, onSave }) => {
     const web = webStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<string | number | undefined>();
-    const [value, setValue] = useState<{ icon?: React.ReactNode; name: string; value: string | number; error?: string } | undefined>();
+    const [_defaultvalue, _setDefaultalue] = useState<string | number | null | undefined>();
+    const [value, setValue] = useState<{ icon?: React.ReactNode; name: string; value: string | number | null; error?: string } | undefined>();
 
     useEffect(() => {
-        setValue(items.find((i) => i.value === __defaultState));
-        setDefaultalue(__defaultState);
-    }, [__defaultState]);
+        setValue(items.find((i) => i.value === defaultState));
+        _setDefaultalue(defaultState);
+    }, [defaultState]);
 
     useEffect(() => {
         setError(undefined);
-        if (!value || value.error || value.value === defaultvalue) {
+
+        if (!value || value.error || value.value === _defaultvalue) {
             setState(undefined);
             return;
         }
@@ -48,8 +52,9 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
             return;
         }
 
-        setState("LOADING");
+        if (!dataName) throw new Error("Warning: <SelectInput.dataName> must be defined when using <SelectInput.url>.");
 
+        setState("LOADING");
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
             headers: {
@@ -89,7 +94,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
     }, [value]);
 
     return (
-        <div className="select-none w-full max-w-full mb-3 relative">
+        <div className={cn("select-none w-full max-w-full mb-2 relative", className)}>
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
                 {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
@@ -124,7 +129,7 @@ const SelectInput: FunctionComponent<Props> = ({ name, url, dataName, items = []
                                 onClick={() => {
                                     setOpen(false);
                                     setState(undefined);
-                                    if (value?.value) setDefaultalue(value.value);
+                                    if (value?.value) _setDefaultalue(value.value);
                                     setValue(item);
                                 }}
                             >
