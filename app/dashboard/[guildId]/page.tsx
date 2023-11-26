@@ -83,7 +83,7 @@ export default function Home() {
                     dataName="channelId"
                     items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
                     description="Select a channel where updates should be send into."
-                    __defaultState={guild?.follownewsChannel?.id}
+                    defaultState={guild?.follownewsChannel?.id}
                     onSave={(o) => {
                         setFollowchannel(o.value as string);
                     }}

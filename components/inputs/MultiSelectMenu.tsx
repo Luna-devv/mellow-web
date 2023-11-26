@@ -7,6 +7,8 @@ import { RouteErrorResponse } from "@/typings";
 import { truncate } from "@/utils/truncate";
 
 type Props = {
+    className?: string;
+
     name: string;
     url: string;
     dataName: string;
@@ -14,28 +16,28 @@ type Props = {
     disabled?: boolean;
     max?: number;
     description?: string;
-    __defaultState?: string[];
+    defaultState?: string[];
 };
 
 
-const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items = [], disabled, max = Infinity, description, __defaultState = [] }) => {
+const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataName, items = [], disabled, max = Infinity, description, defaultState = [] }) => {
     const web = webStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<string[]>([]);
+    const [_defaultvalue, _setDefaultalue] = useState<string[]>([]);
     const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string; error?: string; color?: number; }[]>([]);
 
     useEffect(() => {
-        setValues(items.filter((i) => __defaultState?.includes(i.value)));
-        setDefaultalue(__defaultState);
-    }, [__defaultState]);
+        setValues(items.filter((i) => defaultState?.includes(i.value)));
+        _setDefaultalue(defaultState);
+    }, [defaultState]);
 
     useEffect(() => {
         setError(undefined);
-        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
+        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(_defaultvalue)) {
             setState(undefined);
             return;
         }
@@ -79,7 +81,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
     }, [open]);
 
     return (
-        <div className="select-none w-full max-w-full mb-3 relative">
+        <div className={"select-none w-full max-w-full mb-3 relative " + className}>
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
                 {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
@@ -89,7 +91,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ name, url, dataName, items 
                 className={`mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3 ${open && "outline outline-violet-400 outline-2"} ${(values.find((v) => !!v.error) || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${(state === "LOADING" || disabled) && "cursor-not-allowed opacity-50"}`}
                 onClick={() => {
                     setOpen(!open);
-                    if (!open) setDefaultalue(values.map((v) => v.value));
+                    if (!open) _setDefaultalue(values.map((v) => v.value));
                 }}
                 disabled={(state === "LOADING" || disabled)}
             >

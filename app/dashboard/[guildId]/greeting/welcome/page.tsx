@@ -107,7 +107,7 @@ export default function Home() {
                     dataName="channelId"
                     items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the welcome message should be send into."
-                    __defaultState={welcome?.channelId}
+                    defaultState={welcome?.channelId}
                     disabled={!welcome.enabled || false}
                 />
 
@@ -164,7 +164,7 @@ export default function Home() {
                         dataName="roleIds"
                         items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
                         description="Select roles which members should get."
-                        __defaultState={welcome?.roleIds || []}
+                        defaultState={welcome?.roleIds || []}
                         max={5}
                         disabled={!welcome.enabled}
                     />
@@ -177,7 +177,7 @@ export default function Home() {
                         dataName="pingIds"
                         items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
                         description="Select in what channels user should get ghostpinged."
-                        __defaultState={welcome?.pingIds || []}
+                        defaultState={welcome?.pingIds || []}
                         max={5}
                         disabled={!welcome.enabled}
                     />
@@ -198,7 +198,7 @@ export default function Home() {
                             }) || []
                         ]}
                         description="Select emotes which will be reacted with on members first message."
-                        __defaultState={welcome?.reactions?.firstMessageEmojis}
+                        defaultState={welcome?.reactions?.firstMessageEmojis}
                         max={2}
                         disabled={!welcome.enabled}
                     />
@@ -217,7 +217,7 @@ export default function Home() {
                             }) || []
                         ]}
                         description="Select emotes which will be reacted with on welcome messages."
-                        __defaultState={welcome?.reactions?.welcomeMessageEmojis}
+                        defaultState={welcome?.reactions?.welcomeMessageEmojis}
                         max={2}
                         disabled={!welcome.enabled}
                     />
@@ -278,7 +278,7 @@ export default function Home() {
                                 ratio="aspect-[4/1]"
                                 dataName="card.background"
                                 description="Enter a url which should be the background for the image card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
-                                __defaultState={welcome.card.background || ""}
+                                defaultState={welcome.card.background || ""}
                                 disabled={!welcome.card.enabled || !welcome.enabled}
                                 onSave={(v) => {
                                     setWelcome({

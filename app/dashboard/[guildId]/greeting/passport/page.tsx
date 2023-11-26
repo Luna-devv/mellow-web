@@ -105,7 +105,7 @@ export default function Home() {
                 dataName="channelId"
                 items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                 description="Select the channel where verifications should be send into."
-                __defaultState={passport?.channelId}
+                defaultState={passport?.channelId}
                 disabled={!passport.enabled}
             />
 
@@ -117,7 +117,7 @@ export default function Home() {
                         dataName="unverifiedRoleId"
                         items={guild?.roles?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                         description="Select what role members should get when joining."
-                        __defaultState={passport?.unverifiedRoleId}
+                        defaultState={passport?.unverifiedRoleId}
                         disabled={!passport.enabled}
                     />
                 </div>
@@ -129,7 +129,7 @@ export default function Home() {
                         dataName="successRoleId"
                         items={guild?.roles?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                         description="Select what role members should get when completing verification."
-                        __defaultState={passport?.successRoleId}
+                        defaultState={passport?.successRoleId}
                         disabled={!passport.enabled}
                     />
                 </div>
@@ -147,7 +147,7 @@ export default function Home() {
                             { name: "Assign role to member", value: 2 }
                         ]}
                         description="Choose what should happen if a member failes verification."
-                        __defaultState={passport?.punishment}
+                        defaultState={passport?.punishment}
                         disabled={!passport.enabled}
                         onSave={(o) => {
 
@@ -188,7 +188,7 @@ export default function Home() {
                         dataName="punishmentRoleId"
                         items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
                         description="Select what role members should get when failing verification."
-                        __defaultState={passport.punishmentRoleId}
+                        defaultState={passport.punishmentRoleId}
                         onSave={(o) => {
                             setPunishmentRoleId(o.value as string);
                         }}
@@ -202,7 +202,7 @@ export default function Home() {
                         dataName="punishmentRoleId"
                         items={guild?.roles?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
                         description="Select what role members should get when failing verification."
-                        __defaultState={passport?.punishmentRoleId}
+                        defaultState={passport?.punishmentRoleId}
                         disabled={!passport.enabled || passport.punishment !== 2}
                         onSave={(o) => {
                             setPassport({

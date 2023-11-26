@@ -11,25 +11,25 @@ type Props = {
     dataName: string;
     disabled?: boolean;
     description?: string;
-    __defaultState: string;
+    defaultState: string;
     ratio: `aspect-[${number}/${number}]`
 
     onSave?: (value: string) => void;
 };
 
 
-const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, onSave, ratio }) => {
+const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState, onSave, ratio }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
     const [value, setValue] = useState<string>("");
-    const [__defaultStatealue, set__defaultStatealue] = useState<string>("");
+    const [defaultStatealue, setdefaultStatealue] = useState<string>("");
     const [imagestate, setImagestate] = useState<"ERRORED" | "SUCCESS" | undefined>(undefined);
 
     useEffect(() => {
-        if (!__defaultStatealue) set__defaultStatealue(__defaultState);
-        setValue(__defaultState);
-    }, [__defaultState]);
+        if (!defaultStatealue) setdefaultStatealue(defaultState);
+        setValue(defaultState);
+    }, [defaultState]);
 
     useEffect(() => {
         if (!value?.length) setImagestate("SUCCESS");
@@ -37,7 +37,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
     }, [value]);
 
     useEffect(() => {
-        if (imagestate !== "SUCCESS" || __defaultStatealue === value) return;
+        if (imagestate !== "SUCCESS" || defaultStatealue === value) return;
         setError(undefined);
         setState("LOADING");
 
@@ -60,7 +60,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                 switch (res.status) {
                     case 200: {
                         setValue(value);
-                        set__defaultStatealue(value);
+                        setdefaultStatealue(value);
                         onSave?.(value);
 
                         setState("SUCCESS");

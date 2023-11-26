@@ -7,6 +7,8 @@ import { RouteErrorResponse } from "@/typings";
 
 
 type Props = {
+    className?: string;
+
     name: string;
     url: string;
     dataName: string;
@@ -18,7 +20,7 @@ type Props = {
 };
 
 
-const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState, min = 0 }) => {
+const NumberInput: FunctionComponent<Props> = ({ className, name, url, dataName, disabled, description, defaultState, min = 0 }) => {
     const web = webStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
@@ -28,7 +30,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const [value, setValue] = useState<number>();
-    const [__defaultStatealue, setDefaultalue] = useState<number>();
+    const [defaultStatealue, _setDefaultalue] = useState<number>();
 
     useEffect(() => {
         if (!hold) {
@@ -49,11 +51,11 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
 
     useEffect(() => {
         setValue(defaultState);
-        setDefaultalue(defaultState);
+        _setDefaultalue(defaultState);
     }, [defaultState]);
 
     function handleSave() {
-        if (__defaultStatealue === value) return;
+        if (defaultStatealue === value) return;
         setError(undefined);
         setState("LOADING");
 
@@ -76,7 +78,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
                 switch (res.status) {
                     case 200: {
                         setState("SUCCESS");
-                        setDefaultalue(value);
+                        _setDefaultalue(value);
                         setTimeout(() => setState(undefined), 1_000 * 8);
                         break;
                     }
@@ -95,7 +97,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
     }
 
     return (
-        <div className="relative">
+        <div className={"relative " + className}>
             <div className="flex items-center mb-6">
                 <div>
                     <div className="flex gap-2">
@@ -108,7 +110,7 @@ const NumberInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, 
 
                 <div className={`ml-auto relative flex items-center cursor-pointer h-8 ${(disabled || (state === "LOADING" || disabled)) && "opacity-50"}`}>
 
-                    {__defaultStatealue !== value &&
+                    {defaultStatealue !== value &&
                         <button
                             onClick={handleSave}
                             className={`bg-violet-600 hover:bg-violet-600/80 duration-200 h-full w-12 rounded-md mr-2 ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-pointer"}`}

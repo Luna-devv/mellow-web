@@ -44,7 +44,7 @@ export default function Home() {
                                 error: "Not done yet"
                             }
                         ]}
-                        __defaultState={user?.extended?.rank?.subText?.type?.toString()}
+                        defaultState={user?.extended?.rank?.subText?.type?.toString()}
                         onSave={(options) => {
                             if (!user) return;
                             userStore.setState(deepMerge<User>(user, { extended: { rank: { subText: { type: Number(options.value) as 0 | 1 | 2 | 3 } } } }));
@@ -62,7 +62,7 @@ export default function Home() {
                             dataName="textColor"
                             description="Color used for your username."
                             type="color"
-                            __defaultState={user?.extended?.rank?.textColor ?? 0}
+                            defaultState={user?.extended?.rank?.textColor ?? 0}
                             onSave={(value) => {
                                 if (!user) return;
                                 userStore.setState(deepMerge<User>(user, { extended: { rank: { textColor: Number(value) } } }));
@@ -78,7 +78,7 @@ export default function Home() {
                             dataName="barColor"
                             description="Color used for the progress bar."
                             type="color"
-                            __defaultState={user?.extended?.rank?.barColor ?? 0}
+                            defaultState={user?.extended?.rank?.barColor ?? 0}
                             onSave={(value) => {
                                 if (!user) return;
                                 userStore.setState(deepMerge<User>(user, { extended: { rank: { barColor: Number(value) } } }));
@@ -95,7 +95,7 @@ export default function Home() {
                 ratio="aspect-[4/1]"
                 dataName="background"
                 description="Enter a url which should be the background of your /rank card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
-                __defaultState={user?.extended?.rank?.background || ""}
+                defaultState={user?.extended?.rank?.background || ""}
                 onSave={(value) => {
                     if (!user) return;
                     userStore.setState(deepMerge<User>(user, { extended: { rank: { background: value } } }));

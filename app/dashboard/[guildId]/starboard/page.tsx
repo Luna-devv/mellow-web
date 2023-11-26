@@ -200,7 +200,7 @@ export default function Home() {
                 dataName="channelId"
                 items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                 description="Select the channel where the starboard messages should be send into."
-                __defaultState={starboard?.channelId}
+                defaultState={starboard?.channelId}
                 disabled={!starboard.enabled}
             />
 
@@ -218,7 +218,7 @@ export default function Home() {
                             }) || []
                         ]}
                         description="Select the emoji that needs to be reacted with."
-                        __defaultState={starboard?.emoji}
+                        defaultState={starboard?.emoji}
                         disabled={!starboard.enabled}
                     />
                 </div>
@@ -247,7 +247,7 @@ export default function Home() {
                             }
                         ]}
                         description="The style members profile gets displayed."
-                        __defaultState={starboard?.style}
+                        defaultState={starboard?.style}
                         onSave={(options) => handleUserStyle(options.value as number)}
                         disabled={!starboard.enabled}
                     />
@@ -262,7 +262,7 @@ export default function Home() {
                         dataName="blacklistRoleIds"
                         items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, color: r.color }; })}
                         description="Select roles which should not be able to starboard."
-                        __defaultState={starboard?.blacklistRoleIds || []}
+                        defaultState={starboard?.blacklistRoleIds || []}
                         max={500}
                         disabled={!starboard.enabled}
                     />
@@ -275,7 +275,7 @@ export default function Home() {
                         dataName="blacklistChannelIds"
                         items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
                         description="Select channels which should not be able to be in the starboard."
-                        __defaultState={starboard?.blacklistChannelIds || []}
+                        defaultState={starboard?.blacklistChannelIds || []}
                         max={500}
                         disabled={!starboard.enabled}
                     />

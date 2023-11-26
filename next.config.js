@@ -17,6 +17,12 @@ const nextConfig = {
                 hostname: "cdn.waya.one",
                 port: "",
                 pathname: "/r/**"
+            },
+            {
+                protocol: "https",
+                hostname: "image-api.wamellow.com",
+                port: "",
+                pathname: "/"
             }
         ]
     }

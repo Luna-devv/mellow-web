@@ -98,7 +98,7 @@ export default function Home() {
                     dataName="channelId"
                     items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                     description="Select the channel where the bye message should be send into."
-                    __defaultState={bye?.channelId}
+                    defaultState={bye?.channelId}
                     disabled={!bye.enabled}
                 />
 
@@ -200,7 +200,7 @@ export default function Home() {
                                 ratio="aspect-[4/1]"
                                 dataName="card.background"
                                 description="Enter a url which should be the background for the image card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
-                                __defaultState={bye.card.background || ""}
+                                defaultState={bye.card.background || ""}
                                 disabled={!bye.card.enabled || !bye.enabled}
                                 onSave={(v) => {
                                     setBye({
