@@ -229,7 +229,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="message"
                 defaultMessage={welcome?.message}
-                messageAttachmentComponent={welcome.card.enabled && <Image src={`https://imagerenderer.waya.one/?type=join&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${welcome.card.background ? `&background=${encodeURIComponent(welcome.card.background)}` : ""}`} width={1024 / 2} height={(256 + 16) / 2} loading="lazy" alt="" />}
+                messageAttachmentComponent={welcome.card.enabled && <Image src={`https://image-api.wamellow.com/?type=join&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${welcome.card.background ? `&background=${encodeURIComponent(welcome.card.background)}` : ""}`} width={1024 / 2} height={(256 + 16) / 2} loading="lazy" alt="" />}
                 showMessageAttachmentComponentInEmbed={welcome.card.inEmbed}
                 disabled={!welcome.enabled}
             >

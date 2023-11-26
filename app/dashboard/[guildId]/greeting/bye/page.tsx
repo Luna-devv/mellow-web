@@ -151,7 +151,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/bye`}
                 dataName="message"
                 defaultMessage={bye?.message}
-                messageAttachmentComponent={bye.card.enabled && <Image src={`https://imagerenderer.waya.one/?type=join&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${bye.card.background ? `&background=${encodeURIComponent(bye.card.background)}` : ""}`} width={1024 / 2} height={(256 + 16) / 2} loading="lazy" alt="" />}
+                messageAttachmentComponent={bye.card.enabled && <Image src={`https://image-api.wamellow.com/?type=join&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${bye.card.background ? `&background=${encodeURIComponent(bye.card.background)}` : ""}`} width={1024 / 2} height={(256 + 16) / 2} loading="lazy" alt="" />}
                 showMessageAttachmentComponentInEmbed={bye.card.inEmbed}
                 disabled={!bye.enabled}
             >
