@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiChartBar } from "react-icons/hi";
 
-import { guildStore } from "@/common/guilds";
+import { Guild, guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
@@ -12,6 +12,7 @@ import TextInput from "@/components/inputs/TextInput";
 import { ApiV1GuildsModulesLeaderboardGetResponse, RouteErrorResponse } from "@/typings";
 
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
+import UpdatingLeaderboardCard from "./updating.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -52,14 +53,27 @@ export default function Home() {
 
     }, []);
 
-    if (leaderboard === undefined) return (
-        <div>
-            {error && <ErrorBanner message={error} />}
-        </div>
-    );
+    const Betweener = () => {
+        return (
+            <>
+                <hr className="w-1/2 dark:border-wamellow-light border-wamellow-100-light rounded-full select-none md:hidden" />
+                <span className="w-0.5 h-20 dark:bg-wamellow-light bg-wamellow-100-light rounded-full rotate-6 select-none hidden md:block" />
+            </>
+        );
+    };
+
+    if (error) return <ErrorBanner message={error} />;
+    if (!leaderboard) return <></>;
 
     return (
         <div>
+
+            <OverviewLinkComponent
+                title="View Leaderboard"
+                message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
+                url={`/leaderboard/${params.guildId}`}
+                icon={<HiChartBar />}
+            />
 
             <div className={`flex gap-4 border-2 border-violet-400 p-4 mb-4 rounded-lg ${!web.devToolsEnabled && "opacity-50 cursor-not-allowed"}`}>
 
@@ -67,12 +81,12 @@ export default function Home() {
 
                     <div className="w-1/2">
                         <TextInput
-                            name="Text Color"
+                            name="Text"
                             url={`/guilds/${guild?.id}/modules/leaderboard`}
                             dataName="textColor"
                             description="Color used for text."
                             type="color"
-                            __defaultState={leaderboard?.textColor ?? 0xe5e5e5}
+                            defaultState={leaderboard?.textColor ?? 0xe5e5e5}
                             resetState={0xe5e5e5}
                             disabled={!web.devToolsEnabled}
                         />
@@ -80,12 +94,12 @@ export default function Home() {
 
                     <div className="w-1/2">
                         <TextInput
-                            name="Accent Color"
+                            name="Accent"
                             url={`/guilds/${guild?.id}/modules/leaderboard`}
                             dataName="accentColor"
                             description="Color used for secondary text."
                             type="color"
-                            __defaultState={leaderboard?.accentColor ?? 0x8b5cf6}
+                            defaultState={leaderboard?.accentColor ?? 0x8b5cf6}
                             resetState={0x8b5cf6}
                             disabled={!web.devToolsEnabled}
                         />
@@ -95,13 +109,13 @@ export default function Home() {
 
                 <div className="w-1/2">
                     <TextInput
-                        name="Background Color"
+                        name="Background"
                         url={`/guilds/${guild?.id}/modules/leaderboard`}
                         dataName="backgroundColor"
                         description="Color used for the background."
                         type="color"
-                        __defaultState={leaderboard?.backgroundColor ?? 0x18191c}
-                        resetState={0x18191c}
+                        defaultState={leaderboard?.backgroundColor ?? 0x0d0f11}
+                        resetState={0x0d0f11}
                         disabled={!web.devToolsEnabled}
                     />
                 </div>
@@ -114,16 +128,18 @@ export default function Home() {
                 ratio="aspect-[4/1]"
                 dataName="banner"
                 description="Enter a url which should be the banner of the leaderboard web page. The recomended image ration is 4:1 and recommended resolution 1024x256px."
-                __defaultState={leaderboard.banner || ""}
+                defaultState={leaderboard.banner || ""}
             />
 
-            <OverviewLinkComponent
-                className="mt-8"
-                title="View Leaderboard"
-                message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
-                url={`/leaderboard/${params.guildId}`}
-                icon={<HiChartBar />}
-            />
+            <hr className="my-6 dark:border-wamellow-light border-wamellow-100-light" />
+
+            <div className="w-full grid gap-4 md:flex md:gap-0 md:items-center">
+                <UpdatingLeaderboardCard guild={guild as Guild} lb={leaderboard.updating.find((lb) => lb.type === "messages")} type="messages" />
+                <Betweener />
+                <UpdatingLeaderboardCard guild={guild as Guild} lb={leaderboard.updating.find((lb) => lb.type === "voiceminutes")} type="voiceminutes" />
+                <Betweener />
+                <UpdatingLeaderboardCard guild={guild as Guild} lb={leaderboard.updating.find((lb) => lb.type === "invites")} type="invites" />
+            </div>
 
         </div >
     );

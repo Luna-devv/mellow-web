@@ -158,31 +158,47 @@ export interface ApiV1GuildsModulesStarboardGetResponse {
     delete: boolean;
 }
 
-interface GuildLeaderboardApp {
-    channel: string | null;
-    message: string | null;
+export interface ApiV1GuildsModulesLeaderboardUpdatingPostResponse {
+    leaderboardId: string;
+    guildId: string;
 
-    type: "daily" | "weekly" | "monthly" | "alltime";
+    channelId: string;
+    messageId: string;
+
+    type: "messages" | "voiceminutes" | "invites";
+
+    /**
+     * 0 - text based
+     * 1 - image grid
+     * 2 - image list
+     */
+    structure: number;
+    styles: {
+        useQuotes: boolean;
+        rank: "**" | "__" | "*" | "`" | null;
+        number: "**" | "__" | "*" | "`" | null;
+        user: "**" | "__" | "*" | "`" | null;
+    }
+
+    range: "daily" | "weekly" | "monthly" | "alltime";
     display: "tag" | "username" | "nickname" | "id";
 
     background: string | null;
     emoji: string | null;
 
-    cardColor?: number;
-    textColor?: number;
+    updatedAt: string;
+    createdAt: string;
 }
 
 export interface ApiV1GuildsModulesLeaderboardGetResponse {
     banner: string | null;
     emoji: string | null;
 
-    backgroundColor?: number;
-    textColor?: number;
-    accentColor?: number;
+    backgroundColor: number | null;
+    textColor: number | null;
+    accentColor: number | null;
 
-    messages: GuildLeaderboardApp;
-    invites: GuildLeaderboardApp;
-    voice: GuildLeaderboardApp;
+    updating: ApiV1GuildsModulesLeaderboardUpdatingPostResponse[]
 }
 
 export interface ApiV1GuildsModulesPassportGetResponse {

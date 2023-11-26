@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
 
-interface Guild extends ApiV1GuildsGetResponse {
+export interface Guild extends ApiV1GuildsGetResponse {
     channels?: ApiV1GuildsChannelsGetResponse[];
     roles?: ApiV1GuildsRolesGetResponse[];
     emojis?: ApiV1GuildsEmojisGetResponse[];

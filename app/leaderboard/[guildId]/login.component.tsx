@@ -9,6 +9,8 @@ import LoginButton from "@/components/LoginButton";
 const PageComponent: FunctionComponent<{ searchParams: { page: string, type: string }, membersLength: number }> = ({ searchParams, membersLength }) => {
     const user = userStore((s) => s);
 
+    if (!user?.__fetched) return <></>;
+
     if (!user?.id) return (
         <LoginButton
             className="w-full text-center"

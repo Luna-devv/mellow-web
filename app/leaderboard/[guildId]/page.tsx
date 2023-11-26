@@ -8,8 +8,8 @@ import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
 
-import PageComponent from "./PageComponent";
-import SideComponent from "./SideComponent";
+import PageComponent from "./login.component";
+import SideComponent from "./side.component";
 
 interface LeaderboardProps { params: { guildId: string }, searchParams: { page: string, type: "messages" | "voiceminutes" | "invites" } }
 
