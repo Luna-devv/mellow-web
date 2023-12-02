@@ -29,6 +29,8 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
                 icon={<HiShare />}
             />
 
+            <Ad />
+
             {web.devToolsEnabled &&
                 <div className="dark:text-neutral-300 text-neutral-700 py-2 rounded-md mt-2">
                     <span className="flex items-center gap-2 px-1">
