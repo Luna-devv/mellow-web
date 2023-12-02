@@ -141,7 +141,7 @@ export default async function Home() {
             <div className="w-full mt-6 md:flex gap-4 items-center">
                 <div className="flex gap-4 items-center">
                     <span className="flex items-center gap-2">
-                        <ImageReduceMotion url="https://cdn.discordapp.com/avatars/821472922140803112/ee0026a578a9b2a0844ffa0efe9e3cf4" size={64} alt="mwlica's profile picture" className="w-12 h-12 rounded-full" />
+                        <ImageReduceMotion url="/luna" size={64} alt="mwlica's profile picture" className="w-12 h-12 rounded-full" />
                         <div>
                             <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@mwlica</span> <Badge text="Developer" /> <br />
                             <span className="dark:text-neutral-300 text-neutral-700">Cute femboy</span>

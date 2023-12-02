@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
@@ -166,10 +167,13 @@ export default function RootLayout({
             <title>{`${guild?.name}'s Dashboard`}</title>
 
             <div className="flex gap-2 mb-5 text-sm">
-                <Link href="/dashboard" className="flex items-center dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-lg duration-200">
-                    <HiArrowNarrowLeft />
-                    <span className="ml-2">Serverlist</span>
-                </Link>
+                <Button
+                    as={Link}
+                    href="/dashboard"
+                    startContent={<HiArrowNarrowLeft />}
+                >
+                    Serverlist
+                </Button>
                 {web.devToolsEnabled &&
                     <CopyToClipboardButton
                         text={getCanonicalUrl("leaderboard", params.guildId)}

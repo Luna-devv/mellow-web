@@ -67,7 +67,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
         <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
 
             <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
-                <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={64} alt="your avatar" />
+                <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord"} size={64} alt="your avatar" />
             </Skeleton>
 
             {!user?.id ?

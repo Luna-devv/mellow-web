@@ -121,7 +121,7 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
         <div className="flex flex-col gap-3 w-full mt-4">
 
             <div className="flex items-center dark:bg-wamellow-alpha bg-wamellow-100-alpha w-fit py-1 pl-2 pr-3 rounded-full">
-                <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord.png"} size={20} alt="your avatar" className="rounded-full mr-1 h-5 w-5" />
+                <ImageReduceMotion url={user?.id ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}` : "/discord"} size={20} alt="your avatar" className="rounded-full mr-1 h-5 w-5" />
                 <span className="pb-[2px] text-sm">{user?.global_name || `@${user?.username}`}</span>
             </div>
 

@@ -52,3 +52,18 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(139, 92, 246, 1);
 }
+
+button.subpixel-antialiased:not(.w-unit-10):not(.default),
+a[role="button"]:not(.w-unit-10):not(.default) {
+  @apply dark:hover:bg-wamellow-light hover:bg-wamellow-100-light justify-start text-medium duration-200
+}
+
+.text-sm button.subpixel-antialiased,
+.text-sm a[role="button"] {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.button {
+  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2
+}

@@ -22,7 +22,7 @@ export default async function RootLayout({
 
             <div className="text-neutral-500 w-full mt-10 mb-6 text-left">
 
-                <div className="flex items-center dark:text-neutral-100 text-neutral-900 gap-2">
+                <div className="flex items-center dark:text-neutral-100 text-neutral-900 gap-2 font-medium">
                     <BsDiscord className="relative top-[1px] text-[#f8746e]" />
                     <span className="text-xl bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text text-transparent">Wamellow</span>
                     <span className="text-xl bg-gradient-to-r from-yellow-400 to-blue-400 bg-clip-text text-transparent">for</span>

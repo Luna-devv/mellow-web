@@ -40,7 +40,7 @@ export const CopyToClipboardButton: FunctionComponent<Props> = ({ icon, text, ti
         <ButtonGroup>
 
             <Button
-                className={cn(saved ? "violet" : cn(className, "dark:hover:bg-wamellow-light hover:bg-wamellow-100-light"), "w-full justify-start")}
+                className={cn(saved ? "violet" : className + " ")}
                 onClick={() => handleCopy(text)}
                 startContent={icon}
             >

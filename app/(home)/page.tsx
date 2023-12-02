@@ -60,7 +60,7 @@ export default async function Home() {
                             <span className="block sm:hidden">Wamellow</span>
                             <span className="hidden sm:block">Invite Wamellow</span>
                         </Link>
-                        <Link href="/support" className="flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 w-1/2 lg:w-fit justify-center gap-2">
+                        <Link href="/support" className="button w-1/2">
                             <BsDiscord className="relative top-1" />
                             <span className="block sm:hidden">Support</span>
                             <span className="hidden sm:block">Join support</span>
@@ -98,7 +98,7 @@ export default async function Home() {
                                 <span className="block sm:hidden">Wamellow</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>
                             </Link>
-                            <Link href="/leaderboard/1055188344188973066" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 justify-center gap-1">
+                            <Link href="/leaderboard/1055188344188973066" className="button">
                                 <span className="mr-2">View Leaderboard</span>
                                 <HiArrowRight className="relative top-1" />
                             </Link>
@@ -135,7 +135,7 @@ export default async function Home() {
 
                 <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
 
-                    <div className="md:ml-auto md:w-1/2 px-3 pb-3">
+                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
                         <DiscordMessage
                             mode={"DARK"}
                             user={{
@@ -196,7 +196,7 @@ export default async function Home() {
 
                     </div>
 
-                    <div className="md:ml-auto md:w-1/2 px-3 pb-3">
+                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
                         <DiscordMessage
                             mode={"DARK"}
                             user={{
@@ -211,9 +211,8 @@ export default async function Home() {
                                 color={0xbc7ed4}
                                 author={{
                                     text: "@mwlica",
-                                    icon_url: "/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Favatars%2F821472922140803112%2Fee0026a578a9b2a0844ffa0efe9e3cf4.webp%3Fsize%3D64&w=128&q=75"
+                                    icon_url: "/luna.webp"
                                 }}
-                                image="/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F883817635081506886%2F1113058694347894865%2FIMG_6864.png&w=640&q=75"
                             >
                                 <Highlight mode={"DARK"} text="Like ok @sean I know you are gay but no I won’t date you" />
 
@@ -222,6 +221,8 @@ export default async function Home() {
                                     •
                                     <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
                                 </div>
+
+                                <Image src="/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F883817635081506886%2F1113058694347894865%2FIMG_6864.png&w=640&q=75" itemProp="image" alt="" width={640} height={205} loading="lazy" className="mt-2 rounded-md" />
                             </DiscordMessageEmbed>
 
 
@@ -232,7 +233,7 @@ export default async function Home() {
 
                 <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
 
-                    <div className="md:ml-auto w-full md:w-1/2 px-3 pb-3">
+                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
                         <DiscordMessage
                             mode={"DARK"}
                             user={{

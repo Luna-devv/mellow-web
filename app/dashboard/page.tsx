@@ -12,6 +12,7 @@ import ImageReduceMotion from "@/components/ImageReduceMotion";
 import DumbTextInput from "@/components/inputs/Dumb_TextInput";
 import LoginButton from "@/components/LoginButton";
 import { RouteErrorResponse, UserGuild } from "@/typings";
+import cn from "@/utils/cn";
 import { truncate } from "@/utils/truncate";
 
 export default function Home() {
@@ -133,7 +134,7 @@ export default function Home() {
                     }}
                     initial={web.reduceMotions ? "visible" : "hidden"}
                     animate="visible"
-                    className={`grid ${display === "GRID" && "lg:grid-cols-3 md:grid-cols-2"} grid-cols-1 gap-4 w-full`}
+                    className={cn("grid grid-cols-1 gap-4 w-full", display === "GRID" && "lg:grid-cols-3 md:grid-cols-2")}
                 >
 
                     {guilds
@@ -203,7 +204,7 @@ export default function Home() {
 
                 </motion.ul>
                 :
-                <div className="border-2 dark:border-wamellow border-wamellow-100 p-4 flex justify-center items-center rounded-lg drop-shadow-md overflow-hidden relative h-24 w-1/3">
+                <div className={cn("border-2 dark:border-wamellow border-wamellow-100 p-4 flex justify-center items-center rounded-lg drop-shadow-md overflow-hidden relative h-24", display === "GRID" && "md:w-1/2 lg:w-1/3")}>
                     Loading your servers...
                 </div>
             }

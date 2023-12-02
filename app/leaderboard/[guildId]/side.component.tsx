@@ -1,10 +1,12 @@
 "use client";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FunctionComponent, useState } from "react";
 import { HiShare, HiTrash, HiViewGridAdd } from "react-icons/hi";
 
 import { webStore } from "@/common/webstore";
+import Ad from "@/components/ad";
 import Badge from "@/components/badge";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import ErrorBanner from "@/components/Error";
@@ -22,13 +24,13 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
         <div className="flex flex-col gap-3">
 
             <CopyToClipboardButton
-                className={design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70" : "dark:bg-wamellow bg-wamellow-100"}
+                className={design?.backgroundColor && "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70  w-full" || " w-full"}
                 text={getCanonicalUrl("leaderboard", guildId)}
                 icon={<HiShare />}
             />
 
             {web.devToolsEnabled &&
-                <div className="dark:text-neutral-300 text-neutral-700 py-2 rounded-md">
+                <div className="dark:text-neutral-300 text-neutral-700 py-2 rounded-md mt-2">
                     <span className="flex items-center gap-2 px-1">
                         <span className="text-xl font-medium dark:text-neutral-100 text-neutral-900">Admin tools</span>
                         <Badge text="Developer" />
@@ -36,17 +38,20 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
                     <hr className="mt-2 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
 
                     <div className="flex flex-col gap-3">
-                        <button
+                        <Button
+                            className="w-full"
                             onClick={() => setModal(true)}
-                            className={`flex ${design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70" : "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light"} dark:hover:text-white py-2 px-4 rounded-md duration-200 w-full`}
+                            startContent={<HiTrash />}
                         >
-                            <HiTrash className="relative top-1" />
-                            <span className="ml-2">Reset member stats</span>
-                        </button>
-                        <Link href={getCanonicalUrl("dashboard", guildId)} className={`flex ${design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70" : "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light"} dark:hover:text-white py-2 px-4 rounded-md duration-200 w-full`}>
-                            <HiViewGridAdd className="relative top-1" />
-                            <span className="ml-2">Dashboard</span>
-                        </Link>
+                            Reset member stats
+                        </Button>
+                        <Button
+                            as={Link}
+                            href={getCanonicalUrl("dashboard", guildId)}
+                            startContent={<HiViewGridAdd />}
+                        >
+                            Dashboard
+                        </Button>
                     </div>
 
                 </div>
