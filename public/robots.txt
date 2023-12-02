@@ -1,2 +1,4 @@
 User-Agent: *
 Allow: /
+
+Sitemap: https://wamellow.com/sitemap.xml
