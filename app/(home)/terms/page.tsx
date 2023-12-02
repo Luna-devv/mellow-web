@@ -1,10 +1,40 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { HiArchive } from "react-icons/hi";
 
 import BeautifyMarkdown from "@/components/BeautifyMarkdown";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
-import { getCanonicalUrl } from "@/utils/urls";
+import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+
+    const title = "Terms of Service";
+    const description = "Read about Wamellow's Terms of Service.";
+    const url = getCanonicalUrl("terms");
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url
+        },
+        openGraph: {
+            title,
+            description,
+            type: "website",
+            url,
+            images: `${getBaseUrl()}/waya-v3.jpg`
+        },
+        twitter: {
+            card: "summary",
+            site: "wamellow.com",
+            title,
+            description,
+            images: `${getBaseUrl()}/waya-v3.jpg`
+        }
+    };
+};
 
 export default async function Home() {
     const res = await fetch("https://gist.githubusercontent.com/Luna-devv/12eaa667250165ba17d3319634923da8/raw/8edfb7746b00a59c064d3f85e50ce49e222531cd/terms.md", { next: { revalidate: 60 * 60 } });

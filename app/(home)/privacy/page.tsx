@@ -1,10 +1,40 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { HiArchive } from "react-icons/hi";
 
 import BeautifyMarkdown from "@/components/BeautifyMarkdown";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
-import { getCanonicalUrl } from "@/utils/urls";
+import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+
+    const title = "Privacy";
+    const description = "We take your privacy seriously. Read about Wamellow's Privacy Policy to learn how.";
+    const url = getCanonicalUrl("privacy");
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url
+        },
+        openGraph: {
+            title,
+            description,
+            type: "website",
+            url,
+            images: `${getBaseUrl()}/pronouns-bot.webp`
+        },
+        twitter: {
+            card: "summary",
+            site: "wamellow.com",
+            title,
+            description,
+            images: `${getBaseUrl()}/pronouns-bot.webp`
+        }
+    };
+};
 
 export default async function Home() {
     const res = await fetch("https://gist.githubusercontent.com/Luna-devv/c79375ba9e1834e87bcc88be8694113a/raw/9210c928b7b16aa52d37d145f628d971ea8447a7/privacy.md", { next: { revalidate: 60 * 60 } });

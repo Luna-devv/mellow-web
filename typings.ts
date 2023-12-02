@@ -269,3 +269,8 @@ export interface ApiV1UsersMeConnectionsSpotifyGetResponse {
     displayName: string;
     avatar: string | null;
 }
+
+export interface PronounsResponse {
+    status: number;
+    content: string[];
+}

@@ -51,7 +51,7 @@ export const generateMetadata = async ({
     const guild = await getGuild(params.guildId);
 
     const title = `${guild?.name}'s Leaderboard`;
-    const description = `Easily access and view the top chatters, voice timers, and inviters from ${guild?.name} in the web.`;
+    const description = `Effortlessly discover the most active chatters, voice timers, and acknowledge top inviters. Explore the vibrant community dynamics of the ${guild?.name} discord server right from your web browser.`;
     const url = getCanonicalUrl("leaderboard", params.guildId);
 
     return {
