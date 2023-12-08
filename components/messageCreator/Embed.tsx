@@ -175,7 +175,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                                     mode={mode}
                                     user={{
                                         username: "Wamellow",
-                                        avatar: "/waya-v3.webp",
+                                        avatar: "/waya-v3-small.webp",
                                         bot: true
                                     }}
                                 >

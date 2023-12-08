@@ -1,10 +1,13 @@
 import React, { FunctionComponent } from "react";
 
+import cn from "@/utils/cn";
+
 import Highlight from "./Markdown";
 
 interface Props {
     children: React.ReactNode;
     mode: "DARK" | "LIGHT";
+    classname?: string;
 
     author?: {
         icon_url?: string;
@@ -22,11 +25,11 @@ interface Props {
     }
 }
 
-const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, author, title, color, thumbnail, image, footer, mode }) => {
+const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, classname, author, title, color, thumbnail, image, footer, mode }) => {
     if (!title && !image && !footer?.text && (!children || children.toString() === ",false")) return <></>;
 
     return (
-        <div className={`w-full ${mode === "DARK" ? "text-neutral-200" : "text-neutral-800"} font-light p-3 rounded border-l-4 mt-2`} style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(242, 243, 245)", borderLeftColor: `#${color?.toString(16)}` }}>
+        <div className={cn("w-full font-light p-3 rounded border-l-4 mt-2", mode === "DARK" ? "text-neutral-200" : "text-neutral-800", classname)} style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(242, 243, 245)", borderLeftColor: `#${color?.toString(16)}` }}>
 
             <div className="flex w-full max-w-full">
                 <div className={thumbnail ? "w-9/12" : "w-full"}>

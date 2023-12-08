@@ -3,8 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiInformationCircle, HiPlus } from "react-icons/hi";
+import { HiArrowRight, HiFire, HiInformationCircle, HiPlus } from "react-icons/hi";
 
+import Badge from "@/components/badge";
 import ClientCountUp from "@/components/ClientCountUp";
 import Highlight from "@/components/discord/Markdown";
 import DiscordMessage from "@/components/discord/Message";
@@ -12,6 +13,10 @@ import DiscordMessageEmbed from "@/components/discord/MessageEmbed";
 import DiscordMessageFile from "@/components/discord/MessageFile";
 import { ListTab } from "@/components/List";
 import ServerGrid from "@/components/ServerGrid";
+import ArrowPic from "@/public/arroww.webp";
+import LeaderboardPic from "@/public/leaderboard.webp";
+import WaifuPic from "@/public/waifu.webp";
+import WelcomePic from "@/public/welcome.webp";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -69,7 +74,7 @@ export default async function Home() {
 
 
                     <span className={`lg:ml-auto flex gap-2 text-neutral-500 tracking-wider ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
-                        <Image src="/arroww.webp" width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
+                        <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
                         Get started here in seconds
                     </span>
 
@@ -128,7 +133,7 @@ export default async function Home() {
                                 disabled={true}
                             />
                         </Suspense>
-                        <Image src="/leaderboard.webp" itemProp="image" width={1224 / 2} height={768 / 2} alt="Example leaderboard webpage" loading="lazy" />
+                        <Image src={LeaderboardPic} itemProp="image" width={1224 / 1.8} height={768 / 1.8} alt="Example leaderboard webpage" loading="lazy" />
                     </div>
 
                 </div>
@@ -140,7 +145,7 @@ export default async function Home() {
                             mode={"DARK"}
                             user={{
                                 username: "Wamellow",
-                                avatar: "/waya-v3.webp",
+                                avatar: "/waya-v3-small.webp",
                                 bot: true
                             }}
                         >
@@ -149,7 +154,7 @@ export default async function Home() {
                                 text="Welcome @mwlica to **Someone's x Waya** 👋"
                             />
 
-                            <Image src="https://cdn.discordapp.com/attachments/910283378098581535/1136399748404871228/welcome.png" itemProp="image" alt="Example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
+                            <Image src={WelcomePic} itemProp="image" alt="Example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
 
                         </DiscordMessage>
                     </div>
@@ -201,7 +206,7 @@ export default async function Home() {
                             mode={"DARK"}
                             user={{
                                 username: "Wamellow",
-                                avatar: "/waya-v3.webp",
+                                avatar: "/waya-v3-small.webp",
                                 bot: true
                             }}
                         >
@@ -238,7 +243,7 @@ export default async function Home() {
                             mode={"DARK"}
                             user={{
                                 username: "Wamellow",
-                                avatar: "/waya-v3.webp",
+                                avatar: "/waya-v3-small.webp",
                                 bot: true
                             }}
                         >
@@ -246,7 +251,6 @@ export default async function Home() {
 
                             <DiscordMessageFile
                                 mode={"DARK"}
-
                                 duration={18}
                             />
 
@@ -254,7 +258,7 @@ export default async function Home() {
                     </div>
 
                     <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Best Text to Speech, TTS</h2>
+                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Best Text to Speech, TTS 🔊</h2>
                         <div className="text-lg pt-6">
                             With Text to Speech, you{"'"}re in control of transforming text into captivating speech across various languages and over 40 distinct voices.
                             Whether you need standalone audio files or want to bring your text to life in a voice chat, Wamellow{"'"}s TTS offers versatility.
@@ -269,6 +273,63 @@ export default async function Home() {
                             </Link>
                         </div>
 
+                    </div>
+
+                </div>
+
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+
+                    <div className="md:w-1/2">
+                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Watchin{"'"} Anime 👀</h2>
+                        <div className="text-lg pt-6">
+                            Unleash the magic of anime right within your Discord server with Wamellow{"'"}s /anime command.
+                            Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
+                            Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
+
+                            <div className="p-4 pb-3 border-2 dark:border-wamellow border-wamellow-100 rounded-xl mt-4">
+                                <Badge
+                                    before={<HiFire />}
+                                    text="NSFW Supported"
+                                    classname="mr-auto ml-0 mb-2"
+                                />
+                                <span className="text-base">
+                                    Find spicy nekos, waifus, and more in nsfw marked channels.
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
+                                <HiPlus />
+                                <span className="block sm:hidden">Wamellow</span>
+                                <span className="hidden sm:block">Invite Wamellow</span>
+                            </Link>
+                        </div>
+
+                    </div>
+
+                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
+                        <DiscordMessage
+                            mode={"DARK"}
+                            user={{
+                                username: "Wamellow",
+                                avatar: "/waya-v3-small.webp",
+                                bot: true
+                            }}
+                        >
+                            <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+
+                            <DiscordMessageEmbed
+                                mode={"DARK"}
+                                color={0xbc7ed4}
+                                classname="max-w-min"
+                            >
+                                <Image src={WaifuPic} itemProp="image" alt="" width={640} height={905} loading="lazy" className="mt-2 rounded-md max-w-xs" />
+                            </DiscordMessageEmbed>
+
+
+                        </DiscordMessage>
                     </div>
 
                 </div>

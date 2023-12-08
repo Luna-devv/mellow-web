@@ -188,7 +188,7 @@ const Header: FunctionComponent<Props> = ({ children }) => {
 
                 <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7">
                     <Link href="/" className={`${montserrat.className} font-semibold flex items-center mr-2`}>
-                        <Image src="/waya-v3.webp" width={34} height={34} alt="wamellow" className="rounded-full mr-2" />
+                        <Image src="/waya-v3-small.webp" width={34} height={34} alt="wamellow" className="rounded-full mr-2" />
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>
 

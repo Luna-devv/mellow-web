@@ -7,6 +7,7 @@ import { HiChevronRight, HiHome, HiPlus } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/ImageReduceMotion";
 import ServerGrid from "@/components/ServerGrid";
+import ArrowPic from "@/public/arroww.webp";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -95,7 +96,7 @@ export default async function RootLayout({
 
 
                     <span className={`lg:ml-auto flex gap-2 text-neutral-500 tracking-wider ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
-                        <Image src="/arroww.webp" width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
+                        <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
                         Get started here in seconds
                     </span>
 

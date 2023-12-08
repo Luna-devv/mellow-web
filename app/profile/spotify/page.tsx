@@ -120,7 +120,7 @@ export default function Home({
                             mode={"DARK"}
                             user={{
                                 username: "Wamellow",
-                                avatar: "/waya-v3.webp",
+                                avatar: "/waya-v3-small.webp",
                                 bot: true
                             }}
                         >
@@ -162,7 +162,7 @@ export default function Home({
                             mode={"DARK"}
                             user={{
                                 username: "Wamellow",
-                                avatar: "/waya-v3.webp",
+                                avatar: "/waya-v3-small.webp",
                                 bot: true
                             }}
                         >
