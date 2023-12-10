@@ -3,21 +3,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiFire, HiInformationCircle, HiPlus } from "react-icons/hi";
+import { HiArrowRight, HiFire, HiUserAdd } from "react-icons/hi";
 
 import Badge from "@/components/badge";
-import ClientCountUp from "@/components/ClientCountUp";
-import Highlight from "@/components/discord/Markdown";
-import DiscordMessage from "@/components/discord/Message";
-import DiscordMessageEmbed from "@/components/discord/MessageEmbed";
-import DiscordMessageFile from "@/components/discord/MessageFile";
-import { ListTab } from "@/components/List";
-import ServerGrid from "@/components/ServerGrid";
+import { StatsBar } from "@/components/counter";
+import Highlight from "@/components/discord/markdown";
+import DiscordMessage from "@/components/discord/message";
+import DiscordMessageEmbed from "@/components/discord/message-embed";
+import DiscordMessageFile from "@/components/discord/Message-file";
+import ServerGrid from "@/components/guild-grid";
+import { ListTab } from "@/components/list";
 import ArrowPic from "@/public/arroww.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
 import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
+import { convertMonthToName } from "@/utils/time";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
@@ -25,11 +26,6 @@ const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
     const stats = await fetch(`${process.env.NEXT_PUBLIC_API}/statistics`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1StatisticsGetResponse;
-
-    const convertMonthToName = (monthNumber: number) => {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        return months[monthNumber];
-    };
 
     const uwus = ["UwU", "uwu", "OwO", "owo", "QwQ", "qwq", ">:(", "Femboys ❤️"];
 
@@ -61,12 +57,12 @@ export default async function Home() {
 
                     <div className="lg:ml-auto flex gap-2 text-xl font-medium mt-4 lg:mt-0">
                         <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 w-1/2 lg:w-fit justify-center gap-2">
-                            <HiPlus className="relative top-1" />
+                            <HiUserAdd className="relative top-1" />
                             <span className="block sm:hidden">Wamellow</span>
                             <span className="hidden sm:block">Invite Wamellow</span>
                         </Link>
                         <Link href="/support" className="button w-1/2">
-                            <BsDiscord className="relative top-1" />
+                            <BsDiscord />
                             <span className="block sm:hidden">Support</span>
                             <span className="hidden sm:block">Join support</span>
                         </Link>
@@ -98,14 +94,14 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                                <HiPlus />
+                            <Link href="/login?invite=true" className="button-primary">
+                                <HiUserAdd />
                                 <span className="block sm:hidden">Wamellow</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>
                             </Link>
                             <Link href="/leaderboard/1055188344188973066" className="button">
                                 <span className="mr-2">View Leaderboard</span>
-                                <HiArrowRight className="relative top-1" />
+                                <HiArrowRight />
                             </Link>
                         </div>
 
@@ -133,7 +129,7 @@ export default async function Home() {
                                 disabled={true}
                             />
                         </Suspense>
-                        <Image src={LeaderboardPic} itemProp="image" width={1224 / 1.8} height={768 / 1.8} alt="Example leaderboard webpage" loading="lazy" />
+                        <Image src={LeaderboardPic} itemProp="image" width={1224 / 1.8} height={768 / 1.8} alt="Example leaderboard webpage" />
                     </div>
 
                 </div>
@@ -169,8 +165,8 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                                <HiPlus />
+                            <Link href="/login?invite=true" className="button-primary">
+                                <HiUserAdd />
                                 <span className="block sm:hidden">Wamellow</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>
                             </Link>
@@ -192,8 +188,8 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                                <HiPlus />
+                            <Link href="/login?invite=true" className="button-primary">
+                                <HiUserAdd />
                                 <span className="block sm:hidden">Wamellow</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>
                             </Link>
@@ -216,7 +212,7 @@ export default async function Home() {
                                 color={0xbc7ed4}
                                 author={{
                                     text: "@mwlica",
-                                    icon_url: "/luna.webp"
+                                    icon_url: "/luna-small.webp"
                                 }}
                             >
                                 <Highlight mode={"DARK"} text="Like ok @sean I know you are gay but no I won’t date you" />
@@ -266,8 +262,8 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                                <HiPlus />
+                            <Link href="/login?invite=true" className="button-primary">
+                                <HiUserAdd />
                                 <span className="block sm:hidden">Wamellow</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>
                             </Link>
@@ -300,8 +296,8 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                                <HiPlus />
+                            <Link href="/login?invite=true" className="button-primary">
+                                <HiUserAdd />
                                 <span className="block sm:hidden">Wamellow</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>
                             </Link>
@@ -336,47 +332,32 @@ export default async function Home() {
 
             </article>
 
-            <div className="flex w-full rounded-md overflow-hidden">
-
-                <div className="dark:bg-wamellow bg-wamellow-100 p-5 md:w-1/4 w-1/2">
-                    <div className="text-sm mb-0.5">Guilds using us</div>
-                    <div className="flex">
-                        <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateGuildCount} />
-                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.guildsGained} /> today</span>
-                    </div>
-                </div>
-
-                <div className="dark:bg-wamellow/75 bg-wamellow-100/70 p-5 md:w-1/4 w-1/2">
-                    <div className="text-sm mb-0.5">Users using us</div>
-                    <div className="flex">
-                        <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateUserCount} />
-                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.usersGained} /> today</span>
-                    </div>
-                </div>
-
-                <div className="dark:bg-wamellow bg-wamellow-100 p-5 md:w-1/4 md:block hidden">
-                    <div className="text-sm mb-0.5">Votes for us</div>
-                    <div className="flex">
-                        <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.approximateVoteCount} />
-                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">+<ClientCountUp end={stats.votesGained} /> in {convertMonthToName(new Date().getMonth())}</span>
-                    </div>
-                </div>
-
-                <div className="dark:bg-wamellow/75 bg-wamellow-100/70 p-5 md:w-1/4 md:block hidden">
-                    <div className="flex">
-                        <div className="text-sm mb-0.5">Our experience with</div>
-                        <Link href="https://discordlist.gg/user/821472922140803112" className="ml-auto dark:text-neutral-400 text-neutral-600 dark:hover:text-violet-400 hover:text-violet-600 duration-300">
-                            <HiInformationCircle />
-                        </Link>
-                    </div>
-                    <div className="flex">
-                        <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={stats.globalGuilds} />
-                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-3 ml-1">guilds, 5 bots</span>
-                    </div>
-                </div>
-
-            </div>
-
+            <StatsBar
+                items={[
+                    {
+                        name: "Guilds using us",
+                        number: stats.approximateGuildCount,
+                        gained: stats.guildsGained
+                    },
+                    {
+                        name: "Users using us",
+                        number: stats.approximateUserCount,
+                        gained: stats.usersGained
+                    },
+                    {
+                        name: "Votes for us",
+                        number: stats.approximateVoteCount,
+                        gained: stats.votesGained,
+                        append: `in ${convertMonthToName(new Date().getMonth())}`
+                    },
+                    {
+                        name: "Our experience with",
+                        number: stats.globalGuilds,
+                        gained: "guilds, 5 bots",
+                        info: "https://discordlist.gg/user/821472922140803112"
+                    }
+                ]}
+            />
 
         </div>
     );

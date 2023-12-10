@@ -1,4 +1,8 @@
 User-Agent: *
 Allow: /
+Disallow: /_next/
+
+User-agent: nsa
+Disallow: /
 
 Sitemap: https://wamellow.com/sitemap.xml

@@ -1,8 +1,6 @@
 "use client";
-import { useState } from "react";
 
 import { User, userStore } from "@/common/user";
-import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import SelectInput from "@/components/inputs/SelectMenu";
 import TextInput from "@/components/inputs/TextInput";
@@ -11,9 +9,7 @@ import { deepMerge } from "@/utils/deepMerge";
 export default function Home() {
     const user = userStore((s) => s);
 
-    const [is, up] = useState(false);
-
-    if (user?.id && user.extended === undefined) return <ErrorBanner message={"Error while fetching user"} />;
+    if (user?.id && !user.extended) return <></>;
 
     return (
         <div>
@@ -125,8 +121,7 @@ export default function Home() {
 
                                 switch (res.status) {
                                     case 200: {
-                                        userStore.setState(deepMerge<User>(user, { extended: { rank: { useLeaderboardList: false } } }));
-                                        up(!is);
+                                        userStore.setState({ ...deepMerge<User>(user, { extended: { rank: { useLeaderboardList: false } } }) });
                                         break;
                                     }
                                 }
@@ -163,8 +158,7 @@ export default function Home() {
 
                                 switch (res.status) {
                                     case 200: {
-                                        userStore.setState(deepMerge<User>(user, { extended: { rank: { useLeaderboardList: true } } }));
-                                        up(!is);
+                                        userStore.setState({ ...deepMerge<User>(user, { extended: { rank: { useLeaderboardList: true } } }) });
                                         break;
                                     }
                                 }

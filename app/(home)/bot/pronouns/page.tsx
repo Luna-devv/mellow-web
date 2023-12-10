@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HiPlus } from "react-icons/hi";
 
-import DiscordMessage from "@/components/discord/Message";
+import DiscordMessage from "@/components/discord/message";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 

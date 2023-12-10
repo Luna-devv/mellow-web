@@ -1,11 +1,24 @@
 
 import "./globals.css";
 
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
+import { Inter, Montserrat } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+import { SiKofi } from "react-icons/si";
 
+import Header from "@/components/header";
+import TopggIcon from "@/components/icons/topgg";
 import { getBaseUrl } from "@/utils/urls";
 
-import Header from "../components/Header";
+import { Provider } from "./provider";
+
+const inter = Inter({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+    themeColor: "#945682"
+};
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
@@ -29,8 +42,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
 
         description,
-        keywords: ["discord", "bot", "discord bot", "waya", "waya bot", "waya.one", "mwya", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "tts", "free", "customizable", "next-gen", "next generation"],
-        themeColor: "#945682",
+        keywords: ["discord", "bot", "discord bot", "waya", "waya bot", "waya.one", "mwya", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify", "captcha.bot", "security", "tts", "free", "customizable", "next-gen", "next generation"],
 
         alternates: {
             canonical: getBaseUrl()
@@ -68,8 +80,41 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <Header>
-            {children}
-        </Header>
+        <html lang="en" className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden bg-[var(--background-rgb)]">
+            <body className={`${inter.className} w-full max-w-7xl`}>
+
+                <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
+                    <div className="hidden md:block">
+                        Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
+                    </div>
+                    <div className="block md:hidden">
+                        This is an <span className="underline decoration-dotted break-word">early alpha version</span>!
+                    </div>
+                </div>
+
+                <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7 h-20">
+                    <Link href="/" className={`${montserrat.className} font-semibold flex items-center mr-2`}>
+                        <Image src="/waya-v3-small.webp" width={34} height={34} alt="" className="rounded-full mr-2" />
+                        <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
+                    </Link>
+
+                    <div className="hidden sm:flex gap-1">
+                        <Link href="https://lunish.nl/kofi" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
+                            <SiKofi className="group-hover:text-[#ff6c6b] duration-200" /> Support us
+                        </Link>
+                        <Link href="https://top.gg/bot/1125449347451068437/vote" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
+                            <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5" /> Vote
+                        </Link>
+                    </div>
+
+                    <Header className="ml-auto" />
+                </nav>
+
+                <Provider>
+                    {children}
+                </Provider>
+
+            </body>
+        </html>
     );
 }

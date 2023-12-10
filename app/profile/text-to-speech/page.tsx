@@ -1,7 +1,6 @@
 "use client";
 
 import { User, userStore } from "@/common/user";
-import ErrorBanner from "@/components/Error";
 import SelectInput from "@/components/inputs/SelectMenu";
 import { Voice } from "@/typings";
 import { deepMerge } from "@/utils/deepMerge";
@@ -13,7 +12,7 @@ const TTSVoicesArray = ["en_us_001", "en_us_006", "en_us_007", "en_us_009", "en_
 export default function Home() {
     const user = userStore((s) => s);
 
-    if (user?.id && user.extended === undefined) return <ErrorBanner message={"Error while fetching user"} />;
+    if (user?.id && !user.extended) return <></>;
 
     return (
         <div>

@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { HiHome } from "react-icons/hi";
 
-import ErrorBanner from "@/components/Error";
-import ImageReduceMotion from "@/components/ImageReduceMotion";
-import { ListTab } from "@/components/List";
+import ImageReduceMotion from "@/components/image-reduce-motion";
+import { ListTab } from "@/components/list";
+import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersGetResponse } from "@/typings";
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -12,6 +13,8 @@ import PageComponent from "./login.component";
 import SideComponent from "./side.component";
 
 interface LeaderboardProps { params: { guildId: string }, searchParams: { page: string, type: "messages" | "voiceminutes" | "invites" } }
+
+export const revalidate = 60 * 60;
 
 async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}`, {
@@ -50,8 +53,8 @@ export const generateMetadata = async ({
 }: LeaderboardProps): Promise<Metadata> => {
     const guild = await getGuild(params.guildId);
 
-    const title = `${guild?.name}'s Leaderboard`;
-    const description = `Effortlessly discover the most active chatters, voice timers, and acknowledge top inviters. Explore the vibrant community dynamics of the ${guild?.name} discord server right from your web browser.`;
+    const title = `${guild?.name || "Unknown"}'s Leaderboard`;
+    const description = `Effortlessly discover the most active chatters, voice timers, and acknowledge top inviters. Explore the vibrant community dynamics of the ${guild?.name || "unknown"} discord server right from your web browser.`;
     const url = getCanonicalUrl("leaderboard", params.guildId);
 
     return {
@@ -71,7 +74,8 @@ export const generateMetadata = async ({
             card: "summary",
             title,
             description
-        }
+        },
+        robots: guild.name ? "index, follow" : "noindex"
     };
 };
 
@@ -176,13 +180,18 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                                 </div>
                             )
                             :
-                            <ErrorBanner
-                                message={!guild?.id ? "Not Found" : "Invalid leaderboard type"}
+                            <ScreenMessage
+                                title="Nothing to see here.."
+                                description="Seems like you got a little lost, huh?"
+                                href="/"
+                                button="Go back home"
+                                top="0rem"
+                                icon={<HiHome />}
                             />
                     }
 
                     <div className="flex h-10 mt-5">
-                        <PageComponent searchParams={searchParams} membersLength={members?.length || 0} />
+                        {guild?.id && <PageComponent searchParams={searchParams} membersLength={members?.length || 0} />}
                     </div>
 
                 </div>

@@ -13,7 +13,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
         .replaceAll(">", "&gt;");
 
     const plClassName = `${mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800"} border border-violet-400 p-[3px] rounded-lg opacity-80 font-light`;
-    const emClassName = "rounded.md";
+    const emClassName = "rounded-md";
 
     function parseDiscordMarkdown(content: string) {
         return content
@@ -48,7 +48,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
                 h3: ({ ...props }) => <div className="text-xl font-semibold" {...props} />,
                 strong: ({ ...props }) => <span className="font-semibold" {...props} />,
                 i: ({ ...props }) => <span className="italic" {...props} />,
-                a: ({ ...props }) => <a className="text-blue-500 hover:underline underline-blue-500" {...props} />,
+                a: ({ ...props }) => <a className="text-blue-600 hover:underline underline-blue-500" {...props} />,
                 del: ({ ...props }) => <span className="line-through" {...props} />,
                 ins: ({ ...props }) => <span className="underline" {...props} />,
                 li: ({ ...props }) => <div>

@@ -1,9 +1,13 @@
+"use client";
+
+import { Button } from "@nextui-org/react";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { FunctionComponent } from "react";
 import { BsDiscord } from "react-icons/bs";
 import { HiExclamation } from "react-icons/hi";
-import { TailSpin } from "react-loading-icons";
+
+import cn from "@/utils/cn";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -15,14 +19,22 @@ interface Props {
 }
 
 const LoginButton: FunctionComponent<Props> = ({ loginstate, message, className, addClassName }) => {
+    if (loginstate === "LOADING") return <></>;
+
+    function Icon() {
+        if (!loginstate) return <BsDiscord />;
+        if (loginstate === "ERRORED") return <HiExclamation className="h-5 w-5" />;
+    }
+
     return (
         <div className={className || "ml-auto"}>
-            <Link href="/login" className={`relative flex ${loginstate === "ERRORED" ? "bg-danger" : "dark:bg-wamellow bg-wamellow-100"} hover:bg-blurple hover:text-white ${loginstate === "ERRORED" && "hover:bg-danger/80"} py-2 px-4 rounded-md duration-300 gap-2 ${addClassName}`}>
-                {!loginstate && <BsDiscord className="relative top-1" />}
-                {loginstate === "ERRORED" && <HiExclamation className="relative top-1 h-5 w-5" />}
-                {loginstate === "LOADING" && <div className="pl-6"><TailSpin stroke="#d4d4d4" className="absolute top-[11px] left-2 h-5" /></div>}
-
-                {(!loginstate || loginstate === "LOADING") &&
+            <Button
+                as={Link}
+                href="/login"
+                startContent={<Icon />}
+                className={cn("hover:bg-blurple hover:text-white dark:bg-wamellow bg-wamellow-100", loginstate === "ERRORED" && "dark:bg-danger/80 bg-danger/80 text-white", addClassName)}
+            >
+                {!loginstate ?
                     <span className={`${montserrat.className} font-semibold`}>
                         {message ||
                             <>
@@ -31,9 +43,10 @@ const LoginButton: FunctionComponent<Props> = ({ loginstate, message, className,
                             </>
                         }
                     </span>
+                    :
+                    <span>Authorization failed</span>
                 }
-                {loginstate === "ERRORED" && <span className="ml-2">Authorization failed</span>}
-            </Link>
+            </Button>
         </div>
     );
 };

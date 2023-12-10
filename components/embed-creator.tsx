@@ -4,11 +4,11 @@ import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 import { GuildEmbed, RouteErrorResponse } from "@/typings";
 
-import Highlight from "../discord/Markdown";
-import DiscordMessage from "../discord/Message";
-import DiscordMessageEmbed from "../discord/MessageEmbed";
-import DumbColorInput from "../inputs/Dumb_ColorInput";
-import DumbTextInput from "../inputs/Dumb_TextInput";
+import Highlight from "./discord/markdown";
+import DiscordMessage from "./discord/message";
+import DiscordMessageEmbed from "./discord/message-embed";
+import DumbColorInput from "./inputs/Dumb_ColorInput";
+import DumbTextInput from "./inputs/Dumb_TextInput";
 
 interface Props {
     children?: React.ReactNode
@@ -167,7 +167,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
                             <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200" style={{ backgroundColor: mode === "DARK" ? "rgb(49, 51, 56)" : "rgb(255, 255, 255)" }}>
 
-                                <div className="absolute top-2 right-2 hidden md:block">
+                                <div className="absolute z-10 top-2 right-2 hidden md:block">
                                     {modeToggle}
                                 </div>
 

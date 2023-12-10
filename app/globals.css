@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
+:root {
   --background-rgb: rgb(246, 246, 246);
   --wamellow-rgb: rgb(226, 232, 240);
-} */
+}
 
-:root {
+.dark:root {
   --background-rgb: rgb(13, 15, 17);
   --wamellow-rgb: rgb(23, 24, 28);
 }
@@ -65,5 +65,17 @@ a[role="button"]:not(.w-unit-10):not(.default) {
 }
 
 .button {
-  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2
+  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center
+}
+
+.button-primary {
+  @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center
+}
+
+.button-blurple {
+  @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center font-medium
+}
+
+.button-underline {
+  @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min
 }

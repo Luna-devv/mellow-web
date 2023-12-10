@@ -18,7 +18,7 @@ interface Props {
     children: React.ReactNode;
     subChildren?: React.ReactNode;
 
-    onSubmit?: () => Promise<Response>;
+    onSubmit?: () => Promise<Response> | undefined;
     onSuccess?: () => void;
     onClose: () => void;
 
@@ -113,12 +113,14 @@ const Modal: FunctionComponent<Props> = ({ className, variant, title, children, 
                                         subChildren
                                     }
 
-                                    <button
-                                        onClick={() => onClose()}
-                                        className="ml-auto text-sm font-medium dark:text-neutral-200 text-neutral-800"
-                                    >
-                                        Cancel
-                                    </button>
+                                    {onSubmit &&
+                                        <button
+                                            onClick={() => onClose()}
+                                            className="ml-auto text-sm font-medium dark:text-neutral-200 text-neutral-800"
+                                        >
+                                            Cancel
+                                        </button>
+                                    }
 
                                     <button
                                         onClick={() => {
@@ -127,7 +129,7 @@ const Modal: FunctionComponent<Props> = ({ className, variant, title, children, 
 
                                             setState("LOADING");
                                             onSubmit?.()
-                                                .then(async (res) => {
+                                                ?.then(async (res) => {
                                                     setState(undefined);
                                                     if (res.ok) {
                                                         onClose();
@@ -137,7 +139,7 @@ const Modal: FunctionComponent<Props> = ({ className, variant, title, children, 
                                                 })
                                                 .catch((e) => setError(e || "Unknown server error"));
                                         }}
-                                        className={cn(`flex bg-violet-600 hover:bg-violet-700 text-neutral-200 font-medium py-2 px-5 duration-200 rounded-md ${state === "LOADING" && "opacity-50 cursor-wait"}`, variant === "danger" && "bg-red-500/80 hover:bg-red-600")}
+                                        className={cn("flex bg-violet-600 hover:bg-violet-700 text-neutral-200 font-medium py-2 px-5 duration-200 rounded-md", !onSubmit && "ml-auto", state === "LOADING" && "opacity-50 cursor-wait", variant === "danger" && "bg-red-500/80 hover:bg-red-600")}
                                         disabled={state === "LOADING"}
                                     >
                                         <span>{buttonName}</span>

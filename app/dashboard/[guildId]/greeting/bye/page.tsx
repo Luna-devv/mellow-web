@@ -1,19 +1,20 @@
 
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { HiArrowNarrowLeft } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
+import MessageCreatorEmbed from "@/components/embed-creator";
 import ErrorBanner from "@/components/Error";
-import GoBack from "@/components/GoBack";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
-import MessageCreatorEmbed from "@/components/messageCreator/Embed";
 import { ApiV1GuildsModulesByeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
@@ -58,7 +59,9 @@ export default function Home() {
 
     if (bye === undefined) return (
         <div>
-            <GoBack url={`/dashboard/${guild?.id}/greeting`} />
+            <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
+                <HiArrowNarrowLeft /> Greetings
+            </Link>
             {error && <ErrorBanner message={error} />}
         </div>
     );
@@ -66,7 +69,9 @@ export default function Home() {
     return (
         <div>
 
-            <GoBack url={`/dashboard/${guild?.id}/greeting`} />
+            <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
+                <HiArrowNarrowLeft /> Greetings
+            </Link>
 
             <Switch
                 name="Bye module enabled."

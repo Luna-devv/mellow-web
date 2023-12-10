@@ -6,8 +6,8 @@ import { HiChevronRight, HiLightningBolt, HiOutlineCheck, HiX } from "react-icon
 import { IoMdInfinite } from "react-icons/io";
 
 import Badge from "@/components/badge";
-import ImageReduceMotion from "@/components/ImageReduceMotion";
-import ServerGrid from "@/components/ServerGrid";
+import ImageReduceMotion from "@/components/image-reduce-motion";
+import ServerGrid from "@/components/guild-grid";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 

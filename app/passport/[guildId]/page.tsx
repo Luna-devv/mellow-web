@@ -4,8 +4,8 @@ import { BsDiscord } from "react-icons/bs";
 import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiX } from "react-icons/hi";
 
 import ErrorBanner from "@/components/Error";
-import ImageReduceMotion from "@/components/ImageReduceMotion";
-import { ListFeature } from "@/components/List";
+import ImageReduceMotion from "@/components/image-reduce-motion";
+import { ListFeature } from "@/components/list";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
 import { ApiV1GuildsGetResponse, ApiV1GuildsModulesPassportGetResponse } from "@/typings";
 import decimalToRgb from "@/utils/decimalToRgb";

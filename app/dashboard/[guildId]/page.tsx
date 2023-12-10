@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -8,7 +9,7 @@ import { HiChartBar, HiMail } from "react-icons/hi";
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import SelectMenu from "@/components/inputs/SelectMenu";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modal";
 
 import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
 
@@ -96,10 +97,13 @@ export default function Home() {
             <div>There will be more exciting stuff coming soon&trade;</div>
 
             <div className="flex mt-2">
-                <Link href="/support" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 ">
-                    <BsDiscord className="relative top-1" />
-                    <span className="ml-2">Join our server for updates</span>
-                </Link>
+                <Button
+                    as={Link}
+                    href="/support"
+                    startContent={<BsDiscord />}
+                >
+                    Join our server for updates
+                </Button>
             </div>
 
         </div>

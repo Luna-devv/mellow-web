@@ -1,12 +1,10 @@
 "use client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BsDiscord } from "react-icons/bs";
-import { HiArrowNarrowLeft } from "react-icons/hi";
 
 import { User, userStore } from "@/common/user";
-import ErrorBanner from "@/components/Error";
+import Modal from "@/components/modal";
+import { ScreenMessage } from "@/components/screen-message";
 import { RouteErrorResponse } from "@/typings";
 
 export default function Home() {
@@ -66,21 +64,27 @@ export default function Home() {
                 });
     }, []);
 
-    if (!error) return <></>;
-
     return (
-        <div className="w-full">
-            <ErrorBanner message={error} removeButton={true} />
-            <div className="ml-1 relative bottom-4 flex gap-2">
-                <Link href="/" className="text-blurple hover:opacity-80 dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center">
-                    <HiArrowNarrowLeft />
-                    <span className="ml-1">Home</span>
-                </Link>
-                <Link href="/support" className="text-blurple hover:opacity-80 dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center">
-                    <BsDiscord />
-                    <span className="ml-2">Support</span>
-                </Link>
-            </div>
-        </div>
+        <>
+            <Modal
+                title="OAuth2 error"
+                show={!!error}
+                buttonName="Try again"
+                onClose={() => {
+                    setError(undefined);
+                }}
+                onSubmit={() => {
+                    router.refresh();
+                    return undefined;
+                }}
+            >
+                {error}
+            </Modal>
+
+            <ScreenMessage
+                title="Authorizing.."
+                description="We're just checking who you are"
+            />
+        </>
     );
 }

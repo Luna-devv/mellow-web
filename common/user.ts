@@ -22,7 +22,7 @@ export const userStore = create<User | undefined>(() => ({
 
     id: "",
     username: "",
-    avatar: "/discord.png",
+    avatar: "null",
 
     __fetched: false,
     extended: undefined

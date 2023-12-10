@@ -1,16 +1,16 @@
 
 "use client";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiFingerPrint } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiFingerPrint } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import ErrorBanner from "@/components/Error";
-import GoBack from "@/components/GoBack";
 import SelectInput from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modal";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
 import { ApiV1GuildsModulesPassportGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -61,7 +61,9 @@ export default function Home() {
 
     if (passport === undefined) return (
         <div>
-            <GoBack url={`/dashboard/${guild?.id}/greeting`} />
+            <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
+                <HiArrowNarrowLeft /> Greetings
+            </Link>
             {error && <ErrorBanner message={error} />}
         </div>
     );
@@ -69,7 +71,9 @@ export default function Home() {
     return (
         <div>
 
-            <GoBack url={`/dashboard/${guild?.id}/greeting`} />
+            <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
+                <HiArrowNarrowLeft /> Greetings
+            </Link>
 
             {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId && !modal &&
                 <div className="mt-6">

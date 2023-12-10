@@ -2,11 +2,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsSpotify } from "react-icons/bs";
+import { HiIdentification } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
-import Highlight from "@/components/discord/Markdown";
-import DiscordMessage from "@/components/discord/Message";
-import ErrorBanner from "@/components/Error";
+import Highlight from "@/components/discord/markdown";
+import DiscordMessage from "@/components/discord/message";
+import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1UsersMeConnectionsSpotifyGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home({
@@ -41,6 +42,8 @@ export default function Home({
                         break;
                     }
                     default: {
+                        // @ts-expect-error Cuz
+                        setSpotify({ _fetched: true });
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
@@ -52,31 +55,32 @@ export default function Home({
             });
     }, []);
 
-    if (error) return <ErrorBanner message="Error while fetching spotify data" />;
+    if (error) {
+        return <>
+            <ScreenMessage
+                title="Something went wrong.."
+                description={error}
+                href="/profile"
+                button="Go back to overview"
+                icon={<HiIdentification />}
+            />
+        </>;
+    }
+
     if (!spotify?._fetched) return <></>;
 
     return (
         <div className="h-full">
 
             {!spotify.displayName &&
-                <div className="w-full h-full flex flex-col items-center justify-center" style={{ marginTop: "20vh" }}>
-                    <div>
-
-                        <div className="mb-10 flex flex-col items-center">
-                            <span className="text-4xl dark:text-neutral-100 text-neutral-900 font-semibold mb-1.5">Nothing to see here.. yet..</span> <br />
-                            <span className="text-lg dark:text-neutral-400 text-neutral-600 font-semibold">Cool things will come soon</span>
-                        </div>
-
-                        <div>
-                            <Link href={`${process.env.NEXT_PUBLIC_API}/connections/spotify`} className="flex bg-[#1ed760] hover:bg-[#1ed760]/80 text-black py-2 px-4 rounded-md duration-200 justify-center">
-                                <BsSpotify className="relative top-1" />
-                                <span className="ml-2">Connect Spotify</span>
-                            </Link>
-                        </div>
-
-                    </div>
-                </div>
-
+                <ScreenMessage
+                    title="Nothing to see here.. yet.."
+                    description="Cool things will come soon"
+                    className="bg-[#1ed760] hover:bg-[#1ed760]/80 text-black cursor-not-allowed opacity-50"
+                    href={"/profile/spotify" ?? `${process.env.NEXT_PUBLIC_API}/connections/spotify`}
+                    icon={<BsSpotify />}
+                    button="Connect Spotify"
+                />
             }
 
             {spotify.displayName && user?.id &&
@@ -84,7 +88,7 @@ export default function Home({
 
                     <div className="flex items-center gap-2">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={spotify.avatar ? spotify.avatar : "/discord.png"} alt="your spotify avatar" className="rounded-lg mr-1 h-14 w-14" />
+                        <img src={spotify.avatar ? spotify.avatar : "/discord.webp"} alt="your spotify avatar" className="rounded-lg mr-1 h-14 w-14" />
                         <div>
                             <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium flex gap-1 items-center">
                                 {spotify.displayName}
@@ -108,7 +112,7 @@ export default function Home({
                             mode={"DARK"}
                             user={{
                                 username: user.global_name || user.username,
-                                avatar: user.avatar ? `https://cdn.discordapp.com/avatars/821472922140803112/${user.avatar}.webp?size=64` : "/discord.png",
+                                avatar: user.avatar ? `https://cdn.discordapp.com/avatars/821472922140803112/${user.avatar}.webp?size=64` : "/discord.webp",
                                 bot: false
                             }}
                         >
@@ -150,7 +154,7 @@ export default function Home({
                             mode={"DARK"}
                             user={{
                                 username: user.global_name || user.username,
-                                avatar: user.avatar ? `https://cdn.discordapp.com/avatars/821472922140803112/${user.avatar}.webp?size=64` : "/discord.png",
+                                avatar: user.avatar ? `https://cdn.discordapp.com/avatars/821472922140803112/${user.avatar}.webp?size=64` : "/discord.webp",
                                 bot: false
                             }}
                         >

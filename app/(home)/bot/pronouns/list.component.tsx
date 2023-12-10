@@ -17,7 +17,7 @@ export default async function List({ res, type }: { res: PronounsResponse, type:
             <div className="flex flex-col sm:flex-row w-full gap-4">
                 <div className="rounded-md overflow-hidden sm:w-1/2 lg:w-3/4" >
                     {res.content?.map((element, i) => (
-                        <div key={element} className={cn(i % 2 === 0 ? "bg-neutral-800/80" : "bg-neutral-800", "flex items-center justify-between py-2 px-3")}>
+                        <div key={element} className={cn("flex items-center justify-between py-2 px-3", i % 2 === 0 ? "dark:bg-wamellow bg-wamellow-100" : "dark:bg-wamellow/75 bg-wamellow-100/75")}>
                             <span>{element}</span>
                             <span className="italic text-sm">{(i + 1).toString().padStart(2, "0")}</span>
                         </div>

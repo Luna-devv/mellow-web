@@ -5,9 +5,9 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { guildStore } from "@/common/guilds";
-import Highlight from "@/components/discord/Markdown";
-import DiscordMessage from "@/components/discord/Message";
-import DiscordMessageEmbed from "@/components/discord/MessageEmbed";
+import Highlight from "@/components/discord/markdown";
+import DiscordMessage from "@/components/discord/message";
+import DiscordMessageEmbed from "@/components/discord/message-embed";
 import ErrorBanner from "@/components/Error";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import NumberInput from "@/components/inputs/NumberInput";
@@ -46,6 +46,13 @@ export default function Home() {
                 switch (res.status) {
                     case 200: {
                         setStarboard(response);
+
+                        handleUserStyle(response.style);
+                        setExample({
+                            ...example,
+                            emoji: response.emoji
+                        });
+
                         break;
                     }
                     default: {
@@ -63,51 +70,44 @@ export default function Home() {
     }, []);
 
     const handleUserStyle = (value: number) => {
-        // setStarboard((s) => {
-        //     if (!s) return s;
-        //     return {
-        //         ...s,
-        //         style: value
-        //     };
-        // });
-        // switch (value) {
-        //     case 0:
-        //         setExample((e) => {
-        //             return {
-        //                 ...e,
-        //                 avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-        //                 username: "@spacewolf."
-        //             };
-        //         });
-        //         break;
-        //     case 1:
-        //         setExample((e) => {
-        //             return {
-        //                 ...e,
-        //                 avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-        //                 username: "Space Wolf"
-        //             };
-        //         });
-        //         break;
-        //     case 2:
-        //         setExample((e) => {
-        //             return {
-        //                 ...e,
-        //                 avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-        //                 username: "Luna’s Grandpa <3"
-        //             };
-        //         });
-        //         break;
-        //     case 3:
-        //         setExample((e) => {
-        //             return {
-        //                 ...e,
-        //                 avatar: "https://cdn.waya.one/r/a_3a2fa421f079827d31f4fd1b7a9971ba.gif",
-        //                 username: "Luna’s Grandpa <3"
-        //             };
-        //         });
-        //         break;
-        // }
+        switch (value) {
+            case 0:
+                setExample((e) => {
+                    return {
+                        ...e,
+                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
+                        username: "@spacewolf."
+                    };
+                });
+                break;
+            case 1:
+                setExample((e) => {
+                    return {
+                        ...e,
+                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
+                        username: "Space Wolf"
+                    };
+                });
+                break;
+            case 2:
+                setExample((e) => {
+                    return {
+                        ...e,
+                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
+                        username: "Luna’s Grandpa <3"
+                    };
+                });
+                break;
+            case 3:
+                setExample((e) => {
+                    return {
+                        ...e,
+                        avatar: "https://cdn.waya.one/r/a_3a2fa421f079827d31f4fd1b7a9971ba.gif",
+                        username: "Luna’s Grandpa <3"
+                    };
+                });
+                break;
+        }
     };
 
     if (starboard === undefined) return (
@@ -219,6 +219,12 @@ export default function Home() {
                         ]}
                         description="Select the emoji that needs to be reacted with."
                         defaultState={starboard?.emoji}
+                        onSave={(options) => {
+                            setExample({
+                                ...example,
+                                emoji: options.value as string
+                            });
+                        }}
                         disabled={!starboard.enabled}
                     />
                 </div>

@@ -1,16 +1,17 @@
 "use client";
+import { Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiPlus, HiViewGrid, HiViewList } from "react-icons/hi";
+import { BsDiscord } from "react-icons/bs";
+import { HiUserAdd, HiViewGrid, HiViewList } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
-import ImageReduceMotion from "@/components/ImageReduceMotion";
+import ImageReduceMotion from "@/components/image-reduce-motion";
 import DumbTextInput from "@/components/inputs/Dumb_TextInput";
-import LoginButton from "@/components/LoginButton";
 import { RouteErrorResponse, UserGuild } from "@/typings";
 import cn from "@/utils/cn";
 import { truncate } from "@/utils/truncate";
@@ -94,15 +95,21 @@ export default function Home() {
                             />
                         </div>
                     }
-                    <Link href="/login?invite=true" className="flex bg-blurple hover:bg-blurple-dark text-white py-2 px-4 rounded-md duration-200 w-full md:w-auto h-min justify-center">
-                        <HiPlus className="relative top-1" />
-                        <span className="ml-2">Add to Server</span>
-                    </Link>
-                    <LoginButton
-                        className="w-full md:w-fit text-center"
-                        addClassName="justify-center"
-                        message="Reload"
-                    />
+                    <Button
+                        as={Link}
+                        href="/login?invite=true"
+                        className="button-blurple"
+                        startContent={<HiUserAdd />}
+                    >
+                        Add to Server
+                    </Button>
+                    <Button
+                        as={Link}
+                        href="/login"
+                        startContent={<BsDiscord />}
+                    >
+                        Reload
+                    </Button>
                 </div>
             </div>
 
@@ -149,10 +156,10 @@ export default function Home() {
 
                             return false;
                         })
-                        .map((guild, index) => (
+                        .map((guild) => (
                             <>
                                 <motion.li
-                                    key={index}
+                                    key={"guildGrid" + guild.id}
                                     variants={{
                                         hidden: { y: 20, opacity: 0 },
                                         visible: {
@@ -173,8 +180,20 @@ export default function Home() {
                                     <div className="ml-3 text-sm relative bottom-1">
                                         <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1">{truncate(guild.name, 20)}</div>
                                         <span className="flex gap-2">
-                                            <Link href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`} className="dark:bg-neutral-500/40 bg-neutral-400/40 dark:hover:bg-neutral-400/40 hover:bg-neutral-500/40 hover:text-neutral-900 dark:hover:text-neutral-200 py-1.5 px-3 rounded-md duration-200">Manage</Link>
-                                            <Link href={`/leaderboard/${guild.id}`} className="dark:bg-neutral-500/40 bg-neutral-400/40 dark:hover:bg-neutral-400/40 hover:bg-neutral-500/40 hover:text-neutral-900 dark:hover:text-neutral-200 py-1.5 px-3 rounded-md duration-200 opacity-0 group-hover/card:opacity-100">Leaderboard</Link>
+                                            <Button
+                                                as={Link}
+                                                href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
+                                                className="dark:bg-neutral-500/40 bg-neutral-400/40 !text-sm h-9"
+                                            >
+                                                Manage
+                                            </Button>
+                                            <Button
+                                                as={Link}
+                                                href={`/leaderboard/${guild.id}`}
+                                                className="dark:bg-neutral-500/40 bg-neutral-400/40 !text-sm h-9 opacity-0 group-hover/card:opacity-100"
+                                            >
+                                                Leaderboard
+                                            </Button>
                                         </span>
                                     </div>
 
@@ -182,9 +201,10 @@ export default function Home() {
                             </>
                         ))}
 
-                    <motion.button
-                        onClick={() => window.open("/login?invite=true")}
-                        key={guilds.length}
+                    <motion.a
+                        href="/login?invite=true"
+                        target="_blank"
+                        key={"guildGrid" + guilds.length}
                         variants={{
                             hidden: { y: 20, opacity: 0 },
                             visible: {
@@ -200,7 +220,7 @@ export default function Home() {
                         className="border-2 dark:border-wamellow border-wamellow-100 p-4 flex justify-center items-center rounded-lg drop-shadow-md overflow-hidden relative h-24 duration-100 outline-violet-500 hover:outline"
                     >
                         Click to add a new server
-                    </motion.button>
+                    </motion.a>
 
                 </motion.ul>
                 :

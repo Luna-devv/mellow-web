@@ -274,3 +274,11 @@ export interface PronounsResponse {
     status: number;
     content: string[];
 }
+
+export interface Nekostic {
+    event: string;
+    name: string;
+    uses: number
+    users: number;
+    snapshot: string;
+}

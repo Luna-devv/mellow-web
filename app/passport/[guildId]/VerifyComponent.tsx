@@ -5,8 +5,8 @@ import { BsDiscord } from "react-icons/bs";
 import { HiExclamation, HiFingerPrint, HiLockClosed } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
-import ImageReduceMotion from "@/components/ImageReduceMotion";
-import LoginButton from "@/components/LoginButton";
+import ImageReduceMotion from "@/components/image-reduce-motion";
+import LoginButton from "@/components/login-button";
 import { GT4Init } from "@/lib/gt4";
 import { ApiV1GuildsGetResponse } from "@/typings";
 

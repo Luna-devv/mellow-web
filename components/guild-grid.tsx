@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 
 import { ApiV1TopguildsGetResponse } from "@/typings";
 
-import ImageReduceMotion from "./ImageReduceMotion";
+import ImageReduceMotion from "./image-reduce-motion";
 
 interface Props {
     guilds: ApiV1TopguildsGetResponse[];

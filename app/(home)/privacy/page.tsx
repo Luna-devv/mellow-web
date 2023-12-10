@@ -1,7 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import React from "react";
-import { HiArchive } from "react-icons/hi";
 
 import BeautifyMarkdown from "@/components/BeautifyMarkdown";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
@@ -50,10 +48,6 @@ export default async function Home() {
         <div>
 
             <div className="flex gap-2 mb-5 text-sm">
-                <Link href="https://gist.github.com/Luna-devv/c79375ba9e1834e87bcc88be8694113a/revisions" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-3 rounded-md duration-200">
-                    <HiArchive className="relative top-1" />
-                    <span className="ml-2">Revisions</span>
-                </Link>
                 <CopyToClipboardButton text={getCanonicalUrl("privacy")} />
             </div>
 

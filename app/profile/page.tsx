@@ -1,5 +1,6 @@
-
 "use client";
+
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiLightningBolt, HiViewGridAdd } from "react-icons/hi";
@@ -36,10 +37,13 @@ export default function Home() {
             <div>There will be more exciting stuff coming soon&trade;</div>
 
             <div className="flex mt-2">
-                <Link href="/support" className="flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 ">
-                    <BsDiscord className="relative top-1" />
-                    <span className="ml-2">Join our server for updates</span>
-                </Link>
+                <Button
+                    as={Link}
+                    href="/support"
+                    startContent={<BsDiscord />}
+                >
+                    Join our server for updates
+                </Button>
             </div>
 
         </div>

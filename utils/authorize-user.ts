@@ -42,11 +42,11 @@ export default async function authorize({ stateHook, page }: Props): Promise<Use
 
     }
 
-    if (!res && (page.startsWith("/dashboard") || page.startsWith("/profile"))) {
+    if (!res && (page.startsWith("/dashboard") || page.startsWith("/profile") || page.startsWith("/login/spotify"))) {
         window.location.href = `${process.env.NEXT_PUBLIC_LOGIN}&scope=identify+email+guilds${localStorage.getItem("freshleyLoggedout") === "true" ? "" : "&prompt=none"}`;
         return null;
     }
 
-    if (res) stateHook(undefined);
+    if (res?.id) stateHook(undefined);
     return res || null;
 }

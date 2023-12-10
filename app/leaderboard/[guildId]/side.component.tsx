@@ -10,7 +10,7 @@ import Ad from "@/components/ad";
 import Badge from "@/components/badge";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import ErrorBanner from "@/components/Error";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modal";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 

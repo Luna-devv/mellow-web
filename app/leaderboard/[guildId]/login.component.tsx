@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
-import LoginButton from "@/components/LoginButton";
+import LoginButton from "@/components/login-button";
 
 const PageComponent: FunctionComponent<{ searchParams: { page: string, type: string }, membersLength: number }> = ({ searchParams, membersLength }) => {
     const user = userStore((s) => s);

@@ -1,16 +1,17 @@
 "use client";
-import { Button } from "@nextui-org/react";
-import Image from "next/image";
+
+import { Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowNarrowLeft, HiCursorClick, HiShare } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiCursorClick, HiShare, HiUsers } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import ErrorBanner from "@/components/Error";
-import { ListTab } from "@/components/List";
+import ImageReduceMotion from "@/components/image-reduce-motion";
+import { ListTab } from "@/components/list";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -160,38 +161,47 @@ export default function RootLayout({
     }, []);
 
     if (error) return <ErrorBanner message={error} />;
-    if (!guild?.id) return <></>;
 
     return (
         <div className="flex flex-col w-full">
             <title>{`${guild?.name}'s Dashboard`}</title>
 
-            <div className="flex gap-2 mb-5 text-sm">
-                <Button
-                    as={Link}
-                    href="/dashboard"
-                    startContent={<HiArrowNarrowLeft />}
-                >
-                    Serverlist
-                </Button>
-                {web.devToolsEnabled &&
-                    <CopyToClipboardButton
-                        text={getCanonicalUrl("leaderboard", params.guildId)}
-                        items={[
-                            { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
-                            { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
-                        ]}
-                    />
-                }
-            </div>
+            <div className="flex flex-col gap-5 mb-3">
+                <Link href="/dashboard" className="button-underline">
+                    <HiArrowNarrowLeft /> Serverlist
+                </Link>
 
-            {error && <ErrorBanner message={error} />}
+                {error && <ErrorBanner message={error} />}
 
-            <div className="text-lg flex items-center">
-                <Image src={guild?.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${guild.icon.startsWith("a_") && !web.reduceMotions ? "gif" : "webp"}?size=64` : "/discord.png"} width={64} height={64} alt="Server" className="rounded-full h-14 w-14 mr-3" />
-                <div>
-                    <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
-                    <div className="text-sm">{intl.format(guild?.memberCount || 0)} members</div>
+                <div className="text-lg flex gap-5 items-center">
+                    <Skeleton isLoaded={!!guild?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40">
+                        <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server" />
+                    </Skeleton>
+
+                    {!guild?.id ?
+                        <div>
+                            <Skeleton className="rounded-xl w-32 h-5 mb-2" />
+                            <Skeleton className="rounded-xl w-10 h-3.5" />
+                        </div>
+                        :
+                        <div className="flex flex-col gap-1">
+                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
+                            <div className="text-sm font-semibold flex items-center gap-1"> <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
+                        </div>
+                    }
+
+                    <div className="ml-auto">
+                        {web.devToolsEnabled &&
+                            <CopyToClipboardButton
+                                text={getCanonicalUrl("leaderboard", params.guildId.toString())}
+                                items={[
+                                    { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
+                                    { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
+                                ]}
+                                icon={<HiShare />}
+                            />
+                        }
+                    </div>
                 </div>
             </div>
 
@@ -222,7 +232,7 @@ export default function RootLayout({
                 disabled={!guild}
             />
 
-            {children}
+            {guild?.id ? children : <></>}
 
         </div >
     );

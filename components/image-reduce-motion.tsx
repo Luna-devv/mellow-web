@@ -18,7 +18,7 @@ const ImageReduceMotion: FunctionComponent<Props> = ({ url, size, alt, className
     return (
         <Image
             itemProp="image"
-            src={!url?.includes("null") && url ? `${url}.${url.includes("a_") && !web.reduceMotions && !forceStatic ? "gif" : "webp"}?size=${size}` : "/discord.png"}
+            src={!url?.includes("null") && !url?.includes("undefined") && url ? `${url}.${url.includes("a_") && !web.reduceMotions && !forceStatic ? "gif" : "webp"}?size=${size}` : "/discord.webp"}
             width={size}
             height={size}
             alt={alt}
