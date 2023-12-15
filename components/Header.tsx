@@ -142,7 +142,7 @@ export default function Header(props: React.ComponentProps<"div">) {
             }}
             className="
                 relative top-2 sm:right-56 w-full sm:w-60 dark:bg-wamellow bg-wamellow-100 rounded-md text-base overflow-hidden shadow-md
-                flex flex-col
+                flex flex-col pt-1
                 max-sm:[--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                 max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
             "
@@ -171,7 +171,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                     return (
                         <div
                             key={"headerButton-" + button.name}
-                            className="flex items-center px-4 py-3"
+                            className="flex items-center px-4 pt-2 pb-3"
                         >
                             {button.icon}
                             <span className="ml-2">{button.name}</span>

@@ -3,16 +3,17 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
-import ErrorBanner from "@/components/Error";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
+import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1GuildsModulesStarboardGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
@@ -110,11 +111,19 @@ export default function Home() {
         }
     };
 
-    if (starboard === undefined) return (
-        <div>
-            {error && <ErrorBanner message={error} />}
-        </div>
-    );
+    if (error) {
+        return <>
+            <ScreenMessage
+                title="Something went wrong.."
+                description={error}
+                href={`/dashboard/${guild?.id}`}
+                button="Go back to overview"
+                icon={<HiViewGridAdd />}
+            />
+        </>;
+    }
+
+    if (!starboard) return <></>;
 
     return (
         <div>

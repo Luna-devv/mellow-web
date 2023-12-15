@@ -2,14 +2,14 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiChartBar } from "react-icons/hi";
+import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
 
 import { Guild, guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
 import Betweener from "@/components/Betweener";
-import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import TextInput from "@/components/inputs/TextInput";
+import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1GuildsModulesLeaderboardGetResponse, RouteErrorResponse } from "@/typings";
 
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
@@ -54,7 +54,18 @@ export default function Home() {
 
     }, []);
 
-    if (error) return <ErrorBanner message={error} />;
+    if (error) {
+        return <>
+            <ScreenMessage
+                title="Something went wrong.."
+                description={error}
+                href={`/dashboard/${guild?.id}`}
+                button="Go back to overview"
+                icon={<HiViewGridAdd />}
+            />
+        </>;
+    }
+
     if (!leaderboard) return <></>;
 
     return (

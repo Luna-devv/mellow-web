@@ -17,7 +17,8 @@ const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
-    themeColor: "#945682"
+    themeColor: "#945682",
+    initialScale: 0.85
 };
 
 export const generateMetadata = async (): Promise<Metadata> => {
