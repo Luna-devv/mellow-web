@@ -27,7 +27,7 @@ export default function Home() {
 
     useEffect(() => {
 
-        fetch("http://10.0.0.50:7004/statisticss", {
+        fetch(process.env.NEXT_PUBLIC_NEKOSTIC as string, {
             headers: {
                 authorization: localStorage.getItem("token") as string
             }
@@ -38,7 +38,7 @@ export default function Home() {
 
                 switch (res.status) {
                     case 200: {
-                        setData(response);
+                        setData(response.sort((a, b) => new Date(a.snapshot).getTime() - new Date(b.snapshot).getTime()));
                         break;
                     }
                     default: {

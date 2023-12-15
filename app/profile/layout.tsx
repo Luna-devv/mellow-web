@@ -87,19 +87,19 @@ export default function RootLayout({
                             }
                         </div>
                         <div>
-                            <div className="text-sm font-medium">Voice</div>
-                            {!user?.extended?.activity
-                                ? <Skeleton className="rounded-md mt-1.5 w-8 h-6 mb-1" />
-                                :
-                                <CountUp className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium" duration={4} end={user?.extended?.activity?.voiceminutes || 0} />
-                            }
-                        </div>
-                        <div>
                             <div className="text-sm font-medium">Invites</div>
                             {!user?.extended?.activity
                                 ? <Skeleton className="rounded-md mt-1.5 w-8 h-6 mb-1" />
                                 :
                                 <CountUp className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium" duration={4} end={user?.extended?.activity?.invites || 0} />
+                            }
+                        </div>
+                        <div>
+                            <div className="text-sm font-medium">Voice</div>
+                            {!user?.extended?.activity
+                                ? <Skeleton className="rounded-md mt-1.5 w-20 h-6 mb-1" />
+                                :
+                                <span className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">{user?.extended?.activity?.formattedVoicetime}</span>
                             }
                         </div>
                     </div>
@@ -120,12 +120,12 @@ export default function RootLayout({
                         name: "Text to Speech",
                         value: "/text-to-speech"
                     },
+                    {
+                        name: "Spotify",
+                        value: "/spotify"
+                    },
                     ...(user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY ?
                         [
-                            {
-                                name: "Spotify",
-                                value: "/spotify"
-                            },
                             {
                                 name: "Analytics",
                                 value: "/analytics"
