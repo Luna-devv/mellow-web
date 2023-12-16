@@ -4,6 +4,7 @@ import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
+import cn from "@/utils/cn";
 import { truncate } from "@/utils/truncate";
 
 type Props = {
@@ -81,27 +82,31 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
     }, [open]);
 
     return (
-        <div className={"select-none w-full max-w-full mb-3 relative " + className}>
+        <div className={cn("select-none w-full max-w-full mb-3 relative", className)}>
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
                 {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
             <button
-                className={`mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3 ${open && "outline outline-violet-400 outline-2"} ${(values.find((v) => !!v.error) || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${(state === "LOADING" || disabled) && "cursor-not-allowed opacity-50"}`}
+                className={cn(
+                    "mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3",
+                    open && "outline outline-violet-400 outline-2", (values.find((v) => !!v.error) || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1",
+                    state === "SUCCESS" && !open && "outline outline-green-500 outline-1",
+                    (state === "LOADING" || disabled) && "cursor-not-allowed opacity-50"
+                )}
                 onClick={() => {
                     setOpen(!open);
                     if (!open) _setDefaultalue(values.map((v) => v.value));
                 }}
                 disabled={(state === "LOADING" || disabled)}
             >
-                {/* style={{ scrollbarWidth: "none" }} */}
-                <div className={`flex flex-wrap overflow-x-hidden gap-1 py-3 ${values.length ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"}`} >
+                <div className={cn("flex flex-wrap overflow-x-hidden gap-1 py-3", values.length ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400")} >
                     {!values.length && <span>Select..</span>}
                     {values.map((v) => (
                         <button
                             key={v.value}
-                            className={`relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha ${open && "hover:bg-danger text-neutral-100"} rounded-md flex items-center gap-1`}
+                            className={cn("relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md flex items-center gap-1", open && "hover:bg-danger text-neutral-100")}
                             style={v.color ? { color: `#${v.color.toString(16)}` } : {}}
                             onClick={(e) => {
                                 if (!open) return;
@@ -129,7 +134,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll shadow-xl" style={{ zIndex: 99 }}>
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll shadow-xl z-20">
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button

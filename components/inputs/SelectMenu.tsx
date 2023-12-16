@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { HiCheck, HiChevronDown, HiExclamationCircle } from "react-icons/hi";
+import { HiCheck, HiChevronDown, HiExclamationCircle, HiX } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
@@ -17,12 +17,13 @@ type Props = {
     disabled?: boolean;
     description?: string;
     defaultState?: string | number | null;
+    showClear?: boolean;
 
     onSave?: (options: { name: string; value: string | number | null; error?: string }) => void;
 };
 
 
-const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName, items = [], disabled, description, defaultState, onSave }) => {
+const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName, items = [], disabled, description, defaultState, showClear, onSave }) => {
     const web = webStore((w) => w);
 
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
@@ -105,7 +106,7 @@ const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName,
                 onClick={() => setOpen(!open)}
                 disabled={(state === "LOADING" || disabled)}
             >
-                <div className={`${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"} flex items-center`}>
+                <div className={`${value?.name ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"} flex items-center`}>
                     {value?.icon && <span className="mr-2">{value?.icon}</span>}
                     {value?.name || "Select.."}
                 </div>
@@ -115,12 +116,22 @@ const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName,
                             <HiExclamationCircle /> {value.error}
                         </div>
                     }
+                    {value?.name && showClear &&
+                        <button
+                            onClick={() => {
+                                setOpen(false);
+                                setValue({ value: null, name: "" });
+                            }}
+                        >
+                            <HiX />
+                        </button>
+                    }
                     <HiChevronDown />
                 </div>
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-10">
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-20">
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button

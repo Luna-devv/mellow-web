@@ -13,7 +13,7 @@ export function ScreenMessage({ icon, title, description, button, top = "20vh", 
         <div className="w-full h-full flex flex-col items-center justify-center" style={{ marginTop: top }}>
             <div>
 
-                <div className="mb-10 flex flex-col items-center">
+                <div className="mb-10 flex flex-col items-center text-center">
                     <span className="text-4xl dark:text-neutral-100 text-neutral-900 font-semibold">{title}</span> <br />
                     <span className="text-lg dark:text-neutral-400 text-neutral-600 font-semibold">{description}</span>
                 </div>
