@@ -1,7 +1,8 @@
 "use client";
+
 import { Progress } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import { HiX } from "react-icons/hi";
 import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
@@ -10,7 +11,7 @@ import cn from "@/utils/cn";
 
 import ErrorBanner from "./Error";
 
-interface Props {
+interface Props<T> {
     className?: string;
     variant?: "default" | "danger";
 
@@ -19,13 +20,14 @@ interface Props {
     subChildren?: React.ReactNode;
 
     onSubmit?: () => Promise<Response> | undefined;
-    onSuccess?: () => void;
+    onSuccess?: (data: T) => void;
     onClose: () => void;
 
     show: boolean;
     buttonName?: string
 }
-const Modal: FunctionComponent<Props> = ({ className, variant, title, children, subChildren, onSubmit, onClose, onSuccess, show, buttonName = "Submit" }) => {
+
+export default function Modal<T>({ className, variant, title, children, subChildren, onSubmit, onClose, onSuccess, show, buttonName = "Submit" }: Props<T>) {
 
     const [state, setState] = useState<"LOADING" | undefined>(undefined);
     const [error, setError] = useState<string | undefined>(undefined);
@@ -129,15 +131,15 @@ const Modal: FunctionComponent<Props> = ({ className, variant, title, children, 
 
                                             setState("LOADING");
                                             onSubmit?.()
-                                                ?.then(async (res) => {
+                                                ?.then(async (res: Response) => {
                                                     setState(undefined);
                                                     if (res.ok) {
                                                         onClose();
-                                                        onSuccess?.();
+                                                        onSuccess?.(await res.json());
                                                     }
                                                     else setError((await res.json() as RouteErrorResponse).message || "Unknown server error");
                                                 })
-                                                .catch((e) => setError(e || "Unknown server error"));
+                                                .catch((e: Error) => setError(e.message || "Unknown server error"));
                                         }}
                                         className={cn("flex bg-violet-600 hover:bg-violet-700 text-neutral-200 font-medium py-2 px-5 duration-200 rounded-md", !onSubmit && "ml-auto", state === "LOADING" && "opacity-50 cursor-wait", variant === "danger" && "bg-red-500/80 hover:bg-red-600")}
                                         disabled={state === "LOADING"}
@@ -156,6 +158,4 @@ const Modal: FunctionComponent<Props> = ({ className, variant, title, children, 
         </MotionConfig>
     );
 
-};
-
-export default Modal;
+}
