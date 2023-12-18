@@ -262,12 +262,32 @@ export interface ApiV1MeGetResponse {
         messages: number;
         voiceminutes: number;
         invites: number;
+        formattedVoicetime: string;
     };
 }
 
 export interface ApiV1UsersMeConnectionsSpotifyGetResponse {
     displayName: string;
     avatar: string | null;
+}
+
+export interface ApiV1GuildsModulesTagsGetResponse {
+    tagId: string;
+    guildId: string;
+    applicationCommandId?: string;
+
+    name: string;
+    permission: string | null;
+    aliases: string[];
+
+    message: {
+        content: string | null;
+        embed?: GuildEmbed;
+    };
+
+    authorId: string;
+
+    createdAt: Date;
 }
 
 export interface PronounsResponse {

@@ -17,7 +17,7 @@ interface Props {
     url: string;
     dataName: string;
 
-    defaultMessage?: { content?: string, embed?: GuildEmbed };
+    defaultMessage?: { content?: string | null, embed?: GuildEmbed };
     collapseable?: boolean;
 
     messageAttachmentComponent?: React.ReactNode;

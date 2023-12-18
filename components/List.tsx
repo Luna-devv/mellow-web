@@ -33,7 +33,11 @@ export const ListTab: FunctionComponent<ListProps> = ({ tabs, url, searchParamNa
                     return (
                         <li className="mr-2" key={tab.name}>
                             <button
-                                className={cn("inline-block p-3 pb-2 border-b-2 border-transparent rounded-t-lg font-medium hover:text-violet-400 duration-200", isCurrent && "text-violet-500 border-b-2 border-violet-500", disabled && "cursor-not-allowed")}
+                                className={cn(
+                                    "inline-block p-3 pb-2 border-b-2 border-transparent rounded-t-lg font-medium hover:text-violet-400 duration-200",
+                                    isCurrent && "text-violet-500 border-b-2 border-violet-500",
+                                    disabled && "cursor-not-allowed opacity-75"
+                                )}
                                 onClick={() => {
                                     if (disabled) return;
 
