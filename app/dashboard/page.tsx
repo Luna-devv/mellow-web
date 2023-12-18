@@ -70,7 +70,7 @@ export default function Home() {
             <div className="md:flex md:items-center">
                 <div>
                     <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">👋 Heyia, {user?.global_name || `@${user?.username}`}</div>
-                    <div className="text-lg">Select a server you want to manage.</div>
+                    <div className="text-lg font-medium">Select a server you want to manage.</div>
                 </div>
 
                 {web.devToolsEnabled &&
@@ -183,14 +183,14 @@ export default function Home() {
                                             <Button
                                                 as={Link}
                                                 href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
-                                                className="dark:bg-neutral-500/40 bg-neutral-400/40 !text-sm h-9"
+                                                className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
                                             >
                                                 Manage
                                             </Button>
                                             <Button
                                                 as={Link}
                                                 href={`/leaderboard/${guild.id}`}
-                                                className="dark:bg-neutral-500/40 bg-neutral-400/40 !text-sm h-9 opacity-0 group-hover/card:opacity-100"
+                                                className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 opacity-0 group-hover/card:opacity-100"
                                             >
                                                 Leaderboard
                                             </Button>

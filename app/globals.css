@@ -53,9 +53,14 @@ html {
   background: rgb(139, 92, 246, 1);
 }
 
-button.subpixel-antialiased:not(.w-unit-10):not(.default),
-a[role="button"]:not(.w-unit-10):not(.default) {
-  @apply dark:hover:bg-wamellow-light hover:bg-wamellow-100-light justify-start text-medium duration-200
+button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
+a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
+  @apply dark:hover:bg-wamellow-light hover:bg-wamellow-100-light justify-start
+}
+
+button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
+a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
+  @apply text-medium duration-200
 }
 
 .text-sm button.subpixel-antialiased,
@@ -65,17 +70,17 @@ a[role="button"]:not(.w-unit-10):not(.default) {
 }
 
 .button {
-  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center
+  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center text-medium
 }
 
 .button-primary {
-  @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center
+  @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center text-medium
 }
 
 .button-blurple {
-  @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center font-medium
+  @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 rounded-md duration-200 lg:w-fit justify-center gap-2 items-center font-medium text-medium
 }
 
 .button-underline {
-  @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min
+  @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min text-medium
 }

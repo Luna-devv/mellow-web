@@ -1,11 +1,13 @@
+import { CircularProgress } from "@nextui-org/react";
 import { Metadata } from "next";
 import Image from "next/image";
-import { HiHome } from "react-icons/hi";
+import { HiHome, HiUsers } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersGetResponse } from "@/typings";
+import cn from "@/utils/cn";
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -109,11 +111,11 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                     }
                 </div>
 
-                <div style={{ backgroundColor: "var(--background-rgb)" }} className="text-lg flex items-center absolute bottom-[-44px] md:bottom-[-34px] left-[-6px] md:left-10 py-4 px-5 rounded-tr-3xl md:rounded-3xl">
-                    <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 mr-3" />
-                    <div>
-                        <div className="text-xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
-                        <div className="text-sm">{intl.format(guild?.memberCount || 0)} members</div>
+                <div style={{ backgroundColor: "var(--background-rgb)" }} className="text-lg flex gap-5 items-center absolute bottom-[-44px] md:bottom-[-34px] left-[-6px] md:left-10 py-4 px-5 rounded-tr-3xl md:rounded-3xl">
+                    <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40" />
+                    <div className="flex flex-col gap-1">
+                        <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
+                        <div className="text-sm font-semibold flex items-center gap-1"> <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
                     </div>
                 </div>
             </div>
@@ -147,13 +149,13 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
 
                     {
                         (guild?.id && (!searchParams.type || searchParams.type === "voiceminutes" || searchParams.type === "invites")) ?
-                            (members || []).sort((a, b) => (b?.activity?.[searchParams.type] ?? 0) - (a?.activity?.[searchParams.type] ?? 0)).map((member) =>
+                            (members || []).sort((a, b) => (b?.activity?.[searchParams.type] ?? 0) - (a?.activity?.[searchParams.type] ?? 0)).map((member, i) =>
                                 <div
-                                    key={member.id}
-                                    className={`${design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100"} mb-4 rounded-md p-3 flex items-center`}
+                                    key={"leaderboard-" + searchParams.type + member.id}
+                                    className={cn("mb-4 rounded-md p-3 flex items-center", design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100")}
                                 >
 
-                                    <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`} size={128} alt={`Profile picture of @${member.username}`} className="rounded-full h-12 w-12 mr-3" />
+                                    <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`} size={128} alt={`${member.username}'s profile picture`} className="rounded-full h-12 w-12 mr-3" />
                                     <div>
                                         <div className="text-xl font-medium dark:text-neutral-200 text-neutral-800">{member.globalName || member.username || "Unknown user"}</div>
                                         <div className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</div>
@@ -166,7 +168,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                                             xmlns="http://www.w3.org/2000/svg"
                                             height="0.9em"
                                             viewBox={searchParams.type === "invites" ? "0 0 640 512" : "0 0 448 512"}
-                                            className="ml-1 relative"
+                                            className={cn("ml-1 relative", searchParams.type === "voiceminutes" && "ml-2")}
                                             style={{ top: searchParams.type === "messages" ? 0 : 4 }}
                                             fill="#d4d4d4"
                                         >
@@ -176,6 +178,18 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                                         </svg>
 
                                     </div>
+
+                                    <CircularProgress
+                                        className="ml-4"
+                                        aria-label="progress"
+                                        size="lg"
+                                        color="secondary"
+                                        classNames={{
+                                            svg: "drop-shadow-md"
+                                        }}
+                                        value={(member.activity[searchParams.type || "messages"] * 100) / members[i - 1]?.activity[searchParams.type || "messages"] || 100}
+                                        showValueLabel={true}
+                                    />
 
                                 </div>
                             )

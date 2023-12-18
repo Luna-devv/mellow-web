@@ -1,17 +1,18 @@
 "use client";
 
 import { Skeleton } from "@nextui-org/react";
+import Head from "next/head";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowNarrowLeft, HiCursorClick, HiShare, HiUsers } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiCursorClick, HiShare, HiUsers, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
-import ErrorBanner from "@/components/Error";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
+import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -160,18 +161,16 @@ export default function RootLayout({
 
     }, []);
 
-    if (error) return <ErrorBanner message={error} />;
-
     return (
         <div className="flex flex-col w-full">
-            <title>{`${guild?.name}'s Dashboard`}</title>
+            <Head>
+                {guild?.name && <title>{`${guild?.name}'s Dashboard`}</title>}
+            </Head>
 
             <div className="flex flex-col gap-5 mb-3">
                 <Link href="/dashboard" className="button-underline">
                     <HiArrowNarrowLeft /> Serverlist
                 </Link>
-
-                {error && <ErrorBanner message={error} />}
 
                 <div className="text-lg flex gap-5 items-center">
                     <Skeleton isLoaded={!!guild?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40">
@@ -219,20 +218,30 @@ export default function RootLayout({
                         name: "Greetings",
                         value: "/greeting"
                     },
-                    // {
-                    //     name: "Custom Commands",
-                    //     value: "/actions"
-                    // },
                     {
                         name: "Starboard",
                         value: "/starboard"
+                    },
+                    {
+                        name: "Custom Commands",
+                        value: "/custom-commands"
                     }
                 ]}
                 url={`/dashboard/${params.guildId}`}
-                disabled={!guild}
+                disabled={!guild?.id || !!error}
             />
 
-            {guild?.id ? children : <></>}
+            {error ?
+                <ScreenMessage
+                    title="Something went wrong.."
+                    description={error}
+                    href="/dashboard"
+                    button="Go back to server list"
+                    icon={<HiViewGridAdd />}
+                />
+                :
+                guild?.id ? children : <></>
+            }
 
         </div >
     );
