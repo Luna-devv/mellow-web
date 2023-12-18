@@ -6,8 +6,8 @@ import { HiChevronRight, HiLightningBolt, HiOutlineCheck, HiX } from "react-icon
 import { IoMdInfinite } from "react-icons/io";
 
 import Badge from "@/components/badge";
-import ImageReduceMotion from "@/components/image-reduce-motion";
 import ServerGrid from "@/components/guild-grid";
+import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -143,7 +143,9 @@ export default async function Home() {
                     <span className="flex items-center gap-2">
                         <ImageReduceMotion url="/luna" size={64} alt="mwlica's profile picture" className="w-12 h-12 rounded-full" />
                         <div>
-                            <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@mwlica</span> <Badge text="Developer" /> <br />
+                            <div className="flex items-center gap-2">
+                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@mwlica</span> <Badge text="Developer" />
+                            </div>
                             <span className="dark:text-neutral-300 text-neutral-700">Cute femboy</span>
                         </div>
                     </span>

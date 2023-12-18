@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiFire, HiUserAdd } from "react-icons/hi";
+import { HiArrowRight, HiFire, HiInformationCircle, HiUserAdd } from "react-icons/hi";
 
 import Badge from "@/components/badge";
 import { StatsBar } from "@/components/counter";
@@ -18,16 +18,35 @@ import LeaderboardPic from "@/public/leaderboard.webp";
 import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
+import cn from "@/utils/cn";
 import { convertMonthToName } from "@/utils/time";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
+const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
+
+interface Commands {
+    name: string;
+    description: string;
+    uses: number;
+}
+
 export default async function Home() {
-    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
-    const stats = await fetch(`${process.env.NEXT_PUBLIC_API}/statistics`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1StatisticsGetResponse;
+    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions).then((res) => res.json()).catch(() => null) as ApiV1TopguildsGetResponse[] | null;
+    const stats = await fetch(`${process.env.NEXT_PUBLIC_API}/statistics`, fetchOptions).then((res) => res.json()).catch(() => null) as ApiV1StatisticsGetResponse | null;
+    const commands = await fetch(`${process.env.NEXT_PUBLIC_API}/commands`, fetchOptions).then((res) => res.json()).catch(() => ([])) as Commands[];
 
     const uwus = ["UwU", "uwu", "OwO", "owo", "QwQ", "qwq", ">:(", "Femboys ❤️"];
+    const intl = new Intl.NumberFormat("en", { notation: "standard" });
+
+    const Invite = () => (
+        <Link href="/login?invite=true" className="button-primary">
+            <HiUserAdd />
+            <span className="block sm:hidden">Wamellow</span>
+            <span className="hidden sm:block">Invite Wamellow</span>
+        </Link>
+    );
 
     return (
         <div className="flex items-center flex-col w-full">
@@ -46,7 +65,7 @@ export default async function Home() {
                 </div>
             </div>
 
-            <ServerGrid guilds={topGuilds} />
+            {topGuilds && <ServerGrid guilds={topGuilds} />}
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <span className="tracking-wide">
@@ -94,11 +113,7 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="button-primary">
-                                <HiUserAdd />
-                                <span className="block sm:hidden">Wamellow</span>
-                                <span className="hidden sm:block">Invite Wamellow</span>
-                            </Link>
+                            <Invite />
                             <Link href="/leaderboard/1055188344188973066" className="button">
                                 <span className="mr-2">View Leaderboard</span>
                                 <HiArrowRight />
@@ -165,10 +180,10 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="button-primary">
-                                <HiUserAdd />
-                                <span className="block sm:hidden">Wamellow</span>
-                                <span className="hidden sm:block">Invite Wamellow</span>
+                            <Invite />
+                            <Link href="/dashboard?to=greeting" className="button">
+                                <span className="mr-2">Setup</span>
+                                <HiArrowRight />
                             </Link>
                         </div>
 
@@ -188,10 +203,10 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="button-primary">
-                                <HiUserAdd />
-                                <span className="block sm:hidden">Wamellow</span>
-                                <span className="hidden sm:block">Invite Wamellow</span>
+                            <Invite />
+                            <Link href="/dashboard?to=starboard" className="button">
+                                <span className="mr-2">Setup</span>
+                                <HiArrowRight />
                             </Link>
                         </div>
 
@@ -262,11 +277,7 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="button-primary">
-                                <HiUserAdd />
-                                <span className="block sm:hidden">Wamellow</span>
-                                <span className="hidden sm:block">Invite Wamellow</span>
-                            </Link>
+                            <Invite />
                         </div>
 
                     </div>
@@ -282,7 +293,7 @@ export default async function Home() {
                             Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
                             Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
 
-                            <div className="p-4 pb-3 border-2 dark:border-wamellow border-wamellow-100 rounded-xl mt-4">
+                            <div className="p-4 pb-3 border-2 dark:border-wamellow border-wamellow-100 rounded-lg mt-4">
                                 <Badge
                                     before={<HiFire />}
                                     text="NSFW Supported"
@@ -296,11 +307,7 @@ export default async function Home() {
                         </div>
 
                         <div className="flex gap-2 mt-4">
-                            <Link href="/login?invite=true" className="button-primary">
-                                <HiUserAdd />
-                                <span className="block sm:hidden">Wamellow</span>
-                                <span className="hidden sm:block">Invite Wamellow</span>
-                            </Link>
+                            <Invite />
                         </div>
 
                     </div>
@@ -332,27 +339,62 @@ export default async function Home() {
 
             </article>
 
+            <div className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg mt-4 w-full">
+                <div className="flex">
+                    <Badge
+                        before={<HiFire />}
+                        text="Popular Slash Commands"
+                        classname="mr-auto ml-0 mb-2"
+                    />
+                    <div className="ml-auto flex items-center gap-1 opacity-80">
+                        <span className="text-xs">Since 7th December</span>
+                        <HiInformationCircle />
+                    </div>
+                </div>
+                {Array.isArray(commands) && commands
+                    .filter((command) => ["tts", "rank", "leaderboard", "anime"].includes(command.name))
+                    .map((command, i) => (
+                        <div key={command.name} className={cn("text-base py-4 flex flex-col md:flex-row gap-4 md:items-center", i + 1 !== 4 && "border-b border-wamellow-alpha")}>
+                            <div className="-mb-2 md:mb-0 flex items-center h-min">
+                                <span className="dark:text-neutral-100 text-neutral-900 text-xl font-semibold md:font-medium">/{command.name}</span>
+                                <span className="ml-auto italic text-sm md:hidden opacity-80">{intl.format(command.uses)} uses</span>
+                            </div>
+                            <span>{command.description}</span>
+                            <span className="ml-auto italic text-sm hidden md:block">{intl.format(command.uses)} uses</span>
+                        </div>
+                    ))
+                }
+                {(!commands || !Array.isArray(commands)) &&
+                    <div className="flex flex-col items-center my-10">
+                        <div className="text-3xl dark:text-neutral-100 text-neutral-900 font-semibold mb-4">Something went wrong...</div>
+                        <div className="text-md dark:text-neutral-400 text-neutral-600 font-semibold">The commands list could not be loaded at this time</div>
+                    </div>
+                }
+            </div>
+
+            <div className="h-8" />
+
             <StatsBar
                 items={[
                     {
                         name: "Guilds using us",
-                        number: stats.approximateGuildCount,
-                        gained: stats.guildsGained
+                        number: stats?.approximateGuildCount || 0,
+                        gained: stats?.guildsGained
                     },
                     {
                         name: "Users using us",
-                        number: stats.approximateUserCount,
-                        gained: stats.usersGained
+                        number: stats?.approximateUserCount || 0,
+                        gained: stats?.usersGained || 0
                     },
                     {
                         name: "Votes for us",
-                        number: stats.approximateVoteCount,
-                        gained: stats.votesGained,
+                        number: stats?.approximateVoteCount || 0,
+                        gained: stats?.votesGained || 0,
                         append: `in ${convertMonthToName(new Date().getMonth())}`
                     },
                     {
                         name: "Our experience with",
-                        number: stats.globalGuilds,
+                        number: stats?.globalGuilds || 0,
                         gained: "guilds, 5 bots",
                         info: "https://discordlist.gg/user/821472922140803112"
                     }
