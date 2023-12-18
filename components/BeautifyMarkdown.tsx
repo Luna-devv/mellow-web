@@ -16,6 +16,7 @@ const BeautifyMarkdown: FunctionComponent<{ markdown: string }> = ({ markdown })
 
     return (
         <ReactMarkdown
+            /* @ts-expect-error they broke types */
             rehypePlugins={[rehypeRaw]}
             components={{
                 h1: ({ ...props }) => <Link

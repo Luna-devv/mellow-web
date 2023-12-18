@@ -28,7 +28,7 @@ export default function Home() {
 
             localStorage.setItem("freshleyLoggedout", "true");
             localStorage.removeItem("token");
-            router.push("/");
+            window.location.href = "/";
             return;
         }
 
@@ -77,7 +77,7 @@ export default function Home() {
                                 return;
                             }
 
-                            router.push(redirect || "/");
+                            window.location.href = redirect || "/";
                             break;
                         }
                         default: {

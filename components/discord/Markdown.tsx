@@ -26,6 +26,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
 
     if (!discord) return (
         <ReactMarkdown
+            /* @ts-expect-error they broke types */
             rehypePlugins={[rehypeRaw]}
             allowedElements={["span", "p"]}
         >
@@ -41,6 +42,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
     return (
         <ReactMarkdown
             className="break-words"
+            /* @ts-expect-error they broke types */
             rehypePlugins={[rehypeRaw]}
             components={{
                 h1: ({ ...props }) => <div className="text-3xl font-semibold" {...props} />,
