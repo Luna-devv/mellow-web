@@ -98,7 +98,7 @@ export default function Home() {
                     <Button
                         as={Link}
                         href="/login?invite=true"
-                        className="button-blurple"
+                        className="button-blurple w-1/2 md:w-min"
                         startContent={<HiUserAdd />}
                     >
                         Add to Server
@@ -106,6 +106,7 @@ export default function Home() {
                     <Button
                         as={Link}
                         href="/login"
+                        className="w-1/2 md:w-min"
                         startContent={<BsDiscord />}
                     >
                         Reload

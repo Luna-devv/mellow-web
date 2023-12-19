@@ -12,6 +12,7 @@ import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import ErrorBanner from "@/components/Error";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
+import cn from "@/utils/cn";
 import { getCanonicalUrl } from "@/utils/urls";
 
 const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsModulesLeaderboardGetResponse }> = ({ guildId, design }) => {
@@ -24,7 +25,7 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
         <div className="flex flex-col gap-3">
 
             <CopyToClipboardButton
-                className={design?.backgroundColor && "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70  w-full" || " w-full"}
+                className={cn("w-full !justify-start", design?.backgroundColor && "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70")}
                 text={getCanonicalUrl("leaderboard", guildId)}
                 icon={<HiShare />}
             />
@@ -41,7 +42,7 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
 
                     <div className="flex flex-col gap-3">
                         <Button
-                            className="w-full"
+                            className="w-full !justify-start"
                             onClick={() => setModal(true)}
                             startContent={<HiTrash />}
                         >
@@ -49,6 +50,7 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
                         </Button>
                         <Button
                             as={Link}
+                            className="w-full !justify-start"
                             href={getCanonicalUrl("dashboard", guildId)}
                             startContent={<HiViewGridAdd />}
                         >

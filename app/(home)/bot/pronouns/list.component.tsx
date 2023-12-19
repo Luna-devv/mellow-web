@@ -29,7 +29,7 @@ export default async function List({ res, type }: { res: PronounsResponse, type:
                     <Ad
                         title="Auditional Text"
                         description="Convert your text into either a MP3 file or let the bot speak the text in your current voice channel and choose from 18 different voices."
-                        url="https://discord.com/oauth2/authorize?client_id=1097907896987160666&scope=bot&permissions=2147486720"
+                        url="https://discord.com/oauth2/authorize?client_id=985213199248924722&scope=bot&permissions=3197952"
                         color="green"
                     />
                     <Ad

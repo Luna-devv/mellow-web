@@ -13,6 +13,7 @@ import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordMessageFile from "@/components/discord/Message-file";
 import ServerGrid from "@/components/guild-grid";
 import { ListTab } from "@/components/list";
+import { ServerButton } from "@/components/server-button";
 import ArrowPic from "@/public/arroww.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
 import WaifuPic from "@/public/waifu.webp";
@@ -41,11 +42,15 @@ export default async function Home() {
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     const Invite = () => (
-        <Link href="/login?invite=true" className="button-primary">
-            <HiUserAdd />
-            <span className="block sm:hidden">Wamellow</span>
+        <ServerButton
+            as={Link}
+            startContent={<HiUserAdd />}
+            href="/login?invite=true"
+            className="button-primary"
+        >
+            <span className="block sm:hidden">Invite</span>
             <span className="hidden sm:block">Invite Wamellow</span>
-        </Link>
+        </ServerButton>
     );
 
     return (
@@ -74,17 +79,27 @@ export default async function Home() {
 
                 <div className="flex flex-col min-w-full lg:min-w-[420px]">
 
-                    <div className="lg:ml-auto flex gap-2 text-xl font-medium mt-4 lg:mt-0">
-                        <Link href="/login?invite=true" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 w-1/2 lg:w-fit justify-center gap-2">
-                            <HiUserAdd className="relative top-1" />
-                            <span className="block sm:hidden">Wamellow</span>
+                    <div className="lg:ml-auto flex gap-2 mt-4 lg:mt-0">
+                        <ServerButton
+                            as={Link}
+                            startContent={<HiUserAdd />}
+                            className="button-primary w-1/2 lg:w-fit !text-xl !font-medium"
+                            href="/login?invite=true"
+                            size="lg"
+                        >
+                            <span className="block sm:hidden">Invite</span>
                             <span className="hidden sm:block">Invite Wamellow</span>
-                        </Link>
-                        <Link href="/support" className="button w-1/2">
-                            <BsDiscord />
+                        </ServerButton>
+                        <ServerButton
+                            as={Link}
+                            startContent={<BsDiscord />}
+                            className="w-1/2 lg:w-fit !text-xl !font-medium"
+                            href="/support"
+                            size="lg"
+                        >
                             <span className="block sm:hidden">Support</span>
                             <span className="hidden sm:block">Join support</span>
-                        </Link>
+                        </ServerButton>
                     </div>
 
 
@@ -114,10 +129,13 @@ export default async function Home() {
 
                         <div className="flex gap-2 mt-4">
                             <Invite />
-                            <Link href="/leaderboard/1055188344188973066" className="button">
-                                <span className="mr-2">View Leaderboard</span>
-                                <HiArrowRight />
-                            </Link>
+                            <ServerButton
+                                as={Link}
+                                startContent={<HiArrowRight />}
+                                href="/leaderboard/1055188344188973066"
+                            >
+                                View Leaderboard
+                            </ServerButton>
                         </div>
 
                     </div>
@@ -181,10 +199,13 @@ export default async function Home() {
 
                         <div className="flex gap-2 mt-4">
                             <Invite />
-                            <Link href="/dashboard?to=greeting" className="button">
-                                <span className="mr-2">Setup</span>
-                                <HiArrowRight />
-                            </Link>
+                            <ServerButton
+                                as={Link}
+                                startContent={<HiArrowRight />}
+                                href="/dashboard?to=greeting"
+                            >
+                                Setup
+                            </ServerButton>
                         </div>
 
                     </div>
@@ -204,10 +225,13 @@ export default async function Home() {
 
                         <div className="flex gap-2 mt-4">
                             <Invite />
-                            <Link href="/dashboard?to=starboard" className="button">
-                                <span className="mr-2">Setup</span>
-                                <HiArrowRight />
-                            </Link>
+                            <ServerButton
+                                as={Link}
+                                startContent={<HiArrowRight />}
+                                href="/dashboard?to=starboard"
+                            >
+                                Setup
+                            </ServerButton>
                         </div>
 
                     </div>

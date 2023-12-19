@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HiPlus } from "react-icons/hi";
 
 import DiscordMessage from "@/components/discord/message";
+import { ServerButton } from "@/components/server-button";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -53,10 +54,13 @@ export default async function Home() {
                     </div>
 
                     <div className="flex gap-2 mt-4">
-                        <Link href="/support" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center">
-                            <HiPlus />
+                        <ServerButton
+                            as={Link}
+                            startContent={<HiPlus />}
+                            href="/support"
+                        >
                             Request additional
-                        </Link>
+                        </ServerButton>
                     </div>
 
                 </div>

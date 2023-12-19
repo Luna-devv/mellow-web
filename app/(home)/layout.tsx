@@ -1,4 +1,3 @@
-
 import { readFile } from "fs/promises";
 import Link from "next/link";
 import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoTiktok, BiLogoTwitter, BiLogoYoutube } from "react-icons/bi";
@@ -7,6 +6,7 @@ import { HiCube } from "react-icons/hi";
 import { SiKofi } from "react-icons/si";
 
 import TopggIcon from "@/components/icons/topgg";
+import { ServerButton } from "@/components/server-button";
 
 export default async function RootLayout({
     children
@@ -74,9 +74,30 @@ export default async function RootLayout({
                 </div>
 
                 <div className="flex flex-wrap gap-2 mt-2 dark:text-neutral-400 text-neutral-600 select-none">
-                    <Link href="/terms" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Terms of Service</Link>
-                    <Link href="/privacy" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Privacy Policy</Link>
-                    <Link href="/support" className="dark:bg-wamellow/80 dark:hover:bg-wamellow-alpha bg-wamellow-100/80 hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200">Support</Link>
+                    <ServerButton
+                        as={Link}
+                        className="dark:text-neutral-400 text-neutral-400"
+                        href="/terms"
+                        size="sm"
+                    >
+                        Terms of Service
+                    </ServerButton>
+                    <ServerButton
+                        as={Link}
+                        className="dark:text-neutral-400 text-neutral-400"
+                        href="/privacy"
+                        size="sm"
+                    >
+                        Privacy Policy
+                    </ServerButton>
+                    <ServerButton
+                        as={Link}
+                        className="dark:text-neutral-400 text-neutral-400"
+                        href="/support"
+                        size="sm"
+                    >
+                        Support
+                    </ServerButton>
                 </div>
 
             </div>

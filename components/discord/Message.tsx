@@ -59,7 +59,7 @@ const DiscordMessage: FunctionComponent<Props> = ({ children, commandUsed, user,
             <div className="flex flex-row items-start pointer-events-none [&>*]:pointer-events-auto">
                 <div className="flex justify-start items-center w-[52px] shrink-0">
                     <Avatar
-                        className="h-10 w-10 hover:cursor-pointer mt-1.5 lca-popover-activator"
+                        className="h-10 w-10 hover:cursor-pointer mt-1.5"
                         radius="full"
                         src={user.avatar}
                     />
@@ -67,7 +67,7 @@ const DiscordMessage: FunctionComponent<Props> = ({ children, commandUsed, user,
 
                 <div className="flex-1 w-0">
                     <div className="flex items-center space-x-2">
-                        <div className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis hover:underline lca-popover-activator" >
+                        <div className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis hover:underline" >
                             {user.username}
                         </div>
                         {user.bot && <div className="text-xxs text-white bg-blurple rounded py-[1px] px-1 flex items-center">

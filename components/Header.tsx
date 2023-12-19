@@ -158,7 +158,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                             key={"headerButton-" + button.name + button.url}
                             as={Link}
                             href={button.url}
-                            className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha p-4 w-full duration-200 flex items-center"
+                            className="w-full !justify-start"
                             onClick={() => setMenu(false)}
                             startContent={button.icon}
                         >

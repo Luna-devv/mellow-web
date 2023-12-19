@@ -5,8 +5,9 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiChevronRight, HiHome, HiUserAdd } from "react-icons/hi";
 
-import ImageReduceMotion from "@/components/image-reduce-motion";
 import ServerGrid from "@/components/guild-grid";
+import ImageReduceMotion from "@/components/image-reduce-motion";
+import { ServerButton } from "@/components/server-button";
 import ArrowPic from "@/public/arroww.webp";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
@@ -65,33 +66,56 @@ export default async function RootLayout({
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <div className="tracking-wide w-full grid grid-cols-2 md:flex flex-wrap h-min gap-2">
-                    <Link href="/bot/pronouns" className="button items-center">
+                    <ServerButton
+                        as={Link}
+                        href="/bot/pronouns"
+                        isIconOnly
+                    >
                         <HiHome />
-                    </Link>
-                    <Link href="/bot/pronouns/pronouns" className="button">
+                    </ServerButton>
+                    <ServerButton
+                        as={Link}
+                        href="/bot/pronouns/pronouns"
+                    >
                         Pronouns
-                    </Link>
-                    <Link href="/bot/pronouns/genders" className="button">
+                    </ServerButton>
+                    <ServerButton
+                        as={Link}
+                        href="/bot/pronouns/genders"
+                    >
                         Genders
-                    </Link>
-                    <Link href="/bot/pronouns/sexualities" className="button">
+                    </ServerButton>
+                    <ServerButton
+                        as={Link}
+                        href="/bot/pronouns/sexualities"
+                    >
                         Sexualities
-                    </Link>
+                    </ServerButton>
                 </div>
 
                 <div className="flex flex-col min-w-full lg:min-w-[420px]">
 
                     <div className="lg:ml-auto flex gap-2 text-xl font-medium mt-4 lg:mt-0">
-                        <Link href="https://top.gg/bot/912003493777268767/invite" className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 w-1/2 lg:w-fit justify-center gap-2">
-                            <HiUserAdd className="relative top-1" />
-                            <span className="block sm:hidden">Pronouns</span>
-                            <span className="hidden sm:block">Invite Pronouns</span>
-                        </Link>
-                        <Link href="/support" className="button w-1/2">
-                            <BsDiscord />
+                        <ServerButton
+                            as={Link}
+                            startContent={<HiUserAdd />}
+                            className="button-primary w-1/2 lg:w-fit !text-xl !font-medium"
+                            href="https://top.gg/bot/912003493777268767/invite"
+                            size="lg"
+                        >
+                            <span className="block sm:hidden">Invite</span>
+                            <span className="hidden sm:block">Invite Wamellow</span>
+                        </ServerButton>
+                        <ServerButton
+                            as={Link}
+                            startContent={<BsDiscord />}
+                            className="w-1/2 lg:w-fit !text-xl !font-medium"
+                            href="/support"
+                            size="lg"
+                        >
                             <span className="block sm:hidden">Support</span>
                             <span className="hidden sm:block">Join support</span>
-                        </Link>
+                        </ServerButton>
                     </div>
 
 

@@ -1,10 +1,9 @@
 "use client";
 
-import { Progress } from "@nextui-org/react";
+import { Button, Progress } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useState } from "react";
 import { HiX } from "react-icons/hi";
-import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
@@ -106,14 +105,7 @@ export default function Modal<T>({ className, variant, title, children, subChild
                             <div className="md:relative absolute bottom-0 left-0 w-full dark:bg-wamellow/40 bg-wamellow-100/40 rounded-bl-md rounded-br-md">
                                 <div className="flex items-center w-full gap-4 p-4">
 
-                                    {state === "LOADING" ?
-                                        <div className="flex items-center gap-2">
-                                            <TailSpin stroke="#a3a3a3" strokeWidth={6} className="relative h-3 w-3 overflow-visible" />
-                                            Submitting...
-                                        </div>
-                                        :
-                                        subChildren
-                                    }
+                                    {subChildren}
 
                                     {onSubmit &&
                                         <button
@@ -124,7 +116,8 @@ export default function Modal<T>({ className, variant, title, children, subChild
                                         </button>
                                     }
 
-                                    <button
+                                    <Button
+                                        color={variant || "secondary"}
                                         onClick={() => {
                                             if (state === "LOADING") return;
                                             if (!onSubmit) return onClose();
@@ -141,11 +134,11 @@ export default function Modal<T>({ className, variant, title, children, subChild
                                                 })
                                                 .catch((e: Error) => setError(e.message || "Unknown server error"));
                                         }}
-                                        className={cn("flex bg-violet-600 hover:bg-violet-700 text-neutral-200 font-medium py-2 px-5 duration-200 rounded-md", !onSubmit && "ml-auto", state === "LOADING" && "opacity-50 cursor-wait", variant === "danger" && "bg-red-500/80 hover:bg-red-600")}
-                                        disabled={state === "LOADING"}
+                                        className={cn(!onSubmit && "ml-auto")}
+                                        isLoading={state === "LOADING"}
                                     >
-                                        <span>{buttonName}</span>
-                                    </button>
+                                        {buttonName}
+                                    </Button>
 
                                 </div>
                             </div>

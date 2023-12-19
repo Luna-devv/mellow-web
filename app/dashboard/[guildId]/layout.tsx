@@ -1,7 +1,6 @@
 "use client";
 
 import { Skeleton } from "@nextui-org/react";
-import Head from "next/head";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -163,33 +162,34 @@ export default function RootLayout({
 
     return (
         <div className="flex flex-col w-full">
-            <Head>
-                {guild?.name && <title>{`${guild?.name}'s Dashboard`}</title>}
-            </Head>
+            <title>{`${guild?.name}'s Dashboard`}</title>
 
             <div className="flex flex-col gap-5 mb-3">
                 <Link href="/dashboard" className="button-underline">
                     <HiArrowNarrowLeft /> Serverlist
                 </Link>
 
-                <div className="text-lg flex gap-5 items-center">
-                    <Skeleton isLoaded={!!guild?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40">
-                        <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server" />
-                    </Skeleton>
+                <div className="text-lg flex flex-col md:flex-row md:items-center">
+                    <div className="flex gap-5">
+                        <Skeleton isLoaded={!!guild?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0">
+                            <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server" />
+                        </Skeleton>
 
-                    {!guild?.id ?
-                        <div>
-                            <Skeleton className="rounded-xl w-32 h-5 mb-2" />
-                            <Skeleton className="rounded-xl w-10 h-3.5" />
-                        </div>
-                        :
-                        <div className="flex flex-col gap-1">
-                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
-                            <div className="text-sm font-semibold flex items-center gap-1"> <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
-                        </div>
-                    }
+                        {!guild?.id ?
+                            <div>
+                                <Skeleton className="rounded-xl w-32 h-5 mb-2" />
+                                <Skeleton className="rounded-xl w-10 h-3.5" />
+                            </div>
+                            :
+                            <div className="flex flex-col gap-1">
+                                <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
+                                <div className="text-sm font-semibold flex items-center gap-1"> <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
+                            </div>
+                        }
 
-                    <div className="ml-auto">
+                    </div>
+
+                    <div className="md:ml-auto mt-6 md:mt-0">
                         {web.devToolsEnabled &&
                             <CopyToClipboardButton
                                 text={getCanonicalUrl("leaderboard", params.guildId.toString())}
@@ -202,6 +202,7 @@ export default function RootLayout({
                         }
                     </div>
                 </div>
+
             </div>
 
             <ListTab
