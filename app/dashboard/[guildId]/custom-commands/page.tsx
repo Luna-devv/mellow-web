@@ -56,7 +56,7 @@ export default function Home() {
                 switch (res.status) {
                     case 200: {
                         setTags(response);
-                        if (!tagId) setTagId(response[0]?.tagId);
+                        if (!tagId && response[0]) setTagId(response[0].tagId);
                         break;
                     }
                     default: {
