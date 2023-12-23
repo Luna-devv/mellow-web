@@ -65,7 +65,7 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
                 <span className="text-xl font-medium dark:text-neutral-100 text-neutral-900 px-1">How this works</span>
                 <hr className="my-2 dark:border-wamellow-light border-wamellow-100-light" />
 
-                <div className="text-sm px-1">Users are sorted from most to least active for each category, updates once per minute.</div>
+                <div className="px-1">Users are sorted from most to least active for each category, updates once per minute.</div>
             </div>
 
             <Modal
@@ -88,6 +88,7 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
                 }}
             >
                 <ErrorBanner message="Takes a few seconds to apply" type="info" removeButton />
+                Are you sure you want to delete the leaderboard? It will be gone forever, probably, who knows.
             </Modal>
 
         </div>

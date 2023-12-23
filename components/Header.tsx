@@ -38,8 +38,7 @@ export default function Header(props: React.ComponentProps<"div">) {
         setLoggedin(!!localStorage.getItem("token"));
 
         authorizeUser({ stateHook: setLoginstate, page: path }).then((_user) => {
-            (_user || { __fetched: false }).__fetched = true;
-            if (_user) userStore.setState(_user);
+            userStore.setState(Object.assign(_user || {}, { __fetched: true }));
         });
 
         const devToolsEnabled = localStorage.getItem("devToolsEnabled");
