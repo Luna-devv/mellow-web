@@ -114,7 +114,7 @@ export default async function Home() {
 
             <div className="lg:mt-14 mt-10" />
 
-            <article itemScope itemType="http://schema.org/Article" className="flex flex-col gap-24 mb-16">
+            <article itemScope itemType="http://schema.org/Article" className="flex flex-col gap-28 mb-16">
 
                 <div className="flex flex-col md:flex-row gap-8 items-center">
 
@@ -357,6 +357,54 @@ export default async function Home() {
 
 
                         </DiscordMessage>
+                    </div>
+
+                </div>
+
+                <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
+
+                    <div className="md:mr-auto md:w-1/2 w-full px-3 pb-3 flex flex-col gap-4">
+                        <DiscordMessage
+                            mode={"DARK"}
+                            user={{
+                                username: "mwlica",
+                                avatar: "/luna-small.webp",
+                                bot: false
+                            }}
+                        >
+                            <Highlight mode={"DARK"} text="wm - howto" />
+                        </DiscordMessage>
+
+                        <DiscordMessage
+                            mode={"DARK"}
+                            user={{
+                                username: "Wamellow",
+                                avatar: "/waya-v3-small.webp",
+                                bot: true
+                            }}
+                        >
+                            <DiscordMessageEmbed
+                                mode={"DARK"}
+                                color={0xbc7ed4}
+                            >
+                                <Highlight mode={"DARK"} text="To create a custom command, go to [your server's dashboard](/dashboard?to=custom-commands), click on `Create`, fill in the response **content**, **embed title**, **embed description**, **embed color**, **embed images**, command **permissions** and more. When you're done you can start using the command 🎉" />
+                            </DiscordMessageEmbed>
+                        </DiscordMessage>
+                    </div>
+
+                    <div className="md:w-1/2">
+                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Custom Commands 🖊️</h2>
+                        <div className="text-lg pt-6">
+                            Level up your Discord support game with Wamellow{"'"}s custom commands (tags)!
+                            Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
+                            Empower your server with quick access to essential info, making support a breeze.
+                            Boost engagement and create a knowledgeable community for free!
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                            <Invite />
+                        </div>
+
                     </div>
 
                 </div>

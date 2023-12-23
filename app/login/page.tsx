@@ -32,7 +32,7 @@ export default function Home() {
             return;
         }
 
-        if (!params.get("code")) window.location.href = `${process.env.NEXT_PUBLIC_LOGIN}&scope=${params.get("invite") ? "identify+bot" : "identify+email+guilds"}`;
+        if (!params.get("code")) window.location.href = `${process.env.NEXT_PUBLIC_LOGIN}&scope=${params.get("invite") ? "identify+bot&permissions=1634200972406" : "identify+email+guilds"}`;
         else
             fetch(`${process.env.NEXT_PUBLIC_API}/sessions?code=${params.get("code")}`, {
                 method: "POST"
