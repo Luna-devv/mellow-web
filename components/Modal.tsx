@@ -74,12 +74,16 @@ export default function Modal<T>({ className, variant, title, children, subChild
 
                                 <div className="flex items-center">
                                     <span className="text-2xl font-semibold dark:text-neutral-200 text-neutral-800">{title}</span>
-                                    <button
+                                    <Button
                                         onClick={() => onClose()}
-                                        className="ml-auto dark:bg-neutral-800/50 bg-neutral-200/50 dark:hover:bg-neutral-700/50 hover:bg-neutral-300/50 dark:text-neutral-400 text-neutral-600 dark:hover:text-neutral-200 hover:text-neutral-800 duration-200 rounded-md p-1.5"
+                                        className="ml-auto"
+                                        size="sm"
+                                        isIconOnly
                                     >
-                                        <HiX className="h-3.5 w-3.5" />
-                                    </button>
+                                        <span>
+                                            <HiX />
+                                        </span>
+                                    </Button>
                                 </div>
 
                                 <Progress

@@ -1,8 +1,9 @@
+import { Checkbox, Switch as UiSwitch } from "@nextui-org/react";
 import { FunctionComponent, useEffect, useState } from "react";
-import { HiCheck } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
 import { RouteErrorResponse } from "@/typings";
+import cn from "@/utils/cn";
 
 type Props = {
     className?: string;
@@ -85,38 +86,41 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
     }, [value]);
 
     return (
-        <div className={`relative ${description && "mb-8"} ` + className}>
+        <div className={cn("relative", description && "mb-8", className)}>
 
-            <div className={`flex items-center ${!tickbox && "mb-6"}`}>
+            <div className={cn("flex items-center gap-2", !tickbox && "mb-6")}>
                 <div className="flex items-center gap-2">
-                    <span className={`sm:text-lg ${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-400 text-neutral-600"} font-medium`}>{name}</span>
+                    <span className={cn("sm:text-lg font-medium", value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-400 text-neutral-600")}>{name}</span>
                     {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
                 </div>
 
-                <label className={`ml-auto relative inline-flex items-center cursor-pointer ${(state === "LOADING" || disabled) && "cursor-not-allowed opacity-50"} duration-700`}>
-                    <input
-                        type="checkbox"
-                        className={"sr-only peer"}
-                        checked={value}
-                        onChange={() => {
-                            setState(undefined);
-                            setValue(!value);
+                {tickbox ?
+                    <Checkbox
+                        className="ml-auto"
+                        isSelected={value}
+                        onValueChange={(now) => {
                             setChanged(true);
+                            setValue(now);
                         }}
-                        disabled={(state === "LOADING" || disabled)}
+                        aria-label={name}
+                        color="secondary"
+                        isDisabled={disabled}
                     />
-                    {tickbox ?
-                        <div className={`w-6 h-6 border ${value ? "bg-violet-500/80 border-violet-500/80" : "dark:bg-wamellow bg-wamellow-100 dark:border-wamellow-light border-wamellow-100-light"} rounded-md flex items-center justify-center`}>
-                            {value && <HiCheck className="dark:text-violet-200 text-violet-800" />}
-                        </div>
-                        :
-                        <div
-                            className={`w-11 h-6 bg-neutral-300 rounded-full peer dark:bg-neutral-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all ease-in-out peer-checked:bg-violet-600 ${(state === "LOADING" || disabled) && "cursor-not-allowed"}`}
-                        />
-                    }
-                </label>
-
+                    :
+                    <UiSwitch
+                        className="ml-auto"
+                        isSelected={value}
+                        onValueChange={(now) => {
+                            setChanged(true);
+                            setValue(now);
+                        }}
+                        aria-label={name}
+                        color="secondary"
+                        isDisabled={disabled}
+                    />
+                }
             </div>
+
 
             <div className="absolute top-6">
                 {description && <div className="text-neutral-500 text-sm">{description}</div>}
