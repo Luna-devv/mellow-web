@@ -1,25 +1,34 @@
 "use client";
-import { Button } from "@nextui-org/react";
+
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import { HiShare, HiTrash, HiViewGridAdd } from "react-icons/hi";
 
 import { webStore } from "@/common/webstore";
 import Ad from "@/components/ad";
-import Badge from "@/components/badge";
 import { CopyToClipboardButton } from "@/components/copyToClipboard";
 import ErrorBanner from "@/components/Error";
 import Modal from "@/components/modal";
-import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
+import { ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { getCanonicalUrl } from "@/utils/urls";
 
-const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsModulesLeaderboardGetResponse }> = ({ guildId, design }) => {
+export default function Side({
+    guildId,
+    design,
+    pagination
+}: {
+    guildId: string;
+    design: ApiV1GuildsModulesLeaderboardGetResponse;
+    pagination: ApiV1GuildsTopmembersPaginationGetResponse;
+}) {
     const web = webStore((w) => w);
     const router = useRouter();
 
     const [modal, setModal] = useState(false);
+    const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     return (
         <div className="flex flex-col gap-3">
@@ -32,15 +41,19 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
 
             <Ad />
 
-            {web.devToolsEnabled &&
-                <div className="dark:text-neutral-300 text-neutral-700 py-2 rounded-md mt-2">
-                    <span className="flex items-center gap-2 px-1">
-                        <span className="text-xl font-medium dark:text-neutral-100 text-neutral-900">Admin tools</span>
-                        <Badge text="Developer" />
-                    </span>
-                    <hr className="mt-2 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
+            <Accordion
+                selectionMode="multiple"
+                defaultExpandedKeys={["1", "2", "3"]}
+                disableAnimation={web.reduceMotions}
+            >
 
-                    <div className="flex flex-col gap-3">
+                {web.devToolsEnabled ?
+                    <AccordionItem
+                        key="1"
+                        aria-label="admin tools"
+                        title="Admin tools"
+                        classNames={{ content: "flex flex-col gap-2 mb-2" }}
+                    >
                         <Button
                             className="w-full !justify-start"
                             onClick={() => setModal(true)}
@@ -56,17 +69,38 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
                         >
                             Dashboard
                         </Button>
+                    </AccordionItem>
+                    :
+                    undefined as unknown as JSX.Element
+                }
+
+                <AccordionItem
+                    key="2"
+                    aria-label="how this works"
+                    title="How this works"
+                    classNames={{ content: "mb-2" }}
+                >
+                    Users are sorted from most to least active for each category, updates once per minute.
+                </AccordionItem>
+
+                <AccordionItem
+                    key="3"
+                    aria-label="server activity"
+                    title="Server activity"
+                    classNames={{ content: "mb-2" }}
+                >
+                    <div>
+                        <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
                     </div>
+                    <div>
+                        <span className="font-semibold">{pagination.voiceminutes.total}</span> in voice
+                    </div>
+                    <div>
+                        <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
+                    </div>
+                </AccordionItem>
 
-                </div>
-            }
-
-            <div className="dark:text-neutral-300 text-neutral-700 py-2 rounded-md">
-                <span className="text-xl font-medium dark:text-neutral-100 text-neutral-900 px-1">How this works</span>
-                <hr className="my-2 dark:border-wamellow-light border-wamellow-100-light" />
-
-                <div className="px-1">Users are sorted from most to least active for each category, updates once per minute.</div>
-            </div>
+            </Accordion>
 
             <Modal
                 title="Reset @everyone's stats"
@@ -94,6 +128,4 @@ const SideComponent: FunctionComponent<{ guildId: string, design: ApiV1GuildsMod
         </div>
     );
 
-};
-
-export default SideComponent;
+}

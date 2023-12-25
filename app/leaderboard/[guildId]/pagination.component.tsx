@@ -11,11 +11,11 @@ function Pagination(
     {
         guildId,
         searchParams,
-        data
+        pages
     }: {
         guildId: string;
         searchParams: { page: string, type: string };
-        data: { pages: number; members: number };
+        pages: number;
     }
 ) {
     const user = userStore((s) => s);
@@ -36,11 +36,11 @@ function Pagination(
             classNames={{ prev: "bg-wamellow", item: "bg-wamellow", next: "bg-wamellow" }}
             color="secondary"
             showControls
-            total={data.pages}
+            total={pages}
             size="lg"
             page={parseInt(searchParams.page || "0")}
             onChange={(now) => {
-                router.push(getCanonicalUrl("leaderboard", guildId, `?page=${now}${searchParams.type ? `&type=${searchParams.type}` : ""}`));
+                router.push(getCanonicalUrl("leaderboard", guildId, `?page=${now}${(searchParams.type && searchParams.type !== "messages") ? `&type=${searchParams.type}` : ""}`));
             }}
         />
     );

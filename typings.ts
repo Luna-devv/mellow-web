@@ -51,6 +51,21 @@ export interface ApiV1GuildsTopmembersGetResponse {
     activity: ApiV1MeGetResponse["activity"] & { formattedVoicetime: string };
 }
 
+export interface ApiV1GuildsTopmembersPaginationGetResponse {
+    messages: {
+        pages: number;
+        total: number;
+    };
+    voiceminutes: {
+        pages: number;
+        total: string;
+    };
+    invites: {
+        pages: number;
+        total: number;
+    };
+}
+
 export interface ApiV1GuildsChannelsGetResponse {
     name: string;
     id: string;
@@ -197,6 +212,8 @@ export interface ApiV1GuildsModulesLeaderboardGetResponse {
     backgroundColor: number | null;
     textColor: number | null;
     accentColor: number | null;
+
+    blacklistChannelIds: string[]
 
     updating: ApiV1GuildsModulesLeaderboardUpdatingPostResponse[]
 }
