@@ -8,6 +8,7 @@ import { Guild, guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
 import Betweener from "@/components/Betweener";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
+import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import TextInput from "@/components/inputs/TextInput";
 import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1GuildsModulesLeaderboardGetResponse, RouteErrorResponse } from "@/typings";
@@ -133,6 +134,20 @@ export default function Home() {
                 description="Enter a url which should be the banner of the leaderboard web page. The recomended image ration is 4:1 and recommended resolution 1024x256px."
                 defaultState={leaderboard.banner || ""}
             />
+
+            <div className="lg:flex gap-3">
+                <div className="lg:w-1/2">
+                    <MultiSelectMenu
+                        name="Blacklisted Channels"
+                        url={`/guilds/${guild?.id}/modules/leaderboard`}
+                        dataName="blacklistChannelIds"
+                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
+                        description="Select channels which should not be able to be counted."
+                        defaultState={leaderboard?.blacklistChannelIds || []}
+                        max={500}
+                    />
+                </div>
+            </div>
 
             <hr className="my-6 dark:border-wamellow-light border-wamellow-100-light" />
 

@@ -158,7 +158,7 @@ const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) 
                         aria-label="Display format"
                         color="secondary"
                         variant="bordered"
-                        defaultSelectedKey={structure}
+                        defaultSelectedKey={structure?.toString()}
                         onSelectionChange={(i) => setStructure(parseInt(i as string))}
                         fullWidth
                     >
