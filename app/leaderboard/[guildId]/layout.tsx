@@ -81,14 +81,22 @@ export default async function RootLayout({
                 </style>
             }
 
-            <div className="relative mb-12 w-full">
-                <div className="h-32 md:h-64 overflow-hidden rounded-xl" style={{ background: `url(${design?.banner})`, backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                    {!design?.banner &&
-                        <Image src="/paint.jpg" width={3840 / 2} height={2160 / 2} alt="" />
-                    }
-                </div>
+            <div className="relative mb-14 w-full">
+                <Image
+                    alt=""
+                    as={NextImage}
+                    className="w-full object-cover"
+                    classNames={{ img: "h-36 md:h-64", blurredImg: "h-40 md:h-72 -top-5" }}
+                    isBlurred
+                    src={design?.banner || "/paint.jpg"}
+                    width={3840 / 2}
+                    height={2160 / 2}
+                />
 
-                <div style={{ backgroundColor: "var(--background-rgb)" }} className="text-lg flex gap-5 items-center absolute bottom-[-44px] md:bottom-[-34px] left-[-6px] md:left-10 py-4 px-5 rounded-tr-3xl md:rounded-3xl">
+                <div
+                    // style={{ backgroundColor: "var(--background-rgb)" }}
+                    className="text-lg flex gap-5 items-center absolute bottom-[-44px] md:bottom-[-34px] left-[12px] md:left-10 py-4 px-5 rounded-3xl z-20 backdrop-blur-3xl backdrop-brightness-75 shadow-md"
+                >
                     <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40" />
                     <div className="flex flex-col gap-1">
                         <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>

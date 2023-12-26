@@ -11,6 +11,7 @@ export interface User {
     username: string;
     global_name?: string;
     avatar: string | null;
+    accent_color?: number | null;
 
     __fetched: boolean;
 

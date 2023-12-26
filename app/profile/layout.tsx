@@ -10,6 +10,7 @@ import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1MeGetResponse, RouteErrorResponse } from "@/typings";
+import decimalToRgb from "@/utils/decimalToRgb";
 
 export default function RootLayout({
     children
@@ -19,6 +20,8 @@ export default function RootLayout({
     const user = userStore((g) => g);
 
     const [error, setError] = useState<string>();
+
+    const accent = decimalToRgb(user?.accent_color as number);
 
     useEffect(() => {
         if (user?.extended !== undefined) return;
@@ -58,8 +61,8 @@ export default function RootLayout({
 
                 <div className="text-lg flex flex-col md:flex-row md:items-center">
                     <div className="flex gap-5">
-                        <Skeleton isLoaded={!!user?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0">
-                            <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="User" />
+                        <Skeleton isLoaded={!!user?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0" style={user?.accent_color ? { "--tw-ring-color": `rgb(${accent.r}, ${accent.g}, ${accent.b})` } as React.CSSProperties : {}}>
+                            <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="you" />
                         </Skeleton>
 
                         {!user?.id ?

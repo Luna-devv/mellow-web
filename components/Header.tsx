@@ -12,6 +12,7 @@ import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import LoginButton from "@/components/login-button";
 import authorizeUser from "@/utils/authorize-user";
+import cn from "@/utils/cn";
 
 import ImageReduceMotion from "./image-reduce-motion";
 
@@ -54,7 +55,7 @@ export default function Header(props: React.ComponentProps<"div">) {
 
 
     const UserButton = (
-        <button className={`ml-auto flex ${menu && "dark:bg-wamellow bg-wamellow-100"} dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center`} onClick={() => setMenu(!menu)}>
+        <button className={cn("ml-auto flex dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center", menu && "dark:bg-wamellow bg-wamellow-100")} onClick={() => setMenu(!menu)}>
 
             <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
                 <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={64} alt="your avatar" />
@@ -213,7 +214,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                 <AnimatePresence initial={false}>
                     {user?.id && menu &&
                         <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 select-none overflow-x-hidden">
-                            <div className="ml-auto overflow-x-hidden"><div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-10 w-full">{UserDropdown}</div></div>
+                            <div className="ml-auto overflow-x-hidden"><div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full">{UserDropdown}</div></div>
                         </div>
                     }
                 </AnimatePresence>
