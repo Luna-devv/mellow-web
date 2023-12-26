@@ -1,4 +1,5 @@
 import { CircularProgress } from "@nextui-org/react";
+import { cookies } from "next/headers";
 import { HiHome } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
@@ -46,8 +47,6 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
 
     const candisplay = guild?.name && (searchParams.type === "messages" || searchParams.type === "voiceminutes" || searchParams.type === "invites") && pagination[searchParams.type].pages >= parseInt(searchParams.page || "0");
 
-    const intl = new Intl.NumberFormat("en", { notation: "standard" });
-
     if (!candisplay) {
         return (
             <ScreenMessage
@@ -70,6 +69,21 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
             />
         );
     }
+
+    const intl = new Intl.NumberFormat("en", { notation: "standard" });
+    const key = "lbc";
+
+    async function publish() {
+        "use server";
+
+        const cookieStore = cookies();
+        const currentCircular = cookieStore.get(key)?.value;
+
+        cookies().set(key, currentCircular !== "server" ? "server" : "next");
+    }
+
+    const cookieStore = cookies();
+    const currentCircular = cookieStore.get(key)?.value;
 
     return (
         <>
@@ -102,17 +116,26 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
 
                     </div>
 
-                    <CircularProgress
-                        className="ml-4"
-                        aria-label="progress"
-                        size="lg"
-                        color="secondary"
-                        classNames={{
-                            svg: "drop-shadow-md"
-                        }}
-                        value={(member.activity[searchParams.type || "messages"] * 100) / members[i - 1]?.activity[searchParams.type || "messages"] || 100}
-                        showValueLabel={true}
-                    />
+                    <form action={publish}>
+                        <CircularProgress
+                            as="button"
+                            type="submit"
+                            className="ml-4"
+                            aria-label="progress"
+                            size="lg"
+                            color="secondary"
+                            classNames={{
+                                svg: "drop-shadow-md"
+                            }}
+                            value={
+                                currentCircular === "server"
+                                    ? (member.activity[searchParams.type || "messages"] * 100) / parseInt(pagination[searchParams.type || "messages"].total.toString())
+                                    : (member.activity[searchParams.type || "messages"] * 100) / members[i - 1]?.activity[searchParams.type || "messages"]
+                                    || 100
+                            }
+                            showValueLabel={true}
+                        />
+                    </form>
 
                 </div>
             )}

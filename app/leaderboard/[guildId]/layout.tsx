@@ -1,5 +1,7 @@
+import { Image } from "@nextui-org/react";
 import { Metadata } from "next";
-import Image from "next/image";
+import { cookies } from "next/headers";
+import NextImage from "next/image";
 import { HiUsers } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
@@ -63,6 +65,9 @@ export default async function RootLayout({
     const backgroundRgb = decimalToRgb(design?.backgroundColor || 0);
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
+    const cookieStore = cookies();
+    const currentCircular = cookieStore.get("lbc")?.value;
+
     return (
         <div className="w-full">
 
@@ -125,7 +130,7 @@ export default async function RootLayout({
                 </div>
 
                 <div className="md:w-1/4 mt-8 md:mt-0">
-                    <Side guildId={params.guildId} design={design} pagination={pagination} />
+                    <Side guildId={params.guildId} design={design} pagination={pagination} currentCircular={currentCircular as undefined} />
                 </div>
 
             </div>

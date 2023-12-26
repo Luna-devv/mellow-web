@@ -18,11 +18,13 @@ import { getCanonicalUrl } from "@/utils/urls";
 export default function Side({
     guildId,
     design,
-    pagination
+    pagination,
+    currentCircular
 }: {
     guildId: string;
     design: ApiV1GuildsModulesLeaderboardGetResponse;
     pagination: ApiV1GuildsTopmembersPaginationGetResponse;
+    currentCircular: "next" | "server" | undefined;
 }) {
     const web = webStore((w) => w);
     const router = useRouter();
@@ -81,6 +83,9 @@ export default function Side({
                     classNames={{ content: "mb-2" }}
                 >
                     Users are sorted from most to least active for each category, updates once per minute.
+                    <br />
+                    <br />
+                    The percentage {currentCircular !== "server" ? "indicates the gap in messages needed to surpass the next user" : "reflects the contribution of server activity from that user"}.
                 </AccordionItem>
 
                 <AccordionItem
