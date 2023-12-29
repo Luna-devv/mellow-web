@@ -1,21 +1,21 @@
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiFire, HiInformationCircle, HiUserAdd } from "react-icons/hi";
+import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiInformationCircle, HiUserAdd } from "react-icons/hi";
 
 import Badge from "@/components/badge";
+import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
-import DiscordMessageFile from "@/components/discord/Message-file";
+import DiscordMessageFile from "@/components/discord/message-file";
 import ServerGrid from "@/components/guild-grid";
-import { ListTab } from "@/components/list";
 import { ServerButton } from "@/components/server-button";
 import ArrowPic from "@/public/arroww.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
+import SpacePic from "@/public/space.webp";
 import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
@@ -40,6 +40,29 @@ export default async function Home() {
 
     const uwus = ["UwU", "uwu", "OwO", "owo", "QwQ", "qwq", ">:(", "Femboys ❤️"];
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
+
+    const styles = {
+        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-400 font-bold underline decoration-violet-400"),
+        h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
+    };
+
+    const messageProps = (command?: string) => {
+        return {
+            mode: "DARK" as const,
+            commandUsed: command ? {
+                name: command,
+                username: "@mwlica",
+                avatar: "/luna-small.webp",
+                bot: false
+            } : undefined,
+
+            user: {
+                username: "Wamellow",
+                avatar: "/waya-v3-small.webp",
+                bot: true
+            }
+        };
+    };
 
     const Invite = () => (
         <ServerButton
@@ -73,7 +96,7 @@ export default async function Home() {
             {topGuilds && <ServerGrid guilds={topGuilds} />}
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
-                <span className="tracking-wide">
+                <span className="font-medium">
                     Experience the next-gen revolution, offering a list of features and extensive customization, providing a superior alternative to popular bots.
                 </span>
 
@@ -103,7 +126,7 @@ export default async function Home() {
                     </div>
 
 
-                    <span className={`lg:ml-auto flex gap-2 text-neutral-500 tracking-wider ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
+                    <span className={`lg:ml-auto flex gap-2 text-neutral-500 font-mediumr ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
                         <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
                         Get started here in seconds
                     </span>
@@ -114,210 +137,200 @@ export default async function Home() {
 
             <div className="lg:mt-14 mt-10" />
 
-            <article itemScope itemType="http://schema.org/Article" className="flex flex-col gap-28 mb-16">
+            <article itemScope itemType="http://schema.org/Article" className="flex flex-col gap-28 mb-10">
 
-                <div className="flex flex-col md:flex-row gap-8 items-center">
-
-                    <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun /ranks & /leaderboards 🦄</h2>
-                        <div className="text-lg pt-6">
-                            Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
-                            Craft tailored access to channels and roles, granting exclusive permissions to dedicated members.
-                            By motivating your members to communicate, you{"’"}ll cultivate a more dynamic server community.
-                            Drive interaction and establish a feeling of accomplishment as users advance through our engaging framework.
-                        </div>
-
-                        <div className="flex gap-2 mt-4">
-                            <Invite />
-                            <ServerButton
-                                as={Link}
-                                startContent={<HiArrowRight />}
-                                href="/leaderboard/1055188344188973066"
-                            >
-                                View Leaderboard
-                            </ServerButton>
-                        </div>
-
+                <div>
+                    <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages!
                     </div>
 
-                    <div className="md:ml-auto md:w-1/2 px-3 pb-3">
-                        <Suspense>
-                            <ListTab
-                                tabs={[
-                                    {
-                                        name: "Messages",
-                                        value: ""
-                                    },
-                                    {
-                                        name: "Voicetime",
-                                        value: "voiceminutes"
-                                    },
-                                    {
-                                        name: "Invites",
-                                        value: "invites"
-                                    }
-                                ]}
-                                url="/"
-                                searchParamName="type"
-                                disabled={true}
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiCash />}
+                                text="100% free forever"
+                                classname="mr-auto ml-0 mb-4"
                             />
-                        </Suspense>
-                        <Image src={LeaderboardPic} itemProp="image" width={1224 / 1.8} height={768 / 1.8} alt="Example leaderboard webpage" />
-                    </div>
+                            <h3 className={styles.h3}>/leaderboard & /rank</h3>
+                            <div className="pt-6">
+                                Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
+                                By motivating your members to communicate, you{"’"}ll cultivate a more active server community.
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiArrowRight />}
+                                    href="/leaderboard/1055188344188973066"
+                                >
+                                    View Leaderboard
+                                </ServerButton>
+                            </div>
+                        </div>
 
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordMessage {...messageProps("leaderboard")}>
+                                <Image src={LeaderboardPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" />
+                            </DiscordMessage>
+                        </div>
+                    </Box>
                 </div>
 
-                <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
+                <div>
+                    <h2 className={styles.h2}>Next-Level text to speech, tts 🔊</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Embrace the power of VoiceWave and let your messages speak everywhere you want! <span className="text-sm relative top-1 italic opacity-75">(Chat GPT called it VoiceWave)</span>
+                    </div>
 
-                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
-                        <DiscordMessage
-                            mode={"DARK"}
-                            user={{
-                                username: "Wamellow",
-                                avatar: "/waya-v3-small.webp",
-                                bot: true
-                            }}
-                        >
-                            <Highlight
-                                mode={"DARK"}
-                                text="Welcome @mwlica to **Someone's x Waya** 👋"
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiCash />}
+                                text="100% free forever"
+                                classname="mr-auto ml-0 mb-4"
                             />
-
-                            <Image src={WelcomePic} itemProp="image" alt="Example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" className="lg:w-[400px] md:w-[300px] lg:h-[106px] md:h-[80px]" />
-
-                        </DiscordMessage>
-                    </div>
-
-                    <div className="text-left md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Heyho and bye 👋</h2>
-                        <div className="text-lg pt-6">
-                            Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
-                            Ensure a positive, inclusive experience from the start, fostering community and engagement.
-                            Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
-                            Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
+                            <h3 className={styles.h3}>40 Voices in 5 Languages</h3>
+                            <div className="pt-6">
+                                With Wamellow{"'"}s Text to Speech, you{"'"}re in control of transforming text into captivating speech across various languages and over 40 distinct voices.
+                                Whether you need standalone audio files or want to bring your text to life in a voice chat. Our TTS supports up to 4,000 characters!
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                            </div>
                         </div>
 
-                        <div className="flex gap-2 mt-4">
-                            <Invite />
-                            <ServerButton
-                                as={Link}
-                                startContent={<HiArrowRight />}
-                                href="/dashboard?to=greeting"
-                            >
-                                Setup
-                            </ServerButton>
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordMessage {...messageProps("tts file")}>
+                                <DiscordMessageFile
+                                    mode={"DARK"}
+                                    duration={18}
+                                />
+                            </DiscordMessage>
                         </div>
-
-                    </div>
-
+                    </Box>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-8 items-center">
-
-                    <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Fun with Starboards ⭐</h2>
-                        <div className="text-lg pt-6">
-                            With Starboards, you have the power to elevate remarkable messages within our server.
-                            When you come across a post that deserves recognition, simply vote it up, and watch as it takes center stage for everyone to see.
-                            This feature ensures that exceptional content gets the attention it deserves, fostering a lively and engaging atmosphere.
-                            Join us in celebrating the best of our community by using Starboards to highlight and share messages that truly shine!
-                        </div>
-
-                        <div className="flex gap-2 mt-4">
-                            <Invite />
-                            <ServerButton
-                                as={Link}
-                                startContent={<HiArrowRight />}
-                                href="/dashboard?to=starboard"
-                            >
-                                Setup
-                            </ServerButton>
-                        </div>
-
+                <div>
+                    <h2 className={styles.h2}>Fun with Starboards ⭐</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Join us in celebrating the best of your community by using Starboards to highlight and share messages that shine!
                     </div>
 
-                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
-                        <DiscordMessage
-                            mode={"DARK"}
-                            user={{
-                                username: "Wamellow",
-                                avatar: "/waya-v3-small.webp",
-                                bot: true
-                            }}
-                        >
-
-                            <DiscordMessageEmbed
-                                mode={"DARK"}
-                                color={0xbc7ed4}
-                                author={{
-                                    text: "@mwlica",
-                                    icon_url: "/luna-small.webp"
-                                }}
-                            >
-                                <Highlight mode={"DARK"} text="Like ok @sean I know you are gay but no I won’t date you" />
-
-                                <div className="flex gap-1 mt-4">
-                                    <span className="font-bold flex gap-1 items-center">⭐ 9</span>
-                                    •
-                                    <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
-                                </div>
-
-                                <Image src="/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F883817635081506886%2F1113058694347894865%2FIMG_6864.png&w=640&q=75" itemProp="image" alt="" width={640} height={205} loading="lazy" className="mt-2 rounded-md" />
-                            </DiscordMessageEmbed>
-
-
-                        </DiscordMessage>
-                    </div>
-
-                </div>
-
-                <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
-
-                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
-                        <DiscordMessage
-                            mode={"DARK"}
-                            user={{
-                                username: "Wamellow",
-                                avatar: "/waya-v3-small.webp",
-                                bot: true
-                            }}
-                        >
-                            <Highlight mode={"DARK"} text="[Change default voice & fileformat](/profile/text-to-speech)" />
-
-                            <DiscordMessageFile
-                                mode={"DARK"}
-                                duration={18}
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiBadgeCheck />}
+                                text="My lawyer said that title below"
+                                classname="mr-auto ml-0 mb-4"
                             />
-
-                        </DiscordMessage>
-                    </div>
-
-                    <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Best Text to Speech, TTS 🔊</h2>
-                        <div className="text-lg pt-6">
-                            With Text to Speech, you{"'"}re in control of transforming text into captivating speech across various languages and over 40 distinct voices.
-                            Whether you need standalone audio files or want to bring your text to life in a voice chat, Wamellow{"'"}s TTS offers versatility.
-                            Embrace the power of VoiceWave and let your messages resonate with impact!
+                            <h3 className={styles.h3}>POGBOARD DEEZ NUTS</h3>
+                            <div className="pt-6">
+                                With Starboards, you have the power to elevate remarkable messages within our server.
+                                When you come across a post that deserves recognition, simply vote it up, and watch as it takes center stage for everyone to see.
+                                This feature ensures that exceptional content gets the attention it deserves, fostering a lively and engaging atmosphere.
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiArrowRight />}
+                                    href="/dashboard?to=starboard"
+                                >
+                                    Setup
+                                </ServerButton>
+                            </div>
                         </div>
 
-                        <div className="flex gap-2 mt-4">
-                            <Invite />
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordMessage {...messageProps()}>
+                                <DiscordMessageEmbed
+                                    mode={"DARK"}
+                                    color={0xbd7fd6}
+                                    author={{
+                                        text: "@mwlica",
+                                        icon_url: "/luna-small.webp"
+                                    }}
+                                >
+                                    I DONT EVEN HAVE A CAR
+
+                                    <div className="flex gap-1 mt-4 mb-1">
+                                        <span className="font-bold flex gap-1 items-center">⭐ 3</span>
+                                        •
+                                        <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
+                                    </div>
+
+                                    <Highlight mode={"DARK"} text="**Replied to @drijon**" />
+                                    <Highlight mode={"DARK"} text="As if someone creates a discord account being like: OH I NEED TO KNOW THE GAS PRICES. THERE IS A NICE WAY FOR IT. MEE6 PREMIUM!" />
+                                </DiscordMessageEmbed>
+                            </DiscordMessage>
                         </div>
-
-                    </div>
-
+                    </Box>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div>
+                    <h2 className={styles.h2}>Heyho and bye @user 👋</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
+                    </div>
 
-                    <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Watchin{"'"} Anime 👀</h2>
-                        <div className="text-lg pt-6">
-                            Unleash the magic of anime right within your Discord server with Wamellow{"'"}s /anime command.
-                            Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
-                            Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiFingerPrint />}
+                                text="Captcha verification included"
+                                classname="mr-auto ml-0 mb-4"
+                            />
+                            <h3 className={styles.h3}>Greetings</h3>
+                            <div className="pt-6">
+                                Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
+                                Ensure a positive, inclusive experience from the start, fostering community and engagement.
+                                Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiArrowRight />}
+                                    href="/dashboard?to=greeting"
+                                >
+                                    Setup
+                                </ServerButton>
+                            </div>
+                        </div>
 
-                            <div className="p-4 pb-3 border-2 dark:border-wamellow border-wamellow-100 rounded-lg mt-4">
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordMessage {...messageProps()}>
+                                <Highlight mode={"DARK"} text="Welcome @mwlica to **Someone's** 👋" />
+                                <Image src={WelcomePic} itemProp="image" alt="example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" />
+                            </DiscordMessage>
+                        </div>
+                    </Box>
+                </div>
+
+                <div>
+                    <h2 className={styles.h2}>Watchin{"'"} Anime ❤️</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        They{"'"}re like windows to stories that provide the perfect distraction, letting you take a breather before diving back into the real world.
+                    </div>
+
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiCash />}
+                                text="100% sexy forever"
+                                classname="mr-auto ml-0 mb-4"
+                            />
+                            <h3 className={styles.h3}>/anime command</h3>
+                            <div className="pt-6">
+                                Unleash the magic of anime right within your Discord server with Wamellow{"'"}s 25+ categories.
+                                Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
+                                Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
+                            </div>
+                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
                                 <Badge
                                     before={<HiFire />}
                                     text="NSFW Supported"
@@ -327,89 +340,105 @@ export default async function Home() {
                                     Find spicy nekos, waifus, and more in nsfw marked channels.
                                 </span>
                             </div>
-
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                            </div>
                         </div>
 
-                        <div className="flex gap-2 mt-4">
-                            <Invite />
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordMessage {...messageProps("anime")}>
+                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+
+                                <DiscordMessageEmbed
+                                    mode={"DARK"}
+                                    color={0xbc7ed4}
+                                    classname="max-w-min"
+                                >
+                                    <Image src={WaifuPic} itemProp="example anime image" alt="" width={640} height={905} loading="lazy" className="mt-2 rounded-md w-56 sm:w-64 md:w-unset max-w-xs" />
+                                </DiscordMessageEmbed>
+                            </DiscordMessage>
                         </div>
-
-                    </div>
-
-                    <div className="md:ml-auto md:w-1/2 w-full px-3 pb-3">
-                        <DiscordMessage
-                            mode={"DARK"}
-                            user={{
-                                username: "Wamellow",
-                                avatar: "/waya-v3-small.webp",
-                                bot: true
-                            }}
-                        >
-                            <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
-
-                            <DiscordMessageEmbed
-                                mode={"DARK"}
-                                color={0xbc7ed4}
-                                classname="max-w-min"
-                            >
-                                <Image src={WaifuPic} itemProp="image" alt="" width={640} height={905} loading="lazy" className="mt-2 rounded-md max-w-xs" />
-                            </DiscordMessageEmbed>
-
-
-                        </DiscordMessage>
-                    </div>
-
+                    </Box>
                 </div>
 
-                <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
+                <div>
+                    <h2 className={styles.h2}>Create Custom Responses 🖊️</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Level up your Discord support game with Wamellow{"'"}s custom respones, called tags!
+                    </div>
 
-                    <div className="md:mr-auto md:w-1/2 w-full px-3 pb-3 flex flex-col gap-4">
-                        <DiscordMessage
-                            mode={"DARK"}
-                            user={{
-                                username: "mwlica",
-                                avatar: "/luna-small.webp",
-                                bot: false
-                            }}
-                        >
-                            <Highlight mode={"DARK"} text="wm - howto" />
-                        </DiscordMessage>
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiCash />}
+                                text="Free for 30 tags"
+                                classname="mr-auto ml-0 mb-4"
+                            />
+                            <h3 className={styles.h3}>Wamellow tags</h3>
+                            <div className="pt-6">
+                                Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
+                                Empower your server with quick access to essential info, making support a breeze.
+                                Boost engagement and create a knowledgeable community for free!
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiArrowRight />}
+                                    href="/dashboard?to=custom-commands"
+                                >
+                                    Setup
+                                </ServerButton>
+                            </div>
+                        </div>
 
-                        <DiscordMessage
-                            mode={"DARK"}
-                            user={{
-                                username: "Wamellow",
-                                avatar: "/waya-v3-small.webp",
-                                bot: true
-                            }}
-                        >
-                            <DiscordMessageEmbed
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col gap-4" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordMessage
                                 mode={"DARK"}
-                                color={0xbc7ed4}
+                                user={{
+                                    username: "mwlica",
+                                    avatar: "/luna-small.webp",
+                                    bot: false
+                                }}
                             >
-                                <Highlight mode={"DARK"} text="To create a custom command, go to [your server's dashboard](/dashboard?to=custom-commands), click on `Create`, fill in the response **content**, **embed title**, **embed description**, **embed color**, **embed images**, command **permissions** and more. When you're done you can start using the command 🎉" />
-                            </DiscordMessageEmbed>
-                        </DiscordMessage>
-                    </div>
+                                <Highlight mode={"DARK"} text="wm - howto" />
+                            </DiscordMessage>
 
-                    <div className="md:w-1/2">
-                        <h2 className={`${montserrat.className} lg:text-4xl text-3xl dark:text-neutral-100 text-neutral-900 font-semibold underline decoration-violet-400`}>Custom Commands 🖊️</h2>
-                        <div className="text-lg pt-6">
-                            Level up your Discord support game with Wamellow{"'"}s custom commands (tags)!
-                            Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
-                            Empower your server with quick access to essential info, making support a breeze.
-                            Boost engagement and create a knowledgeable community for free!
+                            <DiscordMessage
+                                mode={"DARK"}
+                                user={{
+                                    username: "Wamellow",
+                                    avatar: "/waya-v3-small.webp",
+                                    bot: true
+                                }}
+                            >
+                                <DiscordMessageEmbed
+                                    mode={"DARK"}
+                                    color={0xbc7ed4}
+                                >
+                                    <Highlight mode={"DARK"} text="To create a custom command, go to [your server's dashboard](/dashboard?to=custom-commands), click on `Create`, fill in the response **content**, **embed title**, **embed description**, **embed color**, **embed images**, command **permissions** and more. When you're done you can start using the command 🎉" />
+                                </DiscordMessageEmbed>
+                            </DiscordMessage>
                         </div>
-
-                        <div className="flex gap-2 mt-4">
-                            <Invite />
-                        </div>
-
-                    </div>
-
+                    </Box>
                 </div>
 
             </article>
+
+            <div className="w-full my-6">
+                <div className="flex gap-4 items-center mb-2">
+                    <span className="flex items-center gap-2">
+                        <Image src={SpacePic} width={64} height={64} alt="users's profile picture" className="w-12 h-12 rounded-full" />
+                        <div>
+                            <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">Luna’s Grandpa {"<3"}</span> <br />
+                            <span className="dark:text-neutral-300 text-neutral-700">likes feta and wine</span>
+                        </div>
+                    </span>
+                    <HiChevronRight className="w-8 h-8" />
+                </div>
+                <span className={`${handwritten.className} text-2xl break-words`}>„{"FUCK EVERYTHING! EXCEPT LUNA, LUNA MUST BE PROTECTED AT ALL COSTS"}“</span>
+            </div>
 
             <div className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg mt-4 w-full">
                 <div className="flex">
@@ -444,7 +473,7 @@ export default async function Home() {
                 }
             </div>
 
-            <div className="h-8" />
+            <div className="h-6" />
 
             <StatsBar
                 items={[

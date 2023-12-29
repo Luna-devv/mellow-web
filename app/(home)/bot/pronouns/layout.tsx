@@ -65,7 +65,7 @@ export default async function RootLayout({
             <ServerGrid guilds={topGuilds} />
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
-                <div className="tracking-wide w-full grid grid-cols-2 md:flex flex-wrap h-min gap-2">
+                <div className="font-medium w-full grid grid-cols-2 md:flex flex-wrap h-min gap-2">
                     <ServerButton
                         as={Link}
                         href="/bot/pronouns"
@@ -119,7 +119,7 @@ export default async function RootLayout({
                     </div>
 
 
-                    <span className={`lg:ml-auto flex gap-2 text-neutral-500 tracking-wider ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
+                    <span className={`lg:ml-auto flex gap-2 text-neutral-500 font-mediumr ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
                         <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
                         Get started here in seconds
                     </span>
@@ -136,7 +136,7 @@ export default async function RootLayout({
             <div className="w-full mt-6">
                 <div className="flex gap-4 items-center mb-2">
                     <span className="flex items-center gap-2">
-                        <ImageReduceMotion url="/discord" size={64} alt="mwlica's profile picture" className="w-12 h-12 rounded-full" />
+                        <ImageReduceMotion url="/discord" size={64} alt="users's profile picture" className="w-12 h-12 rounded-full" />
                         <div>
                             <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@deleted user</span> <br />
                             <span className="dark:text-neutral-300 text-neutral-700">Pronouns user</span>
@@ -144,7 +144,7 @@ export default async function RootLayout({
                     </span>
                     <HiChevronRight className="w-8 h-8" />
                 </div>
-                <span className={`${handwritten.className} text-2xl break-words`}>„{"I have a lot of friends who have different preferred pronouns and identities and I think it's super sweet y'all have the feature that they can change their pronouns anytime so I put your not in my servers and a friend may put it in theirs too 🥰"}“</span>
+                <span className={`${handwritten.className} text-2xl break-words`}>„{"I have a lot of friends who have different preferred pronouns and identities and I think it's super sweet y'all have the feature that they can change their pronouns anytime so I put your bot in my servers and a friend may put it in theirs too 🥰"}“</span>
             </div>
 
         </div>
