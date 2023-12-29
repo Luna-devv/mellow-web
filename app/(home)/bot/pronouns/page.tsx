@@ -16,7 +16,7 @@ export default async function Home() {
             commandUsed: {
                 name: command,
                 username: "@mwlica",
-                avatar: "/luna.webp",
+                avatar: "/luna-small.webp",
                 bot: false
             },
 

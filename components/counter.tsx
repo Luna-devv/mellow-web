@@ -66,7 +66,7 @@ export function StatsBar(options: Options) {
                         <div className="text-sm font-medium mb-1">{item.name}</div>
                         {item.info && <Link href={item.info} className="ml-auto dark:text-neutral-400 text-neutral-600 dark:hover:text-violet-400 hover:text-violet-600 duration-300">
                             <HiInformationCircle />
-                            <span className="sr-only">Learn more</span>
+                            <span className="sr-only">information about this card</span>
                         </Link>}
                     </div>
 

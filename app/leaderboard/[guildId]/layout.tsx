@@ -1,11 +1,11 @@
 import { Image } from "@nextui-org/react";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
-import NextImage from "next/image";
 import { HiUsers } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
+import paintPic from "@/public/paint.webp";
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -84,17 +84,15 @@ export default async function RootLayout({
             <div className="relative mb-14 w-full">
                 <Image
                     alt=""
-                    as={NextImage}
                     className="w-full object-cover"
                     classNames={{ img: "h-36 md:h-64", blurredImg: "h-40 md:h-72 -top-5" }}
                     isBlurred
-                    src={design?.banner || "/paint.jpg"}
+                    src={design?.banner || paintPic.src}
                     width={3840 / 2}
                     height={2160 / 2}
                 />
 
                 <div
-                    // style={{ backgroundColor: "var(--background-rgb)" }}
                     className="text-lg flex gap-5 items-center absolute bottom-[-44px] md:bottom-[-34px] left-[12px] md:left-10 py-4 px-5 rounded-3xl z-20 backdrop-blur-3xl backdrop-brightness-75 shadow-md"
                 >
                     <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40" />

@@ -42,7 +42,7 @@ export default async function RootLayout({
                         <span className="flex gap-1 items-center">
                             <HiCube />
                             <span>
-                                Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl" aria-label="Wamellow's developer">lunish.nl</Link>
+                                Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl" aria-label="lunish.nl website">lunish.nl</Link>
                             </span>
                         </span>
                     </div>
