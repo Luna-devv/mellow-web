@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar } from "@nextui-org/react";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { HiCheck } from "react-icons/hi";
 
 import cn from "@/utils/cn";
@@ -24,7 +24,7 @@ interface Props {
     }
 }
 
-const DiscordMessage: FunctionComponent<Props> = ({ children, commandUsed, user, mode }) => {
+export default function DiscordMessage({ children, commandUsed, user, mode }: Props) {
 
     function formatTime(date: Date) {
         const timeString = date.toLocaleString("en-US", { hour: "numeric", minute: "numeric" });
@@ -32,7 +32,7 @@ const DiscordMessage: FunctionComponent<Props> = ({ children, commandUsed, user,
     }
 
     return (
-        <div className={cn("group relative rounded-lg px-1 w-full", mode === "DARK" ? "text-neutral-100 hover:bg-neutral-800/40" : "text-neutral-900 hover:bg-neutral-200/40")}>
+        <div className={cn("group relative rounded-lg px-1 w-full", mode === "DARK" ? "text-neutral-100" : "text-neutral-900")}>
 
             {commandUsed ?
                 <div className={cn("flex items-center gap-1 opacity-70 text-sm ml-4", mode === "DARK" ? "text-neutral-400" : "text-neutral-600")} >
@@ -77,9 +77,9 @@ const DiscordMessage: FunctionComponent<Props> = ({ children, commandUsed, user,
                         }
                         <time
                             className="mt-[2px] text-xs opacity-70 font-light"
-                            dateTime={new Date().toISOString()}
+                            dateTime={new Date(955988260).toISOString()}
                         >
-                            {formatTime(new Date())}
+                            {formatTime(new Date(955988260))}
                         </time>
                     </div>
 
@@ -93,6 +93,4 @@ const DiscordMessage: FunctionComponent<Props> = ({ children, commandUsed, user,
 
         </div>
     );
-};
-
-export default DiscordMessage;
+}

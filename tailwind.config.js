@@ -10,8 +10,8 @@ const config = {
     theme: {
         extend: {
             colors: {
-                "wamellow": "rgb(23, 24, 28)",
-                "wamellow-light": "rgb(33, 34, 38)",
+                "wamellow": "rgb(22, 24, 26)",
+                "wamellow-light": "rgb(32, 34, 36)",
                 "wamellow-alpha": "rgba(255, 255, 255, 0.06)",
 
 
@@ -91,13 +91,13 @@ const config = {
                     secondary: {
                         foreground: "rgb(255 255 255)",
                         DEFAULT: "rgb(139 92 246)",
-                        divider: "rgb(23, 24, 28)",
+                        divider: "rgb(22, 24, 26)",
                         focus: "rgb(139 92 246)"
                     },
                     default: {
                         foreground: "rgb(212 212 212)",
-                        DEFAULT: "rgb(23, 24, 28)",
-                        divider: "rgb(23, 24, 28)",
+                        DEFAULT: "rgb(22, 24, 26)",
+                        divider: "rgb(22, 24, 26)",
                         focus: "rgb(139 92 246)"
                     }
                 }

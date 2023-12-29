@@ -29,7 +29,7 @@ const DiscordMessageEmbed: FunctionComponent<Props> = ({ children, classname, au
     if (!title && !image && !footer?.text && (!children || children.toString() === ",false")) return <></>;
 
     return (
-        <div className={cn("w-full font-light p-3 rounded border-l-4 mt-2", mode === "DARK" ? "text-neutral-200" : "text-neutral-800", classname)} style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(242, 243, 245)", borderLeftColor: `#${color?.toString(16)}` }}>
+        <div className={cn("w-full font-light p-3 rounded border-l-4 mt-2", mode === "DARK" ? "text-neutral-200" : "text-neutral-800", classname)} style={{ backgroundColor: mode === "DARK" ? "rgb(40, 42, 46)" : "rgb(242, 243, 245)", borderLeftColor: `#${color?.toString(16)}` }}>
 
             <div className="flex w-full max-w-full">
                 <div className={thumbnail ? "w-9/12" : "w-full"}>

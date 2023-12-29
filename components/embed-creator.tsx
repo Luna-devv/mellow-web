@@ -165,7 +165,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
                             </div>
 
-                            <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200" style={{ backgroundColor: mode === "DARK" ? "rgb(49, 51, 56)" : "rgb(255, 255, 255)" }}>
+                            <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200" style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(255, 255, 255)" }}>
 
                                 <div className="absolute z-10 top-2 right-2 hidden md:block">
                                     {modeToggle}
