@@ -6,7 +6,7 @@ type Sitemap = {
 }[]
 
 // Update sitemap only one a day
-// export const revalidate = 1000 * 60 * 60 * 24;
+export const revalidate = 1000 * 60 * 60 * 24;
 
 export async function GET() {
     const guildIds = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 12 } }).then((res) => res.json()) as string[];

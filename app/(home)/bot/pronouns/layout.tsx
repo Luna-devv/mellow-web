@@ -15,9 +15,9 @@ import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
 
-    const title = "Pronouns";
+    const title = "Pronouns: A safe discord bot";
     const description = "Let your community describe themself with a wide variety of supported Pronouns, Sexualities and Genders.";
     const url = getCanonicalUrl("bot", "pronouns");
 
@@ -69,7 +69,6 @@ export default async function RootLayout({
                     <ServerButton
                         as={Link}
                         href="/bot/pronouns"
-                        isIconOnly
                     >
                         <HiHome />
                     </ServerButton>
@@ -100,7 +99,7 @@ export default async function RootLayout({
                             as={Link}
                             startContent={<HiUserAdd />}
                             className="button-primary w-1/2 lg:w-fit !text-xl !font-medium"
-                            href="https://top.gg/bot/912003493777268767/invite"
+                            href="https://discord.com/oauth2/authorize?client_id=912003493777268767&permissions=8&scope=bot%20applications.commands"
                             size="lg"
                         >
                             <span className="block sm:hidden">Invite</span>
