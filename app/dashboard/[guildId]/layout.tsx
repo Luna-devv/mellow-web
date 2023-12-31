@@ -8,7 +8,7 @@ import { HiArrowNarrowLeft, HiCursorClick, HiShare, HiUsers, HiViewGridAdd } fro
 
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
-import { CopyToClipboardButton } from "@/components/copyToClipboard";
+import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { ScreenMessage } from "@/components/screen-message";

@@ -8,11 +8,10 @@ import { HiShare, HiTrash, HiViewGridAdd } from "react-icons/hi";
 
 import { webStore } from "@/common/webstore";
 import Ad from "@/components/ad";
-import { CopyToClipboardButton } from "@/components/copyToClipboard";
+import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ErrorBanner from "@/components/Error";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
-import cn from "@/utils/cn";
 import { getCanonicalUrl } from "@/utils/urls";
 
 export default function Side({
@@ -36,7 +35,7 @@ export default function Side({
         <div className="flex flex-col gap-3">
 
             <CopyToClipboardButton
-                className={cn("w-full !justify-start", design?.backgroundColor && "dark:bg-wamellow/60 bg-wamellow-100/60 dark:hover:bg-wamellow-light/70 hover:bg-wamellow-100-light/70")}
+                className="w-full !justify-start"
                 text={getCanonicalUrl("leaderboard", guildId)}
                 icon={<HiShare />}
             />
@@ -54,7 +53,7 @@ export default function Side({
                         key="1"
                         aria-label="admin tools"
                         title="Admin tools"
-                        classNames={{ content: "flex flex-col gap-2 mb-2" }}
+                        classNames={{ content: "mb-2" }}
                     >
                         <Button
                             className="w-full !justify-start"
@@ -65,7 +64,7 @@ export default function Side({
                         </Button>
                         <Button
                             as={Link}
-                            className="w-full !justify-start"
+                            className="w-full !justify-start mt-2"
                             href={getCanonicalUrl("dashboard", guildId)}
                             startContent={<HiViewGridAdd />}
                         >

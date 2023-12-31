@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import React from "react";
 
 import BeautifyMarkdown from "@/components/BeautifyMarkdown";
-import { CopyToClipboardButton } from "@/components/copyToClipboard";
+import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 export const generateMetadata = async (): Promise<Metadata> => {

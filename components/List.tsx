@@ -1,9 +1,9 @@
 "use client";
 
+import { Tab, Tabs } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
-import cn from "@/utils/cn";
 import decimalToRgb from "@/utils/decimalToRgb";
 
 interface ListProps {
@@ -20,47 +20,57 @@ interface ListProps {
 }
 
 export function ListTab({ tabs, url, searchParamName, disabled, children }: ListProps) {
-    const path = usePathname().split(`${url}/`)[1];
+    const path = usePathname();
     const params = useSearchParams();
     const router = useRouter();
 
+    function handleChange(key: unknown) {
+        if (!key && typeof key !== "string") return;
+
+        if (!searchParamName) {
+            router.push(`${url}${key}`);
+            return;
+        }
+
+        const newparams = new URLSearchParams();
+
+        if (key) newparams.append(searchParamName, key as string);
+        else newparams.delete(searchParamName);
+
+        router.push(`${url}?${newparams.toString()}`);
+    }
+
     return (
-        <div className="text-sm font-medium text-center border-b dark:border-wamellow-light border-wamellow-100-light mt-2 mb-6 overflow-x-scroll scrollbar-none">
-            <ul className="flex">
-                {tabs.map((tab, i) => {
-                    let isCurrent = false;
-                    if (searchParamName) isCurrent = tab.value ? params.get(searchParamName) === tab.value : !tab.value && !params.get(searchParamName);
-                    isCurrent ||= (!path && tab.value === "/") || path?.startsWith(tab.value !== "/" ? tab.value.slice(1) : tab.value);
-
-                    return (
-                        <li className="mr-2" key={"tablist-" + url + tab.name + i}>
-                            <button
-                                className={cn(
-                                    "inline-block p-3 pb-2 border-b-2 border-transparent rounded-t-lg font-medium hover:text-violet-400 duration-200",
-                                    isCurrent && "text-violet-500 border-b-2 border-violet-500",
-                                    disabled && "cursor-not-allowed opacity-75"
-                                )}
-                                onClick={() => {
-                                    if (disabled) return;
-                                    if (!searchParamName) return router.push(`${url}${tab.value}`);
-
-                                    const newparams = new URLSearchParams();
-
-                                    if (tab.value) newparams.append(searchParamName, tab.value);
-                                    else newparams.delete(searchParamName);
-
-                                    router.push(`${url}?${newparams.toString()}`);
-                                }}
-                            >
-                                <span dangerouslySetInnerHTML={{ __html: tab.name.replace(/ +/g, "&nbsp;") }} />
-                            </button>
-                        </li>
-                    );
-
-                })}
+        <div className="font-medium mt-2 mb-6">
+            <Tabs
+                className="flex"
+                classNames={{
+                    tabList: "w-full relative rounded-none p-0 border-b border-divider",
+                    tab: "w-fit px-4 h-12 relative right-2.5"
+                }}
+                defaultSelectedKey={searchParamName
+                    ? (params.get(searchParamName) || "")
+                    : path.split(url)[1].split("/").slice(0, 2).join("/")
+                }
+                onSelectionChange={handleChange}
+                variant="underlined"
+                color="secondary"
+                isDisabled={disabled}
+            >
+                {tabs.map((tab) =>
+                    <Tab
+                        key={tab.value}
+                        title={
+                            <div className="flex items-center space-x-2">
+                                {tab.icon}
+                                <span>{tab.name}</span>
+                            </div>
+                        }
+                    />
+                )}
                 {children && <li className="ml-auto">{children}</li>}
-            </ul>
-        </div >
+            </Tabs>
+        </div>
     );
 
 }

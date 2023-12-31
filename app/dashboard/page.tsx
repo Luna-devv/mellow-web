@@ -158,48 +158,46 @@ export default function Home() {
                             return false;
                         })
                         .map((guild) => (
-                            <>
-                                <motion.li
-                                    key={"guildGrid" + guild.id}
-                                    variants={{
-                                        hidden: { y: 20, opacity: 0 },
-                                        visible: {
-                                            y: 0,
-                                            opacity: 1,
-                                            transition: {
-                                                type: "spring",
-                                                bounce: guilds.length > 20 ? 0.2 : 0.4,
-                                                duration: guilds.length > 20 ? 0.35 : 0.7
-                                            }
+                            <motion.li
+                                key={"guildGrid" + guild.id}
+                                variants={{
+                                    hidden: { y: 20, opacity: 0 },
+                                    visible: {
+                                        y: 0,
+                                        opacity: 1,
+                                        transition: {
+                                            type: "spring",
+                                            bounce: guilds.length > 20 ? 0.2 : 0.4,
+                                            duration: guilds.length > 20 ? 0.35 : 0.7
                                         }
-                                    }}
-                                    className="dark:bg-wamellow bg-wamellow-100 p-4 flex items-center rounded-lg drop-shadow-md overflow-hidden relative h-24 duration-100 outline-violet-500 hover:outline group/card"
-                                >
-                                    <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={24} alt="" forceStatic={true} className="absolute top-[-48px] left-0 w-full z-0 blur-xl opacity-30" />
+                                    }
+                                }}
+                                className="dark:bg-wamellow bg-wamellow-100 p-4 flex items-center rounded-lg drop-shadow-md overflow-hidden relative h-24 duration-100 outline-violet-500 hover:outline group/card"
+                            >
+                                <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={24} alt="" forceStatic={true} className="absolute top-[-48px] left-0 w-full z-0 blur-xl opacity-30" />
 
-                                    <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={56} alt={`Server icon of @${guild.name}`} className="rounded-lg h-14 w-14 z-1 relative drop-shadow-md" />
-                                    <div className="ml-3 text-sm relative bottom-1">
-                                        <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1">{truncate(guild.name, 20)}</div>
-                                        <span className="flex gap-2">
-                                            <Button
-                                                as={Link}
-                                                href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
-                                                className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
-                                            >
-                                                Manage
-                                            </Button>
-                                            <Button
-                                                as={Link}
-                                                href={`/leaderboard/${guild.id}`}
-                                                className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 opacity-0 group-hover/card:opacity-100"
-                                            >
-                                                Leaderboard
-                                            </Button>
-                                        </span>
-                                    </div>
+                                <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={56} alt={`Server icon of @${guild.name}`} className="rounded-lg h-14 w-14 z-1 relative drop-shadow-md" />
+                                <div className="ml-3 text-sm relative bottom-1">
+                                    <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1">{truncate(guild.name, 20)}</div>
+                                    <span className="flex gap-2">
+                                        <Button
+                                            as={Link}
+                                            href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
+                                            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
+                                        >
+                                            Manage
+                                        </Button>
+                                        <Button
+                                            as={Link}
+                                            href={`/leaderboard/${guild.id}`}
+                                            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 opacity-0 group-hover/card:opacity-100"
+                                        >
+                                            Leaderboard
+                                        </Button>
+                                    </span>
+                                </div>
 
-                                </motion.li>
-                            </>
+                            </motion.li>
                         ))}
 
                     <motion.a

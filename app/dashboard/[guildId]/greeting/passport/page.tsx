@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { HiArrowNarrowLeft, HiFingerPrint } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import { CopyToClipboardButton } from "@/components/copyToClipboard";
+import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ErrorBanner from "@/components/Error";
 import SelectInput from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";

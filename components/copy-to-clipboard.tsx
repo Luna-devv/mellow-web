@@ -1,9 +1,8 @@
 "use client";
-import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
-import { FunctionComponent, useRef, useState } from "react";
-import { HiChevronDown } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import { useRef, useState } from "react";
+import { HiChevronDown } from "react-icons/hi";
 
 export async function copyToClipboard(text: string, needsWait?: boolean) {
     if (needsWait) await new Promise((r) => setTimeout(r, 600));
@@ -23,7 +22,7 @@ interface Props {
     items?: { icon?: React.ReactNode, name: string, description?: string, text: string }[];
 }
 
-export const CopyToClipboardButton: FunctionComponent<Props> = ({ icon, text, title, className = "", items }) => {
+export function CopyToClipboardButton({ icon, text, title, className = "", items }: Props) {
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [saved, setSaved] = useState<boolean>(false);
@@ -40,25 +39,31 @@ export const CopyToClipboardButton: FunctionComponent<Props> = ({ icon, text, ti
         <ButtonGroup>
 
             <Button
-                className={cn(saved ? "violet" : className + " ")}
+                className={className}
+                color={saved ? "secondary" : undefined}
                 onClick={() => handleCopy(text)}
                 startContent={icon}
             >
-                {saved ? "Copied to clipboard!" : (title || "Copy to clipboard")}
+                {saved ? "Copied to clipboard" : (title || "Copy to clipboard")}
             </Button>
 
             {items &&
                 <Dropdown placement="bottom-end">
                     <DropdownTrigger>
-                        <Button className={saved ? "violet" : cn(className, "dark:hover:bg-wamellow-light hover:bg-wamellow-100-light")} isIconOnly><HiChevronDown /></Button>
+                        <Button
+                            color={saved ? "secondary" : undefined}
+                            className={className}
+                            isIconOnly
+                        >
+                            <HiChevronDown />
+                        </Button>
                     </DropdownTrigger>
                     <DropdownMenu variant="faded">
-
                         {items.map((item, i) => (
                             <DropdownItem
                                 onClick={() => handleCopy(item.text)}
                                 showDivider={i !== (items?.length || 0) - 1}
-                                // closeOnSelect
+                                closeOnSelect
                                 key={i}
                                 description={item.description}
                                 startContent={item.icon}
@@ -66,11 +71,10 @@ export const CopyToClipboardButton: FunctionComponent<Props> = ({ icon, text, ti
                                 {item.name}
                             </DropdownItem>
                         ))}
-
                     </DropdownMenu>
                 </Dropdown>
             }
 
         </ButtonGroup>
     );
-};
+}
