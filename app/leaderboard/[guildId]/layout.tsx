@@ -1,7 +1,7 @@
 import { Image } from "@nextui-org/react";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
-import { HiUsers } from "react-icons/hi";
+import { HiAnnotation, HiLink, HiUsers, HiVolumeUp } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
@@ -107,15 +107,18 @@ export default async function RootLayout({
                 tabs={[
                     {
                         name: "Messages",
-                        value: ""
+                        value: "",
+                        icon: <HiAnnotation />
                     },
                     {
                         name: "Voicetime",
-                        value: "voiceminutes"
+                        value: "voiceminutes",
+                        icon: <HiVolumeUp />
                     },
                     {
                         name: "Invites",
-                        value: "invites"
+                        value: "invites",
+                        icon: <HiLink />
                     }
                 ]}
                 url={`/leaderboard/${params.guildId}`}

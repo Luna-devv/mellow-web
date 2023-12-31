@@ -1,12 +1,14 @@
 import { readFile } from "fs/promises";
+import Image from "next/image";
 import Link from "next/link";
 import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoTiktok, BiLogoTwitter, BiLogoYoutube } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
-import { HiCube } from "react-icons/hi";
+import { HiCube, HiHand, HiLibrary } from "react-icons/hi";
 import { SiKofi } from "react-icons/si";
 
 import TopggIcon from "@/components/icons/topgg";
 import { ServerButton } from "@/components/server-button";
+import PronounsPic from "@/public/pronouns-bot.webp";
 
 export default async function RootLayout({
     children
@@ -42,7 +44,7 @@ export default async function RootLayout({
                         <span className="flex gap-1 items-center">
                             <HiCube />
                             <span>
-                                Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl" aria-label="lunish.nl website">lunish.nl</Link>
+                                Version {version.toString().slice(0, 7)} by <Link className="hover:underline" href="https://lunish.nl" aria-label="lunish.nl developer">lunish.nl</Link>
                             </span>
                         </span>
                     </div>
@@ -78,6 +80,7 @@ export default async function RootLayout({
                         as={Link}
                         className="dark:text-neutral-400 text-neutral-400"
                         href="/terms"
+                        startContent={<HiLibrary />}
                         size="sm"
                     >
                         Terms of Service
@@ -86,6 +89,7 @@ export default async function RootLayout({
                         as={Link}
                         className="dark:text-neutral-400 text-neutral-400"
                         href="/privacy"
+                        startContent={<HiHand />}
                         size="sm"
                     >
                         Privacy Policy
@@ -94,9 +98,19 @@ export default async function RootLayout({
                         as={Link}
                         className="dark:text-neutral-400 text-neutral-400"
                         href="/support"
+                        startContent={<BsDiscord />}
                         size="sm"
                     >
                         Support
+                    </ServerButton>
+                    <ServerButton
+                        as={Link}
+                        className="dark:text-neutral-400 text-neutral-400"
+                        href="/bot/pronouns"
+                        startContent={<Image src={PronounsPic} alt="" width={16} height={16} className="rounded" />}
+                        size="sm"
+                    >
+                        Pronouns
                     </ServerButton>
                 </div>
 

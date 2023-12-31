@@ -129,7 +129,6 @@ export default function Home() {
                             }
                         })
                             .then(async (res) => {
-                                console.log(res);
                                 const response = await res.json() as ApiV1GuildsModulesWelcomeGetResponse;
                                 if (!response) return;
 

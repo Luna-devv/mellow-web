@@ -4,7 +4,7 @@ import { Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowNarrowLeft, HiCursorClick, HiShare, HiUsers, HiViewGridAdd } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
@@ -209,23 +209,28 @@ export default function RootLayout({
                 tabs={[
                     {
                         name: "Overview",
-                        value: "/"
+                        value: "/",
+                        icon: <HiHome />
                     },
                     {
                         name: "Leaderboards",
-                        value: "/leaderboards"
+                        value: "/leaderboards",
+                        icon: <HiChartBar />
                     },
                     {
                         name: "Greetings",
-                        value: "/greeting"
+                        value: "/greeting",
+                        icon: <HiUserAdd />
                     },
                     {
                         name: "Starboard",
-                        value: "/starboard"
+                        value: "/starboard",
+                        icon: <HiStar />
                     },
                     {
                         name: "Custom Commands",
-                        value: "/custom-commands"
+                        value: "/custom-commands",
+                        icon: <HiCode />
                     }
                 ]}
                 url={`/dashboard/${params.guildId}`}

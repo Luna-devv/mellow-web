@@ -4,7 +4,7 @@ import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { HiShare, HiTrash, HiViewGridAdd } from "react-icons/hi";
+import { HiAnnotation, HiLink, HiShare, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
 
 import { webStore } from "@/common/webstore";
 import Ad from "@/components/ad";
@@ -33,6 +33,7 @@ export default function Side({
 
     return (
         <div className="flex flex-col gap-3">
+            {!!design}
 
             <CopyToClipboardButton
                 className="w-full !justify-start"
@@ -93,13 +94,16 @@ export default function Side({
                     title="Server activity"
                     classNames={{ content: "mb-2" }}
                 >
-                    <div>
+                    <div className="flex items-center gap-1">
+                        <HiAnnotation className="mr-1" />
                         <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
                     </div>
-                    <div>
+                    <div className="flex items-center gap-1">
+                        <HiVolumeUp className="mr-1" />
                         <span className="font-semibold">{pagination.voiceminutes.total}</span> in voice
                     </div>
-                    <div>
+                    <div className="flex items-center gap-1">
+                        <HiLink className="mr-1" />
                         <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
                     </div>
                 </AccordionItem>

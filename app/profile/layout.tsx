@@ -3,7 +3,7 @@
 import { Skeleton } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { HiHome } from "react-icons/hi";
+import { HiChartPie, HiHome, HiMusicNote, HiPhotograph, HiTranslate } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
@@ -111,25 +111,30 @@ export default function RootLayout({
                 tabs={[
                     {
                         name: "Overview",
-                        value: "/"
+                        value: "/",
+                        icon: <HiHome />
                     },
                     {
                         name: "Rank",
-                        value: "/rank"
+                        value: "/rank",
+                        icon: <HiPhotograph />
                     },
                     {
                         name: "Text to Speech",
-                        value: "/text-to-speech"
+                        value: "/text-to-speech",
+                        icon: <HiTranslate />
                     },
                     {
                         name: "Spotify",
-                        value: "/spotify"
+                        value: "/spotify",
+                        icon: <HiMusicNote />
                     },
                     ...(user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY ?
                         [
                             {
                                 name: "Analytics",
-                                value: "/analytics"
+                                value: "/analytics",
+                                icon: <HiChartPie />
                             }
                         ]
                         :
