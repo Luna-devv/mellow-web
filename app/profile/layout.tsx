@@ -1,6 +1,7 @@
 "use client";
 
 import { Skeleton } from "@nextui-org/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { HiChartPie, HiHome, HiMusicNote, HiPhotograph, HiTranslate } from "react-icons/hi";
@@ -8,7 +9,8 @@ import { HiChartPie, HiHome, HiMusicNote, HiPhotograph, HiTranslate } from "reac
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
-import { ScreenMessage } from "@/components/screen-message";
+import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1MeGetResponse, RouteErrorResponse } from "@/typings";
 import decimalToRgb from "@/utils/decimalToRgb";
 
@@ -147,12 +149,15 @@ export default function RootLayout({
 
             {error ?
                 <ScreenMessage
-                    title="Something went wrong.."
+                    title="Something went wrong on this page.."
                     description={error}
-                    href="/"
-                    button="Go back home"
-                    icon={<HiHome />}
-                />
+                    buttons={<>
+                        <HomeButton />
+                        <SupportButton />
+                    </>}
+                >
+                    <Image src={SadWumpusPic} alt="" height={141} width={124} />
+                </ScreenMessage>
                 :
                 user?.id ? children : <></>
             }

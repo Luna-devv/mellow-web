@@ -1,9 +1,10 @@
 import { CircularProgress } from "@nextui-org/react";
 import { cookies } from "next/headers";
-import { HiHome } from "react-icons/hi";
+import Image from "next/image";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
-import { ScreenMessage } from "@/components/screen-message";
+import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
 import cn from "@/utils/cn";
 
 import { getDesign, getGuild, getPagination, getTopMembers } from "./api";
@@ -35,13 +36,16 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
     if (error) {
         return (
             <ScreenMessage
-                title="Something went wrong.."
-                description={error}
-                href="/"
-                button="Go back home"
-                icon={<HiHome />}
                 top="0rem"
-            />
+                title="Something went wrong on this page.."
+                description={error}
+                buttons={<>
+                    <HomeButton />
+                    <SupportButton />
+                </>}
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
         );
     }
 
@@ -50,22 +54,29 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
     if (!candisplay) {
         return (
             <ScreenMessage
-                title="Nothing to see here.."
-                description="Seems like you got a little lost, huh?"
-                href="/"
-                button="Go back home"
-                icon={<HiHome />}
                 top="0rem"
-            />
+                title="Sadly, this leaderboard can not be found.."
+                description="Seems like you got a little lost here? Here's wumpus for now!"
+                buttons={<>
+                    <HomeButton />
+                    <AddButton />
+                </>}
+            >
+                <Image src={SadWumpusPic} alt="" height={141 * 1.5} width={124 * 1.5} />
+            </ScreenMessage>
         );
     }
 
     if (!members.length) {
         return (
             <ScreenMessage
-                title="None seems to be here.."
-                description={"No members could be found on page " + searchParams.page || "1"}
                 top="0rem"
+                title="No members to see here.."
+                description={"No members could be found on page " + searchParams.page || "1"}
+                buttons={<>
+                    <HomeButton />
+                    <AddButton />
+                </>}
             />
         );
     }

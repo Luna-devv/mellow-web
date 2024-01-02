@@ -1,6 +1,7 @@
 "use client";
 
 import { Skeleton } from "@nextui-org/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,7 +12,9 @@ import { webStore } from "@/common/webstore";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
-import { ScreenMessage } from "@/components/screen-message";
+import { AddButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ServerButton } from "@/components/server-button";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -176,8 +179,8 @@ export default function RootLayout({
                         </Skeleton>
 
                         {!guild?.id ?
-                            <div>
-                                <Skeleton className="rounded-xl w-32 h-5 mb-2" />
+                            <div className="mt-1.5">
+                                <Skeleton className="rounded-xl w-32 h-6 mb-2" />
                                 <Skeleton className="rounded-xl w-10 h-3.5" />
                             </div>
                             :
@@ -239,12 +242,27 @@ export default function RootLayout({
 
             {error ?
                 <ScreenMessage
-                    title="Something went wrong.."
+                    title={error.includes("permssions")
+                        ? "Something went wrong on this page.."
+                        : "You cannot access this page.."
+                    }
                     description={error}
-                    href="/dashboard"
-                    button="Go back to server list"
-                    icon={<HiViewGridAdd />}
-                />
+                    buttons={<>
+                        <ServerButton
+                            as={Link}
+                            href="/dashboard"
+                            startContent={<HiViewGridAdd />}
+                        >
+                            Go back to Dashboard
+                        </ServerButton>
+                        {error.includes("permissions")
+                            ? <AddButton />
+                            : <SupportButton />
+                        }
+                    </>}
+                >
+                    <Image src={SadWumpusPic} alt="" height={141} width={124} />
+                </ScreenMessage>
                 :
                 guild?.id ? children : <></>
             }
