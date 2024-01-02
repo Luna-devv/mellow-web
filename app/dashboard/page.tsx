@@ -1,20 +1,25 @@
 "use client";
+
 import { Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BsDiscord } from "react-icons/bs";
-import { HiUserAdd, HiViewGrid, HiViewList } from "react-icons/hi";
+import { HiRefresh, HiUserAdd, HiViewGrid, HiViewList } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import ErrorBanner from "@/components/Error";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import DumbTextInput from "@/components/inputs/Dumb_TextInput";
+import { ScreenMessage } from "@/components/screen-message";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { RouteErrorResponse, UserGuild } from "@/typings";
 import cn from "@/utils/cn";
 import { truncate } from "@/utils/truncate";
+
+const MAX_GUILDS = 24;
 
 export default function Home() {
     const web = webStore((w) => w);
@@ -26,6 +31,18 @@ export default function Home() {
     const [display, setDisplay] = useState<"LIST" | "GRID">("GRID");
 
     const searchParams = useSearchParams();
+
+    function filter(guild: UserGuild) {
+        if (!search) return true;
+
+        if (guild.name.toLowerCase().includes(search.toLowerCase())) return true;
+        if (search.toLowerCase().includes(guild.name.toLowerCase())) return true;
+
+        if (guild.id.includes(search)) return true;
+        if (search.includes(guild.id)) return true;
+
+        return false;
+    }
 
     useEffect(() => {
 
@@ -98,7 +115,7 @@ export default function Home() {
                     <Button
                         as={Link}
                         href="/login?invite=true"
-                        className="button-blurple w-1/2 md:w-min"
+                        className="w-1/2 md:w-min"
                         startContent={<HiUserAdd />}
                     >
                         Add to Server
@@ -106,8 +123,8 @@ export default function Home() {
                     <Button
                         as={Link}
                         href="/login"
-                        className="w-1/2 md:w-min"
-                        startContent={<BsDiscord />}
+                        className="button-primary w-1/2 md:w-min"
+                        startContent={<HiRefresh />}
                     >
                         Reload
                     </Button>
@@ -146,17 +163,8 @@ export default function Home() {
                 >
 
                     {guilds
-                        .filter((g) => {
-                            if (!search) return true;
-
-                            if (g.name.toLowerCase().includes(search.toLowerCase())) return true;
-                            if (search.toLowerCase().includes(g.name.toLowerCase())) return true;
-
-                            if (g.id.includes(search)) return true;
-                            if (search.includes(g.id)) return true;
-
-                            return false;
-                        })
+                        .filter(filter)
+                        .slice(0, MAX_GUILDS)
                         .map((guild) => (
                             <motion.li
                                 key={"guildGrid" + guild.id}
@@ -226,6 +234,15 @@ export default function Home() {
                 <div className={cn("border-2 dark:border-wamellow border-wamellow-100 p-4 flex justify-center items-center rounded-lg drop-shadow-md overflow-hidden relative h-24", display === "GRID" && "md:w-1/2 lg:w-1/3")}>
                     Loading your servers...
                 </div>
+            }
+
+            {guilds.filter(filter).length > MAX_GUILDS &&
+                <ScreenMessage
+                    title="There are too many servers.."
+                    description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ${guilds.length}.`}
+                >
+                    <Image src={SadWumpusPic} alt="" height={141} width={124} />
+                </ScreenMessage>
             }
 
         </div>
