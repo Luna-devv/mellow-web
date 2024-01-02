@@ -55,7 +55,7 @@ html {
 
 button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
 a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
-  @apply py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center text-medium
+  @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .text-sm button.subpixel-antialiased,
@@ -65,15 +65,15 @@ a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-pr
 }
 
 .button {
-  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center text-medium
+  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .button-primary {
-  @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center text-medium
+  @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .button-blurple {
-  @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 rounded-md duration-200 justify-center gap-2 items-center font-medium text-medium
+  @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 duration-200 justify-center gap-2 items-center font-medium text-medium
 }
 
 .button-underline {

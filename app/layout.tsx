@@ -2,7 +2,7 @@
 import "./globals.css";
 
 import { Metadata, Viewport } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Montserrat, Outfit } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { SiKofi } from "react-icons/si";
@@ -13,7 +13,7 @@ import { getBaseUrl } from "@/utils/urls";
 
 import { Provider } from "./provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
@@ -82,7 +82,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden bg-[var(--background-rgb)]">
-            <body className={`${inter.className} w-full max-w-7xl`}>
+            <body className={`${outfit.className} w-full max-w-7xl`}>
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
                     <div className="hidden md:block">
