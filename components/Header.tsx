@@ -1,13 +1,16 @@
 "use client";
 
-import { Button, Skeleton } from "@nextui-org/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Skeleton } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { HiArrowNarrowRight, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiViewGridAdd } from "react-icons/hi";
+import { RiTranslate2 } from "react-icons/ri";
 
+import { useTranslation } from "@/app/provider";
 import { guildStore } from "@/common/guilds";
+import { translationsConfig } from "@/common/languages";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import LoginButton from "@/components/login-button";
@@ -17,7 +20,6 @@ import cn from "@/utils/cn";
 import ImageReduceMotion from "./image-reduce-motion";
 
 export default function Header(props: React.ComponentProps<"div">) {
-
     const [loggedin, setLoggedin] = useState<boolean>();
     const [menu, setMenu] = useState(false);
     const [loginstate, setLoginstate] = useState<"LOADING" | "ERRORED" | undefined>("LOADING");
@@ -202,6 +204,8 @@ export default function Header(props: React.ComponentProps<"div">) {
     return (
         <div {...props}>
 
+            <LanguageSwitcher />
+
             {loggedin && loginstate !== "ERRORED" ? UserButton : <LoginButton loginstate={loginstate} />}
 
             <MotionConfig
@@ -222,4 +226,31 @@ export default function Header(props: React.ComponentProps<"div">) {
 
         </div>
     );
+}
+
+function LanguageSwitcher() {
+    const { setLanguage } = useTranslation();
+
+    return <>
+        <Dropdown>
+            <DropdownTrigger>
+                <Button
+                    variant="solid"
+                    className="min-w-0"
+                >
+                    <RiTranslate2 />
+                </Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Change Language">
+                {translationsConfig.languages.map((lang) =>
+                    <DropdownItem
+                        key={lang.name}
+                        onClick={() => setLanguage(lang.locale)}
+                    >
+                        {lang.name}
+                    </DropdownItem>
+                )}
+            </DropdownMenu>
+        </Dropdown>
+    </>;
 }
