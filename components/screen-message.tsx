@@ -39,7 +39,9 @@ export function ScreenMessage({
 }: Props) {
 
     return (
-        <div className="w-full h-full flex flex-col items-center justify-center" style={{ marginTop: top }}>
+        <div className="w-full h-full flex flex-col items-center justify-center md:my-0 my-40">
+
+            <div style={{ marginTop: top }} />
 
             {children &&
                 <div className={cn("relative bottom-8", buttons ? "ml-8" : "ml-4")}>

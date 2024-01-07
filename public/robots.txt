@@ -1,6 +1,5 @@
 User-Agent: *
 Allow: /
-Disallow: /_next/
 
 User-agent: nsa
 Disallow: /

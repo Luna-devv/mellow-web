@@ -44,6 +44,8 @@ export default function Home() {
         return false;
     }
 
+    const { length } = guilds.filter(filter);
+
     useEffect(() => {
 
         setDisplay((localStorage.getItem("dashboardServerSelectStyle") || "GRID") as "LIST" | "GRID");
@@ -135,10 +137,10 @@ export default function Home() {
                 <hr className="mx-0 p-1 my-4 dark:border-wamellow-light border-wamellow-100-light w-full" />
 
                 <div className="dark:bg-wamellow bg-wamellow-100 md:flex gap-1 dark:text-neutral-400 text-neutral-600 rounded-md overflow-hidden w-[72px] mb-5 hidden">
-                    <button onClick={() => setDisplay("GRID")} className={`h-7 w-8 flex items-center justify-center p-[4px] rounded-md ${display === "GRID" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30"}`}>
+                    <button onClick={() => setDisplay("GRID")} className={cn("h-7 w-8 flex items-center justify-center p-[4px] rounded-md", display === "GRID" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30")}>
                         <HiViewGrid />
                     </button>
-                    <button onClick={() => setDisplay("LIST")} className={`h-7 w-8 flex items-center justify-center p-[4px] rounded-md ${display === "LIST" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30"}`}>
+                    <button onClick={() => setDisplay("LIST")} className={cn("h-7 w-8 flex items-center justify-center p-[4px] rounded-md", display === "LIST" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30")}>
                         <HiViewList />
                     </button>
                 </div>
@@ -236,10 +238,10 @@ export default function Home() {
                 </div>
             }
 
-            {guilds.filter(filter).length > MAX_GUILDS &&
+            {length > MAX_GUILDS &&
                 <ScreenMessage
                     title="There are too many servers.."
-                    description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ${guilds.length}.`}
+                    description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ~${length < 100 ? length : Math.round(length / 100) * 100}.`}
                 >
                     <Image src={SadWumpusPic} alt="" height={141} width={124} />
                 </ScreenMessage>
