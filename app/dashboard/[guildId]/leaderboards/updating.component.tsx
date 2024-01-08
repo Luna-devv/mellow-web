@@ -226,6 +226,7 @@ const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) 
                         }) || []}
                         description="Select a emots which will be between shown after the data count."
                         defaultState={leaderboard?.emoji || undefined}
+                        showClear
                         onSave={(o) => {
                             setEmoji(o.value as string);
                         }}

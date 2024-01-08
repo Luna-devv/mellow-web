@@ -275,7 +275,7 @@ export default function Home() {
                         name="Blacklisted Roles"
                         url={`/guilds/${guild?.id}/modules/starboard`}
                         dataName="blacklistRoleIds"
-                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, color: r.color }; })}
+                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, color: r.color }))}
                         description="Select roles which should not be able to starboard."
                         defaultState={starboard?.blacklistRoleIds || []}
                         max={500}

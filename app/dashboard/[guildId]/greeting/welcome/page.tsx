@@ -166,7 +166,7 @@ export default function Home() {
                         name="Roles"
                         url={`/guilds/${guild?.id}/modules/welcome`}
                         dataName="roleIds"
-                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => { return { name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }; })}
+                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
                         description="Select roles which members should get."
                         defaultState={welcome?.roleIds || []}
                         max={5}
