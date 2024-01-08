@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { FunctionComponent, HTMLAttributes, useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 
+import cn from "@/utils/cn";
+
 type Props = {
     name?: string;
     placeholder?: string;
@@ -11,16 +13,20 @@ type Props = {
 
     disabled?: boolean;
     description?: string;
-    max?: number;
     thin?: boolean;
 
     dataName?: string;
 };
 
 
-const DumbColorInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, max = 256, thin, dataName }) => {
-    const className = `relative cursor-pointer mt-1 ${max > 300 ? "h-28" : (thin ? "h-10" : "h-12")} ${thin && "relative bottom-1"} resize-none w-full  rounded-md flex items-center px-4 py-2 focus:outline outline-violet-400 outline-2 ${disabled && "cursor-not-allowed opacity-50 "}` as HTMLAttributes<HTMLDivElement>["className"];
-    console.log("value", value);
+const DumbColorInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, thin, dataName }) => {
+    const className = cn(
+        "mt-1 resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-lg flex items-center px-4 py-2 focus:outline outline-violet-400 outline-2",
+        thin ? "h-10" : "h-12",
+        thin && "relative bottom-1",
+        disabled && "cursor-not-allowed opacity-50"
+    ) as HTMLAttributes<HTMLInputElement>["className"];
+
     // console.log(dataName && JSON.parse(value)[dataName]);
 
     // this cuz there can be multiple color inputs on the same page, so it will bug, so we need to identify them
@@ -40,7 +46,7 @@ const DumbColorInput: FunctionComponent<Props> = ({ name, placeholder, value, se
             }
 
             <input
-                className={"absolute -bottom-2 left-0 w-0 h-0 opacity-0 pointer-events-none"}
+                className="absolute -bottom-2 left-0 w-0 h-0 opacity-0 pointer-events-none"
                 id={inputId}
                 placeholder={placeholder}
                 onChange={(e) => {
@@ -53,7 +59,6 @@ const DumbColorInput: FunctionComponent<Props> = ({ name, placeholder, value, se
                 value={(dataName ? JSON.parse(value)[dataName] : value) ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : "#ffffff"}
                 disabled={disabled}
                 type={"color"}
-                maxLength={max || Infinity}
             />
 
             <label
@@ -61,7 +66,6 @@ const DumbColorInput: FunctionComponent<Props> = ({ name, placeholder, value, se
                 className={className}
                 onPointerEnter={() => setIsHovered(true)}
                 onPointerLeave={() => setIsHovered(false)}
-                // style cuz bg-[#color] didnt work for me in tw
                 style={{
                     backgroundColor: (dataName ? JSON.parse(value)[dataName] : value) ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : "#ffffff"
                 }}
