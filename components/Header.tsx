@@ -17,6 +17,7 @@ import LoginButton from "@/components/login-button";
 import authorizeUser from "@/utils/authorize-user";
 import cn from "@/utils/cn";
 
+import Badge from "./badge";
 import ImageReduceMotion from "./image-reduce-motion";
 
 export default function Header(props: React.ComponentProps<"div">) {
@@ -225,7 +226,6 @@ export default function Header(props: React.ComponentProps<"div">) {
         </div>
     );
 }
-
 function LanguageSwitcher() {
     const { setLanguage } = useTranslation();
 
@@ -233,8 +233,8 @@ function LanguageSwitcher() {
         <Dropdown>
             <DropdownTrigger>
                 <Button
-                    variant="solid"
-                    className="min-w-0 mr-4"
+                    variant="light"
+                    className="min-w-0 mr-2"
                 >
                     <RiTranslate2 />
                 </Button>
@@ -244,6 +244,7 @@ function LanguageSwitcher() {
                     <DropdownItem
                         key={lang.name}
                         onClick={() => setLanguage(lang.locale)}
+                        endContent={lang.locale !== "en-EN" && <Badge text="Beta" />}
                     >
                         {lang.name}
                     </DropdownItem>
