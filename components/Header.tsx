@@ -55,25 +55,6 @@ export default function Header(props: React.ComponentProps<"div">) {
         });
     }, []);
 
-    const UserButton = (
-        <button className={cn("ml-auto flex dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center", menu && "dark:bg-wamellow bg-wamellow-100")} onClick={() => setMenu(!menu)}>
-
-            <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
-                <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={64} alt="your avatar" />
-            </Skeleton>
-
-            {!user?.id ?
-                <Skeleton className="rounded-xl w-20 h-4" />
-                :
-                <>
-                    <div className="mr-1 relative bottom-[1px]">@{user?.username}</div>
-                    <HiChevronDown />
-                </>
-            }
-
-        </button>
-    );
-
     const split = { type: "split" };
 
     const buttons = [
@@ -142,7 +123,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                 }
             }}
             className="
-                relative top-2 sm:right-56 w-full sm:w-60 dark:bg-wamellow bg-wamellow-100 rounded-md text-base overflow-hidden shadow-md
+                relative top-6 w-full sm:w-60 dark:bg-wamellow bg-wamellow-100 rounded-md text-base overflow-hidden shadow-md
                 flex flex-col pt-1
                 max-sm:[--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                 max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
@@ -200,12 +181,21 @@ export default function Header(props: React.ComponentProps<"div">) {
         </motion.div>
     );
 
-    return (
-        <div {...props}>
+    const UserButton = (
+        <button className={cn("ml-auto flex dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center static sm:relative", menu && "dark:bg-wamellow bg-wamellow-100")} onClick={() => setMenu(!menu)}>
 
-            <LanguageSwitcher />
+            <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
+                <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={64} alt="your avatar" />
+            </Skeleton>
 
-            {loggedin && loginstate !== "ERRORED" ? UserButton : <LoginButton loginstate={loginstate} />}
+            {!user?.id ?
+                <Skeleton className="rounded-xl w-20 h-4" />
+                :
+                <>
+                    <div className="mr-1 relative bottom-[1px]">@{user?.username}</div>
+                    <HiChevronDown />
+                </>
+            }
 
             <MotionConfig
                 transition={web.reduceMotions ?
@@ -217,12 +207,21 @@ export default function Header(props: React.ComponentProps<"div">) {
                 <AnimatePresence initial={false}>
                     {user?.id && menu &&
                         <div className="flex text-base font-medium dark:text-neutral-300 text-neutral-700 select-none overflow-x-hidden">
-                            <div className="ml-auto overflow-x-hidden"><div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full">{UserDropdown}</div></div>
+                            <div className="overflow-x-hidden"><div className="absolute left-0 sm:left-[calc(50%-26px)] transform-gpu sm:-translate-x-1/2 z-40 w-full">{UserDropdown}</div></div>
                         </div>
                     }
                 </AnimatePresence>
             </MotionConfig>
 
+        </button>
+    );
+
+    return (
+        <div {...props}>
+
+            <LanguageSwitcher />
+
+            {loggedin && loginstate !== "ERRORED" ? UserButton : <LoginButton loginstate={loginstate} />}
         </div>
     );
 }
