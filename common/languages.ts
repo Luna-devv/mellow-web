@@ -1,23 +1,23 @@
 const languages = [
     {
         name: "English",
-        locale: "en"
+        locale: "en-EN"
     },
     {
         name: "German",
-        locale: "de"
+        locale: "de-DE"
     },
     {
         name: "Polish",
-        locale: "pl"
+        locale: "pl-PL"
     }
 ] as const;
 
 export const translationsConfig: TranslationConfig = {
     languages,
     localeCookieName: "locale",
-    defaultLocale: "en",
-    fetchUrl: (locale) => process.env.NEXT_PUBLIC_BASE_API + `/locales/${locale}.json` // interesting how this env working on client in next
+    defaultLocale: "en-EN",
+    fetchUrl: (locale) => process.env.NEXT_PUBLIC_LANG_API + `/${locale}/web/global/index.json`
 };
 
 export type LanguageLocale = typeof languages[number]["locale"];

@@ -5,7 +5,7 @@ import { BsSpotify } from "react-icons/bs";
 import { HiIdentification } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
-import Highlight from "@/components/discord/markdown";
+import Highlight from "@/components/discord/Markdown";
 import DiscordMessage from "@/components/discord/message";
 import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1UsersMeConnectionsSpotifyGetResponse, RouteErrorResponse } from "@/typings";

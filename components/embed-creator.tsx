@@ -4,7 +4,7 @@ import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 import { GuildEmbed, RouteErrorResponse } from "@/typings";
 
-import Highlight from "./discord/markdown";
+import Highlight from "./discord/Markdown";
 import DiscordMessage from "./discord/message";
 import DiscordMessageEmbed from "./discord/message-embed";
 import DumbColorInput from "./inputs/Dumb_ColorInput";
