@@ -207,15 +207,20 @@ export interface ApiV1GuildsModulesLeaderboardUpdatingPostResponse {
 
 export interface ApiV1GuildsModulesLeaderboardGetResponse {
     banner: string | null;
-    emoji: string | null;
 
     backgroundColor: number | null;
     textColor: number | null;
     accentColor: number | null;
 
-    blacklistChannelIds: string[]
+    blacklistChannelIds: string[];
 
-    updating: ApiV1GuildsModulesLeaderboardUpdatingPostResponse[]
+    roles: {
+        messages: string[];
+        voiceminutes: string[];
+        // invites: string[]; // again'st tos
+    } | undefined;
+
+    updating: ApiV1GuildsModulesLeaderboardUpdatingPostResponse[];
 }
 
 export interface ApiV1GuildsModulesPassportGetResponse {

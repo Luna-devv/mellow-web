@@ -135,23 +135,52 @@ export default function Home() {
                 defaultState={leaderboard.banner || ""}
             />
 
-            <div className="lg:flex gap-3">
+            <hr className="mt-6 mb-2 dark:border-wamellow-light border-wamellow-100-light" />
+            <span className="dark:text-neutral-500 text-neutral-400 text-sm">Select top 1. role first, then 2. and last 3. (left 1st, right 3rd)</span>
+
+            <div className="lg:flex gap-3 mt-5">
                 <div className="lg:w-1/2">
                     <MultiSelectMenu
-                        name="Blacklisted Channels"
+                        name="Top messager roles"
                         url={`/guilds/${guild?.id}/modules/leaderboard`}
-                        dataName="blacklistChannelIds"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
-                        description="Select channels which should not be able to be counted."
-                        defaultState={leaderboard?.blacklistChannelIds || []}
-                        max={500}
+                        dataName="roles.messages"
+                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
+                        description="Select roles which should be assigned to the top message members."
+                        defaultState={leaderboard?.roles?.messages || []}
+                        max={3}
+                    />
+                </div>
+                <div className="lg:w-1/2">
+                    <MultiSelectMenu
+                        name="Top voice roles"
+                        url={`/guilds/${guild?.id}/modules/leaderboard`}
+                        dataName="roles.voiceminutes"
+                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
+                        description="Select roles which should be assigned to the top voice members."
+                        defaultState={leaderboard?.roles?.voiceminutes || []}
+                        max={3}
                     />
                 </div>
             </div>
 
             <hr className="my-6 dark:border-wamellow-light border-wamellow-100-light" />
 
-            <div className="w-full grid gap-4 md:flex md:gap-0 md:items-center">
+            <div className="lg:w-1/2">
+                <MultiSelectMenu
+                    name="Blacklisted channels"
+                    url={`/guilds/${guild?.id}/modules/leaderboard`}
+                    dataName="blacklistChannelIds"
+                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
+                    description="Select channels which should not be able to be counted."
+                    defaultState={leaderboard?.blacklistChannelIds || []}
+                    max={500}
+                />
+            </div>
+
+            <hr className="mt-6 mb-2 dark:border-wamellow-light border-wamellow-100-light" />
+            <span className="dark:text-neutral-500 text-neutral-400 text-sm">Leaderboards update roughtly all 20 minutes</span>
+
+            <div className="w-full grid gap-4 md:flex md:gap-0 md:items-center mt-5">
                 <UpdatingLeaderboardCard guild={guild as Guild} lb={leaderboard.updating.find((lb) => lb.type === "messages")} type="messages" />
                 <Betweener />
                 <UpdatingLeaderboardCard guild={guild as Guild} lb={leaderboard.updating.find((lb) => lb.type === "voiceminutes")} type="voiceminutes" />
