@@ -7,10 +7,10 @@ import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFi
 import Badge from "@/components/badge";
 import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
-import Highlight from "@/components/discord/Markdown";
-import DiscordMessage from "@/components/discord/Message";
+import Highlight from "@/components/discord/markdown";
+import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
-import DiscordMessageFile from "@/components/discord/Message-file";
+import DiscordMessageFile from "@/components/discord/message-file";
 import ServerGrid from "@/components/guild-grid";
 import { ServerButton } from "@/components/server-button";
 import ArrowPic from "@/public/arroww.webp";
@@ -21,9 +21,6 @@ import WelcomePic from "@/public/welcome.webp";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { convertMonthToName } from "@/utils/time";
-
-import { Translation } from "../provider";
-
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
@@ -75,9 +72,7 @@ export default async function Home() {
             className="button-primary"
         >
             <span className="block sm:hidden">Invite</span>
-            <span className="hidden sm:block">
-                <Translation t="index.invite" />
-            </span>
+            <span className="hidden sm:block">Invite Wamellow</span>
         </ServerButton>
     );
 
@@ -102,7 +97,7 @@ export default async function Home() {
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <span className="font-medium">
-                    <Translation t="index.desc" />
+                    Experience the next-gen revolution, offering a list of features and extensive customization, providing a superior alternative to popular bots.
                 </span>
 
                 <div className="flex flex-col min-w-full lg:min-w-[420px]">
@@ -116,9 +111,7 @@ export default async function Home() {
                             size="lg"
                         >
                             <span className="block sm:hidden">Invite</span>
-                            <span className="hidden sm:block">
-                                <Translation t="index.invite" />
-                            </span>
+                            <span className="hidden sm:block">Invite Wamellow</span>
                         </ServerButton>
                         <ServerButton
                             as={Link}
@@ -128,16 +121,14 @@ export default async function Home() {
                             size="lg"
                         >
                             <span className="block sm:hidden">Support</span>
-                            <span className="hidden sm:block">
-                                <Translation t="index.support" />
-                            </span>
+                            <span className="hidden sm:block">Join support</span>
                         </ServerButton>
                     </div>
 
 
                     <span className={`lg:ml-auto flex gap-2 text-neutral-500 font-mediumr ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
                         <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
-                        <Translation t="index.getStarted" />
+                        Get started here in seconds
                     </span>
 
                 </div>
@@ -149,23 +140,22 @@ export default async function Home() {
             <article itemScope itemType="http://schema.org/Article" className="flex flex-col gap-28 mb-10">
 
                 <div>
-                    <h2 className={styles.h2}>
-                        <Translation t="index.fun" />🦄</h2>
+                    <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
                     <div className="my-8 max-w-md font-medium">
-                        {/* Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages! */}
-                        <Translation t="index.fun.desc" />
+                        Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages!
                     </div>
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
                             <Badge
                                 before={<HiCash />}
-                                translation="index.free"
+                                text="100% free forever"
                                 classname="mr-auto ml-0 mb-4"
                             />
                             <h3 className={styles.h3}>/leaderboard & /rank</h3>
                             <div className="pt-6">
-                                <Translation t="index.leaderboard.desc" />
+                                Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
+                                By motivating your members to communicate, you{"’"}ll cultivate a more active server community.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
@@ -175,7 +165,7 @@ export default async function Home() {
                                     startContent={<HiArrowRight />}
                                     href="/leaderboard/1055188344188973066"
                                 >
-                                    <Translation t="index.viewLeaderboard" />
+                                    View Leaderboard
                                 </ServerButton>
                             </div>
                         </div>
