@@ -43,7 +43,7 @@ export function TranslationProvider({ children, file: serverFile, cookieLocale }
     function setLanguage(language: LanguageLocale) {
         setLocale(language);
         document.cookie = `${translationsConfig.localeCookieName}=${language}; path=/;`;
-        fetch((() => translationsConfig.fetchUrl(language))()).then((res) => res.json()).then(setFile).catch(console.error);
+        fetch(`/locales/${language}.json`).then((res) => res.json()).then(setFile);
     }
 
     return (
