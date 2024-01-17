@@ -56,6 +56,7 @@ export default function Header(props: React.ComponentProps<"div">) {
         });
     }, []);
 
+
     const UserButton = (
         <button className={cn("ml-auto flex dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center", menu && "dark:bg-wamellow bg-wamellow-100")} onClick={() => setMenu(!menu)}>
 
@@ -217,7 +218,7 @@ export default function Header(props: React.ComponentProps<"div">) {
             >
                 <AnimatePresence initial={false}>
                     {user?.id && menu &&
-                        <div className="flex text-base font-medium dark:text-neutral-300 text-neutral-700 select-none overflow-x-hidden">
+                        <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 select-none overflow-x-hidden">
                             <div className="ml-auto overflow-x-hidden"><div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full">{UserDropdown}</div></div>
                         </div>
                     }

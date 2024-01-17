@@ -114,7 +114,7 @@ export default async function RootLayout({
                             </Link>
                         </div>
 
-                        <Header className="ml-auto flex items-center" />
+                        <Header className="ml-auto flex gap-4 items-center" />
                     </nav>
 
                     <Provider>
