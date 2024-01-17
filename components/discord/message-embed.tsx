@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 
 import cn from "@/utils/cn";
 
-import Highlight from "./Markdown";
+import Highlight from "./markdown";
 
 interface Props {
     children: React.ReactNode;

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import Highlight from "@/components/discord/Markdown";
+import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
