@@ -69,7 +69,7 @@ export default async function Home() {
             as={Link}
             startContent={<HiUserAdd />}
             href="/login?invite=true"
-            className="button-primary"
+            color="secondary"
         >
             <span className="block sm:hidden">Invite</span>
             <span className="hidden sm:block">Invite Wamellow</span>
@@ -106,7 +106,8 @@ export default async function Home() {
                         <ServerButton
                             as={Link}
                             startContent={<HiUserAdd />}
-                            className="button-primary w-1/2 lg:w-fit !text-xl !font-medium"
+                            className="w-1/2 lg:w-fit !text-xl !font-medium"
+                            color="secondary"
                             href="/login?invite=true"
                             size="lg"
                         >

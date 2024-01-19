@@ -1,39 +1,20 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { BsDiscord } from "react-icons/bs";
-import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiX } from "react-icons/hi";
+import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiUsers, HiX } from "react-icons/hi";
 
 import ErrorBanner from "@/components/Error";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListFeature } from "@/components/list";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
-import { ApiV1GuildsGetResponse, ApiV1GuildsModulesPassportGetResponse } from "@/typings";
+import paintPic from "@/public/paint.webp";
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
 
-import VerifyComponent from "./VerifyComponent";
+import { getGuild, getPassport } from "./api";
+import Verify from "./verify.component";
 
 interface PassportProps { params: { guildId: string }, searchParams: { page: string, type: string } }
-
-async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}`, {
-        headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 60 * 60 }
-    });
-
-    const guild = await res.json();
-    return guild;
-}
-
-async function getPassport(guildId: string): Promise<ApiV1GuildsModulesPassportGetResponse> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/passport-verification`, {
-        headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 60 }
-    });
-
-    const passport = await res.json();
-    return passport;
-}
 
 export const generateMetadata = async ({
     params
@@ -95,26 +76,35 @@ export default async function Home({ params }: PassportProps) {
 
                 <div className="w-full md:max-w-[384px] overflow-hidden rounded-xl dark:bg-wamellow bg-wamellow-100 relative">
 
-                    <div className="mb-8 h-[216px]" style={{ background: "url(/paint.jpg)", backgroundRepeat: "no-repeat", backgroundSize: "cover" }} />
+                    <Image
+                        alt=""
+                        className="w-full object-cover h-[216px]"
+                        src={guild.banner ? `https://cdn.discordapp.com/banners/${guild?.id}/${guild?.banner}?size=512` : paintPic.src}
+                        width={3840 / 10}
+                        height={2160 / 10}
+                    />
                     <div className="absolute top-0 w-full h-[216px]" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, var(--wamellow-rgb) 100%)" }} />
 
-                    <div className="text-lg flex gap-2 items-center absolute top-[156px] ml-4">
-                        <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={128} alt="Server icon" className="rounded-xl h-16 w-16" />
-                        <div>
-                            <div className="text-xl dark:text-neutral-200 text-neutral-800 font-semibold">{guild?.name || "Unknown Server"}</div>
-                            <div className="text-sm flex items-center gap-2"> <Image src="https://cdn.discordapp.com/emojis/924058182626721802.webp" width={18} height={18} alt="member icon" />{intl.format(guild.memberCount)} members </div>
-                            <div className="text-sm flex items-center gap-2"> <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" />Level {guild.premiumTier}</div>
+                    <div
+                        className="text-lg flex gap-5 items-center absolute top-[146px] rounded-3xl z-20 left-[4px] md:left-2 py-4 px-5 backdrop-blur-3xl backdrop-brightness-90 shadow-md"
+                    >
+                        <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40" />
+                        <div className="flex flex-col gap-1">
+                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
+                            <div className="text-sm font-semibold flex items-center gap-1">
+                                <HiUsers /> {intl.format(guild?.memberCount || 0)}
+                                <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" /> Level {guild.premiumTier}
+                            </div>
                         </div>
                     </div>
 
-                    <div className="mx-4 mb-4">
+                    <div className="mx-4 mb-4 mt-10 font-medium">
 
-                        <span className="text-sm font-semibold dark:text-neutral-400 text-neutral-600">GET ACCESS TO</span>
+                        <span className="text-sm font-bold dark:text-neutral-400 text-neutral-600">GET ACCESS TO</span>
                         <ul>
                             {[
                                 "Secure server",
-                                `${intl.format(guild.memberCount)} members`,
-                                `${guild.channelCount} channels`
+                                `${intl.format(guild.memberCount)} members`
                             ].map((name) => (
                                 <li key={name} className="flex gap-1 items-center">
                                     <HiCheck className="text-violet-400" />
@@ -127,7 +117,7 @@ export default async function Home({ params }: PassportProps) {
                             </li>
                         </ul>
 
-                        <VerifyComponent guild={guild} />
+                        <Verify guild={guild} />
 
                     </div>
 
