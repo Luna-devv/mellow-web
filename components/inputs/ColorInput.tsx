@@ -15,14 +15,13 @@ type Props = {
     __defaultState: string | number;
     resetState?: string | number;
 
-    max?: number;
     placeholder?: string;
 
     onSave?: (value: string | number) => void;
 };
 
 
-const ColorInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, resetState, max, placeholder, onSave }) => {
+const ColorInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, __defaultState, resetState, placeholder, onSave }) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -108,7 +107,6 @@ const ColorInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, d
                 }}
                 disabled={disabled}
                 placeholder={placeholder}
-                max={max}
                 description={description}
             />
 
