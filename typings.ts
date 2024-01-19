@@ -291,6 +291,12 @@ export interface ApiV1MeGetResponse {
 export interface ApiV1UsersMeConnectionsSpotifyGetResponse {
     displayName: string;
     avatar: string | null;
+    playing: {
+        name: string;
+        id: string;
+        artists: string;
+        duration: string;
+    } | undefined;
 }
 
 export interface ApiV1GuildsModulesTagsGetResponse {

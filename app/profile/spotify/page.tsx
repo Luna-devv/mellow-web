@@ -1,10 +1,12 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsSpotify } from "react-icons/bs";
 import { HiIdentification } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
+import Box from "@/components/box";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import { ScreenMessage } from "@/components/screen-message";
@@ -106,7 +108,7 @@ export default function Home({
 
                     <div className="w-full border-b dark:border-wamellow-light border-wamellow-100-light md:hidden mt-6" />
 
-                    <div className="my-6 flex flex-col gap-6 md:dark:bg-wamellow md:bg-wamellow-100 rounded-xl md:p-6 overflow-hidden">
+                    <Box className="mt-6 flex flex-col gap-6 overflow-hidden" small>
 
                         <DiscordMessage
                             mode={"DARK"}
@@ -117,7 +119,7 @@ export default function Home({
                             }}
                         >
 
-                            <Highlight mode={"DARK"} text="wm play [https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT]()" />
+                            <Highlight mode={"DARK"} text={`wm play [https://open.spotify.com/track/${spotify.playing?.id || "4cOdK2wGLETKBW3PvgPWqT"}](#)`} />
 
                         </DiscordMessage>
                         <DiscordMessage
@@ -129,13 +131,11 @@ export default function Home({
                             }}
                         >
 
-                            <div className="flex gap-1.5 h-3 mt-2 cursor-text">
-                                <div className="dark:bg-neutral-600/90 bg-neutral-400/90 h-full w-12 rounded-full" />
-                                <div className="dark:bg-neutral-600/90 bg-neutral-400/90 h-full w-24 rounded-full" />
-                                <div className="dark:bg-blue-600/90 bg-blue-400/90 h-full w-20 rounded-full" />
-                                <div className="dark:bg-neutral-600/90 bg-neutral-400/90 h-full w-8 rounded-full" />
-                                <div className="dark:bg-neutral-500/90 h-full w-16 rounded-full" />
+                            <div className="flex items-center gap-1">
+                                <Image src="https://cdn.discordapp.com/emojis/845043307351900183.gif?size=44&quality=lossless" height={18} width={18} alt="" />
+                                <Highlight mode={"DARK"} text={`@${user.username} now playing [${spotify.playing?.name || "Never Gonna Give You Up"}](#) for **${spotify.playing?.duration || "3 minutes 33 seconds"}**`} />
                             </div>
+
                             <div className="flex flex-row gap-1.5 h-8 mt-3">
                                 <div className="dark:border-neutral-600/90 border-neutral-400/90 border-2 h-full w-32 py-2.5 px-4 rounded-md flex items-center justify-center cursor-pointer">
                                     <div className="dark:bg-neutral-600/90 bg-neutral-400/90 h-full w-full rounded-full" />
@@ -171,11 +171,11 @@ export default function Home({
                             }}
                         >
 
-                            <div className="flex flex-row gap-1.5 h-3 mt-2 cursor-text">
-                                <div className="dark:bg-neutral-700/90 bg-neutral-300/90 h-full w-12 rounded-full" />
-                                <div className="dark:bg-neutral-700/90 bg-neutral-300/90 h-full w-20 rounded-full" />
-                                <div className="dark:bg-blue-600/90 bg-blue-400/90 h-full w-20 rounded-full" />
+                            <div className="flex items-center gap-1">
+                                <Image src="https://cdn.discordapp.com/emojis/845043307351900183.gif?size=44&quality=lossless" height={18} width={18} alt="" />
+                                <Highlight mode={"DARK"} text={`@${user.username} is playing [${spotify.playing?.name || "Never Gonna Give You Up"}](#) by ${spotify.playing?.artists || "[Rick Astley]()"}`} />
                             </div>
+
                             <div className="flex gap-1.5 h-8 mt-3">
                                 <div className="dark:border-neutral-700/90 border-neutral-300/90 border-2 h-full w-32 py-2.5 px-4 rounded-md flex items-center justify-center cursor-pointer">
                                     <div className="dark:bg-neutral-700/90 bg-neutral-300/90 h-full w-full rounded-full" />
@@ -190,7 +190,7 @@ export default function Home({
 
                         </DiscordMessage>
 
-                    </div>
+                    </Box>
 
                 </>
             }
