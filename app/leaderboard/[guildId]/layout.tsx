@@ -12,7 +12,7 @@ import { getCanonicalUrl } from "@/utils/urls";
 import { getDesign, getGuild, getPagination } from "./api";
 import Side from "./side.component";
 
-interface LeaderboardProps {
+export interface LeaderboardProps {
     params: { guildId: string },
     children: React.ReactNode;
 }
@@ -25,7 +25,7 @@ export const generateMetadata = async ({
     const guild = await getGuild(params.guildId);
 
     const title = `${guild?.name || "Unknown"}'s Leaderboard`;
-    const description = `Effortlessly discover the most active chatters, voice timers, and acknowledge top inviters. Explore the vibrant community dynamics of the ${guild?.name || "unknown"} discord server right from your web browser.`;
+    const description = `Discover the most active chatters, voice timers, and top inviters. ${guild?.name ? `Explore the community of the ${guild.name} discord server right from your web browser.` : ""}`;
     const url = getCanonicalUrl("leaderboard", params.guildId);
 
     return {
@@ -39,14 +39,19 @@ export const generateMetadata = async ({
             description,
             url,
             type: "website",
-            images: guild?.icon ? `https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}.webp?size=256` : "/discord.png"
+            images: {
+                url: `https://4099-2001-871-21c-d364-74bb-b3f8-c7d7-1ffe.ngrok-free.app/leaderboard/${params.guildId}/open-graph.png`,
+                width: 1200,
+                height: 630,
+                type: "image/png"
+            }
         },
         twitter: {
-            card: "summary",
+            card: "summary_large_image",
             title,
             description
         },
-        robots: guild.name ? "index, follow" : "noindex"
+        robots: guild?.name ? "index, follow" : "noindex"
     };
 };
 

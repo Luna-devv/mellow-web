@@ -1,6 +1,6 @@
 import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 
-export async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse> {
+export async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse | undefined> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}`, {
         headers: { Authorization: process.env.API_SECRET as string },
         next: { revalidate: 60 * 60 }
