@@ -25,6 +25,8 @@ import { convertMonthToName } from "@/utils/time";
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
+export const revalidate = 3600;
+
 const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
 
 interface Commands {
