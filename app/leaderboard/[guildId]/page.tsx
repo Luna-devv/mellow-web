@@ -28,7 +28,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
     const [guild, members, design, pagination] = await Promise.all([guildPromise, membersPromise, designPromise, paginationPromise]).catch(() => []);
 
     let error = "";
-    if ("message" in guild) error = guild.message as string;
+    if (guild && "message" in guild) error = guild.message as string;
     if ("message" in members) error = members.message as string;
     if ("message" in design) error = design.message as string;
     if ("message" in pagination) error = pagination.message as string;
@@ -101,7 +101,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
             {members.sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0)).map((member, i) =>
                 <div
                     key={"leaderboard-" + searchParams.type + member.id + i}
-                    className={cn("mb-4 rounded-md p-3 flex items-center", design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100")}
+                    className={cn("mb-4 rounded-xl p-3 flex items-center", design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100")}
                 >
                     <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`} size={128} alt={`${member.username}'s profile picture`} className="rounded-full h-12 w-12 mr-3" />
                     <div>

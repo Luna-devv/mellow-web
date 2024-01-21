@@ -10,8 +10,8 @@ const config = {
     theme: {
         extend: {
             colors: {
-                "wamellow": "rgb(22, 24, 26)",
-                "wamellow-light": "rgb(32, 34, 36)",
+                "wamellow": "rgb(20, 22, 24)",
+                "wamellow-light": "rgb(30, 32, 34)",
                 "wamellow-alpha": "rgba(255, 255, 255, 0.06)",
 
 

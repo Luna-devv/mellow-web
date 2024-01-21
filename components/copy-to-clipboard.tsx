@@ -36,10 +36,12 @@ export function CopyToClipboardButton({ icon, text, title, className = "", items
     };
 
     return (
-        <ButtonGroup>
+        <ButtonGroup
+            className={className}
+        >
 
             <Button
-                className={className}
+                className="w-full !justify-start"
                 color={saved ? "secondary" : undefined}
                 onClick={() => handleCopy(text)}
                 startContent={icon}
