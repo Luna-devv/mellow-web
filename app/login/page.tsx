@@ -35,7 +35,11 @@ export default function Home() {
         if (!params.get("code")) window.location.href = `${process.env.NEXT_PUBLIC_LOGIN}&scope=${params.get("invite") ? "identify+bot&permissions=1634200972406" : "identify+email+guilds"}`;
         else
             fetch(`${process.env.NEXT_PUBLIC_API}/sessions?code=${params.get("code")}`, {
-                method: "POST"
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({})
             })
                 .then(async (res) => {
                     const response = await res.json() as User;

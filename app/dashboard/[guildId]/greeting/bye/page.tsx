@@ -115,8 +115,10 @@ export default function Home() {
                         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/bye/test`, {
                             method: "POST",
                             headers: {
+                                "Content-Type": "application/json",
                                 authorization: localStorage.getItem("token") as string
-                            }
+                            },
+                            body: JSON.stringify({})
                         })
                             .then(async (res) => {
                                 console.log(res);
