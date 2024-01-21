@@ -40,7 +40,7 @@ export const generateMetadata = async ({
             url,
             type: "website",
             images: {
-                url: `https://4099-2001-871-21c-d364-74bb-b3f8-c7d7-1ffe.ngrok-free.app/leaderboard/${params.guildId}/open-graph.png`,
+                url: getCanonicalUrl("leaderboard", params.guildId, "open-graph.png"),
                 width: 1200,
                 height: 630,
                 type: "image/png"
@@ -144,7 +144,7 @@ export default async function RootLayout({
                 </div>
 
                 <div className="md:w-1/4 mt-8 md:mt-0">
-                    <Side guildId={params.guildId} design={design} pagination={pagination} currentCircular={currentCircular as undefined} />
+                    <Side guild={guild} design={design} pagination={pagination} currentCircular={currentCircular as undefined} />
                 </div>
 
             </div>

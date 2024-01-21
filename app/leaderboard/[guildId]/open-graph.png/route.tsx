@@ -22,15 +22,16 @@ export async function GET(
         (
             <div tw="bg-[#0d0f11] p-18 flex flex-col w-full h-full text-6xl text-white">
                 <div tw="flex mb-6">
-                    <span tw="text-3xl bg-violet-400/75 opacity-80 pt-2 px-4 rounded-xl w-min" style={{ fontWeight: 500 }}>Leaderboard</span>
+                    <span tw="text-3xl bg-violet-400/75 opacity-80 pt-2 px-4 rounded-xl" style={{ fontWeight: 500 }}>Leaderboard</span>
                 </div>
-                <div tw="flex mb-2 items-center">
-                    {guild?.icon && <img src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`} tw="h-20 w-20 rounded-2xl relative bottom-3 mr-5" alt="" />}
+                <div tw="flex mb-3 items-center">
+                    {guild?.icon ? <img src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`} tw="h-20 w-20 rounded-2xl relative bottom-3 mr-5" alt="" /> : <></>}
                     <div style={{ fontWeight: 800, fontSize: "5rem" }}>{guild?.name || "unknown"}</div>
                 </div>
-                <div tw="text-4xl text-gray-500" style={{ fontWeight: 500 }}>Explore the vibrant community dynamics</div>
+                <div tw="text-4xl text-gray-500 mb-42" style={{ fontWeight: 500 }}>Explore the vibrant community dynamics</div>
 
-                <div tw="flex justify-between mt-42">
+
+                <div tw="flex justify-between">
                     {members.slice(0, 3).map((member) => (
                         <div key={member.id} tw="flex flex-col">
                             <div tw="flex mb-2 text-5xl" style={{ fontWeight: 600 }}>@{member.username}</div>

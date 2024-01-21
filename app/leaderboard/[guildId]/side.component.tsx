@@ -1,9 +1,10 @@
 "use client";
 
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaReddit, FaTwitter } from "react-icons/fa";
 import { HiAnnotation, HiLink, HiShare, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
 
 import { webStore } from "@/common/webstore";
@@ -11,16 +12,16 @@ import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ErrorBanner from "@/components/Error";
 import Modal from "@/components/modal";
-import { ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
+import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
 export default function Side({
-    guildId,
+    guild,
     design,
     pagination,
     currentCircular
 }: {
-    guildId: string;
+    guild: ApiV1GuildsGetResponse | undefined;
     design: ApiV1GuildsModulesLeaderboardGetResponse;
     pagination: ApiV1GuildsTopmembersPaginationGetResponse;
     currentCircular: "next" | "server" | undefined;
@@ -35,11 +36,36 @@ export default function Side({
         <div className="flex flex-col gap-3">
             {!!design}
 
-            <CopyToClipboardButton
-                className="w-full !justify-start"
-                text={getCanonicalUrl("leaderboard", guildId)}
-                icon={<HiShare />}
-            />
+            {guild &&
+                <div className="flex gap-2 w-full">
+                    <CopyToClipboardButton
+                        className="w-full !justify-start"
+                        title="Share this page"
+                        text={getCanonicalUrl("leaderboard", guild?.id as string)}
+                        icon={<HiShare />}
+                    />
+                    <Tooltip content="Share on Reddit" delay={0} closeDelay={0} showArrow>
+                        <Button
+                            as={Link}
+                            href={`https://reddit.com/submit?title=${encodeURIComponent(`${guild.name} discord leaderboard | wamellow.com`)}&text=${`Check out the leaderboard for ${guild.name} on wamellow.com! Join the server and be the top member :)${encodeURIComponent("\n\n")}${getCanonicalUrl("leaderboard", guild.id as string)}`}`}
+                            target="_blank"
+                            isIconOnly
+                        >
+                            <FaReddit />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip content="Share on Twitter/X" delay={0} closeDelay={0} showArrow>
+                        <Button
+                            as={Link}
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out the leaderboard for ${guild.name} on wamellow.com! Join and be the top member :)`)}&url=${encodeURIComponent(getCanonicalUrl("leaderboard", guild.id))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
+                            target="_blank"
+                            isIconOnly
+                        >
+                            <FaTwitter />
+                        </Button>
+                    </Tooltip>
+                </div>
+            }
 
             <Ad />
 
@@ -66,7 +92,7 @@ export default function Side({
                         <Button
                             as={Link}
                             className="w-full !justify-start mt-2"
-                            href={getCanonicalUrl("dashboard", guildId)}
+                            href={getCanonicalUrl("dashboard", guild?.id as string)}
                             startContent={<HiViewGridAdd />}
                         >
                             Dashboard
@@ -117,7 +143,7 @@ export default function Side({
                 show={modal}
                 onClose={() => setModal(false)}
                 onSubmit={() => {
-                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/top-members`, {
+                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/top-members`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -133,7 +159,7 @@ export default function Side({
                 Are you sure you want to delete the leaderboard? It will be gone forever, probably, who knows.
             </Modal>
 
-        </div>
+        </div >
     );
 
 }
