@@ -24,23 +24,23 @@ export default function Home() {
                         items={[
                             {
                                 name: "None",
-                                value: "0"
+                                value: 0
                             },
                             {
                                 name: "ETA to next milestone reach date",
-                                value: "1"
+                                value: 1
                             },
                             {
                                 name: "ETA to next milestone reach relative date",
-                                value: "2"
+                                value: 2
                             },
                             {
                                 name: "Custom text",
-                                value: "3",
+                                value: 3,
                                 error: "Not done yet"
                             }
                         ]}
-                        defaultState={user?.extended?.rank?.subText?.type?.toString()}
+                        defaultState={user?.extended?.rank?.subText?.type}
                         onSave={(options) => {
                             if (!user) return;
                             userStore.setState(deepMerge<User>(user, { extended: { rank: { subText: { type: Number(options.value) as 0 | 1 | 2 | 3 } } } }));

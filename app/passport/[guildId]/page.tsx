@@ -117,7 +117,9 @@ export default async function Home({ params }: PassportProps) {
                             </li>
                         </ul>
 
-                        <Verify guild={guild} />
+                        {typeof passport !== "object" &&
+                            <Verify guild={guild} />
+                        }
 
                     </div>
 
