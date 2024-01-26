@@ -1,9 +1,10 @@
 "use client";
 
-import { Accordion, AccordionItem, Button, Tooltip } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button, Code, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BsDiscord } from "react-icons/bs";
 import { FaReddit, FaTwitter } from "react-icons/fa";
 import { HiAnnotation, HiLink, HiShare, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
 
@@ -47,7 +48,7 @@ export default function Side({
                     <Tooltip content="Share on Reddit" delay={0} closeDelay={0} showArrow>
                         <Button
                             as={Link}
-                            href={`https://reddit.com/submit?title=${encodeURIComponent(`${guild.name} discord leaderboard | wamellow.com`)}&text=${`Check out the leaderboard for ${guild.name} on wamellow.com! Join the server and be the top member :)${encodeURIComponent("\n\n")}${getCanonicalUrl("leaderboard", guild.id as string)}`}`}
+                            href={`https://reddit.com/submit?title=${encodeURIComponent(`${guild.name} discord leaderboard | wamellow.com`)}&text=${`Check out the leaderboard for ${guild.name} on wamellow.com! Join ${guild.inviteUrl || "the server"} and be the top member :)${encodeURIComponent("\n\n")}${getCanonicalUrl("leaderboard", guild.id as string)}`}`}
                             target="_blank"
                             isIconOnly
                         >
@@ -57,7 +58,7 @@ export default function Side({
                     <Tooltip content="Share on Twitter/X" delay={0} closeDelay={0} showArrow>
                         <Button
                             as={Link}
-                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out the leaderboard for ${guild.name} on wamellow.com! Join and be the top member :)`)}&url=${encodeURIComponent(getCanonicalUrl("leaderboard", guild.id))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out the leaderboard for ${guild.name} on wamellow.com! Join ${guild.inviteUrl ? (guild.inviteUrl?.split("//")[1] + " ") : ""}and be the top member :)\n`)}&url=${encodeURIComponent(getCanonicalUrl("leaderboard", guild.id))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
                             target="_blank"
                             isIconOnly
                         >
@@ -65,6 +66,19 @@ export default function Side({
                         </Button>
                     </Tooltip>
                 </div>
+            }
+
+            {guild?.inviteUrl &&
+                <Button
+                    as={Link}
+                    className="w-full !justify-start"
+                    color="secondary"
+                    href={guild.inviteUrl}
+                    target="_blank"
+                    startContent={<BsDiscord />}
+                >
+                    Join {guild.name}
+                </Button>
             }
 
             <Ad />
@@ -134,6 +148,21 @@ export default function Side({
                     </div>
                 </AccordionItem>
 
+                {guild?.inviteUrl ?
+                    <AccordionItem
+                        key="4"
+                        aria-label="invite privacy"
+                        title="Invite privacy"
+                        classNames={{ content: "mb-2" }}
+                    >
+                        The invite on this sidebar is taken from the widget, if you want to remove the invite from this page, disable the widget in your discord server settings or remove <Code>Manage Guild</Code> permission from the bot.
+                        <br />
+                        <br />
+                        <strong>NOTE: </strong> It might take up to an hour for this page to update.
+                    </AccordionItem>
+                    :
+                    undefined as unknown as JSX.Element
+                }
             </Accordion>
 
             <Modal

@@ -72,7 +72,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
             <ScreenMessage
                 top="0rem"
                 title="No members to see here.."
-                description={"No members could be found on page " + searchParams.page || "1"}
+                description="No members could be found on this page"
                 buttons={<>
                     <HomeButton />
                     <AddButton />

@@ -37,6 +37,7 @@ export interface ApiV1GuildsGetResponse {
     banner: string | null;
     memberCount: number;
     premiumTier: number;
+    inviteUrl: string | undefined;
     follownewsChannel?: {
         id?: string;
         name?: string;
