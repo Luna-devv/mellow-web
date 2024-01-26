@@ -41,7 +41,8 @@ export interface ApiV1GuildsGetResponse {
     follownewsChannel?: {
         id?: string;
         name?: string;
-    }
+    };
+    ttsChannelId?: string | null;
 }
 
 export interface ApiV1GuildsTopmembersGetResponse {

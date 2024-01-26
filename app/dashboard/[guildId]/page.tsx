@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -9,12 +10,15 @@ import { HiChartBar, HiMail } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
+import { webStore } from "@/common/webstore";
+import Badge from "@/components/badge";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Modal from "@/components/modal";
 
 import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
 
 export default function Home() {
+    const web = webStore((w) => w);
     const user = userStore((s) => s);
     const guild = guildStore((g) => g);
 
@@ -43,11 +47,6 @@ export default function Home() {
                         <span className="ml-2">{guild?.follownewsChannel?.name ? "Change" : "Set"} channel</span>
                     </button>
                 </div>
-
-                {/* <button onClick={() => setModal(true)} className="ml-auto flex dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light dark:hover:text-white py-2 px-4 rounded-md duration-200 h-fit">
-                    <HiMail className="relative top-1" />
-                    <span className="ml-2">Change updates channel</span>
-                </button> */}
 
             </div>
 
@@ -91,6 +90,59 @@ export default function Home() {
                     }}
                 />
             </Modal>
+
+            <hr className="mt-6 mb-2 dark:border-wamellow-light border-wamellow-100-light" />
+            <span className="dark:text-neutral-500 text-neutral-400 text-sm flex">
+                This option will assign a channel to be the text input method for in-voicechat text to speech.
+                <Badge text="Beta" />
+            </span>
+
+            <div className="lg:flex gap-6 mt-5">
+                <div className="lg:w-1/2">
+                    <SelectMenu
+                        name="Text to Speech channel"
+                        url={`/guilds/${params.guildId}`}
+                        dataName="ttsChannelId"
+                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
+                        description="Select a channel what channel should be used for tts."
+                        defaultState={guild?.ttsChannelId}
+                        showClear
+                    />
+                </div>
+                <Accordion
+                    className="lg:w-1/2"
+                    defaultExpandedKeys={["1"]}
+                    disableAnimation={web.reduceMotions}
+                >
+                    <AccordionItem
+                        key="1"
+                        aria-label="how this works"
+                        title="How this works"
+                    >
+                        Users who are currently in a voice channel can send messages to this tts channel and the bot will then read the message out loud in vc. Note that the bot can only be in one voice channel at a time.
+                    </AccordionItem>
+                    <AccordionItem
+                        key="2"
+                        aria-label="how to blacklist users"
+                        title="How to blacklist users"
+                    >
+                        <div>Blacklist a user using discord channel permissions</div>
+                        <br />
+                        <Link
+                            href="https://cdn.waya.one/r/YcU2CC.gif"
+                            target="_blank"
+                        >
+                            <Image
+                                alt="blacklist a user with discord channel permissions"
+                                className="rounded-md"
+                                height={945 / 2}
+                                src="https://cdn.waya.one/r/YcU2CC.gif"
+                                width={1040 / 2}
+                            />
+                        </Link>
+                    </AccordionItem>
+                </Accordion>
+            </div>
 
             <hr className="mt-6 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
 
