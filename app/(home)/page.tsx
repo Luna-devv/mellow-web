@@ -443,7 +443,7 @@ export default async function Home() {
                 <span className={`${handwritten.className} text-2xl break-words`}>„{"FUCK EVERYTHING! EXCEPT LUNA, LUNA MUST BE PROTECTED AT ALL COSTS"}“</span>
             </div>
 
-            <div className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg mt-4 w-full">
+            <Box none className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg mt-4 w-full">
                 <div className="flex">
                     <Badge
                         before={<HiFire />}
@@ -474,7 +474,7 @@ export default async function Home() {
                         <div className="text-md dark:text-neutral-400 text-neutral-600 font-semibold">The commands list could not be loaded at this time</div>
                     </div>
                 }
-            </div>
+            </Box>
 
             <div className="h-6" />
 

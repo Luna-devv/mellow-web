@@ -6,6 +6,7 @@ import CountUp, { type CountUpProps } from "react-countup";
 import { HiInformationCircle } from "react-icons/hi";
 
 import cn from "@/utils/cn";
+import Box from "./box";
 
 export function ClientCountUp(props: Omit<CountUpProps, "duration">) {
     const [isInViewport, setIsInViewport] = useState(false);
@@ -58,7 +59,11 @@ export function StatsBar(options: Options) {
     }, []);
 
     return (
-        <div className="grid w-full rounded-md overflow-hidden" style={{ gridTemplateColumns: `repeat(${width > 768 ? options.items.length : 2}, minmax(0, 1fr))` }}>
+        <Box
+            none
+            className="grid w-full rounded-md overflow-hidden"
+            style={{ gridTemplateColumns: `repeat(${width > 768 ? options.items.length : 2}, minmax(0, 1fr))` }}
+        >
             {options.items.slice(0, width > 768 ? 10 : 2).map((item, i) => (
                 <div className={cn("p-5", i % 2 === 0 ? "dark:bg-wamellow bg-wamellow-100" : "dark:bg-wamellow/75 bg-wamellow-100/75")} key={"counter" + item.name + item.number.toString() + item.number.toString()}>
 
@@ -85,6 +90,6 @@ export function StatsBar(options: Options) {
                 </div>
             ))}
 
-        </div>
+        </Box>
     );
 }

@@ -105,7 +105,7 @@ export default async function RootLayout({
                         <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
                         <div className="text-sm font-semibold flex items-center gap-1">
                             <HiUsers /> {intl.format(guild?.memberCount || 0)}
-                            <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" /> Level {guild?.premiumTier || 0}
+                            <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" /> <span className="ml-2">Level {guild?.premiumTier || 0}</span>
                         </div>
                     </div>
                 </div>

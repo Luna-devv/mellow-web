@@ -137,7 +137,7 @@ export default function Home() {
             {tag ?
                 <>
 
-                    <div className="relative rounded-md overflow-hidden">
+                    <div className="relative rounded-md overflow-hidden p-[1px]">
                         <StatsBar
                             items={[
                                 {

@@ -5,6 +5,7 @@ import { HiIdentification } from "react-icons/hi";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 import Badge from "@/components/badge";
+import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
 import { ScreenMessage } from "@/components/screen-message";
 import { Nekostic, RouteErrorResponse } from "@/typings";
@@ -112,7 +113,7 @@ export default function Home() {
 
 function ChartArea(options: { name: string; data: Nekostic[]; dataKey: keyof Nekostic }) {
     return (
-        <div className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
+        <Box none className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
 
             <div className="flex mx-10 mt-5 ">
                 <span className="text-sm">{options.name}</span>
@@ -139,13 +140,13 @@ function ChartArea(options: { name: string; data: Nekostic[]; dataKey: keyof Nek
                 </AreaChart>
             </ResponsiveContainer>
 
-        </div>
+        </Box>
     );
 }
 
 function ChartBar(options: { name: string; data: Nekostic[]; dataKey: keyof CalcNames }) {
     return (
-        <div className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
+        <Box none className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
 
             <div className="flex mx-10 mt-5 ">
                 <span className="text-sm">{options.name}</span>
@@ -172,7 +173,7 @@ function ChartBar(options: { name: string; data: Nekostic[]; dataKey: keyof Calc
                 </BarChart>
             </ResponsiveContainer>
 
-        </div>
+        </Box>
     );
 }
 
