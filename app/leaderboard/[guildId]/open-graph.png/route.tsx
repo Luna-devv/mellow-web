@@ -9,7 +9,7 @@ import { truncate } from "@/utils/truncate";
 import { getGuild, getTopMembers } from "../api";
 import { LeaderboardProps } from "../layout";
 
-// export const revalidate = 3600; // 1 hour
+export const revalidate = 3600; // 1 hour
 
 export async function GET(
     request: NextRequest,
