@@ -23,6 +23,12 @@ const nextConfig = {
                 hostname: "image-api.wamellow.com",
                 port: "",
                 pathname: "/"
+            },
+            {
+                protocol: "https",
+                hostname: "the-net.loves-genshin.lol",
+                port: "",
+                pathname: "/images/ai/**"
             }
         ]
     }

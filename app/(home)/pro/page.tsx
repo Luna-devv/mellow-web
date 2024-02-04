@@ -6,7 +6,7 @@ import { HiChevronRight, HiLightningBolt, HiOutlineCheck, HiX } from "react-icon
 import { IoMdInfinite } from "react-icons/io";
 
 import Badge from "@/components/badge";
-import ServerGrid from "@/components/guild-grid";
+import ImageGrid from "@/components/image-grid";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
@@ -14,6 +14,10 @@ import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 const maybe = null;
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
+
+export const revalidate = 3600;
+
+const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
@@ -45,7 +49,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 export default async function Home() {
-    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
+    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
 
     const buttons = (
         <>
@@ -83,7 +87,7 @@ export default async function Home() {
                 <Badge text="Not available" />
             </div>
 
-            <ServerGrid guilds={topGuilds} />
+            {topGuilds && <ImageGrid images={topGuilds.map((guild) => ({ id: guild.name, url: guild.icon || "/discord.webp" }))} />}
 
             <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-10 w-full p-4 rounded-xl text-xl">
 

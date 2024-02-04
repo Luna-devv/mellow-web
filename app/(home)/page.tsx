@@ -11,8 +11,9 @@ import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordMessageFile from "@/components/discord/message-file";
-import ServerGrid from "@/components/guild-grid";
+import ImageGrid from "@/components/image-grid";
 import { ServerButton } from "@/components/server-button";
+import AiPic from "@/public/ai.webp";
 import ArrowPic from "@/public/arroww.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
 import SpacePic from "@/public/space.webp";
@@ -95,7 +96,7 @@ export default async function Home() {
                 </div>
             </div>
 
-            {topGuilds && <ServerGrid guilds={topGuilds} />}
+            {topGuilds && <ImageGrid images={topGuilds.map((guild) => ({ id: guild.name, url: guild.icon || "/discord.webp" }))} />}
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <span className="font-medium">
@@ -166,7 +167,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow-light"
                                     startContent={<HiArrowRight />}
-                                    href="/leaderboard/1055188344188973066"
+                                    href="/leaderboard/828676951023550495"
                                 >
                                     View Leaderboard
                                 </ServerButton>
@@ -351,14 +352,73 @@ export default async function Home() {
                         <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
                             <DiscordMessage {...messageProps("anime")}>
                                 <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+                                <Image
+                                    alt=""
+                                    className="rounded-md shadow-md w-56 sm:w-64 md:w-unset max-w-xs mt-2"
+                                    height={512}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    src={WaifuPic}
+                                    width={512}
+                                />
+                            </DiscordMessage>
+                        </div>
+                    </Box>
+                </div>
 
-                                <DiscordMessageEmbed
-                                    mode={"DARK"}
-                                    color={0xbc7ed4}
-                                    classname="max-w-min"
+                <div>
+                    <h2 className={styles.h2}>Create unique images with Ai 🏳️‍⚧️</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Unlock complimentary access to a variety of image generation models directly within your Discord server. Without paying a shit ton to MEE6.
+                    </div>
+
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiCash />}
+                                text="100% no money loss"
+                                classname="mr-auto ml-0 mb-4"
+                            />
+                            <h3 className={styles.h3}>/image command</h3>
+                            <div className="pt-6">
+                                Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
+                                Elevate your server to a haven for unique and dynamic AI-generated images, ensuring a delightful experience for all enthusiasts of the digital arts.
+                            </div>
+                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
+                                <Badge
+                                    before={<HiFire />}
+                                    text="NSFW Supported"
+                                    classname="mr-auto ml-0 mb-2"
+                                />
+                                <span className="text-base">
+                                    Generate spicy images and more in nsfw marked channels.
+                                </span>
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiArrowRight />}
+                                    href="/ai"
                                 >
-                                    <Image src={WaifuPic} itemProp="example anime image" alt="" width={640} height={905} loading="lazy" className="mt-2 rounded-md w-56 sm:w-64 md:w-unset max-w-xs" />
-                                </DiscordMessageEmbed>
+                                    View all models
+                                </ServerButton>
+                            </div>
+                        </div>
+
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordMessage {...messageProps("image")}>
+                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+                                <Image
+                                    alt=""
+                                    className="rounded-md shadow-md w-64 sm:w-72 md:w-unset max-w-md mt-2"
+                                    height={512}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    src={AiPic}
+                                    width={512}
+                                />
                             </DiscordMessage>
                         </div>
                     </Box>
@@ -370,7 +430,7 @@ export default async function Home() {
                         Level up your Discord support game with Wamellow{"'"}s custom respones, called tags!
                     </div>
 
-                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
                             <Badge
                                 before={<HiCash />}

@@ -320,6 +320,34 @@ export interface ApiV1GuildsModulesTagsGetResponse {
     createdAt: Date;
 }
 
+export interface ApiV1GuildsModulesEmbedmessagelinksGetResponse {
+    enabled: boolean;
+    color?: number | null;
+    display: 0 | 1 | 2;
+}
+
+export interface ApiV1GuildsModulesNsfwModerationGetResponse {
+    enabled: boolean;
+    logChannelId: string | null;
+    /**
+     * @example
+     * 0 - Nothing
+     * 1 - Ban
+     * 2 - Kick
+     * 3 - Delete message
+     */
+    punishment: 0 | 1 | 2 | 3;
+    timeout: number;
+
+    whitelistChannelIds: string[];
+    whitelistRoleIds: string[];
+}
+
+export interface ApiV1AiResponse {
+    title: string;
+    url: string;
+}
+
 export interface PronounsResponse {
     status: number;
     content: string[];

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiChevronRight, HiHome, HiUserAdd } from "react-icons/hi";
 
-import ServerGrid from "@/components/guild-grid";
+import ImageGrid from "@/components/image-grid";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ServerButton } from "@/components/server-button";
 import ArrowPic from "@/public/arroww.webp";
@@ -14,6 +14,10 @@ import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
+
+export const revalidate = 3600;
+
+const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
 
 export const generateMetadata = (): Metadata => {
 
@@ -49,7 +53,7 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } }).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
+    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
 
     return (
         <div className="flex items-center flex-col w-full">
@@ -62,7 +66,7 @@ export default async function RootLayout({
                 </h1>
             </div>
 
-            <ServerGrid guilds={topGuilds} />
+            {topGuilds && <ImageGrid images={topGuilds.map((guild) => ({ id: guild.name, url: guild.icon || "/discord.webp" }))} />}
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <div className="font-medium w-full grid grid-cols-2 md:flex flex-wrap h-min gap-2">
