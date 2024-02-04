@@ -1,16 +1,19 @@
+import { Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiInformationCircle, HiUserAdd } from "react-icons/hi";
+import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiHashtag, HiInformationCircle, HiUserAdd } from "react-icons/hi";
 
 import Badge from "@/components/badge";
 import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
+import DiscordChannelCategory from "@/components/discord/channel-category";
+import DiscordChannelVoice from "@/components/discord/channel-voice";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
-import DiscordMessageFile from "@/components/discord/message-file";
+import DiscordUser from "@/components/discord/user";
 import ImageGrid from "@/components/image-grid";
 import { ServerButton } from "@/components/server-button";
 import AiPic from "@/public/ai.webp";
@@ -64,7 +67,7 @@ export default async function Home() {
                 avatar: "/waya-v3-small.webp",
                 bot: true
             }
-        };
+        } as const;
     };
 
     const Invite = () => (
@@ -185,7 +188,7 @@ export default async function Home() {
                 <div>
                     <h2 className={styles.h2}>Next-Level text to speech, tts 🔊</h2>
                     <div className="my-8 max-w-md font-medium">
-                        Embrace the power of VoiceWave and let your messages speak everywhere you want! <span className="text-sm relative top-1 italic opacity-75">(Chat GPT called it VoiceWave)</span>
+                        Embrace the power of VoiceWave and let your messages speak everywhere you want! <span className="text-sm relative top-0.5 italic opacity-75">(Chat GPT called it VoiceWave)</span>
                     </div>
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
@@ -197,20 +200,35 @@ export default async function Home() {
                             />
                             <h3 className={styles.h3}>40 Voices in 5 Languages</h3>
                             <div className="pt-6">
-                                With Wamellow{"'"}s Text to Speech, you{"'"}re in control of transforming text into captivating speech across various languages and over 40 distinct voices.
-                                Whether you need standalone audio files or want to bring your text to life in a voice chat. Our TTS supports up to 4,000 characters!
+                                With Wamellow{"'"}s Text to Speech, you{"'"}re in control of transforming text into captivating speech.
+                                You can either generate files using <Code>/tts file</Code>, talk in voice chats with <Code>/tts voice</Code> or setup a deticated channel!
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiHashtag />}
+                                    href="https://cdn.waya.one/ZBHWbG.mp4"
+                                    target="_blank"
+                                >
+                                    Dedicated channel
+                                </ServerButton>
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
-                            <DiscordMessage {...messageProps("tts file")}>
-                                <DiscordMessageFile
-                                    mode={"DARK"}
-                                    duration={18}
-                                />
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg flex gap-4 items-center" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                            <DiscordChannelCategory name="#/voice/dev/null">
+                                <DiscordChannelVoice name="• Public">
+                                    <DiscordUser username="mwlica" avatar="/luna-small.webp" />
+                                    <DiscordUser username="Wamellow" avatar="/waya-v3-small.webp" isTalking />
+                                </DiscordChannelVoice>
+                            </DiscordChannelCategory>
+
+                            <div className="dark:bg-wamellow-light bg-wamellow-100-light w-0.5 h-28 rounded-full ml-2" />
+
+                            <DiscordMessage {...messageProps("tts voice")}>
+                                <Highlight mode={"DARK"} text="Now talking..." />
                             </DiscordMessage>
                         </div>
                     </Box>
