@@ -8,7 +8,7 @@ import Badge from "@/components/badge";
 import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
 import { ScreenMessage } from "@/components/screen-message";
-import { Nekostic, RouteErrorResponse } from "@/typings";
+import { NekosticResponse, RouteErrorResponse } from "@/typings";
 import { convertMonthToName } from "@/utils/time";
 
 interface CalcUses {
@@ -24,7 +24,7 @@ interface CalcNames {
 
 export default function Home() {
     const [error, setError] = useState<string>();
-    const [data, setData] = useState<Nekostic[]>();
+    const [data, setData] = useState<NekosticResponse[]>();
 
     useEffect(() => {
 
@@ -34,7 +34,7 @@ export default function Home() {
             }
         })
             .then(async (res) => {
-                const response = await res.json() as Nekostic[];
+                const response = await res.json() as NekosticResponse[];
                 if (!response) return;
 
                 switch (res.status) {
@@ -111,7 +111,7 @@ export default function Home() {
     );
 }
 
-function ChartArea(options: { name: string; data: Nekostic[]; dataKey: keyof Nekostic }) {
+function ChartArea(options: { name: string; data: NekosticResponse[]; dataKey: keyof NekosticResponse }) {
     return (
         <Box none className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
 
@@ -144,7 +144,7 @@ function ChartArea(options: { name: string; data: Nekostic[]; dataKey: keyof Nek
     );
 }
 
-function ChartBar(options: { name: string; data: Nekostic[]; dataKey: keyof CalcNames }) {
+function ChartBar(options: { name: string; data: NekosticResponse[]; dataKey: keyof CalcNames }) {
     return (
         <Box none className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
 
@@ -206,7 +206,7 @@ interface SnapshotData {
     };
 }
 
-function calcUses(data: Nekostic[]): CalcUses[] {
+function calcUses(data: NekosticResponse[]): CalcUses[] {
     const snapshotData: SnapshotData = {};
 
     for (const item of data) {
@@ -224,7 +224,7 @@ function calcUses(data: Nekostic[]): CalcUses[] {
     }));
 }
 
-function calcNameOccurrences(data: Nekostic[]): CalcNames[] {
+function calcNameOccurrences(data: NekosticResponse[]): CalcNames[] {
     const nameOccurrences: Record<string, number> = {};
 
     for (const item of data) {

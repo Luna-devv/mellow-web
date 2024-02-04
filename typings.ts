@@ -353,7 +353,7 @@ export interface PronounsResponse {
     content: string[];
 }
 
-export interface Nekostic {
+export interface NekosticResponse {
     event: string;
     name: string;
     uses: number

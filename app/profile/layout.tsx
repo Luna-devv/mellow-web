@@ -2,7 +2,7 @@
 
 import { Skeleton } from "@nextui-org/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { HiChartPie, HiHome, HiMusicNote, HiPhotograph, HiTranslate } from "react-icons/hi";
 
@@ -109,43 +109,45 @@ export default function RootLayout({
                 </div>
             </div>
 
-            <ListTab
-                tabs={[
-                    {
-                        name: "Overview",
-                        value: "/",
-                        icon: <HiHome />
-                    },
-                    {
-                        name: "Rank",
-                        value: "/rank",
-                        icon: <HiPhotograph />
-                    },
-                    {
-                        name: "Text to Speech",
-                        value: "/text-to-speech",
-                        icon: <HiTranslate />
-                    },
-                    {
-                        name: "Spotify",
-                        value: "/spotify",
-                        icon: <HiMusicNote />
-                    },
-                    ...(user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY ?
-                        [
-                            {
-                                name: "Analytics",
-                                value: "/analytics",
-                                icon: <HiChartPie />
-                            }
-                        ]
-                        :
-                        []
-                    )
-                ]}
-                url={"/profile"}
-                disabled={!user?.id || !!error}
-            />
+            <Suspense>
+                <ListTab
+                    tabs={[
+                        {
+                            name: "Overview",
+                            value: "/",
+                            icon: <HiHome />
+                        },
+                        {
+                            name: "Rank",
+                            value: "/rank",
+                            icon: <HiPhotograph />
+                        },
+                        {
+                            name: "Text to Speech",
+                            value: "/text-to-speech",
+                            icon: <HiTranslate />
+                        },
+                        {
+                            name: "Spotify",
+                            value: "/spotify",
+                            icon: <HiMusicNote />
+                        },
+                        ...(user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY ?
+                            [
+                                {
+                                    name: "Analytics",
+                                    value: "/analytics",
+                                    icon: <HiChartPie />
+                                }
+                            ]
+                            :
+                            []
+                        )
+                    ]}
+                    url={"/profile"}
+                    disabled={!user?.id || !!error}
+                />
+            </Suspense>
 
             {error ?
                 <ScreenMessage

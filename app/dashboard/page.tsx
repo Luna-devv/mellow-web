@@ -30,8 +30,6 @@ export default function Home() {
     const [search, setSearch] = useState<string>("");
     const [display, setDisplay] = useState<"LIST" | "GRID">("GRID");
 
-    const searchParams = useSearchParams();
-
     function filter(guild: UserGuild) {
         if (!search) return true;
 
@@ -190,20 +188,8 @@ export default function Home() {
                                 <div className="ml-3 text-sm relative bottom-1">
                                     <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1">{truncate(guild.name, 20)}</div>
                                     <span className="flex gap-2">
-                                        <Button
-                                            as={Link}
-                                            href={`/dashboard/${guild.id}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
-                                            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
-                                        >
-                                            Manage
-                                        </Button>
-                                        <Button
-                                            as={Link}
-                                            href={`/leaderboard/${guild.id}`}
-                                            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 opacity-0 group-hover/card:opacity-100"
-                                        >
-                                            Leaderboard
-                                        </Button>
+                                        <ManageButton guildId={guild.id} />
+                                        <LeaderboardButton guildId={guild.id} />
                                     </span>
                                 </div>
 
@@ -248,5 +234,31 @@ export default function Home() {
             }
 
         </div>
+    );
+}
+
+function ManageButton({ guildId }: { guildId: string }) {
+    const searchParams = useSearchParams();
+
+    return (
+        <Button
+            as={Link}
+            href={`/dashboard/${guildId}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
+            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
+        >
+            Manage
+        </Button>
+    );
+}
+
+function LeaderboardButton({ guildId }: { guildId: string }) {
+    return (
+        <Button
+            as={Link}
+            href={`/leaderboard/${guildId}`}
+            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 opacity-0 group-hover/card:opacity-100"
+        >
+            Leaderboard
+        </Button>
     );
 }

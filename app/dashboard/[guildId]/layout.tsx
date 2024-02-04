@@ -4,8 +4,8 @@ import { Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
+import { Suspense, useEffect, useState } from "react";
+import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { webStore } from "@/common/webstore";
@@ -208,37 +208,44 @@ export default function RootLayout({
 
             </div>
 
-            <ListTab
-                tabs={[
-                    {
-                        name: "Overview",
-                        value: "/",
-                        icon: <HiHome />
-                    },
-                    {
-                        name: "Leaderboards",
-                        value: "/leaderboards",
-                        icon: <HiChartBar />
-                    },
-                    {
-                        name: "Greetings",
-                        value: "/greeting",
-                        icon: <HiUserAdd />
-                    },
-                    {
-                        name: "Starboard",
-                        value: "/starboard",
-                        icon: <HiStar />
-                    },
-                    {
-                        name: "Custom Commands",
-                        value: "/custom-commands",
-                        icon: <HiCode />
-                    }
-                ]}
-                url={`/dashboard/${params.guildId}`}
-                disabled={!guild?.id || !!error}
-            />
+            <Suspense>
+                <ListTab
+                    tabs={[
+                        {
+                            name: "Overview",
+                            value: "/",
+                            icon: <HiHome />
+                        },
+                        {
+                            name: "Leaderboards",
+                            value: "/leaderboards",
+                            icon: <HiChartBar />
+                        },
+                        {
+                            name: "Greetings",
+                            value: "/greeting",
+                            icon: <HiUserAdd />
+                        },
+                        {
+                            name: "Starboard",
+                            value: "/starboard",
+                            icon: <HiStar />
+                        },
+                        {
+                            name: "Custom Commands",
+                            value: "/custom-commands",
+                            icon: <HiCode />
+                        },
+                        {
+                            name: "NSFW Image Moderation",
+                            value: "/nsfw-image-scanning",
+                            icon: <HiEye />
+                        }
+                    ]}
+                    url={`/dashboard/${params.guildId}`}
+                    disabled={!guild?.id || !!error}
+                />
+            </Suspense>
 
             {error ?
                 <ScreenMessage
