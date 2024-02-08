@@ -7,9 +7,6 @@ import { BsDiscord } from "react-icons/bs";
 import { HiChevronRight, HiLightningBolt, HiUserAdd } from "react-icons/hi";
 
 import Badge from "@/components/badge";
-import Box from "@/components/box";
-import Highlight from "@/components/discord/markdown";
-import DiscordMessage from "@/components/discord/message";
 import ImageGrid from "@/components/image-grid";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ServerButton } from "@/components/server-button";
@@ -56,29 +53,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export default async function Home() {
     const models = await fetch(`${process.env.NEXT_PUBLIC_API}/ai`, fetchOptions).then((res) => res.json()) as ApiV1AiResponse[];
-    const query = "girl below sakura tree";
 
     const styles = {
         h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-400 font-bold underline decoration-violet-400"),
         h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
-    };
-
-    const messageProps = () => {
-        return {
-            mode: "DARK" as const,
-            commandUsed: {
-                name: "image",
-                username: "@mwlica",
-                avatar: "/luna-small.webp",
-                bot: false
-            },
-
-            user: {
-                username: "Wamellow",
-                avatar: "/waya-v3-small.webp",
-                bot: true
-            }
-        };
     };
 
     return (
@@ -96,7 +74,7 @@ export default async function Home() {
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <span className="font-medium">
-                    Unlock complimentary access to a variety of image generation models directly within your Discord server. Powered by LuxuryLabs
+                    Unlock complimentary access to a variety of free image generation models directly within your Discord server. Powered by LuxuryLabs.
                 </span>
 
                 <div className="flex flex-col min-w-full lg:min-w-[420px]">
@@ -140,34 +118,33 @@ export default async function Home() {
             <div className="w-full">
                 <h2 className={styles.h2}>/image command</h2>
                 <div className="my-8 max-w-2xl font-medium">
-                    We recommend that you play around with each model yourself as this page uses the same <Code>{query}</Code> query for everything, even non-anime models.
+                    We recommend that you play around with each model yourself as this page uses the same query for everything, even non-anime models.
+                    <br />
+                    <br />
+                    <Code className="select-all">query: anime girl, close up, intricate details, dramatic lighting, bloom, highly detailed, micro details</Code>
+                    <Code className="select-all">negative-query: (poorly drawn face)++, (dark skin, tan skin)++, (character out of frame)1.3, bad quality, low-res, (monochrome)1.1, (grayscale)1.3, acne, skin blemishes, bad anatomy, text, error, missing fingers, extra limbs, missing limbs, cut off</Code>
                 </div>
             </div>
 
-            <article itemScope itemType="http://schema.org/Article" className="grid grid-cols-2 gap-6 mb-10 w-full">
+            <article itemScope itemType="http://schema.org/Article" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 w-full">
 
                 {models.map((item, i) => (
-                    <Box key={item.title + i} small className="gap-10 items-center w-full">
-                        <h3 className={styles.h3}>{item.title}</h3>
-                        <div className="mt-2 mb-6">
-                            <Code className="select-all" color="secondary">/image query:{query} model:{item.title}</Code>
+                    <div key={item.title + i} className="gap-10 items-center w-full relative max-w-lg hover:scale-105 duration-200">
+                        <Image
+                            alt=""
+                            className="rounded-xl shadow-md w-full mt-2"
+                            height={512}
+                            itemProp="image"
+                            loading="lazy"
+                            src={item.url}
+                            width={512}
+                        />
+                        <div className="absolute bottom-0 left-0 w-full">
+                            <div className="bg-wamellow/80 backdrop-blur-md m-2 p-2 rounded-xl">
+                                <h3 className={styles.h3}>{item.title}</h3>
+                            </div>
                         </div>
-
-                        <div className="w-full px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
-                            <DiscordMessage {...messageProps()}>
-                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
-                                <Image
-                                    alt=""
-                                    className="rounded-md shadow-md max-w-lg w-full mt-2"
-                                    height={512}
-                                    itemProp="image"
-                                    loading="lazy"
-                                    src={item.url}
-                                    width={512}
-                                />
-                            </DiscordMessage>
-                        </div>
-                    </Box>
+                    </div>
                 ))}
             </article>
 
