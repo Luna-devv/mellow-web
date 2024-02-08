@@ -5,6 +5,7 @@ import { Metadata, Viewport } from "next";
 import { Montserrat, Outfit } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { SiKofi } from "react-icons/si";
 
 import Header from "@/components/header";
@@ -43,7 +44,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
 
         description,
-        keywords: ["discord", "bot", "discord bot", "waya", "waya bot", "waya.one", "mwya", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify", "captcha.bot", "security", "tts", "free", "customizable", "next-gen", "next generation"],
+        keywords: ["discord", "bot", "app", "intefration", "discord bot", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify", "captcha.bot", "security", "tts", "text to speech", "free", "customizable", "next-gen", "next generation", "ai", "ai images", "nsfw detection", "moderation", "anime", "nekos", "waifus", "chat to speech"],
 
         alternates: {
             canonical: getBaseUrl()
@@ -57,7 +58,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             description,
             type: "website",
             url: getBaseUrl(),
-            images: `${getBaseUrl()}/waya-v3.jpg`
+            images: `${getBaseUrl()}/waya-v3.jpg?v=2`
         },
 
         twitter: {
@@ -65,7 +66,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             site: "wamellow.com",
             title,
             description,
-            images: `${getBaseUrl()}/waya-v3.jpg`
+            images: `${getBaseUrl()}/waya-v3.jpg?v=2`
         },
 
         creator: "Luna (lunish.nl)",
@@ -82,6 +83,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden bg-[var(--background-rgb)]">
+
+            <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
+
             <body className={`${outfit.className} w-full max-w-7xl`}>
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">

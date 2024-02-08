@@ -40,9 +40,10 @@ export default async function Home() {
         .replaceAll(/waya\.one/gi, "wamellow.com")
         .replaceAll(/waya#0325/gi, "Wamellow#1138")
         .replaceAll(/waya/gi, "wamellow")
-        .replaceAll("/config command", "web dashboard (wamellow.com/dashboard)")
+        .replaceAll("/config command with our application on Discord", "web dashboard (wamellow.com/dashboard and wamellow.com/profile)")
         .replaceAll("@wamellow.com", "@waya.one")
-        .replaceAll("If you wish to export server data, you may do so by navigating to the `/config` menu and selecting the ‘Export Data’ option.", "");
+        .replaceAll("Google Analytics", "a self-hosted instance of Plausible Analytics")
+        .replaceAll("navigating to the `/config` menu and selecting the ‘Export Data’ option.", "");
 
     return (
         <div>
