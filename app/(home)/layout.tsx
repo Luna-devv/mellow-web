@@ -8,6 +8,7 @@ import { SiKofi } from "react-icons/si";
 
 import TopggIcon from "@/components/icons/topgg";
 import { ServerButton } from "@/components/server-button";
+import BlahajPic from "@/public/blahaj.webp";
 import PronounsPic from "@/public/pronouns-bot.webp";
 
 export default async function RootLayout({
@@ -114,6 +115,10 @@ export default async function RootLayout({
                     </ServerButton>
                 </div>
 
+            </div>
+
+            <div className="w-full flex justify-center mt-20 mb-4 hover:rotate-2 duration-500">
+                <Image src={BlahajPic} alt="Blahaj" width={1500 / 2} height={775 / 2} className="h-42" />
             </div>
 
         </div>
