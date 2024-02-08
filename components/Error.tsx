@@ -9,6 +9,9 @@ interface Props {
     type?: "error" | "info"
 }
 
+/**
+ * @deprecated
+ */
 const ErrorBanner: FunctionComponent<Props> = ({ message, removeButton, type }) => {
     return (
         <span className={`w-full text-neutral-100 ${type === "info" ? "bg-blue-400/40" : "bg-red-400/40"} py-2 px-4 mb-6 rounded-md flex gap-2 items-center`}>

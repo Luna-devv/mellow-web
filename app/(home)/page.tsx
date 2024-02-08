@@ -3,7 +3,7 @@ import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiHashtag, HiInformationCircle, HiUserAdd } from "react-icons/hi";
+import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiHashtag, HiInformationCircle, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
 import Badge from "@/components/badge";
 import Box from "@/components/box";
@@ -18,6 +18,7 @@ import ImageGrid from "@/components/image-grid";
 import { ServerButton } from "@/components/server-button";
 import AiPic from "@/public/ai.webp";
 import ArrowPic from "@/public/arroww.webp";
+import CaptchaPic from "@/public/captcha.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
 import SpacePic from "@/public/space.webp";
 import WaifuPic from "@/public/waifu.webp";
@@ -217,7 +218,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg flex gap-4 items-center" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center gap-4 min-h-56" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
                             <DiscordChannelCategory name="#/voice/dev/null">
                                 <DiscordChannelVoice name="• Public">
                                     <DiscordUser username="mwlica" avatar="/luna-small.webp" />
@@ -225,7 +226,7 @@ export default async function Home() {
                                 </DiscordChannelVoice>
                             </DiscordChannelCategory>
 
-                            <div className="dark:bg-wamellow-light bg-wamellow-100-light w-0.5 h-28 rounded-full ml-2" />
+                            <div className="bg-[#313338] h-0.5 w-full sm:w-0.5 sm:h-32 md:h-0.5 md:w-full lg:w-0.5 lg:h-32 rounded-full ml-2" />
 
                             <DiscordMessage {...messageProps("tts voice")}>
                                 <Highlight mode={"DARK"} text="Now talking..." />
@@ -334,12 +335,57 @@ export default async function Home() {
                 </div>
 
                 <div>
+                    <h2 className={styles.h2}>Verify members w/ Passport</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Secure your server from raider attacks and ensure that only verified members can access your channels.
+                    </div>
+
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Badge
+                                before={<HiFingerPrint />}
+                                text="Of course it's free"
+                                classname="mr-auto ml-0 mb-4"
+                            />
+                            <h3 className={styles.h3}>Captcha verification</h3>
+                            <div className="pt-6">
+                                Protect your server from unwanted attacks such as bot-raids with our captcha verification system.
+                                Ensure that only verified members can access your channels, safeguarding your server from raider attacks and ensuring a safe and secure environment for all your members.
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiLockOpen />}
+                                    href="/passport/1125063180801036329"
+                                >
+                                    Try it out
+                                </ServerButton>
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow-light"
+                                    startContent={<HiArrowRight />}
+                                    href="/dashboard?to=greeting"
+                                >
+                                    Setup
+                                </ServerButton>
+                            </div>
+                        </div>
+
+                        <div className="w-full md:w-1/2 flex justify-center">
+                            <Image src={CaptchaPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" className="max-w-56" />
+                        </div>
+                    </Box>
+                </div>
+
+                <div>
                     <h2 className={styles.h2}>Watchin{"'"} Anime ❤️</h2>
                     <div className="my-8 max-w-md font-medium">
                         They{"'"}re like windows to stories that provide the perfect distraction, letting you take a breather before diving back into the real world.
                     </div>
 
-                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
                             <Badge
                                 before={<HiCash />}
@@ -372,7 +418,7 @@ export default async function Home() {
                                 <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
                                 <Image
                                     alt=""
-                                    className="rounded-md shadow-md w-56 sm:w-64 md:w-unset max-w-xs mt-2"
+                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-xs mt-2"
                                     height={512}
                                     itemProp="image"
                                     loading="lazy"
@@ -390,7 +436,7 @@ export default async function Home() {
                         Unlock complimentary access to a variety of image generation models directly within your Discord server. Without paying a shit ton to MEE6.
                     </div>
 
-                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
                             <Badge
                                 before={<HiCash />}
@@ -430,7 +476,7 @@ export default async function Home() {
                                 <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
                                 <Image
                                     alt=""
-                                    className="rounded-md shadow-md w-64 sm:w-72 md:w-unset max-w-md mt-2"
+                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
                                     height={512}
                                     itemProp="image"
                                     loading="lazy"
@@ -448,7 +494,7 @@ export default async function Home() {
                         Level up your Discord support game with Wamellow{"'"}s custom respones, called tags!
                     </div>
 
-                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
                             <Badge
                                 before={<HiCash />}

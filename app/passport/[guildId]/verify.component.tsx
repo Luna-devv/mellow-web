@@ -136,6 +136,8 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
             {
                 (user && !user.id) || error?.includes("email") ?
                     <Button
+                        as={Link}
+                        href="/login"
                         className="button-blurple font-medium w-full"
                         startContent={<BsDiscord />}
                     >

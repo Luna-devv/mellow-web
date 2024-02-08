@@ -1,12 +1,14 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiUsers, HiX } from "react-icons/hi";
 
-import ErrorBanner from "@/components/Error";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListFeature } from "@/components/list";
+import Notice, { NoticeType } from "@/components/notice";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
+import { ServerButton } from "@/components/server-button";
 import paintPic from "@/public/paint.webp";
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -69,7 +71,21 @@ export default async function Home({ params }: PassportProps) {
             }
 
             {typeof passport === "object" && "statusCode" in passport &&
-                <ErrorBanner message={(passport as Record<string, string>).message} removeButton />
+                <Notice type={NoticeType.Error} message={(passport as Record<string, string>).message} />
+            }
+
+            {guild.id === "1125063180801036329" &&
+                <Notice type={NoticeType.Info} message="This is a demo server to test out passport verification." >
+                    <ServerButton
+                        as={Link}
+                        color="secondary"
+                        href="https://discord.gg/2nrK8DfjPt"
+                        target="_blank"
+                        startContent={<BsDiscord />}
+                    >
+                        Join Server
+                    </ServerButton>
+                </Notice>
             }
 
             <div className="grid md:flex gap-6">
