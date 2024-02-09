@@ -1,11 +1,11 @@
 "use client";
 
-import { Button, Skeleton } from "@nextui-org/react";
+import { Button, Chip, Skeleton, Switch, Tooltip } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { HiArrowNarrowRight, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiViewGridAdd } from "react-icons/hi";
+import { HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiLogout, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
@@ -58,7 +58,7 @@ export default function Header(props: React.ComponentProps<"div">) {
         <button className={cn("ml-auto flex dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center", menu && "dark:bg-wamellow bg-wamellow-100")} onClick={() => setMenu(!menu)}>
 
             <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
-                <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={64} alt="your avatar" />
+                <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={96} alt="your avatar" />
             </Skeleton>
 
             {!user?.id ?
@@ -76,6 +76,7 @@ export default function Header(props: React.ComponentProps<"div">) {
     const split = { type: "split" };
 
     const buttons = [
+        split,
         {
             name: "Dashboard",
             icon: <HiViewGridAdd />,
@@ -119,8 +120,7 @@ export default function Header(props: React.ComponentProps<"div">) {
             ]
             :
             []
-        ),
-        split
+        )
     ];
 
     const UserDropdown = (
@@ -141,12 +141,36 @@ export default function Header(props: React.ComponentProps<"div">) {
                 }
             }}
             className="
-                relative top-2 sm:right-56 w-full sm:w-60 dark:bg-wamellow bg-wamellow-100 rounded-md text-base overflow-hidden shadow-md
-                flex flex-col pt-1
-                max-sm:[--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
-                max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
+                relative top-2 sm:right-[268px] w-full sm:w-72 dark:bg-wamellow bg-wamellow-100 rounded-xl text-base overflow-hidden shadow-md
+                flex flex-col py-2 sm:py-1 p-2 sm:p-0
+                [--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
+                [--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
             "
         >
+            <div className="flex items-center space-x-3 px-4 py-2">
+                <Skeleton isLoaded={!!user?.id} className="rounded-full h-14 w-14 sm:h-10 sm:w-10 shrink-0">
+                    <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="your avatar" />
+                </Skeleton>
+                <div className="w-full">
+                    <div className="dark:text-neutral-200 text-neutral-800 truncate max-w-44 flex items-center gap-2">
+                        <span className="font-medium text-xl sm:text-base">{user?.global_name || `@${user?.username}`}</span>
+                        {user?.id === "821472922140803112" &&
+                            <Chip color="secondary" size="sm" variant="flat" startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}>
+                                <span className="font-bold">Developer</span>
+                            </Chip>
+                        }
+                    </div>
+                    <div className="text-neutral-500 dark:text-neutral-400 max-w-40 truncate">
+                        <span className="text-medium sm:text-sm">@{user?.username}</span>
+                    </div>
+                </div>
+                <Tooltip content="Logout" closeDelay={0} showArrow>
+                    <Link href="/login?logout=true" className="ml-auto text-red-500 m-4">
+                        <HiLogout className="h-6 w-6 sm:h-4 sm:w-4" />
+                    </Link>
+                </Tooltip>
+            </div>
+
             {buttons.map((button, i) => {
                 if ("type" in button && button.type === "split") {
                     return <hr key={"headerButton-" + button.type + i} className="my-1 mx-0 dark:border-wamellow-light border-wamellow-100-light" />;
@@ -158,7 +182,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                             key={"headerButton-" + button.name + button.url}
                             as={Link}
                             href={button.url}
-                            className="w-full !justify-start"
+                            className="w-full font-medium !justify-start !text-xl !my-1 sm:!text-medium sm:!my-0"
                             onClick={() => setMenu(false)}
                             startContent={button.icon}
                         >
@@ -174,28 +198,22 @@ export default function Header(props: React.ComponentProps<"div">) {
                             className="flex items-center px-4 pt-2 pb-3"
                         >
                             {button.icon}
-                            <span className="ml-2">{button.name}</span>
-                            <label className="ml-auto relative inline-flex items-center cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="sr-only peer"
-                                    checked={button.value}
-                                    onClick={button.onChange}
-                                />
-                                <div
-                                    className="w-11 h-6 bg-neutral-300 rounded-full peer dark:bg-neutral-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-600"
-                                />
-                            </label>
+                            <span className="ml-2 text-xl my-1 sm:text-medium sm:my-0">{button.name}</span>
+                            <Switch
+                                key={"headerButton-" + button.name}
+                                className="ml-auto"
+                                isSelected={button.value}
+                                onValueChange={button.onChange}
+                                aria-label={button.name}
+                                color="secondary"
+                                size="sm"
+                            />
                         </div>
+
                     );
                 }
 
             })}
-
-            <Link href="/login?logout=true" className="hover:bg-danger dark:text-red-400 text-red-500 dark:hover:text-red-100 hover:text-neutral-800 pt-2 pb-3 px-4 w-full duration-200 flex items-center" onClick={() => setMenu(false)}>
-                <HiArrowNarrowRight />
-                <span className="ml-2">Logout</span>
-            </Link>
         </motion.div>
     );
 
@@ -213,8 +231,10 @@ export default function Header(props: React.ComponentProps<"div">) {
             >
                 <AnimatePresence initial={false}>
                     {user?.id && menu &&
-                        <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 select-none overflow-x-hidden">
-                            <div className="ml-auto overflow-x-hidden"><div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full">{UserDropdown}</div></div>
+                        <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 overflow-x-hidden">
+                            <div className="ml-auto">
+                                <div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full">{UserDropdown}</div>
+                            </div>
                         </div>
                     }
                 </AnimatePresence>

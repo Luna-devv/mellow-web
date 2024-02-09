@@ -44,7 +44,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
 
         description,
-        keywords: ["discord", "bot", "app", "intefration", "discord bot", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify", "captcha.bot", "security", "tts", "text to speech", "free", "customizable", "next-gen", "next generation", "ai", "ai images", "nsfw detection", "moderation", "anime", "nekos", "waifus", "chat to speech"],
+        keywords: ["discord", "bot", "app", "intefration", "discord bot", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish.nl", "Luna-devv", "mee6 alternative", "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboard", "lb", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify", "captcha.bot", "security", "tts", "text to speech", "free", "customizable", "next-gen", "next generation", "ai", "ai images", "nsfw detection", "moderation", "anime", "nekos", "waifus", "chat to speech", "liapew"],
 
         alternates: {
             canonical: getBaseUrl()
@@ -99,7 +99,7 @@ export default function RootLayout({
 
                 <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7 h-20">
                     <Link href="/" className={`${montserrat.className} font-semibold flex items-center mr-2`}>
-                        <Image src="/waya-v3-small.webp" width={34} height={34} alt="" className="rounded-full mr-2" />
+                        <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8" />
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>
 
