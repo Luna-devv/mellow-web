@@ -2,8 +2,8 @@ import { Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { BsDiscord } from "react-icons/bs";
-import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiHashtag, HiInformationCircle, HiLockOpen, HiUserAdd } from "react-icons/hi";
+import { BsDiscord, BsYoutube } from "react-icons/bs";
+import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiInformationCircle, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
 import Badge from "@/components/badge";
 import Box from "@/components/box";
@@ -209,11 +209,11 @@ export default async function Home() {
                                 <ServerButton
                                     as={Link}
                                     className="bg-wamellow-light"
-                                    startContent={<HiHashtag />}
-                                    href="https://cdn.waya.one/ZBHWbG.mp4"
+                                    startContent={<BsYoutube />}
+                                    href="https://youtu.be/NS5fZ1ltovE?si=I3nViYb4sx3n3Uvo"
                                     target="_blank"
                                 >
-                                    Dedicated channel
+                                    Watch YouTube Video
                                 </ServerButton>
                             </div>
                         </div>
@@ -580,7 +580,7 @@ export default async function Home() {
                     </div>
                 </div>
                 {Array.isArray(commands) && commands
-                    .filter((command) => ["tts", "rank", "leaderboard", "anime"].includes(command.name))
+                    .sort((a, b) => b.uses - a.uses)
                     .map((command, i) => (
                         <div key={command.name} className={cn("text-base py-4 flex flex-col md:flex-row gap-4 md:items-center", i + 1 !== 4 && "border-b border-wamellow-alpha")}>
                             <div className="-mb-2 md:mb-0 flex items-center h-min">
@@ -591,6 +591,7 @@ export default async function Home() {
                             <span className="ml-auto italic text-sm hidden md:block">{intl.format(command.uses)} uses</span>
                         </div>
                     ))
+                    .slice(0, 4)
                 }
                 {(!commands || !Array.isArray(commands)) &&
                     <div className="flex flex-col items-center my-10">
