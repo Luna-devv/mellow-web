@@ -14,7 +14,7 @@ If you need help developing with this, join **[our Discord Server](https://disco
 Clone this repo with the following commands:
 
 ```bash
-git clone [https://github.com/Luna-devv/nekostic](https://github.com/Luna-devv/mellow-web)
+git clone https://github.com/Luna-devv/mellow-web
 ```
 
 Create a `.env` file and add the following values:
