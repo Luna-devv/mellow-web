@@ -4,13 +4,30 @@ interface Props {
     params: { pathname: string }
 }
 
-export default function Home({ params }: Props) {
+const fetchOptions = { next: { revalidate: 60 * 60 } };
+
+export default async function Home({ params }: Props) {
 
     switch (params.pathname) {
         case "support":
             return redirect("https://discord.com/invite/DNyyA2HFM9");
         case "vote":
             return redirect("https://top.gg/bot/1125449347451068437/vote");
+        case "invite":
+        case "add":
+        case "get":
+            return redirect("/login?invite=true");
+        case "logout":
+            return redirect("/login?logout=true");
+        case "youtube":
+        case "docs":
+        case "guides": {
+            const res = await fetch("http://100.65.0.1:5001/?channel_id=UClWBeVcz5LUmcCN1gHG_GCg", fetchOptions)
+                .then((res) => res.json())
+                .catch(() => null) as { videoUrl: string } | null;
+
+            redirect(res?.videoUrl || "https://www.youtube.com/channel/UClWBeVcz5LUmcCN1gHG_GCg");
+        }
     }
 
     notFound();
