@@ -87,7 +87,16 @@ export default async function Home() {
                 <Badge text="Not available" />
             </div>
 
-            {topGuilds && <ImageGrid images={topGuilds.map((guild) => ({ id: guild.name, url: guild.icon || "/discord.webp" }))} />}
+            {topGuilds &&
+                <ImageGrid images={topGuilds
+                    .sort((a, b) => b.memberCount - a.memberCount)
+                    .map((guild) => ({
+                        id: guild.id,
+                        url: guild.icon || "/discord.webp",
+                        link: getCanonicalUrl("leaderboard", guild.id)
+                    }))}
+                />
+            }
 
             <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-10 w-full p-4 rounded-xl text-xl">
 

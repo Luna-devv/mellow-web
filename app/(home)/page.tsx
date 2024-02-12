@@ -26,6 +26,7 @@ import WelcomePic from "@/public/welcome.webp";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { convertMonthToName } from "@/utils/time";
+import { getCanonicalUrl } from "@/utils/urls";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
@@ -100,7 +101,16 @@ export default async function Home() {
                 </div>
             </div>
 
-            {topGuilds && <ImageGrid images={topGuilds.map((guild) => ({ id: guild.name, url: guild.icon || "/discord.webp" }))} />}
+            {topGuilds &&
+                <ImageGrid images={topGuilds
+                    .sort((a, b) => b.memberCount - a.memberCount)
+                    .map((guild) => ({
+                        id: guild.id,
+                        url: guild.icon || "/discord.webp",
+                        link: getCanonicalUrl("leaderboard", guild.id)
+                    }))}
+                />
+            }
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <span className="font-medium">

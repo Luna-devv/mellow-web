@@ -1,4 +1,5 @@
 export interface ApiV1TopguildsGetResponse {
+    id: string;
     name: string;
     icon: string | null;
     memberCount: number;

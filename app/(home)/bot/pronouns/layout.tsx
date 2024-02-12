@@ -66,7 +66,16 @@ export default async function RootLayout({
                 </h1>
             </div>
 
-            {topGuilds && <ImageGrid images={topGuilds.map((guild) => ({ id: guild.name, url: guild.icon || "/discord.webp" }))} />}
+            {topGuilds &&
+                <ImageGrid images={topGuilds
+                    .sort((a, b) => b.memberCount - a.memberCount)
+                    .map((guild) => ({
+                        id: guild.id,
+                        url: guild.icon || "/discord.webp",
+                        link: getCanonicalUrl("leaderboard", guild.id)
+                    }))}
+                />
+            }
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <div className="font-medium w-full grid grid-cols-2 md:flex flex-wrap h-min gap-2">
