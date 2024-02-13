@@ -18,7 +18,7 @@ export default function Home() {
     const guild = guildStore((g) => g);
     const params = useParams();
 
-    const url = `/guilds/${params.guildId}/modules/nsfw-image-scanning`;
+    const url = `/guilds/${params.guildId}/modules/nsfw-image-scanning` as const;
 
     const [data, setData] = useState<ApiV1GuildsModulesNsfwModerationGetResponse | null>(null);
 

@@ -1,9 +1,9 @@
-
 "use client";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import Highlight from "@/components/discord/markdown";
@@ -14,14 +14,31 @@ import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import { ScreenMessage } from "@/components/screen-message";
-import { ApiV1GuildsModulesStarboardGetResponse, RouteErrorResponse } from "@/typings";
+import { getData } from "@/lib/api";
+import { ApiV1GuildsModulesStarboardGetResponse } from "@/typings";
 
 export default function Home() {
     const guild = guildStore((g) => g);
+    const params = useParams();
 
-    const [error, setError] = useState<string>();
-    const [starboard, setStarboard] = useState<ApiV1GuildsModulesStarboardGetResponse>();
-    const [is, update] = useState<boolean>();
+    const url = `/guilds/${params.guildId}/modules/starboard` as const;
+
+    const [data, setData] = useState<ApiV1GuildsModulesStarboardGetResponse | null>(null);
+
+    const { status } = useQuery(
+        ["guilds", params.guildId, "modules", "starboard"],
+        () => getData<ApiV1GuildsModulesStarboardGetResponse>(url),
+        {
+            enabled: !!params.guildId,
+            onSuccess: (d) => setData(d)
+        }
+    );
+
+    const handleSwitchToggle = (enabled: boolean) => {
+        if (!data) return;
+        const updatedLocalData = { ...data, enabled };
+        setData(updatedLocalData);
+    };
 
     const [example, setExample] = useState({
         avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
@@ -29,46 +46,6 @@ export default function Home() {
         color: 0,
         emoji: ""
     });
-
-    const params = useParams();
-
-    useEffect(() => {
-        handleUserStyle(starboard?.style || 0);
-
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/starboard`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsModulesStarboardGetResponse;
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setStarboard(response);
-
-                        handleUserStyle(response.style);
-                        setExample({
-                            ...example,
-                            emoji: response.emoji
-                        });
-
-                        break;
-                    }
-                    default: {
-                        setStarboard(undefined);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching starboard data");
-            });
-
-    }, []);
 
     const handleUserStyle = (value: number) => {
         switch (value) {
@@ -111,113 +88,108 @@ export default function Home() {
         }
     };
 
-    if (error) {
-        return <>
+    if (status === "loading") return <></>;
+    if (!data || status === "error") {
+        return (
             <ScreenMessage
                 title="Something went wrong.."
-                description={error}
+                description="We couldn't load the data for this page."
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
             />
-        </>;
+        );
     }
 
-    if (!starboard) return <></>;
-
     return (
-        <div>
+        <>
 
             <Switch
-                name="Starboard module enabled."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                name="Starboard module enabled"
+                url={url}
                 dataName="enabled"
-                defaultState={starboard?.enabled || false}
+                defaultState={data.enabled || false}
                 disabled={false}
-                onSave={(s) => {
-                    starboard.enabled = s;
-                    setStarboard(starboard);
-                    update(!is);
-                }}
+                onSave={handleSwitchToggle}
             />
 
             <Switch
-                name="Allow bots and webhooks."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                name="Allow bots and webhooks"
+                url={url}
                 dataName="allowBots"
-                defaultState={starboard?.allowBots || false}
-                disabled={!starboard.enabled}
+                defaultState={data.allowBots || false}
+                disabled={!data.enabled}
             />
 
             <Switch
-                name="Allow NSFW channels."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                name="Allow NSFW channels"
+                url={url}
                 dataName="allowNSFW"
-                defaultState={starboard?.allowNSFW || false}
-                disabled={!starboard.enabled}
+                defaultState={data.allowNSFW || false}
+                disabled={!data.enabled}
             />
 
             <Switch
-                name="Allow message edits."
-                description="If a message is being edited, update it in the starboard."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                name="Allow message edits"
+                description="If a message is being edited, update it in the data."
+                url={url}
                 dataName="allowEdits"
-                defaultState={starboard?.allowEdits || false}
-                disabled={!starboard.enabled}
+                defaultState={data.allowEdits || false}
+                disabled={!data.enabled}
             />
 
             <Switch
-                name="Allow author reaction."
-                description="If a the message author can star their own messages."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                name="Allow author reaction"
+                description="Lets the message author star their own messages."
+                url={url}
                 dataName="allowSelfReact"
-                defaultState={starboard?.allowSelfReact || false}
-                disabled={!starboard.enabled}
+                defaultState={data.allowSelfReact || false}
+                disabled={!data.enabled}
             />
 
             <Switch
-                name="Display stared message reference."
-                description="Display the message the starboard message repleid to."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                name="Display stared message reference"
+                description="Repost the message reply in the data."
+                url={url}
                 dataName="displayReference"
-                defaultState={starboard?.displayReference || false}
-                disabled={!starboard.enabled}
+                defaultState={data.displayReference || false}
+                disabled={!data.enabled}
             />
 
             <Switch
-                name="Delete message on reaction loose."
+                name="Delete message from starboard upon losing reactions"
                 description="If a message in the starboard looses the required reactions, it gets deleted."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                url={url}
                 dataName="delete"
-                defaultState={starboard?.delete || false}
-                disabled={!starboard.enabled}
+                defaultState={data.delete || false}
+                disabled={!data.enabled}
             />
 
             <NumberInput
-                name="How many reactions should be required."
-                description="Amount of reactions with the emote are needed to get a message into the starboard."
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                name="Number of reactions required"
+                description="Sets the number of reactions needed to get a message onto the data."
+                url={url}
                 dataName="requiredEmojis"
-                defaultState={starboard?.requiredEmojis ?? 0}
-                disabled={!starboard.enabled}
+                defaultState={data.requiredEmojis ?? 0}
+                disabled={!data.enabled}
                 min={1}
             />
 
             <SelectMenu
                 name="Channel"
-                url={`/guilds/${guild?.id}/modules/starboard`}
+                url={url}
                 dataName="channelId"
                 items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
                 description="Select the channel where the starboard messages should be send into."
-                defaultState={starboard?.channelId}
-                disabled={!starboard.enabled}
+                defaultState={data.channelId}
+                disabled={!data.enabled}
             />
 
             <div className="lg:flex gap-3">
                 <div className="lg:w-1/2">
                     <SelectMenu
                         name="Emoji"
-                        url={`/guilds/${guild?.id}/modules/starboard`}
+                        url={url}
                         dataName="emoji"
                         items={[
                             { icon: "⭐", name: "Star", value: "⭐" },
@@ -227,21 +199,21 @@ export default function Home() {
                             }) || []
                         ]}
                         description="Select the emoji that needs to be reacted with."
-                        defaultState={starboard?.emoji}
+                        defaultState={data.emoji}
                         onSave={(options) => {
                             setExample({
                                 ...example,
                                 emoji: options.value as string
                             });
                         }}
-                        disabled={!starboard.enabled}
+                        disabled={!data.enabled}
                     />
                 </div>
 
                 <div className="lg:w-1/2">
                     <SelectMenu
-                        name="Profile Display Style"
-                        url={`/guilds/${guild?.id}/modules/starboard`}
+                        name="Profile display style"
+                        url={url}
                         dataName="style"
                         items={[
                             {
@@ -262,9 +234,9 @@ export default function Home() {
                             }
                         ]}
                         description="The style members profile gets displayed."
-                        defaultState={starboard?.style}
+                        defaultState={data.style}
                         onSave={(options) => handleUserStyle(options.value as number)}
-                        disabled={!starboard.enabled}
+                        disabled={!data.enabled}
                     />
                 </div>
             </div>
@@ -272,27 +244,27 @@ export default function Home() {
             <div className="lg:flex gap-3">
                 <div className="lg:w-1/2">
                     <MultiSelectMenu
-                        name="Blacklisted Roles"
-                        url={`/guilds/${guild?.id}/modules/starboard`}
+                        name="Blacklisted roles"
+                        url={url}
                         dataName="blacklistRoleIds"
                         items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, color: r.color }))}
-                        description="Select roles which should not be able to starboard."
-                        defaultState={starboard?.blacklistRoleIds || []}
+                        description="Select roles which should not be able to data."
+                        defaultState={data.blacklistRoleIds || []}
                         max={500}
-                        disabled={!starboard.enabled}
+                        disabled={!data.enabled}
                     />
                 </div>
 
                 <div className="lg:w-1/2">
                     <MultiSelectMenu
-                        name="Blacklisted Channels"
-                        url={`/guilds/${guild?.id}/modules/starboard`}
+                        name="Blacklisted channels"
+                        url={url}
                         dataName="blacklistChannelIds"
                         items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
-                        description="Select channels which should not be able to be in the starboard."
-                        defaultState={starboard?.blacklistChannelIds || []}
+                        description="Select channels which should not be able to be in the data."
+                        defaultState={data.blacklistChannelIds || []}
                         max={500}
-                        disabled={!starboard.enabled}
+                        disabled={!data.enabled}
                     />
                 </div>
             </div>
@@ -317,7 +289,7 @@ export default function Home() {
                             text: example.username
                         }}
                         mode={"DARK"}
-                        color={starboard.embedColor}
+                        color={data.embedColor}
                     >
                         <div> I can imagine it now, a lunch break at Discord headquarters and a bunch of T&S staff talking to each other</div>
                         <div><strong>Staff 1:</strong> Hey did you get another ticket from that 2Lost4Discоrd guy?</div>
@@ -333,6 +305,6 @@ export default function Home() {
                 </DiscordMessage>
             </div>
 
-        </div >
+        </ >
     );
 }

@@ -102,7 +102,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                     disabled={disabled}
                     placeholder="Paste a direct image url..."
                     max={256}
-                    description={description}
+                    description={description + " At this time, only .PNG files are supported."}
                 />
 
                 <div className="max-w-1/2 w-full">
@@ -117,7 +117,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                                     <div className="font-medium">Enter a <span className="underline underline-red-400">valid</span> image url!</div>
                                     <div className="text-xs">
                                         <div>Recommended resolution: 1024x256</div>
-                                        <div>Recommended type: .jpg</div>
+                                        <div>Recommended type: .png</div>
                                     </div>
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img src={value} alt="" className="w-0 h-0" onLoad={() => setImagestate("SUCCESS")} />
