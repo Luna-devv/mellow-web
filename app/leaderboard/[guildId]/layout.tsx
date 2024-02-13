@@ -28,6 +28,9 @@ export const generateMetadata = async ({
     const description = `Discover the most active chatters, voice timers, and top inviters. ${guild?.name ? `Explore the community of the ${guild.name} discord server right from your web browser.` : ""}`;
     const url = getCanonicalUrl("leaderboard", params.guildId);
 
+    const date = new Date();
+    const cacheQuery = `${date.getDate()}${date.getHours()}`
+
     return {
         title,
         description,
@@ -40,7 +43,7 @@ export const generateMetadata = async ({
             url,
             type: "website",
             images: {
-                url: getCanonicalUrl("leaderboard", params.guildId, "open-graph.png"),
+                url: getCanonicalUrl("leaderboard", params.guildId, `open-graph.png?ca=${cacheQuery}`),
                 width: 1200,
                 height: 630,
                 type: "image/png"
