@@ -86,7 +86,7 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
     }, [value]);
 
     return (
-        <div className={cn("relative", description && "mb-8", className)}>
+        <div className={cn("relative", description && "mb-2", className)}>
 
             <div className={cn("flex items-center gap-2", !tickbox && "mb-6")}>
                 <div className="flex items-center gap-2">
@@ -122,7 +122,7 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
             </div>
 
 
-            <div className="absolute top-6">
+            <div className="absolute top-6 mt-0.5">
                 {description && <div className="text-neutral-500 text-sm">{description}</div>}
                 {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
             </div>
