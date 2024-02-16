@@ -166,7 +166,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                 </div>
                 <Tooltip content="Logout" closeDelay={0} showArrow>
                     <Link href="/login?logout=true" className="ml-auto text-red-500 m-4">
-                        <HiLogout className="h-6 w-6 sm:h-4 sm:w-4" />
+                        <HiLogout className="h-6 w-6 sm:h-5 sm:w-5" />
                     </Link>
                 </Tooltip>
             </div>

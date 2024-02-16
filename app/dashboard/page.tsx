@@ -17,7 +17,6 @@ import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { RouteErrorResponse, UserGuild } from "@/typings";
 import cn from "@/utils/cn";
-import { truncate } from "@/utils/truncate";
 
 const MAX_GUILDS = 24;
 
@@ -186,7 +185,7 @@ export default function Home() {
 
                                 <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={56} alt={`Server icon of @${guild.name}`} className="rounded-lg h-14 w-14 z-1 relative drop-shadow-md" />
                                 <div className="ml-3 text-sm relative bottom-1">
-                                    <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1">{truncate(guild.name, 20)}</div>
+                                    <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1 sm:max-w-64 lg:max-w-56 truncate">{guild.name}</div>
                                     <span className="flex gap-2">
                                         <ManageButton guildId={guild.id} />
                                         <LeaderboardButton guildId={guild.id} />
