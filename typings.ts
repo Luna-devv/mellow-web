@@ -268,6 +268,8 @@ export type Voice =
     | "en_female_f08_salut_damour" | "en_male_m03_lobby" | "en_male_m03_sunshine_soon" | "en_female_f08_warmy_breeze" | "en_female_ht_f08_glorious" | "en_male_sing_funny_it_goes_up" | "en_male_m2_xhxs_m03_silly" | "en_female_ht_f08_wonderful_world"
 
 export interface ApiV1MeGetResponse {
+    voteCount?: number;
+
     rank?: {
         background?: string | null;
         textColor?: number;

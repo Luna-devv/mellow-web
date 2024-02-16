@@ -1,17 +1,20 @@
 "use client";
 
-import { Skeleton } from "@nextui-org/react";
+import { Chip, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
-import { Suspense, useEffect, useState } from "react";
+import Link from "next/link";
+import { Suspense } from "react";
 import CountUp from "react-countup";
-import { HiChartPie, HiHome, HiMusicNote, HiPhotograph, HiTranslate } from "react-icons/hi";
+import { HiChartPie, HiFire, HiHome, HiMusicNote, HiPhotograph, HiTranslate } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1MeGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiV1MeGetResponse } from "@/typings";
 import decimalToRgb from "@/utils/decimalToRgb";
 
 export default function RootLayout({
@@ -20,40 +23,34 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     const user = userStore((g) => g);
-
-    const [error, setError] = useState<string>();
-
     const accent = decimalToRgb(user?.accent_color as number);
 
-    useEffect(() => {
-        if (user?.extended !== undefined) return;
+    const url = "/users/@me" as const;
 
-        fetch(`${process.env.NEXT_PUBLIC_API}/users/@me`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1MeGetResponse;
-                if (!response) return;
+    const { status } = useQuery(
+        ["users", "@me"],
+        () => getData<ApiV1MeGetResponse>(url),
+        {
+            enabled: !!user?.id,
+            onSuccess: (d) => userStore.setState({ ...user, extended: d })
+        }
+    );
 
-                switch (res.status) {
-                    case 200: {
-                        setError(undefined);
-                        userStore.setState({ ...user, extended: response });
-                        break;
-                    }
-                    default: {
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching user");
-            });
-    }, [user]);
+    if (status === "error") {
+        return (
+            <ScreenMessage
+                top="0rem"
+                title="Something went wrong on this page.."
+                description="An unknown error occurred."
+                buttons={<>
+                    <HomeButton />
+                    <SupportButton />
+                </>}
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
+        );
+    }
 
     return (
         <div className="flex flex-col w-full h-full">
@@ -63,7 +60,11 @@ export default function RootLayout({
 
                 <div className="text-lg flex flex-col md:flex-row md:items-center">
                     <div className="flex gap-5">
-                        <Skeleton isLoaded={!!user?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0" style={user?.accent_color ? { "--tw-ring-color": `rgb(${accent.r}, ${accent.g}, ${accent.b})` } as React.CSSProperties : {}}>
+                        <Skeleton
+                            isLoaded={!!user?.id}
+                            className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
+                            style={user?.accent_color ? { "--tw-ring-color": `rgb(${accent.r}, ${accent.g}, ${accent.b})` } as React.CSSProperties : {}}
+                        >
                             <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="you" />
                         </Skeleton>
 
@@ -75,7 +76,17 @@ export default function RootLayout({
                             :
                             <div className="flex flex-col gap-1">
                                 <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">@{user?.username || "Unknown User"}</div>
-                                <div className="text-sm font-semibold flex items-center gap-1"> Manage your profile here </div>
+                                <Chip
+                                    as={Link}
+                                    href="/vote"
+                                    target="_blank"
+                                    color="secondary"
+                                    startContent={<HiFire className="ml-1" />}
+                                    variant="flat"
+                                    radius="sm"
+                                >
+                                    <span className="font-bold uppercase"> {user.extended?.voteCount} votes </span>
+                                </Chip>
                             </div>
                         }
                     </div>
@@ -145,24 +156,11 @@ export default function RootLayout({
                         )
                     ]}
                     url={"/profile"}
-                    disabled={!user?.id || !!error}
+                    disabled={!user?.id}
                 />
             </Suspense>
 
-            {error ?
-                <ScreenMessage
-                    title="Something went wrong on this page.."
-                    description={error}
-                    buttons={<>
-                        <HomeButton />
-                        <SupportButton />
-                    </>}
-                >
-                    <Image src={SadWumpusPic} alt="" height={141} width={124} />
-                </ScreenMessage>
-                :
-                user?.id ? children : <></>
-            }
+            {user?.id ? children : <></>}
 
         </div>
     );
