@@ -107,7 +107,7 @@ export default function RootLayout({
                         <Link href="https://lunish.nl/kofi" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
                             <SiKofi className="group-hover:text-[#ff6c6b] duration-200" /> Support us
                         </Link>
-                        <Link href="https://top.gg/bot/1125449347451068437/vote" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
+                        <Link href="/vote" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
                             <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5" /> Vote
                         </Link>
                     </div>
