@@ -3,16 +3,17 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import { HiBadgeCheck } from "react-icons/hi";
 
+import InvitesIcon from "@/components/icons/invites";
+import MessagesIcon from "@/components/icons/messages";
+import VoiceIcon from "@/components/icons/voice";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import RickPic from "@/public/rick.gif";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import cn from "@/utils/cn";
 
 import { getDesign, getGuild, getPagination, getTopMembers } from "./api";
 import Pagination from "./pagination.component";
-import MessagesIcon from "@/components/icons/messages";
-import VoiceIcon from "@/components/icons/voice";
-import InvitesIcon from "@/components/icons/invites";
 
 interface LeaderboardProps {
     params: { guildId: string };
@@ -112,9 +113,12 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                         <div className="flex items-center gap-2">
                             <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">{member.globalName || member.username || "Unknown user"}</span>
                             {member.id === "821472922140803112" &&
-                                <Chip color="secondary" size="sm" variant="flat" startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}>
-                                    <span className="font-bold">Developer</span>
-                                </Chip>
+                                <Badge>Developer</Badge>
+                            }
+                            {member.id === "797012765352001557" &&
+                                <Badge>
+                                    <Image alt="" className="h-6 w-32 rounded-md" height={24} src={RickPic} width={128} />
+                                </Badge>
                             }
                         </div>
                         <span className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</span>
@@ -157,5 +161,17 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
 
             <Pagination key={searchParams.type} guildId={params.guildId} searchParams={searchParams} pages={pagination[searchParams.type].pages} />
         </>
+    );
+}
+
+function Badge({
+    children
+}: {
+    children: React.ReactNode
+}) {
+    return (
+        <Chip color="secondary" size="sm" variant="flat" startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}>
+            <span className="font-bold">{children}</span>
+        </Chip>
     );
 }
