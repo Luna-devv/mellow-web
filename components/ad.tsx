@@ -49,8 +49,7 @@ const Ad: FunctionComponent<Props> = ({
 
             <Button
                 as={Link}
-                className="default mt-3"
-                variant="flat"
+                className="mt-3 font-medium"
                 href={url}
                 target="_blank"
                 endContent={<HiArrowNarrowRight />}

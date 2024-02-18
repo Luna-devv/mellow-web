@@ -1,11 +1,10 @@
-import { Code } from "@nextui-org/react";
+import { Chip, Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord, BsYoutube } from "react-icons/bs";
-import { HiArrowRight, HiBadgeCheck, HiCash, HiChevronRight, HiFingerPrint, HiFire, HiInformationCircle, HiLockOpen, HiUserAdd } from "react-icons/hi";
+import { HiArrowRight, HiCash, HiChevronRight, HiFire, HiInformationCircle, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
-import Badge from "@/components/badge";
 import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
 import DiscordChannelCategory from "@/components/discord/channel-category";
@@ -50,7 +49,7 @@ export default async function Home() {
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     const styles = {
-        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-400 font-bold underline decoration-violet-400"),
+        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-violet-300 font-bold underline decoration-violet-400"),
         h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
     };
 
@@ -112,7 +111,7 @@ export default async function Home() {
                 />
             }
 
-            <div className="md:text-xl text-lg lg:flex w-full mt-4">
+            <div className="md:text-xl text-lg lg:flex w-full mt-4 gap-4">
                 <span className="font-medium">
                     Experience the next-gen revolution, offering a list of features and extensive customization, providing a superior alternative to popular bots.
                 </span>
@@ -165,11 +164,15 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiCash />}
-                                text="100% free forever"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">100% free forever</span>
+                            </Chip>
                             <h3 className={styles.h3}>/leaderboard & /rank</h3>
                             <div className="pt-6">
                                 Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
@@ -179,7 +182,7 @@ export default async function Home() {
                                 <Invite />
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/leaderboard/828676951023550495"
                                 >
@@ -204,21 +207,25 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiCash />}
-                                text="100% free forever"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">100% free forever</span>
+                            </Chip>
                             <h3 className={styles.h3}>40 Voices in 5 Languages</h3>
                             <div className="pt-6">
                                 With Wamellow{"'"}s Text to Speech, you{"'"}re in control of transforming text into captivating speech.
-                                You can either generate files using <Code>/tts file</Code>, talk in voice chats with <Code>/tts voice</Code> or setup a deticated channel!
+                                You can either generate files using <Code color="secondary">/tts file</Code>, talk in voice chats with <Code color="secondary">/tts voice</Code> or setup a deticated channel!
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<BsYoutube />}
                                     href="https://youtu.be/NS5fZ1ltovE?si=I3nViYb4sx3n3Uvo"
                                     target="_blank"
@@ -253,11 +260,15 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiBadgeCheck />}
-                                text="My lawyer said that title below"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">My lawyer said that title below</span>
+                            </Chip>
                             <h3 className={styles.h3}>POGBOARD DEEZ NUTS</h3>
                             <div className="pt-6">
                                 With Starboards, you have the power to elevate remarkable messages within our server.
@@ -268,7 +279,7 @@ export default async function Home() {
                                 <Invite />
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=starboard"
                                 >
@@ -311,11 +322,15 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiFingerPrint />}
-                                text="Captcha verification included"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">w/ free image background</span>
+                            </Chip>
                             <h3 className={styles.h3}>Greetings</h3>
                             <div className="pt-6">
                                 Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
@@ -326,7 +341,7 @@ export default async function Home() {
                                 <Invite />
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=greeting"
                                 >
@@ -352,11 +367,15 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiFingerPrint />}
-                                text="Of course it's free"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">Of course it{"'"}s free</span>
+                            </Chip>
                             <h3 className={styles.h3}>Captcha verification</h3>
                             <div className="pt-6">
                                 Protect your server from unwanted attacks such as bot-raids with our captcha verification system.
@@ -366,7 +385,7 @@ export default async function Home() {
                                 <Invite />
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<HiLockOpen />}
                                     href="/passport/1125063180801036329"
                                 >
@@ -374,7 +393,7 @@ export default async function Home() {
                                 </ServerButton>
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=greeting"
                                 >
@@ -397,11 +416,15 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiCash />}
-                                text="100% sexy forever"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">100% sexy forever</span>
+                            </Chip>
                             <h3 className={styles.h3}>/anime command</h3>
                             <div className="pt-6">
                                 Unleash the magic of anime right within your Discord server with Wamellow{"'"}s 25+ categories.
@@ -409,14 +432,18 @@ export default async function Home() {
                                 Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
                             </div>
                             <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <Badge
-                                    before={<HiFire />}
-                                    text="NSFW Supported"
-                                    classname="mr-auto ml-0 mb-2"
-                                />
-                                <span className="text-base">
+                                <Chip
+                                    className="mb-2"
+                                    color="secondary"
+                                    variant="flat"
+                                    size="sm"
+                                    startContent={<HiFire className="mx-1" />}
+                                >
+                                    <span className="font-semibold">NSFW Supported</span>
+                                </Chip>
+                                <div className="text-base">
                                     Find spicy nekos, waifus, and more in nsfw marked channels.
-                                </span>
+                                </div>
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
@@ -448,31 +475,39 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiCash />}
-                                text="100% no money loss"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">100% no money loss</span>
+                            </Chip>
                             <h3 className={styles.h3}>/image command</h3>
                             <div className="pt-6">
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
                                 Elevate your server to a haven for unique and dynamic AI-generated images, ensuring a delightful experience for all enthusiasts of the digital arts.
                             </div>
                             <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <Badge
-                                    before={<HiFire />}
-                                    text="NSFW Supported"
-                                    classname="mr-auto ml-0 mb-2"
-                                />
-                                <span className="text-base">
+                                <Chip
+                                    className="mb-2"
+                                    color="secondary"
+                                    variant="flat"
+                                    size="sm"
+                                    startContent={<HiFire className="mx-1" />}
+                                >
+                                    <span className="font-semibold">NSFW Supported</span>
+                                </Chip>
+                                <div className="text-base">
                                     Generate spicy images and more in nsfw marked channels.
-                                </span>
+                                </div>
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/ai"
                                 >
@@ -506,11 +541,15 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Badge
-                                before={<HiCash />}
-                                text="Free for 30 tags"
-                                classname="mr-auto ml-0 mb-4"
-                            />
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">30 tags free</span>
+                            </Chip>
                             <h3 className={styles.h3}>Wamellow tags</h3>
                             <div className="pt-6">
                                 Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
@@ -521,7 +560,7 @@ export default async function Home() {
                                 <Invite />
                                 <ServerButton
                                     as={Link}
-                                    className="bg-wamellow-light"
+                                    className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=custom-commands"
                                 >
@@ -579,30 +618,35 @@ export default async function Home() {
 
             <Box none className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg mt-4 w-full">
                 <div className="flex">
-                    <Badge
-                        before={<HiFire />}
-                        text="Popular Slash Commands"
-                        classname="mr-auto ml-0 mb-2"
-                    />
+                    <Chip
+                        color="secondary"
+                        variant="flat"
+                        size="sm"
+                        startContent={<HiFire className="ml-1" />}
+                    >
+                        <span className="font-semibold">Popular Slash Commands</span>
+                    </Chip>
                     <div className="ml-auto flex items-center gap-1 opacity-80">
                         <span className="text-xs">Since 7th December</span>
                         <HiInformationCircle />
                     </div>
                 </div>
-                {Array.isArray(commands) && commands
-                    .sort((a, b) => b.uses - a.uses)
-                    .map((command, i) => (
-                        <div key={command.name} className={cn("text-base py-4 flex flex-col md:flex-row gap-4 md:items-center", i + 1 !== 4 && "border-b border-wamellow-alpha")}>
-                            <div className="-mb-2 md:mb-0 flex items-center h-min">
-                                <span className="dark:text-neutral-100 text-neutral-900 text-xl font-semibold md:font-medium">/{command.name}</span>
-                                <span className="ml-auto italic text-sm md:hidden opacity-80">{intl.format(command.uses)} uses</span>
+                <div className="divide-y divide-wamellow">
+                    {Array.isArray(commands) && commands
+                        .sort((a, b) => b.uses - a.uses)
+                        .map((command) => (
+                            <div key={command.name} className="text-base py-4 flex flex-col md:flex-row gap-4 md:items-center">
+                                <div className="-mb-2 md:mb-0 flex items-center h-min">
+                                    <span className="dark:text-neutral-100 text-neutral-900 text-xl font-semibold md:font-medium">/{command.name}</span>
+                                    <span className="ml-auto italic text-sm md:hidden opacity-80">{intl.format(command.uses)} uses</span>
+                                </div>
+                                <span>{command.description}</span>
+                                <span className="ml-auto italic text-sm hidden md:block">{intl.format(command.uses)} uses</span>
                             </div>
-                            <span>{command.description}</span>
-                            <span className="ml-auto italic text-sm hidden md:block">{intl.format(command.uses)} uses</span>
-                        </div>
-                    ))
-                    .slice(0, 4)
-                }
+                        ))
+                        .slice(0, 4)
+                    }
+                </div>
                 {(!commands || !Array.isArray(commands)) &&
                     <div className="flex flex-col items-center my-10">
                         <div className="text-3xl dark:text-neutral-100 text-neutral-900 font-semibold mb-4">Something went wrong...</div>

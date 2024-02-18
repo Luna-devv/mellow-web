@@ -15,7 +15,7 @@ export default function ImageGrid({ images }: Props) {
     return (
         <div className="w-full h-52 overflow-hidden rounded-xl">
             <div className="grid grid-flow-col grid-rows-3 w-full md:gap-4 gap-3 rotate-6 relative right-8 bottom-10 md:bottom-20">
-                {images.map((image, i) => (
+                {[...images, ...images, ...images, ...images].map((image, i) => (
                     <Container
                         key={"imageGrid-" + image.id + i}
                         className="relative md:h-32 h-24 md:w-32 w-24 hover:scale-110 duration-200"

@@ -134,7 +134,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 rounded-md max-h-40 overflow-y-scroll shadow-xl z-20">
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-md backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll shadow-xl z-20">
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button

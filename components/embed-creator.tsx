@@ -3,6 +3,7 @@ import { BiMoon, BiSun } from "react-icons/bi";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 import { GuildEmbed, RouteErrorResponse } from "@/typings";
+import cn from "@/utils/cn";
 
 import Highlight from "./discord/markdown";
 import DiscordMessage from "./discord/message";
@@ -38,7 +39,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
     const [mode, setMode] = useState<"DARK" | "LIGHT">("DARK");
 
     const modeToggle = (
-        <div className={`${mode === "DARK" ? "bg-wamellow-light" : "bg-wamellow-100-light"} flex gap-1 text-neutral-400 rounded-md overflow-hidden`}>
+        <div className={cn(mode === "DARK" ? "bg-wamellow-light" : "bg-wamellow-100-light", "flex gap-1 text-neutral-400 rounded-md overflow-hidden")}>
             <button onClick={() => setMode("DARK")} className={`py-2 px-3 rounded-md ${mode === "DARK" ? "bg-wamellow" : "hover:bg-wamellow-100-alpha"}`}>
                 <BiMoon className="h-5 w-5" />
             </button>
@@ -93,11 +94,11 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
 
     return (
         <div>
-            <div className={`mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 pb-2 ${(error || state === "ERRORED") && "outline outline-red-500 outline-1"}`}>
-                <span className="relative bottom-4 text-lg dark:text-wamellow-light text-neutral-300 font-medium px-2" style={{ backgroundColor: "var(--background-rgb)" }}>{name}</span>
+            <div className={cn("mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 py-2", (error || state === "ERRORED") && "outline outline-red-500 outline-1")}>
+                <div className="text-lg py-2 dark:text-neutral-700 text-neutral-300 font-medium px-2">{name}</div>
 
                 {collapseable &&
-                    <div className={`md:mx-2 mx-1 ${open ? "lg:mb-0 mb-2" : "mb-2"}`}>
+                    <div className={cn("md:mx-2 mx-1", open ? "lg:mb-0 mb-2" : "mb-2")}>
                         <button
                             className="dark:bg-wamellow hover:dark:bg-wamellow-light bg-wamellow-100 hover:bg-wamellow-100-light duration-200 cursor-pointer rounded-md dark:text-neutral-400 text-neutral-600 flex items-center h-12 px-3 w-full"
                             onClick={() => setOpen(!open)}

@@ -141,8 +141,8 @@ export default function Header(props: React.ComponentProps<"div">) {
                 }
             }}
             className="
-                relative top-2 sm:right-[268px] w-full sm:w-72 dark:bg-wamellow bg-wamellow-100 rounded-xl text-base overflow-hidden shadow-md
-                flex flex-col py-2 sm:py-1 p-2 sm:p-0
+                relative top-2 sm:right-[268px] w-full sm:w-72 dark:bg-wamellow bg-wamellow-100 rounded-xl backdrop-blur-2xl backdrop-brightness-75 overflow-hidden shadow-xl
+                flex flex-col py-2 sm:py-1 p-2 sm:p-0 text-base
                 [--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                 [--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
             "
@@ -182,7 +182,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                             key={"headerButton-" + button.name + button.url}
                             as={Link}
                             href={button.url}
-                            className="w-full font-medium !justify-start !text-xl !my-1 sm:!text-medium sm:!my-0"
+                            className="w-full font-medium !justify-start !text-xl !my-1 sm:!text-medium sm:!my-0 bg-transparent"
                             onClick={() => setMenu(false)}
                             startContent={button.icon}
                         >

@@ -72,7 +72,7 @@ export default async function Home() {
 
             {models && <ImageGrid images={models.slice(0, 24).map((model) => ({ id: model.title, url: model.url || "/discord.webp" }))} />}
 
-            <div className="md:text-xl text-lg lg:flex w-full mt-4">
+            <div className="md:text-xl text-lg lg:flex w-full mt-4 gap-4">
                 <span className="font-medium">
                     Unlock complimentary access to a variety of free image generation models directly within your Discord server. Powered by LuxuryLabs.
                 </span>
@@ -140,7 +140,7 @@ export default async function Home() {
                             width={512}
                         />
                         <div className="absolute bottom-0 left-0 w-full">
-                            <div className="bg-wamellow/80 backdrop-blur-md m-2 p-2 rounded-xl">
+                            <div className="bg-wamellow backdrop-blur-md backdrop-brightness-50 m-2 p-2 rounded-xl">
                                 <h3 className={styles.h3}>{item.title}</h3>
                             </div>
                         </div>

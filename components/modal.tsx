@@ -8,7 +8,7 @@ import { HiX } from "react-icons/hi";
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
 
-import ErrorBanner from "./Error";
+import Notice, { NoticeType } from "./notice";
 
 interface Props<T> {
     className?: string;
@@ -26,7 +26,18 @@ interface Props<T> {
     buttonName?: string
 }
 
-export default function Modal<T>({ className, variant, title, children, subChildren, onSubmit, onClose, onSuccess, show, buttonName = "Submit" }: Props<T>) {
+export default function Modal<T>({
+    className,
+    variant,
+    title,
+    children,
+    subChildren,
+    onSubmit,
+    onClose,
+    onSuccess,
+    show,
+    buttonName = "Submit"
+}: Props<T>) {
 
     const [state, setState] = useState<"LOADING" | undefined>(undefined);
     const [error, setError] = useState<string | undefined>(undefined);
@@ -43,8 +54,7 @@ export default function Modal<T>({ className, variant, title, children, subChild
                         animate={show ? "open" : "closed"}
                         exit="closed"
                         variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
-                        className="fixed top-0 left-0 h-screen w-full inset-0 bg-black/70 flex items-center justify-center z-50"
-                        style={{ backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
+                        className="fixed top-0 left-0 h-screen w-full inset-0 bg-black/90 flex items-center justify-center z-50"
                     >
                         <motion.div
                             initial="closed"
@@ -64,7 +74,7 @@ export default function Modal<T>({ className, variant, title, children, subChild
                             }}
                             className="
                             md:relative fixed bottom-0 min-h-[333px] md:min-h-fit m-2
-                            w-full md:w-[480px] bg-[var(--background-rgb)] rounded-xl shadow-md
+                            w-full md:w-[480px] backdrop-blur-xl backdrop-brightness-10 rounded-xl shadow-md
                             max-sm:[--y-closed:16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                             max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
                         "
@@ -99,14 +109,19 @@ export default function Modal<T>({ className, variant, title, children, subChild
                                 />
 
                                 <div className={"scrollbar-none p-0.5 pb-4 sm:max-h-[512px] max-h-[384px] overflow-y-scroll " + className}> {/* sm:max-h-[512px] max-h-[384px] overflow-y-scroll */}
-                                    {error && <ErrorBanner message={error} removeButton={true} />}
+                                    {error &&
+                                        <Notice
+                                            type={NoticeType.Error}
+                                            message={error}
+                                        />
+                                    }
 
                                     {children}
                                 </div>
 
                             </div>
 
-                            <div className="md:relative absolute bottom-0 left-0 w-full dark:bg-wamellow/40 bg-wamellow-100/40 rounded-bl-md rounded-br-md">
+                            <div className="md:relative absolute bottom-0 left-0 w-full dark:bg-wamellow bg-wamellow-100 rounded-bl-md rounded-br-md">
                                 <div className="flex items-center w-full gap-4 p-4">
 
                                     {subChildren}

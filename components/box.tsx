@@ -24,7 +24,7 @@ export default function Box({
                 "bg-wamellow rounded-lg",
                 !none && "py-6 px-8 md:py-10 md:px-16",
                 small && "py-4 px-6 md:py-8 md:px-10",
-                border && "border-wamellow-alpha border", className
+                border && "", className // border-wamellow-alpha border
             )}
             {...props}
         >

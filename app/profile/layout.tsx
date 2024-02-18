@@ -69,9 +69,9 @@ export default function RootLayout({
                         </Skeleton>
 
                         {!user?.id ?
-                            <div className="flex flex-col gap-1 mt-1.5">
+                            <div className="flex flex-col mt-2">
                                 <Skeleton className="rounded-xl w-32 h-5 mb-2" />
-                                <Skeleton className="rounded-xl w-40 h-3.5" />
+                                <Skeleton className="rounded-md w-24 h-7" />
                             </div>
                             :
                             <div className="flex flex-col gap-1">

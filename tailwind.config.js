@@ -1,5 +1,8 @@
 import { nextui } from "@nextui-org/react";
 
+const wamellow = "rgba(255, 255, 255, 0.05)";
+const violet = "rgb(139 92 246)";
+
 /** @type {import('tailwindcss').Config} */
 const config = {
     content: [
@@ -10,10 +13,9 @@ const config = {
     theme: {
         extend: {
             colors: {
-                "wamellow": "rgb(20, 22, 24)",
+                "wamellow": wamellow,
                 "wamellow-light": "rgb(30, 32, 34)",
                 "wamellow-alpha": "rgba(255, 255, 255, 0.06)",
-
 
                 "wamellow-100": "#e2e8f0",
                 "wamellow-100-light": "#ced3da",
@@ -31,10 +33,7 @@ const config = {
                 "wamellow-900-alpha": "rgba(0, 0, 0, 0.54)",
 
                 "blurple": "#5865f2",
-                "blurple-dark": "#454fbf",
-
-                "danger": "rgb(250, 100, 102, 0.8)",
-                "danger-dark": "rgb(250, 100, 102, 0.4)"
+                "blurple-dark": "#454fbf"
             },
             width: {
                 "128": "32rem",
@@ -42,32 +41,6 @@ const config = {
             },
             fontSize: {
                 "xxs": "0.6rem"
-            },
-            animation: {
-                marquee: "marquee 35s linear infinite",
-                marquee2: "marquee2 35s linear infinite",
-
-                "marquee-reverse": "marquee-reverse 35s linear infinite",
-                "marquee-reverse2": "marquee-reverse2 35s linear infinite"
-            },
-            keyframes: {
-                marquee: {
-                    "0%": { transform: "translateX(0%)" },
-                    "100%": { transform: "translateX(-100%)" }
-                },
-                marquee2: {
-                    "0%": { transform: "translateX(100%)" },
-                    "100%": { transform: "translateX(0%)" }
-                },
-
-                "marquee-reverse": {
-                    "100%": { transform: "translateX(0%)" },
-                    "0%": { transform: "translateX(-100%)" }
-                },
-                "marquee-reverse2": {
-                    "100%": { transform: "translateX(100%)" },
-                    "0%": { transform: "translateX(0%)" }
-                }
             }
         }
     },
@@ -90,15 +63,15 @@ const config = {
                 colors: {
                     secondary: {
                         foreground: "rgb(255 255 255)",
-                        DEFAULT: "rgb(139 92 246)",
-                        divider: "rgb(22, 24, 26)",
-                        focus: "rgb(139 92 246)"
+                        DEFAULT: violet,
+                        divider: wamellow,
+                        focus: violet
                     },
                     default: {
                         foreground: "rgb(212 212 212)",
-                        DEFAULT: "rgb(22, 24, 26)",
-                        divider: "rgb(22, 24, 26)",
-                        focus: "rgb(139 92 246)"
+                        DEFAULT: wamellow,
+                        divider: wamellow,
+                        focus: violet
                     }
                 }
             },
@@ -107,7 +80,7 @@ const config = {
                 colors: {
                     default: {
                         foreground: "rgb(255 255 255)",
-                        DEFAULT: "rgb(139 92 246)"
+                        DEFAULT: violet
                     }
                 }
             }

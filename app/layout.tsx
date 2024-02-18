@@ -82,11 +82,12 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden bg-[var(--background-rgb)]">
+        <html lang="en" className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden">
 
             <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
 
             <body className={`${outfit.className} w-full max-w-7xl`}>
+                <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
 
                 <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
                     <div className="hidden md:block">

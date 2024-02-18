@@ -8,9 +8,7 @@ import MessagesIcon from "@/components/icons/messages";
 import VoiceIcon from "@/components/icons/voice";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
-import RickPic from "@/public/rick.gif";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import cn from "@/utils/cn";
 
 import { getDesign, getGuild, getPagination, getTopMembers } from "./api";
 import Pagination from "./pagination.component";
@@ -106,7 +104,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
             {members.sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0)).map((member, i) =>
                 <div
                     key={"leaderboard-" + searchParams.type + member.id + i}
-                    className={cn("mb-4 rounded-xl p-3 flex items-center", design?.backgroundColor ? "dark:bg-wamellow/60 bg-wamellow-100/60" : "dark:bg-wamellow bg-wamellow-100")}
+                    className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100"
                 >
                     <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`} size={128} alt={`${member.username}'s profile picture`} className="rounded-full h-12 w-12 mr-3" />
                     <div>
@@ -115,11 +113,11 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                             {member.id === "821472922140803112" &&
                                 <Badge>Developer</Badge>
                             }
-                            {member.id === "797012765352001557" &&
+                            {/* {member.id === "797012765352001557" &&
                                 <Badge>
                                     <Image alt="" className="h-6 w-32 rounded-md" height={24} src={RickPic} width={128} />
                                 </Badge>
-                            }
+                            } */}
                         </div>
                         <span className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</span>
                     </div>

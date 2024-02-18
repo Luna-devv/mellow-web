@@ -1,3 +1,4 @@
+import { Button } from "@nextui-org/react";
 import { Metadata } from "next";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Link from "next/link";
@@ -53,14 +54,23 @@ export default async function Home() {
 
     const buttons = (
         <>
-            <Link href="/login?invite=true" className="flex text-neutral-200 bg-neutral-600 hover:bg-neutral-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 w-1/2">
-                <BsDiscord className="relative top-1" />
-                <span className="ml-2">Get started</span>
-            </Link>
-            <button className="flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 rounded-md duration-200 justify-center gap-2 w-1/2 opacity-30 cursor-not-allowed" disabled>
-                <HiLightningBolt className="relative top-1" />
-                <span className="ml-2">Subscribe</span>
-            </button>
+            <Button
+                as={Link}
+                className="w-1/2 font-medium"
+                href="/login?invite=true"
+                startContent={<BsDiscord />}
+            >
+                Get started
+            </Button>
+            <Button
+                as={Link}
+                color="secondary"
+                className="w-1/2 font-medium"
+                href="https://lunish.nl/kofi"
+                startContent={<HiLightningBolt />}
+            >
+                Subscribe
+            </Button>
         </>
     );
 
@@ -98,9 +108,9 @@ export default async function Home() {
                 />
             }
 
-            <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-10 w-full p-4 rounded-xl text-xl">
+            <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-10 w-full p-4 rounded-xl text-xl divide-y divide-wamellow">
 
-                <div className="flex items-center py-4 border-b-2 dark:border-wamellow-light border-wamellow-100-light text-2xl font-semibold">
+                <div className="flex items-center py-4 text-2xl font-semibold">
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 block md:hidden">Features</span>
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 hidden md:block">Pricing and Features</span>
 
@@ -126,14 +136,14 @@ export default async function Home() {
                     { title: "Statistics & Analytics", free: false, pro: true },
                     { title: "Sex with me*", free: false, pro: false }
                 ].map((item) => (
-                    <div key={item.title} className="flex items-center py-4 border-b-2 dark:border-wamellow-light border-wamellow-100-light">
+                    <div key={item.title} className="flex items-center py-4">
                         <span className="md:text-base text-sm font-medium w-2/4 md:pr-0 pr-4">{item.title}</span>
                         <span className="dark:text-neutral-200 text-neutral-700 font-medium w-1/4">
                             {displayState(item.free)}
                         </span>
                         <span className="dark:text-neutral-200 text-neutral-700 font-medium w-1/4 flex">
                             {displayState(item.pro)}
-                            {item.url && <Link href={item.url} target="_blank" rel="noopener noreferrer" className="ml-auto mr-3 hover:underline italic text-sm text-neutral-500 hidden md:block relative top-0.5">Take me there {"->"}</Link>}
+                            {item.url && <Link href={item.url} target="_blank" className="ml-auto mr-3 hover:underline italic text-sm text-neutral-500 hidden md:block relative top-0.5">Take me there {"->"}</Link>}
                         </span>
                     </div>
                 ))}
@@ -148,7 +158,7 @@ export default async function Home() {
             </div>
 
             <div className="w-full flex">
-                <Link href="/support" target="_blank" rel="noopener noreferrer" className="ml-auto mt-1 dark:text-violet-400/60 text-violet-600/60 hover:text-violet-400/80 dark:hover:text-violet-600/80 hover:underline duration-200 text-sm">Restore previous purchases</Link>
+                <Link href="/support" target="_blank" className="ml-auto mt-1 dark:text-violet-400/60 text-violet-600/60 hover:text-violet-400/80 dark:hover:text-violet-600/80 hover:underline duration-200 text-sm">Restore previous purchases</Link>
             </div>
 
             <div className="w-full mt-6 md:flex gap-4 items-center">

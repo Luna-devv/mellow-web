@@ -8,14 +8,19 @@
 }
 
 .dark:root {
-  --background-rgb: rgb(13, 15, 17);
-  --wamellow-rgb: rgb(20, 22, 24);
+  --background-rgb: rgb(7, 5, 12);
+  --wamellow-rgb: rgba(255, 255, 255, 0.16);
 }
 
 html {
   min-height: 100vh;
   min-height: 100svh;
   scroll-behavior: smooth;
+  background: var(--background-rgb) !important;
+}
+
+div[id="bg"] {
+  background-image: linear-gradient(175deg, rgb(33, 21, 63, 0.8) 0%, var(--background-rgb) 65%);
 }
 
 @keyframes ScaleBlink {
@@ -38,14 +43,17 @@ html {
   scrollbar-width: none;
 }
 
+::selection {
+  background-color: rgba(139, 92, 246, 0.6);
+}
 
 ::-webkit-scrollbar {
   width: 4px;
-  background: rgba(0, 0, 0, 0);
+  background: var(--background-rgb);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(139, 92, 246, 0.7);
+  background: rgba(139, 92, 246, 0.6);
   border-radius: 2px;
 }
 

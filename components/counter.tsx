@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import CountUp, { type CountUpProps } from "react-countup";
 import { HiInformationCircle } from "react-icons/hi";
 
-import cn from "@/utils/cn";
 import Box from "./box";
 
 export function ClientCountUp(props: Omit<CountUpProps, "duration">) {
@@ -61,11 +60,11 @@ export function StatsBar(options: Options) {
     return (
         <Box
             none
-            className="grid w-full rounded-md overflow-hidden"
+            className="grid w-full rounded-md overflow-hidden divide-x divide-wamellow"
             style={{ gridTemplateColumns: `repeat(${width > 768 ? options.items.length : 2}, minmax(0, 1fr))` }}
         >
-            {options.items.slice(0, width > 768 ? 10 : 2).map((item, i) => (
-                <div className={cn("p-5", i % 2 === 0 ? "dark:bg-wamellow bg-wamellow-100" : "dark:bg-wamellow/75 bg-wamellow-100/75")} key={"counter" + item.name + item.number.toString() + item.number.toString()}>
+            {options.items.slice(0, width > 768 ? 10 : 2).map((item) => (
+                <div className="p-5 dark:bg-wamellow bg-wamellow-100" key={"counter" + item.name + item.number.toString() + item.number.toString()}>
 
                     <div className="flex">
                         <div className="text-sm font-medium mb-1">{item.name}</div>

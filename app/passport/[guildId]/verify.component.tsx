@@ -161,7 +161,6 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
                     as={Link}
                     href="/support"
                     target="_blank"
-                    variant="faded"
                     className="w-1/2"
                     startContent={<BsDiscord />}
                 >
@@ -171,7 +170,6 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
                     as={Link}
                     href="/privacy"
                     target="_blank"
-                    variant="faded"
                     className="w-1/2"
                     startContent={<HiLockClosed />}
                 >
