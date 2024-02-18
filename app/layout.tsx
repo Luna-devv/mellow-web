@@ -82,7 +82,11 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden">
+        <html
+            data-theme="dark"
+            lang="en"
+            className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden"
+        >
 
             <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
 
