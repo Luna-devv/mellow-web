@@ -6,10 +6,12 @@ import { Montserrat, Outfit } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import { BsDiscord } from "react-icons/bs";
 import { SiKofi } from "react-icons/si";
 
 import Header from "@/components/header";
 import TopggIcon from "@/components/icons/topgg";
+import cn from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
 
 import { Provider } from "./provider";
@@ -25,7 +27,7 @@ export const viewport: Viewport = {
 export const generateMetadata = async (): Promise<Metadata> => {
 
     const title = "Wamellow: Next-gen of discord bots";
-    const description = "Experience the next-gen revolution with Wamellow, offering a list of features and extensive customization, providing a superior alternative to popular bots.";
+    const description = "Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.";
 
     return {
         metadataBase: new URL(getBaseUrl()),
@@ -83,6 +85,7 @@ export default function RootLayout({
 }) {
     return (
         <html
+            suppressHydrationWarning
             data-theme="dark"
             lang="en"
             className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden"
@@ -90,20 +93,31 @@ export default function RootLayout({
 
             <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
 
-            <body className={`${outfit.className} w-full max-w-7xl`}>
+            <body className={cn("w-full max-w-7xl", outfit.className)}>
                 <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
 
-                <div className="absolute left-0 bg-gradient-to-r from-indigo-400 to-pink-400 h-8 w-full flex items-center justify-center text-white font-medium text-sm">
-                    <div className="hidden md:block">
-                        Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
-                    </div>
-                    <div className="block md:hidden">
-                        This is an <span className="underline decoration-dotted break-word">early alpha version</span>!
+                <div className="w-6xl w-full max-w-full px-2 mt-3">
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-indigo-400/75 to-pink-400/75 h-8 text-white font-medium text-sm rounded-md">
+                        <div />
+
+                        <div className="items-center flex">
+                            <span className="hidden md:block">
+                                Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
+                            </span>
+                            <span className="block md:hidden">
+                                This is an <span className="underline decoration-dotted break-word">early alpha version</span>!
+                            </span>
+                        </div>
+
+                        <Link href="/support" target="_blank">
+                            <BsDiscord className="h-4 w-4" />
+                            <span className="sr-only">Discord server and support</span>
+                        </Link>
                     </div>
                 </div>
 
-                <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none mt-7 h-20">
-                    <Link href="/" className={`${montserrat.className} font-semibold flex items-center mr-2`}>
+                <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
+                    <Link href="/" className={cn("font-semibold flex items-center mr-2", montserrat.className)}>
                         <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8" />
                         <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
                     </Link>

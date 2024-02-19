@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { toFixedArrayLength } from "@/utils/fixed-array-length";
+
 import ImageReduceMotion from "./image-reduce-motion";
 
 interface Props {
@@ -76,16 +78,4 @@ function Container({
         </Link>
     );
 
-}
-
-function toFixedArrayLength<T>(arr: T[], length: number): T[] {
-    const originalLength = arr.length;
-    const numCopies = Math.ceil(length / originalLength);
-    const slicedArray: T[] = [];
-
-    for (let i = 0; i < numCopies; i++) {
-        slicedArray.push(...arr);
-    }
-
-    return slicedArray.slice(0, length);
 }

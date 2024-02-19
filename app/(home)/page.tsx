@@ -1,4 +1,4 @@
-import { Chip, Code } from "@nextui-org/react";
+import { Avatar, AvatarGroup, Chip, Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
-import ImageGrid from "@/components/image-grid";
+import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ServerButton } from "@/components/server-button";
 import AiPic from "@/public/ai.webp";
 import ArrowPic from "@/public/arroww.webp";
@@ -24,6 +24,7 @@ import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
 import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings";
 import cn from "@/utils/cn";
+import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { convertMonthToName } from "@/utils/time";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -45,7 +46,6 @@ export default async function Home() {
     const stats = await fetch(`${process.env.NEXT_PUBLIC_API}/statistics`, fetchOptions).then((res) => res.json()).catch(() => null) as ApiV1StatisticsGetResponse | null;
     const commands = await fetch(`${process.env.NEXT_PUBLIC_API}/commands`, fetchOptions).then((res) => res.json()).catch(() => ([])) as Commands[];
 
-    const uwus = ["UwU", "uwu", "OwO", "owo", "QwQ", "qwq", ">:(", "Femboys ❤️"];
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     const styles = {
@@ -83,78 +83,127 @@ export default async function Home() {
         </ServerButton>
     );
 
+    async function renderCount() {
+        "use server";
+        return <span>trust us!</span>;
+    }
+
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="lg:text-7xl text-5xl flex font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 break-words w-full">
-                <h1 className={montserrat.className}>
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next-gen</span>
-                    {" of "}
-                    <span className="underline decoration-blurple break-keep">discord bots</span>
-                </h1>
-                <div
-                    className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent font-medium text-2xl relative right-2 rotate-12 select-none sm:block hidden"
-                    style={{ animation: "ScaleBlink 1s ease-in-out infinite" }}
-                >
-                    {uwus[Math.floor(Math.random() * uwus.length)]}
-                </div>
-            </div>
+            <div className="flex w-full items-center gap-8 mb-20 md:mb-12" style={{ height: "calc(100svh - 20rem)" }}>
+                <div className="min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
-            {topGuilds &&
-                <ImageGrid images={topGuilds
-                    .sort((a, b) => b.memberCount - a.memberCount)
-                    .map((guild) => ({
-                        id: guild.id,
-                        url: guild.icon || "/discord.webp",
-                        link: getCanonicalUrl("leaderboard", guild.id)
-                    }))}
-                />
-            }
+                    <Chip
+                        color="secondary"
+                        variant="flat"
+                        startContent={<HiCash className="mx-1" />}
+                    >
+                        <span className="font-semibold">Everything for free</span>
+                    </Chip>
 
-            <div className="md:text-xl text-lg lg:flex w-full mt-4 gap-4">
-                <span className="font-medium">
-                    Experience the next-gen revolution, offering a list of features and extensive customization, providing a superior alternative to popular bots.
-                </span>
+                    <h1 className={cn(montserrat.className, "lg:text-7xl text-6xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
+                        <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next generation</span>
+                        {" of "}
+                        <span className="underline decoration-blurple break-keep">discord bots</span>
+                    </h1>
 
-                <div className="flex flex-col min-w-full lg:min-w-[420px]">
-
-                    <div className="lg:ml-auto flex gap-2 mt-4 lg:mt-0">
-                        <ServerButton
-                            as={Link}
-                            startContent={<HiUserAdd />}
-                            className="w-1/2 lg:w-fit !text-xl !font-medium"
-                            color="secondary"
-                            href="/login?invite=true"
-                            size="lg"
-                        >
-                            <span className="block sm:hidden">Invite</span>
-                            <span className="hidden sm:block">Invite Wamellow</span>
-                        </ServerButton>
-                        <ServerButton
-                            as={Link}
-                            startContent={<BsDiscord />}
-                            className="w-1/2 lg:w-fit !text-xl !font-medium"
-                            href="/support"
-                            size="lg"
-                        >
-                            <span className="block sm:hidden">Support</span>
-                            <span className="hidden sm:block">Join support</span>
-                        </ServerButton>
-                    </div>
-
-
-                    <span className={`lg:ml-auto flex gap-2 text-neutral-500 font-mediumr ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
-                        <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
-                        Get started here in seconds
+                    <span className="text-lg font-medium max-w-xl mb-4">
+                        Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.
                     </span>
 
+                    <AvatarGroup
+                        className="mr-auto md:hidden"
+                        max={8}
+                        renderCount={renderCount}
+                    >
+                        {toFixedArrayLength(topGuilds || [], 8)?.map((guild) => (
+                            <Avatar
+                                as={Link}
+                                href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
+                                key={guild.id}
+                                src={guild.icon || "/discord.webp"}
+                                alt={guild.name}
+                                title={guild.name}
+                            />
+                        ))}
+                    </AvatarGroup>
+
+                    <div className="space-y-4">
+                        <div className="flex gap-2 lg:mt-0">
+                            <ServerButton
+                                as={Link}
+                                startContent={<HiUserAdd />}
+                                className="w-1/2 lg:w-fit !text-xl !font-medium"
+                                color="secondary"
+                                href="/login?invite=true"
+                                size="lg"
+                            >
+                                <span className="block sm:hidden">Invite</span>
+                                <span className="hidden sm:block">Invite Wamellow</span>
+                            </ServerButton>
+                            <ServerButton
+                                as={Link}
+                                startContent={<BsDiscord />}
+                                className="w-1/2 lg:w-fit !text-xl !font-medium"
+                                href="/support"
+                                size="lg"
+                            >
+                                <span className="block sm:hidden">Support</span>
+                                <span className="hidden sm:block">Join support</span>
+                            </ServerButton>
+                        </div>
+
+                        <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-mediumr mt-3 opacity-80 pl-20 lg:pr-20 rotate-2", handwritten.className)}>
+                            <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
+                            Get started here in seconds
+                        </span>
+
+                    </div>
                 </div>
 
+                <div className="ml-auto w-fit xl:w-1/2 hidden md:block">
+                    <div className="flex gap-4 rotate-6 relative left-14 w-fit">
+                        {[0, 1, 2, 3].map((i) => (
+                            <div
+                                key={"guildGridThing-" + i}
+                                className={cn("flex flex-col gap-4", i % 2 === 1 && "mt-8", (i === 0 || i === 3) && "hidden xl:flex")}
+                            >
+                                {toFixedArrayLength(topGuilds || [], 12)
+                                    .slice(i * 3, (i * 3) + 3)
+                                    .map((guild, i) => (
+                                        <Link
+                                            key={"guildGrid-" + guild.id + i}
+                                            className="relative md:h-32 h-24 md:w-32 w-24 hover:scale-110 duration-200"
+                                            href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
+                                        >
+                                            <ImageReduceMotion
+                                                alt="server"
+                                                className="rounded-xl"
+                                                url={(guild.icon || "/discord.webp")?.split(".").slice(0, -1).join(".")}
+                                                size={128}
+                                            />
+                                        </Link>
+                                    ))
+                                }
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
 
-            <div className="lg:mt-14 mt-10" />
+            <div className="flex flex-col items-center space-x-2">
+                <div className="animate-scroll">
+                    <div className="animate-scroll-wheel" />
+                </div>
+                <span className="text-lg font-medium mt-2 text-neutral-500/50">Scroll down...</span>
+            </div>
 
-            <article itemScope itemType="http://schema.org/Article" className="flex flex-col gap-28 mb-10">
+            <article
+                itemScope
+                itemType="http://schema.org/Article"
+                className="flex flex-col gap-28 my-10"
+            >
 
                 <div>
                     <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
@@ -184,7 +233,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
-                                    href="/leaderboard/828676951023550495"
+                                    href="/leaderboard/828676951023550495?utm_source=wamellow.com&utm_medium=home"
                                 >
                                     View Leaderboard
                                 </ServerButton>
@@ -281,7 +330,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
-                                    href="/dashboard?to=starboard"
+                                    href="/dashboard?to=starboard&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
                                 </ServerButton>
@@ -343,7 +392,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
-                                    href="/dashboard?to=greeting"
+                                    href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
                                 </ServerButton>
@@ -387,7 +436,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiLockOpen />}
-                                    href="/passport/1125063180801036329"
+                                    href="/passport/1125063180801036329?utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Try it out
                                 </ServerButton>
@@ -395,7 +444,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
-                                    href="/dashboard?to=greeting"
+                                    href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
                                 </ServerButton>
@@ -509,7 +558,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
-                                    href="/ai"
+                                    href="/ai?utm_source=wamellow.com&utm_medium=home"
                                 >
                                     View all models
                                 </ServerButton>
@@ -562,7 +611,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
-                                    href="/dashboard?to=custom-commands"
+                                    href="/dashboard?to=custom-commands&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
                                 </ServerButton>
@@ -684,6 +733,6 @@ export default async function Home() {
                 ]}
             />
 
-        </div>
+        </div >
     );
 }

@@ -61,6 +61,45 @@ div[id="bg"] {
   background: rgb(139, 92, 246, 1);
 }
 
+.animate-scroll {
+  border: 2px solid rgb(139, 92, 246, 1);
+  border-radius: 22px;
+  height: 2.2rem;
+  position: relative;
+  width: 20px;
+}
+
+.animate-scroll-wheel {
+  animation: scroll 2.5s ease infinite;
+  background: rgb(139, 92, 246, 1);
+  border-radius: 1rem;
+  height: 0.5rem;
+  left: calc(50% - 1.5px);
+  position: absolute;
+  right: 50%;
+  top: 8px;
+  width: 3px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0.5rem);
+  }
+
+  51% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
 button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
 a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
   @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium

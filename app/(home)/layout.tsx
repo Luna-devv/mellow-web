@@ -57,24 +57,31 @@ export default async function RootLayout({
                     <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
                         <Link href="https://tiktok.com/@wamellow.com" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
                             <BiLogoTiktok />
+                            <span className="sr-only">Wamellow on TikTok</span>
                         </Link>
                         <Link href="https://youtube.com/@wayabot" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
                             <BiLogoYoutube />
+                            <span className="sr-only">Wamellow on YouTube</span>
                         </Link>
                         <Link href="https://twitter.com/licamw" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
                             <BiLogoTwitter />
+                            <span className="sr-only">Wamellow on Twitter</span>
                         </Link>
                         <Link href="https://github.com/Luna-devv" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
                             <BiLogoGithub />
+                            <span className="sr-only">Wamellow{"'"}s developers on GitHub</span>
                         </Link>
                         <Link href="mailto:support@waya.one" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Contact Wamellow via email">
                             <BiLogoGmail />
+                            <span className="sr-only">Contact Wamellow via email</span>
                         </Link>
                         <Link href="https://lunish.nl/kofi" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-[22px] w-[22px]" aria-label="Support Wamellow's developers monetarily on Kofi">
                             <SiKofi />
+                            <span className="sr-only">Support Wamellow{"'"}s developers monetarily on Kofi</span>
                         </Link>
                         <Link href="https://top.gg/bot/1125449347451068437/vote" className="text-neutral-400 hover:text-[#ff3366] duration-200 h-6 w-6" aria-label="Wamellow on top.gg">
                             <TopggIcon />
+                            <span className="sr-only">Wamellow on top.gg</span>
                         </Link>
                     </div>
 
