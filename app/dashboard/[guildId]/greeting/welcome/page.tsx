@@ -307,7 +307,7 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="dm.message"
                 defaultMessage={welcome?.dm?.message}
-                collapseable={true}
+                isCollapseable={true}
                 disabled={!welcome.enabled}
             >
 

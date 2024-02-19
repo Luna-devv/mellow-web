@@ -1,6 +1,6 @@
 "use client";
 import { Button, Chip } from "@nextui-org/react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { HiPencil } from "react-icons/hi";
 
 import DumbTextInput from "@/components/inputs/Dumb_TextInput";
@@ -16,11 +16,11 @@ interface Props {
     guildId: string;
     style: Style;
 
-    setTags: Dispatch<SetStateAction<ApiV1GuildsModulesTagsGetResponse[]>>;
+    addTag: (tag: ApiV1GuildsModulesTagsGetResponse) => void;
     setTagId: (id: string) => void;
 }
 
-export default function CreateTag({ guildId, style, setTags, setTagId }: Props) {
+export default function CreateTag({ guildId, style, addTag, setTagId }: Props) {
 
     const [open, setOpen] = useState(false);
     const [name, setName] = useState("");
@@ -63,9 +63,7 @@ export default function CreateTag({ guildId, style, setTags, setTagId }: Props) 
                     });
                 }}
                 onSuccess={(tag) => {
-                    setTags((tags) => {
-                        return [tag, ...tags];
-                    });
+                    addTag(tag);
                     setTagId(tag.tagId);
                 }}
             >

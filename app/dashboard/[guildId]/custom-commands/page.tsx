@@ -2,8 +2,9 @@
 
 import { Button, Chip, Tooltip } from "@nextui-org/react";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
+import { useQuery, useQueryClient } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import { StatsBar } from "@/components/counter";
@@ -11,25 +12,35 @@ import MessageCreatorEmbed from "@/components/embed-creator";
 import SelectInput from "@/components/inputs/SelectMenu";
 import TextInput from "@/components/inputs/TextInput";
 import { ScreenMessage } from "@/components/screen-message";
+import { cacheOptions, getData } from "@/lib/api";
 import { Permissions } from "@/lib/discord";
-import { ApiV1GuildsModulesTagsGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
 import CreateTag, { Style } from "./create.component";
 import DeleteTag from "./delete.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);
-
-    const [error, setError] = useState<string>();
-    const [tags, setTags] = useState<ApiV1GuildsModulesTagsGetResponse[]>([]);
-
     const pathname = usePathname();
     const search = useSearchParams();
     const router = useRouter();
     const params = useParams();
+    const queryClient = useQueryClient();
+
+    const url = `/guilds/${params.guildId}/modules/tags` as const;
+    const key = ["guilds", params.guildId, "modules", "custom-commands"] as const;
+
+    const { data, isLoading, error } = useQuery(
+        key,
+        () => getData<ApiV1GuildsModulesTagsGetResponse[]>(url),
+        {
+            enabled: !!params.guildId,
+            ...cacheOptions
+        }
+    );
 
     const tagId = search.get("id");
-    const tag = tags.find((t) => t.tagId === tagId);
+    const tag = data?.find((t) => t.tagId === tagId);
 
     const createQueryString = useCallback((name: string, value: string) => {
         const params = new URLSearchParams(search);
@@ -42,71 +53,50 @@ export default function Home() {
         router.push(pathname + "?" + createQueryString("id", id));
     };
 
-    useEffect(() => {
+    const editTag = <T extends keyof ApiV1GuildsModulesTagsGetResponse>(k: keyof ApiV1GuildsModulesTagsGetResponse, value: ApiV1GuildsModulesTagsGetResponse[T]) => {
+        if (!tag) return;
 
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/tags`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsModulesTagsGetResponse[];
-                if (!response) return;
+        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(key, () => [
+            ...(data?.filter((t) => t.tagId !== tag.tagId) || []),
+            { ...tag, [k]: value }
+        ]);
+    };
 
-                switch (res.status) {
-                    case 200: {
-                        setTags(response);
-                        if (!tagId && response[0]) setTagId(response[0].tagId);
-                        break;
-                    }
-                    default: {
-                        setTags([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
+    const addTag = (tag: ApiV1GuildsModulesTagsGetResponse) => {
+        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(key, () => [
+            ...(data || []),
+            tag
+        ]);
+    };
 
-            })
-            .catch(() => {
-                setError("Error while fetching tags data");
-            });
-
-    }, []);
+    const removeTag = (id: string) => {
+        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(key, () =>
+            data?.filter((t) => t.tagId !== id) || []
+        );
+    };
 
     useEffect(() => {
-        if (!tag && tags[0]) setTagId(tags[0].tagId);
-    }, [tags.length]);
+        if (data && !tag && data[0]) setTagId(data[0].tagId);
+    }, [data?.length]);
 
+    if (!data || isLoading) return <></>;
     if (error) {
-        return <>
+        return (
             <ScreenMessage
                 title="Something went wrong.."
-                description={error}
+                description={error.toString() || "We couldn't load the data for this page."}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
             />
-        </>;
-    }
-
-    if (!tags) return <></>;
-
-    function save<T extends keyof ApiV1GuildsModulesTagsGetResponse>(key: keyof ApiV1GuildsModulesTagsGetResponse, value: ApiV1GuildsModulesTagsGetResponse[T]) {
-        if (!tagId) return;
-        if (!tag) return;
-
-        setTags((tags) => {
-            const newtags = tags?.filter((t) => t.tagId !== tagId) || [];
-            newtags.push({ ...tag, [key]: value });
-            return newtags;
-        });
+        );
     }
 
     return (
         <>
 
             <div className="flex flex-wrap items-center gap-2 -mt-2 mb-5">
-                {tags
+                {data
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((tag) => (
                         <Chip
@@ -120,21 +110,23 @@ export default function Home() {
                         >
                             {tag.name + " "}
                         </Chip>
-                    ))}
-                <CreateTag guildId={guild?.id as string} style={Style.Compact} setTags={setTags} setTagId={setTagId} />
+                    ))
+                }
+
+                <CreateTag guildId={guild?.id as string} style={Style.Compact} addTag={addTag} setTagId={setTagId} />
 
                 <div className="ml-auto flex items-center gap-4">
                     <span className="dark:text-orange-600 text-orange-400 font-medium hidden md:block">This feature is in early testing</span>
                     <Tooltip content="Created tags / Limit" closeDelay={0}>
-                        <span className="dark:text-neutral-600 text-neutral-400 cursor-default">{tags.length}/{30}</span>
+                        <span className="dark:text-neutral-600 text-neutral-400 cursor-default">{data.length}/{30}</span>
                     </Tooltip>
 
-                    <DeleteTag guildId={guild?.id as string} tagId={tagId} name={tag?.name} setTags={setTags} />
+                    <DeleteTag guildId={guild?.id as string} tagId={tagId} name={tag?.name} removeTag={removeTag} />
                 </div>
 
             </div>
 
-            {tag ?
+            {tag &&
                 <>
 
                     <div className="relative rounded-md overflow-hidden p-[1px]">
@@ -166,12 +158,12 @@ export default function Home() {
                             <TextInput
                                 key={tag.tagId}
                                 name="Name"
-                                url={`/guilds/${guild?.id}/modules/tags/${tag.tagId}`}
+                                url={url + "/" + tag.tagId}
                                 dataName="name"
                                 description="The name of the custom command."
                                 defaultState={tag.name}
                                 resetState={tag.name}
-                                onSave={(value) => save("name", value as string)}
+                                onSave={(value) => editTag("name", value as string)}
                             />
                         </div>
 
@@ -179,16 +171,16 @@ export default function Home() {
                             <SelectInput
                                 key={tag.tagId}
                                 name="Permissions"
-                                url={`/guilds/${guild?.id}/modules/tags/${tag.tagId}`}
+                                url={url + "/" + tag.tagId}
                                 items={
-                                    Permissions.sort((a, b) => a.localeCompare(b)).map((p) => {
-                                        return { name: convertCamelCaseToSpaced(p), value: p };
-                                    }) || []
+                                    Permissions.sort((a, b) => a.localeCompare(b)).map((p) => (
+                                        { name: convertCamelCaseToSpaced(p), value: p }
+                                    )) || []
                                 }
                                 dataName="permission"
                                 description="The permissions needed to execute this tag."
                                 defaultState={tag.permission}
-                                onSave={(option) => save("permission", option.value as string)}
+                                onSave={(option) => editTag("permission", option.value as string)}
                                 showClear
                             />
                         </div>
@@ -197,12 +189,15 @@ export default function Home() {
                     <MessageCreatorEmbed
                         key={tag.tagId}
                         name="Message"
-                        url={`/guilds/${guild?.id}/modules/tags/${tag.tagId}`}
+                        url={url + "/" + tag.tagId}
                         dataName="message"
                         defaultMessage={tag.message}
+                        onSave={(value) => editTag("message", value as string)}
                     />
                 </>
-                :
+            }
+
+            {!data.length &&
                 <div className="w-full flex flex-col items-center justify-center" style={{ marginTop: "20vh" }}>
                     <div>
 
@@ -212,7 +207,7 @@ export default function Home() {
                         </div>
 
                         <div className="w-full flex flex-col items-center">
-                            <CreateTag guildId={guild?.id as string} style={Style.Big} setTags={setTags} setTagId={setTagId} />
+                            <CreateTag guildId={guild?.id as string} style={Style.Big} addTag={addTag} setTagId={setTagId} />
                         </div>
 
                     </div>

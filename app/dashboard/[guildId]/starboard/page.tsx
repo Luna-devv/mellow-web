@@ -25,7 +25,7 @@ export default function Home() {
 
     const [data, setData] = useState<ApiV1GuildsModulesStarboardGetResponse | null>(null);
 
-    const { status } = useQuery(
+    const { isLoading, error } = useQuery(
         ["guilds", params.guildId, "modules", "starboard"],
         () => getData<ApiV1GuildsModulesStarboardGetResponse>(url),
         {
@@ -88,12 +88,12 @@ export default function Home() {
         }
     };
 
-    if (status === "loading") return <></>;
-    if (!data || status === "error") {
+    if (!data || isLoading) return <></>;
+    if (error) {
         return (
             <ScreenMessage
                 title="Something went wrong.."
-                description="We couldn't load the data for this page."
+                description={error.toString() || "We couldn't load the data for this page."}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}

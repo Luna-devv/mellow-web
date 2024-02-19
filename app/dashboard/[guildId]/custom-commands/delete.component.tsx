@@ -1,20 +1,19 @@
 "use client";
 import { Button, Tooltip } from "@nextui-org/react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 
 import Modal from "@/components/modal";
-import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
 interface Props {
     guildId: string;
     tagId: string | null;
     name?: string;
 
-    setTags: Dispatch<SetStateAction<ApiV1GuildsModulesTagsGetResponse[]>>;
+    removeTag: (tagId: string) => void;
 }
 
-export default function DeleteTag({ guildId, tagId, name, setTags }: Props) {
+export default function DeleteTag({ guildId, tagId, name, removeTag }: Props) {
 
     const [open, setOpen] = useState(false);
 
@@ -48,10 +47,7 @@ export default function DeleteTag({ guildId, tagId, name, setTags }: Props) {
                     });
                 }}
                 onSuccess={() => {
-                    setTags((tags) => {
-                        const newtags = tags?.filter((t) => t.tagId !== tagId) || [];
-                        return newtags;
-                    });
+                    if (tagId) removeTag(tagId);
                 }}
             >
                 Are you sure you want to delete the {'"'}{name}{'"'} tag? It will be gone forever, probably, who knows.

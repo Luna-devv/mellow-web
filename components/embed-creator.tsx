@@ -19,15 +19,27 @@ interface Props {
     dataName: string;
 
     defaultMessage?: { content?: string | null, embed?: GuildEmbed };
-    collapseable?: boolean;
+    isCollapseable?: boolean;
 
     messageAttachmentComponent?: React.ReactNode;
     showMessageAttachmentComponentInEmbed?: boolean;
 
     disabled?: boolean;
+    onSave?: (state: { content?: string | null, embed?: GuildEmbed }) => void;
 }
 
-const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, dataName, defaultMessage, collapseable, messageAttachmentComponent, showMessageAttachmentComponentInEmbed, disabled }) => {
+const MessageCreatorEmbed: FunctionComponent<Props> = ({
+    children,
+    name,
+    url,
+    dataName,
+    defaultMessage,
+    isCollapseable,
+    messageAttachmentComponent,
+    showMessageAttachmentComponentInEmbed,
+    disabled,
+    onSave
+}) => {
     const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
     const [error, setError] = useState<string>();
 
@@ -35,7 +47,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
     const [embed, setEmbed] = useState<string>(JSON.stringify(defaultMessage?.embed || {}));
     const [embedfooter, setEmbedfooter] = useState<string>(JSON.stringify(defaultMessage?.embed?.footer || {}));
 
-    const [open, setOpen] = useState<boolean>(!collapseable);
+    const [open, setOpen] = useState<boolean>(!isCollapseable);
     const [mode, setMode] = useState<"DARK" | "LIGHT">("DARK");
 
     const modeToggle = (
@@ -74,6 +86,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                 switch (res.status) {
                     case 200: {
                         setState("SUCCESS");
+                        onSave?.(body);
                         setTimeout(() => setState(undefined), 1_000 * 8);
                         break;
                     }
@@ -87,7 +100,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
             })
             .catch(() => {
                 setState("ERRORED");
-                setError("Error while fetching guilds");
+                setError("Error while updating");
             });
 
     };
@@ -97,7 +110,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
             <div className={cn("mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 py-2", (error || state === "ERRORED") && "outline outline-red-500 outline-1")}>
                 <div className="text-lg py-2 dark:text-neutral-700 text-neutral-300 font-medium px-2">{name}</div>
 
-                {collapseable &&
+                {isCollapseable &&
                     <div className={cn("md:mx-2 mx-1", open ? "lg:mb-0 mb-2" : "mb-2")}>
                         <button
                             className="dark:bg-wamellow hover:dark:bg-wamellow-light bg-wamellow-100 hover:bg-wamellow-100-light duration-200 cursor-pointer rounded-md dark:text-neutral-400 text-neutral-600 flex items-center h-12 px-3 w-full"
@@ -122,7 +135,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({ children, name, url, da
                     <div className="md:m-1 relative">
 
                         {children &&
-                            <div className={`mx-1 ${collapseable && "mt-6"}`}>
+                            <div className={`mx-1 ${isCollapseable && "mt-6"}`}>
                                 {children}
                             </div>
                         }
