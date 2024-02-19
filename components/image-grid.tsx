@@ -13,9 +13,9 @@ interface Props {
 
 export default function ImageGrid({ images }: Props) {
     return (
-        <div className="w-full h-52 overflow-hidden rounded-xl">
-            <div className="grid grid-flow-col grid-rows-3 w-full md:gap-4 gap-3 rotate-6 relative right-8 bottom-10 md:bottom-20">
-                {[...images, ...images, ...images, ...images].map((image, i) => (
+        <div className="w-full h-52 overflow-hidden rounded-xl bg-wamellow shadow-xl">
+            <div className="grid grid-flow-col grid-rows-3 w-full md:gap-4 gap-3 rotate-3 relative right-8 bottom-10 md:bottom-20">
+                {toFixedArrayLength(images, 26).map((image, i) => (
                     <Container
                         key={"imageGrid-" + image.id + i}
                         className="relative md:h-32 h-24 md:w-32 w-24 hover:scale-110 duration-200"
@@ -76,4 +76,16 @@ function Container({
         </Link>
     );
 
+}
+
+function toFixedArrayLength<T>(arr: T[], length: number): T[] {
+    const originalLength = arr.length;
+    const numCopies = Math.ceil(length / originalLength);
+    const slicedArray: T[] = [];
+
+    for (let i = 0; i < numCopies; i++) {
+        slicedArray.push(...arr);
+    }
+
+    return slicedArray.slice(0, length);
 }
