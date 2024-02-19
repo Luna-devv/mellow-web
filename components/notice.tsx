@@ -1,5 +1,7 @@
 import { HiExclamation, HiExclamationCircle } from "react-icons/hi";
 
+import cn from "@/utils/cn";
+
 export enum NoticeType {
     Error = "error",
     Info = "info"
@@ -18,7 +20,7 @@ export default function Notice({
 }: Props) {
 
     return (
-        <div className={`w-full text-neutral-100 ${type === NoticeType.Info ? "bg-violet-400/40" : "bg-red-400/40"} py-2 px-4 mb-6 rounded-md flex gap-2 items-center`}>
+        <div className={cn("w-full text-neutral-100 py-2 px-4 mb-6 rounded-md flex gap-2 items-center", type === NoticeType.Info ? "bg-violet-400/40" : "bg-red-400/40")}>
             {type === NoticeType.Info ? <HiExclamationCircle className="h-5 w-5" /> : <HiExclamation className="h-5 w-5" />}
             <div className="text-lg">{message}</div>
 

@@ -141,7 +141,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                 }
             }}
             className="
-                relative top-2 sm:right-[268px] w-full sm:w-72 dark:bg-wamellow bg-wamellow-100 rounded-xl backdrop-blur-2xl backdrop-brightness-75 overflow-hidden shadow-xl
+                relative top-2 sm:right-[268px] w-full sm:w-72 dark:bg-black/40 bg-white/40 rounded-xl backdrop-blur-3xl backdrop-brightness-75 overflow-hidden shadow-xl
                 flex flex-col py-2 sm:py-1 p-2 sm:p-0 text-base
                 [--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                 [--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
@@ -173,7 +173,7 @@ export default function Header(props: React.ComponentProps<"div">) {
 
             {buttons.map((button, i) => {
                 if ("type" in button && button.type === "split") {
-                    return <hr key={"headerButton-" + button.type + i} className="my-1 mx-0 dark:border-wamellow-light border-wamellow-100-light" />;
+                    return <hr key={"headerButton-" + button.type + i} className="my-1 mx-2 dark:border-wamellow border-wamellow-100" />;
                 }
 
                 if ("url" in button) {
@@ -198,7 +198,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                             className="flex items-center px-4 pt-2 pb-3"
                         >
                             {button.icon}
-                            <span className="ml-2 text-xl my-1 sm:text-medium sm:my-0">{button.name}</span>
+                            <span className="ml-[9px] text-xl my-1 sm:text-medium sm:my-0">{button.name}</span>
                             <Switch
                                 key={"headerButton-" + button.name}
                                 className="ml-auto"

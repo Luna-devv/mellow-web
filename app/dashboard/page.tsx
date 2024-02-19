@@ -10,9 +10,9 @@ import { HiRefresh, HiUserAdd, HiViewGrid, HiViewList } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
-import ErrorBanner from "@/components/Error";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import DumbTextInput from "@/components/inputs/Dumb_TextInput";
+import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { RouteErrorResponse, UserGuild } from "@/typings";
@@ -82,15 +82,30 @@ export default function Home() {
         <div className="flex flex-col w-full">
             <title>Dashboard</title>
 
-            {error && <ErrorBanner message={error} />}
+            {error &&
+                <Notice
+                    type={NoticeType.Error}
+                    message={error}
+                />
+            }
+
             <div className="md:flex md:items-center">
                 <div>
                     <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">👋 Heyia, {user?.global_name || `@${user?.username}`}</div>
                     <div className="text-lg font-medium">Select a server you want to manage.</div>
                 </div>
 
-                {web.devToolsEnabled &&
-                    <div className="md:hidden mt-3">
+                <div className="md:hidden mt-3">
+                    <DumbTextInput
+                        value={search}
+                        setValue={setSearch}
+                        placeholder="Search"
+                        thin
+                    />
+                </div>
+
+                <div className="md:ml-auto flex gap-3 mt-4 md:mt-0">
+                    <div className="hidden md:block">
                         <DumbTextInput
                             value={search}
                             setValue={setSearch}
@@ -98,19 +113,6 @@ export default function Home() {
                             thin
                         />
                     </div>
-                }
-
-                <div className="md:ml-auto flex gap-3 mt-4 md:mt-0">
-                    {web.devToolsEnabled &&
-                        <div className="hidden md:block">
-                            <DumbTextInput
-                                value={search}
-                                setValue={setSearch}
-                                placeholder="Search"
-                                thin
-                            />
-                        </div>
-                    }
                     <Button
                         as={Link}
                         href="/login?invite=true"
@@ -134,10 +136,16 @@ export default function Home() {
                 <hr className="mx-0 p-1 my-4 dark:border-wamellow-light border-wamellow-100-light w-full" />
 
                 <div className="dark:bg-wamellow bg-wamellow-100 md:flex gap-1 dark:text-neutral-400 text-neutral-600 rounded-md overflow-hidden w-[72px] mb-5 hidden">
-                    <button onClick={() => setDisplay("GRID")} className={cn("h-7 w-8 flex items-center justify-center p-[4px] rounded-md", display === "GRID" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30")}>
+                    <button
+                        onClick={() => setDisplay("GRID")}
+                        className={cn("h-7 w-8 flex items-center justify-center p-[4px] rounded-md", display === "GRID" && "dark:bg-wamellow bg-wamellow-100")}
+                    >
                         <HiViewGrid />
                     </button>
-                    <button onClick={() => setDisplay("LIST")} className={cn("h-7 w-8 flex items-center justify-center p-[4px] rounded-md", display === "LIST" ? "dark:bg-neutral-700/50 bg-neutral-400/50" : "dark:bg-neutral-800/30 bg-neutral-400/30")}>
+                    <button
+                        onClick={() => setDisplay("LIST")}
+                        className={cn("h-7 w-8 flex items-center justify-center p-[4px] rounded-md", display === "LIST" && "dark:bg-wamellow bg-wamellow-100")}
+                    >
                         <HiViewList />
                     </button>
                 </div>

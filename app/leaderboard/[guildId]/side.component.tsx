@@ -73,7 +73,6 @@ export default function Side({
                     as={Link}
                     className="w-full !justify-start"
                     color="secondary"
-                    variant="flat"
                     href={guild.inviteUrl}
                     target="_blank"
                     startContent={<BsDiscord />}

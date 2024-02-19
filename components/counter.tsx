@@ -74,16 +74,16 @@ export function StatsBar(options: Options) {
                         </Link>}
                     </div>
 
-                    <div className="flex">
+                    <div className="md:flex">
                         <ClientCountUp className="text-3xl dark:text-neutral-100 text-neutral-900 font-medium" end={item.number} />
-                        <span className="text-lg dark:text-violet-400 text-violet-600 font-medium relative top-2.5 ml-2">
+                        <div className="text-lg dark:text-violet-400 text-violet-600 font-medium relative md:top-2.5 md:ml-2">
                             {typeof item.gained === "number"
                                 ?
                                 <>+<ClientCountUp end={item.gained} /> {item.append || "today"}</>
                                 :
                                 item.gained
                             }
-                        </span>
+                        </div>
                     </div>
 
                 </div>

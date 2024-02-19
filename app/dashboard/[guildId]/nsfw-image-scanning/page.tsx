@@ -3,13 +3,14 @@
 import { Code } from "@nextui-org/react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { HiExclamation, HiViewGridAdd } from "react-icons/hi";
+import { HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
+import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
 import { getData } from "@/lib/api";
 import { ApiV1GuildsModulesNsfwModerationGetResponse } from "@/typings";
@@ -53,10 +54,10 @@ export default function Home() {
     return (
         <>
 
-            <div className="mb-6 p-3 rounded-md bg-violet-500/80 border-violet-400/80 border text-neutral-200 flex items-center gap-2">
-                <HiExclamation className="mt-1 h-5 w-5" />
-                <span>Images could be false positives of false negatives, this will not replace human moderation.</span>
-            </div>
+            <Notice
+                type={NoticeType.Info}
+                message="Images could be false positives of false negatives, this will not replace human moderation."
+            />
 
             <Switch
                 name="NSFW image moderation enabled."
@@ -137,7 +138,7 @@ export default function Home() {
             </div>
 
             <span className="mb-2" >
-                Members with the <Code>Manage Messages</Code> permission bypass the NSFW image scanning automatically. <br />
+                Members with the <Code color="secondary">Manage Messages</Code> permission bypass the NSFW image scanning automatically. <br />
             </span>
 
         </>

@@ -54,7 +54,7 @@ export default function Modal<T>({
                         animate={show ? "open" : "closed"}
                         exit="closed"
                         variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
-                        className="fixed top-0 left-0 h-screen w-full inset-0 bg-black/90 flex items-center justify-center z-50"
+                        className="fixed top-0 left-0 h-screen w-full inset-0 backdrop-blur backdrop-brightness-50 flex items-center justify-center z-50"
                     >
                         <motion.div
                             initial="closed"
@@ -74,7 +74,7 @@ export default function Modal<T>({
                             }}
                             className="
                             md:relative fixed bottom-0 min-h-[333px] md:min-h-fit m-2
-                            w-full md:w-[480px] backdrop-blur-xl backdrop-brightness-10 rounded-xl shadow-md
+                            w-full md:w-[480px] bg-[#06040b] rounded-xl shadow-md
                             max-sm:[--y-closed:16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                             max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
                         "
