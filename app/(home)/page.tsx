@@ -91,7 +91,7 @@ export default async function Home() {
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="flex w-full items-center gap-8 mb-20 md:mb-12" style={{ height: "calc(100svh - 20rem)" }}>
+            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-96 h-[calc(100svh-16rem)] md:h-[calc(100svh-20rem)]">
                 <div className="min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
                     <Chip
@@ -102,7 +102,7 @@ export default async function Home() {
                         <span className="font-semibold">Everything for free</span>
                     </Chip>
 
-                    <h1 className={cn(montserrat.className, "lg:text-7xl text-6xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
+                    <h1 className={cn(montserrat.className, "lg:text-7xl md:text-6xl text-5xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
                         <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next generation</span>
                         {" of "}
                         <span className="underline decoration-blurple break-keep">discord bots</span>
@@ -193,10 +193,10 @@ export default async function Home() {
             </div>
 
             <div className="flex flex-col items-center space-x-2">
-                <div className="animate-scroll">
+                <div className="animate-scroll rounded-lg rotate-180 md:rounded-3xl md:rotate-0">
                     <div className="animate-scroll-wheel" />
                 </div>
-                <span className="text-lg font-medium mt-2 text-neutral-500/50">Scroll down...</span>
+                <span className="hidden md:block text-lg font-medium mt-2 text-neutral-500/50">Scroll down...</span>
             </div>
 
             <article

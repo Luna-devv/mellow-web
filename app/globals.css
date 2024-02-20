@@ -3,126 +3,125 @@
 @tailwind utilities;
 
 :root {
-  --background-rgb: rgb(246, 246, 246);
-  --wamellow-rgb: rgb(226, 232, 240);
+    --background-rgb: rgb(246, 246, 246);
+    --wamellow-rgb: rgb(226, 232, 240);
 }
 
 .dark:root {
-  --background-rgb: rgb(7, 5, 12);
-  --wamellow-rgb: rgba(255, 255, 255, 0.16);
+    --background-rgb: rgb(7, 5, 12);
+    --wamellow-rgb: rgba(255, 255, 255, 0.16);
 }
 
 html {
-  min-height: 100vh;
-  min-height: 100svh;
-  scroll-behavior: smooth;
-  background: var(--background-rgb) !important;
+    min-height: 100vh;
+    min-height: 100svh;
+    scroll-behavior: smooth;
+    background: var(--background-rgb) !important;
 }
 
 div[id="bg"] {
-  background-image: linear-gradient(175deg, rgb(33, 21, 63, 0.8) 0%, var(--background-rgb) 65%);
+    background-image: linear-gradient(175deg, rgb(33, 21, 63, 0.8) 0%, var(--background-rgb) 65%);
 }
 
 @keyframes ScaleBlink {
-  50% {
-    transform: scale(1.2) rotate(12deg);
-  }
+    50% {
+        transform: scale(1.2) rotate(12deg);
+    }
 }
 
 .svg-max svg {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .scrollbar-none::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .scrollbar-none {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 ::selection {
-  background-color: rgba(139, 92, 246, 0.6);
+    background-color: rgba(139, 92, 246, 0.6);
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
-  background: var(--background-rgb);
+    width: 4px;
+    background: var(--background-rgb);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.6);
-  border-radius: 2px;
+    background: rgba(139, 92, 246, 0.6);
+    border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(139, 92, 246, 1);
+    background: rgb(139, 92, 246, 1);
 }
 
 .animate-scroll {
-  border: 2px solid rgb(139, 92, 246, 1);
-  border-radius: 22px;
-  height: 2.2rem;
-  position: relative;
-  width: 20px;
+    border: 2px solid rgb(139, 92, 246, 1);
+    height: 2.2rem;
+    position: relative;
+    width: 20px;
 }
 
 .animate-scroll-wheel {
-  animation: scroll 2.5s ease infinite;
-  background: rgb(139, 92, 246, 1);
-  border-radius: 1rem;
-  height: 0.5rem;
-  left: calc(50% - 1.5px);
-  position: absolute;
-  right: 50%;
-  top: 8px;
-  width: 3px;
+    animation: scroll 2.5s ease infinite;
+    background: rgb(139, 92, 246, 1);
+    border-radius: 1rem;
+    height: 0.5rem;
+    left: calc(50% - 1.5px);
+    position: absolute;
+    right: 50%;
+    top: 8px;
+    width: 3px;
 }
 
 @keyframes scroll {
-  0% {
-    transform: translateY(0);
-  }
+    0% {
+        transform: translateY(0);
+    }
 
-  50% {
-    transform: translateY(0.5rem);
-  }
+    50% {
+        transform: translateY(0.5rem);
+    }
 
-  51% {
-    opacity: 1;
-  }
+    51% {
+        opacity: 1;
+    }
 
-  100% {
-    opacity: 0;
-    transform: translateY(0);
-  }
+    100% {
+        opacity: 0;
+        transform: translateY(0);
+    }
 }
 
 button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
 a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
-  @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
+    @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .text-sm button.subpixel-antialiased,
 .text-sm a[role="button"] {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
 }
 
 .button {
-  @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
+    @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .button-primary {
-  @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
+    @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .button-blurple {
-  @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 duration-200 justify-center gap-2 items-center font-medium text-medium
+    @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 duration-200 justify-center gap-2 items-center font-medium text-medium
 }
 
 .button-underline {
-  @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min text-medium
+    @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min text-medium
 }
