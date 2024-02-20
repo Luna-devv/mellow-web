@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { FunctionComponent } from "react";
 
 import { webStore } from "@/common/webstore";
 
@@ -12,7 +11,12 @@ interface Props {
     forceStatic?: boolean
 }
 
-const ImageReduceMotion: FunctionComponent<Props> = ({ url, size, alt, className, forceStatic }) => {
+export default function ImageReduceMotion({ url,
+    size,
+    alt,
+    className,
+    forceStatic
+}: Props) {
     const web = webStore((w) => w);
 
     return (
@@ -24,9 +28,8 @@ const ImageReduceMotion: FunctionComponent<Props> = ({ url, size, alt, className
             alt={alt}
             className={className}
             loading="lazy"
+            draggable={false}
         />
     );
 
-};
-
-export default ImageReduceMotion;
+}

@@ -189,15 +189,29 @@ export default function Home() {
                                 }}
                                 className="dark:bg-wamellow bg-wamellow-100 p-4 flex items-center rounded-lg drop-shadow-md overflow-hidden relative h-24 duration-100 outline-violet-500 hover:outline group/card"
                             >
-                                <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={24} alt="" forceStatic={true} className="absolute top-[-48px] left-0 w-full z-0 blur-xl opacity-30" />
+                                <ImageReduceMotion
+                                    alt=""
+                                    className="absolute top-[-48px] left-0 w-full z-0 blur-xl opacity-30 pointer-events-none"
+                                    size={24}
+                                    url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`}
+                                    forceStatic={true}
+                                />
 
-                                <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`} size={56} alt={`Server icon of @${guild.name}`} className="rounded-lg h-14 w-14 z-1 relative drop-shadow-md" />
+                                <ImageReduceMotion
+                                    alt={`Server icon of @${guild.name}`}
+                                    className="rounded-lg h-14 w-14 z-1 relative drop-shadow-md"
+                                    size={56}
+                                    url={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`}
+                                />
+
                                 <div className="ml-3 text-sm relative bottom-1">
-                                    <div className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1 sm:max-w-64 lg:max-w-56 truncate">{guild.name}</div>
-                                    <span className="flex gap-2">
+                                    <span className="text-lg dark:text-neutral-200 font-medium text-neutral-800 mb-1 sm:max-w-64 lg:max-w-56 truncate">
+                                        {guild.name}
+                                    </span>
+                                    <div className="flex gap-2">
                                         <ManageButton guildId={guild.id} />
                                         <LeaderboardButton guildId={guild.id} />
-                                    </span>
+                                    </div>
                                 </div>
 
                             </motion.li>
@@ -263,7 +277,7 @@ function LeaderboardButton({ guildId }: { guildId: string }) {
         <Button
             as={Link}
             href={`/leaderboard/${guildId}`}
-            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 opacity-0 group-hover/card:opacity-100"
+            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 md:opacity-0 group-hover/card:opacity-100"
         >
             Leaderboard
         </Button>
