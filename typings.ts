@@ -114,6 +114,7 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
     roleIds: string[];
     pingIds: string[];
     deleteAfter?: number;
+    deleteAfterLeave?: boolean;
     restore: boolean;
 
     dm: {

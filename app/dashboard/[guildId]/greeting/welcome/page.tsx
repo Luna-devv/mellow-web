@@ -75,7 +75,7 @@ export default function Home() {
             </Link>
 
             <Switch
-                name="Welcome module enabled."
+                name="Welcome module enabled"
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="enabled"
                 defaultState={welcome?.enabled || false}
@@ -89,15 +89,24 @@ export default function Home() {
             />
 
             <Switch
-                name="Restore members roles and nickname on rejoin."
+                name="Restore members roles and nickname on rejoin"
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="restore"
                 defaultState={welcome?.restore || false}
                 disabled={!welcome.enabled}
             />
 
+            <Switch
+                name="Delete welcome message after leave"
+                description="This only takes affect if the user joined less than 24h ago."
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="deleteAfterLeave"
+                defaultState={welcome?.deleteAfterLeave || false}
+                disabled={!welcome.enabled}
+            />
+
             <NumberInput
-                name="After how many seconds the message should be deleted."
+                name="After how many seconds the message should be deleted"
                 description="Set to 0 to disable."
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="deleteAfter"
@@ -243,7 +252,7 @@ export default function Home() {
                 <div className={`mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6 ${!welcome.card.enabled && "pb-[0px]"}`}>
 
                     <Switch
-                        name="Show image card."
+                        name="Show image card"
                         url={`/guilds/${guild?.id}/modules/welcome`}
                         dataName="card.enabled"
                         defaultState={welcome.card.enabled}
