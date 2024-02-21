@@ -1,4 +1,4 @@
-import { Code } from "@nextui-org/react";
+import { Chip } from "@nextui-org/react";
 import { Metadata } from "next";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { HiChevronRight, HiLightningBolt, HiUserAdd } from "react-icons/hi";
 import Badge from "@/components/badge";
 import ImageGrid from "@/components/image-grid";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import TextInput from "@/components/inputs/TextInput";
 import { ServerButton } from "@/components/server-button";
 import ArrowPic from "@/public/arroww.webp";
 import { ApiV1AiResponse } from "@/typings";
@@ -24,8 +25,8 @@ const fetchOptions = { headers: { Authorization: process.env.API_SECRET as strin
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
-    const title = "Supercharged Ai";
-    const description = "Unlock complimentary access to a variety of free image generation models directly within your Discord server.";
+    const title = "Supercharged image Ai for Discord";
+    const description = "Unlock complimentary access to a variety of free /image generation models directly within your Discord server.";
     const url = getCanonicalUrl("ai");
 
     return {
@@ -62,15 +63,35 @@ export default async function Home() {
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="md:text-5xl text-4xl font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 flex gap-2 w-full">
+            <div className="md:text-5xl text-4xl font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 flex items-center gap-2 w-full">
                 <h1 className={montserrat.className}>
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep">Supercharged Ai</span>
                 </h1>
                 <HiLightningBolt className="text-pink-400 rotate-6" />
-                <Badge text="Free" />
+                <Chip
+                    className="ml-auto"
+                    color="secondary"
+                    variant="flat"
+                    size="lg"
+                >
+                    <span className="font-semibold text-lg">
+                        Free
+                    </span>
+                </Chip>
             </div>
 
-            {models && <ImageGrid images={models.slice(0, 24).map((model) => ({ id: model.title, url: model.url || "/discord.webp" }))} />}
+            {models &&
+                <ImageGrid
+                    images={
+                        models
+                            .slice(0, 24)
+                            .map((model) => ({
+                                id: model.title,
+                                url: model.url || "/discord.webp"
+                            }))
+                    }
+                />
+            }
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4 gap-4">
                 <span className="font-medium">
@@ -117,12 +138,22 @@ export default async function Home() {
 
             <div className="w-full">
                 <h2 className={styles.h2}>/image command</h2>
-                <div className="my-8 max-w-2xl font-medium">
-                    We recommend that you play around with each model yourself as this page uses the same query for everything, even non-anime models.
-                    <br />
-                    <br />
-                    <Code className="select-all">query: anime girl, close up, intricate details, dramatic lighting, bloom, highly detailed, micro details</Code>
-                    <Code className="select-all">negative-query: (poorly drawn face)++, (dark skin, tan skin)++, (character out of frame)1.3, bad quality, low-res, (monochrome)1.1, (grayscale)1.3, acne, skin blemishes, bad anatomy, text, error, missing fingers, extra limbs, missing limbs, cut off</Code>
+                <div className="my-8 font-medium space-y-4">
+                    <div className="max-w-xl">
+                        We recommend that you play around with each model yourself as this page uses the same query for everything, even non-anime models.
+                    </div>
+
+                    <TextInput
+                        name="Query"
+                        defaultState="anime girl, close up, intricate details, dramatic lighting, bloom, highly detailed, micro details"
+                        disabled
+                    />
+                    <TextInput
+                        name="Negative query"
+                        max={300}
+                        defaultState="(poorly drawn face)++, (dark skin, tan skin)++, (character out of frame)1.3, bad quality, low-res, (monochrome)1.1, (grayscale)1.3, acne, skin blemishes, bad anatomy, text, error, missing fingers, extra limbs, missing limbs, cut off<"
+                        disabled
+                    />
                 </div>
             </div>
 

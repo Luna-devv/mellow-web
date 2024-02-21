@@ -1,3 +1,5 @@
+"use client";
+
 import { FunctionComponent, useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
