@@ -26,6 +26,7 @@ import { ApiV1StatisticsGetResponse, ApiV1TopguildsGetResponse } from "@/typings
 import cn from "@/utils/cn";
 import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { convertMonthToName } from "@/utils/time";
+import { actor } from "@/utils/tts";
 import { getCanonicalUrl } from "@/utils/urls";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -154,7 +155,7 @@ export default async function Home() {
                             </ServerButton>
                         </div>
 
-                        <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-mediumr mt-3 opacity-80 pl-20 lg:pr-20 rotate-2", handwritten.className)}>
+                        <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-medium mt-3 opacity-80 pl-20 lg:pr-20 rotate-2", handwritten.className)}>
                             <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
                             Get started here in seconds
                         </span>
@@ -208,7 +209,7 @@ export default async function Home() {
                 <div>
                     <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
                     <div className="my-8 max-w-md font-medium">
-                        Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages!
+                        Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages! 👀
                     </div>
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
@@ -240,7 +241,10 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
                             <DiscordMessage {...messageProps("leaderboard")}>
                                 <Image src={LeaderboardPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" />
                             </DiscordMessage>
@@ -251,11 +255,13 @@ export default async function Home() {
                 <div>
                     <h2 className={styles.h2}>Next-Level text to speech, tts 🔊</h2>
                     <div className="my-8 max-w-md font-medium">
-                        Embrace the power of VoiceWave and let your messages speak everywhere you want! <span className="text-sm relative top-0.5 italic opacity-75">(Chat GPT called it VoiceWave)</span>
+                        It{"'"}s crucial for people with speech impairments.
+                        It ensures inclusivity and allows everyone to participate fully, promoting accessibility and community engagement. ❤️
+                        <span className="sr-only">One of the msot important Accessibility feature you need.</span>
                     </div>
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
-                        <div className="md:w-1/2">
+                        <div className="md:w-1/2 flex flex-col items-start">
                             <Chip
                                 className="mb-2"
                                 color="secondary"
@@ -265,12 +271,36 @@ export default async function Home() {
                             >
                                 <span className="font-semibold">100% free forever</span>
                             </Chip>
-                            <h3 className={styles.h3}>40 Voices in 5 Languages</h3>
+
+                            <h3 className={styles.h3}>40 Voices in 8 Languages</h3>
+
                             <div className="pt-6">
-                                With Wamellow{"'"}s Text to Speech, you{"'"}re in control of transforming text into captivating speech.
-                                You can either generate files using <Code color="secondary">/tts file</Code>, talk in voice chats with <Code color="secondary">/tts voice</Code> or setup a deticated channel!
+                                You can either generate files using <Code color="secondary">/tts file</Code>, talk in voice chats with <Code color="secondary">/tts voice</Code> or setup a dedicated channel!
+                                Great for people with aphonia, dysphonia, or other speech impairments.
                             </div>
-                            <div className="flex gap-2 mt-6">
+
+                            <AvatarGroup
+                                as={Link}
+                                href={getCanonicalUrl("profile", "text-to-speech", "?utm_source=wamellow.com&utm_medium=home")}
+                                className="mt-4"
+                                max={8}
+                            >
+                                {["us", "de", "es", "fr", "jp", "kr", "br", "id"].map((lang) => {
+                                    const name = Object.entries(actor).find(([, [, langCode]]) => langCode === lang)?.[1][0] || lang;
+
+                                    return (
+                                        <Avatar
+                                            size="sm"
+                                            key={"ttsLang-" + lang}
+                                            src={`/${lang}.webp`}
+                                            alt={name}
+                                            title={name}
+                                        />
+                                    );
+                                })}
+                            </AvatarGroup>
+
+                            <div className="flex gap-2 mt-5">
                                 <Invite />
                                 <ServerButton
                                     as={Link}
@@ -284,20 +314,33 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center gap-4 min-h-56" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
-                            <DiscordChannelCategory name="#/voice/dev/null">
-                                <DiscordChannelVoice name="• Public">
-                                    <DiscordUser username="mwlica" avatar="/luna-small.webp" />
-                                    <DiscordUser username="Wamellow" avatar="/waya-v3-small.webp" isTalking />
-                                </DiscordChannelVoice>
-                            </DiscordChannelCategory>
+                        <div className="w-full md:w-1/2 ">
 
-                            <div className="bg-[#313338] h-0.5 w-full sm:w-0.5 sm:h-32 md:h-0.5 md:w-full lg:w-0.5 lg:h-32 rounded-full ml-2" />
+                            <div
+                                className="px-8 py-6 md:py-12 rounded-lg flex flex-col sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center gap-4 min-h-56"
+                                style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                            >
+                                <DiscordChannelCategory name="#/voice/dev/null">
+                                    <DiscordChannelVoice name="• Public">
+                                        <DiscordUser username="mwlica" avatar="/luna-small.webp" />
+                                        <DiscordUser username="Space" avatar="/space.webp" />
+                                        <DiscordUser username="Wamellow" avatar="/waya-v3-small.webp" isTalking />
+                                    </DiscordChannelVoice>
+                                </DiscordChannelCategory>
 
-                            <DiscordMessage {...messageProps("tts voice")}>
-                                <Highlight mode={"DARK"} text="Now talking..." />
-                            </DiscordMessage>
+                                <div className="bg-[#313338] h-0.5 w-full sm:w-0.5 sm:h-32 md:h-0.5 md:w-full lg:w-0.5 lg:h-32 rounded-full ml-2" />
+
+                                <DiscordMessage {...messageProps("tts voice")}>
+                                    <Highlight mode={"DARK"} text="Now talking..." />
+                                </DiscordMessage>
+                            </div>
+
+                            <span className="text-sm mt-1 opacity-75">
+                                English, French, German, Spanish, Portuguese, Indonesian and Japanese, Korean.
+                            </span>
+
                         </div>
+
                     </Box>
                 </div>
 
@@ -337,7 +380,10 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
                             <DiscordMessage {...messageProps()}>
                                 <DiscordMessageEmbed
                                     mode={"DARK"}
@@ -399,7 +445,10 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
                             <DiscordMessage {...messageProps()}>
                                 <Highlight mode={"DARK"} text="Welcome @mwlica to **Someone's** 👋" />
                                 <Image src={WelcomePic} itemProp="image" alt="example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" />
@@ -499,7 +548,10 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
                             <DiscordMessage {...messageProps("anime")}>
                                 <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
                                 <Image
@@ -565,7 +617,10 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
                             <DiscordMessage {...messageProps("image")}>
                                 <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
                                 <Image
@@ -618,7 +673,10 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col gap-4" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col gap-4"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
                             <DiscordMessage
                                 mode={"DARK"}
                                 user={{
