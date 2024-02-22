@@ -1,25 +1,22 @@
 "use client";
 
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { Accordion, AccordionItem, Chip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { BsDiscord } from "react-icons/bs";
 import { HiChartBar, HiMail } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
-import Badge from "@/components/badge";
 import SelectMenu from "@/components/inputs/SelectMenu";
+import Switch from "@/components/inputs/Switch";
 import Modal from "@/components/modal";
 
 import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
 
 export default function Home() {
     const web = webStore((w) => w);
-    const user = userStore((s) => s);
     const guild = guildStore((g) => g);
 
     const [modal, setModal] = useState(false);
@@ -94,21 +91,36 @@ export default function Home() {
             <hr className="mt-6 mb-2 dark:border-wamellow-light border-wamellow-100-light" />
             <span className="dark:text-neutral-500 text-neutral-400 text-sm flex">
                 This option will assign a channel to be the text input method for in-voicechat text to speech.
-                <Badge text="Beta" />
+                <Chip
+                    className="ml-auto"
+                    color="secondary"
+                    variant="flat"
+                >
+                    Beta
+                </Chip>
             </span>
 
             <div className="lg:flex gap-6 mt-5">
-                <div className="lg:w-1/2">
-                    <SelectMenu
-                        name="Text to Speech channel"
-                        url={`/guilds/${params.guildId}`}
-                        dataName="ttsChannelId"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
-                        description="Select a channel what channel should be used for tts."
-                        defaultState={guild?.ttsChannelId}
-                        showClear
-                    />
-                </div>
+                {guild?.tts && guild?.channels?.length &&
+                    <div className="lg:w-1/2 space-y-8">
+                        <SelectMenu
+                            name="Text to Speech channel"
+                            url={`/guilds/${params.guildId}`}
+                            dataName="channelId"
+                            items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
+                            description="Select a channel what channel should be used for tts."
+                            defaultState={guild?.tts.channelId}
+                            showClear
+                        />
+                        <Switch
+                            name="Announce user"
+                            url={`/guilds/${params.guildId}`}
+                            dataName="announceUser"
+                            description="If I should say who is currently speaking via tts."
+                            defaultState={guild?.tts.announceUser || false}
+                        />
+                    </div>
+                }
                 <Accordion
                     className="lg:w-1/2"
                     defaultExpandedKeys={["1"]}
@@ -142,21 +154,6 @@ export default function Home() {
                         </Link>
                     </AccordionItem>
                 </Accordion>
-            </div>
-
-            <hr className="mt-6 mb-3 dark:border-wamellow-light border-wamellow-100-light" />
-
-            <div>Hey {user?.username}, thanks for testing out the early version of this bot :)</div>
-            <div>There will be more exciting stuff coming soon&trade;</div>
-
-            <div className="flex mt-2">
-                <Button
-                    as={Link}
-                    href="/support"
-                    startContent={<BsDiscord />}
-                >
-                    Join our server for updates
-                </Button>
             </div>
 
         </div>

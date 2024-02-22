@@ -1,4 +1,3 @@
-
 import "./globals.css";
 
 import { Metadata, Viewport } from "next";

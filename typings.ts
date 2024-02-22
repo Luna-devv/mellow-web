@@ -45,7 +45,10 @@ export interface ApiV1GuildsGetResponse {
         id?: string;
         name?: string;
     };
-    ttsChannelId?: string | null;
+    tts: {
+        channelId: string | null;
+        announceUser: boolean;
+    }
 }
 
 export interface ApiV1GuildsTopmembersGetResponse {
