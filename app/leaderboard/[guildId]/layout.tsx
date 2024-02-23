@@ -13,7 +13,7 @@ import { getDesign, getGuild, getPagination } from "./api";
 import Side from "./side.component";
 
 export interface LeaderboardProps {
-    params: { guildId: string },
+    params: { guildId: string };
     children: React.ReactNode;
 }
 
@@ -29,7 +29,7 @@ export const generateMetadata = async ({
     const url = getCanonicalUrl("leaderboard", params.guildId);
 
     const date = new Date();
-    const cacheQuery = `${date.getDate()}${date.getHours()}`
+    const cacheQuery = `${date.getDate()}${date.getHours()}`;
 
     return {
         title,
@@ -61,8 +61,7 @@ export const generateMetadata = async ({
 export default async function RootLayout({
     params,
     children
-}: LeaderboardProps
-) {
+}: LeaderboardProps) {
 
     const guildPromise = getGuild(params.guildId);
     const designPromise = getDesign(params.guildId);

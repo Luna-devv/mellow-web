@@ -3,14 +3,12 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import { HiBadgeCheck } from "react-icons/hi";
 
-import InvitesIcon from "@/components/icons/invites";
-import MessagesIcon from "@/components/icons/messages";
-import VoiceIcon from "@/components/icons/voice";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 import { getDesign, getGuild, getPagination, getTopMembers } from "./api";
+import Icon from "./icon";
 import Pagination from "./pagination.component";
 
 interface LeaderboardProps {
@@ -127,10 +125,7 @@ export default async function Home({ params, searchParams }: LeaderboardProps) {
                             {searchParams.type === "voiceminutes" ? member.activity?.formattedVoicetime : intl.format(member.activity?.[searchParams.type || "messages"])}
                         </span>
 
-                        {(searchParams.type === "messages" || !searchParams.type) && <MessagesIcon height="0.9em" />}
-                        {searchParams.type === "voiceminutes" && <VoiceIcon height="0.9em" className="mt-1 ml-1" />}
-                        {searchParams.type === "invites" && <InvitesIcon height="0.9em" className="mt-1.5" />}
-
+                        <Icon type={searchParams.type} />
                     </div>
 
                     <form action={publish}>

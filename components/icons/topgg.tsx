@@ -16,5 +16,5 @@ export default function TopggIcon(props: SVGProps<SVGSVGElement>) {
                 d="M144 247H306.5V409.5H193.657C180.531 409.5 167.943 404.286 158.661 395.004C149.379 385.722 144.165 373.134 144.165 360.008L144 247Z"
             />
         </svg>
-    )
-};
+    );
+}

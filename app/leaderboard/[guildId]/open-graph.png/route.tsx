@@ -7,8 +7,8 @@ import { NextRequest } from "next/server";
 import { truncate } from "@/utils/truncate";
 
 import { getGuild, getTopMembers } from "../api";
+import Icon from "../icon";
 import { LeaderboardProps } from "../layout";
-import MessagesIcon from "@/components/icons/messages";
 
 export const revalidate = 3600; // 1 hour
 
@@ -16,6 +16,9 @@ export async function GET(
     request: NextRequest,
     { params }: LeaderboardProps
 ) {
+    let type = request.nextUrl.searchParams.get("type");
+    if (type !== "messages" && type !== "voiceminutes" && type !== "invites") type = "messages";
+
     const guild = await getGuild(params.guildId);
     const members = await getTopMembers(params.guildId, { page: 1, type: "messages" });
 
@@ -52,7 +55,7 @@ export async function GET(
 
                             <div tw="text-3xl text-gray-400 flex text-3xl" style={{ fontWeight: 500 }}>
                                 <span tw="mr-2">{intl.format(member.activity.messages)}</span>
-                                <MessagesIcon height="0.9em" />
+                                <Icon type={type as "messages"} />
                             </div>
                         </div>
                     ))}
