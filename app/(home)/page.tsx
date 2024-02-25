@@ -93,7 +93,7 @@ export default async function Home() {
         <div className="flex items-center flex-col w-full">
 
             <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-96 h-[calc(100svh-16rem)] md:h-[calc(100svh-20rem)]">
-                <div className="min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
+                <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
                     <Chip
                         color="secondary"
@@ -741,6 +741,7 @@ export default async function Home() {
                 <div className="divide-y divide-wamellow">
                     {Array.isArray(commands) && commands
                         .sort((a, b) => b.uses - a.uses)
+                        .slice(0, 4)
                         .map((command) => (
                             <div key={command.name} className="text-base py-4 flex flex-col md:flex-row gap-4 md:items-center">
                                 <div className="-mb-2 md:mb-0 flex items-center h-min">
@@ -751,7 +752,6 @@ export default async function Home() {
                                 <span className="ml-auto italic text-sm hidden md:block">{intl.format(command.uses)} uses</span>
                             </div>
                         ))
-                        .slice(0, 4)
                     }
                 </div>
                 {(!commands || !Array.isArray(commands)) &&

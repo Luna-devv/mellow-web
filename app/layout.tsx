@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Divider } from "@nextui-org/react";
 import { Metadata, Viewport } from "next";
 import { Montserrat, Outfit } from "next/font/google";
 import Image from "next/image";
@@ -49,7 +50,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             "discord", "bot", "app", "intefration", "discord bot", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish", "Luna-devv", "mee6 alternative",
             "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboard", "lb", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify",
             "captcha.bot", "security", "tts", "text to speech", "free", "customizable", "next-gen", "next generation", "ai", "ai images", "nsfw detection", "moderation", "anime",
-            "nekos", "waifus", "chat to speech", "accessibility", "aphonia", "dysphonia", "mute", "liapew"
+            "nekos", "waifus", "chat to speech", "accessibility", "aphonia", "dysphonia", "mute", "liapew", "wumpus", "wumpus store", "wumpus bots"
         ],
 
         alternates: {
@@ -122,16 +123,26 @@ export default function RootLayout({
 
                 <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
                     <Link href="/" className={cn("font-semibold flex items-center mr-2", montserrat.className)}>
-                        <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8" />
-                        <span className="text-xl dark:text-neutral-100 text-neutral-900">Wamellow</span>
+                        <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
+                        <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
                     </Link>
 
-                    <div className="hidden sm:flex gap-1">
-                        <Link href="https://lunish.nl/kofi" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
-                            <SiKofi className="group-hover:text-[#ff6c6b] duration-200" /> Support us
+                    <Divider
+                        className="h-10 rotate-6 mx-1"
+                        orientation="vertical"
+                    />
+
+                    <div className="flex gap-1">
+                        <Link
+                            href="https://lunish.nl/kofi"
+                            className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
+                        >
+                            <SiKofi className="group-hover:text-[#ff6c6b] duration-200 mt-0.5" />
+                            Donate
                         </Link>
-                        <Link href="/vote" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-2 rounded-md duration-200 flex items-center gap-2 group">
-                            <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5" /> Vote
+                        <Link href="/vote" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 flex items-center gap-2 group">
+                            <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5 mt-0.5" />
+                            Vote
                         </Link>
                     </div>
 

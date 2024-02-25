@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "@nextui-org/react";
+import { Button, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
@@ -168,9 +168,14 @@ export default function RootLayout({
             <title>{`${guild?.name}'s Dashboard`}</title>
 
             <div className="flex flex-col gap-5 mb-3">
-                <Link href="/dashboard" className="button-underline">
-                    <HiArrowNarrowLeft /> Serverlist
-                </Link>
+                <Button
+                    as={Link}
+                    className="w-fit"
+                    href="/dashboard"
+                    startContent={<HiArrowNarrowLeft />}
+                >
+                    Serverlist
+                </Button>
 
                 <div className="text-lg flex flex-col md:flex-row md:items-center">
                     <div className="flex gap-5">
