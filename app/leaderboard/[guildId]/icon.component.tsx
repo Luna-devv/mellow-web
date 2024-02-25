@@ -15,11 +15,11 @@ export default function Icon({
     ...props
 }: Props) {
     switch (type) {
-        case "messages":
-            return <MessagesIcon height={cn("0.9em", className)} {...props} />;
         case "voiceminutes":
             return <VoiceIcon height="0.9em" className={cn("mt-1 ml-1", className)} {...props} />;
         case "invites":
             return <InvitesIcon height="0.9em" className={cn("mt-1.5", className)} {...props} />;
+        default:
+            return <MessagesIcon height={cn("0.9em", className)} {...props} />;
     }
 }

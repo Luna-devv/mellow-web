@@ -8,7 +8,7 @@ import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/component
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 import { getDesign, getGuild, getPagination, getTopMembers } from "./api";
-import Icon from "./icon";
+import Icon from "./icon.component";
 import Pagination from "./pagination.component";
 
 interface LeaderboardProps {

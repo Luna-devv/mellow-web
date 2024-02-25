@@ -7,7 +7,7 @@ import { userStore } from "@/common/user";
 import LoginButton from "@/components/login-button";
 import { getCanonicalUrl } from "@/utils/urls";
 
-function Pagination(
+export default function Pagination(
     {
         guildId,
         searchParams,
@@ -46,5 +46,3 @@ function Pagination(
     );
 
 }
-
-export default Pagination;

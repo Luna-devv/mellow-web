@@ -7,7 +7,7 @@ import { NextRequest } from "next/server";
 import { truncate } from "@/utils/truncate";
 
 import { getGuild, getTopMembers } from "../api";
-import Icon from "../icon";
+import Icon from "../icon.component";
 import { LeaderboardProps } from "../layout";
 
 export const revalidate = 3600; // 1 hour
@@ -26,9 +26,9 @@ export async function GET(
 
     return new ImageResponse(
         (
-            <div tw="bg-[#0d0f11] p-18 flex flex-col w-full h-full text-6xl text-white">
+            <div tw="bg-[#07050c] p-18 flex flex-col w-full h-full text-6xl text-white">
                 <div tw="flex mb-6">
-                    <span tw="text-3xl bg-violet-400/75 opacity-80 pt-2 px-4 rounded-xl" style={{ fontWeight: 500 }}>Leaderboard</span>
+                    <span tw="text-3xl bg-[#2c2146] text-[#895af6] opacity-80 pt-2 px-4 rounded-xl" style={{ fontWeight: 500 }}>Leaderboard</span>
                 </div>
                 <div tw="flex mb-3 items-center">
                     <img
