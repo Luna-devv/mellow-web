@@ -11,8 +11,8 @@ import { HiAnnotation, HiLink, HiShare, HiTrash, HiViewGridAdd, HiVolumeUp } fro
 import { webStore } from "@/common/webstore";
 import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
-import ErrorBanner from "@/components/Error";
 import Modal from "@/components/modal";
+import Notice, { NoticeType } from "@/components/notice";
 import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -155,7 +155,7 @@ export default function Side({
                         title="Invite privacy"
                         classNames={{ content: "mb-2" }}
                     >
-                        The invite on this sidebar is taken from the widget, if you want to remove the invite from this page, disable the widget in your discord server settings or remove <Code>Manage Guild</Code> permission from the bot.
+                        The invite on this sidebar is taken from the widget, if you want to remove the invite from this page, disable the widget in your discord server settings or remove <Code color="secondary">Manage Guild</Code> permission from the bot.
                         <br />
                         <br />
                         <strong>NOTE: </strong> It might take up to an hour for this page to update.
@@ -184,7 +184,10 @@ export default function Side({
                     router.refresh();
                 }}
             >
-                <ErrorBanner message="Takes a few seconds to apply" type="info" removeButton />
+                <Notice
+                    type={NoticeType.Info}
+                    message="Takes a few seconds to apply"
+                />
                 Are you sure you want to delete the leaderboard? It will be gone forever, probably, who knows.
             </Modal>
 
