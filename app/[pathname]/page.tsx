@@ -5,6 +5,7 @@ interface Props {
 }
 
 const fetchOptions = { next: { revalidate: 60 * 60 } };
+const utm = "?utm_source=wamellow.com&utm_medium=redirect";
 
 export default async function Home({ params }: Props) {
 
@@ -12,7 +13,9 @@ export default async function Home({ params }: Props) {
         case "support":
             return redirect("https://discord.com/invite/DNyyA2HFM9");
         case "vote":
-            return redirect("https://top.gg/bot/1125449347451068437/vote");
+            return redirect("https://top.gg/bot/1125449347451068437/vote" + utm);
+        case "wumpus":
+            return redirect("https://wumpus.store/bot/1125449347451068437" + utm);
         case "invite":
         case "add":
         case "get":
