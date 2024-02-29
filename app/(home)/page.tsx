@@ -3,7 +3,7 @@ import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord, BsYoutube } from "react-icons/bs";
-import { HiArrowRight, HiCash, HiChevronRight, HiFire, HiInformationCircle, HiLockOpen, HiUserAdd } from "react-icons/hi";
+import { HiArrowNarrowRight, HiArrowRight, HiCash, HiChevronRight, HiFire, HiInformationCircle, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
 import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
@@ -92,7 +92,7 @@ export default async function Home() {
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-96 h-[calc(100svh-16rem)] md:h-[calc(100svh-20rem)]">
+            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-16rem)] md:h-[calc(100svh-20rem)]">
                 <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
                     <Chip
@@ -131,6 +131,13 @@ export default async function Home() {
                     </AvatarGroup>
 
                     <div className="space-y-4">
+                        <Link
+                            className="flex gap-1 items-center text-violet-400 hover:underline"
+                            href={getCanonicalUrl("dashboard", "?utm_source=wamellow.com&utm_medium=home")}
+                        >
+                            Go to Dashboard <HiArrowNarrowRight />
+                        </Link>
+
                         <div className="flex gap-2 lg:mt-0">
                             <ServerButton
                                 as={Link}
