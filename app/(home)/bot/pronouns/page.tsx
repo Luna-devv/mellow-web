@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { HiCash, HiPlus } from "react-icons/hi";
 
-import Badge from "@/components/badge";
 import Box from "@/components/box";
 import DiscordMessage from "@/components/discord/message";
 import { ServerButton } from "@/components/server-button";
 import cn from "@/utils/cn";
+import { Chip } from "@nextui-org/react";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -45,11 +45,13 @@ export default async function Home() {
 
             <Box className="flex flex-col md:flex-row gap-10 items-center">
                 <div className="md:w-1/2">
-                    <Badge
-                        before={<HiCash />}
-                        text="100% free forever"
-                        classname="mr-auto ml-0 mb-4"
-                    />
+                    <Chip
+                        color="secondary"
+                        variant="flat"
+                        startContent={<HiCash className="mx-1" />}
+                    >
+                        <span className="font-semibold">Everything for free</span>
+                    </Chip>
                     <h3 className={styles.h3}>Sexualities, Genders & Pronouns</h3>
                     <div className="pt-6">
                         Let your community describe themself with a wide variety of supported Pronouns, Sexualities and Genders.

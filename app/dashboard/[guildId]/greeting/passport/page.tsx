@@ -7,13 +7,13 @@ import { HiArrowNarrowLeft, HiFingerPrint } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
-import ErrorBanner from "@/components/Error";
 import SelectInput from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import Modal from "@/components/modal";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
 import { ApiV1GuildsModulesPassportGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
+import Notice from "@/components/notice";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -64,7 +64,7 @@ export default function Home() {
             <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
                 <HiArrowNarrowLeft /> Greetings
             </Link>
-            {error && <ErrorBanner message={error} />}
+            {error && <Notice message={error} />}
         </div>
     );
 
@@ -77,7 +77,7 @@ export default function Home() {
 
             {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId && !modal &&
                 <div className="mt-6">
-                    <ErrorBanner type="info" message="When using 'Assign role to member', a punishment role must be set." removeButton />
+                    <Notice message="When using 'Assign role to member', a punishment role must be set." />
                 </div>
             }
 

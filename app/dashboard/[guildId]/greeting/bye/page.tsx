@@ -10,11 +10,11 @@ import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import MessageCreatorEmbed from "@/components/embed-creator";
-import ErrorBanner from "@/components/Error";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import NumberInput from "@/components/inputs/NumberInput";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
+import Notice from "@/components/notice";
 import { ApiV1GuildsModulesByeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
@@ -62,7 +62,7 @@ export default function Home() {
             <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
                 <HiArrowNarrowLeft /> Greetings
             </Link>
-            {error && <ErrorBanner message={error} />}
+            {error && <Notice message={error} />}
         </div>
     );
 

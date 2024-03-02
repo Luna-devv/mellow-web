@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import { Metadata } from "next";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Link from "next/link";
@@ -6,7 +6,6 @@ import { BsDiscord, BsQuestionLg } from "react-icons/bs";
 import { HiChevronRight, HiLightningBolt, HiOutlineCheck, HiX } from "react-icons/hi";
 import { IoMdInfinite } from "react-icons/io";
 
-import Badge from "@/components/badge";
 import ImageGrid from "@/components/image-grid";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ApiV1TopguildsGetResponse } from "@/typings";
@@ -94,7 +93,12 @@ export default async function Home() {
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep hidden md:block">Professional</span>
                 </h1>
                 <HiLightningBolt className="text-pink-400 rotate-6" />
-                <Badge text="Not available" />
+                <Chip
+                    color="secondary"
+                    variant="flat"
+                >
+                    <span className="font-semibold">Not available</span>
+                </Chip>
             </div>
 
             {topGuilds &&
@@ -167,7 +171,7 @@ export default async function Home() {
                         <ImageReduceMotion url="/luna" size={64} alt="mwlica's profile picture" className="w-12 h-12 rounded-full" />
                         <div>
                             <div className="flex items-center gap-2">
-                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@mwlica</span> <Badge text="Developer" />
+                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@mwlica</span>
                             </div>
                             <span className="dark:text-neutral-300 text-neutral-700">Cute femboy</span>
                         </div>
@@ -183,7 +187,12 @@ export default async function Home() {
 
                     <div className="flex gap-2 items-center">
                         <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your guilds further!</span>
-                        <Badge text="Not available" />
+                        <Chip
+                            color="secondary"
+                            variant="flat"
+                        >
+                            <span className="font-semibold">Not available</span>
+                        </Chip>
                     </div>
 
                     <button className="flex dark:text-violet-400 text-violet-600 bg-violet-600/30 hover:bg-violet-600/10 py-2 px-4 rounded-md duration-200 justify-center gap-2 w-full opacity-30 cursor-not-allowed" disabled>
