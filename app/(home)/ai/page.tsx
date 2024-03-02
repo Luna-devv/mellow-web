@@ -6,7 +6,7 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
 
-import { getUploads } from "@/app/ai-gallary/api";
+import { getUploads } from "@/app/ai-gallery/api";
 import Notice from "@/components/notice";
 import { ServerButton } from "@/components/server-button";
 import CommandPic from "@/public/image-command.webp";
@@ -112,7 +112,7 @@ export default async function Home() {
                             <Link
                                 key={item.id + i}
                                 className="gap-10 items-center w-full relative max-w-lg hover:scale-105 transition-transform duration-300 ease-in-out"
-                                href={`/ai-gallary/${item.id}`}
+                                href={`/ai-gallery/${item.id}`}
                             >
                                 <Image
                                     alt=""

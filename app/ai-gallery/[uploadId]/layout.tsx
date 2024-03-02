@@ -30,7 +30,7 @@ export const generateMetadata = async ({
     const title = "Free /image Ai for Discord";
     const description = `View an amazing AI generated image ${"model" in upload ? `using the ${upload.model}` : ""} created with our versatile /image command. ${"prompt" in upload ? `Using the prompt: ${upload.prompt}` : ""}`.replace("  ", " ");
     const images = "id" in upload ? `https://r2.wamellow.com/ai-image/${upload.id}.webp` : `${getBaseUrl()}/waya-v3.jpg`;
-    const url = getCanonicalUrl("ai-gallary", params.uploadId);
+    const url = getCanonicalUrl("ai-gallery", params.uploadId);
 
     return {
         title,
@@ -113,7 +113,7 @@ export default async function RootLayout({
                                 <Link
                                     key={upload.id}
                                     className="h-24 w-24"
-                                    href={`/ai-gallary/${upload.id}`}
+                                    href={`/ai-gallery/${upload.id}`}
                                 >
                                     <NextImage
                                         alt={upload.prompt}

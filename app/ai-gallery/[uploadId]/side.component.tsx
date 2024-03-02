@@ -32,13 +32,13 @@ export default function Side({
                     <CopyToClipboardButton
                         className="w-full !justify-start"
                         title="Share this page"
-                        text={getCanonicalUrl("ai-gallary", upload.id as string)}
+                        text={getCanonicalUrl("ai-gallery", upload.id as string)}
                         icon={<HiShare />}
                     />
                     <Tooltip content="Share on Reddit" delay={0} closeDelay={0} showArrow>
                         <Button
                             as={Link}
-                            href={`https://reddit.com/submit?title=${encodeURIComponent(`Created an /image with a ${upload.model} AI model on wamellow.com`)}&text=${`Hey! I created this AI /image with the ${upload.model} model and the prompt: "${encodeURIComponent(upload.prompt)}" ${encodeURIComponent("\n\n")}${getCanonicalUrl("ai-gallary", upload.id as string)}`}`}
+                            href={`https://reddit.com/submit?title=${encodeURIComponent(`Created an /image with a ${upload.model} AI model on wamellow.com`)}&text=${`Hey! I created this AI /image with the ${upload.model} model and the prompt: "${encodeURIComponent(upload.prompt)}" ${encodeURIComponent("\n\n")}${getCanonicalUrl("ai-gallery", upload.id as string)}`}`}
                             target="_blank"
                             isIconOnly
                         >
@@ -48,7 +48,7 @@ export default function Side({
                     <Tooltip content="Share on Twitter/X" delay={0} closeDelay={0} showArrow>
                         <Button
                             as={Link}
-                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Created an #ai /image with a ${upload.model} AI model on on wamellow.com! The query is "${upload.prompt}"`)}&url=${encodeURIComponent(getCanonicalUrl("ai-gallary", upload.id as string))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Created an #ai /image with a ${upload.model} AI model on on wamellow.com! The query is "${upload.prompt}"`)}&url=${encodeURIComponent(getCanonicalUrl("ai-gallery", upload.id as string))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
                             target="_blank"
                             isIconOnly
                         >
@@ -152,7 +152,7 @@ export default function Side({
 
             {guild && "id" in guild &&
                 <Link
-                    href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=ai-gallary")}
+                    href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=ai-gallery")}
                     target="_blank"
                     className="flex gap-3 items-center border-2 border-wamellow p-3 rounded-lg shadow-md"
                 >
