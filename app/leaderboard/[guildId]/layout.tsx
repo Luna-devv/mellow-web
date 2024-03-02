@@ -5,14 +5,15 @@ import { HiAnnotation, HiLink, HiUsers, HiVolumeUp } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
+import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
 
-import { getDesign, getGuild, getPagination } from "./api";
+import { getDesign, getPagination } from "./api";
 import Side from "./side.component";
 
-export interface LeaderboardProps {
+export interface Props {
     params: { guildId: string };
     children: React.ReactNode;
 }
@@ -21,7 +22,7 @@ export const revalidate = 60 * 60;
 
 export const generateMetadata = async ({
     params
-}: LeaderboardProps): Promise<Metadata> => {
+}: Props): Promise<Metadata> => {
     const guild = await getGuild(params.guildId);
 
     const title = `${guild?.name || "Unknown"}'s Leaderboard`;
@@ -61,7 +62,7 @@ export const generateMetadata = async ({
 export default async function RootLayout({
     params,
     children
-}: LeaderboardProps) {
+}: Props) {
 
     const guildPromise = getGuild(params.guildId);
     const designPromise = getDesign(params.guildId);

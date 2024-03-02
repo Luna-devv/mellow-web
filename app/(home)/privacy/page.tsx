@@ -22,14 +22,14 @@ export const generateMetadata = async (): Promise<Metadata> => {
             description,
             type: "website",
             url,
-            images: `${getBaseUrl()}/pronouns-bot.webp`
+            images: `${getBaseUrl()}/waya-v3.jpg`
         },
         twitter: {
             card: "summary",
             site: "wamellow.com",
             title,
             description,
-            images: `${getBaseUrl()}/pronouns-bot.webp`
+            images: `${getBaseUrl()}/waya-v3.jpg`
         }
     };
 };

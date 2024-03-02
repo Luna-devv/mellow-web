@@ -5,20 +5,21 @@ import { HiBadgeCheck } from "react-icons/hi";
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
-import { getDesign, getGuild, getPagination, getTopMembers } from "./api";
+import { getDesign, getPagination, getTopMembers } from "./api";
 import Icon from "./icon.component";
 import Pagination from "./pagination.component";
 
-interface LeaderboardProps {
+interface Props {
     params: { guildId: string };
     searchParams: { page: string, type: "messages" | "voiceminutes" | "invites" };
 }
 
 export const revalidate = 60 * 60;
 
-export default async function Home({ params, searchParams }: LeaderboardProps) {
+export default async function Home({ params, searchParams }: Props) {
     if (searchParams) searchParams.type ||= "messages";
 
     const guildPromise = getGuild(params.guildId);

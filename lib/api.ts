@@ -1,3 +1,5 @@
+import { ApiV1GuildsGetResponse } from "@/typings";
+
 export const cacheOptions = {
     cacheTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
@@ -12,4 +14,15 @@ export async function getData<T>(path: string) {
     });
 
     return response.json() as Promise<T>;
+}
+
+export async function getGuild(guildId?: string | null): Promise<ApiV1GuildsGetResponse | undefined> {
+    if (!guildId) return;
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}`, {
+        headers: { Authorization: process.env.API_SECRET as string },
+        next: { revalidate: 60 * 60 }
+    });
+
+    return res.json();
 }

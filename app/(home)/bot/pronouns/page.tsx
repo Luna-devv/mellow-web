@@ -1,3 +1,4 @@
+import { Chip } from "@nextui-org/react";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +8,6 @@ import Box from "@/components/box";
 import DiscordMessage from "@/components/discord/message";
 import { ServerButton } from "@/components/server-button";
 import cn from "@/utils/cn";
-import { Chip } from "@nextui-org/react";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 

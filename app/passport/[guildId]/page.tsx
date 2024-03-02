@@ -9,11 +9,12 @@ import { ListFeature } from "@/components/list";
 import Notice, { NoticeType } from "@/components/notice";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
 import { ServerButton } from "@/components/server-button";
+import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
 import decimalToRgb from "@/utils/decimalToRgb";
 import { getCanonicalUrl } from "@/utils/urls";
 
-import { getGuild, getPassport } from "./api";
+import { getPassport } from "./api";
 import Verify from "./verify.component";
 
 interface PassportProps { params: { guildId: string }, searchParams: { page: string, type: string } }
@@ -23,8 +24,8 @@ export const generateMetadata = async ({
 }: PassportProps): Promise<Metadata> => {
     const guild = await getGuild(params.guildId);
 
-    const title = `Verify in ${guild.name}`;
-    const description = `Easily verify yourself in ${guild.name} with a simple and safe captcha in the web to gain access all channels.`;
+    const title = `Verify in ${guild?.name}`;
+    const description = `Easily verify yourself in ${guild?.name} with a simple and safe captcha in the web to gain access all channels.`;
     const url = getCanonicalUrl("passport", params.guildId);
 
     return {
@@ -74,7 +75,7 @@ export default async function Home({ params }: PassportProps) {
                 <Notice type={NoticeType.Error} message={(passport as Record<string, string>).message} />
             }
 
-            {guild.id === "1125063180801036329" &&
+            {guild?.id === "1125063180801036329" &&
                 <Notice type={NoticeType.Info} message="This is a demo server to test out passport verification." >
                     <ServerButton
                         as={Link}
@@ -95,7 +96,7 @@ export default async function Home({ params }: PassportProps) {
                     <Image
                         alt=""
                         className="w-full object-cover h-[216px]"
-                        src={guild.banner ? `https://cdn.discordapp.com/banners/${guild?.id}/${guild?.banner}?size=512` : paintPic.src}
+                        src={guild?.banner ? `https://cdn.discordapp.com/banners/${guild?.id}/${guild?.banner}?size=512` : paintPic.src}
                         width={3840 / 10}
                         height={2160 / 10}
                     />
@@ -109,7 +110,7 @@ export default async function Home({ params }: PassportProps) {
                             <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
                             <div className="text-sm font-semibold flex items-center gap-1">
                                 <HiUsers /> {intl.format(guild?.memberCount || 0)}
-                                <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" /> Level {guild.premiumTier}
+                                <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" /> Level {guild?.premiumTier}
                             </div>
                         </div>
                     </div>
@@ -120,7 +121,7 @@ export default async function Home({ params }: PassportProps) {
                         <ul>
                             {[
                                 "Secure server",
-                                `${intl.format(guild.memberCount)} members`
+                                `${intl.format(guild?.memberCount || 0)} members`
                             ].map((name) => (
                                 <li key={name} className="flex gap-1 items-center">
                                     <HiCheck className="text-violet-400" />
@@ -133,7 +134,7 @@ export default async function Home({ params }: PassportProps) {
                             </li>
                         </ul>
 
-                        {typeof passport !== "object" &&
+                        {guild && typeof passport !== "object" &&
                             <Verify guild={guild} />
                         }
 

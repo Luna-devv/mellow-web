@@ -1,14 +1,4 @@
-import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
-
-export async function getGuild(guildId: string): Promise<ApiV1GuildsGetResponse | undefined> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}`, {
-        headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 60 * 60 }
-    });
-
-    const guild = await res.json();
-    return guild;
-}
+import { ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 
 export async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLeaderboardGetResponse> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/leaderboard`, {
@@ -16,8 +6,7 @@ export async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLead
         next: { revalidate: 60 * 60 }
     });
 
-    const design = await res.json();
-    return design;
+    return res.json();
 }
 
 export async function getTopMembers(guildId: string, options: { page: number, type: string }): Promise<ApiV1GuildsTopmembersGetResponse[]> {
@@ -28,8 +17,7 @@ export async function getTopMembers(guildId: string, options: { page: number, ty
         next: { revalidate: 60 }
     });
 
-    const members = await res.json();
-    return members;
+    return res.json();
 }
 
 export async function getPagination(guildId: string): Promise<ApiV1GuildsTopmembersPaginationGetResponse> {
@@ -38,6 +26,5 @@ export async function getPagination(guildId: string): Promise<ApiV1GuildsTopmemb
         next: { revalidate: 60 * 60 }
     });
 
-    const pagination = await res.json();
-    return pagination;
+    return res.json();
 }

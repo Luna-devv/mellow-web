@@ -10,10 +10,10 @@ import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import SelectInput from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import Modal from "@/components/modal";
+import Notice from "@/components/notice";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
 import { ApiV1GuildsModulesPassportGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
-import Notice from "@/components/notice";
 
 export default function Home() {
     const guild = guildStore((g) => g);

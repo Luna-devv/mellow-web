@@ -4,17 +4,18 @@ import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
+import { getGuild } from "@/lib/api";
 import { truncate } from "@/utils/truncate";
 
-import { getGuild, getTopMembers } from "../api";
+import { getTopMembers } from "../api";
 import Icon from "../icon.component";
-import { LeaderboardProps } from "../layout";
+import { Props } from "../layout";
 
 export const revalidate = 3600; // 1 hour
 
 export async function GET(
     request: NextRequest,
-    { params }: LeaderboardProps
+    { params }: Props
 ) {
     let type = request.nextUrl.searchParams.get("type");
     if (type !== "messages" && type !== "voiceminutes" && type !== "invites") type = "messages";
