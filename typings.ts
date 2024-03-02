@@ -1,5 +1,10 @@
 import { actor } from "./utils/tts";
 
+export interface ApiError {
+    statusCode: number;
+    message: string;
+}
+
 export interface ApiV1TopguildsGetResponse {
     id: string;
     name: string;
@@ -335,11 +340,6 @@ export interface ApiV1GuildsModulesNsfwModerationGetResponse {
 
     whitelistChannelIds: string[];
     whitelistRoleIds: string[];
-}
-
-export interface ApiV1AiResponse {
-    title: string;
-    url: string;
 }
 
 export interface PronounsResponse {

@@ -1,10 +1,9 @@
 "use client";
 
-import { JSX, SVGProps, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiIdentification } from "react-icons/hi";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-import Badge from "@/components/badge";
 import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
 import { ScreenMessage } from "@/components/screen-message";
@@ -90,12 +89,6 @@ export default function Home() {
                         number: data.map((enty) => enty.uses).reduce((prev, curr) => prev + curr),
                         gained: data.filter((entry) => entry.snapshot === `${yesterday.getFullYear()}-${(yesterday.getMonth() + 1).toString().padStart(2, "0")}-${yesterday.getDate().toString().padStart(2, "0")}`).map((enty) => enty.uses).reduce((prev, curr) => prev + curr, 0),
                         append: "yesterday"
-                    },
-                    {
-                        name: "--",
-                        number: 1,
-                        gained: 0,
-                        append: "yesterday"
                     }
                 ]}
             />
@@ -117,7 +110,6 @@ function ChartArea(options: { name: string; data: NekosticResponse[]; dataKey: k
 
             <div className="flex mx-10 mt-5 ">
                 <span className="text-sm">{options.name}</span>
-                <Badge text="Lorem ipsum" />
             </div>
 
             <ResponsiveContainer
@@ -132,11 +124,36 @@ function ChartArea(options: { name: string; data: NekosticResponse[]; dataKey: k
                         bottom: 5
                     }}
                 >
-                    <XAxis dataKey="snapshot" tickFormatter={(str: string) => `${str.split("-")[1]}/${str.split("-")[2]}`} style={{ fontSize: 12, fontWeight: 600 }} axisLine={false} tickLine={false} />
-                    <YAxis style={{ fontSize: 12, fontWeight: 600 }} axisLine={false} tickLine={false} />
-                    <Tooltip contentStyle={{ borderRadius: "8px", fontSize: 14, paddingInline: "8px", paddingBlock: "6px" }} labelStyle={{ marginBottom: ~4, color: "#000000", fontWeight: 400 }} itemStyle={{ marginBottom: ~4 }} labelFormatter={(label: string) => `${convertMonthToName(new Date(label).getMonth())} ${label.split("-")[2]}`} />
-                    <CartesianGrid strokeDasharray="3 3" opacity={0.1} vertical={false} />
-                    <Area type="monotone" dataKey={options.dataKey} strokeWidth={2} stroke="rgb(124 58 237)" fill="rgb(139 92 246)" style={{ opacity: 0.9 }} />
+                    <XAxis
+                        axisLine={false}
+                        dataKey="snapshot"
+                        tick={<CustomXAxisTick />}
+                        tickFormatter={(str: string) => `${str.split("-")[1]}/${str.split("-")[2]}`}
+                    />
+                    <YAxis
+                        style={{ fontSize: 12, fontWeight: 600 }}
+                        axisLine={false}
+                        tickLine={false}
+                    />
+                    <Tooltip
+                        contentStyle={{ borderRadius: "8px", fontSize: 14, paddingInline: "8px", paddingBlock: "6px" }}
+                        labelStyle={{ marginBottom: ~4, color: "#000000", fontWeight: 400 }}
+                        itemStyle={{ marginBottom: ~4 }}
+                        labelFormatter={(label: string) => `${convertMonthToName(new Date(label).getMonth())} ${label.split("-")[2]}`}
+                    />
+                    <CartesianGrid
+                        strokeDasharray="3 3"
+                        opacity={0.1}
+                        vertical={false}
+                    />
+                    <Area
+                        type="monotone"
+                        dataKey={options.dataKey}
+                        strokeWidth={2}
+                        stroke="rgb(124 58 237)"
+                        fill="rgb(139 92 246)"
+                        style={{ opacity: 0.9 }}
+                    />
                 </AreaChart>
             </ResponsiveContainer>
 
@@ -145,12 +162,20 @@ function ChartArea(options: { name: string; data: NekosticResponse[]; dataKey: k
 }
 
 function ChartBar(options: { name: string; data: NekosticResponse[]; dataKey: keyof CalcNames }) {
+    const data = calcNameOccurrences(options.data)
+        .filter((entry) =>
+            entry.name !== "eval" &&
+            entry.name !== "shell" &&
+            entry.name !== "deploycommands" &&
+            entry.name !== "emotes" &&
+            entry.name !== "giveaway"
+        );
+
     return (
         <Box none className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
 
             <div className="flex mx-10 mt-5 ">
                 <span className="text-sm">{options.name}</span>
-                <Badge text="Lorem ipsum" />
             </div>
 
             <ResponsiveContainer
@@ -158,18 +183,45 @@ function ChartBar(options: { name: string; data: NekosticResponse[]; dataKey: ke
                 height={300}
             >
                 <BarChart
-                    data={calcNameOccurrences(options.data)}
+                    data={data}
                     margin={{
                         top: 25,
                         right: 40,
                         bottom: 5
                     }}
                 >
-                    <XAxis dataKey="name" style={{ fontSize: 12, fontWeight: 600 }} axisLine={false} tickLine={false} />
-                    <YAxis style={{ fontSize: 12, fontWeight: 600 }} axisLine={false} tickLine={false} />
-                    <Tooltip cursor={false} contentStyle={{ borderRadius: "8px", fontSize: 14, paddingInline: "8px", paddingBlock: "6px" }} labelStyle={{ marginBottom: ~4, color: "#000000", fontWeight: 400 }} itemStyle={{ marginBottom: ~4 }} />
-                    <CartesianGrid strokeDasharray="3 3" opacity={0.1} vertical={false} />
-                    <Bar dataKey={options.dataKey} shape={<RoundedBar />} fill="rgb(86, 61, 146)" style={{ borderRadius: 10, overflow: "hidden" }} />
+                    <XAxis
+                        axisLine={false}
+                        dataKey="name"
+                        tick={<CustomXAxisTick />}
+                    />
+                    <YAxis
+                        style={{ fontSize: 12, fontWeight: 600 }}
+                        axisLine={false}
+                        tickLine={false}
+                    />
+                    <Tooltip
+                        contentStyle={{ borderRadius: "8px", fontSize: 14, paddingInline: "8px", paddingBlock: "6px" }}
+                        labelStyle={{ marginBottom: ~4, color: "#000000", fontWeight: 400 }}
+                        itemStyle={{ marginBottom: ~4 }}
+                        cursor={false}
+                    />
+                    <CartesianGrid
+                        strokeDasharray="3 3"
+                        opacity={0.1}
+                        vertical={false}
+                    />
+                    <Bar
+                        dataKey={options.dataKey}
+                        fill="rgb(86, 61, 146)"
+                        radius={[5, 5, 0, 0]}
+                    >
+                        {data.map((_, index) =>
+                            <Cell
+                                key={"cell-" + index}
+                            />
+                        )}
+                    </Bar>
                 </BarChart>
             </ResponsiveContainer>
 
@@ -177,26 +229,25 @@ function ChartBar(options: { name: string; data: NekosticResponse[]; dataKey: ke
     );
 }
 
-function getPath(x: number, y: number, width: number, height: number) {
-    const x2 = x + width;
-    const y2 = y + height;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function CustomXAxisTick(props: any) {
+    const { x, y, payload } = props;
 
-    const cornerRadius = 8;
-
-    return `
-        M${x},${y + cornerRadius}
-        A${cornerRadius},${cornerRadius} 0 0 1 ${x + cornerRadius},${y}
-        L${x2 - cornerRadius},${y}
-        A${cornerRadius},${cornerRadius} 0 0 1 ${x2},${y + cornerRadius}
-        L${x2},${y2}
-        L${x},${y2}
-        L${x},${y + cornerRadius}
-        Z
-    `;
-}
-
-function RoundedBar(props: JSX.IntrinsicAttributes & SVGProps<SVGPathElement>) {
-    return <path d={getPath(props.x as number, props.y as number, props.width as number, props.height as number)} {...props} />;
+    return (
+        <g transform={`translate(${x},${y})`}>
+            <text
+                x={0}
+                y={0}
+                dy={16}
+                textAnchor="end"
+                fill="#666"
+                transform="rotate(-35)"
+                className="text-[11px] font-semibold"
+            >
+                {payload.value}
+            </text>
+        </g>
+    );
 }
 
 interface SnapshotData {
@@ -218,10 +269,12 @@ function calcUses(data: NekosticResponse[]): CalcUses[] {
         snapshotData[snapshot].users += users;
     }
 
-    return Object.entries(snapshotData).map(([snapshot, data]) => ({
-        snapshot,
-        ...data
-    }));
+    return Object
+        .entries(snapshotData)
+        .map(([snapshot, data]) => ({
+            snapshot,
+            ...data
+        }));
 }
 
 function calcNameOccurrences(data: NekosticResponse[]): CalcNames[] {
@@ -232,5 +285,10 @@ function calcNameOccurrences(data: NekosticResponse[]): CalcNames[] {
         else nameOccurrences[item.name] = item.uses;
     }
 
-    return Object.entries(nameOccurrences).map(([name, count]) => ({ name, count }));
+    return Object
+        .entries(nameOccurrences)
+        .map(([name, count]) => ({
+            name,
+            count
+        }));
 }
