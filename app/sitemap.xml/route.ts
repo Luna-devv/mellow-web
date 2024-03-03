@@ -8,8 +8,11 @@ type Sitemap = {
 // Update sitemap only one a day
 export const revalidate = 1000 * 60 * 60 * 24;
 
+const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 12 } };
+
 export async function GET() {
-    const guildIds = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds`, { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 12 } }).then((res) => res.json()) as string[];
+    const uploadIds = await fetch(`${process.env.NEXT_PUBLIC_API}/ai/sitemap`, fetchOptions).then((res) => res.json()) as string[];
+    const guildIds = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds`, fetchOptions).then((res) => res.json()) as string[];
 
     const sitemap = [
         {
@@ -62,7 +65,8 @@ export async function GET() {
         }
     ] as Sitemap;
 
-    for (const guildId of guildIds) sitemap.push({ url: getCanonicalUrl("leaderboard", guildId), priority: 0.6 });
+    for (const uploadId of uploadIds) sitemap.push({ url: getCanonicalUrl("ai-gallery", uploadId), priority: 0.6 });
+    for (const guildId of guildIds) sitemap.push({ url: getCanonicalUrl("leaderboard", guildId), priority: 0.5 });
 
     return new Response(`
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
