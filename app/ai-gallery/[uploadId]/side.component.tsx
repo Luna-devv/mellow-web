@@ -10,6 +10,7 @@ import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { formatDate } from "@/components/time";
+import { AnalyticsError, AnalyticsResponse } from "@/lib/analytics";
 import { ApiError, ApiV1GuildsGetResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -17,10 +18,12 @@ import { ExtendedUpload } from "../api";
 
 export default function Side({
     upload,
-    guild
+    guild,
+    analytics
 }: {
     upload: ExtendedUpload | ApiError;
     guild: ApiV1GuildsGetResponse | ApiError | undefined;
+    analytics: { results: AnalyticsResponse[] } | AnalyticsError | undefined;
 }) {
     const web = webStore((w) => w);
 
@@ -90,6 +93,24 @@ export default function Side({
                             }
                         </Chip>
                     </div>
+
+                    {analytics && "results" in analytics &&
+                        <div className="flex items-center justify-between">
+                            <span>Views</span>
+                            <Chip
+                                className="select-none"
+                                radius="sm"
+                            >
+                                {Array.isArray(analytics?.results) ?
+                                    (analytics.results[0].visits || analytics.results[0].visitors)
+                                    :
+                                    "unknown"
+                                }
+                                {" "}
+                                views
+                            </Chip>
+                        </div>
+                    }
 
                     {"author" in upload &&
                         <div className="flex items-center justify-between">

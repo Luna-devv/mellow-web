@@ -1,13 +1,14 @@
-import { Chip } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import { Metadata } from "next";
 import NextImage from "next/image";
 import Link from "next/link";
-import { HiHome, HiPlus } from "react-icons/hi";
+import { HiArrowLeft, HiHome, HiPlus } from "react-icons/hi";
 
 import Footer from "@/components/footer";
 import Notice from "@/components/notice";
 import { ScreenMessage, SupportButton } from "@/components/screen-message";
 import { ServerButton } from "@/components/server-button";
+import { getPageAnalytics } from "@/lib/analytics";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
@@ -60,8 +61,12 @@ export default async function RootLayout({
     children
 }: Props) {
     const upload = await getUpload(params.uploadId);
-    const guild = "guildId" in upload ? await getGuild(upload.guildId) : undefined;
-    const uploads = "model" in upload ? await getUploads({ model: upload.model }) : undefined;
+
+    const [guild, uploads, analytics] = await Promise.all([
+        "guildId" in upload ? getGuild(upload.guildId) : undefined,
+        "model" in upload ? getUploads({ model: upload.model }) : undefined,
+        getPageAnalytics("/ai-gallery/" + params.uploadId)
+    ]);
 
     return (
         <div className="w-full space-y-12">
@@ -96,6 +101,7 @@ export default async function RootLayout({
                     <Side
                         upload={upload}
                         guild={guild}
+                        analytics={analytics}
                     />
                 </div>
 
@@ -106,6 +112,7 @@ export default async function RootLayout({
                 <span className="relative bottom-4 mb-4">
                     Images that were also generated with the <Chip>{"model" in upload ? upload.model : "..."}</Chip> model.
                 </span>
+
                 {Array.isArray(uploads) ?
                     <div className="flex flex-wrap gap-4">
                         {uploads
@@ -135,7 +142,17 @@ export default async function RootLayout({
                     :
                     <Notice message={uploads?.message || "Something went wrong..."} />
                 }
+
             </div>
+
+            <Button
+                className="!mt-5"
+                as={Link}
+                href="/ai"
+                startContent={<HiArrowLeft />}
+            >
+                View all Uploads
+            </Button>
 
             <Footer className="mt-10" />
 
