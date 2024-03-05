@@ -13,9 +13,15 @@ import CommandPic from "@/public/image-command.webp";
 import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
+import Pagination from "./pagination.component";
+
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const revalidate = 3600;
+
+interface Props {
+    searchParams: { page: string, model: string };
+}
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
@@ -46,8 +52,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
     };
 };
 
-export default async function Home() {
-    const uploads = await getUploads();
+export default async function Home({ searchParams }: Props) {
+    const uploads = await getUploads({ page: parseInt(searchParams.page || "1"), model: searchParams.model });
 
     const styles = {
         h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-400 font-bold underline decoration-violet-400"),
@@ -105,7 +111,11 @@ export default async function Home() {
                 </div>
             </div>
 
-            <article itemScope itemType="http://schema.org/Article" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 w-full">
+            <article
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 w-full"
+                itemScope
+                itemType="http://schema.org/Article"
+            >
                 {Array.isArray(uploads) ?
                     uploads
                         .map((item, i) => (
@@ -141,9 +151,15 @@ export default async function Home() {
                 }
             </article>
 
+            <Pagination
+                key={searchParams.model}
+                searchParams={searchParams}
+                pages={2}
+            />
+
             <Image
                 alt="/image command usage"
-                className="w-full rounded-md shadow-md"
+                className="w-full rounded-md shadow-md mt-6"
                 height={438}
                 src={CommandPic}
                 width={1723}
