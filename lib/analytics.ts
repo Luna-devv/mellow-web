@@ -1,7 +1,6 @@
 export interface AnalyticsResponse {
     page: string;
-    visitors: number;
-    visits: number;
+    pageviews: number;
 }
 
 export interface AnalyticsError {
@@ -16,7 +15,7 @@ export async function getPageAnalytics(page: string): Promise<{ results: Analyti
         date: "2021-01-01,2026-03-02",
         property: "event:page",
         filters: "event:page==" + page,
-        metrics: "visits,visitors"
+        metrics: "pageviews"
     };
 
     const res = await fetch(`${process.env.PLAUSIBLE_API}/v1/stats/breakdown?${objectToQueryString(params)}`, {

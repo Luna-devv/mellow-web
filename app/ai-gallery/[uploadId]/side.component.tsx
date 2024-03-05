@@ -101,8 +101,8 @@ export default function Side({
                                 className="select-none"
                                 radius="sm"
                             >
-                                {Array.isArray(analytics?.results) ?
-                                    (analytics.results[0].visits || analytics.results[0].visitors)
+                                {Array.isArray(analytics.results) && analytics.results.length ?
+                                    (analytics.results[0].pageviews)
                                     :
                                     "unknown"
                                 }
