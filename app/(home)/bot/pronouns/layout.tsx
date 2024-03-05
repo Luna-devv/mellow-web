@@ -3,13 +3,15 @@ import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
-import { HiChevronRight, HiHome, HiUserAdd } from "react-icons/hi";
+import { HiHome, HiUserAdd } from "react-icons/hi";
 
+import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
-import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ServerButton } from "@/components/server-button";
+import { defaultFetchOptions } from "@/lib/api";
 import ArrowPic from "@/public/arroww.webp";
 import { ApiV1TopguildsGetResponse } from "@/typings";
+import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -17,11 +19,9 @@ const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 export const revalidate = 3600;
 
-const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
-
 export const generateMetadata = (): Metadata => {
 
-    const title = "Pronouns: A safe discord bot";
+    const title = "Pronouns: Describe yourself in Discord";
     const description = "Let your community describe themself with a wide variety of supported Pronouns, Sexualities and Genders.";
     const url = getCanonicalUrl("bot", "pronouns");
 
@@ -53,7 +53,9 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
+    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions)
+        .then((res) => res.json())
+        .catch(() => null) as ApiV1TopguildsGetResponse[] | null;
 
     return (
         <div className="flex items-center flex-col w-full">
@@ -131,7 +133,7 @@ export default async function RootLayout({
                     </div>
 
 
-                    <span className={`lg:ml-auto flex gap-2 text-neutral-500 font-mediumr ${handwritten.className} mt-3 opacity-80 pl-20 lg:pr-20 rotate-2`}>
+                    <span className={cn(handwritten.className, "lg:ml-auto flex gap-2 text-neutral-500 font-mediumr mt-3 opacity-80 pl-20 lg:pr-20 rotate-2")}>
                         <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
                         Get started here in seconds
                     </span>
@@ -145,19 +147,12 @@ export default async function RootLayout({
                 {children}
             </div>
 
-            <div className="w-full mt-6">
-                <div className="flex gap-4 items-center mb-2">
-                    <span className="flex items-center gap-2">
-                        <ImageReduceMotion url="/discord" size={64} alt="users's profile picture" className="w-12 h-12 rounded-full" />
-                        <div>
-                            <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@deleted user</span> <br />
-                            <span className="dark:text-neutral-300 text-neutral-700">Pronouns user</span>
-                        </div>
-                    </span>
-                    <HiChevronRight className="w-8 h-8" />
-                </div>
-                <span className={`${handwritten.className} text-2xl break-words`}>„{"I have a lot of friends who have different preferred pronouns and identities and I think it's super sweet y'all have the feature that they can change their pronouns anytime so I put your bot in my servers and a friend may put it in theirs too 🥰"}“</span>
-            </div>
+            <Comment
+                username="@deleted user"
+                bio="Pronouns user"
+                avatar="/discord.webp"
+                content="I have a lot of friends who have different preferred pronouns and identities and I think it's super sweet y'all have the feature that they can change their pronouns anytime so I put your bot in my servers and a friend may put it in theirs too 🥰"
+            />
 
         </div>
     );

@@ -716,19 +716,6 @@ export default async function Home() {
 
             </article>
 
-            <div className="w-full my-6">
-                <div className="flex gap-4 items-center mb-2">
-                    <span className="flex items-center gap-2">
-                        <Image src={SpacePic} width={64} height={64} alt="users's profile picture" className="w-12 h-12 rounded-full" />
-                        <div>
-                            <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">Luna’s Grandpa {"<3"}</span> <br />
-                            <span className="dark:text-neutral-300 text-neutral-700">likes feta and wine</span>
-                        </div>
-                    </span>
-                    <HiChevronRight className="w-8 h-8" />
-                </div>
-                <span className={`${handwritten.className} text-2xl break-words`}>„{"FUCK EVERYTHING! EXCEPT LUNA, LUNA MUST BE PROTECTED AT ALL COSTS"}“</span>
-            </div>
 
             <Box none className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg mt-4 w-full">
                 <div className="flex">
@@ -796,6 +783,11 @@ export default async function Home() {
                         info: "https://discordlist.gg/user/821472922140803112"
                     }
                 ]}
+            <Comment
+                username="Luna’s Grandpa <3"
+                bio="likes feta and wine"
+                avatar={SpacePic}
+                content="FUCK EVERYTHING! EXCEPT LUNA, LUNA MUST BE PROTECTED AT ALL COSTS"
             />
 
         </div >

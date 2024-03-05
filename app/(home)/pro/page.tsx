@@ -1,19 +1,18 @@
 import { Button, Chip } from "@nextui-org/react";
 import { Metadata } from "next";
-import { Montserrat, Patrick_Hand } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { BsDiscord, BsQuestionLg } from "react-icons/bs";
-import { HiChevronRight, HiLightningBolt, HiOutlineCheck, HiX } from "react-icons/hi";
+import { HiLightningBolt, HiOutlineCheck, HiX } from "react-icons/hi";
 import { IoMdInfinite } from "react-icons/io";
 
+import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
-import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 const maybe = null;
 const montserrat = Montserrat({ subsets: ["latin"] });
-const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 export const revalidate = 3600;
 
@@ -94,8 +93,10 @@ export default async function Home() {
                 </h1>
                 <HiLightningBolt className="text-pink-400 rotate-6" />
                 <Chip
+                    className="ml-auto"
                     color="secondary"
                     variant="flat"
+                    size="lg"
                 >
                     <span className="font-semibold">Not available</span>
                 </Chip>
@@ -162,25 +163,21 @@ export default async function Home() {
             </div>
 
             <div className="w-full flex">
-                <Link href="/support" target="_blank" className="ml-auto mt-1 dark:text-violet-400/60 text-violet-600/60 hover:text-violet-400/80 dark:hover:text-violet-600/80 hover:underline duration-200 text-sm">Restore previous purchases</Link>
+                <Link
+                    className="ml-auto mt-1 dark:text-violet-400/60 text-violet-600/60 hover:text-violet-400/80 dark:hover:text-violet-600/80 hover:underline duration-200 text-sm"
+                    href="/support"
+                    target="_blank"
+                >
+                    Restore previous purchases
+                </Link>
             </div>
 
-            <div className="w-full mt-6 md:flex gap-4 items-center">
-                <div className="flex gap-4 items-center">
-                    <span className="flex items-center gap-2">
-                        <ImageReduceMotion url="/luna" size={64} alt="mwlica's profile picture" className="w-12 h-12 rounded-full" />
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">@mwlica</span>
-                            </div>
-                            <span className="dark:text-neutral-300 text-neutral-700">Cute femboy</span>
-                        </div>
-                    </span>
-                    <HiChevronRight className="w-8 h-8" />
-                </div>
-                <span className={`${handwritten.className} text-2xl break-words block md:hidden mt-2`}>„buy it, buy it, buy it, buy it, buy it“</span>
-                <span className={`${handwritten.className} text-2xl break-words hidden md:block`}>„buy it, buy it, buy it, buy it, buy it, buy it, buy it“</span>
-            </div>
+            <Comment
+                username="@mwlica"
+                avatar="/luna-small.webp"
+                bio="Cute femboy"
+                content="buy it, buy it, buy it, buy it, buy it, buy it"
+            />
 
             <div className="p-2 fixed z-10 bottom-0 left-0 w-full md:hidden">
                 <div className="dark:bg-wamellow-light bg-wamellow-100-light rounded-lg shadow-md w-full flex flex-col gap-2 items-center justify-center p-3">
@@ -206,11 +203,3 @@ export default async function Home() {
         </div>
     );
 }
-
-/*
-            <div className="p-2 fixed z-10 bottom-0 left-0 w-full">
-                <div className="bg-wamellow-light rounded-lg shadow-md w-full flex gap-2 items-center justify-center p-3">
-                    {buttons}
-                </div>
-            </div>
- */
