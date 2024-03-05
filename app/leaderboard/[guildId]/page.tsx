@@ -7,6 +7,7 @@ import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { intl } from "@/utils/numbers";
 
 import { getDesign, getPagination, getTopMembers } from "./api";
 import Icon from "./icon.component";
@@ -30,12 +31,13 @@ export default async function Home({ params, searchParams }: Props) {
     const [guild, members, design, pagination] = await Promise.all([guildPromise, membersPromise, designPromise, paginationPromise]).catch(() => []);
 
     let error = "";
-    if (guild && "message" in guild) error = guild.message as string;
-    if ("message" in members) error = members.message as string;
-    if ("message" in design) error = design.message as string;
-    if ("message" in pagination) error = pagination.message as string;
+    if (guild && "message" in guild) error = guild.message;
+    if (members && "message" in members) error = members.message;
+    if (design && "message" in design) error = design.message;
+    if (pagination && "message" in pagination) error = pagination.message;
 
-    if (error) {
+    // wtf is this
+    if (error || !guild || !members || !design || !pagination || "message" in guild || "message" in members || "message" in design || "message" in pagination) {
         return (
             <ScreenMessage
                 top="0rem"
@@ -51,7 +53,13 @@ export default async function Home({ params, searchParams }: Props) {
         );
     }
 
-    const candisplay = guild?.name && (searchParams.type === "messages" || searchParams.type === "voiceminutes" || searchParams.type === "invites") && pagination[searchParams.type].pages >= parseInt(searchParams.page || "0");
+    const candisplay = guild.name &&
+        (
+            searchParams.type === "messages" ||
+            searchParams.type === "voiceminutes" ||
+            searchParams.type === "invites"
+        ) &&
+        pagination[searchParams.type].pages >= parseInt(searchParams.page || "0");
 
     if (!candisplay) {
         return (
@@ -69,7 +77,7 @@ export default async function Home({ params, searchParams }: Props) {
         );
     }
 
-    if (!members.length) {
+    if (!Array.isArray(members) || !members.length) {
         return (
             <ScreenMessage
                 top="0rem"
@@ -83,7 +91,6 @@ export default async function Home({ params, searchParams }: Props) {
         );
     }
 
-    const intl = new Intl.NumberFormat("en", { notation: "standard" });
     const key = "lbc";
 
     async function publish() {
@@ -105,18 +112,24 @@ export default async function Home({ params, searchParams }: Props) {
                     key={"leaderboard-" + searchParams.type + member.id + i}
                     className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100"
                 >
-                    <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`} size={128} alt={`${member.username}'s profile picture`} className="rounded-full h-12 w-12 mr-3" />
+                    <ImageReduceMotion
+                        alt={`${member.username}'s profile picture`}
+                        className="rounded-full h-12 w-12 mr-3"
+                        url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
+                        size={128}
+                    />
+
                     <div>
                         <div className="flex items-center gap-2">
                             <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">{member.globalName || member.username || "Unknown user"}</span>
                             {member.id === "821472922140803112" &&
                                 <Badge>Developer</Badge>
                             }
-                            {/* {member.id === "797012765352001557" &&
+                            {member.id === "845287163712372756" &&
                                 <Badge>
-                                    <Image alt="" className="h-6 w-32 rounded-md" height={24} src={RickPic} width={128} />
+                                    WOMEN
                                 </Badge>
-                            } */}
+                            }
                         </div>
                         <span className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</span>
                     </div>
@@ -153,7 +166,12 @@ export default async function Home({ params, searchParams }: Props) {
                 </div>
             )}
 
-            <Pagination key={searchParams.type} guildId={params.guildId} searchParams={searchParams} pages={pagination[searchParams.type].pages} />
+            <Pagination
+                key={searchParams.type}
+                guildId={params.guildId}
+                searchParams={searchParams}
+                pages={pagination[searchParams.type].pages}
+            />
         </>
     );
 }
@@ -164,7 +182,11 @@ function Badge({
     children: React.ReactNode
 }) {
     return (
-        <Chip color="secondary" size="sm" variant="flat" startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}>
+        <Chip
+            color="secondary"
+            size="sm" variant="flat"
+            startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}
+        >
             <span className="font-bold">{children}</span>
         </Chip>
     );

@@ -53,7 +53,7 @@ export function ScreenMessage({
 
                 <div className="mb-8 flex flex-col items-center text-center">
                     <span className="text-4xl dark:text-neutral-100 text-neutral-900 font-semibold">{title}</span> <br />
-                    <span className="text-lg dark:text-neutral-400 text-neutral-600 font-semibold -mt-2">{description}</span>
+                    <span className="text-lg dark:text-neutral-400 text-neutral-600 font-semibold max-w-xl">{description}</span>
                 </div>
 
                 {(button && props.href) &&

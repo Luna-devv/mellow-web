@@ -13,7 +13,8 @@ import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
-import { ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
+import { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
+import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
 export default function Side({
@@ -22,27 +23,26 @@ export default function Side({
     pagination,
     currentCircular
 }: {
-    guild: ApiV1GuildsGetResponse | undefined;
-    design: ApiV1GuildsModulesLeaderboardGetResponse;
-    pagination: ApiV1GuildsTopmembersPaginationGetResponse;
+    guild: ApiV1GuildsGetResponse | ApiError | undefined;
+    design: ApiV1GuildsModulesLeaderboardGetResponse | ApiError | undefined;
+    pagination: ApiV1GuildsTopmembersPaginationGetResponse | ApiError | undefined;
     currentCircular: "next" | "server" | undefined;
 }) {
     const web = webStore((w) => w);
     const router = useRouter();
 
     const [modal, setModal] = useState(false);
-    const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     return (
         <div className="flex flex-col gap-3">
             {!!design}
 
-            {guild &&
+            {guild && "id" in guild &&
                 <div className="flex gap-2 w-full">
                     <CopyToClipboardButton
                         className="w-full !justify-start"
                         title="Share this page"
-                        text={getCanonicalUrl("leaderboard", guild?.id as string)}
+                        text={getCanonicalUrl("leaderboard", guild.id as string)}
                         icon={<HiShare />}
                     />
                     <Tooltip content="Share on Reddit" delay={0} closeDelay={0} showArrow>
@@ -68,7 +68,7 @@ export default function Side({
                 </div>
             }
 
-            {guild?.inviteUrl &&
+            {guild && "inviteUrl" in guild && guild.inviteUrl &&
                 <Button
                     as={Link}
                     className="w-full !justify-start"
@@ -89,7 +89,7 @@ export default function Side({
                 disableAnimation={web.reduceMotions}
             >
 
-                {web.devToolsEnabled ?
+                {guild && "id" in guild && web.devToolsEnabled ?
                     <AccordionItem
                         key="1"
                         aria-label="admin tools"
@@ -106,7 +106,7 @@ export default function Side({
                         <Button
                             as={Link}
                             className="w-full !justify-start mt-2"
-                            href={getCanonicalUrl("dashboard", guild?.id as string)}
+                            href={getCanonicalUrl("dashboard", guild.id as string)}
                             startContent={<HiViewGridAdd />}
                         >
                             Dashboard
@@ -128,27 +128,30 @@ export default function Side({
                     The percentage {currentCircular !== "server" ? "indicates the gap in messages needed to surpass the next user" : "reflects the contribution of server activity from that user"}.
                 </AccordionItem>
 
-                <AccordionItem
-                    key="3"
-                    aria-label="server activity"
-                    title="Server activity"
-                    classNames={{ content: "mb-2" }}
-                >
-                    <div className="flex items-center gap-1">
-                        <HiAnnotation className="mr-1" />
-                        <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <HiVolumeUp className="mr-1" />
-                        <span className="font-semibold">{pagination.voiceminutes.total}</span> in voice
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <HiLink className="mr-1" />
-                        <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
-                    </div>
-                </AccordionItem>
+                {pagination && "messages" in pagination ?
+                    <AccordionItem
+                        key="3"
+                        aria-label="server activity"
+                        title="Server activity"
+                        classNames={{ content: "mb-2" }}
+                    >
+                        <div className="flex items-center gap-1">
+                            <HiAnnotation className="mr-1" />
+                            <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <HiVolumeUp className="mr-1" />
+                            <span className="font-semibold">{pagination.voiceminutes.total}</span> in voice
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <HiLink className="mr-1" />
+                            <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
+                        </div>
+                    </AccordionItem>
+                    : undefined as unknown as JSX.Element
+                }
 
-                {guild?.inviteUrl ?
+                {guild && "id" in guild && guild?.inviteUrl ?
                     <AccordionItem
                         key="4"
                         aria-label="invite privacy"
@@ -172,7 +175,7 @@ export default function Side({
                 show={modal}
                 onClose={() => setModal(false)}
                 onSubmit={() => {
-                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/top-members`, {
+                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild && "id" in guild ? guild?.id : ""}/top-members`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",

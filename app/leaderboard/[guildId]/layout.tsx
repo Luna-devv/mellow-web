@@ -8,6 +8,7 @@ import { ListTab } from "@/components/list";
 import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
 import decimalToRgb from "@/utils/decimalToRgb";
+import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
 import { getDesign, getPagination } from "./api";
@@ -24,9 +25,10 @@ export const generateMetadata = async ({
     params
 }: Props): Promise<Metadata> => {
     const guild = await getGuild(params.guildId);
+    const name = guild && "name" in guild ? guild.name : "Unknown";
 
-    const title = `${guild?.name || "Unknown"}'s Leaderboard`;
-    const description = `Discover the most active chatters, voice timers, and top inviters. ${guild?.name ? `Explore the community of the ${guild.name} discord server right from your web browser.` : ""}`;
+    const title = `${name}'s Leaderboard`;
+    const description = `Discover the most active chatters, voice timers, and top inviters. ${name ? `Explore the community of the ${name} discord server right from your web browser.` : ""}`;
     const url = getCanonicalUrl("leaderboard", params.guildId);
 
     const date = new Date();
@@ -53,9 +55,13 @@ export const generateMetadata = async ({
         twitter: {
             card: "summary_large_image",
             title,
-            description
+            description,
+            images: {
+                url: getCanonicalUrl("leaderboard", params.guildId, `open-graph.png?ca=${cacheQuery}`),
+                alt: title
+            }
         },
-        robots: guild?.name ? "index, follow" : "noindex"
+        robots: name ? "index, follow" : "noindex"
     };
 };
 
@@ -70,8 +76,11 @@ export default async function RootLayout({
 
     const [guild, design, pagination] = await Promise.all([guildPromise, designPromise, paginationPromise]).catch(() => []);
 
-    const backgroundRgb = decimalToRgb(design?.backgroundColor || 0);
-    const intl = new Intl.NumberFormat("en", { notation: "standard" });
+    const guildExists = guild && "id" in guild;
+
+    const backgroundRgb = design && "backgroundColor" in design && design?.backgroundColor
+        ? decimalToRgb(design?.backgroundColor || 0)
+        : undefined;
 
     const cookieStore = cookies();
     const currentCircular = cookieStore.get("lbc")?.value;
@@ -79,7 +88,7 @@ export default async function RootLayout({
     return (
         <div className="w-full">
 
-            {design?.backgroundColor &&
+            {backgroundRgb &&
                 <style>
                     {`
                         :root {
@@ -95,7 +104,7 @@ export default async function RootLayout({
                     className="w-full object-cover"
                     classNames={{ img: "h-36 md:h-64", blurredImg: "h-40 md:h-72 -top-5" }}
                     isBlurred
-                    src={design?.banner || paintPic.src}
+                    src={design && "banner" in design && design.banner ? design.banner : paintPic.src}
                     width={3840 / 2}
                     height={2160 / 2}
                 />
@@ -103,12 +112,20 @@ export default async function RootLayout({
                 <div
                     className="text-lg flex gap-5 items-center absolute bottom-[-44px] md:bottom-[-34px] left-[12px] md:left-10 py-4 px-5 rounded-3xl z-20 backdrop-blur-3xl backdrop-brightness-75 shadow-md"
                 >
-                    <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40" />
+                    <ImageReduceMotion
+                        alt="Server icon"
+                        className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40"
+                        url={guildExists ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : "/discord"}
+                        size={128}
+                    />
+
                     <div className="flex flex-col gap-1">
-                        <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
+                        <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guildExists ? guild.name : "Unknown Server"}</div>
                         <div className="text-sm font-semibold flex items-center gap-1">
-                            <HiUsers /> {intl.format(guild?.memberCount || 0)}
-                            <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" /> <span className="ml-2">Level {guild?.premiumTier || 0}</span>
+                            <HiUsers /> {guildExists ? intl.format(guild?.memberCount) : 0}
+
+                            <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" />
+                            <span className="ml-2">Level {guildExists ? guild?.premiumTier : 0}</span>
                         </div>
                     </div>
                 </div>
@@ -142,7 +159,7 @@ export default async function RootLayout({
             <div className="md:flex">
 
                 <div itemScope itemType="https://schema.org/ItemList" className="md:w-3/4 md:mr-6">
-                    <h2 itemProp="name" className="display-hidden sr-only">Top 10 users in {guild?.name}</h2>
+                    {guildExists && <h2 itemProp="name" className="display-hidden sr-only">Top 10 users in {guild?.name}</h2>}
                     <link itemProp="itemListOrder" href="https://schema.org/ItemListOrderDescending" />
 
                     {children}
@@ -150,11 +167,16 @@ export default async function RootLayout({
                 </div>
 
                 <div className="md:w-1/4 mt-8 md:mt-0">
-                    <Side guild={guild} design={design} pagination={pagination} currentCircular={currentCircular as undefined} />
+                    <Side
+                        guild={guild}
+                        design={design}
+                        pagination={pagination}
+                        currentCircular={currentCircular as undefined}
+                    />
                 </div>
 
             </div>
 
-        </div>
+        </div >
     );
 }
