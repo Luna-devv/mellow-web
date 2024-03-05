@@ -132,6 +132,14 @@ export default function Home() {
                         title="How this works"
                     >
                         Users who are currently in a voice channel can send messages to this tts channel and the bot will then read the message out loud in vc. Note that the bot can only be in one voice channel at a time.
+
+                        <iframe
+                            className="mt-6 aspect-video rounded-lg"
+                            width={"100%"}
+                            src="https://www.youtube.com/embed/NS5fZ1ltovE?si=uODiGspuNGKPRQKp"
+                            title="Wamellow Text to Speech tutorial"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        />
                     </AccordionItem>
                     <AccordionItem
                         key="2"

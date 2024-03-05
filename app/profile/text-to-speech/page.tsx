@@ -54,7 +54,7 @@ export default function Home() {
             <iframe
                 className="mt-6 aspect-video rounded-lg"
                 width={"100%"}
-                src="https://www.youtube-nocookie.com/embed/NS5fZ1ltovE?si=uODiGspuNGKPRQKp"
+                src="https://www.youtube.com/embed/NS5fZ1ltovE?si=uODiGspuNGKPRQKp"
                 title="Wamellow Text to Speech tutorial"
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             />
