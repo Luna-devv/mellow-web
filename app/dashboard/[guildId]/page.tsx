@@ -112,6 +112,15 @@ export default function Home() {
                             defaultState={guild?.tts.channelId}
                             showClear
                         />
+                        <SelectMenu
+                            name="Usage logs"
+                            url={`/guilds/${params.guildId}`}
+                            dataName="logChannelId"
+                            items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
+                            description="Select a channel where usage logs should be psoted into."
+                            defaultState={guild?.tts.logChannelId}
+                            showClear
+                        />
                         <Switch
                             name="Announce user"
                             url={`/guilds/${params.guildId}`}

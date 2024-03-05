@@ -43,6 +43,7 @@ export interface ApiV1GuildsGetResponse {
     tts: {
         channelId: string | null;
         announceUser: boolean;
+        logChannelId: string | null
     }
 }
 
