@@ -15,16 +15,6 @@ export interface ApiV1TopguildsGetResponse {
     partnered: boolean;
 }
 
-export interface ApiV1StatisticsGetResponse {
-    approximateGuildCount: number;
-    guildsGained: number;
-    approximateUserCount: number;
-    usersGained: number;
-    approximateVoteCount: number;
-    votesGained: number;
-    globalGuilds: number;
-}
-
 export interface UserGuild {
     id: string;
     name: string;
