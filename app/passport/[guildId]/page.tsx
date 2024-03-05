@@ -12,20 +12,25 @@ import { ServerButton } from "@/components/server-button";
 import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
 import decimalToRgb from "@/utils/decimalToRgb";
+import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
 import { getPassport } from "./api";
 import Verify from "./verify.component";
 
-interface PassportProps { params: { guildId: string }, searchParams: { page: string, type: string } }
+interface Props {
+    params: { guildId: string };
+    searchParams: { page: string, type: string };
+}
 
 export const generateMetadata = async ({
     params
-}: PassportProps): Promise<Metadata> => {
+}: Props): Promise<Metadata> => {
     const guild = await getGuild(params.guildId);
+    const name = guild && "name" in guild ? guild.name : "Unknown";
 
-    const title = `Verify in ${guild?.name}`;
-    const description = `Easily verify yourself in ${guild?.name} with a simple and safe captcha in the web to gain access all channels.`;
+    const title = `Verify in ${name}`;
+    const description = `Easily verify yourself in ${name} with a simple and safe captcha in the web to gain access all channels.`;
     const url = getCanonicalUrl("passport", params.guildId);
 
     return {
@@ -39,7 +44,7 @@ export const generateMetadata = async ({
             description,
             url,
             type: "website",
-            images: guild?.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=256` : "/discord.png"
+            images: guild && "icon" in guild && guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=256` : "/discord.png"
         },
         twitter: {
             card: "summary",
@@ -49,19 +54,22 @@ export const generateMetadata = async ({
     };
 };
 
-export default async function Home({ params }: PassportProps) {
+export default async function Home({ params }: Props) {
     const guildPromise = getGuild(params.guildId);
     const passportPromise = getPassport(params.guildId);
 
     const [guild, passport] = await Promise.all([guildPromise, passportPromise]);
 
-    const backgroundRgb = decimalToRgb(passport.backgroundColor || 0);
-    const intl = new Intl.NumberFormat("en", { notation: "standard" });
+    const guildExists = guild && "id" in guild;
+
+    const backgroundRgb = passport && "backgroundColor" in passport && passport.backgroundColor
+        ? decimalToRgb(passport.backgroundColor || 0)
+        : undefined;
 
     return (
         <div className="w-full">
 
-            {passport.backgroundColor &&
+            {backgroundRgb &&
                 <style>
                     {`
                         :root {
@@ -71,11 +79,11 @@ export default async function Home({ params }: PassportProps) {
                 </style>
             }
 
-            {typeof passport === "object" && "statusCode" in passport &&
-                <Notice type={NoticeType.Error} message={(passport as Record<string, string>).message} />
+            {passport && "message" in passport &&
+                <Notice type={NoticeType.Error} message={passport.message} />
             }
 
-            {guild?.id === "1125063180801036329" &&
+            {guild && "id" in guild && guild?.id === "1125063180801036329" &&
                 <Notice type={NoticeType.Info} message="This is a demo server to test out passport verification." >
                     <ServerButton
                         as={Link}
@@ -96,7 +104,7 @@ export default async function Home({ params }: PassportProps) {
                     <Image
                         alt=""
                         className="w-full object-cover h-[216px]"
-                        src={guild?.banner ? `https://cdn.discordapp.com/banners/${guild?.id}/${guild?.banner}?size=512` : paintPic.src}
+                        src={guild && "banner" in guild && guild.banner ? `https://cdn.discordapp.com/banners/${guild?.id}/${guild?.banner}?size=512` : paintPic.src}
                         width={3840 / 10}
                         height={2160 / 10}
                     />
@@ -105,12 +113,20 @@ export default async function Home({ params }: PassportProps) {
                     <div
                         className="text-lg flex gap-5 items-center absolute top-[146px] rounded-3xl z-20 left-[4px] md:left-2 py-4 px-5 backdrop-blur-3xl backdrop-brightness-90 shadow-md"
                     >
-                        <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server icon" className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40" />
+                        <ImageReduceMotion
+                            alt="Server icon"
+                            className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40"
+                            url={guildExists ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : "/discord"}
+                            size={128}
+                        />
+
                         <div className="flex flex-col gap-1">
-                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
+                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guildExists ? guild.name : "Unknown Server"}</div>
                             <div className="text-sm font-semibold flex items-center gap-1">
-                                <HiUsers /> {intl.format(guild?.memberCount || 0)}
-                                <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" /> Level {guild?.premiumTier}
+                                <HiUsers /> {guildExists ? intl.format(guild?.memberCount) : 0}
+
+                                <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" />
+                                <span className="ml-2">Level {guildExists ? guild?.premiumTier : 0}</span>
                             </div>
                         </div>
                     </div>
@@ -121,7 +137,7 @@ export default async function Home({ params }: PassportProps) {
                         <ul>
                             {[
                                 "Secure server",
-                                `${intl.format(guild?.memberCount || 0)} members`
+                                `${guild && "memberCount" in guild ? intl.format(guild?.memberCount) : 0} members`
                             ].map((name) => (
                                 <li key={name} className="flex gap-1 items-center">
                                     <HiCheck className="text-violet-400" />
@@ -134,8 +150,12 @@ export default async function Home({ params }: PassportProps) {
                             </li>
                         </ul>
 
-                        {guild && typeof passport !== "object" &&
-                            <Verify guild={guild} />
+                        {
+                            guild && "id" in guild &&
+                            passport && "enabled" in passport &&
+                            <Verify
+                                guild={guild}
+                            />
                         }
 
                     </div>

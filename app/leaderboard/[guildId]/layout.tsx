@@ -78,8 +78,8 @@ export default async function RootLayout({
 
     const guildExists = guild && "id" in guild;
 
-    const backgroundRgb = design && "backgroundColor" in design && design?.backgroundColor
-        ? decimalToRgb(design?.backgroundColor || 0)
+    const backgroundRgb = design && "backgroundColor" in design && design.backgroundColor
+        ? decimalToRgb(design.backgroundColor || 0)
         : undefined;
 
     const cookieStore = cookies();
