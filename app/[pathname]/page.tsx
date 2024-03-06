@@ -29,8 +29,10 @@ export default async function Home({ params }: Props) {
                 .then((res) => res.json())
                 .catch(() => null) as { videoUrl: string } | null;
 
-            redirect(res?.videoUrl || "https://www.youtube.com/channel/UClWBeVcz5LUmcCN1gHG_GCg");
+            return redirect(res?.videoUrl || "https://www.youtube.com/channel/UClWBeVcz5LUmcCN1gHG_GCg");
         }
+        case "ai":
+            return redirect("/ai-gallery");
     }
 
     notFound();

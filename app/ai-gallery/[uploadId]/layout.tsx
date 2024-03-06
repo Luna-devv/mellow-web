@@ -1,4 +1,4 @@
-import { Button, Chip } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { Metadata } from "next";
 import NextImage from "next/image";
 import Link from "next/link";
@@ -29,7 +29,7 @@ export const generateMetadata = async ({
     const upload = await getUpload(params.uploadId);
 
     const title = "Free /image Ai for Discord";
-    const description = `View an amazing AI generated image ${"model" in upload ? `using the ${upload.model}` : ""} created with our versatile /image command. ${"prompt" in upload ? `Using the prompt: ${upload.prompt}` : ""}`.replace("  ", " ");
+    const description = `Amazing AI generated images ${"model" in upload ? `using the ${upload.model}` : ""}, created using our versatile image command.`.replace("  ", " ");
     const images = "id" in upload ? `https://r2.wamellow.com/ai-image/${upload.id}.webp` : `${getBaseUrl()}/waya-v3.jpg`;
     const url = getCanonicalUrl("ai-gallery", params.uploadId);
 
@@ -64,7 +64,7 @@ export default async function RootLayout({
 
     const [guild, uploads, analytics] = await Promise.all([
         "guildId" in upload ? getGuild(upload.guildId) : undefined,
-        "model" in upload ? getUploads({ model: upload.model }) : undefined,
+        "model" in upload ? getUploads({ query: upload.prompt }) : undefined,
         getPageAnalytics("/ai-gallery/" + params.uploadId)
     ]);
 
@@ -109,13 +109,13 @@ export default async function RootLayout({
 
             <div>
                 <h2 className="text-3xl font-bold mb-4 text-neutral-200">More like this /image</h2>
-                <span className="relative bottom-4 mb-4">
-                    Images that were also generated with the <Chip>{"model" in upload ? upload.model : "..."}</Chip> model.
+                <span className="relative bottom-3">
+                    Images that are similiar to the one you{"'"}re viewing.
                 </span>
 
-                {Array.isArray(uploads) ?
-                    <div className="flex flex-wrap gap-4">
-                        {uploads
+                {uploads && "results" in uploads ?
+                    <div className="flex flex-wrap gap-4 mt-2">
+                        {uploads.results
                             .map((upload) => (
                                 <Link
                                     key={upload.id}
@@ -148,7 +148,7 @@ export default async function RootLayout({
             <Button
                 className="!mt-5"
                 as={Link}
-                href="/ai"
+                href="/ai-gallery"
                 startContent={<HiArrowLeft />}
             >
                 View all Uploads

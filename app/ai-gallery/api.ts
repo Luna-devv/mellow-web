@@ -1,3 +1,4 @@
+import { defaultFetchOptions } from "@/lib/api";
 import { ApiError } from "@/typings";
 
 export interface Upload {
@@ -15,11 +16,30 @@ export interface Upload {
     createdAt: string;
 }
 
-export async function getUploads(options?: { model?: string; page?: number }): Promise<Upload[] | ApiError> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/ai${options?.model ? `?model=${options.model}` : ""}${options?.page ? `?page=${options.page - 1}` : ""}`, {
-        headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 60 * 60 }
-    });
+interface Uploads {
+    results: Upload[];
+    pagination: {
+        total: number;
+        page: number;
+    }
+}
+
+export async function getUploads(options?: Partial<{
+    model: string;
+    nsfw: boolean;
+    page: number;
+    query: string;
+}>): Promise<Uploads | ApiError> {
+
+    const params = new URLSearchParams();
+    if (options?.model) params.append("model", options.model);
+    if (options?.nsfw) params.append("nsfw", options.nsfw.toString());
+    if (options?.page) params.append("page", (options.page - 1).toString());
+    if (options?.query) params.append("query", options.query);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/ai?${params.toString()}`,
+        defaultFetchOptions
+    );
 
     return res.json();
 }
@@ -33,10 +53,7 @@ export interface ExtendedUpload extends Upload {
 }
 
 export async function getUpload(uploadId: string): Promise<ExtendedUpload | ApiError> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/ai/${uploadId}`, {
-        headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 60 * 60 }
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/ai/${uploadId}`, defaultFetchOptions);
 
     return res.json();
 }
