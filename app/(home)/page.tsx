@@ -209,52 +209,6 @@ export default async function Home() {
             >
 
                 <div>
-                    <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
-                    <div className="my-8 max-w-md font-medium">
-                        Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages! 👀
-                    </div>
-
-                    <Box className="flex flex-col md:flex-row gap-10 items-center">
-                        <div className="md:w-1/2">
-                            <Chip
-                                className="mb-2"
-                                color="secondary"
-                                variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
-                            >
-                                <span className="font-semibold">100% free forever</span>
-                            </Chip>
-                            <h3 className={styles.h3}>/leaderboard & /rank</h3>
-                            <div className="pt-6">
-                                Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
-                                By motivating your members to communicate, you{"’"}ll cultivate a more active server community.
-                            </div>
-                            <div className="flex gap-2 mt-6">
-                                <Invite />
-                                <ServerButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/leaderboard/828676951023550495?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    View Leaderboard
-                                </ServerButton>
-                            </div>
-                        </div>
-
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
-                            <DiscordMessage {...messageProps("leaderboard")}>
-                                <Image src={LeaderboardPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" />
-                            </DiscordMessage>
-                        </div>
-                    </Box>
-                </div>
-
-                <div>
                     <h2 className={styles.h2}>Next-Level text to speech, tts 🔊</h2>
                     <div className="my-8 max-w-md font-medium">
                         It{"'"}s crucial for people with speech impairments.
@@ -343,6 +297,183 @@ export default async function Home() {
 
                         </div>
 
+                    </Box>
+                </div>
+
+                <div>
+                    <h2 className={styles.h2}>Create unique images with Ai 🏳️‍⚧️</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Unlock complimentary access to a variety of image generation models directly within your Discord server. Without paying a shit ton to MEE6.
+                    </div>
+
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">100% no money loss</span>
+                            </Chip>
+                            <h3 className={styles.h3}>/image command</h3>
+                            <div className="pt-6">
+                                Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
+                                Elevate your server to a haven for unique and dynamic AI-generated images, ensuring a delightful experience for all enthusiasts of the digital arts.
+                            </div>
+                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
+                                <Chip
+                                    className="mb-2"
+                                    color="secondary"
+                                    variant="flat"
+                                    size="sm"
+                                    startContent={<HiFire className="mx-1" />}
+                                >
+                                    <span className="font-semibold">NSFW Supported</span>
+                                </Chip>
+                                <div className="text-base">
+                                    Generate spicy images and more in nsfw marked channels.
+                                </div>
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow"
+                                    startContent={<HiArrowRight />}
+                                    href="/ai?utm_source=wamellow.com&utm_medium=home"
+                                >
+                                    View examples
+                                </ServerButton>
+                            </div>
+                        </div>
+
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
+                            <DiscordMessage {...messageProps("image")}>
+                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+                                <Image
+                                    alt=""
+                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
+                                    height={512}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    src={AiPic}
+                                    width={512}
+                                />
+                            </DiscordMessage>
+                        </div>
+                    </Box>
+                </div>
+
+                <div>
+                    <h2 className={styles.h2}>Watchin{"'"} Anime ❤️</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        They{"'"}re like windows to stories that provide the perfect distraction, letting you take a breather before diving back into the real world.
+                    </div>
+
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">100% sexy forever</span>
+                            </Chip>
+                            <h3 className={styles.h3}>/anime command</h3>
+                            <div className="pt-6">
+                                Unleash the magic of anime right within your Discord server with Wamellow{"'"}s 25+ categories.
+                                Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
+                                Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
+                            </div>
+                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
+                                <Chip
+                                    className="mb-2"
+                                    color="secondary"
+                                    variant="flat"
+                                    size="sm"
+                                    startContent={<HiFire className="mx-1" />}
+                                >
+                                    <span className="font-semibold">NSFW Supported</span>
+                                </Chip>
+                                <div className="text-base">
+                                    Find spicy nekos, waifus, and more in nsfw marked channels.
+                                </div>
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                            </div>
+                        </div>
+
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
+                            <DiscordMessage {...messageProps("anime")}>
+                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+                                <Image
+                                    alt=""
+                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-xs mt-2"
+                                    height={512}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    src={WaifuPic}
+                                    width={512}
+                                />
+                            </DiscordMessage>
+                        </div>
+                    </Box>
+                </div>
+
+                <div>
+                    <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
+                    <div className="my-8 max-w-md font-medium">
+                        Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages! 👀
+                    </div>
+
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">100% free forever</span>
+                            </Chip>
+                            <h3 className={styles.h3}>/leaderboard & /rank</h3>
+                            <div className="pt-6">
+                                Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
+                                By motivating your members to communicate, you{"’"}ll cultivate a more active server community.
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow"
+                                    startContent={<HiArrowRight />}
+                                    href="/leaderboard/828676951023550495?utm_source=wamellow.com&utm_medium=home"
+                                >
+                                    View Leaderboard
+                                </ServerButton>
+                            </div>
+                        </div>
+
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
+                            <DiscordMessage {...messageProps("leaderboard")}>
+                                <Image src={LeaderboardPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" />
+                            </DiscordMessage>
+                        </div>
                     </Box>
                 </div>
 
@@ -504,137 +635,6 @@ export default async function Home() {
 
                         <div className="w-full md:w-1/2 flex justify-center">
                             <Image src={CaptchaPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" className="max-w-56" />
-                        </div>
-                    </Box>
-                </div>
-
-                <div>
-                    <h2 className={styles.h2}>Watchin{"'"} Anime ❤️</h2>
-                    <div className="my-8 max-w-md font-medium">
-                        They{"'"}re like windows to stories that provide the perfect distraction, letting you take a breather before diving back into the real world.
-                    </div>
-
-                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
-                        <div className="md:w-1/2">
-                            <Chip
-                                className="mb-2"
-                                color="secondary"
-                                variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
-                            >
-                                <span className="font-semibold">100% sexy forever</span>
-                            </Chip>
-                            <h3 className={styles.h3}>/anime command</h3>
-                            <div className="pt-6">
-                                Unleash the magic of anime right within your Discord server with Wamellow{"'"}s 25+ categories.
-                                Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
-                                Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
-                            </div>
-                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <Chip
-                                    className="mb-2"
-                                    color="secondary"
-                                    variant="flat"
-                                    size="sm"
-                                    startContent={<HiFire className="mx-1" />}
-                                >
-                                    <span className="font-semibold">NSFW Supported</span>
-                                </Chip>
-                                <div className="text-base">
-                                    Find spicy nekos, waifus, and more in nsfw marked channels.
-                                </div>
-                            </div>
-                            <div className="flex gap-2 mt-6">
-                                <Invite />
-                            </div>
-                        </div>
-
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
-                            <DiscordMessage {...messageProps("anime")}>
-                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
-                                <Image
-                                    alt=""
-                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-xs mt-2"
-                                    height={512}
-                                    itemProp="image"
-                                    loading="lazy"
-                                    src={WaifuPic}
-                                    width={512}
-                                />
-                            </DiscordMessage>
-                        </div>
-                    </Box>
-                </div>
-
-                <div>
-                    <h2 className={styles.h2}>Create unique images with Ai 🏳️‍⚧️</h2>
-                    <div className="my-8 max-w-md font-medium">
-                        Unlock complimentary access to a variety of image generation models directly within your Discord server. Without paying a shit ton to MEE6.
-                    </div>
-
-                    <Box className="flex flex-col md:flex-row gap-10 items-center">
-                        <div className="md:w-1/2">
-                            <Chip
-                                className="mb-2"
-                                color="secondary"
-                                variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
-                            >
-                                <span className="font-semibold">100% no money loss</span>
-                            </Chip>
-                            <h3 className={styles.h3}>/image command</h3>
-                            <div className="pt-6">
-                                Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
-                                Elevate your server to a haven for unique and dynamic AI-generated images, ensuring a delightful experience for all enthusiasts of the digital arts.
-                            </div>
-                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <Chip
-                                    className="mb-2"
-                                    color="secondary"
-                                    variant="flat"
-                                    size="sm"
-                                    startContent={<HiFire className="mx-1" />}
-                                >
-                                    <span className="font-semibold">NSFW Supported</span>
-                                </Chip>
-                                <div className="text-base">
-                                    Generate spicy images and more in nsfw marked channels.
-                                </div>
-                            </div>
-                            <div className="flex gap-2 mt-6">
-                                <Invite />
-                                <ServerButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/ai?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    View all models
-                                </ServerButton>
-                            </div>
-                        </div>
-
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
-                            <DiscordMessage {...messageProps("image")}>
-                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
-                                <Image
-                                    alt=""
-                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
-                                    height={512}
-                                    itemProp="image"
-                                    loading="lazy"
-                                    src={AiPic}
-                                    width={512}
-                                />
-                            </DiscordMessage>
                         </div>
                     </Box>
                 </div>
