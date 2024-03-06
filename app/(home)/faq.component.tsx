@@ -39,7 +39,7 @@ export default function Faq() {
             className="bg-wamellow border-none rounded-lg overflow-hidden"
             variant="shadow"
             selectionMode="multiple"
-            defaultExpandedKeys={["1"]}
+            defaultExpandedKeys={["0"]}
             disableAnimation={web.reduceMotions}
         >
             {data.map((item, index) => (

@@ -58,7 +58,7 @@ export default async function RootLayout({
         .catch(() => null) as ApiV1TopguildsGetResponse[] | null;
 
     return (
-        <div className="flex items-center flex-col w-full">
+        <div>
 
             <div className="lg:text-7xl text-5xl flex font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 break-words w-full">
                 <h1 className={montserrat.className}>
@@ -68,7 +68,8 @@ export default async function RootLayout({
                 </h1>
             </div>
 
-            {topGuilds &&
+            {
+                topGuilds &&
                 <ImageGrid images={topGuilds
                     .sort((a, b) => b.memberCount - a.memberCount)
                     .map((guild) => ({
@@ -154,6 +155,6 @@ export default async function RootLayout({
                 content="I have a lot of friends who have different preferred pronouns and identities and I think it's super sweet y'all have the feature that they can change their pronouns anytime so I put your bot in my servers and a friend may put it in theirs too 🥰"
             />
 
-        </div>
+        </div >
     );
 }
