@@ -11,6 +11,7 @@ import { ServerButton } from "@/components/server-button";
 import { getPageAnalytics } from "@/lib/analytics";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { truncate } from "@/utils/truncate";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 import { getUpload, getUploads } from "../api";
@@ -27,9 +28,12 @@ export const generateMetadata = async ({
     params
 }: Props): Promise<Metadata> => {
     const upload = await getUpload(params.uploadId);
+    const prompt = "prompt" in upload
+        ? truncate(upload.prompt.split(" ").map((str) => str.replace(/^\w/, (char) => char.toUpperCase())).join(" "), 24)
+        : null;
 
-    const title = "Free /image Ai for Discord";
-    const description = `Amazing AI generated images ${"model" in upload ? `using the ${upload.model}` : ""}, created using our versatile image command.`.replace("  ", " ");
+    const title = prompt ? `${prompt} - /image Ai` : "Free /image Ai for Discord";
+    const description = `Amazing AI generated images ${"model" in upload ? `using the ${upload.model}` : ""}, created using Wamellow's versatile /image command for Discord.`.replace(/ +/g, " ");
     const images = "id" in upload ? `https://r2.wamellow.com/ai-image/${upload.id}.webp` : `${getBaseUrl()}/waya-v3.jpg`;
     const url = getCanonicalUrl("ai-gallery", params.uploadId);
 
