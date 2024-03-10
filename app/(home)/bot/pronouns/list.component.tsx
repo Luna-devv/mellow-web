@@ -4,7 +4,12 @@ import { HiAcademicCap } from "react-icons/hi";
 import Ad from "@/components/ad";
 import { PronounsResponse } from "@/typings";
 
-export default async function List({ res, type }: { res: PronounsResponse, type: string }) {
+interface Props {
+    res: PronounsResponse;
+    type: string;
+}
+
+export default async function List({ res, type }: Props) {
 
     return (
         <div>
@@ -15,12 +20,14 @@ export default async function List({ res, type }: { res: PronounsResponse, type:
 
             <div className="flex flex-col sm:flex-row w-full gap-4">
                 <div className="rounded-md overflow-hidden sm:w-1/2 lg:w-3/4 dark:bg-wamellow bg-wamellow-100 p-2 divide-y divide-wamellow" >
-                    {res.content?.map((element, i) => (
-                        <div key={element} className="flex items-center justify-between py-2 px-3" >
-                            <span>{element}</span>
-                            <span className="italic text-sm">{(i + 1).toString().padStart(2, "0")}</span>
-                        </div>
-                    ))}
+                    {res.content
+                        .sort((a, b) => a.localeCompare(b))
+                        ?.map((element, i) => (
+                            <div key={element} className="flex items-center justify-between py-2 px-3" >
+                                <span>{element}</span>
+                                <span className="italic text-sm">{(i + 1).toString().padStart(2, "0")}</span>
+                            </div>
+                        ))}
                 </div>
 
                 <div className="sm:w-1/2 lg:w-1/4 flex flex-col gap-2">
@@ -38,7 +45,7 @@ export default async function List({ res, type }: { res: PronounsResponse, type:
                         color="red"
                     />
                     <span className="text-neutral-500 flex flex-wrap items-center gap-1">
-                        All bots are owned by <Link className="hover:underline" href="https://lunish.nl" aria-label="Wamellow's developer">lunish.nl</Link>
+                        All bots are owned by <Link className="hover:underline" href="https://lunish.nl">lunish.nl</Link>
                         <HiAcademicCap />
                     </span>
                 </div>
