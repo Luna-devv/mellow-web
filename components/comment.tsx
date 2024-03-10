@@ -18,7 +18,7 @@ export default async function Comment({
     content
 }: Props) {
     return (
-        <div className="w-full my-6">
+        <div className="w-full mb-6 mt-8">
             <div className="flex gap-4 items-center mb-2">
                 <span className="flex items-center gap-2">
                     <Image
