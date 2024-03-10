@@ -62,7 +62,7 @@ export default async function Home({ params }: Props) {
 
     const guildExists = guild && "id" in guild;
 
-    const backgroundRgb = passport && "backgroundColor" in passport && passport.backgroundColor
+    const backgroundRgb = typeof passport === "object" && "backgroundColor" in passport && passport.backgroundColor
         ? decimalToRgb(passport.backgroundColor || 0)
         : undefined;
 
@@ -79,7 +79,7 @@ export default async function Home({ params }: Props) {
                 </style>
             }
 
-            {passport && "message" in passport &&
+            {typeof passport === "object" && "message" in passport &&
                 <Notice type={NoticeType.Error} message={passport.message} />
             }
 
@@ -152,7 +152,7 @@ export default async function Home({ params }: Props) {
 
                         {
                             guild && "id" in guild &&
-                            passport && "enabled" in passport &&
+                            passport === true &&
                             <Verify
                                 guild={guild}
                             />
