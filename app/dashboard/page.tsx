@@ -25,7 +25,7 @@ export default function Home() {
     const user = userStore((s) => s);
 
     const [error, setError] = useState<string>();
-    const [guilds, setGuilds] = useState<UserGuild[]>([]);
+    const [guilds, setGuilds] = useState<UserGuild[] | undefined>();
     const [search, setSearch] = useState<string>("");
     const [display, setDisplay] = useState<"LIST" | "GRID">("GRID");
 
@@ -41,7 +41,7 @@ export default function Home() {
         return false;
     }
 
-    const { length } = guilds.filter(filter);
+    const { length } = (guilds || []).filter(filter);
 
     useEffect(() => {
 
@@ -151,7 +151,7 @@ export default function Home() {
                 </div>
             </div>
 
-            {guilds.length ?
+            {Array.isArray(guilds) ?
                 <motion.ul
                     variants={{
                         hidden: { opacity: 1, scale: 0 },

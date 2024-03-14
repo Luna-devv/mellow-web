@@ -45,7 +45,7 @@ export default async function Home() {
         .catch(() => null) as ApiV1TopguildsGetResponse[] | null;
 
     const styles = {
-        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-violet-300 font-bold underline decoration-violet-400"),
+        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-bold"),
         h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
     };
 
@@ -113,11 +113,11 @@ export default async function Home() {
                         max={8}
                         renderCount={renderCount}
                     >
-                        {toFixedArrayLength(topGuilds || [], 8)?.map((guild) => (
+                        {toFixedArrayLength(topGuilds || [], 8)?.map((guild, i) => (
                             <Avatar
                                 as={Link}
                                 href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
-                                key={guild.id}
+                                key={"mobileGuildGrid-" + guild.id + i}
                                 src={guild.icon || "/discord.webp"}
                                 alt={guild.name}
                                 title={guild.name}
@@ -174,9 +174,9 @@ export default async function Home() {
                             >
                                 {toFixedArrayLength(topGuilds || [], 12)
                                     .slice(i * 3, (i * 3) + 3)
-                                    .map((guild, i) => (
+                                    .map((guild, i2) => (
                                         <Link
-                                            key={"guildGrid-" + guild.id + i}
+                                            key={"guildGrid-" + guild.id + i + i2}
                                             className="relative md:h-32 h-24 md:w-32 w-24 hover:scale-110 duration-200"
                                             href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
                                         >
@@ -210,7 +210,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Next-Level text to speech, tts 🔊</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         It{"'"}s crucial for people with speech impairments.
                         It ensures inclusivity and allows everyone to participate fully, promoting accessibility and community engagement. ❤️
                         <span className="sr-only">One of the msot important Accessibility feature you need.</span>
@@ -302,7 +302,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Create unique images with Ai 🏳️‍⚧️</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         Unlock complimentary access to a variety of image generation models directly within your Discord server. Without paying a shit ton to MEE6.
                     </div>
 
@@ -371,7 +371,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Watchin{"'"} Anime ❤️</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         They{"'"}re like windows to stories that provide the perfect distraction, letting you take a breather before diving back into the real world.
                     </div>
 
@@ -433,7 +433,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages! 👀
                     </div>
 
@@ -479,7 +479,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Fun with Starboards ⭐</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         Join us in celebrating the best of your community by using Starboards to highlight and share messages that shine!
                     </div>
 
@@ -544,7 +544,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Heyho and bye @user 👋</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
                     </div>
 
@@ -592,7 +592,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Verify members w/ Passport</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         Secure your server from raider attacks and ensure that only verified members can access your channels.
                     </div>
 
@@ -641,7 +641,7 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Create Custom Responses 🖊️</h2>
-                    <div className="my-8 max-w-md font-medium">
+                    <div className="my-6 max-w-md font-medium">
                         Level up your Discord support game with Wamellow{"'"}s custom respones, called tags!
                     </div>
 
