@@ -20,7 +20,7 @@ interface Uploads {
     results: Upload[];
     pagination: {
         total: number;
-        page: number;
+        pages: number;
     }
 }
 

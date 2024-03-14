@@ -84,7 +84,7 @@ export default async function Home({
             <Pagination
                 key={searchParams.model}
                 searchParams={searchParams}
-                pages={2}
+                pages={uploads.pagination.pages}
             />
 
         </>

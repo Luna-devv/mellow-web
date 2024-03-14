@@ -105,6 +105,7 @@ export default function RootLayout({
                     href="/login?invite=true"
                     size="lg"
                 >
+                    <span className="block sm:hidden">Invite</span>
                     <span className="hidden sm:block">Invite Wamellow</span>
                 </ServerButton>
                 <ServerButton
@@ -114,6 +115,7 @@ export default function RootLayout({
                     href="/support"
                     size="lg"
                 >
+                    <span className="block sm:hidden">Support</span>
                     <span className="hidden sm:block">Join support</span>
                 </ServerButton>
             </div>
