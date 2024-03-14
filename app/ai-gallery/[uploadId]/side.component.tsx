@@ -46,7 +46,7 @@ export default function Side({
                     <Tooltip content="Share on Reddit" delay={0} closeDelay={0} showArrow>
                         <Button
                             as={Link}
-                            href={`https://reddit.com/submit?title=${encodeURIComponent(`${prompt}: /image using ${upload.model} with wamellow.com`)}&text=${`Hey! I created this AI /image with the ${upload.model} model and the prompt: "${encodeURIComponent(upload.prompt)}"${encodeURIComponent("\n")} what are your thoughts on it? ${encodeURIComponent("\n\n")}${getCanonicalUrl("ai-gallery", upload.id as string)}`}`}
+                            href={`https://reddit.com/submit?title=${encodeURIComponent(`${prompt} - /image using ${upload.model} with wamellow.com`)}&text=${`Hey! I created this AI /image with the ${upload.model} model and the prompt: "${encodeURIComponent(upload.prompt)}"${encodeURIComponent("\n")}what are your thoughts on it? ${encodeURIComponent("\n\n")}${getCanonicalUrl("ai-gallery", upload.id as string)}`}`}
                             target="_blank"
                             isIconOnly
                         >
@@ -56,7 +56,7 @@ export default function Side({
                     <Tooltip content="Share on Twitter/X" delay={0} closeDelay={0} showArrow>
                         <Button
                             as={Link}
-                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Created an #ai /image with the ${upload.model} AI model on on wamellow.com! The query was "${upload.prompt}"`)}&url=${encodeURIComponent(getCanonicalUrl("ai-gallery", upload.id as string))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Created an #ai /image with the ${upload.model} AI model on on wamellow.com with the prompt: ${prompt}`)}&url=${encodeURIComponent(getCanonicalUrl("ai-gallery", upload.id as string))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
                             target="_blank"
                             isIconOnly
                         >
