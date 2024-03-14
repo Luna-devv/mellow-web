@@ -2,6 +2,8 @@ import { Patrick_Hand } from "next/font/google";
 import Image, { StaticImageData } from "next/image";
 import { HiChevronRight } from "react-icons/hi";
 
+import cn from "@/utils/cn";
+
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 interface Props {
@@ -18,9 +20,9 @@ export default async function Comment({
     content
 }: Props) {
     return (
-        <div className="w-full mb-6 mt-8">
+        <div className="w-full mb-6 mt-9">
             <div className="flex gap-4 items-center mb-2">
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-3">
                     <Image
                         alt="users's profile picture"
                         className="w-12 h-12 rounded-full"
@@ -39,7 +41,7 @@ export default async function Comment({
                 </span>
                 <HiChevronRight className="w-8 h-8" />
             </div>
-            <span className={`${handwritten.className} text-2xl break-words`}>
+            <span className={cn(handwritten.className, "text-2xl break-words")}>
                 „{content}“
             </span>
         </div>
