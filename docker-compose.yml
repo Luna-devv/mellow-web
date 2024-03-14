@@ -1,0 +1,8 @@
+version: '3'
+services:
+  tts:
+    container_name: mw-web
+    image: mw-web
+    restart: unless-stopped
+    ports:
+      - "7000:3000"
