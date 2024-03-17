@@ -170,7 +170,7 @@ export default async function Home() {
                         {[0, 1, 2, 3].map((i) => (
                             <div
                                 key={"guildGridThing-" + i}
-                                className={cn("flex flex-col gap-4", i % 2 === 1 && "mt-8", (i === 0 || i === 3) && "hidden xl:flex")}
+                                className={cn("flex flex-col gap-4", i % 2 === 1 ? "mt-4 animate-guilds" : "animate-guilds-2", (i === 0 || i === 3) && "hidden xl:flex")}
                             >
                                 {toFixedArrayLength(topGuilds || [], 12)
                                     .slice(i * 3, (i * 3) + 3)
@@ -342,7 +342,7 @@ export default async function Home() {
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
-                                    href="/ai?utm_source=wamellow.com&utm_medium=home"
+                                    href="/ai-gallery?utm_source=wamellow.com&utm_medium=home"
                                 >
                                     View examples
                                 </ServerButton>

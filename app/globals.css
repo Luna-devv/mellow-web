@@ -99,6 +99,42 @@ div[id="bg"] {
     }
 }
 
+.animate-guilds {
+    animation: updown 7s ease-in-out infinite;
+}
+
+@keyframes updown {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(1.1rem);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.animate-guilds-2 {
+    animation: downup 8s ease-in-out infinite;
+}
+
+@keyframes downup {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-1rem);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
 button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
 a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
     @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
