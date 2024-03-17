@@ -14,13 +14,13 @@ const data = [
         content: (
             <ol className="list-decimal list-inside marker:text-neutral-500">
                 <li>
-                    Be sure to have the <Code color="secondary">Manage Server</Code> permission on the server you want  <Link href="/login?invite=true" target="_blank" className="text-violet-400">invite Wamellow</Link> into.
+                    Be sure to have the <Code color="secondary">Manage Server</Code> permission on the server you want  <Link href="/login?invite=true" target="_blank" className="underline decoration-violet-400">invite Wamellow</Link> into.
                 </li>
                 <li>
                     Open Discord{"'"}s add-bot flow at <Link href="/login?invite=true" target="_blanket" className="text-violet-400">wamellow.com/invite</Link>.
                 </li>
                 <li>
-                    Select a server and click on {'"'}Continue{'"'}/
+                    Select a server and click on {'"'}Continue{'"'}.
                 </li>
                 <li>
                     Do <span className="font-semibold">not uncheck</span> any permissions and click on {'"'}Authorize{'"'}.
@@ -36,7 +36,7 @@ const data = [
         title: "Is the /image Ai or Text to Speech free to use?",
         content: (
             <div>
-                Yes, the image Ai and Text to Speech are free to use. However, you might have to <Link href="/vote" target="_blank" className="text-violet-400">vote for Wamellow on top.gg</Link> if you start using it alot.
+                Yes, the image Ai and Text to Speech are free to use. However, you might have to <Link href="/vote" target="_blank" className="text-violet-400 underline decoration-violet-400">vote for Wamellow on top.gg</Link> if you start using it alot.
             </div>
         )
     },
@@ -45,7 +45,7 @@ const data = [
         title: "How do I set up Chat to Speech (for TTS)?",
         content: (
             <div>
-                You can do that on <Link href="/dashboard" target="_blank" className="text-violet-400">your server’s Dashboard</Link> on the {'"'}Overview{'"'} page.
+                You can do that on <Link href="/dashboard" target="_blank" className="text-violet-400 underline decoration-violet-400">your server’s Dashboard</Link> on the {'"'}Overview{'"'} page.
                 <iframe
                     className="mt-6 aspect-video rounded-lg"
                     width={"100%"}
@@ -79,6 +79,7 @@ export default function Faq() {
 
     return (
         <div className="my-4 w-full">
+            <b className="sr-only">Frequently Asked Questions for Wamellow</b>
             <Accordion
                 className="rounded-lg overflow-hidden"
                 variant="splitted"
