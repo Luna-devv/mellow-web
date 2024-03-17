@@ -112,14 +112,14 @@ function Links() {
                 <div className="font-medium dark:text-neutral-300 text-neutral-800 mb-1">Legal blah blah</div>
                 <Link
                     className="flex items-center gap-1.5"
-                    href="/terms"
+                    href="/terms?utm_source=wamellow.com&utm_medium=footer"
                 >
                     <HiLibrary />
                     <span>Terms of Service</span>
                 </Link>
                 <Link
                     className="flex items-center gap-2"
-                    href="/privacy"
+                    href="/privacy?utm_source=wamellow.com&utm_medium=footer"
                 >
                     <HiHand />
                     <span>Privacy Policy</span>

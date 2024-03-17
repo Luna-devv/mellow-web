@@ -122,7 +122,11 @@ export default function RootLayout({
                 </div>
 
                 <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
-                    <Link href="/" className={cn("font-semibold flex items-center mr-2", montserrat.className)}>
+                    <Link
+                        aria-label="Go to Wamellow's homepage"
+                        className={cn("font-semibold flex items-center mr-2", montserrat.className)}
+                        href="/?utm_source=wamellow.com&utm_medium=header"
+                    >
                         <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
                         <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
                     </Link>
