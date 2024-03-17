@@ -107,64 +107,66 @@ export default async function Home({ params, searchParams }: Props) {
 
     return (
         <>
-            {members.sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0)).map((member, i) =>
-                <div
-                    key={"leaderboard-" + searchParams.type + member.id + i}
-                    className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100"
-                >
-                    <ImageReduceMotion
-                        alt={`${member.username}'s profile picture`}
-                        className="rounded-full h-12 w-12 mr-3"
-                        url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
-                        size={128}
-                    />
-
-                    <div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">{member.globalName || member.username || "Unknown user"}</span>
-                            {member.id === "821472922140803112" &&
-                                <Badge>Developer</Badge>
-                            }
-                            {member.id === "845287163712372756" &&
-                                <Badge>
-                                    WOMEN
-                                </Badge>
-                            }
-                        </div>
-                        <span className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</span>
-                    </div>
-
-                    <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">
-                        <span className="mr-1">
-                            {searchParams.type === "voiceminutes" ? member.activity?.formattedVoicetime : intl.format(member.activity?.[searchParams.type || "messages"])}
-                        </span>
-
-                        <Icon type={searchParams.type} />
-                    </div>
-
-                    <form action={publish}>
-                        <CircularProgress
-                            as="button"
-                            type="submit"
-                            className="ml-4"
-                            aria-label="progress"
-                            size="lg"
-                            color="secondary"
-                            classNames={{
-                                svg: "drop-shadow-md"
-                            }}
-                            value={
-                                currentCircular === "server"
-                                    ? (member.activity[searchParams.type || "messages"] * 100) / parseInt(pagination[searchParams.type || "messages"].total.toString())
-                                    : (member.activity[searchParams.type || "messages"] * 100) / members[i - 1]?.activity[searchParams.type || "messages"]
-                                    || 100
-                            }
-                            showValueLabel={true}
+            {members
+                .sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0))
+                .map((member, i) =>
+                    <div
+                        key={"leaderboard-" + searchParams.type + member.id + i}
+                        className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100"
+                    >
+                        <ImageReduceMotion
+                            alt={`${member.username}'s profile picture`}
+                            className="rounded-full h-12 w-12 mr-3"
+                            url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
+                            size={128}
                         />
-                    </form>
 
-                </div>
-            )}
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">{member.globalName || member.username || "Unknown user"}</span>
+                                {member.id === "821472922140803112" &&
+                                    <Badge>Developer</Badge>
+                                }
+                                {member.id === "845287163712372756" &&
+                                    <Badge>
+                                        WOMEN
+                                    </Badge>
+                                }
+                            </div>
+                            <span className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</span>
+                        </div>
+
+                        <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">
+                            <span className="mr-1">
+                                {searchParams.type === "voiceminutes" ? member.activity?.formattedVoicetime : intl.format(member.activity?.[searchParams.type || "messages"])}
+                            </span>
+
+                            <Icon type={searchParams.type} />
+                        </div>
+
+                        <form action={publish}>
+                            <CircularProgress
+                                as="button"
+                                type="submit"
+                                className="ml-4"
+                                aria-label="progress"
+                                size="lg"
+                                color="secondary"
+                                classNames={{
+                                    svg: "drop-shadow-md"
+                                }}
+                                value={
+                                    currentCircular === "next"
+                                        ? (member.activity[searchParams.type || "messages"] * 100) / members[i - 1]?.activity[searchParams.type || "messages"]
+                                        : (member.activity[searchParams.type || "messages"] * 100) / parseInt(pagination[searchParams.type || "messages"].total.toString())
+                                        || 100
+                                }
+                                showValueLabel={true}
+                            />
+                        </form>
+
+                    </div>
+                )}
 
             <Pagination
                 key={searchParams.type}
