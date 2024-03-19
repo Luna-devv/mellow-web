@@ -18,6 +18,8 @@ interface Props {
     children: React.ReactNode;
 }
 
+export const revalidate = 60 * 60;
+
 export const generateMetadata = async (): Promise<Metadata> => {
 
     const title = "Free /image Ai for Discord";
