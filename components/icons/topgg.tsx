@@ -3,6 +3,7 @@ import { SVGProps } from "react";
 export default function TopggIcon(props: SVGProps<SVGSVGElement>) {
     return (
         <svg
+            xmlns="http://www.w3.org/2000/svg"
             viewBox="120 120 580 580"
             focusable="false"
             {...props}

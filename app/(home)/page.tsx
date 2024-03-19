@@ -30,6 +30,7 @@ import { getCanonicalUrl } from "@/utils/urls";
 
 import Commands from "./commands.component";
 import Faq from "./faq.component";
+import Ratings from "./ratings.component";
 import Stats from "./stats.component";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -90,13 +91,7 @@ export default async function Home() {
             <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-16rem)] md:h-[calc(100svh-20rem)]">
                 <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
-                    <Chip
-                        color="secondary"
-                        variant="flat"
-                        startContent={<HiCash className="mx-1" />}
-                    >
-                        <span className="font-semibold">Everything for free</span>
-                    </Chip>
+                    <Ratings />
 
                     <h1 className={cn(montserrat.className, "lg:text-7xl md:text-6xl text-5xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
                         <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next generation</span>
