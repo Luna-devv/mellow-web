@@ -39,7 +39,12 @@ export async function GET(
                         tw="h-20 w-20 rounded-2xl relative bottom-3 mr-5"
                         alt=""
                     />
-                    <div style={{ fontWeight: 800, fontSize: "5rem" }}>{truncate(guildExists ? guild.name : "unknown", 20)}</div>
+                    <div
+                        className="break-keep"
+                        style={{ fontWeight: 800, fontSize: "5rem" }}
+                    >
+                        {truncate(guildExists ? guild.name : "unknown", 19)}
+                    </div>
                 </div>
                 <div tw="text-4xl text-gray-500 mb-42" style={{ fontWeight: 500 }}>Explore the vibrant community dynamics</div>
 
