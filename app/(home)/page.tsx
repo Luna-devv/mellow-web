@@ -88,7 +88,7 @@ export default async function Home() {
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-16rem)] md:h-[calc(100svh-20rem)]">
+            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-14rem)] md:h-[calc(100svh-17rem)]">
                 <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
                     <Ratings />

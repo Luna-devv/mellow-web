@@ -6,7 +6,6 @@ import { Montserrat, Outfit } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { BsDiscord } from "react-icons/bs";
 import { SiKofi } from "react-icons/si";
 
 import Header from "@/components/header";
@@ -100,26 +99,6 @@ export default function RootLayout({
 
             <body className={cn("w-full max-w-7xl", outfit.className)}>
                 <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
-
-                <div className="w-6xl w-full max-w-full px-2 mt-3">
-                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-indigo-400/75 to-pink-400/75 h-8 text-white font-medium text-sm rounded-md">
-                        <div />
-
-                        <div className="items-center flex">
-                            <span className="hidden md:block">
-                                Please note that this is an <span className="underline decoration-dotted break-word">early alpha version</span> of the bot and the website!
-                            </span>
-                            <span className="block md:hidden">
-                                This is an <span className="underline decoration-dotted break-word">early alpha version</span>!
-                            </span>
-                        </div>
-
-                        <Link href="/support" target="_blank">
-                            <BsDiscord className="h-4 w-4" />
-                            <span className="sr-only">Discord server and support</span>
-                        </Link>
-                    </div>
-                </div>
 
                 <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
                     <Link
