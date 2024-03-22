@@ -96,7 +96,7 @@ export default async function Home() {
                     <h1 className={cn(montserrat.className, "lg:text-7xl md:text-6xl text-5xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
                         <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next generation</span>
                         {" of "}
-                        <span className="underline decoration-blurple break-keep">discord bots</span>
+                        <span className="underline decoration-blurple break-keep">Discord Bots</span>
                     </h1>
 
                     <span className="text-lg font-medium max-w-xl mb-4">

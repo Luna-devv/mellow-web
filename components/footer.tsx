@@ -22,7 +22,7 @@ export default function Footer(props: HTMLProps<HTMLDivElement>) {
                 <BsDiscord className="relative top-[1px] text-[#f8746e]" />
                 <span className="text-xl bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text text-transparent">Wamellow</span>
                 <span className="text-xl bg-gradient-to-r from-yellow-400 to-blue-400 bg-clip-text text-transparent">for</span>
-                <span className="text-xl bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">discord</span>
+                <span className="text-xl bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">Discord</span>
             </div>
 
             <div className="flex flex-col md:flex-row gap-6 md:gap-2 justify-between">
