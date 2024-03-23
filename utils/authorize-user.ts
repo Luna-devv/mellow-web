@@ -3,50 +3,33 @@ import React from "react";
 import { User } from "@/common/user";
 import { RouteErrorResponse } from "@/typings";
 
-interface Props {
+export default async function authorize({
+    stateHook
+}: {
     stateHook: React.Dispatch<React.SetStateAction<"LOADING" | "ERRORED" | undefined>>;
-    page: string;
-}
-
-export default async function authorize({ stateHook, page }: Props): Promise<User | null> {
+}): Promise<User | null> {
     stateHook(undefined);
-    let res: null | User = null;
 
-    let serverError = false;
-    if (localStorage.getItem("token")) {
-
-        res = await fetch(`${process.env.NEXT_PUBLIC_API}/sessions`, {
-            headers: {
-                "Content-Type": "application/json",
-                authorization: localStorage.getItem("token") as string
-            }
-        })
-            .then((res) => res.json())
-            .catch((res) => {
-                if (res?.status?.toString() !== "401" && res?.status?.toString() !== "200") {
-                    serverError = true;
-                    stateHook("ERRORED");
-                }
-                return null;
-            });
-
-        if (res && (res as unknown as RouteErrorResponse)?.statusCode?.toString() !== "401" && (res as unknown as RouteErrorResponse).statusCode?.toString() !== "200") {
-            stateHook("ERRORED");
-            serverError = true;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/sessions`, {
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
         }
+    })
+        .then((res) => res.json())
+        .catch(() => null) as User | RouteErrorResponse | null;
 
-        if (res && !res?.id && !serverError && page !== "/logout" && page !== "/login") {
-            window.location.href = `${process.env.NEXT_PUBLIC_LOGIN}&scope=identify+email+guilds${localStorage.getItem("freshleyLoggedout") === "true" ? "" : "&prompt=none"}`;
-            return null;
-        }
-
-    }
-
-    if (!res && (page.startsWith("/dashboard") || page.startsWith("/profile") || page.startsWith("/login/spotify"))) {
-        window.location.href = `${process.env.NEXT_PUBLIC_LOGIN}&scope=identify+email+guilds${localStorage.getItem("freshleyLoggedout") === "true" ? "" : "&prompt=none"}`;
+    if (res && "statusCode" in res) {
+        // window.location.href = "/login";
+        console.log(res);
         return null;
     }
 
-    if (res?.id) stateHook(undefined);
-    return res || null;
+    if (!res) {
+        stateHook("ERRORED");
+        return null;
+    }
+
+    stateHook(undefined);
+    return res;
 }

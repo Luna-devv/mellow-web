@@ -3,11 +3,9 @@
 import { Button, Chip, Skeleton, Switch, Tooltip } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiLogout, HiViewGridAdd } from "react-icons/hi";
 
-import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import LoginButton from "@/components/login-button";
@@ -18,29 +16,21 @@ import ImageReduceMotion from "./image-reduce-motion";
 
 export default function Header(props: React.ComponentProps<"div">) {
 
-    const [loggedin, setLoggedin] = useState<boolean>();
     const [menu, setMenu] = useState(false);
     const [loginstate, setLoginstate] = useState<"LOADING" | "ERRORED" | undefined>("LOADING");
-
-    const path = usePathname() || "/";
-    useEffect(() => {
-        if (!["/login", "/login/spotify", "/logout"].includes(path)) localStorage.setItem("lastpage", path);
-
-        const params = new URLSearchParams(window.location.search);
-        if (params.get("spotify_login_success") === "true" && path !== "/login/spotify") window.close();
-
-        if (!path.startsWith("/dashboard/")) guildStore.setState(undefined);
-    }, [path]);
 
     const user = userStore((s) => s);
     const web = webStore((w) => w);
 
     useEffect(() => {
-        setLoggedin(!!localStorage.getItem("token"));
 
-        authorizeUser({ stateHook: setLoginstate, page: path }).then((_user) => {
-            userStore.setState(Object.assign(_user || {}, { __fetched: true }));
-        });
+        authorizeUser({ stateHook: setLoginstate })
+            .then((_user) => {
+                userStore.setState({
+                    ...(_user || {}),
+                    __fetched: true
+                });
+            });
 
         const devToolsEnabled = localStorage.getItem("devToolsEnabled");
         const reduceMotions = localStorage.getItem("reduceMotions");
@@ -153,7 +143,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                 </Skeleton>
                 <div className="w-full">
                     <div className="dark:text-neutral-200 text-neutral-800 truncate max-w-44 flex items-center gap-2">
-                        <span className="font-medium text-xl sm:text-base">{user?.global_name || `@${user?.username}`}</span>
+                        <span className="font-medium text-xl sm:text-base">{user?.globalName || `@${user?.username}`}</span>
                         {user?.id === "821472922140803112" &&
                             <Chip color="secondary" size="sm" variant="flat" startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}>
                                 <span className="font-bold">Developer</span>
@@ -165,9 +155,16 @@ export default function Header(props: React.ComponentProps<"div">) {
                     </div>
                 </div>
                 <Tooltip content="Logout" closeDelay={0} showArrow>
-                    <Link href="/login?logout=true" className="ml-auto text-red-500 m-4">
+                    <button
+                        className="ml-auto text-red-500 m-4"
+                        onClick={() => {
+                            window.location.href = "/login?logout=true";
+                            userStore.setState({ __fetched: true });
+                            setMenu(false);
+                        }}
+                    >
                         <HiLogout className="h-6 w-6 sm:h-5 sm:w-5" />
-                    </Link>
+                    </button>
                 </Tooltip>
             </div>
 
@@ -220,7 +217,10 @@ export default function Header(props: React.ComponentProps<"div">) {
     return (
         <div {...props}>
 
-            {loggedin && loginstate !== "ERRORED" ? UserButton : <LoginButton loginstate={loginstate} />}
+            {loginstate === "ERRORED"
+                ? <LoginButton loginstate={loginstate} />
+                : UserButton
+            }
 
             <MotionConfig
                 transition={web.reduceMotions ?

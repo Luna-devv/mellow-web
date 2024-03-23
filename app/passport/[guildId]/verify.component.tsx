@@ -61,8 +61,8 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
             const result = c.getValidate();
             const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild.id}/passport-verification/captcha`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
-                    authorization: localStorage.getItem("token") ?? "",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(result)
@@ -97,9 +97,7 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild.id}/passport-verification/captcha?captcha-failed=true`, {
                 method: "POST",
-                headers: {
-                    authorization: localStorage.getItem("token") ?? ""
-                }
+                credentials: "include"
             })
                 .catch(() => null);
 

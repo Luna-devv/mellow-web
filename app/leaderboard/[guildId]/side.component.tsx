@@ -177,9 +177,9 @@ export default function Side({
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild && "id" in guild ? guild?.id : ""}/top-members`, {
                         method: "DELETE",
+                        credentials: "include",
                         headers: {
-                            "Content-Type": "application/json",
-                            authorization: localStorage.getItem("token") as string
+                            "Content-Type": "application/json"
                         }
                     });
                 }}

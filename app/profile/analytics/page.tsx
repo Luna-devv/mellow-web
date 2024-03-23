@@ -27,11 +27,7 @@ export default function Home() {
 
     useEffect(() => {
 
-        fetch(process.env.NEXT_PUBLIC_NEKOSTIC as string, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
-        })
+        fetch(process.env.NEXT_PUBLIC_NEKOSTIC as string)
             .then(async (res) => {
                 const response = await res.json() as NekosticResponse[];
                 if (!response) return;

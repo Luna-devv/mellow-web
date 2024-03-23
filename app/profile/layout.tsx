@@ -3,6 +3,7 @@
 import { Chip, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useCookies } from "next-client-cookies";
 import { Suspense } from "react";
 import CountUp from "react-countup";
 import { HiChartPie, HiFire, HiHome, HiMusicNote, HiPhotograph, HiTranslate } from "react-icons/hi";
@@ -22,8 +23,11 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
+    const cookies = useCookies();
+    if (cookies.get("hasSession") !== "true") window.location.href = "/login";
+
     const user = userStore((g) => g);
-    const accent = decimalToRgb(user?.accent_color as number);
+    const accent = decimalToRgb(user?.accentColor as number);
 
     const url = "/users/@me" as const;
 
@@ -63,7 +67,7 @@ export default function RootLayout({
                         <Skeleton
                             isLoaded={!!user?.id}
                             className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
-                            style={user?.accent_color ? { "--tw-ring-color": `rgb(${accent.r}, ${accent.g}, ${accent.b})` } as React.CSSProperties : {}}
+                            style={user?.accentColor ? { "--tw-ring-color": `rgb(${accent.r}, ${accent.g}, ${accent.b})` } as React.CSSProperties : {}}
                         >
                             <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="you" />
                         </Skeleton>

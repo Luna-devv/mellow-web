@@ -3,17 +3,21 @@ import "./globals.css";
 import { Divider } from "@nextui-org/react";
 import { Metadata, Viewport } from "next";
 import { Montserrat, Outfit } from "next/font/google";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import { CookiesProvider } from "next-client-cookies/server";
 import { SiKofi } from "react-icons/si";
 
 import Header from "@/components/header";
 import TopggIcon from "@/components/icons/topgg";
+import LoginButton from "@/components/login-button";
 import cn from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
 
 import { Provider } from "./provider";
+import { StoreLastPage } from "./store-lastpage";
 
 const outfit = Outfit({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -87,6 +91,8 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
+    const cookieStore = cookies();
+
     return (
         <html
             suppressHydrationWarning
@@ -129,12 +135,20 @@ export default function RootLayout({
                         </Link>
                     </div>
 
-                    <Header className="ml-auto" />
+                    {cookieStore.get("hasSession")?.value === "true" ?
+                        <Header className="ml-auto" />
+                        :
+                        <LoginButton />
+                    }
                 </nav>
 
-                <Provider>
-                    {children}
-                </Provider>
+                <CookiesProvider>
+                    <Provider>
+                        {children}
+                    </Provider>
+
+                    <StoreLastPage />
+                </CookiesProvider>
 
             </body>
         </html>

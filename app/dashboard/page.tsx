@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
 import { HiRefresh, HiUserAdd, HiViewGrid, HiViewList } from "react-icons/hi";
 
@@ -21,6 +22,9 @@ import cn from "@/utils/cn";
 const MAX_GUILDS = 24;
 
 export default function Home() {
+    const cookies = useCookies();
+    if (cookies.get("hasSession") !== "true") window.location.href = "/login";
+
     const web = webStore((w) => w);
     const user = userStore((s) => s);
 
@@ -48,9 +52,7 @@ export default function Home() {
         setDisplay((localStorage.getItem("dashboardServerSelectStyle") || "GRID") as "LIST" | "GRID");
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/@me`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as UserGuild[];
@@ -91,7 +93,7 @@ export default function Home() {
 
             <div className="md:flex md:items-center">
                 <div>
-                    <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">👋 Heyia, {user?.global_name || `@${user?.username}`}</div>
+                    <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">👋 Heyia, {user?.globalName || `@${user?.username}`}</div>
                     <div className="text-lg font-medium">Select a server you want to manage.</div>
                 </div>
 

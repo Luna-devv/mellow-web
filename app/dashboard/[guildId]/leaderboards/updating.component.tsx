@@ -100,9 +100,9 @@ const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) 
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/leaderboard/updating`, {
                         method: "POST",
+                        credentials: "include",
                         headers: {
-                            "Content-Type": "application/json",
-                            authorization: localStorage.getItem("token") as string
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
                             type,
@@ -258,9 +258,9 @@ const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) 
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/leaderboard/updating`, {
                         method: "DELETE",
+                        credentials: "include",
                         headers: {
-                            "Content-Type": "application/json",
-                            authorization: localStorage.getItem("token") as string
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify({ type })
                     });

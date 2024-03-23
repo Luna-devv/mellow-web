@@ -24,9 +24,7 @@ export default function Home({
 
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/connections/spotify`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1UsersMeConnectionsSpotifyGetResponse;
@@ -113,7 +111,7 @@ export default function Home({
                         <DiscordMessage
                             mode={"DARK"}
                             user={{
-                                username: user.global_name || user.username,
+                                username: user.globalName || user.username,
                                 avatar: user.avatar ? `https://cdn.discordapp.com/avatars/821472922140803112/${user.avatar}.webp?size=64` : "/discord.webp",
                                 bot: false
                             }}
@@ -153,7 +151,7 @@ export default function Home({
                         <DiscordMessage
                             mode={"DARK"}
                             user={{
-                                username: user.global_name || user.username,
+                                username: user.globalName || user.username,
                                 avatar: user.avatar ? `https://cdn.discordapp.com/avatars/821472922140803112/${user.avatar}.webp?size=64` : "/discord.webp",
                                 bot: false
                             }}

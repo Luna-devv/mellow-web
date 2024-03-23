@@ -54,9 +54,9 @@ export default function Home() {
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/follow-updates`, {
                         method: "PATCH",
+                        credentials: "include",
                         headers: {
-                            "Content-Type": "application/json",
-                            authorization: localStorage.getItem("token") as string
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
                             channelId: followchannel

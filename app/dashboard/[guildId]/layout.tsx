@@ -4,6 +4,7 @@ import { Button, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
+import { useCookies } from "next-client-cookies";
 import { Suspense, useEffect, useState } from "react";
 import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 
@@ -23,6 +24,9 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
+    const cookies = useCookies();
+    if (cookies.get("hasSession") !== "true") window.location.href = "/login";
+
     const guild = guildStore((g) => g);
     const web = webStore((w) => w);
 
@@ -35,9 +39,7 @@ export default function RootLayout({
     useEffect(() => {
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1GuildsGetResponse;
@@ -64,9 +66,7 @@ export default function RootLayout({
 
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/channels`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1GuildsChannelsGetResponse[];
@@ -96,9 +96,7 @@ export default function RootLayout({
             });
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/roles`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1GuildsRolesGetResponse[];
@@ -128,9 +126,7 @@ export default function RootLayout({
             });
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/emojis`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1GuildsEmojisGetResponse[];

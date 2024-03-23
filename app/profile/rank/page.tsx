@@ -109,9 +109,9 @@ export default function Home() {
 
                         fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/rank`, {
                             method: "PATCH",
+                            credentials: "include",
                             headers: {
-                                "Content-Type": "application/json",
-                                authorization: localStorage.getItem("token") as string
+                                "Content-Type": "application/json"
                             },
                             body: JSON.stringify({ useLeaderboardList: false })
                         })
@@ -146,9 +146,9 @@ export default function Home() {
 
                         fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/rank`, {
                             method: "PATCH",
+                            credentials: "include",
                             headers: {
-                                "Content-Type": "application/json",
-                                authorization: localStorage.getItem("token") as string
+                                "Content-Type": "application/json"
                             },
                             body: JSON.stringify({ useLeaderboardList: true })
                         })

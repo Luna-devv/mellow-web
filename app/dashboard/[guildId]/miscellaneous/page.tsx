@@ -21,9 +21,7 @@ export default function Home() {
     useEffect(() => {
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/embed-message-links`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1GuildsModulesEmbedmessagelinksGetResponse;

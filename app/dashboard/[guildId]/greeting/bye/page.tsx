@@ -30,9 +30,7 @@ export default function Home() {
     useEffect(() => {
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/bye`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1GuildsModulesByeGetResponse;
@@ -114,9 +112,9 @@ export default function Home() {
                         if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
                         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/bye/test`, {
                             method: "POST",
+                            credentials: "include",
                             headers: {
-                                "Content-Type": "application/json",
-                                authorization: localStorage.getItem("token") as string
+                                "Content-Type": "application/json"
                             },
                             body: JSON.stringify({})
                         })

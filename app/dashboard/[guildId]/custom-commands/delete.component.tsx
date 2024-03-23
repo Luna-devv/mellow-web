@@ -40,9 +40,9 @@ export default function DeleteTag({ guildId, tagId, name, removeTag }: Props) {
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/tags/${tagId}`, {
                         method: "DELETE",
+                        credentials: "include",
                         headers: {
-                            "Content-Type": "application/json",
-                            authorization: localStorage.getItem("token") as string
+                            "Content-Type": "application/json"
                         }
                     });
                 }}

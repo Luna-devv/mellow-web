@@ -28,9 +28,7 @@ export default function Home() {
     useEffect(() => {
 
         fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/passport`, {
-            headers: {
-                authorization: localStorage.getItem("token") as string
-            }
+            credentials: "include"
         })
             .then(async (res) => {
                 const response = await res.json() as ApiV1GuildsModulesPassportGetResponse;
@@ -171,9 +169,9 @@ export default function Home() {
                     onSubmit={() => {
                         return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
                             method: "PATCH",
+                            credentials: "include",
                             headers: {
-                                "Content-Type": "application/json",
-                                authorization: localStorage.getItem("token") as string
+                                "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
                                 punishmentRoleId: punishmentRoleId

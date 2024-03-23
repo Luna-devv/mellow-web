@@ -41,9 +41,9 @@ const ColorInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, d
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
+            credentials: "include",
             headers: {
-                "Content-Type": "application/json",
-                authorization: localStorage.getItem("token") as string
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({ [dataName]: value || 0x000000 })
         })

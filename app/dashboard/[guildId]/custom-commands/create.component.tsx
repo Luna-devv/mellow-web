@@ -55,9 +55,9 @@ export default function CreateTag({ guildId, style, addTag, setTagId }: Props) {
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/tags`, {
                         method: "POST",
+                        credentials: "include",
                         headers: {
-                            "Content-Type": "application/json",
-                            authorization: localStorage.getItem("token") as string
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify({ name: name || "new-tag" })
                     });

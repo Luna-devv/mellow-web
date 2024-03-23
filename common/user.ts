@@ -6,12 +6,12 @@ export interface User {
     session: string;
     HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY?: true;
 
-    email?: string;
+    email?: string | null;
     id: string;
     username: string;
-    global_name?: string;
+    globalName?: string | null;
     avatar: string | null;
-    accent_color?: number | null;
+    accentColor?: number | null;
 
     __fetched: boolean;
 
