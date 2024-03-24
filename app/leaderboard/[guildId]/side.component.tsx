@@ -41,7 +41,7 @@ export default function Side({
                 <div className="flex gap-2 w-full">
                     <CopyToClipboardButton
                         className="w-full !justify-start"
-                        title="Share this page"
+                        title="Share link"
                         text={getCanonicalUrl("leaderboard", guild.id as string)}
                         icon={<HiShare />}
                     />

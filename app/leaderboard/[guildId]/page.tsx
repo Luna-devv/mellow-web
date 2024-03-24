@@ -112,7 +112,7 @@ export default async function Home({ params, searchParams }: Props) {
                 .map((member, i) =>
                     <div
                         key={"leaderboard-" + searchParams.type + member.id + i}
-                        className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100"
+                        className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100 w-full overflow-hidden"
                     >
                         <ImageReduceMotion
                             alt={`${member.username}'s profile picture`}
@@ -121,19 +121,21 @@ export default async function Home({ params, searchParams }: Props) {
                             size={128}
                         />
 
-                        <div>
+                        <div className="w-full max-w-[calc(100%-14rem)]">
                             <div className="flex items-center gap-2">
-                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800">{member.globalName || member.username || "Unknown user"}</span>
+                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800 truncate">
+                                    {member.globalName || member.username || "Unknown user"}
+                                </span>
                                 {member.id === "821472922140803112" &&
                                     <Badge>Developer</Badge>
                                 }
                                 {member.id === "845287163712372756" &&
-                                    <Badge>
-                                        WOMEN
-                                    </Badge>
+                                    <Badge>WOMEN</Badge>
                                 }
                             </div>
-                            <span className="text-sm dark:text-neutral-300 text-neutral-700">@{member.username}</span>
+                            <div className="text-sm dark:text-neutral-300 text-neutral-700 truncate">
+                                @{member.username}
+                            </div>
                         </div>
 
                         <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">

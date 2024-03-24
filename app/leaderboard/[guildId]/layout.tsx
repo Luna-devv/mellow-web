@@ -158,7 +158,11 @@ export default async function RootLayout({
 
             <div className="md:flex">
 
-                <div itemScope itemType="https://schema.org/ItemList" className="md:w-3/4 md:mr-6">
+                <div
+                    itemScope
+                    itemType="https://schema.org/ItemList"
+                    className="lg:w-3/4 md:w-2/3 w-full md:mr-6"
+                >
                     {guildExists && <h2 itemProp="name" className="display-hidden sr-only">Top 10 users in {guild?.name}</h2>}
                     <link itemProp="itemListOrder" href="https://schema.org/ItemListOrderDescending" />
 
@@ -166,7 +170,7 @@ export default async function RootLayout({
 
                 </div>
 
-                <div className="md:w-1/4 mt-8 md:mt-0">
+                <div className="lg:w-1/4 md:w-1/3 mt-8 md:mt-0">
                     <Side
                         guild={guild}
                         design={design}

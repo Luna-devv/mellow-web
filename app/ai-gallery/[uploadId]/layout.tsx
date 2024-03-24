@@ -77,7 +77,7 @@ export default async function RootLayout({
 
             <div className="md:flex">
 
-                <div className="md:w-3/4 md:mr-6">
+                <div className="lg:w-3/4 md:w-2/3 w-full md:mr-6">
                     {"id" in upload ?
                         children
                         :
@@ -101,7 +101,7 @@ export default async function RootLayout({
                     }
                 </div>
 
-                <div className="md:w-1/4 mt-8 md:mt-0">
+                <div className="lg:w-1/4 md:w-1/3 mt-8 md:mt-0">
                     <Side
                         upload={upload}
                         guild={guild}
