@@ -20,15 +20,23 @@ interface Props {
     title?: string;
     className?: string;
     items?: { icon?: React.ReactNode, name: string, description?: string, text: string }[];
+    needsWait?: boolean;
 }
 
-export function CopyToClipboardButton({ icon, text, title, className = "", items }: Props) {
+export function CopyToClipboardButton({
+    icon,
+    text,
+    title,
+    className,
+    items,
+    needsWait
+}: Props) {
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [saved, setSaved] = useState<boolean>(false);
 
     const handleCopy = (t: string) => {
-        copyToClipboard(t);
+        copyToClipboard(t, needsWait);
         setSaved(true);
 
         if (timeoutRef.current) clearInterval(timeoutRef.current);
@@ -69,6 +77,7 @@ export function CopyToClipboardButton({ icon, text, title, className = "", items
                                 key={i}
                                 description={item.description}
                                 startContent={item.icon}
+                                className="backdrop-blur-md"
                             >
                                 {item.name}
                             </DropdownItem>

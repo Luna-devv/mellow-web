@@ -196,6 +196,7 @@ export default function RootLayout({
                     <div className="md:ml-auto mt-6 md:mt-0">
                         {web.devToolsEnabled &&
                             <CopyToClipboardButton
+                                needsWait
                                 text={getCanonicalUrl("leaderboard", params.guildId.toString())}
                                 items={[
                                     { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
