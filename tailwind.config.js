@@ -46,6 +46,7 @@ const config = {
     },
     darkMode: "class",
     plugins: [nextui({
+        addCommonColors: false,
         layout: {
             radius: {
                 small: "0.375rem",
@@ -63,16 +64,22 @@ const config = {
                 colors: {
                     secondary: {
                         foreground: "rgb(255 255 255)",
+                        background: wamellow,
                         DEFAULT: violet,
                         divider: wamellow,
                         focus: violet
                     },
                     default: {
                         foreground: "rgb(212 212 212)",
+                        background: wamellow,
                         DEFAULT: wamellow,
-                        divider: wamellow,
                         focus: violet
-                    }
+                    },
+                    overlay: wamellow,
+                    content1: wamellow,
+                    content2: wamellow,
+                    content3: wamellow,
+                    content4: wamellow
                 }
             },
             violet: {
@@ -80,6 +87,7 @@ const config = {
                 colors: {
                     default: {
                         foreground: "rgb(255 255 255)",
+                        background: wamellow,
                         DEFAULT: violet
                     }
                 }

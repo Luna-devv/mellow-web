@@ -161,3 +161,7 @@ a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-pr
 .button-underline {
     @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min text-medium
 }
+
+.before\:border-t::before {
+    border-top-width: 0px !important;
+}
