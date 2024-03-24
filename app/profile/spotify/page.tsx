@@ -95,7 +95,13 @@ export default function Home({
                                 <BsSpotify className="h-4 relative top-0.5 text-[#1ed760]" />
                             </div>
                             <div className="flex items-center">
-                                <Link href="/login/spotify?logout=true" className="text-violet-500 opacity-60 hover:opacity-80 duration-200">Not you?</Link>
+                                <Link
+                                    className="text-violet-500 opacity-60 hover:opacity-80 duration-200"
+                                    href="/login/spotify?logout=true"
+                                    prefetch={false}
+                                >
+                                    Not you?
+                                </Link>
                                 {searchParams.spotify_login_success === "true" && spotify.displayName && <>
                                     <span className="mx-2 text-neutral-500">•</span>
                                     <div className="text-green-500 duration-200">Link was successfull!</div>

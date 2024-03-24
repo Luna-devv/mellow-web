@@ -71,9 +71,10 @@ export default async function Home() {
     const Invite = () => (
         <ServerButton
             as={Link}
-            startContent={<HiUserAdd />}
-            href="/login?invite=true"
             color="secondary"
+            href="/login?invite=true"
+            prefetch={false}
+            startContent={<HiUserAdd />}
         >
             <span className="block sm:hidden">Invite</span>
             <span className="hidden sm:block">Invite Wamellow</span>
@@ -131,11 +132,12 @@ export default async function Home() {
                         <div className="flex gap-2 lg:mt-0">
                             <ServerButton
                                 as={Link}
-                                startContent={<HiUserAdd />}
                                 className="w-1/2 lg:w-fit !text-xl !font-medium"
                                 color="secondary"
+                                prefetch={false}
                                 href="/login?invite=true"
                                 size="lg"
+                                startContent={<HiUserAdd />}
                             >
                                 <span className="block sm:hidden">Invite</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>

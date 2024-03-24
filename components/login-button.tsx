@@ -30,9 +30,10 @@ const LoginButton: FunctionComponent<Props> = ({ loginstate, message, className,
         <div className={className || "ml-auto"}>
             <Button
                 as={Link}
-                href="/login"
-                startContent={<Icon />}
                 className={cn("hover:bg-blurple hover:text-white dark:bg-wamellow bg-wamellow-100", loginstate === "ERRORED" && "dark:bg-danger/80 bg-danger/80 text-white", addClassName)}
+                href="/login"
+                prefetch={false}
+                startContent={<Icon />}
             >
                 {!loginstate ?
                     <span className={`${montserrat.className} font-semibold`}>

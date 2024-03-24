@@ -137,6 +137,7 @@ function Links() {
                 <Link
                     className="flex items-center gap-2"
                     href="/login?invite=true"
+                    prefetch={false}
                 >
                     <HiUserAdd />
                     Invite

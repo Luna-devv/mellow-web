@@ -117,16 +117,18 @@ export default function Home() {
                     </div>
                     <Button
                         as={Link}
-                        href="/login?invite=true"
                         className="w-1/2 md:w-min"
+                        href="/login?invite=true"
+                        prefetch={false}
                         startContent={<HiUserAdd />}
                     >
                         Add to Server
                     </Button>
                     <Button
                         as={Link}
-                        href="/login"
                         className="button-primary w-1/2 md:w-min"
+                        href="/login"
+                        prefetch={false}
                         startContent={<HiRefresh />}
                     >
                         Reload

@@ -87,6 +87,7 @@ export default function RootLayout({
 
             <Link
                 href="/login?invite=true"
+                prefetch={false}
                 target="_blank"
             >
                 <Image
@@ -101,11 +102,12 @@ export default function RootLayout({
             <div className="flex gap-2 mt-4">
                 <ServerButton
                     as={Link}
-                    startContent={<HiUserAdd />}
                     className="w-1/2 lg:w-fit !text-xl !font-medium"
                     color="secondary"
                     href="/login?invite=true"
+                    prefetch={false}
                     size="lg"
+                    startContent={<HiUserAdd />}
                 >
                     <span className="block sm:hidden">Invite</span>
                     <span className="hidden sm:block">Invite Wamellow</span>

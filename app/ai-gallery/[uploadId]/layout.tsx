@@ -136,9 +136,10 @@ export default async function RootLayout({
                                 </Link>
                             ))}
                         <Link
-                            href="/login?invite=true"
-                            target="_blank"
                             className="h-24 w-24 border-2 dark:border-wamellow border-wamellow-100 p-4 flex justify-center items-center rounded-lg drop-shadow-md overflow-hidden relative duration-100 outline-violet-500 hover:outline"
+                            href="/login?invite=true"
+                            prefetch={false}
+                            target="_blank"
                         >
                             <HiPlus />
                         </Link>

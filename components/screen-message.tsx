@@ -101,6 +101,7 @@ export function AddButton() {
             as={Link}
             className="button-primary"
             href="/login?invite=true"
+            prefetch={false}
             startContent={<BsDiscord />}
         >
             Add bot to your server

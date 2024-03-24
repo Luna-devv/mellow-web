@@ -56,6 +56,7 @@ export default async function Home() {
                 as={Link}
                 className="w-1/2 font-medium"
                 href="/login?invite=true"
+                prefetch={false}
                 startContent={<BsDiscord />}
             >
                 Get started

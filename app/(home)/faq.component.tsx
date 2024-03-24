@@ -146,9 +146,10 @@ function LinkTag({
 }) {
     return (
         <Link
-            href={href}
-            target="_blank"
             className={cn("text-violet-400 underline decoration-violet-400", className)}
+            href={href}
+            prefetch={false}
+            target="_blank"
         >
             {children}
             <HiExternalLink className="inline ml-1 mb-0.5" />
