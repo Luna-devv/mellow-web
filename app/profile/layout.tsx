@@ -50,7 +50,6 @@ export default function RootLayout({
     if (error || (data && "message" in data)) {
         return (
             <ScreenMessage
-                top="0rem"
                 title="Something went wrong on this page.."
                 description={
                     (data && "message" in data ? data.message : `${error}`)

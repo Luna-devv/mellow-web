@@ -28,10 +28,9 @@ export default function Home({
         cacheOptions
     );
 
-    if (error || (data && "message" in data)) {
+    if (error || (data && "message" in data && data.statusCode !== 404)) {
         return (
             <ScreenMessage
-                top="0rem"
                 title="Something went wrong on this page.."
                 description={
                     (data && "message" in data ? data.message : `${error}`)
@@ -51,7 +50,7 @@ export default function Home({
     return (
         <div className="h-full">
 
-            {!data.displayName &&
+            {"statusCode" in data &&
                 <ScreenMessage
                     title="Nothing to see here.. yet.."
                     description="Cool things will come soon"
@@ -62,7 +61,7 @@ export default function Home({
                 />
             }
 
-            {data.displayName && user?.id &&
+            {"displayName" in data && user?.id &&
                 <>
 
                     <div className="flex items-center gap-2">
