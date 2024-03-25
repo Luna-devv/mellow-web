@@ -13,7 +13,7 @@ import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
-import { getData } from "@/lib/api";
+import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1MeGetResponse } from "@/typings";
 import decimalToRgb from "@/utils/decimalToRgb";
@@ -26,26 +26,32 @@ export default function RootLayout({
     const cookies = useCookies();
     if (cookies.get("hasSession") !== "true") window.location.href = "/login";
 
-    const user = userStore((g) => g);
+    const user = userStore((u) => u);
     const accent = decimalToRgb(user?.accentColor as number);
 
     const url = "/users/@me" as const;
 
-    const { status } = useQuery(
-        ["users", "@me"],
+    const { data, error } = useQuery(
+        url,
         () => getData<ApiV1MeGetResponse>(url),
         {
             enabled: !!user?.id,
-            onSuccess: (d) => userStore.setState({ ...user, extended: d })
+            onSuccess: (d) => userStore.setState({
+                ...user,
+                extended: "statusCode" in d ? {} : d
+            }),
+            ...cacheOptions
         }
     );
 
-    if (status === "error") {
+    if (error || (data && "message" in data)) {
         return (
             <ScreenMessage
                 top="0rem"
                 title="Something went wrong on this page.."
-                description="An unknown error occurred."
+                description={
+                    (data && "message" in data ? data.message : `${error}`)
+                    || "An unknown error occurred."}
                 buttons={<>
                     <HomeButton />
                     <SupportButton />

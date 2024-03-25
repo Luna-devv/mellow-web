@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Chip, Tooltip } from "@nextui-org/react";
+import Image from "next/image";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
@@ -14,6 +15,7 @@ import TextInput from "@/components/inputs/TextInput";
 import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import { Permissions } from "@/lib/discord";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
 import CreateTag, { Style } from "./create.component";
@@ -28,10 +30,9 @@ export default function Home() {
     const queryClient = useQueryClient();
 
     const url = `/guilds/${params.guildId}/modules/tags` as const;
-    const key = ["guilds", params.guildId, "modules", "custom-commands"] as const;
 
     const { data, isLoading, error } = useQuery(
-        key,
+        url,
         () => getData<ApiV1GuildsModulesTagsGetResponse[]>(url),
         {
             enabled: !!params.guildId,
@@ -40,7 +41,7 @@ export default function Home() {
     );
 
     const tagId = search.get("id");
-    const tag = data?.find((t) => t.tagId === tagId);
+    const tag = (Array.isArray(data) ? data : []).find((t) => t.tagId === tagId);
 
     const createQueryString = useCallback((name: string, value: string) => {
         const params = new URLSearchParams(search);
@@ -49,6 +50,30 @@ export default function Home() {
         return params.toString();
     }, [search]);
 
+    useEffect(() => {
+        if (!Array.isArray(data)) return;
+        if (data && !tag && data[0]) setTagId(data[0].tagId);
+    }, [data]);
+
+    if (error || (data && "message" in data)) {
+        return (
+            <ScreenMessage
+                top="0rem"
+                title="Something went wrong on this page.."
+                description={
+                    (data && "message" in data ? data.message : `${error}`)
+                    || "An unknown error occurred."}
+                href={`/dashboard/${guild?.id}`}
+                button="Go back to overview"
+                icon={<HiViewGridAdd />}
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
+        );
+    }
+
+    if (isLoading || !data) return <></>;
+
     const setTagId = (id: string) => {
         router.push(pathname + "?" + createQueryString("id", id));
     };
@@ -56,41 +81,24 @@ export default function Home() {
     const editTag = <T extends keyof ApiV1GuildsModulesTagsGetResponse>(k: keyof ApiV1GuildsModulesTagsGetResponse, value: ApiV1GuildsModulesTagsGetResponse[T]) => {
         if (!tag) return;
 
-        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(key, () => [
+        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(url, () => [
             ...(data?.filter((t) => t.tagId !== tag.tagId) || []),
             { ...tag, [k]: value }
         ]);
     };
 
     const addTag = (tag: ApiV1GuildsModulesTagsGetResponse) => {
-        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(key, () => [
+        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(url, () => [
             ...(data || []),
             tag
         ]);
     };
 
     const removeTag = (id: string) => {
-        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(key, () =>
+        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(url, () =>
             data?.filter((t) => t.tagId !== id) || []
         );
     };
-
-    useEffect(() => {
-        if (data && !tag && data[0]) setTagId(data[0].tagId);
-    }, [data?.length]);
-
-    if (!data || isLoading) return <></>;
-    if (error) {
-        return (
-            <ScreenMessage
-                title="Something went wrong.."
-                description={error.toString() || "We couldn't load the data for this page."}
-                href={`/dashboard/${guild?.id}`}
-                button="Go back to overview"
-                icon={<HiViewGridAdd />}
-            />
-        );
-    }
 
     return (
         <>

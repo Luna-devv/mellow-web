@@ -167,7 +167,7 @@ export default function RootLayout({
                 <Button
                     as={Link}
                     className="w-fit"
-                    href="/dashboard"
+                    href="/profile"
                     startContent={<HiArrowNarrowLeft />}
                 >
                     Serverlist
@@ -259,7 +259,7 @@ export default function RootLayout({
                     buttons={<>
                         <ServerButton
                             as={Link}
-                            href="/dashboard"
+                            href="/profile"
                             startContent={<HiViewGridAdd />}
                         >
                             Go back to Dashboard

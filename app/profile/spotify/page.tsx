@@ -1,16 +1,17 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { BsSpotify } from "react-icons/bs";
-import { HiIdentification } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 import { userStore } from "@/common/user";
 import Box from "@/components/box";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
-import { ScreenMessage } from "@/components/screen-message";
-import { ApiV1UsersMeConnectionsSpotifyGetResponse, RouteErrorResponse } from "@/typings";
+import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { cacheOptions, getData } from "@/lib/api";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { ApiV1UsersMeConnectionsSpotifyGetResponse } from "@/typings";
 
 export default function Home({
     searchParams
@@ -19,60 +20,38 @@ export default function Home({
 }) {
     const user = userStore((s) => s);
 
-    const [spotify, setSpotify] = useState<ApiV1UsersMeConnectionsSpotifyGetResponse & { _fetched: boolean }>();
-    const [error, setError] = useState<string>();
+    const url = "/users/@me/connections/spotify" as const;
 
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/connections/spotify`, {
-            credentials: "include"
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1UsersMeConnectionsSpotifyGetResponse;
-                if (!response) return;
+    const { isLoading, data, error } = useQuery(
+        url,
+        () => getData<ApiV1UsersMeConnectionsSpotifyGetResponse>(url),
+        cacheOptions
+    );
 
-                switch (res.status) {
-                    case 200: {
-                        setError(undefined);
-                        setSpotify({ ...response, _fetched: true });
-                        break;
-                    }
-                    case 404: {
-                        // @ts-expect-error Cuz
-                        setSpotify({ _fetched: true });
-                        break;
-                    }
-                    default: {
-                        // @ts-expect-error Cuz
-                        setSpotify({ _fetched: true });
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching user");
-            });
-    }, []);
-
-    if (error) {
-        return <>
+    if (error || (data && "message" in data)) {
+        return (
             <ScreenMessage
-                title="Something went wrong.."
-                description={error}
-                href="/profile"
-                button="Go back to overview"
-                icon={<HiIdentification />}
-            />
-        </>;
+                top="0rem"
+                title="Something went wrong on this page.."
+                description={
+                    (data && "message" in data ? data.message : `${error}`)
+                    || "An unknown error occurred."}
+                buttons={<>
+                    <HomeButton />
+                    <SupportButton />
+                </>}
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
+        );
     }
 
-    if (!spotify?._fetched) return <></>;
+    if (isLoading || !data) return <></>;
 
     return (
         <div className="h-full">
 
-            {!spotify.displayName &&
+            {!data.displayName &&
                 <ScreenMessage
                     title="Nothing to see here.. yet.."
                     description="Cool things will come soon"
@@ -83,15 +62,15 @@ export default function Home({
                 />
             }
 
-            {spotify.displayName && user?.id &&
+            {data.displayName && user?.id &&
                 <>
 
                     <div className="flex items-center gap-2">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={spotify.avatar ? spotify.avatar : "/discord.webp"} alt="your spotify avatar" className="rounded-lg mr-1 h-14 w-14" />
+                        <img src={data.avatar ? data.avatar : "/discord.webp"} alt="your spotify avatar" className="rounded-lg mr-1 h-14 w-14" />
                         <div>
                             <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium flex gap-1 items-center">
-                                {spotify.displayName}
+                                {data.displayName}
                                 <BsSpotify className="h-4 relative top-0.5 text-[#1ed760]" />
                             </div>
                             <div className="flex items-center">
@@ -102,7 +81,7 @@ export default function Home({
                                 >
                                     Not you?
                                 </Link>
-                                {searchParams.spotify_login_success === "true" && spotify.displayName && <>
+                                {searchParams.spotify_login_success === "true" && data.displayName && <>
                                     <span className="mx-2 text-neutral-500">•</span>
                                     <div className="text-green-500 duration-200">Link was successfull!</div>
                                 </>}
@@ -123,7 +102,7 @@ export default function Home({
                             }}
                         >
 
-                            <Highlight mode={"DARK"} text={`wm play [https://open.spotify.com/track/${spotify.playing?.id || "4cOdK2wGLETKBW3PvgPWqT"}](#)`} />
+                            <Highlight mode={"DARK"} text={`wm play [https://open.data.com/track/${data.playing?.id || "4cOdK2wGLETKBW3PvgPWqT"}](#)`} />
 
                         </DiscordMessage>
                         <DiscordMessage
@@ -137,7 +116,7 @@ export default function Home({
 
                             <div className="flex items-center gap-1">
                                 <Image src="https://cdn.discordapp.com/emojis/845043307351900183.gif?size=44&quality=lossless" height={18} width={18} alt="" />
-                                <Highlight mode={"DARK"} text={`@${user.username} now playing [${spotify.playing?.name || "Never Gonna Give You Up"}](#) for **${spotify.playing?.duration || "3 minutes 33 seconds"}**`} />
+                                <Highlight mode={"DARK"} text={`@${user.username} now playing [${data.playing?.name || "Never Gonna Give You Up"}](#) for **${data.playing?.duration || "3 minutes 33 seconds"}**`} />
                             </div>
 
                             <div className="flex flex-row gap-1.5 h-8 mt-3">
@@ -177,7 +156,7 @@ export default function Home({
 
                             <div className="flex items-center gap-1">
                                 <Image src="https://cdn.discordapp.com/emojis/845043307351900183.gif?size=44&quality=lossless" height={18} width={18} alt="" />
-                                <Highlight mode={"DARK"} text={`@${user.username} is playing [${spotify.playing?.name || "Never Gonna Give You Up"}](#) by ${spotify.playing?.artists || "[Rick Astley]()"}`} />
+                                <Highlight mode={"DARK"} text={`@${user.username} is playing [${data.playing?.name || "Never Gonna Give You Up"}](#) by ${data.playing?.artists || "[Rick Astley]()"}`} />
                             </div>
 
                             <div className="flex gap-1.5 h-8 mt-3">

@@ -1,52 +1,60 @@
 "use client";
+import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useCookies } from "next-client-cookies";
 import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { Guild, guildStore } from "@/common/guilds";
-import { webStore } from "@/common/webstore";
 import Betweener from "@/components/Betweener";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import TextInput from "@/components/inputs/TextInput";
 import { ScreenMessage } from "@/components/screen-message";
-import { getData } from "@/lib/api";
+import { cacheOptions, getData } from "@/lib/api";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
 import UpdatingLeaderboardCard from "./updating.component";
 
 export default function Home() {
+    const cookies = useCookies();
+
     const guild = guildStore((g) => g);
     const web = webStore((w) => w);
     const params = useParams();
 
     const url = `/guilds/${params.guildId}/modules/leaderboard` as const;
 
-    const [data, setData] = useState<ApiV1GuildsModulesLeaderboardGetResponse | null>(null);
-
-    const { isLoading, error } = useQuery(
-        ["guilds", params.guildId, "modules", "leaderboard"],
+    const { data, isLoading, error } = useQuery(
+        url,
         () => getData<ApiV1GuildsModulesLeaderboardGetResponse>(url),
         {
             enabled: !!params.guildId,
-            onSuccess: (d) => setData(d)
+            ...cacheOptions,
+            refetchOnMount: true
         }
     );
 
-    if (!data || isLoading) return <></>;
-    if (error) {
+    if (error || (data && "message" in data)) {
         return (
             <ScreenMessage
-                title="Something went wrong.."
-                description={error.toString() || "We couldn't load the data for this page."}
+                top="0rem"
+                title="Something went wrong on this page.."
+                description={
+                    (data && "message" in data ? data.message : `${error}`)
+                    || "An unknown error occurred."}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
-            />
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
         );
     }
+
+    if (isLoading || !data) return <></>;
 
     return (
         <div>

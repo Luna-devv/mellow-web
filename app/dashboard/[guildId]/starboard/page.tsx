@@ -15,7 +15,8 @@ import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import { ScreenMessage } from "@/components/screen-message";
 import { getData } from "@/lib/api";
-import { ApiV1GuildsModulesStarboardGetResponse } from "@/typings";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { ApiV1GuildsModulesStarboardGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -23,10 +24,10 @@ export default function Home() {
 
     const url = `/guilds/${params.guildId}/modules/starboard` as const;
 
-    const [data, setData] = useState<ApiV1GuildsModulesStarboardGetResponse | null>(null);
+    const [data, setData] = useState<ApiV1GuildsModulesStarboardGetResponse | RouteErrorResponse>();
 
     const { isLoading, error } = useQuery(
-        ["guilds", params.guildId, "modules", "starboard"],
+        url,
         () => getData<ApiV1GuildsModulesStarboardGetResponse>(url),
         {
             enabled: !!params.guildId,
@@ -88,18 +89,24 @@ export default function Home() {
         }
     };
 
-    if (!data || isLoading) return <></>;
-    if (error) {
+    if (error || (data && "message" in data)) {
         return (
             <ScreenMessage
-                title="Something went wrong.."
-                description={error.toString() || "We couldn't load the data for this page."}
+                top="0rem"
+                title="Something went wrong on this page.."
+                description={
+                    (data && "message" in data ? data.message : `${error}`)
+                    || "An unknown error occurred."}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
-            />
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
         );
     }
+
+    if (isLoading || !data) return <></>;
 
     return (
         <>

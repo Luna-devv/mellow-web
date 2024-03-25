@@ -1,6 +1,7 @@
 "use client";
 
 import { Code } from "@nextui-org/react";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
@@ -12,8 +13,9 @@ import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
-import { getData } from "@/lib/api";
-import { ApiV1GuildsModulesNsfwModerationGetResponse } from "@/typings";
+import { cacheOptions, getData } from "@/lib/api";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { ApiV1GuildsModulesNsfwModerationGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -21,14 +23,16 @@ export default function Home() {
 
     const url = `/guilds/${params.guildId}/modules/nsfw-image-scanning` as const;
 
-    const [data, setData] = useState<ApiV1GuildsModulesNsfwModerationGetResponse | null>(null);
+    const [data, setData] = useState<ApiV1GuildsModulesNsfwModerationGetResponse | RouteErrorResponse>();
 
     const { isLoading, error } = useQuery(
-        ["guilds", params.guildId, "modules", "nsfw-image-scanning"],
+        url,
         () => getData<ApiV1GuildsModulesNsfwModerationGetResponse>(url),
         {
             enabled: !!params.guildId,
-            onSuccess: (d) => setData(d)
+            onSuccess: (d) => setData(d),
+            ...cacheOptions,
+            refetchOnMount: true
         }
     );
 
@@ -38,18 +42,24 @@ export default function Home() {
         setData(updatedLocalData);
     };
 
-    if (!data || isLoading) return <></>;
-    if (error) {
+    if (error || (data && "message" in data)) {
         return (
             <ScreenMessage
-                title="Something went wrong.."
-                description={error.toString() || "We couldn't load the data for this page."}
+                top="0rem"
+                title="Something went wrong on this page.."
+                description={
+                    (data && "message" in data ? data.message : `${error}`)
+                    || "An unknown error occurred."}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
-            />
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
         );
     }
+
+    if (isLoading || !data) return <></>;
 
     return (
         <>

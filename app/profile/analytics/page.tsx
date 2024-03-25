@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { HiIdentification } from "react-icons/hi";
+import Image from "next/image";
+import { useQuery } from "react-query";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 import Box from "@/components/box";
 import { StatsBar } from "@/components/counter";
-import { ScreenMessage } from "@/components/screen-message";
-import { NekosticResponse, RouteErrorResponse } from "@/typings";
+import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { cacheOptions, getData } from "@/lib/api";
+import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { NekosticResponse } from "@/typings";
 import { convertMonthToName } from "@/utils/time";
 
 interface CalcUses {
@@ -22,48 +24,37 @@ interface CalcNames {
 }
 
 export default function Home() {
-    const [error, setError] = useState<string>();
-    const [data, setData] = useState<NekosticResponse[]>();
+    const url = "" as const;
 
-    useEffect(() => {
+    const { isLoading, data, error } = useQuery(
+        ["nekostic", "statistics"],
+        () => getData<NekosticResponse[]>(url, process.env.NEXT_PUBLIC_NEKOSTIC as string),
+        cacheOptions
+    );
 
-        fetch(process.env.NEXT_PUBLIC_NEKOSTIC as string)
-            .then(async (res) => {
-                const response = await res.json() as NekosticResponse[];
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setData(response.sort((a, b) => new Date(a.snapshot).getTime() - new Date(b.snapshot).getTime()));
-                        break;
-                    }
-                    default: {
-                        setData([]);
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching analytics data");
-            });
-
-    }, []);
-
-    if (error) {
-        return <>
+    if (error || (data && "message" in data)) {
+        return (
             <ScreenMessage
-                title="Something went wrong.."
-                description={error}
-                href="/profile"
-                button="Go back to overview"
-                icon={<HiIdentification />}
-            />
-        </>;
+                top="0rem"
+                title="Something went wrong on this page.."
+                description={
+                    (data && "message" in data ? data.message : `${error}`)
+                    || "An unknown error occurred."}
+                buttons={<>
+                    <HomeButton />
+                    <SupportButton />
+                </>}
+            >
+                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+            </ScreenMessage>
+        );
     }
 
-    if (!data?.length) return <></>;
+    if (isLoading || !data) return <></>;
+
+    data.sort((a, b) =>
+        new Date(a.snapshot).getTime() - new Date(b.snapshot).getTime()
+    );
 
     const now = new Date();
     const yesterday = new Date();

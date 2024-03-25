@@ -28,7 +28,7 @@ export function ListTab({ tabs, url, searchParamName, disabled, children }: List
         if (!key && typeof key !== "string") return;
 
         if (!searchParamName) {
-            router.push(`${url}${key}`);
+            router.push(`${url}${key}?${params.toString()}`);
             return;
         }
 
@@ -48,9 +48,10 @@ export function ListTab({ tabs, url, searchParamName, disabled, children }: List
                     tabList: "w-full relative rounded-none p-0 border-b border-divider",
                     tab: "w-fit px-4 h-12 relative right-2.5"
                 }}
-                defaultSelectedKey={searchParamName
-                    ? (params.get(searchParamName) || "")
-                    : path.split(url)[1].split("/").slice(0, 2).join("/")
+                defaultSelectedKey={
+                    searchParamName
+                        ? (params.get(searchParamName) || "")
+                        : path.split(url)[1].split("/").slice(0, 2).join("/")
                 }
                 onSelectionChange={handleChange}
                 variant="underlined"
