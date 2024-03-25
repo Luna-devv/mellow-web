@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion, AccordionItem, Chip } from "@nextui-org/react";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -12,6 +12,7 @@ import { guildStore } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import Modal from "@/components/modal";
+import Section from "@/components/section";
 
 import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
 
@@ -34,17 +35,13 @@ export default function Home() {
                 icon={<HiChartBar />}
             />
 
-            <div className="flex items-center">
-
-                <div>
-                    <div className="text-sm mb-0.5">Posting updates {guild?.follownewsChannel?.name && "into"}</div>
-                    {guild?.follownewsChannel?.name && <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">#{guild?.follownewsChannel?.name}</div>}
-                    <button onClick={() => setModal(true)} className="flex dark:text-violet-400/60 dark:hover:text-violet-400/90 text-violet-600/60 hover:text-violet-600/90 duration-200">
-                        <HiMail className="relative top-1" />
-                        <span className="ml-2">{guild?.follownewsChannel?.name ? "Change" : "Set"} channel</span>
-                    </button>
-                </div>
-
+            <div>
+                <div className="text-sm mb-0.5">Posting updates {guild?.follownewsChannel?.name && "into"}</div>
+                {guild?.follownewsChannel?.name && <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">#{guild?.follownewsChannel?.name}</div>}
+                <button onClick={() => setModal(true)} className="flex dark:text-violet-400/60 dark:hover:text-violet-400/90 text-violet-600/60 hover:text-violet-600/90 duration-200">
+                    <HiMail className="relative top-1" />
+                    <span className="ml-2">{guild?.follownewsChannel?.name ? "Change" : "Set"} channel</span>
+                </button>
             </div>
 
             <Modal
@@ -88,23 +85,17 @@ export default function Home() {
                 />
             </Modal>
 
-            <hr className="mt-6 mb-2 dark:border-wamellow-light border-wamellow-100-light" />
-            <span className="dark:text-neutral-500 text-neutral-400 text-sm flex">
-                This option will assign a channel to be the text input method for in-voicechat text to speech.
-                <Chip
-                    className="ml-auto"
-                    color="secondary"
-                    variant="flat"
-                >
-                    Beta
-                </Chip>
-            </span>
+            <Section
+                title="Text to Speech"
+            >
+                Let users to send messages to a channel and have the bot read it out loud in voice chat.
+            </Section>
 
             <div className="lg:flex gap-6 mt-5">
                 {guild?.tts && guild?.channels?.length &&
                     <div className="lg:w-1/2 space-y-8">
                         <SelectMenu
-                            name="Text to Speech channel"
+                            name="Chat to Speech channel"
                             url={`/guilds/${params.guildId}`}
                             dataName="channelId"
                             items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}

@@ -16,6 +16,7 @@ import { AddButton, ScreenMessage, SupportButton } from "@/components/screen-mes
 import { ServerButton } from "@/components/server-button";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
+import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
 export default function RootLayout({
@@ -34,7 +35,6 @@ export default function RootLayout({
     const [error, setError] = useState<string>();
 
     const path = usePathname();
-    const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
     useEffect(() => {
 

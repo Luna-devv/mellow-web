@@ -121,7 +121,7 @@ export default async function Home({ params, searchParams }: Props) {
                             size={128}
                         />
 
-                        <div className="w-full max-w-[calc(100%-14rem)]">
+                        <div className="w-full max-w-[calc(100%-16rem)]">
                             <div className="flex items-center gap-2">
                                 <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800 truncate">
                                     {member.globalName || member.username || "Unknown user"}

@@ -6,16 +6,17 @@ import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { Guild, guildStore } from "@/common/guilds";
-import Betweener from "@/components/Betweener";
 import ImageUrlInput from "@/components/inputs/ImageUrlInput";
 import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
 import TextInput from "@/components/inputs/TextInput";
 import { ScreenMessage } from "@/components/screen-message";
+import Section from "@/components/section";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
+import ResetLeaderboard from "./reset.component";
 import UpdatingLeaderboardCard from "./updating.component";
 
 export default function Home() {
@@ -120,8 +121,11 @@ export default function Home() {
                 defaultState={data.banner || ""}
             />
 
-            <hr className="mt-6 mb-2 dark:border-wamellow-light border-wamellow-100-light" />
-            <span className="dark:text-neutral-500 text-neutral-400 text-sm">Select top 1. role first, then 2. and last 3. (left 1st, right 3rd)</span>
+            <Section
+                title="Roles"
+            >
+                Select roles which should be assigned to the top members. (left to right - 1st to 3rd place)
+            </Section>
 
             <div className="lg:flex gap-3 mt-5">
                 <div className="lg:w-1/2">
@@ -148,8 +152,6 @@ export default function Home() {
                 </div>
             </div>
 
-            <hr className="my-6 dark:border-wamellow-light border-wamellow-100-light" />
-
             <div className="lg:w-1/2">
                 <MultiSelectMenu
                     name="Blacklisted channels"
@@ -162,14 +164,15 @@ export default function Home() {
                 />
             </div>
 
-            <hr className="mt-6 mb-2 dark:border-wamellow-light border-wamellow-100-light" />
-            <span className="dark:text-neutral-500 text-neutral-400 text-sm">Leaderboards update roughtly all 20 minutes</span>
+            <Section
+                title="Updating leaderboards"
+            >
+                These leaderboards will be sent in a channel and update roughly every 20 minutes.
+            </Section>
 
-            <div className="w-full grid gap-4 md:flex md:gap-0 md:items-center mt-5">
+            <div className="w-full grid gap-4 md:flex md:gap-0 md:items-center my-10">
                 <UpdatingLeaderboardCard guild={guild as Guild} lb={data.updating.find((lb) => lb.type === "messages")} type="messages" />
-                <Betweener />
                 <UpdatingLeaderboardCard guild={guild as Guild} lb={data.updating.find((lb) => lb.type === "voiceminutes")} type="voiceminutes" />
-                <Betweener />
                 <UpdatingLeaderboardCard guild={guild as Guild} lb={data.updating.find((lb) => lb.type === "invites")} type="invites" />
             </div>
 
