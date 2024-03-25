@@ -9,7 +9,6 @@ export const cacheOptions = {
 export const defaultFetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
 
 export async function getData<T>(path: string, domain?: string) {
-    console.log(`${domain || process.env.NEXT_PUBLIC_API}${path}`);
     const response = await fetch(`${domain || process.env.NEXT_PUBLIC_API}${path}`, {
         credentials: "include"
     });

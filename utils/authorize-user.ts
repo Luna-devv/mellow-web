@@ -3,7 +3,7 @@ import React from "react";
 import { User } from "@/common/user";
 import { RouteErrorResponse } from "@/typings";
 
-export default async function authorize({
+export async function authorize({
     stateHook
 }: {
     stateHook: React.Dispatch<React.SetStateAction<"LOADING" | "ERRORED" | undefined>>;

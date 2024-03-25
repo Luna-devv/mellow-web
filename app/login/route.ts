@@ -35,19 +35,21 @@ export async function GET(request: Request) {
             return Response.json(data);
         }
 
-        // delete didn't work somehow lol
         cookieStore.set(
             "session",
-            "undefined",
-            defaultCookieOptions
+            "",
+            {
+                expires: new Date(0),
+                domain: process.env.NEXT_PUBLIC_BASE_URL?.split("://")[1]
+            }
         );
 
         cookieStore.set(
             "hasSession",
-            "false",
+            "",
             {
-                ...defaultCookieOptions,
-                httpOnly: false
+                expires: new Date(0),
+                domain: process.env.NEXT_PUBLIC_BASE_URL?.split("://")[1]
             }
         );
 
@@ -58,10 +60,11 @@ export async function GET(request: Request) {
     const code = searchParams.get("code");
 
     if (!code) {
-        redirect(`${process.env.NEXT_PUBLIC_LOGIN}${invite ? "+bot" : ""}`);
-    }
+        const callback = searchParams.get("callback");
+        const lastpage = cookieStore.get("lastpage");
 
-    const lastpage = cookieStore.get("lastpage");
+        redirect(`${process.env.NEXT_PUBLIC_LOGIN}${invite ? "+bot" : ""}&state=${encodeURIComponent(callback || lastpage?.value || "/")}`);
+    }
 
     const res = await createSession(code, session?.value);
 
@@ -86,6 +89,9 @@ export async function GET(request: Request) {
         }
     );
 
-    redirect(lastpage?.value || "/");
+
+    const state = searchParams.get("state") || "/";
+
+    redirect(decodeURIComponent(state));
 
 }

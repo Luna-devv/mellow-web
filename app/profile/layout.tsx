@@ -3,6 +3,7 @@
 import { Chip, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense } from "react";
 import CountUp from "react-countup";
@@ -24,7 +25,9 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     const cookies = useCookies();
-    if (cookies.get("hasSession") !== "true") window.location.href = "/login";
+    const hasSession = cookies.get("hasSession") === "true";
+
+    if (!hasSession) redirect("/login?callback=/profile");
 
     const user = userStore((u) => u);
     const accent = decimalToRgb(user?.accentColor as number);

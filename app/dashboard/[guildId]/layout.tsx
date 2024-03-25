@@ -3,13 +3,12 @@
 import { Button, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { redirect, useParams, usePathname } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense, useEffect, useState } from "react";
 import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import { webStore } from "@/common/webstore";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
@@ -25,14 +24,15 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     const cookies = useCookies();
-    if (cookies.get("hasSession") !== "true") window.location.href = "/login";
+    const params = useParams();
+
+    const authorized = useAuthorize("/dashboard/" + params.guildId);
+    if (authorized) redirect("/dashboard/" + params.guildI);
 
     const guild = guildStore((g) => g);
-    const web = webStore((w) => w);
 
     const [error, setError] = useState<string>();
 
-    const params = useParams();
     const path = usePathname();
     const intl = new Intl.NumberFormat("en", { notation: "standard" });
 
