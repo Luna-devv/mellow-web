@@ -2,9 +2,9 @@
 
 import { Accordion, AccordionItem, Code } from "@nextui-org/react";
 import Link from "next/link";
+import { useCookies } from "next-client-cookies";
 import { HiCash, HiChat, HiExternalLink, HiLockClosed, HiUserAdd } from "react-icons/hi";
 
-import { webStore } from "@/common/webstore";
 import cn from "@/utils/cn";
 
 const data = [
@@ -98,7 +98,7 @@ const data = [
 ];
 
 export default function Faq() {
-    const web = webStore((w) => w);
+    const cookies = useCookies();
 
     return (
         <div className="my-4 w-full">
@@ -107,7 +107,7 @@ export default function Faq() {
                 className="rounded-lg overflow-hidden"
                 variant="splitted"
                 defaultExpandedKeys={["0"]}
-                disableAnimation={web.reduceMotions}
+                disableAnimation={cookies.get("reduceMotions") === "true"}
             >
                 {data.map((item, index) => (
                     <AccordionItem

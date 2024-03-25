@@ -3,6 +3,8 @@
 import { Button, Chip, Skeleton, Switch, Tooltip } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCookies } from "next-client-cookies";
 import React, { useEffect, useState } from "react";
 import { HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiLogout, HiViewGridAdd } from "react-icons/hi";
 
@@ -15,12 +17,15 @@ import cn from "@/utils/cn";
 import ImageReduceMotion from "./image-reduce-motion";
 
 export default function Header(props: React.ComponentProps<"div">) {
+    const cookies = useCookies();
+    const devTools = cookies.get("devTools") === "true";
+    const reduceMotions = cookies.get("reduceMotions") === "true";
 
     const [menu, setMenu] = useState(false);
     const [loginstate, setLoginstate] = useState<"LOADING" | "ERRORED" | undefined>("LOADING");
 
     const user = userStore((s) => s);
-    const web = webStore((w) => w);
+    const router = useRouter();
 
     useEffect(() => {
 
@@ -32,14 +37,8 @@ export default function Header(props: React.ComponentProps<"div">) {
                 });
             });
 
-        const devToolsEnabled = localStorage.getItem("devToolsEnabled");
-        const reduceMotions = localStorage.getItem("reduceMotions");
-
         webStore.setState({
-            ...web,
-            width: window?.innerWidth,
-            devToolsEnabled: !!devToolsEnabled,
-            reduceMotions: !!reduceMotions
+            width: window?.innerWidth
         });
     }, []);
 
@@ -80,12 +79,11 @@ export default function Header(props: React.ComponentProps<"div">) {
         {
             name: "Reduce Motion",
             icon: <HiEyeOff />,
-            value: web.reduceMotions,
+            value: reduceMotions,
             onChange: () => {
-                if (!web.reduceMotions) localStorage.setItem("reduceMotions", "true");
-                else localStorage.removeItem("reduceMotions");
-
-                webStore.setState({ ...web, reduceMotions: !web.reduceMotions });
+                if (!reduceMotions) cookies.set("reduceMotions", "true", { expires: 365 });
+                else cookies.remove("reduceMotions");
+                router.refresh();
             }
         },
         ...(user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY ?
@@ -99,12 +97,11 @@ export default function Header(props: React.ComponentProps<"div">) {
                 {
                     name: "Lunar Tools",
                     icon: <HiBeaker />,
-                    value: web.devToolsEnabled,
+                    value: devTools,
                     onChange: () => {
-                        if (!web.devToolsEnabled) localStorage.setItem("devToolsEnabled", "true");
-                        else localStorage.removeItem("devToolsEnabled");
-
-                        webStore.setState({ ...web, devToolsEnabled: !web.devToolsEnabled });
+                        if (!devTools) cookies.set("devTools", "true", { expires: 365 });
+                        else cookies.remove("devTools");
+                        router.refresh();
                     }
                 }
             ]
@@ -223,7 +220,7 @@ export default function Header(props: React.ComponentProps<"div">) {
             }
 
             <MotionConfig
-                transition={web.reduceMotions ?
+                transition={reduceMotions ?
                     { duration: 0 }
                     :
                     { type: "spring", bounce: 0.4, duration: menu ? 0.7 : 0.4 }

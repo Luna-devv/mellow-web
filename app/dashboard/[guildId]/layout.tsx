@@ -194,7 +194,7 @@ export default function RootLayout({
                     </div>
 
                     <div className="md:ml-auto mt-6 md:mt-0">
-                        {web.devToolsEnabled &&
+                        {cookies.get("devTools") &&
                             <CopyToClipboardButton
                                 needsWait
                                 text={getCanonicalUrl("leaderboard", params.guildId.toString())}

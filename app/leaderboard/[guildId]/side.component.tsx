@@ -3,12 +3,12 @@
 import { Accordion, AccordionItem, Button, Code, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useCookies } from "next-client-cookies";
 import { useState } from "react";
 import { BsDiscord } from "react-icons/bs";
 import { FaReddit, FaTwitter } from "react-icons/fa";
 import { HiAnnotation, HiLink, HiShare, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
 
-import { webStore } from "@/common/webstore";
 import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import Modal from "@/components/modal";
@@ -28,7 +28,7 @@ export default function Side({
     pagination: ApiV1GuildsTopmembersPaginationGetResponse | ApiError | undefined;
     currentCircular: "next" | "server" | undefined;
 }) {
-    const web = webStore((w) => w);
+    const cookies = useCookies();
     const router = useRouter();
 
     const [modal, setModal] = useState(false);
@@ -86,10 +86,10 @@ export default function Side({
             <Accordion
                 selectionMode="multiple"
                 defaultExpandedKeys={["1", "2", "3"]}
-                disableAnimation={web.reduceMotions}
+                disableAnimation={cookies.get("reduceMotions") === "true"}
             >
 
-                {guild && "id" in guild && web.devToolsEnabled ?
+                {guild && "id" in guild && cookies.get("devTools") ?
                     <AccordionItem
                         key="1"
                         aria-label="admin tools"

@@ -22,7 +22,6 @@ export default function Home() {
     const cookies = useCookies();
 
     const guild = guildStore((g) => g);
-    const web = webStore((w) => w);
     const params = useParams();
 
     const url = `/guilds/${params.guildId}/modules/leaderboard` as const;
@@ -66,7 +65,7 @@ export default function Home() {
                 icon={<HiChartBar />}
             />
 
-            {web.devToolsEnabled &&
+            {cookies.get("devTools") &&
                 <div className={"flex gap-4 border-2 border-violet-400 p-4 mb-4 rounded-lg"}>
 
                     <div className="lg:w-1/2 flex gap-2 w-full">
@@ -80,7 +79,6 @@ export default function Home() {
                                 type="color"
                                 defaultState={data.textColor ?? 0xe5e5e5}
                                 resetState={0xe5e5e5}
-                                disabled={!web.devToolsEnabled}
                             />
                         </div>
 
@@ -93,7 +91,6 @@ export default function Home() {
                                 type="color"
                                 defaultState={data.accentColor ?? 0x8b5cf6}
                                 resetState={0x8b5cf6}
-                                disabled={!web.devToolsEnabled}
                             />
                         </div>
 
@@ -108,7 +105,6 @@ export default function Home() {
                             type="color"
                             defaultState={data.backgroundColor ?? 0x0d0f11}
                             resetState={0x0d0f11}
-                            disabled={!web.devToolsEnabled}
                         />
                     </div>
 

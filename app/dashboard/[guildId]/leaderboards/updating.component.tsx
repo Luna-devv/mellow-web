@@ -2,11 +2,11 @@
 import { Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useCookies } from "next-client-cookies";
 import { FunctionComponent, useState } from "react";
 import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 
 import { Guild } from "@/common/guilds";
-import { webStore } from "@/common/webstore";
 import SelectInput from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import Modal from "@/components/modal";
@@ -24,7 +24,7 @@ enum ModalType {
 }
 
 const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) => {
-    const web = webStore((w) => w);
+    const cookies = useCookies();
 
     const [leaderboard, setLeaderboard] = useState(lb);
     const [modal, setModal] = useState<ModalType | undefined>(undefined);
@@ -77,7 +77,7 @@ const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) 
                         <span className="ml-1">{leaderboard?.channelId ? "Edit" : "Create"} leaderboard</span>
                     </button>
 
-                    {leaderboard?.channelId && web.devToolsEnabled &&
+                    {leaderboard?.channelId && cookies.get("devTools") &&
                         <button
                             onClick={() => setModal(ModalType.Delete)}
                             className="flex dark:text-red-400/60 dark:hover:text-red-400/90 text-red-600/60 hover:text-red-600/90 duration-200"
@@ -122,7 +122,7 @@ const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) 
                         styles
                     });
                 }}
-                subChildren={leaderboard && web.devToolsEnabled &&
+                subChildren={leaderboard && cookies.get("devTools") &&
                     <div className="text-xs flex flex-col">
                         {leaderboard.createdAt &&
                             <span>

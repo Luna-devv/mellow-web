@@ -2,10 +2,10 @@
 
 import { Accordion, AccordionItem, Button, Chip, Tooltip } from "@nextui-org/react";
 import Link from "next/link";
+import { useCookies } from "next-client-cookies";
 import { FaReddit, FaTwitter } from "react-icons/fa";
 import { HiHand, HiShare, HiUserGroup } from "react-icons/hi";
 
-import { webStore } from "@/common/webstore";
 import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
@@ -26,7 +26,7 @@ export default function Side({
     guild: ApiV1GuildsGetResponse | ApiError | undefined;
     analytics: { results: AnalyticsResponse[] } | AnalyticsError | undefined;
 }) {
-    const web = webStore((w) => w);
+    const cookies = useCookies();
 
     const prompt = "prompt" in upload
         ? truncate(upload.prompt.split(" ").map((str) => str.replace(/^\w/, (char) => char.toUpperCase())).join(" "), 32)
@@ -76,7 +76,7 @@ export default function Side({
                 className="bg-wamellow"
                 selectionMode="multiple"
                 defaultExpandedKeys={["1"]}
-                disableAnimation={web.reduceMotions}
+                disableAnimation={cookies.get("reduceMotions") === "true"}
             >
                 <AccordionItem
                     key="1"
@@ -159,7 +159,7 @@ export default function Side({
                 variant="shadow"
                 className="bg-wamellow"
                 selectionMode="multiple"
-                disableAnimation={web.reduceMotions}
+                disableAnimation={cookies.get("reduceMotions") === "true"}
             >
                 <AccordionItem
                     key="1"

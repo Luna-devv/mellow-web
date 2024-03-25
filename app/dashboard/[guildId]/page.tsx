@@ -4,11 +4,11 @@ import { Accordion, AccordionItem, Chip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useCookies } from "next-client-cookies";
 import { useState } from "react";
 import { HiChartBar, HiMail } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import { webStore } from "@/common/webstore";
 import SelectMenu from "@/components/inputs/SelectMenu";
 import Switch from "@/components/inputs/Switch";
 import Modal from "@/components/modal";
@@ -16,7 +16,7 @@ import Modal from "@/components/modal";
 import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
 
 export default function Home() {
-    const web = webStore((w) => w);
+    const cookies = useCookies();
     const guild = guildStore((g) => g);
 
     const [modal, setModal] = useState(false);
@@ -133,7 +133,7 @@ export default function Home() {
                 <Accordion
                     className="lg:w-1/2"
                     defaultExpandedKeys={["1"]}
-                    disableAnimation={web.reduceMotions}
+                    disableAnimation={cookies.get("reduceMotions") === "true"}
                 >
                     <AccordionItem
                         key="1"
