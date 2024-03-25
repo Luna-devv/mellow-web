@@ -6,12 +6,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import React, { useEffect, useState } from "react";
-import { HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiLogout, HiViewGridAdd } from "react-icons/hi";
+import { HiAdjustments, HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiLogout, HiViewGridAdd } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import LoginButton from "@/components/login-button";
-import authorizeUser from "@/utils/authorize-user";
+import { authorize } from "@/utils/authorize-user";
 import cn from "@/utils/cn";
 
 import ImageReduceMotion from "./image-reduce-motion";
@@ -29,7 +29,7 @@ export default function Header(props: React.ComponentProps<"div">) {
 
     useEffect(() => {
 
-        authorizeUser({ stateHook: setLoginstate })
+        authorize({ stateHook: setLoginstate })
             .then((_user) => {
                 userStore.setState({
                     ...(_user || {}),
@@ -93,6 +93,11 @@ export default function Header(props: React.ComponentProps<"div">) {
                     name: "Analytics",
                     icon: <HiChartPie />,
                     url: "/profile/analytics"
+                },
+                {
+                    name: "Debug",
+                    icon: <HiAdjustments />,
+                    url: "/debug"
                 },
                 {
                     name: "Lunar Tools",

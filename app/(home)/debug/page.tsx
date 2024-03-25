@@ -1,27 +1,48 @@
 import { Metadata } from "next";
 import { cookies } from "next/headers";
+import { HiTrash } from "react-icons/hi";
 
 import Box from "@/components/box";
+import { ServerButton } from "@/components/server-button";
 import { Shiggy } from "@/components/shiggy";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
-export const metadata: Metadata = {
-    title: "Shiggy",
-    alternates: {
-        canonical: getCanonicalUrl("debug")
-    },
-    openGraph: {
-        title: "Shiggy",
-        type: "website",
-        url: getCanonicalUrl("debug"),
-        images: `${getBaseUrl()}/shiggy.gif`
-    }
+export const generateMetadata = async (): Promise<Metadata> => {
+    const title = "Shiggy";
+    const description = "";
+    const url = getCanonicalUrl("debug");
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            type: "website",
+            images: {
+                url: `${getBaseUrl()}/shiggy.gif`,
+                type: "image/gif"
+            }
+        },
+        twitter: {
+            card: "summary",
+            title,
+            description,
+            images: {
+                url: `${getBaseUrl()}/shiggy.gif`,
+                alt: title
+            }
+        }
+    };
 };
 
 export default function Home() {
-    const cookieStore = cookies();
 
-    if (cookieStore.get("devTools")?.value !== "true") {
+    if (cookies().get("devTools")?.value !== "true") {
         return (
             <Box
                 className="relative mb-64 mt-12"
@@ -36,21 +57,82 @@ export default function Home() {
         );
     }
 
+    async function deleteCookie(formData: FormData) {
+        "use server";
+
+        const cookieStore = cookies();
+
+        function del(name: string) {
+            cookieStore.set(
+                name,
+                "",
+                {
+                    expires: new Date(0),
+                    domain: process.env.NEXT_PUBLIC_BASE_URL?.split("://")[1]
+                }
+            );
+        }
+
+        const name = formData.get("name") as string;
+
+        if (name) {
+            del(name);
+            return;
+        }
+
+        const cookieNames = cookieStore.getAll();
+        for (const cookie of cookieNames) {
+            if (cookie.name !== "devTools") del(cookie.name);
+        }
+    }
+
+    const cookieStore = cookies();
+
     return (
-        <div className="flex gap-4">
+        <div className="md:flex gap-8">
 
             <div className="w-full">
-                {cookieStore.getAll().map((cookie) => (
-                    <div
-                        className="mb-4"
-                        key={cookie.name}
+                <h2 className="text-2xl font-medium text-neutral-200">Cookies 🍪</h2>
+
+                <div className="mt-2 flex flex-col gap-3 divide-y-1 divide-wamellow">
+
+                    {cookieStore.getAll().map((cookie) => (
+                        <div
+                            className="pt-2 flex items-center justify-between"
+                            key={cookie.name}
+                        >
+                            <div>
+                                <h3 className="text-lg font-medium text-neutral-200">{cookie.name}</h3>
+
+                                <p className={cookie.name === "session" ? "blur hover:blur-0 transition duration-50" : ""}>
+                                    {cookie.value}
+                                </p>
+                            </div>
+
+                            <form action={deleteCookie}>
+                                <ServerButton
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <HiTrash className="text-red-400" />
+                                </ServerButton>
+                                <input className="hidden" type="text" name="name" defaultValue={cookie.name} readOnly />
+                            </form>
+                        </div>
+                    ))}
+
+                </div>
+
+                <form
+                    className="mt-4"
+                    action={deleteCookie}
+                >
+                    <ServerButton
+                        type="submit"
                     >
-                        <h3 className="text-lg font-medium text-neutral-100">{cookie.name}</h3>
-                        <p className={cookie.name === "session" ? "blur hover:blur-0 transition duration-50" : ""}>
-                            {cookie.value}
-                        </p>
-                    </div>
-                ))}
+                        Delete all cookies
+                    </ServerButton>
+                </form>
             </div>
 
             <Shiggy className="mt-auto h-52" />
