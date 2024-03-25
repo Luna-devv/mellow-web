@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCookies } from "next-client-cookies";
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 
 import { Guild } from "@/common/guilds";
@@ -23,11 +23,11 @@ enum ModalType {
     Delete = 2
 }
 
-const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) => {
+export default function UpdatingLeaderboardCard({ guild, lb, type }: Props) {
     const cookies = useCookies();
 
     const [leaderboard, setLeaderboard] = useState(lb);
-    const [modal, setModal] = useState<ModalType | undefined>(undefined);
+    const [modal, setModal] = useState<ModalType>();
 
     const [channelId, setChannelId] = useState(leaderboard?.channelId);
     const [structure, setStructure] = useState(leaderboard?.structure);
@@ -280,6 +280,4 @@ const UpdatingLeaderboardCard: FunctionComponent<Props> = ({ guild, lb, type }) 
         </div>
     );
 
-};
-
-export default UpdatingLeaderboardCard;
+}

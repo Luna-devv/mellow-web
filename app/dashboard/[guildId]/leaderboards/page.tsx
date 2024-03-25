@@ -176,6 +176,15 @@ export default function Home() {
                 <UpdatingLeaderboardCard guild={guild as Guild} lb={data.updating.find((lb) => lb.type === "invites")} type="invites" />
             </div>
 
+
+            <Section
+                title="Danger zone"
+            >
+                Reset the leaderboard to start fresh. This action cannot be undone.
+            </Section>
+
+            <ResetLeaderboard guild={guild as Guild} />
+
         </div >
     );
 }
