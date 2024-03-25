@@ -25,9 +25,9 @@ export default function RootLayout({
 }) {
     const cookies = useCookies();
     const params = useParams();
+    const hasSession = cookies.get("hasSession") === "true";
 
-    const authorized = useAuthorize("/dashboard/" + params.guildId);
-    if (authorized) redirect("/dashboard/" + params.guildI);
+    if (!hasSession) redirect(`/login?callback=/dashboard/${params.guildId}`);
 
     const guild = guildStore((g) => g);
 
