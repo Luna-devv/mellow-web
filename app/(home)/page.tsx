@@ -251,6 +251,7 @@ export default async function Home() {
                                         />
                                     );
                                 })}
+                                <span className="sr-only">Change Text-to-Speech language and voice</span>
                             </AvatarGroup>
 
                             <div className="flex gap-2 mt-5">

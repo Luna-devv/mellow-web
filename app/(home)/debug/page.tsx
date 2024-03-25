@@ -1,7 +1,22 @@
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 
 import Box from "@/components/box";
-import { Shiggy } from "@/components/inputs/shiggy";
+import { Shiggy } from "@/components/shiggy";
+import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
+export const metadata: Metadata = {
+    title: "Shiggy",
+    alternates: {
+        canonical: getCanonicalUrl("debug")
+    },
+    openGraph: {
+        title: "Shiggy",
+        type: "website",
+        url: getCanonicalUrl("debug"),
+        images: `${getBaseUrl()}/shiggy.gif`
+    }
+};
 
 export default function Home() {
     const cookieStore = cookies();
