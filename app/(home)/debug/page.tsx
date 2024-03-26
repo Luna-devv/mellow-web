@@ -1,10 +1,12 @@
 import { Metadata } from "next";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { HiTrash } from "react-icons/hi";
 
 import Box from "@/components/box";
 import { ServerButton } from "@/components/server-button";
 import { Shiggy } from "@/components/shiggy";
+import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -98,15 +100,18 @@ export default function Home() {
 
                     {cookieStore.getAll().map((cookie) => (
                         <div
-                            className="pt-2 flex items-center justify-between"
+                            className="pt-2 flex gap-4 items-center justify-between"
                             key={cookie.name}
                         >
                             <div>
                                 <h3 className="text-lg font-medium text-neutral-200">{cookie.name}</h3>
 
-                                <p className={cookie.name === "session" ? "blur hover:blur-0 transition duration-50" : ""}>
+                                <div className={cn(
+                                    "break-all",
+                                    cookie.name === "session" ? "blur hover:blur-0 transition duration-50" : ""
+                                )}>
                                     {cookie.value}
-                                </p>
+                                </div>
                             </div>
 
                             <form action={deleteCookie}>
@@ -123,16 +128,23 @@ export default function Home() {
 
                 </div>
 
-                <form
-                    className="mt-4"
-                    action={deleteCookie}
-                >
+                <div className="mt-4 flex gap-2 items-center">
+                    <form action={deleteCookie}>
+                        <ServerButton
+                            type="submit"
+                        >
+                            Delete all cookies
+                        </ServerButton>
+                    </form>
                     <ServerButton
-                        type="submit"
+                        as={Link}
+                        href="/logout"
+                        prefetch={false}
                     >
-                        Delete all cookies
+                        Logout
                     </ServerButton>
-                </form>
+                </div>
+
             </div>
 
             <Shiggy className="mt-auto h-52" />
