@@ -1,3 +1,36 @@
+Wamellow's welcome feature provides an excellent opportunity to make new members feel more welcome and appreciated. With its full customization options, you can create a personalized message that suits your server's tone and vibe.
+
+## Setup
+1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
+2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).
+3. Select your server from the dashboard.
+4. Navigate to the **Greetings** tab. 
+5. Within the **Greetings** menu, locate and click on the **Welcome greeting** option.
+6. Enable the Welcome module by clicking the enabling button.
+7. Set a channel to send greetings into.
+
+### ✏️ Custom message & embed
+You can create a welcoming message with a **fully customizable message and embed**, making it easy to convey your server's culture and values to your new members.
+
+### 🖼️ Image card
+You can create a nice welcome image by **customizing the background for free**.
+![welcome image](/welcome.webp)
+
+### 🏓 Pings
+Wamellow also allows you to **ping your new members in up to 5 channels**.
+
+### 👀 Roles
+Wamellow also allows you to **give your new members up to 5 roles**.
+
+### ♻️ Restore Roles/Nick after Rejoin
+You can re-assign all roles and past nickname when a member left and rejoins your server.
+
+### 💬 Direct Message
+If you want to **send a direct message to your new members**, Wamellow also allows you to do so with a fully custom message and/or embed.
+
+### 🎉 Reactions
+If you desire, you can also make Wamellow **react with up to 2 emojis** to your custom welcome message or to your members's first message.
+
 ## Placeholders
 
 Placeholders allow you to use variables that change from message to message, for example to display information about the joining user or your server. They are always enclosed in curly braces, such as `{user.username}`.
