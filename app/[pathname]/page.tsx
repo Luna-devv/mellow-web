@@ -22,15 +22,16 @@ export default async function Home({ params }: Props) {
             return redirect("/login?invite=true");
         case "logout":
             return redirect("/login?logout=true");
-        case "youtube":
-        case "docs":
-        case "guides": {
+        case "youtube": {
             const res = await fetch("http://100.65.0.1:5001/?channel_id=UClWBeVcz5LUmcCN1gHG_GCg", fetchOptions)
                 .then((res) => res.json())
                 .catch(() => null) as { videoUrl: string } | null;
 
             return redirect(res?.videoUrl || "https://www.youtube.com/channel/UClWBeVcz5LUmcCN1gHG_GCg");
         }
+        case "docs":
+        case "guides":
+            return redirect("/docs/index");
         case "ai":
             return redirect("/ai-gallery");
     }

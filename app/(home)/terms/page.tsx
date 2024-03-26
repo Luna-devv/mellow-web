@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import React from "react";
 
-import BeautifyMarkdown from "@/components/BeautifyMarkdown";
+import BeautifyMarkdown from "@/components/markdown";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 

@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Code } from "@nextui-org/react";
 import Link from "next/link";
-import { FunctionComponent } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
 
-const BeautifyMarkdown: FunctionComponent<{ markdown: string }> = ({ markdown }) => {
+export default function BeautifyMarkdown({
+    markdown
+}: {
+    markdown: string
+}) {
 
     function parseDiscordMarkdown(content: string) {
         return content
@@ -19,35 +24,47 @@ const BeautifyMarkdown: FunctionComponent<{ markdown: string }> = ({ markdown })
             /* @ts-expect-error they broke types */
             rehypePlugins={[rehypeRaw]}
             components={{
-                h1: ({ ...props }) => <Link
+                h1: (props) => <Link
                     href={`#${props.children.toString().toLowerCase().replace(/ +/g, "-")}`}
                     className="flex mt-10 mb-3 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
                 >
                     <h2 id={props.children.toString().toLowerCase().replace(/ +/g, "-")} className="text-3xl font-semibold" {...props} />
                 </Link>,
 
-                h2: ({ ...props }) => <Link
+                h2: (props) => <Link
                     href={`#${props.children.toString().toLowerCase().replace(/ +/g, "-")}`}
                     className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
                 >
                     <h1 id={props.children.toString().toLowerCase().replace(/ +/g, "-")} className="text-2xl font-semibold" {...props} />
                 </Link>,
 
-                strong: ({ ...props }) => <span className="font-semibold dark:text-neutral-200 text-neutral-800" {...props} />,
-                i: ({ ...props }) => <span className="italic" {...props} />,
-                a: ({ ...props }) => <a className="text-blue-500 hover:underline underline-blue-500" {...props} />,
-                del: ({ ...props }) => <span className="line-through" {...props} />,
-                ins: ({ ...props }) => <span className="underline" {...props} />,
-                li: ({ ...props }) => <div className="flex gap-1 my-1">
+                h3: (props) => <Link
+                    href={`#${props.children.toString().toLowerCase().replace(/ +/g, "-")}`}
+                    className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
+                >
+                    <h3 id={props.children.toString().toLowerCase().replace(/ +/g, "-")} className="text-xl font-semibold" {...props} />
+                </Link>,
+
+                strong: (props) => <span className="font-semibold dark:text-neutral-200 text-neutral-800" {...props} />,
+                i: (props) => <span className="italic" {...props} />,
+                a: (props) => <a className="text-blue-500 hover:underline underline-blue-500" {...props} />,
+                del: (props) => <span className="line-through" {...props} />,
+                ins: (props) => <span className="underline" {...props} />,
+                li: (props) => <div className="flex gap-1 my-1">
                     <span className="mr-1">•</span>
                     <span {...props} />
-                </div>
+                </div>,
+                // @ts-expect-error Warning: Received `true` for a non-boolean attribute `inline`.
+                code: (props: { children: React.ReactNode }) => <Code color="secondary" {...props} inline="false" />,
+
+                table: (props) => <table className="mt-4 table-auto w-full divide-y-1 divide-wamellow overflow-scroll" {...props} />,
+                th: ({ isHeader, ...props }) => <th className=" px-2 pb-2 font-medium text-neutral-800 dark:text-neutral-200 text-left" {...props} />,
+                tr: ({ isHeader, ...props }) => <tr className="divide-x-1 divide-wamellow" {...props} />,
+                td: ({ isHeader, ...props }) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />
             }}
         >
             {parseDiscordMarkdown(markdown)}
         </ReactMarkdown>
     );
 
-};
-
-export default BeautifyMarkdown;
+}

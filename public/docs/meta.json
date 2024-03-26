@@ -1,0 +1,25 @@
+{
+    "pages": [
+        {
+            "name": "🍪 Home",
+            "file": "index.md",
+            "description": "Welcome to the Wamellow documentation!"
+        },
+        {
+            "name": "👋 Greetings",
+            "file": "greetings.md",
+            "description": "Welcome new members to your community!",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links",
+                    "Attach Files"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
+        }
+    ]
+}
