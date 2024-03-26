@@ -51,6 +51,21 @@
             "user": [
                 "Manage Server"
             ]
+        },
+        {
+            "name": " Leave message", 
+            "file": "leave.md",
+            "description": "Say goodbye to departing members!",
+            "permissions": [
+                "View Channel", 
+                "Send Messages",
+                "Embed Links",
+                "Attach Files"
+            ],
+            "user": [
+                "Manage Server"
+            ]
         }
+        
     ]
 }
