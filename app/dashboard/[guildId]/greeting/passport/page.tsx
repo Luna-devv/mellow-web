@@ -1,9 +1,10 @@
 
 "use client";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowNarrowLeft, HiFingerPrint } from "react-icons/hi";
+import { HiArrowLeft, HiArrowNarrowLeft, HiFingerPrint } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
@@ -69,9 +70,25 @@ export default function Home() {
     return (
         <div>
 
-            <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
-                <HiArrowNarrowLeft /> Greetings
-            </Link>
+            <div className="flex justify-between relative bottom-2 mb-3">
+                <Button
+                    as={Link}
+                    href={`/dashboard/${guild?.id}/greeting`}
+                    startContent={<HiArrowLeft />}
+                    size="sm"
+                >
+                    Back
+                </Button>
+                {/* <Button
+                    as={Link}
+                    href="/docs/greetings"
+                    target="_blank"
+                    endContent={<HiExternalLink />}
+                    size="sm"
+                >
+                    Read docs & view placeholders
+                </Button> */}
+            </div>
 
             {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId && !modal &&
                 <div className="mt-6">
