@@ -37,6 +37,20 @@
             "user": [
                 "Manage Server"
             ]
+        },
+        {
+            "name": "Welcome greeting", 
+            "file": "welcome.md",
+            "description": "Welcome new members to your community!",
+            "permissions": [
+                "View Channel", 
+                "Send Messages",
+                "Embed Links",
+                "Attach Files"
+            ],
+            "user": [
+                "Manage Server"
+            ]
         }
     ]
 }
