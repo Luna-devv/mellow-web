@@ -112,6 +112,15 @@ export default function Home() {
                             defaultState={guild?.tts.logChannelId}
                             showClear
                         />
+                        <SelectMenu
+                            name="Priority role"
+                            url={`/guilds/${params.guildId}`}
+                            dataName="priorityRoleId"
+                            items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, color: r.color }))}
+                            description="People with this role bypass the queue and speak immediately."
+                            defaultState={guild?.tts.priorityRoleId}
+                            showClear
+                        />
                         <Switch
                             name="Announce user"
                             url={`/guilds/${params.guildId}`}
