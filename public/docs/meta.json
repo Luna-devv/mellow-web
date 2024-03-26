@@ -20,6 +20,23 @@
                     "Manage Server"
                 ]
             }
+        },
+        {
+            "name": "Passport", 
+            "file": "passport.md",
+            "description": "Verify members in your community!",
+            "permissions": [
+                "View Channel", 
+                "Manager Members",
+                "Ban Members",
+                "Kick Members",
+                "Manage Roles",
+                "Send Messages",
+                "Embed Links"
+            ],
+            "user": [
+                "Manage Server"
+            ]
         }
     ]
 }
