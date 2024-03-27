@@ -54,6 +54,22 @@
                     "Manage Server"
                 ]
             }
+        },
+        {
+            "name": "⭐ Starboard",
+            "file": "starboard.md",
+            "description": "A Fun and Customizable Hub for Memorable Messages.",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links",
+                    "Attach Files"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
         }
     ]
 }
