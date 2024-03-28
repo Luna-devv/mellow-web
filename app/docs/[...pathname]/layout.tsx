@@ -1,8 +1,8 @@
 import { Button, Divider } from "@nextui-org/react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { BsDiscord } from "react-icons/bs";
-import { HiExternalLink } from "react-icons/hi";
+import { BsDiscord, BsGithub } from "react-icons/bs";
+import { HiExternalLink, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
 import Footer from "@/components/footer";
 import metadata from "@/public/docs/meta.json";
@@ -16,7 +16,7 @@ interface Props {
 export const generateMetadata = async ({
     params
 }: Props): Promise<Metadata> => {
-    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/")}.md`);
+    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
     const title = "Documentation";
     const url = getCanonicalUrl("docs", ...params.pathname);
@@ -47,12 +47,12 @@ export default async function RootLayout({
     params,
     children
 }: Props) {
-    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/")}.md`);
+    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
     return (
         <div className="w-full">
 
-            <div className="flex justify-between items-center">
+            <div className="md:flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-medium text-neutral-100">
                         Documentation
@@ -87,6 +87,7 @@ export default async function RootLayout({
                             as={Link}
                             className="w-full !justify-start button-blurple mt-4"
                             href="/support"
+                            target="_blank"
                             startContent={<BsDiscord />}
                             endContent={<HiExternalLink />}
                         >
@@ -98,16 +99,40 @@ export default async function RootLayout({
                             as={Link}
                             className="w-full !justify-start font-medium"
                             href="/invite"
+                            target="_blank"
                             color="secondary"
-                            startContent={<BsDiscord />}
+                            startContent={<HiUserAdd />}
                             endContent={<HiExternalLink />}
                         >
                             Invite Wamellow
                         </Button>
                     </ol>
+                    <ol>
+                        <Button
+                            as={Link}
+                            className="w-full !justify-start"
+                            href="/profile"
+                            target="_blank"
+                            startContent={<HiViewGridAdd />}
+                            endContent={<HiExternalLink />}
+                        >
+                            Dashboard
+                        </Button>
+                    </ol>
+
+                    <ol>
+                        <Link
+                            className="flex items-center gap-1.5 hover:text-violet-400 duration-100"
+                            href={"https://github.com/Luna-devv/mellow-web/blob/master/public/docs"}
+                            target="_blank"
+                        >
+                            <BsGithub /> Contribute
+                        </Link>
+                    </ol>
                 </ul>
 
                 <Divider className="lg:hidden" />
+
                 <div className="w-full lg:w-3/4">
                     {children}
                 </div>
