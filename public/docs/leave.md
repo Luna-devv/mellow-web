@@ -14,4 +14,19 @@ You can create a leaving message with a **fully customizable message and embed**
 
 ### 🖼️ Image card
 You can create a nice farewell image by **customizing the background for free**.
+<br />
+<br />
+
+**Warning:**
+
+Please do not forget to actually put in a direct link to the image, not a link to a website with the image.
+
+Custom background image: `1024x256px` (width, height) and must be type of `.png`.
+
 ![farewell image](/welcome.webp)
+
+**Example custom backgrounds:**
+- [images.wamellow.com/static/grass.jpg](https://images.wamellow.com/static/grass.jpg)
+- [images.wamellow.com/static/orange-grass.jpg](https://images.wamellow.com/static/grass.jpg)
+- [images.wamellow.com/static/red-grass.jpg](https://images.wamellow.com/static/red-grass.jpg)
+- [images.wamellow.com/static/rank.png](https://images.wamellow.com/static/rank.png)

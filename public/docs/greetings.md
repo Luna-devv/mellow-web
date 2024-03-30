@@ -14,7 +14,22 @@ You can create a welcoming message with a **fully customizable message and embed
 
 ### 🖼️ Image card
 You can create a nice welcome image by **customizing the background for free**.
+<br />
+<br />
+
+**Warning:**
+
+Please do not forget to actually put in a direct link to the image, not a link to a website with the image.
+
+Custom background image: `1024x256px` (width, height) and must be type of `.png`.
+
 ![welcome image](/welcome.webp)
+
+**Example custom backgrounds:**
+- [images.wamellow.com/static/grass.jpg](https://images.wamellow.com/static/grass.jpg)
+- [images.wamellow.com/static/orange-grass.jpg](https://images.wamellow.com/static/grass.jpg)
+- [images.wamellow.com/static/red-grass.jpg](https://images.wamellow.com/static/red-grass.jpg)
+- [images.wamellow.com/static/rank.png](https://images.wamellow.com/static/rank.png)
 
 ### 🏓 Pings
 Ghost ping members in up to 5 channels when they join, the ghost pings will be instantly deleted.
