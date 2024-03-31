@@ -14,7 +14,7 @@ import SelectInput from "@/components/inputs/SelectMenu";
 import TextInput from "@/components/inputs/TextInput";
 import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
-import { Permissions } from "@/lib/discord";
+import { Permissions } from "@/lib/discord/enum/permissions";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
