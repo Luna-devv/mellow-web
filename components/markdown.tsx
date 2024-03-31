@@ -23,6 +23,7 @@ export default function BeautifyMarkdown({
 
     return (
         <ReactMarkdown
+            // @ts-expect-error they broke types
             rehypePlugins={[rehypeRaw]}
             components={{
                 h1: (props) => (
@@ -91,16 +92,11 @@ export default function BeautifyMarkdown({
                     </Link>
                 ),
 
-                // @ts-expect-error isHeader does exist
-                table: ({ isHeader, ...props }) => <table className="mt-4 table-auto w-full divide-y-1 divide-wamellow overflow-scroll" {...props} />,
-                // @ts-expect-error isHeader does exist
+                table: (props) => <table className="mt-4 table-auto w-full divide-y-1 divide-wamellow overflow-scroll" {...props} />,
                 th: ({ isHeader, ...props }) => <th className=" px-2 pb-2 font-medium text-neutral-800 dark:text-neutral-200 text-left" {...props} />,
-                // @ts-expect-error isHeader does exist
                 tr: ({ isHeader, ...props }) => <tr className="divide-x-1 divide-wamellow" {...props} />,
-                // @ts-expect-error isHeader does exist
                 td: ({ isHeader, ...props }) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />,
 
-                // @ts-expect-error ordered does exist
                 ol: ({ ordered, ...props }) => (
                     <div className="list-decimal list-inside marker:text-neutral-300/40 my-1">
                         <span
@@ -109,7 +105,6 @@ export default function BeautifyMarkdown({
                         />
                     </div>
                 ),
-                // @ts-expect-error ordered does exist
                 ul: ({ ordered, ...props }) => (
                     <div className="list-disc list-inside marker:text-neutral-300/40 my-1">
                         <span

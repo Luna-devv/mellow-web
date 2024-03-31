@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
@@ -7,7 +7,13 @@ interface Props {
     mode: "DARK" | "LIGHT";
     discord?: boolean;
 }
-const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => {
+
+export default function Highlight({
+    text,
+    discord = true,
+    mode
+}: Props) {
+
     text = text
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;");
@@ -25,6 +31,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
 
     if (!discord) return (
         <ReactMarkdown
+            // @ts-expect-error they broke types
             rehypePlugins={[rehypeRaw]}
             allowedElements={["span", "p"]}
         >
@@ -40,6 +47,7 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
     return (
         <ReactMarkdown
             className="break-words"
+            // @ts-expect-error inline does exist
             rehypePlugins={[rehypeRaw]}
             components={{
                 h1: ({ ...props }) => <div className="text-3xl font-semibold" {...props} />,
@@ -54,7 +62,6 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
                     <span className="mr-1">•</span>
                     <span {...props} />
                 </div>,
-                // @ts-expect-error inline does exist
                 code: ({ inline, children, ...props }) => {
                     if (!inline) return (
                         <div className={`${mode === "DARK" ? "bg-neutral-900" : "bg-neutral-200"} px-4 py-3 text-sm rounded-md min-w-full max-w-full my-2 break-all`}>
@@ -75,7 +82,4 @@ const Highlight: FunctionComponent<Props> = ({ text, discord = true, mode }) => 
         </ReactMarkdown>
     );
 
-
-};
-
-export default Highlight;
+}
