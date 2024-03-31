@@ -1,7 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import { APIUser, RESTGetAPIUserResult, Routes } from "discord-api-types/v10";
 
-import { rest } from ".";
+import { rest } from "./index";
 
 const cache = new Collection<string, User>();
 
@@ -11,6 +11,7 @@ export default class User {
         this.username = data.username;
         this.globalName = data.global_name || null;
         this.avatar = data.avatar;
+        this.avatarUrl = data.avatar ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.${data.avatar.startsWith("a_") ? "gif" : "webp"}` : null;
         this.bot = data.bot || false;
     }
 
@@ -18,6 +19,7 @@ export default class User {
     public username: string;
     public globalName: string | null;
     public avatar: string | null;
+    public avatarUrl: string | null;
     public bot: boolean;
 }
 

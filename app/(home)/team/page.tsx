@@ -1,10 +1,13 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { HiExternalLink } from "react-icons/hi";
 
 import { getUser } from "@/lib/discord/user";
 import { filterDuplicates } from "@/lib/filter-duplicates";
+import MommyPic from "@/public/mommy.webp";
 import cn from "@/utils/cn";
+import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 enum TeamType {
     Developer = "developer",
@@ -77,12 +80,48 @@ const data = [
     }
 ] as const;
 
+export const generateMetadata = async (): Promise<Metadata> => {
+    const title = "Team";
+    const description = "Meet the creators of Wamellow and its products. Our dedicated team, including developers and donors, drives innovation and community growth.";
+    const url = getCanonicalUrl("team");
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            type: "website",
+            images: {
+                url: `${getBaseUrl()}/mommy.webp`,
+                type: "image/webp"
+            }
+        },
+        twitter: {
+            card: "summary",
+            title,
+            description,
+            images: {
+                url: `${getBaseUrl()}/mommy.webp`,
+                alt: title
+            }
+        }
+    };
+};
+
 export default function Home() {
     return (
         <div>
             <h2 className="text-2xl font-medium text-neutral-200">Team 🍪</h2>
+            <div className="max-w-xl">
+                Meet the creators of Wamellow and its products. Our dedicated team, including developers and donors, drives innovation and community growth
+            </div>
 
-            <div className="divide-y-1 divide-wamellow">
+            <div className="relative divide-y-1 divide-wamellow">
                 {filterDuplicates(data.map((person) => person.team)).map((team) => (
                     <div
                         key={team}
@@ -116,6 +155,14 @@ export default function Home() {
                         </div>
                     </div>
                 ))}
+
+                <Image
+                    alt="no mommy? 😢"
+                    className="absolute right-0 top-0 shrink-0 aspect-square rounded-lg"
+                    height={128}
+                    src={MommyPic}
+                    width={128}
+                />
             </div>
 
         </div>
