@@ -41,7 +41,7 @@ export default async function Commands() {
                 <div className="divide-y divide-wamellow">
                     {commands
                         .sort((a, b) => b.uses - a.uses)
-                        .slice(0, 4)
+                        .slice(0, 6)
                         .map((command) => (
                             <div
                                 key={command.name}

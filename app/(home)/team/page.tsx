@@ -131,7 +131,7 @@ export default function Home() {
                             {team.split("-").map((str) => str.replace(/^\w/, (char) => char.toUpperCase())).join(" ")}
                         </h3>
 
-                        <div className="mt-2 flex flex-wrap gap-2">
+                        <div className="mt-2 flex flex-wrap gap-3">
                             {data
                                 .filter((person) => person.team === team)
                                 .map((person) => (
