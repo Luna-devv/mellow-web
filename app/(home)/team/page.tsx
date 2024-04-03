@@ -4,9 +4,9 @@ import Link from "next/link";
 import { HiExternalLink } from "react-icons/hi";
 
 import { getUser } from "@/lib/discord/user";
-import { filterDuplicates } from "@/lib/filter-duplicates";
 import MommyPic from "@/public/mommy.webp";
 import cn from "@/utils/cn";
+import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 enum TeamType {

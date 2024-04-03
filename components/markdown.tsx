@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
 import { getUser } from "@/lib/discord/user";
-import { filterDuplicates } from "@/lib/filter-duplicates";
+import { filterDuplicates } from "@/utils/filter-duplicates";
 import cn from "@/utils/cn";
 
 export default async function BeautifyMarkdown({
