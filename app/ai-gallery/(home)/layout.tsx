@@ -90,12 +90,13 @@ export default function RootLayout({
                 prefetch={false}
                 target="_blank"
             >
+                <span className="sr-only">/image command usage</span>
                 <Image
-                    alt="/image command usage"
+                    alt=""
                     className="w-full rounded-md shadow-md mt-12"
-                    height={438}
+                    height={580}
                     src={CommandPic}
-                    width={1723}
+                    width={1550}
                 />
             </Link>
 

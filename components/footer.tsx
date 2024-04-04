@@ -62,7 +62,7 @@ export default async function Footer(props: HTMLProps<HTMLDivElement>) {
             </div>
 
             <div className="w-full flex justify-center mt-20 mb-4 hover:rotate-2 duration-500">
-                <Image src={BlahajPic} alt="Blahaj" width={1500 / 2} height={775 / 2} className="h-42" />
+                <Image src={BlahajPic} alt="Blahaj" width={1500 / 2} height={Math.round(775 / 2)} className="h-42" />
             </div>
         </div>
     );
