@@ -5,15 +5,12 @@ import { useRouter } from "next/navigation";
 
 import { userStore } from "@/common/user";
 import LoginButton from "@/components/login-button";
-import { getCanonicalUrl } from "@/utils/urls";
 
 export default function Pagination(
     {
-        guildId,
         searchParams,
         pages
     }: {
-        guildId: string;
         searchParams: { page: string, type: string };
         pages: number;
     }
@@ -40,7 +37,11 @@ export default function Pagination(
             size="lg"
             page={parseInt(searchParams.page || "0")}
             onChange={(now) => {
-                router.push(getCanonicalUrl("leaderboard", guildId, `?page=${now}${(searchParams.type && searchParams.type !== "messages") ? `&type=${searchParams.type}` : ""}`));
+                const params = new URLSearchParams(searchParams);
+                params.delete("page");
+                params.append("page", now.toString());
+
+                router.push(`?${params.toString()}`, { scroll: false });
             }}
         />
     );

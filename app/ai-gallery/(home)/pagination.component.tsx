@@ -3,8 +3,6 @@
 import { Pagination as UiPagination } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
-import { getCanonicalUrl } from "@/utils/urls";
-
 export default function Pagination(
     {
         searchParams,
@@ -26,7 +24,11 @@ export default function Pagination(
             size="lg"
             page={parseInt(searchParams.page || "0")}
             onChange={(now) => {
-                router.push(getCanonicalUrl("ai-gallery", `?page=${now}${searchParams.model ? `&model=${searchParams.model}` : ""}`));
+                const params = new URLSearchParams(searchParams);
+                params.delete("page");
+                params.append("page", now.toString());
+
+                router.push(`?${params.toString()}`, { scroll: false });
             }}
         />
     );

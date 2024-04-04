@@ -175,7 +175,6 @@ export default async function Home({ params, searchParams }: Props) {
 
             <Pagination
                 key={searchParams.type}
-                guildId={params.guildId}
                 searchParams={searchParams}
                 pages={pagination[searchParams.type].pages}
             />
