@@ -127,7 +127,7 @@ export default function Home() {
                     <MultiSelectMenu
                         name="Whitelist channels"
                         url={url}
-                        dataName="logChannelId"
+                        dataName="whitelistChannelIds"
                         items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
                         description="Select channels where images should not be scanned in."
                         defaultState={data.whitelistChannelIds}
@@ -138,7 +138,7 @@ export default function Home() {
                     <MultiSelectMenu
                         name="Whitelist roles"
                         url={url}
-                        dataName="logChannelId"
+                        dataName="whitelistRoleIds"
                         items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, color: r.color }))}
                         description="Select roles by who images should not be scanned for."
                         defaultState={data.whitelistRoleIds}
