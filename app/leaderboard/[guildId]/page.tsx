@@ -139,8 +139,11 @@ export default async function Home({ params, searchParams }: Props) {
                         </div>
 
                         <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">
-                            <span className="mr-1">
-                                {searchParams.type === "voiceminutes" ? member.activity?.formattedVoicetime : intl.format(member.activity?.[searchParams.type || "messages"])}
+                            <span className="mr-1 break-keep">
+                                {searchParams.type === "voiceminutes"
+                                    ? member.activity?.formattedVoicetime
+                                    : intl.format(member.activity?.[searchParams.type || "messages"])
+                                }
                             </span>
 
                             <Icon type={searchParams.type} />

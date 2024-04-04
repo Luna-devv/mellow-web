@@ -116,25 +116,19 @@ export default function Side({
                     undefined as unknown as JSX.Element
                 }
 
-                <AccordionItem
-                    key="2"
-                    aria-label="how this works"
-                    title="How this works"
-                    classNames={{ content: "mb-2" }}
-                >
-                    Users are sorted from most to least active for each category, updates once per minute.
-                    <br />
-                    <br />
-                    The percentage {currentCircular !== "server" ? "indicates the gap in messages needed to surpass the next user" : "reflects the contribution of server activity from that user"}.
-                </AccordionItem>
-
                 {pagination && "messages" in pagination ?
                     <AccordionItem
                         key="3"
-                        aria-label="server activity"
-                        title="Server activity"
+                        aria-label="about this server"
+                        title={`About ${guild && "name" in guild ? guild?.name : "this server"}`}
                         classNames={{ content: "mb-2" }}
                     >
+                        {guild && "description" in guild && guild?.description &&
+                            <p className="mb-6">
+                                {guild.description}
+                            </p>
+                        }
+
                         <div className="flex items-center gap-1">
                             <HiAnnotation className="mr-1" />
                             <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
@@ -150,6 +144,18 @@ export default function Side({
                     </AccordionItem>
                     : undefined as unknown as JSX.Element
                 }
+
+                <AccordionItem
+                    key="2"
+                    aria-label="how this works"
+                    title="How this works"
+                    classNames={{ content: "mb-2" }}
+                >
+                    Users are sorted from most to least active for each category, updates once per minute.
+                    <br />
+                    <br />
+                    The percentage {currentCircular !== "server" ? "indicates the gap in messages needed to surpass the next user" : "reflects the contribution of server activity from that user"}.
+                </AccordionItem>
 
                 {guild && "id" in guild && guild?.inviteUrl ?
                     <AccordionItem
