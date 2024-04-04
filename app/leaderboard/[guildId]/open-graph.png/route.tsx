@@ -46,8 +46,13 @@ export async function GET(
                         {truncate(guildExists ? guild.name : "unknown", 19)}
                     </div>
                 </div>
-                <div tw="text-4xl text-gray-500 mb-42" style={{ fontWeight: 500 }}>Explore the vibrant community dynamics</div>
 
+                <div tw="text-3xl text-gray-500 mb-42" style={{ fontWeight: 500 }}>
+                    {guildExists && guild?.description
+                        ? guild.description
+                        : "Explore the vibrant community dynamics"
+                    }
+                </div>
 
                 {Array.isArray(members) &&
                     <div tw="flex justify-between">
