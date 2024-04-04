@@ -7,10 +7,11 @@ import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-me
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 import { getUploads } from "../api";
+import SearchFilter from "./filter.component";
 import Pagination from "./pagination.component";
 
 interface Props {
-    searchParams: { page: string; model: string };
+    searchParams: { page: string; model: string; nsfw: string };
 }
 
 export const revalidate = 60 * 60;
@@ -18,7 +19,11 @@ export const revalidate = 60 * 60;
 export default async function Home({
     searchParams
 }: Props) {
-    const uploads = await getUploads({ page: parseInt(searchParams.page || "1"), model: searchParams.model });
+    const uploads = await getUploads({
+        page: parseInt(searchParams.page || "1"),
+        model: searchParams.model,
+        nsfw: searchParams.nsfw === "true"
+    });
 
     if ("message" in uploads) {
         return (

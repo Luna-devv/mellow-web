@@ -68,7 +68,7 @@ export default async function RootLayout({
 
     const [guild, uploads, analytics] = await Promise.all([
         "guildId" in upload ? getGuild(upload.guildId) : undefined,
-        "model" in upload ? getUploads({ query: upload.prompt }) : undefined,
+        "model" in upload ? getUploads({ query: upload.prompt, nsfw: upload.nsfw }) : undefined,
         getPageAnalytics("/ai-gallery/" + params.uploadId)
     ]);
 
