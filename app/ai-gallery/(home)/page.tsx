@@ -51,6 +51,18 @@ export default async function Home({
 
     return (
         <>
+
+            <div className="w-full mb-4 flex justify-between">
+                <div
+                    className="text-lg font-medium mb-2"
+                >
+                    Images that were generated using the /image Ai in discord with Wamellow.
+                </div>
+                <SearchFilter
+                    searchParams={searchParams}
+                />
+            </div>
+
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
                 {uploads.results.map((upload) => (
                     <Link

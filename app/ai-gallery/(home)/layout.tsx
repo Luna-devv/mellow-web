@@ -1,4 +1,3 @@
-import { Chip } from "@nextui-org/react";
 import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
@@ -11,6 +10,7 @@ import { ServerButton } from "@/components/server-button";
 import CommandPic from "@/public/image-command.webp";
 import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -53,35 +53,16 @@ export default function RootLayout({
     children
 }: Props) {
 
-
     return (
         <div>
 
-            <div className="flex justify-between items-center">
-                <h1
-                    className={cn(montserrat.className, "lg:text-5xl text-4xl font-bold dark:text-neutral-100 text-neutral-900 break-words mb-2")}
-                >
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">/image Ai</span>
-                    {" generated in "}
-                    <span className="underline decoration-blurple break-keep">discord</span>
-                </h1>
-                <Chip
-                    className="hidden md:block"
-                    color="secondary"
-                    variant="flat"
-                    size="lg"
-                >
-                    <span className="font-semibold text-xl">
-                        Free, duh
-                    </span>
-                </Chip>
-            </div>
-
-            <div
-                className="text-lg font-medium mb-6"
+            <h1
+                className={cn(montserrat.className, "lg:text-5xl text-4xl font-bold dark:text-neutral-100 text-neutral-900 break-words mb-2")}
             >
-                Images that were generated using the /image Ai in discord with Wamellow.
-            </div>
+                <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">/image Ai</span>
+                {" generated in "}
+                <span className="underline decoration-blurple break-keep">discord</span>
+            </h1>
 
             {children}
 
