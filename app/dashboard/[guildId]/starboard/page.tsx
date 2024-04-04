@@ -1,8 +1,10 @@
 "use client";
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { HiViewGridAdd } from "react-icons/hi";
+import { HiExternalLink, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
@@ -110,6 +112,19 @@ export default function Home() {
 
     return (
         <>
+
+            <div className="flex justify-between relative bottom-2 mb-3">
+                <Button
+                    className="ml-auto"
+                    as={Link}
+                    href="/docs/starboard"
+                    target="_blank"
+                    endContent={<HiExternalLink />}
+                    size="sm"
+                >
+                    Read docs
+                </Button>
+            </div>
 
             <Switch
                 name="Starboard module enabled"

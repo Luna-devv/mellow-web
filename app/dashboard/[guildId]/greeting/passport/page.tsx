@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowLeft, HiArrowNarrowLeft, HiFingerPrint } from "react-icons/hi";
+import { HiArrowLeft, HiArrowNarrowLeft, HiExternalLink, HiFingerPrint } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
@@ -79,15 +79,15 @@ export default function Home() {
                 >
                     Back
                 </Button>
-                {/* <Button
+                <Button
                     as={Link}
-                    href="/docs/greetings"
+                    href="/docs/passport"
                     target="_blank"
                     endContent={<HiExternalLink />}
                     size="sm"
                 >
-                    Read docs & view placeholders
-                </Button> */}
+                    Read docs
+                </Button>
             </div>
 
             {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId && !modal &&

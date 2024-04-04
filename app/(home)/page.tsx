@@ -233,8 +233,6 @@ export default async function Home() {
                             </div>
 
                             <AvatarGroup
-                                as={Link}
-                                href={getCanonicalUrl("profile", "text-to-speech", "?utm_source=wamellow.com&utm_medium=home")}
                                 className="mt-4"
                                 max={8}
                             >
@@ -315,7 +313,7 @@ export default async function Home() {
                             >
                                 <span className="font-semibold">100% no money loss</span>
                             </Chip>
-                            <h3 className={styles.h3}>/image command</h3>
+                            <h3 className={styles.h3}>Free /image command</h3>
                             <div className="pt-6">
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
                                 Elevate your server to a haven for unique and dynamic AI-generated images, ensuring a delightful experience for all enthusiasts of the digital arts.
@@ -342,7 +340,7 @@ export default async function Home() {
                                     startContent={<HiArrowRight />}
                                     href="/ai-gallery?utm_source=wamellow.com&utm_medium=home"
                                 >
-                                    View examples
+                                    View Images
                                 </ServerButton>
                             </div>
                         </div>
@@ -352,7 +350,7 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps("image")}>
-                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+                                <Highlight mode={"DARK"} text="query: **femboy**" />
                                 <Image
                                     alt=""
                                     className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"

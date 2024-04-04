@@ -73,7 +73,7 @@ export default async function RootLayout({
 
                     <ul className="space-y-2 mb-4 bg-wamellow p-2 rounded-md border border-wamellow-alpha">
                         {metadata.pages.map((page) => (
-                            <ol key={page.file}>
+                            <li key={page.file}>
                                 <Button
                                     as={Link}
                                     className="w-full !justify-start"
@@ -82,7 +82,7 @@ export default async function RootLayout({
                                 >
                                     {page.name}
                                 </Button>
-                            </ol>
+                            </li>
                         ))}
                     </ul>
 

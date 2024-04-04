@@ -5,20 +5,54 @@ import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
+import { getUser } from "@/lib/discord/user";
+import { filterDuplicates } from "@/utils/filter-duplicates";
 import cn from "@/utils/cn";
 
-export default function BeautifyMarkdown({
+export default async function BeautifyMarkdown({
     markdown
 }: {
     markdown: string
 }) {
+    const { renderToString } = await import("react-dom/server");
 
-    function parseDiscordMarkdown(content: string) {
+    async function parseDiscordMarkdown(content: string) {
+        const users = await Promise.all(
+            filterDuplicates(content.match(/<@!?\d{15,21}>/g) || [])
+                .map((match) => match.replace(/<|!|>|@/g, ""))
+                .map((userId) => getUser(userId))
+        );
+
         return content
             .replace(/__(.*?)__/g, "<u>$1</u>")
-            .replace(/<a?:\w{2,32}:(.*?)>/g, "<img alt='emoji' className='rounded-md inline' style='height: 1.375em; position: relative' src='https://cdn.discordapp.com/emojis/$1.webp?size=40&quality=lossless' />")
-            .replace(/<(@!?)\d{15,21}>/g, "<span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>@user</span>")
-            .replace(/<(#!?)\d{15,21}>/g, "<span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>@channel</span>");
+            .replace(/<a?:\w{2,32}:\d{15,21}>/g, (match) => {
+                const emojiId = match.match(/\d{15,21}/)?.[0];
+
+                return renderToString(
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        alt='emoji'
+                        className='rounded-md inline h-5 w-5'
+                        src={`https://cdn.discordapp.com/emojis/${emojiId}.webp?size=40&quality=lossless`}
+                    />
+                );
+            })
+            .replace(/<(@!?)\d{15,21}>/g, (match) => {
+                const userId = match.replace(/<|!|>|@/g, "");
+
+                return renderToString(
+                    <span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>
+                        @{users.find((user) => user?.id === userId)?.username || "user"}
+                    </span>
+                );
+            })
+            .replace(/<(#!?)\d{15,21}>/g, () => {
+                return renderToString(
+                    <span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>
+                        #channel
+                    </span>
+                );
+            });
     }
 
     return (
@@ -78,7 +112,7 @@ export default function BeautifyMarkdown({
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img alt={alt} className="rounded-md" loading="lazy" {...props} />
-                        {alt && alt !== "emoji" && <span className="text-neutral-500 font-medium relative bottom-1">{alt}</span>}
+                        {alt && alt !== "emoji" && <span aria-hidden="true" className="text-neutral-500 font-medium relative bottom-1">{alt}</span>}
                     </span>
                 ),
                 a: ({ href, children, ...props }) => (
@@ -97,25 +131,11 @@ export default function BeautifyMarkdown({
                 tr: ({ isHeader, ...props }) => <tr className="divide-x-1 divide-wamellow" {...props} />,
                 td: ({ isHeader, ...props }) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />,
 
-                ol: ({ ordered, ...props }) => (
-                    <div className="list-decimal list-inside marker:text-neutral-300/40 my-1">
-                        <span
-                            className="space-y-1"
-                            {...props}
-                        />
-                    </div>
-                ),
-                ul: ({ ordered, ...props }) => (
-                    <div className="list-disc list-inside marker:text-neutral-300/40 my-1">
-                        <span
-                            className="space-y-1"
-                            {...props}
-                        />
-                    </div>
-                )
+                ol: ({ ordered, ...props }) => <ol className="list-decimal list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
+                ul: ({ ordered, ...props }) => <ul className="list-disc list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />
             }}
         >
-            {parseDiscordMarkdown(markdown)}
+            {await parseDiscordMarkdown(markdown)}
         </ReactMarkdown>
     );
 
