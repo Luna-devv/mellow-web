@@ -44,7 +44,7 @@ export default function SearchFilter(
                                 "dismissed-ai-nsfw",
                                 "true",
                                 {
-                                    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 28),
+                                    expires: 28,
                                     sameSite: "Strict"
                                 }
                             )
