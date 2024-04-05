@@ -65,6 +65,7 @@ export interface ApiV1GuildsTopmembersPaginationGetResponse {
     voiceminutes: {
         pages: number;
         total: string;
+        formattedTotal: string;
     };
     invites: {
         pages: number;
