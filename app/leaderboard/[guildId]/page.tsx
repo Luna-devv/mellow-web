@@ -1,4 +1,4 @@
-import { Chip, CircularProgress } from "@nextui-org/react";
+import { Badge, Chip, CircularProgress } from "@nextui-org/react";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { HiBadgeCheck } from "react-icons/hi";
@@ -7,6 +7,7 @@ import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
+import cn from "@/utils/cn";
 import { intl } from "@/utils/numbers";
 
 import { getDesign, getPagination, getTopMembers } from "./api";
@@ -20,11 +21,16 @@ interface Props {
 
 export const revalidate = 60 * 60;
 
-export default async function Home({ params, searchParams }: Props) {
+export default async function Home({
+    params,
+    searchParams
+}: Props) {
     if (searchParams) searchParams.type ||= "messages";
 
+    const page = parseInt(searchParams.page || "1");
+
     const guildPromise = getGuild(params.guildId);
-    const membersPromise = getTopMembers(params.guildId, { page: parseInt(searchParams.page || "1"), type: searchParams.type });
+    const membersPromise = getTopMembers(params.guildId, { page, type: searchParams.type });
     const designPromise = getDesign(params.guildId);
     const paginationPromise = getPagination(params.guildId);
 
@@ -114,23 +120,45 @@ export default async function Home({ params, searchParams }: Props) {
                         key={"leaderboard-" + searchParams.type + member.id + i}
                         className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100 w-full overflow-hidden"
                     >
-                        <ImageReduceMotion
-                            alt={`${member.username}'s profile picture`}
-                            className="rounded-full h-12 w-12 mr-3"
-                            url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
-                            size={128}
-                        />
+                        <Badge
+                            className={cn(
+                                "size-6",
+                                (() => {
+                                    const rank = i + ((page - 1) * 20) + 1;
 
-                        <div className="w-full max-w-[calc(100%-16rem)]">
+                                    if (rank === 1) return "bg-[#ffe671] text-[#ff9e03] font-bold border-2 border-[#1c1b1f]";
+                                    if (rank === 2) return "bg-[#c1e5fb] text-[#6093ba] font-bold border-2 border-[#1c1b1f]";
+                                    if (rank === 3) return "bg-[#f8c396] text-[#c66e04] font-bold border-2 border-[#1c1b1f]";
+                                    return "bg-[#1c1b1f]";
+                                })()
+                            )}
+                            showOutline={false}
+                            content={
+                                <span className="px-[3px]">
+                                    {i + ((page - 1) * 20) + 1}
+                                </span>
+                            }
+                            size="sm"
+                            placement="bottom-left"
+                        >
+                            <ImageReduceMotion
+                                alt={`${member.username}'s profile picture`}
+                                className="rounded-full h-12 w-12 mr-3"
+                                url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
+                                size={128}
+                            />
+                        </Badge>
+
+                        <div className="w-full max-w-[calc(100%-17rem)]">
                             <div className="flex items-center gap-2">
                                 <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800 truncate">
                                     {member.globalName || member.username || "Unknown user"}
                                 </span>
                                 {member.id === "821472922140803112" &&
-                                    <Badge>Developer</Badge>
+                                    <UserBadge>Developer</UserBadge>
                                 }
                                 {member.id === "845287163712372756" &&
-                                    <Badge>WOMEN</Badge>
+                                    <UserBadge>WOMEN</UserBadge>
                                 }
                             </div>
                             <div className="text-sm dark:text-neutral-300 text-neutral-700 truncate">
@@ -156,13 +184,17 @@ export default async function Home({ params, searchParams }: Props) {
                                 className="ml-4"
                                 aria-label="progress"
                                 size="lg"
-                                color="secondary"
+                                color={
+                                    currentCircular === "next"
+                                        ? "default"
+                                        : "secondary"
+                                }
                                 classNames={{
                                     svg: "drop-shadow-md"
                                 }}
                                 value={
                                     currentCircular === "next"
-                                        ? (member.activity[searchParams.type || "messages"] * 100) / members[i - 1]?.activity[searchParams.type || "messages"]
+                                        ? (member.activity[searchParams.type || "messages"] * 100) / (members[i - 1]?.activity[searchParams.type || "messages"] || 1)
                                         : (member.activity[searchParams.type || "messages"] * 100) / parseInt(pagination[searchParams.type || "messages"].total.toString())
                                         || 100
                                 }
@@ -182,7 +214,7 @@ export default async function Home({ params, searchParams }: Props) {
     );
 }
 
-function Badge({
+function UserBadge({
     children
 }: {
     children: React.ReactNode
