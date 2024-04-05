@@ -135,7 +135,7 @@ export default function Side({
                         </div>
                         <div className="flex items-center gap-1">
                             <HiVolumeUp className="mr-1" />
-                            <span className="font-semibold">{pagination.voiceminutes.total}</span> in voice
+                            <span className="font-semibold">{pagination.voiceminutes.formattedTotal}</span> in voice
                         </div>
                         <div className="flex items-center gap-1">
                             <HiLink className="mr-1" />
