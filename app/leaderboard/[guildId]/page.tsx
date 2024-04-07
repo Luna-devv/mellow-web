@@ -122,20 +122,20 @@ export default async function Home({
                     >
                         <Badge
                             className={cn(
-                                "size-6",
+                                "size-6 font-bold",
                                 (() => {
                                     const rank = i + ((page - 1) * 20) + 1;
 
-                                    if (rank === 1) return "bg-[#ffe671] text-[#ff9e03] font-bold border-2 border-[#1c1b1f]";
-                                    if (rank === 2) return "bg-[#c1e5fb] text-[#6093ba] font-bold border-2 border-[#1c1b1f]";
-                                    if (rank === 3) return "bg-[#f8c396] text-[#c66e04] font-bold border-2 border-[#1c1b1f]";
+                                    if (rank === 1) return "bg-[#ffe671] text-[#ff9e03] border-2 border-[#1c1b1f]";
+                                    if (rank === 2) return "bg-[#c1e5fb] text-[#6093ba] border-2 border-[#1c1b1f]";
+                                    if (rank === 3) return "bg-[#f8c396] text-[#c66e04] border-2 border-[#1c1b1f]";
                                     return "bg-[#1c1b1f]";
                                 })()
                             )}
                             showOutline={false}
                             content={
                                 <span className="px-[3px]">
-                                    {i + ((page - 1) * 20) + 1}
+                                    {intl.format(i + ((page - 1) * 20) + 1)}
                                 </span>
                             }
                             size="sm"
