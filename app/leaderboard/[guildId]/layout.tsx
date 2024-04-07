@@ -110,7 +110,7 @@ export default async function RootLayout({
                 />
 
                 <div
-                    className="text-lg flex gap-5 items-center absolute bottom-[-44px] md:bottom-[-34px] left-[12px] md:left-10 py-4 px-5 rounded-3xl z-20 backdrop-blur-3xl backdrop-brightness-75 shadow-md"
+                    className="text-lg flex gap-5 items-center absolute bottom-[-44px] md:bottom-[-34px] left-[12px] md:left-8 py-4 px-5 rounded-3xl z-20 backdrop-blur-3xl backdrop-brightness-75 shadow-md"
                 >
                     <ImageReduceMotion
                         alt="Server icon"
@@ -120,11 +120,13 @@ export default async function RootLayout({
                     />
 
                     <div className="flex flex-col gap-1">
-                        <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guildExists ? guild.name : "Unknown Server"}</div>
+                        <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium max-w-md truncate">
+                            {guildExists ? guild.name : "Unknown Server"}
+                        </div>
                         <div className="text-sm font-semibold flex items-center gap-1">
                             <HiUsers /> {guildExists ? intl.format(guild?.memberCount) : 0}
 
-                            <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" />
+                            <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp?size=32" width={18} height={18} alt="boost icon" className="ml-2" />
                             <span className="ml-2">Level {guildExists ? guild?.premiumTier : 0}</span>
                         </div>
                     </div>
