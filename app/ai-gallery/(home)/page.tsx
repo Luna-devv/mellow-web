@@ -74,11 +74,11 @@ export default async function Home({
                         <Image
                             alt=""
                             className="rounded-xl"
-                            height={512}
+                            height={300}
                             itemProp="image"
                             loading="lazy"
                             src={`https://r2.wamellow.com/ai-image/${upload.id}.webp`}
-                            width={512}
+                            width={300}
                         />
 
                         <Chip

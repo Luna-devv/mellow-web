@@ -354,11 +354,11 @@ export default async function Home() {
                                 <Image
                                     alt=""
                                     className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
-                                    height={512}
+                                    height={290}
                                     itemProp="image"
                                     loading="lazy"
                                     src={AiPic}
-                                    width={512}
+                                    width={290}
                                 />
                             </DiscordMessage>
                         </div>
@@ -416,11 +416,11 @@ export default async function Home() {
                                 <Image
                                     alt=""
                                     className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-xs mt-2"
-                                    height={512}
+                                    height={905 / 3}
                                     itemProp="image"
                                     loading="lazy"
                                     src={WaifuPic}
-                                    width={512}
+                                    width={640 / 3}
                                 />
                             </DiscordMessage>
                         </div>
@@ -467,7 +467,14 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps("leaderboard")}>
-                                <Image src={LeaderboardPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" />
+                                <Image
+                                    alt="example leaderboard card"
+                                    src={LeaderboardPic}
+                                    height={1024 / 4}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    width={2048 / 4}
+                                />
                             </DiscordMessage>
                         </div>
                     </Box>
@@ -580,7 +587,14 @@ export default async function Home() {
                         >
                             <DiscordMessage {...messageProps()}>
                                 <Highlight mode={"DARK"} text="Welcome @mwlica to **Someone's** 👋" />
-                                <Image src={WelcomePic} itemProp="image" alt="example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" />
+                                <Image
+                                    alt="example welcome card"
+                                    src={WelcomePic}
+                                    height={(256 + 16) / 2}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    width={1024 / 2}
+                                />
                             </DiscordMessage>
                         </div>
                     </Box>
@@ -630,7 +644,15 @@ export default async function Home() {
                         </div>
 
                         <div className="w-full md:w-1/2 flex justify-center">
-                            <Image src={CaptchaPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" className="max-w-56" />
+                            <Image
+                                alt="anime captcha verification example"
+                                className="max-w-56"
+                                src={CaptchaPic}
+                                height={1530 / 5}
+                                itemProp="image"
+                                loading="lazy"
+                                width={1070 / 5}
+                            />
                         </div>
                     </Box>
                 </div>

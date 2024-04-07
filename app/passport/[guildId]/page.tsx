@@ -105,8 +105,8 @@ export default async function Home({ params }: Props) {
                         alt=""
                         className="w-full object-cover h-[216px]"
                         src={guild && "banner" in guild && guild.banner ? `https://cdn.discordapp.com/banners/${guild?.id}/${guild?.banner}?size=512` : paintPic.src}
-                        width={3840 / 10}
-                        height={2160 / 10}
+                        width={960}
+                        height={540}
                     />
                     <div className="absolute top-0 w-full h-[216px]" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, var(--wamellow-rgb) 100%)" }} />
 
