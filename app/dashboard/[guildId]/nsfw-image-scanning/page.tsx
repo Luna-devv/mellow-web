@@ -8,9 +8,9 @@ import { HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
-import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
-import SelectMenu from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
+import SelectMenu from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";

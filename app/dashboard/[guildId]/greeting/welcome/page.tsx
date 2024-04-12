@@ -11,11 +11,11 @@ import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import MessageCreatorEmbed from "@/components/embed-creator";
-import ImageUrlInput from "@/components/inputs/ImageUrlInput";
-import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
-import NumberInput from "@/components/inputs/NumberInput";
-import SelectMenu from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import ImageUrlInput from "@/components/inputs/image-url-input";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
+import NumberInput from "@/components/inputs/number-input";
+import SelectMenu from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 

@@ -1,11 +1,15 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiCheck, HiChevronDown, HiExclamationCircle, HiX } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
-import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
-import { truncate } from "@/utils/truncate";
+
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Success = 2
+}
 
 type Props = {
     className?: string;
@@ -21,29 +25,38 @@ type Props = {
 };
 
 
-const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataName, items = [], disabled, max = Infinity, description, defaultState = [] }) => {
-    const web = webStore((w) => w);
-
-    const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
-    const [error, setError] = useState<string>();
+export default function MultiSelectMenu({
+    className,
+    name,
+    url,
+    dataName,
+    items = [],
+    disabled,
+    max = Infinity,
+    description,
+    defaultState = []
+}: Props) {
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
 
     const [open, setOpen] = useState<boolean>(false);
-    const [_defaultvalue, _setDefaultalue] = useState<string[]>([]);
+    const [defaultvalue, setDefaultalue] = useState<string[]>([]);
     const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string; error?: string; color?: number; }[]>([]);
 
     useEffect(() => {
         setValues(items.filter((i) => defaultState?.includes(i.value)));
-        _setDefaultalue(defaultState);
+        setDefaultalue(defaultState);
     }, [defaultState]);
 
     useEffect(() => {
-        setError(undefined);
-        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(_defaultvalue)) {
-            setState(undefined);
+        setError(null);
+        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
+            setState(State.Idle);
             return;
         }
 
-        setState("LOADING");
+        setState(State.Loading);
+
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
             credentials: "include",
@@ -62,12 +75,12 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
 
                 switch (res.status) {
                     case 200: {
-                        setState("SUCCESS");
-                        setTimeout(() => setState(undefined), 1_000 * 8);
+                        setState(State.Success);
+                        setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;
                     }
                     default: {
-                        setState("ERRORED");
+                        setState(State.Idle);
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
@@ -75,8 +88,8 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
 
             })
             .catch(() => {
-                setState("ERRORED");
-                setError("Error while fetching guilds");
+                setState(State.Idle);
+                setError("Error while updating");
             });
 
     }, [open]);
@@ -85,23 +98,29 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
         <div className={cn("select-none w-full max-w-full mb-3 relative", className)}>
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
-                {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
             <button
                 className={cn(
-                    "mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3",
-                    open && "outline outline-violet-400 outline-2", (values.find((v) => !!v.error) || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1",
-                    state === "SUCCESS" && !open && "outline outline-green-500 outline-1",
-                    (state === "LOADING" || disabled) && "cursor-not-allowed opacity-50"
+                    "mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3",
+                    open && "outline outline-violet-400 outline-2",
+                    (values.find((v) => !!v.error) || error) && !open && "outline outline-red-500 outline-1",
+                    state === State.Success && !open && "outline outline-green-500 outline-1",
+                    (state === State.Loading || disabled) && "cursor-not-allowed opacity-50"
                 )}
                 onClick={() => {
                     setOpen(!open);
-                    if (!open) _setDefaultalue(values.map((v) => v.value));
+                    if (!open) setDefaultalue(values.map((v) => v.value));
                 }}
-                disabled={(state === "LOADING" || disabled)}
+                disabled={state === State.Loading || disabled}
             >
-                <div className={cn("flex flex-wrap overflow-x-hidden gap-1 py-3", values.length ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400")} >
+                <div
+                    className={cn(
+                        "flex flex-wrap overflow-x-hidden gap-1 py-3 dark:text-neutral-600 text-neutral-400",
+                        values.length && "dark:text-neutral-300 text-neutral-700"
+                    )}
+                >
                     {!values.length && <span>Select..</span>}
                     {values.map((v) => (
                         <button
@@ -117,7 +136,7 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
                             }}
                         >
                             {v.icon && <span className="absolute left-0">{v.icon}</span>}
-                            <span className={v.icon ? "ml-6" : ""}>{v.name}</span>
+                            <span className={cn(v.icon && "ml-6")}>{v.name}</span>
                             {open && <HiX className="h-4 w-4" />}
                         </button>
                     ))}
@@ -128,7 +147,11 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
                             <HiExclamationCircle /> {values.find((v) => v.error)?.error}
                         </div>
                     }
-                    {max !== Infinity && <span className="dark:text-neutral-600 text-neutral-400">{values.length}/{max}</span>}
+                    {max !== Infinity &&
+                        <span className="dark:text-neutral-600 text-neutral-400">
+                            {values.length}/{max}
+                        </span>
+                    }
                     <HiChevronDown />
                 </div>
             </button>
@@ -138,20 +161,34 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
-                                className={`p-4 py-2 w-full ${item.error ? "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40" : "dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha"} text-left duration-200 flex items-center`}
+                                className={cn(
+                                    "p-4 py-2 w-full text-left duration-200 flex justify-between items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
+                                    item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
+                                )}
                                 style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
                                 key={item.name}
                                 onClick={() => {
-                                    setState(undefined);
+                                    setState(State.Loading);
                                     setValues((v) => {
                                         if (v.length >= max || v.find((i) => i.value === item.value)) return v.filter((i) => i.value !== item.value);
                                         return [...v, item];
                                     });
                                 }}
                             >
-                                {item?.icon && <span className="mr-2">{item?.icon}</span>}
-                                <span>{truncate(item.name, item.error ? 30 : 48)}</span>
-                                {values.find((v) => v.value === item.value) && <HiCheck className="ml-1" />}
+                                {item?.icon &&
+                                    <span className="mr-2">
+                                        {item?.icon}
+                                    </span>
+                                }
+
+                                <span className="max-w-[calc(100%-13rem)] truncate">
+                                    {item.name}
+                                </span>
+
+                                {values.find((v) => v.value === item.value) &&
+                                    <HiCheck className="ml-1" />
+                                }
+
                                 {item.error &&
                                     <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
                                         <HiExclamationCircle /> {item.error}
@@ -163,13 +200,20 @@ const MultiSelectMenu: FunctionComponent<Props> = ({ className, name, url, dataN
                 </div>
             }
 
-            <div className={`${web.width > 880 && "flex"} mt-1`}>
-                {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
-                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
+            <div className="mt-1 flex md:block">
+                {description &&
+                    <div className="dark:text-neutral-500 text-neutral-400 text-sm">
+                        {description}
+                    </div>
+                }
+
+                {error &&
+                    <div className="ml-auto text-red-500 text-sm">
+                        {error}
+                    </div>
+                }
             </div>
 
         </div>
     );
-};
-
-export default MultiSelectMenu;
+}

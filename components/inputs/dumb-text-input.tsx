@@ -1,4 +1,4 @@
-import React, { FunctionComponent, HTMLAttributes, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import cn from "@/utils/cn";
 
@@ -18,14 +18,24 @@ type Props = {
     dataName?: string;
 };
 
-
-const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, max = 256, thin, type, dataName }) => {
+export default function DumbTextInput({
+    name,
+    placeholder,
+    value,
+    setValue,
+    disabled,
+    description,
+    max = 256,
+    thin,
+    type,
+    dataName
+}: Props) {
     const className = cn(
         "mt-1 resize-y w-full dark:bg-wamellow bg-wamellow-100 rounded-lg flex items-center px-4 py-2 focus:outline outline-violet-400 caret-violet-400 outline-2",
         max > 300 ? "h-28" : (thin ? "h-10" : "h-12"),
         thin && "relative bottom-1",
         disabled && "cursor-not-allowed opacity-50"
-    ) as HTMLAttributes<HTMLInputElement>["className"];
+    );
 
     const [length, setLength] = useState(0);
 
@@ -50,7 +60,10 @@ const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, set
             }
 
             {type === "color" ?
-                <div className={cn(className, "mt-1 h-12 w-full rounded-md border dark:border-wamellow border-wamellow-100 bg-none")} style={{ backgroundColor: `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` }}>
+                <div
+                    className={cn(className, "mt-1 h-12 w-full rounded-md border dark:border-wamellow border-wamellow-100 bg-none")}
+                    style={{ backgroundColor: `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` }}
+                >
                     <input
                         className="opacity-0 w-full h-full cursor-pointer"
                         type="color"
@@ -102,10 +115,12 @@ const DumbTextInput: FunctionComponent<Props> = ({ name, placeholder, value, set
                     />
             }
 
-            {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm mt-1">{description}</div>}
+            {description &&
+                <div className="dark:text-neutral-500 text-neutral-400 text-sm mt-1">
+                    {description}
+                </div>
+            }
 
         </div>
     );
-};
-
-export default DumbTextInput;
+}

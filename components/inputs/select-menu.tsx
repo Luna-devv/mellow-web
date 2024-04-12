@@ -1,11 +1,15 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiCheck, HiChevronDown, HiExclamationCircle, HiX } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
-import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
-import { truncate } from "@/utils/truncate";
+
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Success = 2
+}
 
 type Props = {
     className?: string;
@@ -22,40 +26,49 @@ type Props = {
     onSave?: (options: { name: string; value: string | number | null; error?: string }) => void;
 };
 
-
-const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName, items = [], disabled, description, defaultState, showClear, onSave }) => {
-    const web = webStore((w) => w);
-
-    const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
-    const [error, setError] = useState<string>();
+export default function SelectMenu({
+    className,
+    name,
+    url,
+    dataName,
+    items = [],
+    disabled,
+    description,
+    defaultState,
+    showClear,
+    onSave
+}: Props) {
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
 
     const [open, setOpen] = useState<boolean>(false);
-    const [_defaultvalue, _setDefaultalue] = useState<string | number | null | undefined>();
+    const [defaultvalue, setDefaultalue] = useState<string | number | null | undefined>();
     const [value, setValue] = useState<{ icon?: React.ReactNode; name: string; value: string | number | null; error?: string } | undefined>();
 
     useEffect(() => {
         setValue(items.find((i) => i.value === defaultState));
-        _setDefaultalue(defaultState);
+        setDefaultalue(defaultState);
     }, [defaultState]);
 
     useEffect(() => {
-        setError(undefined);
+        setError(null);
 
-        if (!value || value.error || value.value === _defaultvalue) {
-            setState(undefined);
+        if (!value || value.error || value.value === defaultvalue) {
+            setState(State.Idle);
             return;
         }
 
         if (!url) {
             if (!onSave) throw new Error("Warning: <SelectInput.onSave> must be defined when not using <SelectInput.url>.");
             onSave(value);
-            setState(undefined);
+            setState(State.Idle);
             return;
         }
 
         if (!dataName) throw new Error("Warning: <SelectInput.dataName> must be defined when using <SelectInput.url>.");
 
-        setState("LOADING");
+        setState(State.Loading);
+
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
             credentials: "include",
@@ -75,12 +88,12 @@ const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName,
                 switch (res.status) {
                     case 200: {
                         onSave?.(value);
-                        setState("SUCCESS");
-                        setTimeout(() => setState(undefined), 1_000 * 8);
+                        setState(State.Success);
+                        setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;
                     }
                     default: {
-                        setState("ERRORED");
+                        setState(State.Idle);
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
@@ -88,8 +101,8 @@ const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName,
 
             })
             .catch(() => {
-                setState("ERRORED");
-                setError("Error while fetching guilds");
+                setState(State.Idle);
+                setError("Error while updating");
             });
 
     }, [value]);
@@ -98,15 +111,26 @@ const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName,
         <div className={cn("select-none w-full max-w-full mb-2 relative", className)}>
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
-                {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
             <button
-                className={`mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-md flex items-center px-3 ${open && "outline outline-violet-400 outline-2"} ${(value?.error || error || state === "ERRORED") && !open && "outline outline-red-500 outline-1"} ${state === "SUCCESS" && !open && "outline outline-green-500 outline-1"} ${((state === "LOADING" || disabled)) && "cursor-not-allowed opacity-50"}`}
+                className={cn(
+                    "mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3",
+                    open && "outline outline-violet-400 outline-2",
+                    (value?.error || error) && !open && "outline outline-red-500 outline-1",
+                    state === State.Success && !open && "outline outline-green-500 outline-1",
+                    (state === State.Loading || disabled) && "cursor-not-allowed opacity-50"
+                )}
                 onClick={() => setOpen(!open)}
-                disabled={(state === "LOADING" || disabled)}
+                disabled={state === State.Loading || disabled}
             >
-                <div className={`${value?.name ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-600 text-neutral-400"} flex items-center`}>
+                <div
+                    className={cn(
+                        "flex flex-wrap overflow-x-hidden gap-1 py-3 dark:text-neutral-600 text-neutral-400",
+                        value?.name && "dark:text-neutral-300 text-neutral-700"
+                    )}
+                >
                     {value?.icon && <span className="mr-2">{value?.icon}</span>}
                     {value?.name || "Select.."}
                 </div>
@@ -135,18 +159,32 @@ const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName,
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
-                                className={`p-4 py-2 w-full ${item.error ? "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40" : "dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha"} text-left duration-200 flex items-center`}
+                                className={cn(
+                                    "p-4 py-2 w-full text-left duration-200 flex justify-between items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
+                                    item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
+                                )}
                                 key={item.value}
                                 onClick={() => {
                                     setOpen(false);
-                                    setState(undefined);
-                                    if (value?.value) _setDefaultalue(value.value);
+                                    setState(State.Idle);
+                                    if (value?.value) setDefaultalue(value.value);
                                     setValue(item);
                                 }}
                             >
-                                {item?.icon && <span className="mr-2">{item?.icon}</span>}
-                                <span>{truncate(item.name, item.error ? 30 : 48)}</span>
-                                {value?.value === item.value && <HiCheck className="ml-1" />}
+                                {item?.icon &&
+                                    <span className="mr-2">
+                                        {item?.icon}
+                                    </span>
+                                }
+
+                                <span className={cn("truncate", item.error && "max-w-[calc(100%-13rem)]")}>
+                                    {item.name}
+                                </span>
+
+                                {value?.value === item.value &&
+                                    <HiCheck className="ml-1" />
+                                }
+
                                 {item.error &&
                                     <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
                                         <HiExclamationCircle /> {item.error}
@@ -158,13 +196,20 @@ const SelectInput: FunctionComponent<Props> = ({ className, name, url, dataName,
                 </div>
             }
 
-            <div className={`${web.width > 880 && "flex"} mt-1`}>
-                {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm">{description}</div>}
-                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
+            <div className="mt-1 flex md:block">
+                {description &&
+                    <div className="dark:text-neutral-500 text-neutral-400 text-sm">
+                        {description}
+                    </div>
+                }
+
+                {error &&
+                    <div className="ml-auto text-red-500 text-sm">
+                        {error}
+                    </div>
+                }
             </div>
 
         </div>
     );
-};
-
-export default SelectInput;
+}

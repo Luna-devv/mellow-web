@@ -9,10 +9,10 @@ import { useState } from "react";
 import { HiChartBar, HiMail } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import SelectMenu from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import SelectMenu from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import Modal from "@/components/modal";
-import Section from "@/components/section";
+import { Section } from "@/components/section";
 
 import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
 

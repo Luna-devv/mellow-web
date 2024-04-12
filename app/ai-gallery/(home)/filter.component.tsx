@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
 
-import Switch from "@/components/inputs/Switch";
+import Switch from "@/components/inputs/switch";
 
 export default function SearchFilter(
     {

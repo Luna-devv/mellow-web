@@ -1,7 +1,7 @@
 "use client";
 
 import { User, userStore } from "@/common/user";
-import SelectInput from "@/components/inputs/SelectMenu";
+import SelectInput from "@/components/inputs/select-menu";
 import { deepMerge } from "@/utils/deepMerge";
 import { actor, getVoices, voices } from "@/utils/tts";
 

@@ -8,8 +8,8 @@ import cn from "@/utils/cn";
 import Highlight from "./discord/markdown";
 import DiscordMessage from "./discord/message";
 import DiscordMessageEmbed from "./discord/message-embed";
-import DumbColorInput from "./inputs/Dumb_ColorInput";
-import DumbTextInput from "./inputs/Dumb_TextInput";
+import DumbColorInput from "./inputs/dumb-color-input";
+import DumbTextInput from "./inputs/dumb-text-input";
 
 interface Props {
     children?: React.ReactNode

@@ -7,8 +7,8 @@ import { useState } from "react";
 import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 
 import { Guild } from "@/common/guilds";
-import SelectInput from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import SelectInput from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
 

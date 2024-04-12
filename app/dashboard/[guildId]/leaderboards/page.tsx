@@ -6,9 +6,9 @@ import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { Guild, guildStore } from "@/common/guilds";
-import ImageUrlInput from "@/components/inputs/ImageUrlInput";
-import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
-import TextInput from "@/components/inputs/TextInput";
+import ImageUrlInput from "@/components/inputs/image-url-input";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
+import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import Section from "@/components/section";
 import { cacheOptions, getData } from "@/lib/api";

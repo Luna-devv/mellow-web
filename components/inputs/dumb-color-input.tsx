@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { FunctionComponent, HTMLAttributes, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 
 import cn from "@/utils/cn";
@@ -18,16 +18,22 @@ type Props = {
     dataName?: string;
 };
 
-
-const DumbColorInput: FunctionComponent<Props> = ({ name, placeholder, value, setValue, disabled, description, thin, dataName }) => {
+export default function DumbColorInput({
+    name,
+    placeholder,
+    value,
+    setValue,
+    disabled,
+    description,
+    thin,
+    dataName
+}: Props) {
     const className = cn(
         "mt-1 resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-lg flex items-center px-4 py-2 focus:outline outline-violet-400 outline-2",
         thin ? "h-10" : "h-12",
         thin && "relative bottom-1",
         disabled && "cursor-not-allowed opacity-50"
-    ) as HTMLAttributes<HTMLInputElement>["className"];
-
-    // console.log(dataName && JSON.parse(value)[dataName]);
+    );
 
     // this cuz there can be multiple color inputs on the same page, so it will bug, so we need to identify them
     const [inputId, setInputId] = useState<string>("");
@@ -86,10 +92,12 @@ const DumbColorInput: FunctionComponent<Props> = ({ name, placeholder, value, se
                 </AnimatePresence>
             </label>
 
-            {description && <div className="dark:text-neutral-500 text-neutral-400 text-sm mt-1">{description}</div>}
+            {description &&
+                <div className="dark:text-neutral-500 text-neutral-400 text-sm mt-1">
+                    {description}
+                </div>
+            }
 
         </div>
     );
-};
-
-export default DumbColorInput;
+}

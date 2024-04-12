@@ -8,8 +8,8 @@ import { HiArrowLeft, HiArrowNarrowLeft, HiExternalLink, HiFingerPrint } from "r
 
 import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
-import SelectInput from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import SelectInput from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import Modal from "@/components/modal";
 import Notice from "@/components/notice";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
