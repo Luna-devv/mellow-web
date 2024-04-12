@@ -10,7 +10,7 @@ import ImageUrlInput from "@/components/inputs/image-url-input";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
-import Section from "@/components/section";
+import { Section, SubSection } from "@/components/section";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
@@ -18,6 +18,7 @@ import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
 import ResetLeaderboard from "./reset.component";
 import UpdatingLeaderboardCard from "./updating.component";
+import DiscordWidget from "./widget.component";
 
 export default function Home() {
     const cookies = useCookies();
@@ -165,7 +166,7 @@ export default function Home() {
             </div>
 
             <Section
-                title="Updating leaderboards"
+                title="Updating"
             >
                 These leaderboards will be sent in a channel and update roughly every 20 minutes.
             </Section>
@@ -178,12 +179,19 @@ export default function Home() {
 
 
             <Section
-                title="Danger zone"
+                title="Privacy"
             >
-                Reset the leaderboard to start fresh. This action cannot be undone.
+                Manage the privacy of the leaderboard.
             </Section>
 
-            <ResetLeaderboard guild={guild as Guild} />
+            <DiscordWidget guild={guild as Guild} />
+
+            <SubSection
+                title="Removal"
+                description="Reset the leaderboard to start fresh. This action cannot be undone"
+            >
+                <ResetLeaderboard guild={guild as Guild} />
+            </SubSection>
 
         </div >
     );

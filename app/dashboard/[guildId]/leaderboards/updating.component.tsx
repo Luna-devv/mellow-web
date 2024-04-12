@@ -53,7 +53,7 @@ export default function UpdatingLeaderboardCard({ guild, lb, type }: Props) {
     });
 
     return (
-        <div className="w-1/3 flex items-center flex-col">
+        <div className="md:w-1/3 flex md:items-center flex-col">
             <div>
                 <div className="text-sm mb-0.5">Updating {type} {leaderboard?.channelId && "in"}</div>
 
