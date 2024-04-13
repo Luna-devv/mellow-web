@@ -5,6 +5,8 @@ import { TailSpin } from "react-loading-icons";
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
 
+import { ClickOutside } from "../click-outside";
+
 enum State {
     Idle = 0,
     Loading = 1,
@@ -104,7 +106,7 @@ export default function MultiSelectMenu({
 
             <button
                 className={cn(
-                    "mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3 duration-100",
+                    "mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3 duration-100 wamellow-modal",
                     open && "outline outline-violet-400 outline-2",
                     (values.find((v) => !!v.error) || error) && !open && "outline outline-red-500 outline-1",
                     state === State.Success && !open && "outline outline-green-500 outline-1",
@@ -126,7 +128,7 @@ export default function MultiSelectMenu({
                     {values.map((v) => (
                         <button
                             key={v.value}
-                            className={cn("relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md flex items-center gap-1", open && "hover:bg-danger text-neutral-100")}
+                            className={cn("relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md flex items-center gap-1 wamellow-modal", open && "hover:bg-danger text-neutral-100")}
                             style={v.color ? { color: `#${v.color.toString(16)}` } : {}}
                             onClick={(e) => {
                                 if (!open) return;
@@ -158,7 +160,9 @@ export default function MultiSelectMenu({
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll shadow-xl z-20">
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll shadow-xl z-20 wamellow-modal">
+                    <ClickOutside onClose={(() => setOpen(false))} />
+
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item, i) => (
                             <button

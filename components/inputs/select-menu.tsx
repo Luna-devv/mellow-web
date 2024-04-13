@@ -5,6 +5,8 @@ import { TailSpin } from "react-loading-icons";
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
 
+import { ClickOutside } from "../click-outside";
+
 enum State {
     Idle = 0,
     Loading = 1,
@@ -116,7 +118,7 @@ export default function SelectMenu({
 
             <button
                 className={cn(
-                    "mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3 duration-100",
+                    "mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3 duration-100 wamellow-modal",
                     open && "outline outline-violet-400 outline-2",
                     (value?.error || error) && !open && "outline outline-red-500 outline-1",
                     state === State.Success && !open && "outline outline-green-500 outline-1",
@@ -155,7 +157,9 @@ export default function SelectMenu({
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-20">
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-20 wamellow-modal">
+                    <ClickOutside onClose={(() => setOpen(false))} />
+
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item, i) => (
                             <button
