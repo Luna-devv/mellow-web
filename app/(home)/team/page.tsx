@@ -65,21 +65,11 @@ export default function Home() {
                             {members
                                 .filter((person) => person.team === team)
                                 .map((person) => (
-                                    person.team === TeamType.Blahaj
-                                        ?
-                                        <Person
-                                            key={person.name}
-                                            username={person.name.toLowerCase()}
-                                            globalName={person.name}
-                                            avatarUrl={person.avatarUrl}
-                                            social={"social" in person ? person.social as string : undefined}
-                                        />
-                                        :
-                                        <PersonUser
-                                            key={person.id}
-                                            id={person.id}
-                                            social={"social" in person ? person.social as string : undefined}
-                                        />
+                                    <PersonUser
+                                        key={person.id}
+                                        id={person.id}
+                                        social={"social" in person ? person.social as string : undefined}
+                                    />
                                 ))
                             }
                         </div>

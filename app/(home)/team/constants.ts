@@ -3,7 +3,6 @@ export const repos = ["Luna-devv/mellow-web", "Luna-devv/nekostic", "Luna-devv/l
 export enum TeamType {
     Developer = "developer",
     AdditionalProgramming = "additional-programming",
-    Blahaj = "blahaj",
     Donator = "donator"
 }
 
@@ -12,22 +11,6 @@ export const members = [
         id: "821472922140803112",
         team: TeamType.Developer,
         social: "https://lunish.nl/kofi"
-    },
-
-    {
-        name: "Lea",
-        avatarUrl: "/lea.webp",
-        team: TeamType.Blahaj
-    },
-    {
-        name: "Lucy",
-        avatarUrl: "/lucy.webp",
-        team: TeamType.Blahaj
-    },
-    {
-        name: "Lauren",
-        avatarUrl: "/lauren.webp",
-        team: TeamType.Blahaj
     },
 
     {
