@@ -50,7 +50,8 @@ export default function MultiSelectMenu({
 
     useEffect(() => {
         setError(null);
-        if (open || values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
+
+        if (values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
             setState(State.Idle);
             return;
         }
@@ -136,7 +137,7 @@ export default function MultiSelectMenu({
                             }}
                         >
                             {v.icon && <span className="absolute left-0">{v.icon}</span>}
-                            <span className={cn(v.icon && "ml-6")}>{v.name}</span>
+                            <span className={cn(v.icon ? "ml-6" : "")}>{v.name}</span>
                             {open && <HiX className="h-4 w-4" />}
                         </button>
                     ))}
@@ -159,16 +160,16 @@ export default function MultiSelectMenu({
             {open &&
                 <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll shadow-xl z-20">
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
-                        {items.map((item) => (
+                        {items.map((item, i) => (
                             <button
                                 className={cn(
                                     "p-4 py-2 w-full text-left duration-200 flex justify-between items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
                                     item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
                                 )}
                                 style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
-                                key={item.name}
+                                key={"multiselect-" + item.value + i}
                                 onClick={() => {
-                                    setState(State.Loading);
+                                    setState(State.Idle);
                                     setValues((v) => {
                                         if (v.length >= max || v.find((i) => i.value === item.value)) return v.filter((i) => i.value !== item.value);
                                         return [...v, item];

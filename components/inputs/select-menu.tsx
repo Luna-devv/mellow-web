@@ -157,13 +157,13 @@ export default function SelectMenu({
             {open &&
                 <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-20">
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
-                        {items.map((item) => (
+                        {items.map((item, i) => (
                             <button
                                 className={cn(
                                     "p-4 py-2 w-full text-left duration-200 flex justify-between items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
                                     item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
                                 )}
-                                key={item.value}
+                                key={"select-" + item.value + i}
                                 onClick={() => {
                                     setOpen(false);
                                     setState(State.Idle);
