@@ -1,4 +1,8 @@
-Wamellow's welcome feature provides an excellent opportunity to make new members feel more welcome and appreciated. With its full customization options, you can create a personalized message that suits your server's tone and vibe.
+Wamellow boasts a feature-rich greeter. This functionality enables the bot to automatically send a welcoming message in a designated channel whenever a new member joins, fostering a warm and inviting community atmosphere.
+<br />
+<br />
+
+![farewell example](/docs-assets/welcome.webp)
 
 ## Setup
 1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).

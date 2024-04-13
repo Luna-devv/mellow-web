@@ -1,4 +1,8 @@
-Wamellow's leave feature offers a great way to bid farewell to departing members. With its customizable options, craft a personalized message reflecting your server's tone.
+Wamellow's farewell feature provides an exceptional platform to say goodbye to members who are leaving. With its versatile customization options, you can tailor a farewell message that mirrors the unique ambiance of your server.
+<br />
+<br />
+
+![farewell example](/docs-assets/welcome.webp)
 
 ## Setup
 1. Install Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).

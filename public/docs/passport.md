@@ -1,5 +1,7 @@
 Passport is essential for verifying users joining your Discord server, utilizing captchas as the method to authenticate users effectively and maintain security.
 
+[View a interactive example passport](/passport/1125063180801036329)
+
 ## Setup
 1. Install Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
 2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).

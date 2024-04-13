@@ -1,4 +1,8 @@
-Starboard provides a unique way to highlight noteworthy messages by allowing users to react with a designated emoji, ultimately showcasing them in a specific channel.
+The starboard serves as a channel for showcasing standout messages from your community. Members can "upvote" messages by reacting with a ⭐. Once a message gets a specified number of ⭐ reactions (for example, 3), it is automatically reposted in the `#starboard` channel. This creates a central hub for humorous, out-of-context, and memorable messages, creating eternal engagement within your community.
+<br />
+<br />
+
+![farewell example](/docs-assets/starboard.webp)
 
 ## Setup
 1. Install Wamellow on your server by going to [wamellow.com/add](https://wamellow.com/add).

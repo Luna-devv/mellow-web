@@ -41,8 +41,8 @@
         },
         {
             "name": "😔 Farewell",
-            "file": "leave.md",
             "description": "Say goodbye to departing members",
+            "file": "farewell.md",
             "permissions": {
                 "bot": [
                     "View Channel",
