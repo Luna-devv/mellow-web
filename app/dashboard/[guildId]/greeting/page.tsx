@@ -29,9 +29,9 @@ export default function Home() {
             </div>
 
             <OverviewLinkComponent
-                title="Leave message"
+                title="Farewell message"
                 message="Manage the message that gets send if a member leaves."
-                url={`/dashboard/${guild?.id}/greeting/bye`}
+                url={`/dashboard/${guild?.id}/greeting/farewell`}
                 icon={<HiUserRemove />}
             />
 

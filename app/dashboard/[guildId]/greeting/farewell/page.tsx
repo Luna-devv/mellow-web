@@ -1,15 +1,14 @@
-
 "use client";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowLeft, HiArrowNarrowLeft, HiExternalLink } from "react-icons/hi";
+import { HiArrowLeft, HiChat, HiExternalLink } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
-import { webStore } from "@/common/webstore";
+import Fetch from "@/components/button-fetch";
 import MessageCreatorEmbed from "@/components/embed-creator";
 import ImageUrlInput from "@/components/inputs/image-url-input";
 import NumberInput from "@/components/inputs/number-input";
@@ -19,7 +18,6 @@ import Notice from "@/components/notice";
 import { ApiV1GuildsModulesByeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
-    const web = webStore((w) => w);
     const guild = guildStore((g) => g);
     const user = userStore((s) => s);
 
@@ -51,45 +49,46 @@ export default function Home() {
 
             })
             .catch(() => {
-                setError("Error while fetching bye data");
+                setError("Error while fetching farewell data");
             });
 
     }, []);
 
+    const Head = () => (
+        <div className="flex justify-between relative bottom-2 mb-3">
+            <Button
+                as={Link}
+                href={`/dashboard/${guild?.id}/greeting`}
+                startContent={<HiArrowLeft />}
+                size="sm"
+            >
+                Back
+            </Button>
+            <Button
+                as={Link}
+                href="/docs/greetings"
+                target="_blank"
+                endContent={<HiExternalLink />}
+                size="sm"
+            >
+                Read docs & view placeholders
+            </Button>
+        </div>
+    );
+
     if (bye === undefined) return (
         <div>
-            <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
-                <HiArrowNarrowLeft /> Greetings
-            </Link>
+            <Head />
             {error && <Notice message={error} />}
         </div>
     );
 
     return (
         <div>
-
-            <div className="flex justify-between relative bottom-2 mb-3">
-                <Button
-                    as={Link}
-                    href={`/dashboard/${guild?.id}/greeting`}
-                    startContent={<HiArrowLeft />}
-                    size="sm"
-                >
-                    Back
-                </Button>
-                <Button
-                    as={Link}
-                    href="/docs/greetings"
-                    target="_blank"
-                    endContent={<HiExternalLink />}
-                    size="sm"
-                >
-                    Read docs & view placeholders
-                </Button>
-            </div>
+            <Head />
 
             <Switch
-                name="Bye module enabled."
+                name="Farewell module enabled"
                 url={`/guilds/${guild?.id}/modules/bye`}
                 dataName="enabled"
                 defaultState={bye?.enabled || false}
@@ -103,7 +102,7 @@ export default function Home() {
             />
 
             <NumberInput
-                name="After how many seconds the message should be deleted."
+                name="After how many seconds the message should be deleted"
                 description="Set to 0 to disable."
                 url={`/guilds/${guild?.id}/modules/bye`}
                 dataName="deleteAfter"
@@ -111,61 +110,25 @@ export default function Home() {
                 disabled={!bye.enabled}
             />
 
-            <div className="flex md:gap-4 gap-3">
+            <div className="flex md:gap-4 gap-2">
                 <SelectMenu
                     name="Channel"
                     url={`/guilds/${guild?.id}/modules/bye`}
                     dataName="channelId"
-                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
+                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
                     description="Select the channel where the bye message should be send into."
                     defaultState={bye?.channelId}
                     disabled={!bye.enabled}
                 />
 
-                <button
-                    id="test-button"
-                    className={`flex justify-center items-center bg-violet-600 hover:bg-violet-600/80 text-white py-2 px-4 rounded-md duration-100 mt-8 h-12 md:w-32 ${!bye.enabled && "cursor-not-allowed opacity-50"}`}
-                    onClick={() => {
-                        if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
-                        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/bye/test`, {
-                            method: "POST",
-                            credentials: "include",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({})
-                        })
-                            .then(async (res) => {
-                                console.log(res);
-                                const response = await res.json() as ApiV1GuildsModulesByeGetResponse;
-                                if (!response) return;
-
-                                switch (res.status) {
-                                    case 200: {
-                                        document.getElementById("test-button")?.classList.add(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
-                                        document.getElementById("test-button")?.classList.remove(..."bg-violet-600 hover:bg-violet-600/80".split(" "));
-
-                                        setTimeout(() => {
-                                            document.getElementById("test-button")?.classList.remove(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
-                                            document.getElementById("test-button")?.classList.add(..."bg-violet-600 hover:bg-violet-600/80".split(" "));
-                                        }, 1_000 * 8);
-
-                                        break;
-                                    }
-                                    default: {
-                                        setError((response as unknown as RouteErrorResponse).message);
-                                        break;
-                                    }
-                                }
-
-                            })
-                            .catch(() => {
-                                setError("Error while sending test");
-                            });
-                    }}
-                >
-                    {web.width > 768 ? <span>Send Test</span> : <span>Test</span>}
-                </button>
+                <Fetch
+                    className="w-1/3 md:w-1/6 relative top-8"
+                    url={`/guilds/${params.guildId}/modules/bye/test`}
+                    icon={<HiChat className="min-h-4 min-w-4" />}
+                    label="Test Message"
+                    method="POST"
+                    size="lg"
+                />
             </div>
 
             <MessageCreatorEmbed
@@ -181,7 +144,7 @@ export default function Home() {
                 <div className={`mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6 ${!bye.card.enabled && "pb-[0px]"}`}>
 
                     <Switch
-                        name="Show image card."
+                        name="Show image card"
                         url={`/guilds/${guild?.id}/modules/bye`}
                         dataName="card.enabled"
                         defaultState={bye.card.enabled}
