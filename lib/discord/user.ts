@@ -1,5 +1,5 @@
 import { Collection } from "@discordjs/collection";
-import { APIUser, RESTGetAPIUserResult, Routes } from "discord-api-types/v10";
+import { APIUser, RESTError, RESTGetAPIUserResult, Routes } from "discord-api-types/v10";
 
 import { rest } from "./index";
 
@@ -27,10 +27,10 @@ export async function getUser(userId: string) {
     const user = cache.get(userId);
     if (user) return user;
 
-    const userData = await rest.get(Routes.user(userId)) as RESTGetAPIUserResult;
-    if (!userData) return null;
+    const data = await rest.get(Routes.user(userId)) as RESTGetAPIUserResult | RESTError;
+    if (!data || "message" in data) return null;
 
-    const newUser = new User(userData);
+    const newUser = new User(data);
     cache.set(userId, newUser);
 
     return newUser;

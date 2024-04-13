@@ -1,14 +1,17 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { BsGithub } from "react-icons/bs";
+import { BsDiscord, BsGithub } from "react-icons/bs";
 
 import MommyPic from "@/public/mommy.webp";
 import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
-import { members, repos, TeamType } from "./constants";
-import { Person, PersonUser } from "./person.component";
+import { members, repos } from "./constants";
+import { DiscordServer } from "./discord.component";
+import { PersonUser } from "./person.component";
 import { Repository } from "./repository.component";
+
+export const revalidate = 60 * 60;
 
 export const generateMetadata = async (): Promise<Metadata> => {
     const title = "Team";
@@ -48,7 +51,7 @@ export default function Home() {
         <div>
             <h2 className="text-2xl font-medium text-neutral-200">Team 🍪</h2>
             <div className="max-w-xl mt-1">
-                Meet the creators of Wamellow and its products. Our dedicated team, including developers and donors, drives innovation and community growth
+                Meet the creators of Wamellow and its products. Our dedicated team, including developers and donors, drives innovation and community growth.
             </div>
 
             <div className="relative divide-y-1 divide-wamellow mb-10">
@@ -90,13 +93,22 @@ export default function Home() {
                 Some parts of Wamellow are open source and available on GitHub. We welcome contributions from the community to help us improve our products and services.
             </div>
 
-            <div className="mt-2 grid grid-cols-2 gap-3 py-5">
+            <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 py-5 mb-10">
                 {repos.map((repo) => (
                     <Repository
                         key={repo}
                         fullname={repo}
                     />
                 ))}
+            </div>
+
+            <h2 className="text-2xl font-medium text-neutral-200">Discord Community <BsDiscord className="inline ml-1 mb-1 text-[#5865f2]" /></h2>
+            <div className="max-w-xl mt-1">
+                Join our Discord server to chat with other members of the community, ask questions, and get help with our products.
+            </div>
+
+            <div className="mt-2 py-5 md:w-1/2">
+                <DiscordServer guildId="828676951023550495" />
             </div>
 
         </div>
