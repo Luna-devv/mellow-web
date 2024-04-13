@@ -1,84 +1,14 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { HiExternalLink } from "react-icons/hi";
+import { BsGithub } from "react-icons/bs";
 
-import { getUser } from "@/lib/discord/user";
 import MommyPic from "@/public/mommy.webp";
-import cn from "@/utils/cn";
 import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
-enum TeamType {
-    Developer = "developer",
-    AdditionalProgramming = "additional-programming",
-    Blahaj = "blahaj",
-    Donator = "donator"
-}
-
-const data = [
-    {
-        id: "821472922140803112",
-        team: TeamType.Developer,
-        social: "https://lunish.nl/kofi"
-    },
-
-    {
-        name: "Lea",
-        avatarUrl: "/lea.webp",
-        team: TeamType.Blahaj
-    },
-    {
-        name: "Lucy",
-        avatarUrl: "/lucy.webp",
-        team: TeamType.Blahaj
-    },
-    {
-        name: "Lauren",
-        avatarUrl: "/lauren.webp",
-        team: TeamType.Blahaj
-    },
-
-    {
-        id: "845287163712372756",
-        team: TeamType.AdditionalProgramming,
-        social: "https://ko-fi.com/aurora_loves_women"
-    },
-    {
-        id: "903534295652663326",
-        team: TeamType.AdditionalProgramming,
-        social: "https://ismcserver.online"
-    },
-
-    {
-        id: "301482272497074189",
-        team: TeamType.Donator
-    },
-    {
-        id: "797012765352001557",
-        team: TeamType.Donator,
-        social: "https://crni.xyz/"
-    },
-    {
-        id: "1044032607207301160",
-        team: TeamType.Donator,
-        social: "https://notifyme.bot/"
-    },
-    {
-        id: "742224557632389160",
-        team: TeamType.Donator
-    },
-    {
-        id: "340243638892101646",
-        team: TeamType.Donator,
-        social: "https://sattler.dev/"
-    },
-    {
-        id: "911823996767600730",
-        team: TeamType.Donator,
-        social: "https://ibcheechy.com/"
-    }
-] as const;
+import { members, repos, TeamType } from "./constants";
+import { Person, PersonUser } from "./person.component";
+import { Repository } from "./repository.component";
 
 export const generateMetadata = async (): Promise<Metadata> => {
     const title = "Team";
@@ -117,12 +47,12 @@ export default function Home() {
     return (
         <div>
             <h2 className="text-2xl font-medium text-neutral-200">Team 🍪</h2>
-            <div className="max-w-xl">
+            <div className="max-w-xl mt-1">
                 Meet the creators of Wamellow and its products. Our dedicated team, including developers and donors, drives innovation and community growth
             </div>
 
-            <div className="relative divide-y-1 divide-wamellow">
-                {filterDuplicates(data.map((person) => person.team)).map((team) => (
+            <div className="relative divide-y-1 divide-wamellow mb-10">
+                {filterDuplicates(members.map((person) => person.team)).map((team) => (
                     <div
                         key={team}
                         className="py-5"
@@ -132,7 +62,7 @@ export default function Home() {
                         </h3>
 
                         <div className="mt-2 flex flex-wrap gap-3">
-                            {data
+                            {members
                                 .filter((person) => person.team === team)
                                 .map((person) => (
                                     person.team === TeamType.Blahaj
@@ -165,65 +95,20 @@ export default function Home() {
                 />
             </div>
 
-        </div>
-    );
-}
-
-async function PersonUser({
-    id,
-    social
-}: {
-    id: string;
-    social?: string;
-}) {
-    const user = await getUser(id);
-
-    if (!user) return <></>;
-
-    return (
-        <Person
-            username={user.username}
-            globalName={user.globalName}
-            social={social}
-            avatarUrl={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${user.avatar?.startsWith("a_") ? "gif" : "webp"}?size=64`}
-        />
-    );
-}
-
-function Person({
-    username,
-    globalName,
-    avatarUrl,
-    social
-}: {
-    username: string;
-    globalName: string | null;
-    avatarUrl: string;
-    social?: string;
-}) {
-    return (
-        <Link
-            className={cn(
-                "flex items-center gap-3 h-16 p-2 pr-4 bg-wamellow rounded-full cursor-default",
-                social && "duration-100 outline-violet-500 hover:outline cursor-pointer"
-            )}
-            href={social || "#"}
-            target={social && "_blank"}
-        >
-            <Image
-                alt={username}
-                className="rounded-full shrink-0 aspect-square"
-                height={48}
-                src={avatarUrl}
-                width={48}
-            />
-
-            <div className="mr-2">
-                <div className="text-lg text-neutral-200 font-medium -mb-1.5">{globalName}</div>
-                <span className="opacity-75">@{username}</span>
+            <h2 className="text-2xl font-medium text-neutral-200">Open Source <BsGithub className="inline ml-1 mb-1" /></h2>
+            <div className="max-w-xl mt-1">
+                Some parts of Wamellow are open source and available on GitHub. We welcome contributions from the community to help us improve our products and services.
             </div>
 
-            {social && <HiExternalLink className="w-5 h-5" />}
-        </Link>
+            <div className="mt-2 grid grid-cols-2 gap-3 py-5">
+                {repos.map((repo) => (
+                    <Repository
+                        key={repo}
+                        fullname={repo}
+                    />
+                ))}
+            </div>
+
+        </div>
     );
 }
