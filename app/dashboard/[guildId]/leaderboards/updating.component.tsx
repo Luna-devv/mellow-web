@@ -236,7 +236,7 @@ export default function UpdatingLeaderboardCard({ guild, lb, type }: Props) {
                 {structure === 0 &&
                     <Switch
                         name="Use quotes for text"
-                        tickbox
+                        isTickbox
                         defaultState={leaderboard?.styles?.useQuotes || false}
                         onSave={(s) => {
                             setStyles({ ...styles, useQuotes: s });

@@ -116,7 +116,7 @@ export default function SelectMenu({
 
             <button
                 className={cn(
-                    "mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3",
+                    "mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3 duration-100",
                     open && "outline outline-violet-400 outline-2",
                     (value?.error || error) && !open && "outline outline-red-500 outline-1",
                     state === State.Success && !open && "outline outline-green-500 outline-1",
@@ -155,7 +155,7 @@ export default function SelectMenu({
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-md backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-20">
+                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-20">
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
                         {items.map((item) => (
                             <button
@@ -196,7 +196,7 @@ export default function SelectMenu({
                 </div>
             }
 
-            <div className="mt-1 flex md:block">
+            <div className={cn("mt-1 flex md:block", open && "opacity-0")}>
                 {description &&
                     <div className="dark:text-neutral-500 text-neutral-400 text-sm">
                         {description}

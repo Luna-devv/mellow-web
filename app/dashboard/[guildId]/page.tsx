@@ -123,6 +123,7 @@ export default function Home() {
                         />
                         <Switch
                             name="Announce user"
+                            badge="Experimental"
                             url={`/guilds/${params.guildId}`}
                             dataName="announceUser"
                             description="If I should say who is currently speaking via tts."
