@@ -112,7 +112,7 @@ export default function VerifyComponent({ guild }: Props) {
                 .catch(() => null);
 
             switch (res?.status) {
-                case 400:
+                case 409:
                     setState(State.Idle);
                     break;
                 default:
