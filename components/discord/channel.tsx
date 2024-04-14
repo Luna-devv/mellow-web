@@ -1,16 +1,24 @@
 import React from "react";
-import { HiVolumeUp } from "react-icons/hi";
+import { HiHashtag, HiVolumeUp } from "react-icons/hi";
 
 interface Props {
+    type: "text" | "voice";
     name: string;
     children?: React.ReactNode;
 }
 
-export default function DiscordChannelVoice({ name, children }: Props) {
+export default function DiscordChannel({
+    type,
+    name,
+    children
+}: Props) {
     return (
         <div className="text-medium text-neutral-400">
             <span className="flex items-center gap-1">
-                <HiVolumeUp />
+                {type === "text"
+                    ? <HiHashtag />
+                    : <HiVolumeUp />
+                }
                 {name}
             </span>
             {children &&

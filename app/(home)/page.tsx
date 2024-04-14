@@ -7,8 +7,8 @@ import { HiArrowNarrowRight, HiArrowRight, HiCash, HiFire, HiLockOpen, HiUserAdd
 
 import Box from "@/components/box";
 import Comment from "@/components/comment";
+import DiscordChannel from "@/components/discord/channel";
 import DiscordChannelCategory from "@/components/discord/channel-category";
-import DiscordChannelVoice from "@/components/discord/channel-voice";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
@@ -273,11 +273,14 @@ export default async function Home() {
                                 style={{ backgroundColor: "rgb(43, 45, 49)" }}
                             >
                                 <DiscordChannelCategory name="#/voice/dev/null">
-                                    <DiscordChannelVoice name="• Public">
+                                    <DiscordChannel
+                                        type="voice"
+                                        name="• Public"
+                                    >
                                         <DiscordUser username="mwlica" avatar="/luna-small.webp" />
                                         <DiscordUser username="Space" avatar="/space.webp" />
                                         <DiscordUser username="Wamellow" avatar="/waya-v3-small.webp" isTalking />
-                                    </DiscordChannelVoice>
+                                    </DiscordChannel>
                                 </DiscordChannelCategory>
 
                                 <div className="bg-[#313338] h-0.5 w-full sm:w-0.5 sm:h-32 md:h-0.5 md:w-full lg:w-0.5 lg:h-32 rounded-full ml-2" />
