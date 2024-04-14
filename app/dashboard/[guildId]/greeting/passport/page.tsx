@@ -97,7 +97,7 @@ export default function Home() {
             }
 
             <Switch
-                name="Passport module enabled."
+                name="Passport module enabled"
                 url={`/guilds/${guild?.id}/modules/passport`}
                 dataName="enabled"
                 defaultState={passport?.enabled || false}
@@ -111,7 +111,7 @@ export default function Home() {
             />
 
             <Switch
-                name="Send direct message to member on fail."
+                name="Send direct message to member on fail"
                 url={`/guilds/${guild?.id}/modules/passport`}
                 dataName="sendFailedDm"
                 defaultState={passport?.sendFailedDm || false}
