@@ -6,7 +6,7 @@ import cn from "@/utils/cn";
 interface Props {
     type: "text" | "voice";
     name: string;
-    isTruncated: boolean;
+    isTruncated?: boolean;
     children?: React.ReactNode;
 }
 
