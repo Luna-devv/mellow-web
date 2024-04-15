@@ -10,7 +10,7 @@ export function Section({
 } & React.HTMLAttributes<HTMLDivElement>) {
     return (
         <>
-            <Divider className="mt-10 mb-4" />
+            <Divider className="mt-12 mb-4" />
 
             <div {...props}>
                 <h3 className="text-xl text-neutral-200">{title}</h3>
@@ -32,7 +32,7 @@ export function SubSection({
 } & React.HTMLAttributes<HTMLDivElement>) {
     return (
         <div {...props}>
-            <h3 className="text-medium font-medium text-neutral-300 mt-4">{title}</h3>
+            <h3 className="text-medium font-medium text-neutral-300 mt-5">{title}</h3>
             <div className="dark:text-neutral-500 text-neutral-400 mb-3">
                 <div className="mb-3">
                     {description}
