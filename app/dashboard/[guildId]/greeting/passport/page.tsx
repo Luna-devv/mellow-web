@@ -10,19 +10,18 @@ import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
-import Modal from "@/components/modal";
 import Notice from "@/components/notice";
 import OverviewLinkComponent from "@/components/OverviewLinkComponent";
 import { ApiV1GuildsModulesPassportGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
+
+import CompleteSetup from "./complete-setup";
 
 export default function Home() {
     const guild = guildStore((g) => g);
 
     const [error, setError] = useState<string>();
     const [passport, setPassport] = useState<ApiV1GuildsModulesPassportGetResponse>();
-    const [modal, setModal] = useState(false);
-    const [punishmentRoleId, setPunishmentRoleId] = useState<string>();
 
     const params = useParams();
 
@@ -53,10 +52,6 @@ export default function Home() {
             });
 
     }, []);
-
-    useEffect(() => {
-        if (passport?.punishment === 2 && !passport.punishmentRoleId) setModal(true);
-    }, [passport]);
 
     if (passport === undefined) return (
         <div>
@@ -90,11 +85,23 @@ export default function Home() {
                 </Button>
             </div>
 
-            {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId && !modal &&
+            {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId &&
                 <div className="mt-6">
                     <Notice message="When using 'Assign role to member', a punishment role must be set." />
                 </div>
             }
+
+            {passport.enabled && !passport.successRoleId &&
+                <div className="mt-6">
+                    <Notice message="A verified role must be set for passport to work." />
+                </div>
+            }
+
+            <CompleteSetup
+                guild={guild}
+                passport={passport}
+                setPassport={setPassport}
+            />
 
             <Switch
                 name="Passport module enabled"
@@ -179,40 +186,7 @@ export default function Home() {
                     />
                 </div>
 
-                <Modal
-                    title="Punishment role"
-                    show={modal}
-                    onClose={() => setModal(false)}
-                    onSubmit={() => {
-                        return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
-                            method: "PATCH",
-                            credentials: "include",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                punishmentRoleId: punishmentRoleId
-                            })
-                        });
-                    }}
-                    onSuccess={() => {
-                        setPassport({
-                            ...passport,
-                            punishmentRoleId
-                        });
-                    }}
-                >
-                    <SelectInput
-                        name="Role"
-                        dataName="punishmentRoleId"
-                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
-                        description="Select what role members should get when failing verification."
-                        defaultState={passport.punishmentRoleId}
-                        onSave={(o) => {
-                            setPunishmentRoleId(o.value as string);
-                        }}
-                    />
-                </Modal>
+
 
                 <div className="lg:w-1/2">
                     <SelectInput
