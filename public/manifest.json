@@ -1,7 +1,7 @@
 {
     "name": "Wamellow Dashboard",
     "short_name": "Wamellow",
-    "description": "Dashboard for the wamellow discord bot",
+    "description": "Dashboard for the Wamellow Discord App",
     "scope": "/",
     "start_url": "/",
     "form_factor": "wide",

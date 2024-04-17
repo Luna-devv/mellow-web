@@ -119,7 +119,7 @@ export default async function RootLayout({
                             size="lg"
                         >
                             <span className="block sm:hidden">Invite</span>
-                            <span className="hidden sm:block">Invite Wamellow</span>
+                            <span className="hidden sm:block">Invite Pronouns</span>
                         </ServerButton>
                         <ServerButton
                             as={Link}

@@ -36,7 +36,12 @@ export default function DiscordMessage({ children, commandUsed, user, mode }: Pr
 
             {commandUsed ?
                 <div className={cn("flex items-center gap-1 opacity-70 text-sm ml-4", mode === "DARK" ? "text-neutral-400" : "text-neutral-600")} >
-                    <div className={cn("border-t-2 border-l-2 rounded-tl-md w-7 relative shrink-0 h-2.5 top-1", mode === "DARK" ? "text-neutral-600 border-neutral-600" : "text-neutral-400 border-neutral-400")} />
+                    <div
+                        className={cn(
+                            "border-t-2 border-l-2 rounded-tl-md w-7 relative shrink-0 h-2.5 top-1",
+                            mode === "DARK" ? "text-neutral-600 border-neutral-600" : "text-neutral-400 border-neutral-400")
+                        }
+                    />
                     <div className="mx-0.5 flex items-center gap-1 font-semibold whitespace-nowrap overflow-hidden text-ellipsis shrink-0">
                         <Avatar
                             className="h-4 w-4"
@@ -72,7 +77,7 @@ export default function DiscordMessage({ children, commandUsed, user, mode }: Pr
                         </div>
                         {user.bot && <div className="text-xxs text-white bg-blurple rounded py-[1px] px-1 flex items-center">
                             <HiCheck />
-                            <span className="ml-1">BOT</span>
+                            <span className="ml-1">APP</span>
                         </div>
                         }
                         <time

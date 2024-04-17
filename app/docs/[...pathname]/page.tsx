@@ -39,7 +39,7 @@ export default async function Home({ params }: Props) {
             {meta?.permissions?.bot &&
                 <Notice
                     type={NoticeType.Info}
-                    message="Required bot permissions:"
+                    message="Wamellow requried permission:"
                     location="bottom"
                 >
                     <div className="flex flex-wrap gap-1">

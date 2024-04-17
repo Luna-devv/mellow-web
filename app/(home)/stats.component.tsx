@@ -39,7 +39,7 @@ export default async function Stats() {
                 {
                     name: "Our experience with",
                     number: stats?.globalGuilds || 0,
-                    gained: "guilds, 5 bots",
+                    gained: "guilds, 5 apps",
                     info: "https://discordlist.gg/user/821472922140803112"
                 }
             ]}

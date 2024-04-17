@@ -6,7 +6,7 @@
 **⚠️ In development, breaking changes ⚠️**
 
 ## About
-This is the [wamellow.com](https://wamellow.com) website for our discord bot, including the home page, leaderboards, passport, profile and server management.
+This is the [wamellow.com](https://wamellow.com) website for our Discord App, including the home page, leaderboards, passport, profile and server management.
 
 If you need help developing with this, join **[our Discord Server](https://discord.com/invite/yYd6YKHQZH)**.
 

@@ -136,7 +136,7 @@ export default function Home() {
             />
 
             <Switch
-                name="Allow bots and webhooks"
+                name="Allow bots, apps and webhooks"
                 url={url}
                 dataName="allowBots"
                 defaultState={data.allowBots || false}

@@ -18,7 +18,7 @@ const data = [
                     Be sure to have the <Code color="secondary">Manage Server</Code> permission on the server you want <LinkTag href="/login?invite=true">invite Wamellow</LinkTag> into.
                 </li>
                 <li>
-                    Open Discord{"'"}s add-bot flow at <LinkTag href="/login?invite=true">wamellow.com/invite</LinkTag>.
+                    Open Discord{"'"}s add-app flow at <LinkTag href="/login?invite=true">wamellow.com/invite</LinkTag>.
                 </li>
                 <li>
                     Select a server and click on {'"'}Continue{'"'}.
@@ -61,7 +61,7 @@ const data = [
                         Join any voice channel in your Server (be sure Wamellow can join it too).
                     </li>
                     <li>
-                        Start writing messages in the selected channel for the bot to speak.
+                        Start writing messages in the selected channel for the app to speak.
                     </li>
                     <li>
                         <span className="font-semibold">Done!</span> 🎉

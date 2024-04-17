@@ -104,7 +104,7 @@ export function AddButton() {
             prefetch={false}
             startContent={<BsDiscord />}
         >
-            Add bot to your server
+            Add Wamellow to your server
         </ServerButton>
     );
 }

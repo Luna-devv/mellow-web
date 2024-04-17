@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
-    const title = "Wamellow: Next-gen of discord bots";
+    const title = "Wamellow: Next-gen of Discord Apps";
     const description = "Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.";
 
     return {
@@ -50,7 +50,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
         description,
         keywords: [
-            "discord", "bot", "app", "intefration", "discord bot", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish", "Luna-devv", "mee6 alternative",
+            "discord", "bot", "app", "intefration", "discord bot", "discord app", "discord application", "app list", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish", "Luna-devv", "mee6 alternative",
             "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboard", "lb", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify",
             "captcha.bot", "security", "tts", "text to speech", "free", "customizable", "next-gen", "next generation", "ai", "ai images", "nsfw detection", "moderation", "anime",
             "nekos", "waifus", "chat to speech", "accessibility", "aphonia", "dysphonia", "mute", "liapew", "wumpus", "wumpus store", "wumpus bots"

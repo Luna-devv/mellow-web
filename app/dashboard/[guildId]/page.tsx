@@ -88,7 +88,7 @@ export default function Home() {
             <Section
                 title="Text to Speech"
             >
-                Let users to send messages to a channel and have the bot read it out loud in voice chat.
+                Let users to send messages to a channel and have wamellow read it out loud in voice chat.
             </Section>
 
             <div className="lg:flex gap-6 mt-5">
@@ -141,7 +141,7 @@ export default function Home() {
                         aria-label="how this works"
                         title="How this works"
                     >
-                        Users who are currently in a voice channel can send messages to this tts channel and the bot will then read the message out loud in vc. Note that the bot can only be in one voice channel at a time.
+                        Users who are currently in a voice channel can send messages to this tts channel and wamellow will then read the message out loud in vc. Note that wamellow can only be in one voice channel at a time.
 
                         <iframe
                             className="mt-6 aspect-video rounded-lg"
