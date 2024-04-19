@@ -1,9 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { getBaseUrl } from "@/utils/urls";
 import { Code } from "@nextui-org/react";
 import Link from "next/link";
 import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import Notice, { NoticeType } from "./notice";
+
+const ALLOWED_IFRAMES = [
+    "https://www.youtube.com/embed/",
+    "https://e.widgetbot.io/channels/",
+    getBaseUrl()
+] as const;
 
 import { getUser } from "@/lib/discord/user";
 import { filterDuplicates } from "@/utils/filter-duplicates";
@@ -131,8 +139,33 @@ export default async function BeautifyMarkdown({
                 tr: ({ isHeader, ...props }) => <tr className="divide-x-1 divide-wamellow" {...props} />,
                 td: ({ isHeader, ...props }) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />,
 
+                iframe: ({ className, ...props }) => {
+                    if (ALLOWED_IFRAMES.some((url) => props.src?.startsWith(url))) {
+                        return (
+                            <iframe
+                                allow="clipboard-write; fullscreen"
+                                className={cn(
+                                    "w-full rounded-lg mt-4",
+                                    className
+                                )}
+                                {...props}
+                            />
+                        )
+                    }
+
+                    return (
+                        <div className="mt-4">
+                            <Notice
+                                type={NoticeType.Error}
+                                message={`Iframe from "${props.src?.split("/")[2]}" is not allowed`}
+                            />
+                        </div>
+                    )
+                },
+
                 ol: ({ ordered, ...props }) => <ol className="list-decimal list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
                 ul: ({ ordered, ...props }) => <ul className="list-disc list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />
+
             }}
         >
             {await parseDiscordMarkdown(markdown)}
