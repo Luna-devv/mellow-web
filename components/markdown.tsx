@@ -6,13 +6,12 @@ import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import Notice, { NoticeType } from "./notice";
-import cn from "@/utils/cn";
 
-const AllowedIframes = [
+const ALLOWED_IFRAMES = [
     "https://www.youtube.com/embed/",
     "https://e.widgetbot.io/channels/",
     getBaseUrl()
-]
+] as const;
 
 import { getUser } from "@/lib/discord/user";
 import { filterDuplicates } from "@/utils/filter-duplicates";
@@ -141,7 +140,7 @@ export default async function BeautifyMarkdown({
                 td: ({ isHeader, ...props }) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />,
 
                 iframe: ({ className, ...props }) => {
-                    if (AllowedIframes.some((url) => props.src?.startsWith(url))) {
+                    if (ALLOWED_IFRAMES.some((url) => props.src?.startsWith(url))) {
                         return (
                             <iframe
                                 allow="clipboard-write; fullscreen"
