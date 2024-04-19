@@ -1,8 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { getBaseUrl } from "@/utils/urls";
 import { Code } from "@nextui-org/react";
 import Link from "next/link";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
+import Notice, { NoticeType } from "./notice";
+import cn from "@/utils/cn";
+
+const AllowedIframes = [
+    "https://www.youtube.com/embed/",
+    "https://e.widgetbot.io/channels/",
+    getBaseUrl()
+]
 
 export default function BeautifyMarkdown({
     markdown
@@ -60,7 +69,31 @@ export default function BeautifyMarkdown({
                 table: (props) => <table className="mt-4 table-auto w-full divide-y-1 divide-wamellow overflow-scroll" {...props} />,
                 th: ({ isHeader, ...props }) => <th className=" px-2 pb-2 font-medium text-neutral-800 dark:text-neutral-200 text-left" {...props} />,
                 tr: ({ isHeader, ...props }) => <tr className="divide-x-1 divide-wamellow" {...props} />,
-                td: ({ isHeader, ...props }) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />
+                td: ({ isHeader, ...props }) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />,
+
+                iframe: ({ className, ...props }) => {
+                    if (AllowedIframes.some((url) => props.src?.startsWith(url))) {
+                        return (
+                            <iframe
+                                allow="clipboard-write; fullscreen"
+                                className={cn(
+                                    "w-full rounded-lg mt-4",
+                                    className
+                                )}
+                                {...props}
+                            />
+                        )
+                    }
+
+                    return (
+                        <div className="mt-4">
+                            <Notice
+                                type={NoticeType.Error}
+                                message={`Iframe from "${props.src?.split("/")[2]}" is not allowed`}
+                            />
+                        </div>
+                    )
+                }
             }}
         >
             {parseDiscordMarkdown(markdown)}
