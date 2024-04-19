@@ -4,7 +4,7 @@ import { Accordion, AccordionItem, Button, Chip, Tooltip } from "@nextui-org/rea
 import Link from "next/link";
 import { useCookies } from "next-client-cookies";
 import { FaReddit, FaTwitter } from "react-icons/fa";
-import { HiHand, HiShare, HiUserGroup } from "react-icons/hi";
+import { HiCheck, HiHand, HiShare, HiUserGroup } from "react-icons/hi";
 
 import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
@@ -68,7 +68,7 @@ export default function Side({
 
             <Ad
                 title="/image AI for free"
-                description="Create your own amazing AI /image-s with Wamellow for free in your Discord Server using the best SDXL models and 40+ more!"
+                description="Create your own amazing AI /image's with Wamellow for free in your Discord Server using the best SDXL models and 40+ more!"
             />
 
             <Accordion
@@ -131,7 +131,19 @@ export default function Side({
                                     />
                                 }
                             >
-                                @{upload.author.username}
+                                {upload.author.username}
+
+                                {upload.author.bot &&
+                                    <Chip
+                                        className="ml-2 h-4.5"
+                                        startContent={<HiCheck />}
+                                        color="secondary"
+                                        variant="flat"
+                                        size="sm"
+                                    >
+                                        <span className="font-semibold">APP</span>
+                                    </Chip>
+                                }
                             </Chip>
                         </div>
                     }
@@ -144,7 +156,10 @@ export default function Side({
                             radius="sm"
                             startContent={
                                 <span className="mx-1">
-                                    {"nsfw" in upload && upload.nsfw ? <HiHand /> : <HiUserGroup />}
+                                    {"nsfw" in upload && upload.nsfw
+                                        ? <HiHand />
+                                        : <HiUserGroup />
+                                    }
                                 </span>
                             }
                         >

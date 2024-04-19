@@ -49,6 +49,7 @@ export interface ExtendedUpload extends Upload {
         username: string;
         globalName: string;
         avatar: string | null;
+        bot?: boolean;
     };
 }
 

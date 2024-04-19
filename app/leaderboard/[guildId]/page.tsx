@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import { HiBadgeCheck } from "react-icons/hi";
 
+import DiscordAppBadge from "@/components/discord/app-badge";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
@@ -154,6 +155,9 @@ export default async function Home({
                                 <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800 truncate">
                                     {member.globalName || member.username || "Unknown user"}
                                 </span>
+                                {member.bot &&
+                                    <DiscordAppBadge />
+                                }
                                 {member.id === "821472922140803112" &&
                                     <UserBadge>Developer</UserBadge>
                                 }
