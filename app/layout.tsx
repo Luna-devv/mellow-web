@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
-    const title = "Wamellow: Next-gen of Discord Apps";
+    const title = "Wamellow: Next-gen of Discord Bots & Apps";
     const description = "Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.";
 
     return {
