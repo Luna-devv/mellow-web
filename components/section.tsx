@@ -6,7 +6,7 @@ export default function Section({
     ...props
 }: {
     title: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>) {
     return (
         <>
@@ -14,7 +14,11 @@ export default function Section({
 
             <div {...props}>
                 <h3 className="text-xl text-neutral-200">{title}</h3>
-                <p className="dark:text-neutral-500 text-neutral-400 mb-3">{children}</p>
+                {children &&
+                    <p className="dark:text-neutral-500 text-neutral-400 mb-3">
+                        {children}
+                    </p>
+                }
             </div>
         </>
     );

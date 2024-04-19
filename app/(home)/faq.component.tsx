@@ -6,6 +6,7 @@ import { useCookies } from "next-client-cookies";
 import { HiCash, HiChat, HiExternalLink, HiLockClosed, HiUserAdd } from "react-icons/hi";
 
 import cn from "@/utils/cn";
+import Section from "@/components/section";
 
 const data = [
     {
@@ -97,12 +98,32 @@ const data = [
     }
 ];
 
-export default function Faq() {
+interface Props {
+    showTitle?: boolean;
+}
+
+export default function Faq({
+    showTitle = false,
+}: Props) {
     const cookies = useCookies();
 
     return (
         <div className="my-4 w-full">
-            <b className="sr-only">Frequently Asked Questions for Wamellow</b>
+
+            {showTitle
+                ?
+                <Section
+                    className="mb-4"
+                    title="Frequently Asked Questions about Wamellow"
+                >
+                    Commonly asked questions about Wamellow and how to use it.
+                </Section>
+                :
+                <b className="sr-only">
+                    Frequently Asked Questions for Wamellow
+                </b>
+            }
+
             <Accordion
                 className="rounded-lg overflow-hidden"
                 variant="splitted"

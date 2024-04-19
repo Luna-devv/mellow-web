@@ -4,6 +4,7 @@ import { readFile } from "fs/promises";
 import BeautifyMarkdown from "@/components/markdown";
 import Notice, { NoticeType } from "@/components/notice";
 import metadata from "@/public/docs/meta.json";
+import Faq from "@/app/(home)/faq.component";
 
 interface Props {
     params: { pathname: string[] };
@@ -38,6 +39,10 @@ export default async function Home({ params }: Props) {
             }
 
             <BeautifyMarkdown markdown={markdown} />
+
+            <div className="h-16" />
+
+            <Faq showTitle />
         </div>
     );
 }
