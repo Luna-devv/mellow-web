@@ -1,5 +1,56 @@
-## Placeholders
+Wamellow boasts a feature-rich greeter. This functionality enables the bot to automatically send a welcoming message in a designated channel whenever a new member joins, fostering a warm and inviting community atmosphere.
+<br />
+<br />
 
+![farewell example](/docs-assets/welcome.webp)
+
+## Setup
+1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
+2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).
+3. Select your server from the dashboard.
+4. Navigate to the **Greetings** tab. 
+5. Within the **Greetings** menu, locate and click on the **Welcome greeting** option.
+6. Enable the Welcome module by clicking the enable button.
+7. Set a channel to send greetings into.
+
+### ✏️ Custom message & embed
+You can create a welcoming message with a **fully customizable message and embed**, making it easy to convey your server's culture and values to your new members.
+
+### 🖼️ Image card
+You can create a nice welcome image by **customizing the background for free**.
+<br />
+<br />
+
+**Warning:**
+
+Please do not forget to actually put in a direct link to the image, not a link to a website with the image.
+
+Custom background image: `1024x256px` (width, height) and must be type of `.png`.
+
+![welcome image](/welcome.webp)
+
+**Example custom backgrounds:**
+- [images.wamellow.com/static/grass.jpg](https://images.wamellow.com/static/grass.jpg)
+- [images.wamellow.com/static/orange-grass.jpg](https://images.wamellow.com/static/grass.jpg)
+- [images.wamellow.com/static/red-grass.jpg](https://images.wamellow.com/static/red-grass.jpg)
+- [images.wamellow.com/static/rank.png](https://images.wamellow.com/static/rank.png)
+
+### 🏓 Pings
+Ghost ping members in up to 5 channels when they join, the ghost pings will be instantly deleted.
+
+### 👀 Roles
+Assign up to 5 roles to new members.
+
+### ♻️ Restore Roles/Nick after Rejoin
+You can re-assign all roles and past nickname when a member left and rejoins your server.
+
+### 💬 Direct Message
+If you want to send a direct message to your new members, Wamellow also allows you to do so with a fully custom message and/or embed.
+
+### 🎉 Reactions
+If you want, you can also make Wamellow react with up to 2 emojis to your custom welcome message or to your members's first message.
+
+## Placeholders
 Placeholders allow you to use variables that change from message to message, for example to display information about the joining user or your server. They are always enclosed in curly braces, such as `{user.username}`.
 
 <table>

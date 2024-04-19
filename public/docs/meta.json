@@ -3,12 +3,62 @@
         {
             "name": "🍪 Home",
             "file": "index.md",
-            "description": "Welcome to the Wamellow documentation!"
+            "description": "Your portal to the extensive and detailed Wamellow documentation!"
         },
         {
             "name": "👋 Greetings",
             "file": "greetings.md",
-            "description": "Welcome new members to your community!",
+            "description": "Create a warm and inviting atmosphere for new members in your community!",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links",
+                    "Attach Files"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
+        },
+        {
+            "name": "🔐 Passport",
+            "file": "passport.md",
+            "description": "Verify members with a captcha in your community for enhanced security!",
+            "permissions": {
+                "bot": [
+                    "Ban Members",
+                    "Kick Members",
+                    "Manage Roles",
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
+        },
+        {
+            "name": "😔 Farewell",
+            "file": "farewell.md",
+            "description": "Send farewell messages to members leaving your community!",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links",
+                    "Attach Files"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
+        },
+        {
+            "name": "⭐ Starboard",
+            "file": "starboard.md",
+            "description": "An engaging and customizable platform for highlighting memorable messages.",
             "permissions": {
                 "bot": [
                     "View Channel",
