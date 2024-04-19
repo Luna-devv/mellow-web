@@ -7,7 +7,7 @@ import { HiCash, HiChat, HiExternalLink, HiLockClosed, HiUser, HiUserAdd } from 
 
 import DiscordAppBadge from "@/components/discord/app-badge";
 import cn from "@/utils/cn";
-import Section from "@/components/section";
+import { Section } from "@/components/section";
 
 const data = [
     {
