@@ -91,12 +91,14 @@ export async function GET(request: Request) {
 
 
     const guildId = searchParams.get("guild_id");
-    const state = searchParams.get("state") || "/";
+    let redirectUrl = decodeURIComponent(searchParams.get("state") || "/");
+
+    if (redirectUrl.includes("://")) redirectUrl = "/";
 
     redirect(
         guildId
             ? `/dashboard/${guildId}`
-            : decodeURIComponent(state)
+            : redirectUrl
     );
 
 }

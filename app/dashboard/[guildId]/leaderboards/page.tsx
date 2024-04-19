@@ -6,18 +6,20 @@ import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { Guild, guildStore } from "@/common/guilds";
-import ImageUrlInput from "@/components/inputs/ImageUrlInput";
-import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
-import TextInput from "@/components/inputs/TextInput";
+import ImageUrlInput from "@/components/inputs/image-url-input";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
+import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
-import Section from "@/components/section";
+import { Section, SubSection } from "@/components/section";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
+import Permissions from "./permissions";
 import ResetLeaderboard from "./reset.component";
 import UpdatingLeaderboardCard from "./updating.component";
+import DiscordWidget from "./widget.component";
 
 export default function Home() {
     const cookies = useCookies();
@@ -59,67 +61,77 @@ export default function Home() {
     return (
         <div>
 
-            <OverviewLinkComponent
-                title="View Leaderboard"
-                message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
-                url={`/leaderboard/${params.guildId}`}
-                icon={<HiChartBar />}
-            />
+            <div className="flex flex-col-reverse md:flex-row gap-6">
+                <div>
+                    <OverviewLinkComponent
+                        title="View Leaderboard"
+                        message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
+                        url={`/leaderboard/${params.guildId}`}
+                        icon={<HiChartBar />}
+                    />
 
-            {cookies.get("devTools") &&
-                <div className={"flex gap-4 border-2 border-violet-400 p-4 mb-4 rounded-lg"}>
+                    {cookies.get("devTools") &&
+                        <div className={"flex gap-4 border-2 border-violet-400 p-4 mb-4 rounded-lg"}>
 
-                    <div className="lg:w-1/2 flex gap-2 w-full">
+                            <div className="lg:w-1/2 flex gap-2 w-full">
 
-                        <div className="w-1/2">
-                            <TextInput
-                                name="Text"
-                                url={url}
-                                dataName="textColor"
-                                description="Color used for text."
-                                type="color"
-                                defaultState={data.textColor ?? 0xe5e5e5}
-                                resetState={0xe5e5e5}
-                            />
+                                <div className="w-1/2">
+                                    <TextInput
+                                        name="Text"
+                                        url={url}
+                                        dataName="textColor"
+                                        description="Color used for text."
+                                        type="color"
+                                        defaultState={data.textColor ?? 0xe5e5e5}
+                                        resetState={0xe5e5e5}
+                                    />
+                                </div>
+
+                                <div className="w-1/2">
+                                    <TextInput
+                                        name="Accent"
+                                        url={url}
+                                        dataName="accentColor"
+                                        description="Color used for secondary text."
+                                        type="color"
+                                        defaultState={data.accentColor ?? 0x8b5cf6}
+                                        resetState={0x8b5cf6}
+                                    />
+                                </div>
+
+                            </div>
+
+                            <div className="w-1/2">
+                                <TextInput
+                                    name="Background"
+                                    url={url}
+                                    dataName="backgroundColor"
+                                    description="Color used for the background."
+                                    type="color"
+                                    defaultState={data.backgroundColor ?? 0x0d0f11}
+                                    resetState={0x0d0f11}
+                                />
+                            </div>
+
                         </div>
+                    }
 
-                        <div className="w-1/2">
-                            <TextInput
-                                name="Accent"
-                                url={url}
-                                dataName="accentColor"
-                                description="Color used for secondary text."
-                                type="color"
-                                defaultState={data.accentColor ?? 0x8b5cf6}
-                                resetState={0x8b5cf6}
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className="w-1/2">
-                        <TextInput
-                            name="Background"
-                            url={url}
-                            dataName="backgroundColor"
-                            description="Color used for the background."
-                            type="color"
-                            defaultState={data.backgroundColor ?? 0x0d0f11}
-                            resetState={0x0d0f11}
-                        />
-                    </div>
-
+                    <ImageUrlInput
+                        name="Banner"
+                        url={url}
+                        ratio="aspect-[4/1]"
+                        dataName="banner"
+                        description="Enter a url which should be the banner of the leaderboard web page. The recomended image ration is 4:1 and recommended resolution 1024x256px."
+                        defaultState={data.banner || ""}
+                    />
                 </div>
-            }
 
-            <ImageUrlInput
-                name="Banner"
-                url={url}
-                ratio="aspect-[4/1]"
-                dataName="banner"
-                description="Enter a url which should be the banner of the leaderboard web page. The recomended image ration is 4:1 and recommended resolution 1024x256px."
-                defaultState={data.banner || ""}
-            />
+                <Permissions
+                    className="w-full md:w-1/3 lg:w-1/4 shrink-0"
+                    guild={guild}
+                />
+
+            </div>
 
             <Section
                 title="Roles"
@@ -165,7 +177,7 @@ export default function Home() {
             </div>
 
             <Section
-                title="Updating leaderboards"
+                title="Updating"
             >
                 These leaderboards will be sent in a channel and update roughly every 20 minutes.
             </Section>
@@ -178,12 +190,19 @@ export default function Home() {
 
 
             <Section
-                title="Danger zone"
+                title="Privacy"
             >
-                Reset the leaderboard to start fresh. This action cannot be undone.
+                Manage the privacy of the leaderboard.
             </Section>
 
-            <ResetLeaderboard guild={guild as Guild} />
+            <DiscordWidget guild={guild as Guild} />
+
+            <SubSection
+                title="Removal"
+                description="Reset the leaderboard to start fresh. This action cannot be undone"
+            >
+                <ResetLeaderboard guild={guild as Guild} />
+            </SubSection>
 
         </div >
     );

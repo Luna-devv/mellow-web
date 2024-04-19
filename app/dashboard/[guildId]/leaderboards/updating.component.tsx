@@ -7,8 +7,8 @@ import { useState } from "react";
 import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 
 import { Guild } from "@/common/guilds";
-import SelectInput from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import SelectInput from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
 
@@ -53,7 +53,7 @@ export default function UpdatingLeaderboardCard({ guild, lb, type }: Props) {
     });
 
     return (
-        <div className="w-1/3 flex items-center flex-col">
+        <div className="md:w-1/3 flex md:items-center flex-col">
             <div>
                 <div className="text-sm mb-0.5">Updating {type} {leaderboard?.channelId && "in"}</div>
 
@@ -236,7 +236,7 @@ export default function UpdatingLeaderboardCard({ guild, lb, type }: Props) {
                 {structure === 0 &&
                     <Switch
                         name="Use quotes for text"
-                        tickbox
+                        isTickbox
                         defaultState={leaderboard?.styles?.useQuotes || false}
                         onSave={(s) => {
                             setStyles({ ...styles, useQuotes: s });

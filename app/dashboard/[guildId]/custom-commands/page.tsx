@@ -10,11 +10,11 @@ import { useQuery, useQueryClient } from "react-query";
 import { guildStore } from "@/common/guilds";
 import { StatsBar } from "@/components/counter";
 import MessageCreatorEmbed from "@/components/embed-creator";
-import SelectInput from "@/components/inputs/SelectMenu";
-import TextInput from "@/components/inputs/TextInput";
+import SelectInput from "@/components/inputs/select-menu";
+import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
-import { Permissions } from "@/lib/discord";
+import { Permissions } from "@/lib/discord/enum/permissions";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 

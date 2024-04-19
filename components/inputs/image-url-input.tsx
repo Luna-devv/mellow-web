@@ -1,9 +1,16 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
 import { RouteErrorResponse } from "@/typings";
+import cn from "@/utils/cn";
 
-import DumbTextInput from "./Dumb_TextInput";
+import DumbTextInput from "./dumb-text-input";
+
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Success = 2
+}
 
 type Props = {
     name: string;
@@ -17,10 +24,18 @@ type Props = {
     onSave?: (value: string) => void;
 };
 
-
-const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled, description, defaultState, onSave, ratio }) => {
-    const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
-    const [error, setError] = useState<string>();
+export default function ImageUrlInput({
+    name,
+    url,
+    dataName,
+    disabled,
+    description,
+    defaultState,
+    onSave,
+    ratio
+}: Props) {
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
 
     const [value, setValue] = useState<string>("");
     const [defaultStatealue, setdefaultStatealue] = useState<string>("");
@@ -38,8 +53,8 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
 
     useEffect(() => {
         if (imagestate !== "SUCCESS" || defaultStatealue === value) return;
-        setError(undefined);
-        setState("LOADING");
+        setError(null);
+        setState(State.Loading);
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
@@ -63,12 +78,12 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                         setdefaultStatealue(value);
                         onSave?.(value);
 
-                        setState("SUCCESS");
-                        setTimeout(() => setState(undefined), 1_000 * 8);
+                        setState(State.Success);
+                        setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;
                     }
                     default: {
-                        setState("ERRORED");
+                        setState(State.Idle);
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
@@ -76,7 +91,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
 
             })
             .catch(() => {
-                setState("ERRORED");
+                setState(State.Idle);
                 setError("Error while updatung");
             });
 
@@ -87,7 +102,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
 
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
-                {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                {state === State.Success && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
             <div className="lg:flex mt-1 w-full gap-4">
@@ -96,7 +111,7 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                     value={value}
                     setValue={(v) => {
                         setValue(v);
-                        setState(undefined);
+                        setState(State.Idle);
                         if (imagestate === "SUCCESS") setImagestate(undefined);
                     }}
                     disabled={disabled}
@@ -109,9 +124,19 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
 
                     {value && imagestate !== "ERRORED" ?
                         /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={value} alt="" className="w-full rounded-md aspect-[4/1]" onError={() => setImagestate("ERRORED")} onLoad={() => setImagestate("SUCCESS")} />
+                        <img
+                            src={value}
+                            alt="upload"
+                            className={cn("w-full", "rounded-md", "aspect-[4/1]")}
+                            onError={() => setImagestate("ERRORED")}
+                            onLoad={() => setImagestate("SUCCESS")}
+                        />
                         :
-                        <div className={`w-full ${imagestate === "ERRORED" ? "dark:border-red-500 border-red-300" : "dark:border-wamellow border-wamellow-100"} border-2 rounded-md flex items-center justify-center ${ratio}`}>
+                        <div className={cn(
+                            "w-full border-2 rounded-md flex items-center justify-center dark:border-wamellow border-wamellow-100",
+                            imagestate === "ERRORED" && "dark:border-red-500 border-red-300",
+                            ratio
+                        )}>
                             {imagestate === "ERRORED" ?
                                 <div className="text-red-400 m-4">
                                     <div className="font-medium">Enter a <span className="underline underline-red-400">valid</span> image url!</div>
@@ -120,7 +145,12 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
                                         <div>Recommended type: .png</div>
                                     </div>
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={value} alt="" className="w-0 h-0" onLoad={() => setImagestate("SUCCESS")} />
+                                    <img
+                                        src={value}
+                                        alt="upload"
+                                        className="w-0 h-0"
+                                        onLoad={() => setImagestate("SUCCESS")}
+                                    />
                                 </div>
                                 :
                                 <span className="text-neutral-400">Enter a image url to preview</span>
@@ -133,11 +163,13 @@ const ImageUrlInput: FunctionComponent<Props> = ({ name, url, dataName, disabled
             </div>
 
             <div className="flex">
-                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
+                {error &&
+                    <div className="ml-auto text-red-500 text-sm">
+                        {error}
+                    </div>
+                }
             </div>
 
         </div>
     );
-};
-
-export default ImageUrlInput;
+}

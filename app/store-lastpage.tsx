@@ -18,7 +18,7 @@ export function StoreLastPage() {
                 secure: process.env.NEXT_PUBLIC_BASE_URL?.startsWith("https://"),
                 sameSite: "none",
                 domain: process.env.NEXT_PUBLIC_BASE_URL?.split("://")[1],
-                expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7 * 4)
+                expires: 28
             }
         );
 

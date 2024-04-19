@@ -12,7 +12,7 @@ import { useQuery } from "react-query";
 
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
-import DumbTextInput from "@/components/inputs/Dumb_TextInput";
+import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Notice, { NoticeType } from "@/components/notice";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";

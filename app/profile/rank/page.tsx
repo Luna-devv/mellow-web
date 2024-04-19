@@ -1,9 +1,9 @@
 "use client";
 
 import { User, userStore } from "@/common/user";
-import ImageUrlInput from "@/components/inputs/ImageUrlInput";
-import SelectInput from "@/components/inputs/SelectMenu";
-import TextInput from "@/components/inputs/TextInput";
+import ImageUrlInput from "@/components/inputs/image-url-input";
+import SelectInput from "@/components/inputs/select-menu";
+import TextInput from "@/components/inputs/text-input";
 import { deepMerge } from "@/utils/deepMerge";
 
 export default function Home() {

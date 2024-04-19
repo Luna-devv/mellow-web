@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsDiscord } from "react-icons/bs";
 import { HiExclamation, HiFingerPrint, HiLockClosed } from "react-icons/hi";
 
@@ -11,13 +11,23 @@ import { GT4Init } from "@/lib/gt4";
 import { ApiV1GuildsGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 
-const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({ guild }) => {
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Success = 2,
+}
+
+interface Props {
+    guild: ApiV1GuildsGetResponse;
+}
+
+export default function VerifyComponent({ guild }: Props) {
     const user = userStore((s) => s);
 
     const btnRef = useRef<HTMLButtonElement>(null);
 
-    const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
-    const [error, setError] = useState<string>();
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!user?.id) return;
@@ -48,15 +58,15 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
 
         button?.addEventListener("click", function () {
             if (!isReady) return;
-            if (state === "SUCCESS") return;
-            setState(undefined);
-            setError(undefined);
+            if (state === State.Success) return;
+            setState(State.Idle);
+            setError(null);
 
             c.showCaptcha();
         });
 
         c.onSuccess(async () => {
-            setState("LOADING");
+            setState(State.Loading);
 
             const result = c.getValidate();
             const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild.id}/passport-verification/captcha`, {
@@ -71,29 +81,29 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
 
             switch (res?.status) {
                 case 200:
-                    setState("SUCCESS");
+                    setState(State.Success);
                     break;
                 default:
-                    setState("ERRORED");
+                    setState(State.Idle);
                     setError((await res?.json())?.message || "Unknown server error");
                     break;
             }
 
         });
 
-        c.onError(() => {
+        c.onError((err: string) => {
             c.reset();
-            setState("ERRORED");
-            setError("Unknown captcha error");
+            setState(State.Idle);
+            setError(`${err}` || "Unknown captcha error");
         });
 
         c.onClose(() => {
             c.reset();
-            setState(undefined);
+            setState(State.Idle);
         });
 
         c.onFail(async () => {
-            setState("LOADING");
+            setState(State.Loading);
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild.id}/passport-verification/captcha?captcha-failed=true`, {
                 method: "POST",
@@ -102,12 +112,12 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
                 .catch(() => null);
 
             switch (res?.status) {
-                case 400:
-                    setState(undefined);
+                case 409:
+                    setState(State.Idle);
                     break;
                 default:
                     c.destroy();
-                    setState("ERRORED");
+                    setState(State.Idle);
                     setError((await res?.json())?.message || "Unknown server error");
                     break;
             }
@@ -145,13 +155,21 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
                     :
                     <Button
                         ref={btnRef}
-                        color={state === "ERRORED" ? "danger" : state === "SUCCESS" ? "success" : "secondary"}
-                        className={cn(state === "ERRORED" && "cursor-not-allowed", state === "SUCCESS" && "cursor-not-allowed", "font-medium w-full")}
-                        isDisabled={state === "ERRORED" || state === "SUCCESS"}
-                        isLoading={state === "LOADING"}
-                        startContent={<HiFingerPrint />}
+                        color={error ? "danger" : state === State.Success ? "success" : "secondary"}
+                        className={cn(error && "cursor-not-allowed", state === State.Success && "cursor-not-allowed", "font-medium w-full")}
+                        isDisabled={!!error || state === State.Success}
+                        isLoading={state === State.Loading}
+                        startContent={
+                            state === State.Loading
+                                ? <></>
+                                : <HiFingerPrint />
+                        }
                     >
-                        Complete verification
+                        {
+                            state === State.Success
+                                ? "Verification successful"
+                                : "Complete verification"
+                        }
                     </Button>
             }
 
@@ -179,6 +197,4 @@ const VerifyComponent: FunctionComponent<{ guild: ApiV1GuildsGetResponse }> = ({
         </div >
     );
 
-};
-
-export default VerifyComponent;
+}

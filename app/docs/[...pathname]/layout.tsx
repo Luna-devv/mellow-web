@@ -1,8 +1,8 @@
 import { Button, Divider } from "@nextui-org/react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { BsDiscord } from "react-icons/bs";
-import { HiExternalLink } from "react-icons/hi";
+import { BsDiscord, BsGithub } from "react-icons/bs";
+import { HiExternalLink, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
 import Footer from "@/components/footer";
 import metadata from "@/public/docs/meta.json";
@@ -16,7 +16,7 @@ interface Props {
 export const generateMetadata = async ({
     params
 }: Props): Promise<Metadata> => {
-    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/")}.md`);
+    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
     const title = "Documentation";
     const url = getCanonicalUrl("docs", ...params.pathname);
@@ -47,12 +47,12 @@ export default async function RootLayout({
     params,
     children
 }: Props) {
-    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/")}.md`);
+    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
     return (
         <div className="w-full">
 
-            <div className="flex justify-between items-center">
+            <div className="md:flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-medium text-neutral-100">
                         Documentation
@@ -69,45 +69,65 @@ export default async function RootLayout({
             <Divider className="mt-2" />
 
             <div className="flex flex-col lg:flex-row gap-6 mt-5 min-h-[63vh]">
-                <ul className="w-full lg:w-1/4 space-y-2">
-                    {metadata.pages.map((page) => (
-                        <ol key={page.file}>
-                            <Button
-                                as={Link}
-                                className="w-full !justify-start"
-                                href={`/docs/${page.file.replace(/\.md$/, "")}`}
-                            >
-                                {page.name}
-                            </Button>
-                        </ol>
-                    ))}
+                <div className="w-full lg:w-1/4 space-y-2">
 
-                    <ol>
-                        <Button
-                            as={Link}
-                            className="w-full !justify-start button-blurple mt-4"
-                            href="/support"
-                            startContent={<BsDiscord />}
-                            endContent={<HiExternalLink />}
-                        >
-                            Join Support
-                        </Button>
-                    </ol>
-                    <ol>
-                        <Button
-                            as={Link}
-                            className="w-full !justify-start font-medium"
-                            href="/invite"
-                            color="secondary"
-                            startContent={<BsDiscord />}
-                            endContent={<HiExternalLink />}
-                        >
-                            Invite Wamellow
-                        </Button>
-                    </ol>
-                </ul>
+                    <ul className="space-y-2 mb-4 bg-wamellow p-2 rounded-md border border-wamellow-alpha">
+                        {metadata.pages.map((page) => (
+                            <li key={page.file}>
+                                <Button
+                                    as={Link}
+                                    className="w-full !justify-start"
+                                    href={`/docs/${page.file.replace(/\.md$/, "")}`}
+                                    size="sm"
+                                >
+                                    {page.name}
+                                </Button>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <Button
+                        as={Link}
+                        className="w-full !justify-start button-blurple"
+                        href="/support"
+                        target="_blank"
+                        startContent={<BsDiscord />}
+                        endContent={<HiExternalLink />}
+                    >
+                        Join Support
+                    </Button>
+                    <Button
+                        as={Link}
+                        className="w-full !justify-start font-medium"
+                        href="/invite"
+                        target="_blank"
+                        color="secondary"
+                        startContent={<HiUserAdd />}
+                        endContent={<HiExternalLink />}
+                    >
+                        Invite Wamellow
+                    </Button>
+                    <Button
+                        as={Link}
+                        className="w-full !justify-start"
+                        href="/profile"
+                        target="_blank"
+                        startContent={<HiViewGridAdd />}
+                        endContent={<HiExternalLink />}
+                    >
+                        Dashboard
+                    </Button>
+                    <Link
+                        className="flex items-center gap-1.5 hover:text-violet-400 duration-100"
+                        href={"https://github.com/Luna-devv/mellow-web/blob/master/public/docs"}
+                        target="_blank"
+                    >
+                        <BsGithub /> Contribute
+                    </Link>
+                </div>
 
                 <Divider className="lg:hidden" />
+
                 <div className="w-full lg:w-3/4">
                     {children}
                 </div>

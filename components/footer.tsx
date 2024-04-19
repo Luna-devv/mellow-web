@@ -1,3 +1,4 @@
+import { Chip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { HTMLProps } from "react";
@@ -7,11 +8,14 @@ import { HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
 import { SiKofi } from "react-icons/si";
 
 import TopggIcon from "@/components/icons/topgg";
+import { getUser } from "@/lib/discord/user";
 import BlahajPic from "@/public/blahaj.webp";
-import LunaPic from "@/public/luna.webp";
 import cn from "@/utils/cn";
 
-export default function Footer(props: HTMLProps<HTMLDivElement>) {
+export default async function Footer(props: HTMLProps<HTMLDivElement>) {
+
+    const dev = await getUser("821472922140803112");
+
     return (
         <div
             className={cn("text-neutral-500 w-full mt-10 text-left", props.className)}
@@ -37,12 +41,16 @@ export default function Footer(props: HTMLProps<HTMLDivElement>) {
                         </span>
                         <span className="flex gap-1 items-center">
                             <HiCube />
-                            <span className="flex gap-0.5 items-center">
-                                {/* Version {version.toString().slice(0, 7)} by */}
-                                <span>
-                                    Made by <Link className="hover:underline" href="/support" aria-label="lunish.nl developer">Luna</Link>
-                                </span>
-                                <Image src={LunaPic} alt="mwlica" width={16} height={16} className="h-4 w-4 rounded-full ml-0.5" />
+                            <span className="flex items-center">
+                                Made by
+                                <Chip
+                                    className="relative top-0.5 ml-0.5"
+                                    as={Link}
+                                    href="/team"
+                                    startContent={<Image src={dev?.avatarUrl as string} alt="Luna" width={18} height={18} className="rounded-full" />}
+                                >
+                                    {dev?.username}
+                                </Chip>
                             </span>
                         </span>
                     </div>
@@ -54,7 +62,7 @@ export default function Footer(props: HTMLProps<HTMLDivElement>) {
             </div>
 
             <div className="w-full flex justify-center mt-20 mb-4 hover:rotate-2 duration-500">
-                <Image src={BlahajPic} alt="Blahaj" width={1500 / 2} height={775 / 2} className="h-42" />
+                <Image src={BlahajPic} alt="Blahaj" width={1500 / 2} height={Math.round(775 / 2)} className="h-42" />
             </div>
         </div>
     );

@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import SelectMenu from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import SelectMenu from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import { ScreenMessage } from "@/components/screen-message";
 import { ApiV1GuildsModulesEmbedmessagelinksGetResponse, RouteErrorResponse } from "@/typings";
 

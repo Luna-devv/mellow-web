@@ -7,10 +7,11 @@ import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-me
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 import { getUploads } from "../api";
+import SearchFilter from "./filter.component";
 import Pagination from "./pagination.component";
 
 interface Props {
-    searchParams: { page: string; model: string };
+    searchParams: { page: string; model: string; nsfw: string };
 }
 
 export const revalidate = 60 * 60;
@@ -18,7 +19,11 @@ export const revalidate = 60 * 60;
 export default async function Home({
     searchParams
 }: Props) {
-    const uploads = await getUploads({ page: parseInt(searchParams.page || "1"), model: searchParams.model });
+    const uploads = await getUploads({
+        page: parseInt(searchParams.page || "1"),
+        model: searchParams.model,
+        nsfw: searchParams.nsfw === "true"
+    });
 
     if ("message" in uploads) {
         return (
@@ -46,6 +51,18 @@ export default async function Home({
 
     return (
         <>
+
+            <div className="w-full mb-4 flex justify-between">
+                <div
+                    className="text-lg font-medium mb-2"
+                >
+                    Images that were generated using the /image Ai in discord with Wamellow.
+                </div>
+                <SearchFilter
+                    searchParams={searchParams}
+                />
+            </div>
+
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
                 {uploads.results.map((upload) => (
                     <Link
@@ -57,11 +74,11 @@ export default async function Home({
                         <Image
                             alt=""
                             className="rounded-xl"
-                            height={512}
+                            height={300}
                             itemProp="image"
                             loading="lazy"
                             src={`https://r2.wamellow.com/ai-image/${upload.id}.webp`}
-                            width={512}
+                            width={300}
                         />
 
                         <Chip

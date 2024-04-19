@@ -1,28 +1,49 @@
-import { Checkbox, Switch as UiSwitch } from "@nextui-org/react";
-import { FunctionComponent, useEffect, useState } from "react";
+import { Checkbox, Chip, Switch as UiSwitch } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
 
-type Props = {
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Success = 2
+}
+
+interface Props {
     className?: string;
 
     name: string;
-    url?: string;
-    dataName?: string;
+    badge?: string;
     disabled?: boolean;
     description?: string;
+    isTickbox?: boolean;
+
+    url?: string;
+    dataName?: string;
     defaultState: boolean;
-    tickbox?: boolean;
 
     onSave?: (state: boolean) => void;
-};
+}
 
+export default function Switch({
+    className,
 
-const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disabled, description, defaultState, onSave, tickbox }) => {
-    const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
-    const [error, setError] = useState<string>();
+    name,
+    badge,
+    description,
+    disabled,
+    isTickbox = false,
+
+    url,
+    dataName,
+    defaultState,
+
+    onSave
+}: Props) {
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
 
     const [value, setValue] = useState<boolean>(false);
     const [changed, setChanged] = useState<boolean>(false);
@@ -37,16 +58,17 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
         if (!url) {
             if (!onSave) throw new Error("Warning: <Switch.onSave> must be defined when not using <Switch.url>.");
             onSave(value);
-            setState(undefined);
+            setState(State.Idle);
             return;
         }
 
         if (!dataName) throw new Error("Warning: <Switch.dataName> must be defined when using <Switch.url>.");
 
         if (!changed) return;
-        setError(undefined);
+        setError(null);
 
-        setState("LOADING");
+        setState(State.Loading);
+
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
             credentials: "include",
@@ -65,13 +87,13 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
 
                 switch (res.status) {
                     case 200: {
-                        setState("SUCCESS");
+                        setState(State.Success);
                         onSave?.(value);
-                        setTimeout(() => setState(undefined), 1_000 * 8);
+                        setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;
                     }
                     default: {
-                        setState("ERRORED");
+                        setState(State.Idle);
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
@@ -79,8 +101,8 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
 
             })
             .catch(() => {
-                setState("ERRORED");
-                setError("Error while fetching guilds");
+                setState(State.Idle);
+                setError("Error while saving");
             });
 
     }, [value]);
@@ -88,13 +110,31 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
     return (
         <div className={cn("relative", description && "mb-2", className)}>
 
-            <div className={cn("flex items-center gap-2", !tickbox && "mb-6")}>
+            <div className={cn("flex items-center gap-2", !isTickbox && "mb-6")}>
                 <div className="flex items-center gap-2">
-                    <span className={cn("sm:text-lg font-medium", value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-400 text-neutral-600")}>{name}</span>
-                    {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                    <span
+                        className={cn(
+                            "sm:text-lg font-medium dark:text-neutral-400 text-neutral-600",
+                            value && "dark:text-neutral-300 text-neutral-700"
+                        )}
+                    >
+                        {name}
+                    </span>
+
+                    {badge &&
+                        <Chip
+                            variant="flat"
+                            color="secondary"
+                            size="sm"
+                        >
+                            {badge}
+                        </Chip>
+                    }
+
+                    {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
                 </div>
 
-                {tickbox ?
+                {isTickbox ?
                     <Checkbox
                         className="ml-auto"
                         isSelected={value}
@@ -123,12 +163,19 @@ const Switch: FunctionComponent<Props> = ({ className, name, url, dataName, disa
 
 
             <div className="absolute top-6 mt-0.5">
-                {description && <div className="text-neutral-500 text-sm">{description}</div>}
-                {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
+                {description &&
+                    <div className="text-neutral-500 text-sm">
+                        {description}
+                    </div>
+                }
+
+                {error &&
+                    <div className="ml-auto text-red-500 text-sm">
+                        {error}
+                    </div>
+                }
             </div>
 
         </div>
     );
-};
-
-export default Switch;
+}

@@ -1,18 +1,20 @@
 "use client";
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { HiViewGridAdd } from "react-icons/hi";
+import { HiExternalLink, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
-import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
-import NumberInput from "@/components/inputs/NumberInput";
-import SelectMenu from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
+import NumberInput from "@/components/inputs/number-input";
+import SelectMenu from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import { ScreenMessage } from "@/components/screen-message";
 import { getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
@@ -110,6 +112,19 @@ export default function Home() {
 
     return (
         <>
+
+            <div className="flex justify-between relative bottom-2 mb-3">
+                <Button
+                    className="ml-auto"
+                    as={Link}
+                    href="/docs/starboard"
+                    target="_blank"
+                    endContent={<HiExternalLink />}
+                    size="sm"
+                >
+                    Read docs
+                </Button>
+            </div>
 
             <Switch
                 name="Starboard module enabled"

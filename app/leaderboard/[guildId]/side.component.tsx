@@ -116,6 +116,35 @@ export default function Side({
                     undefined as unknown as JSX.Element
                 }
 
+                {pagination && "messages" in pagination ?
+                    <AccordionItem
+                        key="3"
+                        aria-label="about this server"
+                        title={`About ${guild && "name" in guild ? guild?.name : "this server"}`}
+                        classNames={{ content: "mb-2" }}
+                    >
+                        {guild && "description" in guild && guild?.description &&
+                            <p className="mb-6">
+                                {guild.description}
+                            </p>
+                        }
+
+                        <div className="flex items-center gap-1">
+                            <HiAnnotation className="mr-1" />
+                            <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <HiVolumeUp className="mr-1" />
+                            <span className="font-semibold">{pagination.voiceminutes.formattedTotal}</span> in voice
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <HiLink className="mr-1" />
+                            <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
+                        </div>
+                    </AccordionItem>
+                    : undefined as unknown as JSX.Element
+                }
+
                 <AccordionItem
                     key="2"
                     aria-label="how this works"
@@ -127,29 +156,6 @@ export default function Side({
                     <br />
                     The percentage {currentCircular !== "server" ? "indicates the gap in messages needed to surpass the next user" : "reflects the contribution of server activity from that user"}.
                 </AccordionItem>
-
-                {pagination && "messages" in pagination ?
-                    <AccordionItem
-                        key="3"
-                        aria-label="server activity"
-                        title="Server activity"
-                        classNames={{ content: "mb-2" }}
-                    >
-                        <div className="flex items-center gap-1">
-                            <HiAnnotation className="mr-1" />
-                            <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <HiVolumeUp className="mr-1" />
-                            <span className="font-semibold">{pagination.voiceminutes.total}</span> in voice
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <HiLink className="mr-1" />
-                            <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
-                        </div>
-                    </AccordionItem>
-                    : undefined as unknown as JSX.Element
-                }
 
                 {guild && "id" in guild && guild?.inviteUrl ?
                     <AccordionItem

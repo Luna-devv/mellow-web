@@ -8,6 +8,7 @@ import { HiX } from "react-icons/hi";
 import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
 
+import { ClickOutside } from "./click-outside";
 import Notice, { NoticeType } from "./notice";
 
 interface Props<T> {
@@ -54,7 +55,7 @@ export default function Modal<T>({
                         animate={show ? "open" : "closed"}
                         exit="closed"
                         variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
-                        className="fixed top-0 left-0 h-screen w-full inset-0 backdrop-blur backdrop-brightness-50 flex items-center justify-center z-50"
+                        className="fixed top-0 left-0 h-screen w-full inset-0 backdrop-blur backdrop-brightness-50 flex items-center justify-center z-50 cursor-default"
                     >
                         <motion.div
                             initial="closed"
@@ -73,11 +74,11 @@ export default function Modal<T>({
                                 }
                             }}
                             className="
-                            md:relative fixed bottom-0 min-h-[333px] md:min-h-fit m-2
+                            md:relative fixed bottom-0 min-h-[333px] md:min-h-fit m-2 wamellow-modal
                             w-full md:w-[480px] bg-[#06040b] rounded-xl shadow-md
                             max-sm:[--y-closed:16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                             max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
-                        "
+                            "
                         >
 
                             <div className="p-4 pb-0 mb-16 md:mb-0">
@@ -108,7 +109,7 @@ export default function Modal<T>({
                                     value={0}
                                 />
 
-                                <div className={"scrollbar-none p-0.5 pb-4 sm:max-h-[512px] max-h-[384px] overflow-y-scroll " + className}> {/* sm:max-h-[512px] max-h-[384px] overflow-y-scroll */}
+                                <div className={cn("scrollbar-none p-0.5 pb-4 sm:max-h-[512px] max-h-[384px] overflow-y-scroll overflow-visible", className)}>
                                     {error &&
                                         <Notice
                                             type={NoticeType.Error}
@@ -159,6 +160,7 @@ export default function Modal<T>({
                                         {buttonName}
                                     </Button>
 
+                                    <ClickOutside onClose={onClose} />
                                 </div>
                             </div>
 

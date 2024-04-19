@@ -35,9 +35,11 @@ export async function GET(
                 </div>
                 <div tw="flex mb-3 items-center">
                     <img
+                        alt=""
                         src={guildExists && guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png` : getCanonicalUrl("discord.png")}
                         tw="h-20 w-20 rounded-2xl relative bottom-3 mr-5"
-                        alt=""
+                        width={20 * 4}
+                        height={20 * 4}
                     />
                     <div
                         className="break-keep"
@@ -46,8 +48,13 @@ export async function GET(
                         {truncate(guildExists ? guild.name : "unknown", 19)}
                     </div>
                 </div>
-                <div tw="text-4xl text-gray-500 mb-42" style={{ fontWeight: 500 }}>Explore the vibrant community dynamics</div>
 
+                <div tw="text-3xl text-gray-500 mb-42" style={{ fontWeight: 500 }}>
+                    {guildExists && guild?.description
+                        ? guild.description
+                        : "Explore the vibrant community dynamics"
+                    }
+                </div>
 
                 {Array.isArray(members) &&
                     <div tw="flex justify-between">
@@ -55,9 +62,11 @@ export async function GET(
                             <div key={member.id} tw="flex flex-col">
                                 <div tw="flex items-center mb-2 text-5xl" style={{ fontWeight: 600 }}>
                                     <img
+                                        alt=""
                                         src={member?.avatar ? `https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png` : getCanonicalUrl("discord.png")}
                                         tw="h-14 w-14 rounded-full mb-2.5 mr-4"
-                                        alt=""
+                                        width={14 * 4}
+                                        height={14 * 4}
                                     />
                                     {truncate(member.globalName || member.username || "unknown", 10)}
                                 </div>

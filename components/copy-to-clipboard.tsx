@@ -4,16 +4,6 @@ import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownMenu, DropdownTrig
 import { useRef, useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
 
-export async function copyToClipboard(text: string, needsWait?: boolean) {
-    if (needsWait) await new Promise((r) => setTimeout(r, 600));
-    const textField = document.createElement("textarea");
-    textField.innerText = text;
-    document.body.appendChild(textField);
-    textField.select();
-    document.execCommand("copy");
-    textField.remove();
-}
-
 interface Props {
     icon?: React.ReactNode;
     text: string;
@@ -28,15 +18,14 @@ export function CopyToClipboardButton({
     text,
     title,
     className,
-    items,
-    needsWait
+    items
 }: Props) {
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [saved, setSaved] = useState<boolean>(false);
 
     const handleCopy = (t: string) => {
-        copyToClipboard(t, needsWait);
+        navigator.clipboard.writeText(t);
         setSaved(true);
 
         if (timeoutRef.current) clearInterval(timeoutRef.current);

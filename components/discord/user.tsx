@@ -15,7 +15,7 @@ export default function DiscordUser({ username, avatar, isBot, isTalking }: Prop
     return (
         <div className="flex items-center space-x-2">
             <Avatar
-                className={cn("h-6 w-6", isTalking && "outline-1.5 outline-green-500")}
+                className={cn("h-6 w-6 shrink-0", isTalking && "outline-1.5 outline-green-500")}
                 radius="full"
                 src={avatar}
             />

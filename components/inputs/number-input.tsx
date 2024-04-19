@@ -1,10 +1,17 @@
-import { FunctionComponent, useEffect, useRef, useState } from "react";
+import { Button } from "@nextui-org/react";
+import { useEffect, useRef, useState } from "react";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
 import { RouteErrorResponse } from "@/typings";
+import cn from "@/utils/cn";
 
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Success = 2
+}
 
 type Props = {
     className?: string;
@@ -19,11 +26,19 @@ type Props = {
     min?: number;
 };
 
-
-const NumberInput: FunctionComponent<Props> = ({ className, name, url, dataName, disabled, description, defaultState, min = 0 }) => {
+export default function NumberInput({
+    className,
+    name,
+    url,
+    dataName,
+    disabled,
+    description,
+    defaultState,
+    min = 0
+}: Props) {
     const web = webStore((w) => w);
 
-    const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
+    const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string>();
 
     const [hold, setHold] = useState<"+" | "-">();
@@ -57,7 +72,7 @@ const NumberInput: FunctionComponent<Props> = ({ className, name, url, dataName,
     function handleSave() {
         if (defaultStatealue === value) return;
         setError(undefined);
-        setState("LOADING");
+        setState(State.Loading);
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
@@ -77,13 +92,13 @@ const NumberInput: FunctionComponent<Props> = ({ className, name, url, dataName,
 
                 switch (res.status) {
                     case 200: {
-                        setState("SUCCESS");
+                        setState(State.Success);
                         _setDefaultalue(value);
-                        setTimeout(() => setState(undefined), 1_000 * 8);
+                        setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;
                     }
                     default: {
-                        setState("ERRORED");
+                        setState(State.Idle);
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
                     }
@@ -91,33 +106,42 @@ const NumberInput: FunctionComponent<Props> = ({ className, name, url, dataName,
 
             })
             .catch(() => {
-                setState("ERRORED");
-                setError("Error while fetching guilds");
+                setState(State.Idle);
+                setError("Error while updating");
             });
     }
 
     return (
-        <div className={"relative " + className}>
+        <div className={cn("relative", className)}>
             <div className="flex items-center mb-6">
                 <div>
                     <div className="flex gap-2">
                         <span className={`sm:text-lg ${value ? "dark:text-neutral-300 text-neutral-700" : "dark:text-neutral-400 text-neutral-600"} font-medium`}>{name}</span>
-                        {state === "LOADING" && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                        {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
                     </div>
 
-                    {description && <div className={`${web.width > 880 && "flex"} w-full relative bottom-1 text-neutral-500 text-sm`}> {description} </div>}
+                    {description && <div className={cn("w-full relative bottom-1 text-neutral-500 text-sm", web.width > 880 && "flex")}>{description}</div>}
                 </div>
 
-                <div className={`ml-auto relative flex items-center cursor-pointer h-8 ${(disabled || (state === "LOADING" || disabled)) && "opacity-50"}`}>
-
+                <div
+                    className={cn(
+                        "ml-auto relative flex items-center cursor-pointer h-8",
+                        (state === State.Loading || disabled) && "opacity-50"
+                    )}
+                >
                     {defaultStatealue !== value &&
-                        <button
+                        <Button
                             onClick={handleSave}
-                            className={`bg-violet-600 hover:bg-violet-600/80 duration-200 h-full w-12 rounded-md mr-2 ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-pointer"}`}
-                            disabled={(state === "LOADING" || disabled)}
+                            className="mr-2"
+                            isLoading={state === State.Loading}
+                            isDisabled={disabled}
+                            size="sm"
+                            color="secondary"
+                            variant="flat"
+                            radius="lg"
                         >
-                            <span className="m-auto text-neutral-200 text-sm">Save</span>
-                        </button>
+                            Save
+                        </Button>
                     }
 
                     <button
@@ -127,19 +151,25 @@ const NumberInput: FunctionComponent<Props> = ({ className, name, url, dataName,
                             if ((value ?? 0) - 1 < min) setValue(min);
                             else setValue((value ?? 0) - 1);
                         }}
-                        className={`dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-l-md duration-100 ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-pointer"}`}
-                        disabled={(state === "LOADING" || disabled)}
+                        className={cn(
+                            "dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-l-xl duration-100",
+                            (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-pointer"
+                        )}
+                        disabled={state === State.Loading || disabled}
                     >
-                        <HiMinus className="m-auto text-2xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
+                        <HiMinus className="m-auto text-xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
                     </button>
 
                     <input
-                        className={`outline-none text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-lg flex items-center text-neutral-500 rounded-none ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-text"}`}
+                        className={cn(
+                            "outline-none text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-lg flex items-center text-neutral-500 rounded-none",
+                            (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-text"
+                        )}
                         onChange={(e) => {
                             if (/^[0-9]+$/.test(e.target.value) || !e.target.value) setValue(e.target.value ? parseInt(e.target.value) : undefined);
                         }}
                         value={value}
-                        disabled={(state === "LOADING" || disabled)}
+                        disabled={state === State.Loading || disabled}
                         inputMode="numeric"
                     />
 
@@ -147,21 +177,23 @@ const NumberInput: FunctionComponent<Props> = ({ className, name, url, dataName,
                         onMouseDown={() => setHold("+")}
                         onMouseUp={() => setHold(undefined)}
                         onClick={() => setValue((value ?? 0) + 1)}
-                        className={`dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-r-md duration-100 ${(state === "LOADING" || disabled) ? "cursor-not-allowed" : "cursor-pointer"}`}
-                        disabled={(state === "LOADING" || disabled)}
+                        className={cn(
+                            "dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-r-xl duration-100",
+                            (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-pointer"
+                        )}
+                        disabled={state === State.Loading || disabled}
                     >
-                        <HiPlus className="m-auto text-2xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
+                        <HiPlus className="m-auto text-xl font-thin dark:text-neutral-300 text-neutral-700 p-1" />
                     </button>
 
-                    <div className="absolute top-8 right-0">
-                        {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                    </div>
-
+                    {error &&
+                        <div className="ml-auto text-red-500 text-sm">
+                            {error}
+                        </div>
+                    }
                 </div>
-            </div>
 
+            </div>
         </div>
     );
-};
-
-export default NumberInput;
+}

@@ -3,7 +3,7 @@ import { Button, Chip } from "@nextui-org/react";
 import { useState } from "react";
 import { HiPencil } from "react-icons/hi";
 
-import DumbTextInput from "@/components/inputs/Dumb_TextInput";
+import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 

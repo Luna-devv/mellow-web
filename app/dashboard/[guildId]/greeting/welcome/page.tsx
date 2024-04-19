@@ -1,26 +1,24 @@
-
 "use client";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HiArrowLeft, HiArrowNarrowLeft, HiExternalLink } from "react-icons/hi";
+import { HiArrowLeft, HiChat, HiExternalLink } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
-import { webStore } from "@/common/webstore";
+import Fetch from "@/components/button-fetch";
 import MessageCreatorEmbed from "@/components/embed-creator";
-import ImageUrlInput from "@/components/inputs/ImageUrlInput";
-import MultiSelectMenu from "@/components/inputs/MultiSelectMenu";
-import NumberInput from "@/components/inputs/NumberInput";
-import SelectMenu from "@/components/inputs/SelectMenu";
-import Switch from "@/components/inputs/Switch";
+import ImageUrlInput from "@/components/inputs/image-url-input";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
+import NumberInput from "@/components/inputs/number-input";
+import SelectMenu from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
-    const web = webStore((w) => w);
     const guild = guildStore((g) => g);
     const user = userStore((s) => s);
 
@@ -57,37 +55,39 @@ export default function Home() {
 
     }, []);
 
+    const Head = () => (
+        <div className="flex justify-between relative bottom-2 mb-3">
+            <Button
+                as={Link}
+                href={`/dashboard/${guild?.id}/greeting`}
+                startContent={<HiArrowLeft />}
+                size="sm"
+            >
+                Back
+            </Button>
+            <Button
+                as={Link}
+                href="/docs/greetings"
+                target="_blank"
+                endContent={<HiExternalLink />}
+                size="sm"
+            >
+                Read docs & view placeholders
+            </Button>
+        </div>
+    );
+
     if (welcome === undefined) return (
         <div>
-            <Link href={`/dashboard/${guild?.id}/greeting`} className="button-underline relative bottom-3 mb-4">
-                <HiArrowNarrowLeft /> Greetings
-            </Link>
+            <Head />
+
             {error && <Notice message={error} />}
         </div>
     );
 
     return (
         <div>
-
-            <div className="flex justify-between relative bottom-2 mb-3">
-                <Button
-                    as={Link}
-                    href={`/dashboard/${guild?.id}/greeting`}
-                    startContent={<HiArrowLeft />}
-                    size="sm"
-                >
-                    Back
-                </Button>
-                <Button
-                    as={Link}
-                    href="/docs/greetings"
-                    target="_blank"
-                    endContent={<HiExternalLink />}
-                    size="sm"
-                >
-                    Read docs & view placeholders
-                </Button>
-            </div>
+            <Head />
 
             <Switch
                 name="Welcome module enabled"
@@ -129,61 +129,26 @@ export default function Home() {
                 disabled={!welcome.enabled}
             />
 
-            <div className="flex md:gap-4 gap-3">
+            <div className="flex md:gap-4 gap-2">
                 <SelectMenu
+                    className="w-2/3 md:w-5/6"
                     name="Channel"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="channelId"
-                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
+                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
                     description="Select the channel where the welcome message should be send into."
                     defaultState={welcome?.channelId}
                     disabled={!welcome.enabled || false}
                 />
 
-                <button
-                    id="test-button"
-                    className={`flex justify-center items-center bg-violet-600 hover:bg-violet-600/80 text-white py-2 px-4 rounded-md duration-100 mt-8 h-12 md:w-32 ${!welcome.enabled && "cursor-not-allowed opacity-50"}`}
-                    disabled={!welcome.enabled}
-                    onClick={() => {
-                        if (document.getElementById("test-button")?.classList.contains("cursor-not-allowed")) return;
-                        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/welcome/test`, {
-                            method: "POST",
-                            credentials: "include",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({})
-                        })
-                            .then(async (res) => {
-                                const response = await res.json() as ApiV1GuildsModulesWelcomeGetResponse;
-                                if (!response) return;
-
-                                switch (res.status) {
-                                    case 200: {
-                                        document.getElementById("test-button")?.classList.add(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
-                                        document.getElementById("test-button")?.classList.remove(..."bg-violet-600 hover:bg-violet-600/80".split(" "));
-
-                                        setTimeout(() => {
-                                            document.getElementById("test-button")?.classList.remove(..."bg-green-700 hover:bg-green-600 cursor-not-allowed".split(" "));
-                                            document.getElementById("test-button")?.classList.add(..."bg-violet-600 hover:bg-violet-600/80".split(" "));
-                                        }, 1_000 * 8);
-
-                                        break;
-                                    }
-                                    default: {
-                                        setError((response as unknown as RouteErrorResponse).message);
-                                        break;
-                                    }
-                                }
-
-                            })
-                            .catch(() => {
-                                setError("Error while sending test");
-                            });
-                    }}
-                >
-                    {web.width > 768 ? <span>Send Test</span> : <span>Test</span>}
-                </button>
+                <Fetch
+                    className="w-1/3 md:w-1/6 relative top-8"
+                    url={`/guilds/${params.guildId}/modules/welcome/test`}
+                    icon={<HiChat className="min-h-4 min-w-4" />}
+                    label="Test Message"
+                    method="POST"
+                    size="lg"
+                />
             </div>
 
             <div className="lg:flex gap-3">

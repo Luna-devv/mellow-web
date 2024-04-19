@@ -23,6 +23,8 @@ interface Props {
     searchParams: { page: string, type: string };
 }
 
+export const revalidate = 60;
+
 export const generateMetadata = async ({
     params
 }: Props): Promise<Metadata> => {
@@ -105,13 +107,13 @@ export default async function Home({ params }: Props) {
                         alt=""
                         className="w-full object-cover h-[216px]"
                         src={guild && "banner" in guild && guild.banner ? `https://cdn.discordapp.com/banners/${guild?.id}/${guild?.banner}?size=512` : paintPic.src}
-                        width={3840 / 10}
-                        height={2160 / 10}
+                        width={960}
+                        height={540}
                     />
-                    <div className="absolute top-0 w-full h-[216px]" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, var(--wamellow-rgb) 100%)" }} />
+                    <div className="absolute top-0 w-full h-[216px]" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgb(22, 19, 31) 100%)" }} />
 
                     <div
-                        className="text-lg flex gap-5 items-center absolute top-[146px] rounded-3xl z-20 left-[4px] md:left-2 py-4 px-5 backdrop-blur-3xl backdrop-brightness-90 shadow-md"
+                        className="text-lg flex gap-5 items-center absolute top-[146px] rounded-3xl z-20 left-[4px] md:left-1.5 py-4 px-5 backdrop-blur-3xl backdrop-brightness-90 shadow-md"
                     >
                         <ImageReduceMotion
                             alt="Server icon"
@@ -121,11 +123,13 @@ export default async function Home({ params }: Props) {
                         />
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guildExists ? guild.name : "Unknown Server"}</div>
+                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium max-w-64 truncate">
+                                {guildExists ? guild.name : "Unknown Server"}
+                            </div>
                             <div className="text-sm font-semibold flex items-center gap-1">
                                 <HiUsers /> {guildExists ? intl.format(guild?.memberCount) : 0}
 
-                                <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp" width={18} height={18} alt="boost icon" className="ml-2" />
+                                <Image src="https://cdn.discordapp.com/emojis/875797879401361408.webp?size=32" width={18} height={18} alt="boost icon" className="ml-2" />
                                 <span className="ml-2">Level {guildExists ? guild?.premiumTier : 0}</span>
                             </div>
                         </div>

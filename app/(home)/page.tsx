@@ -7,8 +7,8 @@ import { HiArrowNarrowRight, HiArrowRight, HiCash, HiFire, HiLockOpen, HiUserAdd
 
 import Box from "@/components/box";
 import Comment from "@/components/comment";
+import DiscordChannel from "@/components/discord/channel";
 import DiscordChannelCategory from "@/components/discord/channel-category";
-import DiscordChannelVoice from "@/components/discord/channel-voice";
 import Highlight from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
@@ -233,8 +233,6 @@ export default async function Home() {
                             </div>
 
                             <AvatarGroup
-                                as={Link}
-                                href={getCanonicalUrl("profile", "text-to-speech", "?utm_source=wamellow.com&utm_medium=home")}
                                 className="mt-4"
                                 max={8}
                             >
@@ -275,11 +273,14 @@ export default async function Home() {
                                 style={{ backgroundColor: "rgb(43, 45, 49)" }}
                             >
                                 <DiscordChannelCategory name="#/voice/dev/null">
-                                    <DiscordChannelVoice name="• Public">
+                                    <DiscordChannel
+                                        type="voice"
+                                        name="• Public"
+                                    >
                                         <DiscordUser username="mwlica" avatar="/luna-small.webp" />
                                         <DiscordUser username="Space" avatar="/space.webp" />
                                         <DiscordUser username="Wamellow" avatar="/waya-v3-small.webp" isTalking />
-                                    </DiscordChannelVoice>
+                                    </DiscordChannel>
                                 </DiscordChannelCategory>
 
                                 <div className="bg-[#313338] h-0.5 w-full sm:w-0.5 sm:h-32 md:h-0.5 md:w-full lg:w-0.5 lg:h-32 rounded-full ml-2" />
@@ -315,10 +316,10 @@ export default async function Home() {
                             >
                                 <span className="font-semibold">100% no money loss</span>
                             </Chip>
-                            <h3 className={styles.h3}>/image command</h3>
+                            <h3 className={styles.h3}>Free /image command</h3>
                             <div className="pt-6">
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
-                                Elevate your server to a haven for unique and dynamic AI-generated images, ensuring a delightful experience for all enthusiasts of the digital arts.
+                                Customize the rating, quality, aesthetics, image width and height, upscaled, generation steps and the CFG scale all for free.
                             </div>
                             <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
                                 <Chip
@@ -342,7 +343,7 @@ export default async function Home() {
                                     startContent={<HiArrowRight />}
                                     href="/ai-gallery?utm_source=wamellow.com&utm_medium=home"
                                 >
-                                    View examples
+                                    View Images
                                 </ServerButton>
                             </div>
                         </div>
@@ -352,15 +353,15 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps("image")}>
-                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
+                                <Highlight mode={"DARK"} text="query: **femboy**" />
                                 <Image
                                     alt=""
                                     className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
-                                    height={512}
+                                    height={290}
                                     itemProp="image"
                                     loading="lazy"
                                     src={AiPic}
-                                    width={512}
+                                    width={290}
                                 />
                             </DiscordMessage>
                         </div>
@@ -418,11 +419,11 @@ export default async function Home() {
                                 <Image
                                     alt=""
                                     className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-xs mt-2"
-                                    height={512}
+                                    height={905 / 3}
                                     itemProp="image"
                                     loading="lazy"
                                     src={WaifuPic}
-                                    width={512}
+                                    width={640 / 3}
                                 />
                             </DiscordMessage>
                         </div>
@@ -469,7 +470,14 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps("leaderboard")}>
-                                <Image src={LeaderboardPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" />
+                                <Image
+                                    alt="example leaderboard card"
+                                    src={LeaderboardPic}
+                                    height={1024 / 4}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    width={2048 / 4}
+                                />
                             </DiscordMessage>
                         </div>
                     </Box>
@@ -582,7 +590,14 @@ export default async function Home() {
                         >
                             <DiscordMessage {...messageProps()}>
                                 <Highlight mode={"DARK"} text="Welcome @mwlica to **Someone's** 👋" />
-                                <Image src={WelcomePic} itemProp="image" alt="example welcome card" width={1024 / 2} height={(256 + 16) / 2} loading="lazy" />
+                                <Image
+                                    alt="example welcome card"
+                                    src={WelcomePic}
+                                    height={(256 + 16) / 2}
+                                    itemProp="image"
+                                    loading="lazy"
+                                    width={1024 / 2}
+                                />
                             </DiscordMessage>
                         </div>
                     </Box>
@@ -632,7 +647,15 @@ export default async function Home() {
                         </div>
 
                         <div className="w-full md:w-1/2 flex justify-center">
-                            <Image src={CaptchaPic} itemProp="image" alt="" height={1024 / 2} width={2048 / 2} loading="lazy" className="max-w-56" />
+                            <Image
+                                alt="anime captcha verification example"
+                                className="max-w-56"
+                                src={CaptchaPic}
+                                height={1530 / 5}
+                                itemProp="image"
+                                loading="lazy"
+                                width={1070 / 5}
+                            />
                         </div>
                     </Box>
                 </div>
