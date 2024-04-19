@@ -7,11 +7,17 @@ Passport is essential for verifying users joining your Discord server, utilizing
 2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).
 3. Select your server from the dashboard.
 4. Navigate to the **Greetings** menu. 
-5. Within the **Greetings** menu, locate and click on the **Passport** option. 
-6. Enable the Passport module by clicking the enabling button.
-7. Click `copy link to passport` and send it into your `#verify` channel.
-8. Get an alt-account and test out the verification process.
-7. **🎉 Done!** Your server is now secure.
+5. Within the **Greetings** menu, locate and click on the **Passport** tab. 
+6. Enable the Passport module by clicking the enable button.
+7. Set a verified role which members will get uppon verifying.
+8. Remove permissions of the @everyone role to write messages in every channel. 
+9. Click `Copy link to Passport` and send it into your `#verify` channel.
+10. Get an alt-account and test out the verification process.
+11. **🎉 Done!** Your server is now secure.
+
+![passport setup example](/docs-assets/passport-setup.webp)
+
+![channel permission setup](/docs-assets/passport-permissions.webp)
 
 ### 🔒 Send direct message to member on fail
 If the member should recieve a DM if they failed verification, along with the following punishment (eg.: a ban).
@@ -23,7 +29,7 @@ The channel where passport logs should be sent into, such as verification succes
 The role members should recieve on join, this role shouldn't have write permissions in channels.
 
 ### 🔓 Verified role
-The role members should recive on verification success, this role should grand members access to channels.
+**Required!** The role members should recive on verification success. This role should have read and write access to all public channels.
 
 ### ⚙️ Failed verification action
 What should happen with the member if they fail verification.
