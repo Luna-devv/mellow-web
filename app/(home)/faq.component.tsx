@@ -3,8 +3,9 @@
 import { Accordion, AccordionItem, Code } from "@nextui-org/react";
 import Link from "next/link";
 import { useCookies } from "next-client-cookies";
-import { HiCash, HiChat, HiExternalLink, HiLockClosed, HiUserAdd } from "react-icons/hi";
+import { HiCash, HiChat, HiExternalLink, HiLockClosed, HiUser, HiUserAdd } from "react-icons/hi";
 
+import DiscordAppBadge from "@/components/discord/app-badge";
 import cn from "@/utils/cn";
 
 const data = [
@@ -94,6 +95,15 @@ const data = [
                 />
             </div>
         )
+    },
+    {
+        startContent: <HiUser />,
+        title: "What's a 'Discord App', and what's the difference to a Bot?",
+        content: (
+            <div>
+                Discord recently renamed <DiscordAppBadge>BOT</DiscordAppBadge>s to <DiscordAppBadge />s, meaning that there is no difference between them.
+            </div>
+        )
     }
 ];
 
@@ -121,8 +131,9 @@ export default function Faq() {
                     >
                         {item.content}
 
+                        <div className="h-2" />
+
                         <LinkTag
-                            className="mt-4"
                             href="/support"
                         >
                             Need help? Talk with us!

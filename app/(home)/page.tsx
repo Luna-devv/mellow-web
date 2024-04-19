@@ -7,6 +7,7 @@ import { HiArrowNarrowRight, HiArrowRight, HiCash, HiFire, HiLockOpen, HiUserAdd
 
 import Box from "@/components/box";
 import Comment from "@/components/comment";
+import DiscordAppBadge from "@/components/discord/app-badge";
 import DiscordChannel from "@/components/discord/channel";
 import DiscordChannelCategory from "@/components/discord/channel-category";
 import Highlight from "@/components/discord/markdown";
@@ -53,12 +54,14 @@ export default async function Home() {
     const messageProps = (command?: string) => {
         return {
             mode: "DARK" as const,
-            commandUsed: command ? {
-                name: command,
-                username: "@mwlica",
-                avatar: "/luna-small.webp",
-                bot: false
-            } : undefined,
+            commandUsed: command
+                ? {
+                    name: command,
+                    username: "@mwlica",
+                    avatar: "/luna-small.webp",
+                    bot: false
+                }
+                : undefined,
 
             user: {
                 username: "Wamellow",
@@ -95,9 +98,14 @@ export default async function Home() {
                     <Ratings />
 
                     <h1 className={cn(montserrat.className, "lg:text-7xl md:text-6xl text-5xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
-                        <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">Next generation</span>
+                        <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">
+                            Next generation
+                        </span>
                         {" of "}
-                        <span className="underline decoration-blurple break-keep">Discord Apps</span>
+                        <span className="underline decoration-blurple break-keep inline-flex items-center">
+                            Discord
+                            <DiscordAppBadge className="mt-1 scale-[250%] md:scale-[300%] lg:scale-[360%] relative left-12 md:left-14 lg:left-20" />
+                        </span>
                     </h1>
 
                     <span className="text-lg font-medium max-w-xl mb-4">
@@ -109,16 +117,18 @@ export default async function Home() {
                         max={8}
                         renderCount={renderCount}
                     >
-                        {toFixedArrayLength(topGuilds || [], 8)?.map((guild, i) => (
-                            <Avatar
-                                as={Link}
-                                href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
-                                key={"mobileGuildGrid-" + guild.id + i}
-                                src={guild.icon || "/discord.webp"}
-                                alt={guild.name}
-                                title={guild.name}
-                            />
-                        ))}
+                        {toFixedArrayLength(topGuilds || [], 8)
+                            ?.map((guild, i) => (
+                                <Avatar
+                                    as={Link}
+                                    href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
+                                    key={"mobileGuildGrid-" + guild.id + i}
+                                    src={guild.icon || "/discord.webp"}
+                                    alt={guild.name}
+                                    title={guild.name}
+                                />
+                            ))
+                        }
                     </AvatarGroup>
 
                     <div className="space-y-4">
@@ -167,7 +177,11 @@ export default async function Home() {
                         {[0, 1, 2, 3].map((i) => (
                             <div
                                 key={"guildGridThing-" + i}
-                                className={cn("flex flex-col gap-4", i % 2 === 1 ? "mt-4 animate-guilds" : "animate-guilds-2", (i === 0 || i === 3) && "hidden xl:flex")}
+                                className={cn(
+                                    "flex flex-col gap-4",
+                                    i % 2 === 1 ? "mt-4 animate-guilds" : "animate-guilds-2",
+                                    (i === 0 || i === 3) && "hidden xl:flex")
+                                }
                             >
                                 {toFixedArrayLength(topGuilds || [], 12)
                                     .slice(i * 3, (i * 3) + 3)
@@ -237,7 +251,10 @@ export default async function Home() {
                                 max={8}
                             >
                                 {["us", "de", "es", "fr", "jp", "kr", "br", "id"].map((lang) => {
-                                    const name = Object.entries(actor).find(([, [, langCode]]) => langCode === lang)?.[1][0] || lang;
+                                    const name = Object
+                                        .entries(actor)
+                                        .find(([, [, langCode]]) => langCode === lang)
+                                        ?.[1][0] || lang;
 
                                     return (
                                         <Avatar

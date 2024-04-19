@@ -10,7 +10,10 @@ interface Props {
     duration: number;
 }
 
-export default function FunctionComponent({ duration, mode }: Props) {
+export default function DiscordMessageFile({
+    duration,
+    mode
+}: Props) {
     return (
         <div className={`w-full ${mode === "DARK" ? "text-neutral-200" : "text-neutral-800"} font-light p-3 rounded mt-2`} style={{ backgroundColor: mode === "DARK" ? "rgb(40, 42, 46)" : "rgb(242, 243, 245)" }}>
 

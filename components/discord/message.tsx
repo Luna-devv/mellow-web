@@ -2,9 +2,10 @@
 
 import { Avatar } from "@nextui-org/react";
 import React from "react";
-import { HiCheck } from "react-icons/hi";
 
 import cn from "@/utils/cn";
+
+import DiscordAppBadge from "./app-badge";
 
 interface Props {
     children: React.ReactNode;
@@ -24,7 +25,12 @@ interface Props {
     }
 }
 
-export default function DiscordMessage({ children, commandUsed, user, mode }: Props) {
+export default function DiscordMessage({
+    children,
+    commandUsed,
+    user,
+    mode
+}: Props) {
 
     function formatTime(date: Date) {
         const timeString = date.toLocaleString("en-US", { hour: "numeric", minute: "numeric" });
@@ -49,10 +55,8 @@ export default function DiscordMessage({ children, commandUsed, user, mode }: Pr
                             src={commandUsed.avatar}
                         />
                         <span className={cn(mode === "DARK" ? "text-violet-400" : "text-violet-600")}>{commandUsed.username}</span>
-                        {commandUsed.bot && <div className="text-xxs text-white bg-blurple rounded py-[1px] px-1 h-4 flex items-center">
-                            <HiCheck />
-                            <span className="ml-1">BOT</span>
-                        </div>
+                        {commandUsed.bot &&
+                            <DiscordAppBadge />
                         }
                         used
                         <span className="text-blue-400">/{commandUsed.name}</span>
@@ -75,10 +79,8 @@ export default function DiscordMessage({ children, commandUsed, user, mode }: Pr
                         <div className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis hover:underline" >
                             {user.username}
                         </div>
-                        {user.bot && <div className="text-xxs text-white bg-blurple rounded py-[1px] px-1 flex items-center">
-                            <HiCheck />
-                            <span className="ml-1">APP</span>
-                        </div>
+                        {user.bot &&
+                            <DiscordAppBadge />
                         }
                         <time
                             className="mt-[2px] text-xs opacity-70 font-light"
