@@ -1,6 +1,7 @@
 import { Badge, Chip, CircularProgress } from "@nextui-org/react";
 import { cookies } from "next/headers";
 import Image from "next/image";
+import Link from "next/link";
 import { HiBadgeCheck } from "react-icons/hi";
 
 import DiscordAppBadge from "@/components/discord/app-badge";
@@ -225,9 +226,13 @@ function UserBadge({
 }) {
     return (
         <Chip
+            as={Link}
             color="secondary"
-            size="sm" variant="flat"
+            href="/team?utm_source=wamellow.com&utm_medium=leaderboard"
+            size="sm"
             startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}
+            target="_blank"
+            variant="flat"
         >
             <span className="font-bold">{children}</span>
         </Chip>
