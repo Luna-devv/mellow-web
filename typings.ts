@@ -46,6 +46,7 @@ export interface ApiV1GuildsGetResponse {
         announceUser: boolean;
         logChannelId: string | null;
         priorityRoleId: string | null;
+        maxLength?: number | null;
     }
 }
 

@@ -9,6 +9,7 @@ import { useState } from "react";
 import { HiChartBar, HiMail } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
+import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Modal from "@/components/modal";
@@ -93,7 +94,7 @@ export default function Home() {
 
             <div className="lg:flex gap-6 mt-5">
                 {guild?.tts && guild?.channels?.length &&
-                    <div className="lg:w-1/2 space-y-8">
+                    <div className="lg:w-1/2 space-y-6">
                         <SelectMenu
                             name="Chat to Speech channel"
                             url={`/guilds/${params.guildId}`}
@@ -128,6 +129,15 @@ export default function Home() {
                             dataName="announceUser"
                             description="If I should say who is currently speaking via tts."
                             defaultState={guild?.tts.announceUser || false}
+                        />
+                        <NumberInput
+                            className="pt-7"
+                            name="Max message length"
+                            description="The maximum length of a message that can be spoken."
+                            url={`/guilds/${params.guildId}`}
+                            dataName="maxLength"
+                            defaultState={guild?.tts.maxLength || 4000}
+                            max={4000}
                         />
                     </div>
                 }

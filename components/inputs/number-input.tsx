@@ -24,6 +24,7 @@ type Props = {
     defaultState: number;
 
     min?: number;
+    max?: number;
 };
 
 export default function NumberInput({
@@ -34,7 +35,8 @@ export default function NumberInput({
     disabled,
     description,
     defaultState,
-    min = 0
+    min = 0,
+    max = Infinity
 }: Props) {
     const web = webStore((w) => w);
 
@@ -56,11 +58,22 @@ export default function NumberInput({
         const start = Date.now();
         intervalRef.current = setInterval(() => {
             if (Date.now() - start < 200) return;
-            if (hold === "+") setValue((prevCount) => (prevCount ?? 0) + 1);
-            else setValue((prevCount) => {
-                if ((prevCount ?? 0) - 1 < min) return min;
-                return (prevCount ?? 0) - 1;
-            });
+
+            switch (hold) {
+                case "+":
+                    setValue((prevCount) => {
+                        if ((prevCount ?? 0) + 1 > max) return max;
+                        return (prevCount ?? 0) + 1;
+                    });
+                    break;
+                case "-":
+                    setValue((prevCount) => {
+                        if ((prevCount ?? 0) - 1 < min) return min;
+                        return (prevCount ?? 0) - 1;
+                    });
+                    break;
+            }
+
         }, 50);
     }, [hold]);
 
@@ -120,7 +133,11 @@ export default function NumberInput({
                         {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
                     </div>
 
-                    {description && <div className={cn("w-full relative bottom-1 text-neutral-500 text-sm", web.width > 880 && "flex")}>{description}</div>}
+                    {description &&
+                        <div className={cn("w-full relative bottom-1 text-neutral-500 text-sm", web.width > 880 && "flex")}>
+                            {description}
+                        </div>
+                    }
                 </div>
 
                 <div
@@ -176,7 +193,10 @@ export default function NumberInput({
                     <button
                         onMouseDown={() => setHold("+")}
                         onMouseUp={() => setHold(undefined)}
-                        onClick={() => setValue((value ?? 0) + 1)}
+                        onClick={() => {
+                            if ((value ?? 0) + 1 > max) setValue(max);
+                            else setValue((value ?? 0) + 1);
+                        }}
                         className={cn(
                             "dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-r-xl duration-100",
                             (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-pointer"
