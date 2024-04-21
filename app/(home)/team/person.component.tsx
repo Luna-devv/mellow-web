@@ -55,7 +55,7 @@ export function Person({
             />
 
             <div className="mr-2">
-                <div className="text-lg text-neutral-200 font-medium -mb-1.5">{globalName}</div>
+                <div className="text-lg text-neutral-200 font-medium -mb-1.5">{globalName || username}</div>
                 <span className="opacity-75">@{username}</span>
             </div>
 

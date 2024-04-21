@@ -51,5 +51,10 @@ export const members = [
         id: "911823996767600730",
         team: TeamType.Donator,
         social: "https://ibcheechy.com/"
+    },
+    {
+        id: "748968886237397036",
+        team: TeamType.Donator,
+        social: "https://www.tiktok.com/@.noxern"
     }
 ] as const;
