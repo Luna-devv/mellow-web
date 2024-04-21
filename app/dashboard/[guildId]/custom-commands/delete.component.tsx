@@ -7,13 +7,13 @@ import Modal from "@/components/modal";
 
 interface Props {
     guildId: string;
-    tagId: string | null;
+    id: string | null;
     name?: string;
 
-    removeTag: (tagId: string) => void;
+    removeTag: (id: string) => void;
 }
 
-export default function DeleteTag({ guildId, tagId, name, removeTag }: Props) {
+export default function DeleteTag({ guildId, id, name, removeTag }: Props) {
 
     const [open, setOpen] = useState(false);
 
@@ -24,7 +24,7 @@ export default function DeleteTag({ guildId, tagId, name, removeTag }: Props) {
                     isIconOnly
                     color="danger"
                     onClick={() => setOpen(true)}
-                    isDisabled={!tagId}
+                    isDisabled={!id}
                 >
                     <HiTrash className="h-5 w-5" />
                     <span className="sr-only">Delete selected tag</span>
@@ -38,7 +38,7 @@ export default function DeleteTag({ guildId, tagId, name, removeTag }: Props) {
                 show={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {
-                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/tags/${tagId}`, {
+                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/tags/${id}`, {
                         method: "DELETE",
                         credentials: "include",
                         headers: {
@@ -47,7 +47,7 @@ export default function DeleteTag({ guildId, tagId, name, removeTag }: Props) {
                     });
                 }}
                 onSuccess={() => {
-                    if (tagId) removeTag(tagId);
+                    if (id) removeTag(id);
                 }}
             >
                 Are you sure you want to delete the {'"'}{name}{'"'} tag? It will be gone forever, probably, who knows.

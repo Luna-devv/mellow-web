@@ -40,8 +40,8 @@ export default function Home() {
         }
     );
 
-    const tagId = search.get("id");
-    const tag = (Array.isArray(data) ? data : []).find((t) => t.tagId === tagId);
+    const id = search.get("id");
+    const tag = (Array.isArray(data) ? data : []).find((t) => t.id === id);
 
     const createQueryString = useCallback((name: string, value: string) => {
         const params = new URLSearchParams(search);
@@ -52,7 +52,7 @@ export default function Home() {
 
     useEffect(() => {
         if (!Array.isArray(data)) return;
-        if (data && !tag && data[0]) setTagId(data[0].tagId);
+        if (data && !tag && data[0]) setTagId(data[0].id);
     }, [data]);
 
     if (error || (data && "message" in data)) {
@@ -82,7 +82,7 @@ export default function Home() {
         if (!tag) return;
 
         queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(url, () => [
-            ...(data?.filter((t) => t.tagId !== tag.tagId) || []),
+            ...(data?.filter((t) => t.id !== tag.id) || []),
             { ...tag, [k]: value }
         ]);
     };
@@ -96,7 +96,7 @@ export default function Home() {
 
     const removeTag = (id: string) => {
         queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(url, () =>
-            data?.filter((t) => t.tagId !== id) || []
+            data?.filter((t) => t.id !== id) || []
         );
     };
 
@@ -108,13 +108,13 @@ export default function Home() {
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((tag) => (
                         <Chip
-                            key={"guildTags-" + tag.tagId}
+                            key={"guildTags-" + tag.id}
                             as={Button}
                             className="default border-0"
-                            variant={tagId === tag.tagId ? "flat" : "faded"}
-                            color={tagId === tag.tagId ? "secondary" : undefined}
+                            variant={id === tag.id ? "flat" : "faded"}
+                            color={id === tag.id ? "secondary" : undefined}
                             startContent={<span className="opacity-50 relative left-2">{tag.applicationCommandId ? "/" : "wm -"}</span>}
-                            onClick={() => setTagId(tag.tagId)}
+                            onClick={() => setTagId(tag.id)}
                         >
                             {tag.name + " "}
                         </Chip>
@@ -129,7 +129,7 @@ export default function Home() {
                         <span className="dark:text-neutral-600 text-neutral-400 cursor-default">{data.length}/{30}</span>
                     </Tooltip>
 
-                    <DeleteTag guildId={guild?.id as string} tagId={tagId} name={tag?.name} removeTag={removeTag} />
+                    <DeleteTag guildId={guild?.id as string} id={id} name={tag?.name} removeTag={removeTag} />
                 </div>
 
             </div>
@@ -164,9 +164,9 @@ export default function Home() {
                     <div className="lg:flex gap-3 mt-6">
                         <div className="lg:w-1/2">
                             <TextInput
-                                key={tag.tagId}
+                                key={tag.id}
                                 name="Name"
-                                url={url + "/" + tag.tagId}
+                                url={url + "/" + tag.id}
                                 dataName="name"
                                 description="The name of the custom command."
                                 defaultState={tag.name}
@@ -177,9 +177,9 @@ export default function Home() {
 
                         <div className="lg:w-1/2">
                             <SelectInput
-                                key={tag.tagId}
+                                key={tag.id}
                                 name="Permissions"
-                                url={url + "/" + tag.tagId}
+                                url={url + "/" + tag.id}
                                 items={
                                     Permissions.sort((a, b) => a.localeCompare(b)).map((p) => (
                                         { name: convertCamelCaseToSpaced(p), value: p }
@@ -195,9 +195,9 @@ export default function Home() {
                     </div>
 
                     <MessageCreatorEmbed
-                        key={tag.tagId}
+                        key={tag.id}
                         name="Message"
-                        url={url + "/" + tag.tagId}
+                        url={url + "/" + tag.id}
                         dataName="message"
                         defaultMessage={tag.message}
                         onSave={(value) => editTag("message", value as string)}

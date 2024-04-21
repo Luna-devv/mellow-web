@@ -297,7 +297,7 @@ export interface ApiV1UsersMeConnectionsSpotifyGetResponse {
 }
 
 export interface ApiV1GuildsModulesTagsGetResponse {
-    tagId: string;
+    id: string;
     guildId: string;
     applicationCommandId?: string;
 
