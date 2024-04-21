@@ -84,7 +84,7 @@ export default function Home() {
                         name="Logging channel"
                         url={url}
                         dataName="logChannelId"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
+                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
                         description="Select the channel where the logs should be send into."
                         defaultState={data.logChannelId}
                         disabled={!data.enabled}
@@ -128,7 +128,7 @@ export default function Home() {
                         name="Whitelist channels"
                         url={url}
                         dataName="whitelistChannelIds"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
                         description="Select channels where images should not be scanned in."
                         defaultState={data.whitelistChannelIds}
                         disabled={!data.enabled}

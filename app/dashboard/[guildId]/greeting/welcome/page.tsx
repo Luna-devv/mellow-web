@@ -170,7 +170,7 @@ export default function Home() {
                         name="Pings"
                         url={`/guilds/${guild?.id}/modules/welcome`}
                         dataName="pingIds"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }; })}
+                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp !== "EmbedLinks").join(", ") }))}
                         description="Select in what channels user should get ghostpinged."
                         defaultState={welcome?.pingIds || []}
                         max={5}

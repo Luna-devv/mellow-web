@@ -99,7 +99,7 @@ export default function Home() {
                             name="Chat to Speech channel"
                             url={`/guilds/${params.guildId}`}
                             dataName="channelId"
-                            items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
+                            items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp === "ViewChannel").join(", ") }))}
                             description="Select a channel what channel should be used for tts."
                             defaultState={guild?.tts.channelId}
                             showClear
@@ -108,8 +108,8 @@ export default function Home() {
                             name="Usage logs"
                             url={`/guilds/${params.guildId}`}
                             dataName="logChannelId"
-                            items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
-                            description="Select a channel where usage logs should be psoted into."
+                            items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+                            description="Select a channel where usage logs should be posted into."
                             defaultState={guild?.tts.logChannelId}
                             showClear
                         />
