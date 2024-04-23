@@ -19,8 +19,6 @@ export interface UserGuild {
     id: string;
     name: string;
     icon: string | null;
-    owner: boolean;
-    permissions: string;
 }
 
 export interface RouteErrorResponse {
@@ -216,7 +214,7 @@ export interface ApiV1GuildsModulesLeaderboardUpdatingPostResponse {
 }
 
 export interface ApiV1GuildsModulesLeaderboardGetResponse {
-    banner: string | null;
+    bannerUrl: string | null;
 
     backgroundColor: number | null;
     textColor: number | null;
@@ -338,6 +336,37 @@ export interface ApiV1GuildsModulesNsfwModerationGetResponse {
     whitelistRoleIds: string[];
 }
 
+export interface Upload {
+    id: string;
+    guildId?: string | null;
+    authorId: string;
+
+    prompt: string;
+    negativePrompt?: string | null;
+    model: string;
+
+    verified: boolean;
+    nsfw: boolean;
+
+    createdAt: string;
+}
+
+export interface ApiV1UploadsGetResponse {
+    results: Upload[];
+    pagination: {
+        total: number;
+        pages: number;
+    }
+}
+
+export interface ApiV1UploadGetResponse extends Upload {
+    author: {
+        username: string;
+        globalName: string;
+        avatar: string | null;
+        bot?: boolean;
+    };
+}
 export interface PronounsResponse {
     status: number;
     content: string[];

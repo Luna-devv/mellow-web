@@ -104,7 +104,7 @@ export default async function RootLayout({
                     className="w-full object-cover"
                     classNames={{ img: "h-36 md:h-64", blurredImg: "h-40 md:h-72 -top-5" }}
                     isBlurred
-                    src={design && "banner" in design && design.banner ? design.banner : paintPic.src}
+                    src={design && "bannerUrl" in design && design.bannerUrl ? design.bannerUrl : paintPic.src}
                     width={3840 / 2}
                     height={2160 / 2}
                 />
