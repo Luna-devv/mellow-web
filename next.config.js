@@ -26,15 +26,15 @@ const nextConfig = {
             },
             {
                 protocol: "https",
-                hostname: "the-net.loves-genshin.lol",
-                port: "",
-                pathname: "/images/ai/**"
-            },
-            {
-                protocol: "https",
                 hostname: "r2.wamellow.com",
                 port: "",
                 pathname: "/ai-image/**"
+            },
+            {
+                protocol: "https",
+                hostname: "ai.local.wamellow.com",
+                port: "",
+                pathname: "/static/**"
             }
         ]
     }

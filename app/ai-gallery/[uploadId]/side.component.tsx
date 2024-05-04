@@ -11,18 +11,16 @@ import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { formatDate } from "@/components/time";
 import { AnalyticsError, AnalyticsResponse } from "@/lib/analytics";
-import { ApiError, ApiV1GuildsGetResponse } from "@/typings";
+import { ApiError, ApiV1GuildsGetResponse, ApiV1UploadGetResponse } from "@/typings";
 import { truncate } from "@/utils/truncate";
 import { getCanonicalUrl } from "@/utils/urls";
-
-import { ExtendedUpload } from "../api";
 
 export default function Side({
     upload,
     guild,
     analytics
 }: {
-    upload: ExtendedUpload | ApiError;
+    upload: ApiV1UploadGetResponse | ApiError;
     guild: ApiV1GuildsGetResponse | ApiError | undefined;
     analytics: { results: AnalyticsResponse[] } | AnalyticsError | undefined;
 }) {
