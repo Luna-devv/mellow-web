@@ -1,21 +1,29 @@
+import cn from "@/utils/cn";
 import { Divider } from "@nextui-org/react";
 
 export function Section({
     title,
+    showDivider = true,
     children,
+
+    className,
     ...props
 }: {
     title: string;
+    showDivider?: boolean;
     children?: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>) {
     return (
         <>
-            <Divider className="mt-12 mb-4" />
+            {showDivider && <Divider className="mt-12 mb-4" />}
 
-            <div {...props}>
+            <div
+                className={cn("mb-3", className)}
+                {...props}
+            >
                 <h3 className="text-xl text-neutral-200">{title}</h3>
                 {children &&
-                    <p className="dark:text-neutral-500 text-neutral-400 mb-3">
+                    <p className="dark:text-neutral-500 text-neutral-400">
                         {children}
                     </p>
                 }
@@ -31,16 +39,19 @@ export function SubSection({
     ...props
 }: {
     title: string;
-    description: string;
+    description?: string;
     children: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>) {
     return (
         <div {...props}>
             <h3 className="text-medium font-medium text-neutral-300 mt-5">{title}</h3>
             <div className="dark:text-neutral-500 text-neutral-400 mb-3">
-                <div className="mb-3">
-                    {description}
-                </div>
+                {description &&
+                    <div className="mb-3">
+                        {description}
+                    </div>
+                }
+
                 {children}
             </div>
         </div>

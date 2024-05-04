@@ -367,6 +367,24 @@ export interface ApiV1UploadGetResponse extends Upload {
         bot?: boolean;
     };
 }
+
+export interface ApiV1UsersGetResponse {
+    id: string;
+    username: string;
+    globalName: string | null;
+    avatar: string | null;
+
+    bannerUrl: string | null;
+    voteCount: number;
+    likeCount: number;
+
+    activity: Required<ApiV1MeGetResponse>["activity"];
+    guilds: {
+        guildId: string;
+        activity: Required<ApiV1MeGetResponse>["activity"];
+    }[];
+}
+
 export interface PronounsResponse {
     status: number;
     content: string[];
