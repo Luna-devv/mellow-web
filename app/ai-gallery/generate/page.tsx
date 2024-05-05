@@ -127,6 +127,16 @@ export default function Home() {
                         prompt={prompt}
                     />
 
+                    <div
+                        className={cn(
+                            "mt-6",
+                            cookies.get("devTools") === "true" && "hidden md:block"
+                        )}
+                    >
+                        Generate AI images using your own <LinkTag href="https://www.intel.com/content/www/us/en/products/details/discrete-gpus/arc.html">Intel® Arc™ A-Series GPU</LinkTag> (16gb vram minimum).
+                        Make sure you have <LinkTag href="https://github.com/Luna-devv/intel-arc-ai">Luna-devv/intel-arc-ai</LinkTag> installed and running locally on your machine or local network.
+                    </div>
+
                 </div>
             </div>
         </div>
