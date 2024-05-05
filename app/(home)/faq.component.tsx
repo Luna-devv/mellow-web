@@ -8,6 +8,7 @@ import { HiCash, HiChat, HiExternalLink, HiLockClosed, HiUser, HiUserAdd } from 
 import DiscordAppBadge from "@/components/discord/app-badge";
 import cn from "@/utils/cn";
 import { Section } from "@/components/section";
+import LinkTag from "@/components/link-tag";
 
 const data = [
     {
@@ -167,24 +168,3 @@ export default function Faq({
 }
 
 
-function LinkTag({
-    href,
-    children,
-    className
-}: {
-    href: string;
-    children: React.ReactNode;
-    className?: string;
-}) {
-    return (
-        <Link
-            className={cn("text-violet-400 underline decoration-violet-400", className)}
-            href={href}
-            prefetch={false}
-            target="_blank"
-        >
-            {children}
-            <HiExternalLink className="inline ml-1 mb-0.5" />
-        </Link>
-    );
-}
