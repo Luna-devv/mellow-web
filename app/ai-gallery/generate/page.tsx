@@ -9,6 +9,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Notice from "@/components/notice";
 import UploadButton from "./upload.component";
 import { HiPrinter } from "react-icons/hi";
+import Time from "./time.component";
+import LinkTag from "@/components/link-tag";
+import cn from "@/utils/cn";
+import { useCookies } from "next-client-cookies";
 
 enum State {
     Idle = 0,
@@ -16,6 +20,7 @@ enum State {
 }
 
 export default function Home() {
+    const cookies = useCookies();
     const search = useSearchParams()
     const router = useRouter();
 
@@ -38,12 +43,16 @@ export default function Home() {
                 setGpu(res.gpu || null)
             })
             .catch((err) => {
-                setError(`No gpu instance found at ${baseUrl}: ${err.toString()}`)
+                setError(`Could not fetch local GPU instance (${err.toString()})`)
             });
     }, [baseUrl]);
 
     async function generate() {
         setState(State.Loading);
+
+        let params = new URLSearchParams();
+        params.delete("image_url");
+        router.push(`?${params.toString()}`, { scroll: false });
 
         const reqparams = new URLSearchParams({
             prompt: prompt,
@@ -52,7 +61,7 @@ export default function Home() {
         const res = await fetch(`${baseUrl}/generate/image/${model}?${reqparams.toString()}`)
             .then((res) => res.json()) as { url: string, duration: number };
 
-        const params = new URLSearchParams();
+        params = new URLSearchParams();
         params.delete("image_url");
         params.append("image_url", res.url);
 
@@ -105,22 +114,32 @@ export default function Home() {
                 <div className="md:w-1/3 mb-8 md:mt-0 flex flex-col">
                     <DumbTextInput name="Base URL" value={baseUrl} setValue={setBaseUrl} thin />
                     <DumbTextInput name="Model" value={model} setValue={setModel} thin />
-                    <DumbTextInput name="Prompt" value={prompt} setValue={setPrompt} thin />
+                    <DumbTextInput name="Prompt" value={prompt} setValue={setPrompt} placeholder="bocchi the rock" thin />
 
                     <Button
                         className="mt-4"
                         color="secondary"
                         onClick={generate}
-                        startContent={<HiPrinter />}
+                        startContent={
+                            state === State.Loading
+                                ? <></>
+                                : <HiPrinter />
+                        }
                         isLoading={state === State.Loading}
                         isDisabled={!gpu || !prompt || !model}
                     >
                         Generate
                     </Button>
 
-                    <span className="mt-2 font-medium">
-                        {gpu || "unknown gpu"}
-                    </span>
+                    <div className="flex justify-between">
+                        <span className="font-medium">
+                            {gpu || "unknown gpu"}
+                        </span>
+
+                        <span className="italic">
+                            (<Time loading={state === State.Loading} />)
+                        </span>
+                    </div>
 
                     <UploadButton
                         model={model}

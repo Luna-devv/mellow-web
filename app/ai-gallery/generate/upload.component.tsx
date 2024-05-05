@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ApiV1UploadGetResponse } from "@/typings";
 import { HiCloudUpload } from "react-icons/hi";
+import cn from "@/utils/cn";
 
 enum State {
     Idle = 0,
@@ -30,6 +31,8 @@ export default function UploadButton({
     const [error, setError] = useState<string | null>(null);
 
     const [nsfw, setNsfw] = useState(false);
+
+    const isDisabled = !cookies.get("hasSession") || !imageUrl;
 
     useEffect(() => {
         setState(State.Idle);
@@ -61,18 +64,22 @@ export default function UploadButton({
         setState(State.Success);
     }
 
-    if (!cookies.get("hasSession") || !imageUrl) return <></>;
-
     return (
-        <div className="flex flex-col">
+        <div
+            className={cn(
+                "flex flex-col",
+                isDisabled && "cursor-not-allowed select-none blur-sm opacity-75"
+            )}
+        >
 
-            <div className="mt-4 flex items-center">
+            <div className="mt-6 flex items-center">
                 <Checkbox
                     isSelected={nsfw}
                     onValueChange={(now) => setNsfw(now)}
                     color="secondary"
+                    isDisabled={isDisabled}
                 />
-                <span className="font-medium">Is NSFW?</span>
+                <span className="font-medium">Is NSFW content?</span>
             </div>
 
             <Button
@@ -83,9 +90,13 @@ export default function UploadButton({
                         : "secondary"
                 }
                 onClick={upload}
-                startContent={<HiCloudUpload />}
+                startContent={
+                    state === State.Loading
+                        ? <></>
+                        : <HiCloudUpload />
+                }
                 isLoading={state === State.Loading}
-                isDisabled={state === State.Success}
+                isDisabled={state === State.Success || isDisabled}
             >
                 {
                     state === State.Success
