@@ -17,6 +17,7 @@ import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
+import { Section } from "@/components/section";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -311,6 +312,83 @@ export default function Home() {
                 </div>
 
             </MessageCreatorEmbed>
+
+            <Section
+                title="Wave to say hi!"
+            >
+                Bring Discord's "Wave to say hi!" feature on customized messages, just with a random greet!
+            </Section>
+
+            <Switch
+                name="Enable button"
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="button.enabled"
+                defaultState={welcome.button?.enabled}
+                disabled={!welcome.enabled}
+                onSave={(s) => {
+                    setWelcome({
+                        ...welcome,
+                        button: {
+                            ...welcome.button,
+                            enabled: s
+                        }
+                    });
+                }}
+            />
+
+            <Switch
+                name="Ping new member"
+                description="Whenever the mention in the greet message should ping or not."
+                url={`/guilds/${guild?.id}/modules/welcome`}
+                dataName="button.ping"
+                defaultState={welcome.button?.ping || false}
+                disabled={!welcome.enabled || !welcome.button?.enabled}
+            />
+
+            <div className="lg:flex gap-3">
+                <div className="lg:w-1/2">
+                    <SelectMenu
+                        name="Button color"
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="button.style"
+                        items={
+                            [
+                                ["852956037111349269", "Grey", 2],
+                                ["1021446883685695538", "Blurple", 1],
+                                ["1021446892707647498", "Green", 3],
+                                ["1021446888773386300", "Red", 4]
+                            ]
+                                .map(([emoji, name, id]) => {
+                                    return {
+                                        icon: <Image src={`https://cdn.discordapp.com/emojis/${emoji}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={name as string} height={64} width={64} />,
+                                        name: name as string,
+                                        value: id
+                                    };
+                                }) || []
+                        }
+                        description="Select emotes which will be reacted with on welcome messages."
+                        defaultState={welcome?.button?.style}
+                        disabled={!welcome.enabled || !welcome.button?.enabled}
+                    />
+                </div>
+                <div className="lg:w-1/2">
+                    <SelectMenu
+                        name="Button emoji"
+                        url={`/guilds/${guild?.id}/modules/welcome`}
+                        dataName="button.emoji"
+                        items={
+                            guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => {
+                                return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={c.name} height={64} width={64} />, name: c.name.replace(/-|_/g, " "), value: c.id };
+                            }) || []
+                        }
+                        description="Select an emoji which will be used in the button."
+                        defaultState={welcome?.button?.emoji}
+                        disabled={!welcome.enabled || !welcome.button?.enabled}
+                    />
+                </div>
+            </div>
+
+            <div className="h-48" />
 
         </div>
     );

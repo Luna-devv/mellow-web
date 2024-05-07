@@ -108,7 +108,6 @@ export interface GuildEmbed {
 export interface ApiV1GuildsModulesWelcomeGetResponse {
     enabled: boolean;
     channelId?: string;
-    webhookURL?: string;
 
     message: {
         content?: string;
@@ -139,6 +138,15 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
         inEmbed: boolean;
         background?: string;
         textColor?: number;
+    };
+
+    button: {
+        enabled: boolean;
+        style: 1 | 2 | 3 | 4;
+        emoji?: string | null;
+        label?: string | null;
+        ping?: boolean;
+        type: 0;
     };
 }
 
