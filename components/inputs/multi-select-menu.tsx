@@ -19,11 +19,11 @@ type Props = {
     name: string;
     url: string;
     dataName: string;
-    items: { icon?: React.ReactNode; name: string; value: string; error?: string; color?: number; }[] | undefined;
+    items: { icon?: React.ReactNode; name: string; value: string | number; error?: string; color?: number; }[] | undefined;
     disabled?: boolean;
     max?: number;
     description?: string;
-    defaultState?: string[];
+    defaultState?: (string | number)[];
 };
 
 
@@ -42,8 +42,8 @@ export default function MultiSelectMenu({
     const [error, setError] = useState<string | null>(null);
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<string[]>([]);
-    const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string; error?: string; color?: number; }[]>([]);
+    const [defaultvalue, setDefaultalue] = useState<(string | number)[]>([]);
+    const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string | number; error?: string; color?: number; }[]>([]);
 
     useEffect(() => {
         setValues(items.filter((i) => defaultState?.includes(i.value)));
@@ -167,7 +167,7 @@ export default function MultiSelectMenu({
                         {items.map((item, i) => (
                             <button
                                 className={cn(
-                                    "p-4 py-2 w-full text-left duration-200 flex justify-between items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
+                                    "p-4 py-2 w-full text-left duration-200 flex items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
                                     item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
                                 )}
                                 style={item.color ? { color: `#${item.color.toString(16)}` } : {}}

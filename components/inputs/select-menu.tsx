@@ -164,7 +164,7 @@ export default function SelectMenu({
                         {items.map((item, i) => (
                             <button
                                 className={cn(
-                                    "p-4 py-2 w-full text-left duration-200 flex justify-between items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
+                                    "p-4 py-2 w-full text-left duration-200 flex items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
                                     item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
                                 )}
                                 key={"select-" + item.value + i}
