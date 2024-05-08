@@ -93,6 +93,8 @@ export default function Switch({
                         break;
                     }
                     default: {
+                        setChanged(false);
+                        setValue(!value);
                         setState(State.Idle);
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
@@ -101,6 +103,8 @@ export default function Switch({
 
             })
             .catch(() => {
+                setChanged(false);
+                setValue(!value);
                 setState(State.Idle);
                 setError("Error while saving");
             });
