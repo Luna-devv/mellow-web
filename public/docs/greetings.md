@@ -2,7 +2,7 @@ Wamellow boasts a feature-rich greeter. This functionality enables the bot to au
 <br />
 <br />
 
-![farewell example](/docs-assets/welcome.webp)
+![welcome example](/docs-assets/welcome.webp)
 
 ## Setup
 1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
@@ -18,22 +18,24 @@ You can create a welcoming message with a **fully customizable message and embed
 
 ### 🖼️ Image card
 You can create a nice welcome image by **customizing the background for free**.
-<br />
-<br />
+
+![welcome image](/welcome.webp)
 
 **Warning:**
 
 Please do not forget to actually put in a direct link to the image, not a link to a website with the image.
 
 Custom background image: `1024x256px` (width, height) and must be type of `.png`.
-
-![welcome image](/welcome.webp)
-
+<br />
+<br />
 **Example custom backgrounds:**
 - [images.wamellow.com/static/grass.jpg](https://images.wamellow.com/static/grass.jpg)
 - [images.wamellow.com/static/orange-grass.jpg](https://images.wamellow.com/static/grass.jpg)
 - [images.wamellow.com/static/red-grass.jpg](https://images.wamellow.com/static/red-grass.jpg)
 - [images.wamellow.com/static/rank.png](https://images.wamellow.com/static/rank.png)
+
+### 🧨 Auto delete
+Automatically delete the welcome message after a certain amount of time. Set to 0 seconds to not delete.
 
 ### 🏓 Pings
 Ghost ping members in up to 5 channels when they join, the ghost pings will be instantly deleted.
@@ -41,7 +43,7 @@ Ghost ping members in up to 5 channels when they join, the ghost pings will be i
 ### 👀 Roles
 Assign up to 5 roles to new members.
 
-### ♻️ Restore Roles/Nick after Rejoin
+### ♻️ Restore roles/nick after rejoin
 You can re-assign all roles and past nickname when a member left and rejoins your server.
 
 ### 💬 Direct Message
@@ -49,6 +51,20 @@ If you want to send a direct message to your new members, Wamellow also allows y
 
 ### 🎉 Reactions
 If you want, you can also make Wamellow react with up to 2 emojis to your custom welcome message or to your members's first message.
+
+**Note:** The emojis must be from the same server.
+
+### 👋 Click to say hi
+Bring Discord's "Wave to say hi!" feature to Wamellow's custom messages, just with a random greet instead of a random sticker!
+<br />
+<br />
+![wave to say hi! example](/docs-assets/welcomer-wtsh.png)
+
+
+**Supported customizations are:**
+- Button color (`grey`, `blurple`, `green`, `red`)
+- Button emoji (must be from same server)
+- Toggle ping
 
 ## Placeholders
 Placeholders allow you to use variables that change from message to message, for example to display information about the joining user or your server. They are always enclosed in curly braces, such as `{user.username}`.

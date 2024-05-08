@@ -2,7 +2,7 @@ The starboard serves as a channel for showcasing standout messages from your com
 <br />
 <br />
 
-![farewell example](/docs-assets/starboard.webp)
+![starboard example](/docs-assets/starboard.webp)
 
 ## Setup
 1. Install Wamellow on your server by going to [wamellow.com/add](https://wamellow.com/add).

@@ -314,7 +314,8 @@ export default function Home() {
             </MessageCreatorEmbed>
 
             <Section
-                title="Wave to say hi!"
+                className="mb-6"
+                title="Click to say hi!"
             >
                 Bring Discord's "Wave to say hi!" feature on customized messages, just with a random greet!
             </Section>
@@ -345,7 +346,7 @@ export default function Home() {
                 disabled={!welcome.enabled || !welcome.button?.enabled}
             />
 
-            <div className="lg:flex gap-3">
+            <div className="lg:flex gap-3 pt-3">
                 <div className="lg:w-1/2">
                     <SelectMenu
                         name="Button color"
@@ -353,20 +354,19 @@ export default function Home() {
                         dataName="button.style"
                         items={
                             [
-                                ["852956037111349269", "Grey", 2],
-                                ["1021446883685695538", "Blurple", 1],
-                                ["1021446892707647498", "Green", 3],
-                                ["1021446888773386300", "Red", 4]
+                                ["292b34", "Grey", 2],
+                                ["5865f2", "Blurple", 1],
+                                ["248046", "Green", 3],
+                                ["da373c", "Red", 4]
                             ]
-                                .map(([emoji, name, id]) => {
-                                    return {
-                                        icon: <Image src={`https://cdn.discordapp.com/emojis/${emoji}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={name as string} height={64} width={64} />,
-                                        name: name as string,
-                                        value: id
-                                    };
-                                }) || []
+                                .map(([color, name, id]) => ({
+                                    icon: <div className="rounded-md h-6 w-6" style={{ backgroundColor: `#${color}` }} />,
+                                    name: name as string,
+                                    value: id
+                                }))
+                            || []
                         }
-                        description="Select emotes which will be reacted with on welcome messages."
+                        description="Select the color of the button."
                         defaultState={welcome?.button?.style}
                         disabled={!welcome.enabled || !welcome.button?.enabled}
                     />
@@ -377,9 +377,14 @@ export default function Home() {
                         url={`/guilds/${guild?.id}/modules/welcome`}
                         dataName="button.emoji"
                         items={
-                            guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => {
-                                return { icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={c.name} height={64} width={64} />, name: c.name.replace(/-|_/g, " "), value: c.id };
-                            }) || []
+                            guild?.emojis
+                                ?.sort((a, b) => a.name.localeCompare(b.name))
+                                .map((c) => ({
+                                    icon: <Image src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=64&quality=lossless`} className="rounded-md h-6 w-6" alt={c.name} height={64} width={64} />,
+                                    name: c.name.replace(/-|_/g, " "),
+                                    value: c.id
+                                }))
+                            || []
                         }
                         description="Select an emoji which will be used in the button."
                         defaultState={welcome?.button?.emoji}
@@ -388,7 +393,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="h-48" />
+            <div className="h-[138px]" />
 
         </div>
     );
