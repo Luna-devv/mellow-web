@@ -1,48 +1,52 @@
 import React from "react";
+import { renderToString } from "react-dom/server";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import Emoji from "../markdown/emoji";
+import User from "../markdown/user";
+import Channel from "../markdown/channel";
+import cn from "@/utils/cn";
 
 interface Props {
     text: string;
     mode: "DARK" | "LIGHT";
-    discord?: boolean;
 }
 
 export default function Highlight({
     text,
-    discord = true,
     mode
 }: Props) {
 
-    text = text
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
-
-    const plClassName = `${mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800"} border border-violet-400 p-[3px] rounded-lg opacity-80 font-light`;
-
     function parseDiscordMarkdown(content: string) {
+        console.log(content)
         return content
+            .replace(/<(?!(?:[@#]|a:|:))/g, "&lt;")
+            .replaceAll("\n", "<br>")
             .replace(/__(.*?)__/g, "<u>$1</u>")
-            .replace(/\{(.*?)\.(.*?)\}/g, `<span className='${plClassName}'>$1 $2</span>`)
-            .replace(/<a?:\w{2,32}:(.*?)>/g, "<img alt='emoji' className='rounded-md inline' style='height: 1.375em; position: relative' src='https://cdn.discordapp.com/emojis/$1.webp?size=40&quality=lossless' />")
-            .replace(/<(@!?)\d{15,21}>/g, "<span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>@user</span>")
-            .replace(/<(#!?)\d{15,21}>/g, "<span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>@channel</span>");
-    }
+            .replace(/\{(\w*?)\.(\w*?)\}|{ping}/g, (match) => {
+                return renderToString(
+                    <span
+                        className={cn(
+                            mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800",
+                            'border-1 border-violet-400 px-[3px] rounded-md font-light'
+                        )}
+                    >
+                        {match.slice(1, -1)}
+                    </span>
+                );
+            })
+            .replace(/<a?:\w{2,32}:\d{15,21}>/g, (match) => {
+                const emojiId = match.match(/\d{15,21}/)?.[0]!;
 
-    if (!discord) return (
-        <ReactMarkdown
-            // @ts-expect-error they broke types
-            rehypePlugins={[rehypeRaw]}
-            allowedElements={["span", "p"]}
-        >
-            {parseDiscordMarkdown(text
-                .replaceAll("*", "\\*")
-                .replaceAll("_", "\\_")
-                .replaceAll("~", "\\~")
-                .replaceAll("`", "\\`")
-            )}
-        </ReactMarkdown>
-    );
+                return renderToString(<Emoji emojiId={emojiId} />);
+            })
+            .replace(/<(@[!&]?)\d{15,21}>/g, (match) => {
+                return renderToString(<User username={match.includes("&") ? "some-role" : "some-user"} />);
+            })
+            .replace(/<(#!?)\d{15,21}>/g, () => {
+                return renderToString(<Channel name="some-channel" />);
+            })
+    }
 
     return (
         <ReactMarkdown
@@ -64,13 +68,24 @@ export default function Highlight({
                 </div>,
                 code: ({ inline, children, ...props }) => {
                     if (!inline) return (
-                        <div className={`${mode === "DARK" ? "bg-neutral-900" : "bg-neutral-200"} px-4 py-3 text-sm rounded-md min-w-full max-w-full my-2 break-all`}>
+                        <div
+                            className={cn(
+                                mode === "DARK" ? "bg-neutral-900" : "bg-neutral-200",
+                                'px-4 py-3 text-sm rounded-md min-w-full max-w-full my-2 break-all'
+                            )}
+                        >
                             {children}
                         </div>
                     );
 
                     return (
-                        <code {...props} className={`${mode === "DARK" ? "bg-neutral-900 text-neutral-100" : "bg-neutral-200 text-neutral-900"} p-1 text-sm rounded`}>
+                        <code
+                            {...props}
+                            className={cn(
+                                mode === "DARK" ? "bg-neutral-900 text-neutral-100" : "bg-neutral-200 text-neutral-900",
+                                "p-1 text-sm rounded"
+                            )}
+                        >
                             {children}
                         </code>
                     );

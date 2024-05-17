@@ -5,17 +5,21 @@ import Link from "next/link";
 import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import Notice, { NoticeType } from "./notice";
+import Notice, { NoticeType } from "../notice";
+
+import { getUser } from "@/lib/discord/user";
+import { filterDuplicates } from "@/utils/filter-duplicates";
+import cn from "@/utils/cn";
+import Emoji from "./emoji";
+import User from "./user";
+import Channel from "./channel";
+import { ReactNode } from "react";
 
 const ALLOWED_IFRAMES = [
     "https://www.youtube.com/embed/",
     "https://e.widgetbot.io/channels/",
     getBaseUrl()
 ] as const;
-
-import { getUser } from "@/lib/discord/user";
-import { filterDuplicates } from "@/utils/filter-duplicates";
-import cn from "@/utils/cn";
 
 export default async function BeautifyMarkdown({
     markdown
@@ -34,33 +38,26 @@ export default async function BeautifyMarkdown({
         return content
             .replace(/__(.*?)__/g, "<u>$1</u>")
             .replace(/<a?:\w{2,32}:\d{15,21}>/g, (match) => {
-                const emojiId = match.match(/\d{15,21}/)?.[0];
+                const emojiId = match.match(/\d{15,21}/)?.[0]!;
 
-                return renderToString(
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                        alt='emoji'
-                        className='rounded-md inline h-5 w-5'
-                        src={`https://cdn.discordapp.com/emojis/${emojiId}.webp?size=40&quality=lossless`}
-                    />
-                );
+                return renderToString(<Emoji emojiId={emojiId} />);
             })
             .replace(/<(@!?)\d{15,21}>/g, (match) => {
                 const userId = match.replace(/<|!|>|@/g, "");
+                const username = users.find((user) => user?.id === userId)?.username || "user";
 
-                return renderToString(
-                    <span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>
-                        @{users.find((user) => user?.id === userId)?.username || "user"}
-                    </span>
-                );
+                return renderToString(<User username={username} />);
             })
             .replace(/<(#!?)\d{15,21}>/g, () => {
-                return renderToString(
-                    <span className='bg-blurple/25 hover:bg-blurple/50 p-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light text-sx duration-200 cursor-pointer'>
-                        #channel
-                    </span>
-                );
+                return renderToString(<Channel name="channel" />);
             });
+    }
+
+    function createHId(text: ReactNode) {
+        return text
+            ?.toString()
+            .toLowerCase()
+            .replace(/ +/g, "-");
     }
 
     return (
@@ -70,28 +67,28 @@ export default async function BeautifyMarkdown({
             components={{
                 h1: (props) => (
                     <Link
-                        href={`#${props.children?.toString().toLowerCase().replace(/ +/g, "-")}`}
+                        href={`#${createHId(props.children)}`}
                         className="flex mt-10 mb-3 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
                     >
-                        <h2 id={props.children?.toString().toLowerCase().replace(/ +/g, "-")} className="text-3xl font-semibold" {...props} />
+                        <h2 id={createHId(props.children)} className="text-3xl font-semibold" {...props} />
                     </Link>
                 ),
 
                 h2: (props) => (
                     <Link
-                        href={`#${props.children?.toString().toLowerCase().replace(/ +/g, "-")}`}
+                        href={`#${createHId(props.children)}`}
                         className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
                     >
-                        <h1 id={props.children?.toString().toLowerCase().replace(/ +/g, "-")} className="text-2xl font-semibold" {...props} />
+                        <h1 id={createHId(props.children)} className="text-2xl font-semibold" {...props} />
                     </Link>
                 ),
 
                 h3: (props) => (
                     <Link
-                        href={`#${props.children?.toString().toLowerCase().replace(/ +/g, "-")}`}
+                        href={`#${createHId(props.children)}`}
                         className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
                     >
-                        <h3 id={props.children?.toString().toLowerCase().replace(/ +/g, "-")} className="text-xl font-semibold" {...props} />
+                        <h3 id={createHId(props.children)} className="text-xl font-semibold" {...props} />
                     </Link>
                 ),
 
