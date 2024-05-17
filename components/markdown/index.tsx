@@ -48,9 +48,23 @@ export default async function BeautifyMarkdown({
 
                 return renderToString(<User username={username} />);
             })
+            .replace(/<(@&)\d{15,21}>/g, () => {
+                return renderToString(<User username="some-role" />);
+            })
             .replace(/<(#!?)\d{15,21}>/g, () => {
                 return renderToString(<Channel name="channel" />);
-            });
+            })
+            .replace(/<t:\d{1,10}:[Rf]?>/g, (match) => {
+                const timestamp = match.match(/\d{1,10}/)?.[0]!;
+                const format = match.match(/:\w*?>/)?.[0] || "f";
+
+                return renderToString(
+                    <Timestamp
+                        unix={parseInt(timestamp)}
+                        format={format.slice(1, -1)}
+                    />
+                );
+            })
     }
 
     function createHId(text: ReactNode) {
