@@ -11,6 +11,11 @@ import cn from "@/utils/cn";
 import { ClickOutside } from "./click-outside";
 import Notice, { NoticeType } from "./notice";
 
+enum State {
+    Idle = 0,
+    Loading = 1
+}
+
 interface Props<T> {
     className?: string;
     variant?: "default" | "danger";
@@ -19,7 +24,7 @@ interface Props<T> {
     children: React.ReactNode;
     subChildren?: React.ReactNode;
 
-    onSubmit?: () => Promise<Response> | undefined;
+    onSubmit?: () => Promise<Response> | Error | undefined;
     onSuccess?: (data: T) => void;
     onClose: () => void;
 
@@ -40,8 +45,8 @@ export default function Modal<T>({
     buttonName = "Submit"
 }: Props<T>) {
 
-    const [state, setState] = useState<"LOADING" | undefined>(undefined);
-    const [error, setError] = useState<string | undefined>(undefined);
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
 
     return (
         <MotionConfig
@@ -99,7 +104,7 @@ export default function Modal<T>({
 
                                 <Progress
                                     size="sm"
-                                    isIndeterminate={state === "LOADING"}
+                                    isIndeterminate={state === State.Loading}
                                     aria-label="Loading..."
                                     className="mt-2 mb-3 h-0.5"
                                     classNames={{
@@ -139,23 +144,37 @@ export default function Modal<T>({
                                     <Button
                                         color={variant || "secondary"}
                                         onClick={() => {
-                                            if (state === "LOADING") return;
+                                            if (state === State.Loading) return;
                                             if (!onSubmit) return onClose();
 
-                                            setState("LOADING");
-                                            onSubmit?.()
+                                            setState(State.Loading);
+                                            const res = onSubmit?.();
+
+                                            if (res instanceof Error) {
+                                                setError(res.message || "Unknown client error");
+                                                setState(State.Idle);
+                                                return
+                                            }
+
+                                            res
                                                 ?.then(async (res: Response) => {
-                                                    setState(undefined);
+                                                    setState(State.Idle);
+
                                                     if (res.ok) {
                                                         onClose();
                                                         onSuccess?.(await res.json());
+                                                        return;
                                                     }
-                                                    else setError((await res.json() as RouteErrorResponse).message || "Unknown server error");
+
+                                                    setError((await res.json() as RouteErrorResponse).message || "Unknown server error");
                                                 })
-                                                .catch((e: Error) => setError(e.message || "Unknown server error"));
+                                                .catch((e: Error) => {
+                                                    setError(e.message || "Unknown server error");
+                                                    setState(State.Idle);
+                                                });
                                         }}
                                         className={cn(!onSubmit && "ml-auto")}
-                                        isLoading={state === "LOADING"}
+                                        isLoading={state === State.Loading}
                                     >
                                         {buttonName}
                                     </Button>
