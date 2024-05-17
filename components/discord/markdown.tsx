@@ -10,11 +10,13 @@ import cn from "@/utils/cn";
 interface Props {
     text: string;
     mode: "DARK" | "LIGHT";
+    discord?: boolean;
 }
 
 export default function Highlight({
     text,
-    mode
+    mode,
+    discord = true
 }: Props) {
 
     function parseDiscordMarkdown(content: string) {
@@ -47,6 +49,21 @@ export default function Highlight({
                 return renderToString(<Channel name="some-channel" />);
             })
     }
+
+    if (!discord) return (
+        <ReactMarkdown
+            // @ts-expect-error they broke types
+            rehypePlugins={[rehypeRaw]}
+            allowedElements={["span", "p"]}
+        >
+            {parseDiscordMarkdown(text
+                .replaceAll("*", "\\*")
+                .replaceAll("_", "\\_")
+                .replaceAll("~", "\\~")
+                .replaceAll("`", "\\`")
+            )}
+        </ReactMarkdown>
+    );
 
     return (
         <ReactMarkdown
