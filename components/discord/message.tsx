@@ -54,7 +54,7 @@ export default function DiscordMessage({
                             radius="full"
                             src={commandUsed.avatar}
                         />
-                        *                     <span className={cn(mode === "DARK" ? "text-violet-400" : "text-violet-600")}>{commandUsed.username}</span>
+                        <span className={cn(mode === "DARK" ? "text-violet-400" : "text-violet-600")}>{commandUsed.username}</span>
                         {commandUsed.bot &&
 
                             <DiscordAppBadge />

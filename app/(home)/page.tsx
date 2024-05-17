@@ -3,7 +3,7 @@ import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord, BsYoutube } from "react-icons/bs";
-import { HiArrowNarrowRight, HiArrowRight, HiCash, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
+import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
 import Box from "@/components/box";
 import Comment from "@/components/comment";
@@ -23,7 +23,7 @@ import LeaderboardPic from "@/public/leaderboard.webp";
 import SpacePic from "@/public/space.webp";
 import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
-import { ApiV1TopguildsGetResponse } from "@/typings";
+import NotificationsPic from "@/public/notifications-thumbnail.webp";
 import cn from "@/utils/cn";
 import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { actor } from "@/utils/tts";
@@ -220,14 +220,14 @@ export default async function Home() {
             >
 
                 <div>
-                    <h2 className={styles.h2}>Next-Level text to speech, tts 🔊</h2>
+                    <h2 className={styles.h2}>Next-Level text to speech 🔊</h2>
                     <div className="my-6 max-w-md font-medium">
                         It{"'"}s crucial for people with speech impairments.
                         It ensures inclusivity and allows everyone to participate fully, promoting accessibility and community engagement. ❤️
                         <span className="sr-only">One of the msot important Accessibility feature you need.</span>
                     </div>
 
-                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2 flex flex-col items-start">
                             <Chip
                                 className="mb-2"
@@ -313,6 +313,82 @@ export default async function Home() {
 
                         </div>
 
+                    </Box>
+                </div>
+
+                <div>
+                    <h2 className={styles.h2}>Stylish YouTube Notifications 📢</h2>
+                    <div className="my-6 max-w-md font-medium">
+                        Notify your community about freshly released videos in style with free custom messages & embeds for up to 30 channels.
+                    </div>
+
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                        <div className="md:w-1/2">
+                            <Chip
+                                className="mb-2"
+                                color="secondary"
+                                variant="flat"
+                                size="sm"
+                                startContent={<HiCash className="mx-1" />}
+                            >
+                                <span className="font-semibold">Styling & 30 Channels free</span>
+                            </Chip>
+                            <h3 className={styles.h3}>Stay up-to-date on YouTube</h3>
+                            <div className="pt-6">
+                                Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
+                                Unlike MEE6, which requires a paid subscription for many features, Wamellow provides these capabilities for free.
+
+                                <ol className="mt-4">
+                                    {[
+                                        "Up to 30 channels",
+                                        "Custom message & embed",
+                                        "<1 minute delay",
+                                        "99% uptime"
+                                    ].map((name) => (
+                                        <li key={name} className="flex gap-1 items-center">
+                                            <HiCheck className="text-violet-400" />
+                                            {name}
+                                        </li>
+                                    ))}
+                                </ol>
+                            </div>
+                            <div className="flex gap-2 mt-6">
+                                <Invite />
+                                <ServerButton
+                                    as={Link}
+                                    className="bg-wamellow"
+                                    startContent={<HiArrowRight />}
+                                    href="/dashboard?to=notifications&utm_source=wamellow.com&utm_medium=home"
+                                >
+                                    Setup
+                                </ServerButton>
+                            </div>
+                        </div>
+
+                        <div
+                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
+                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                        >
+                            <DiscordMessage {...messageProps()}>
+                                <Highlight mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!" />
+                                <Highlight mode={"DARK"} text="[https://www.youtube.com/watch?v=74Lj5cHseI8]()" />
+                                <DiscordMessageEmbed
+                                    mode="DARK"
+                                    title="Your PC Can Look Like THIS Now!"
+                                    color={0xfa4d0a}
+                                >
+                                    <Image
+                                        alt=""
+                                        className="rounded-md shadow-md w-64 md:w-56 lg:w-[320px] md:w-unset max-w-md mt-2"
+                                        height={500}
+                                        itemProp="image"
+                                        loading="lazy"
+                                        src={NotificationsPic}
+                                        width={281}
+                                    />
+                                </DiscordMessageEmbed>
+                            </DiscordMessage>
+                        </div>
                     </Box>
                 </div>
 
