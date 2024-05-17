@@ -14,6 +14,7 @@ import Emoji from "./emoji";
 import User from "./user";
 import Channel from "./channel";
 import { ReactNode } from "react";
+import Timestamp from "./timestamp";
 
 const ALLOWED_IFRAMES = [
     "https://www.youtube.com/embed/",
@@ -122,18 +123,23 @@ export default async function BeautifyMarkdown({
                         />
                     );
                 },
-                img: ({ alt = "image", ...props }) => (
-                    <span
-                        className={cn(
-                            "max-w-lg w-fit flex-col items-center inline",
-                            alt === "emoji" ? "inline" : "flex"
-                        )}
-                    >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img alt={alt} className="rounded-md" loading="lazy" {...props} />
-                        {alt && alt !== "emoji" && <span aria-hidden="true" className="text-neutral-500 font-medium relative bottom-1">{alt}</span>}
-                    </span>
-                ),
+                img: ({ alt = "image", ...props }) => {
+                    const isFullWidth = props.src?.includes("fullwidth=true");
+
+                    return (
+                        <span
+                            className={cn(
+                                "w-fit flex-col items-center inline",
+                                alt === "emoji" ? "inline" : "flex",
+                                isFullWidth ? "max-w-3xl" : "max-w-lg"
+                            )}
+                        >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img alt={alt} className="rounded-md" loading="lazy" {...props} />
+                            {alt && alt !== "emoji" && <span aria-hidden="true" className="text-neutral-500 font-medium relative bottom-1">{alt}</span>}
+                        </span>
+                    )
+                },
                 a: ({ href, children, ...props }) => (
                     <Link
                         href={href || "#"}
