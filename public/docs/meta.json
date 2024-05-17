@@ -70,6 +70,22 @@
                     "Manage Server"
                 ]
             }
+        },
+        {
+            "name": "📢 YouTube Notifications",
+            "file": "notifications.md",
+            "description": "Notify your community when a new YouTube video gets posted!",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links",
+                    "Mention Everyone"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
         }
     ]
 }
