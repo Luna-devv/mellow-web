@@ -25,7 +25,7 @@ export default function DiscordUser({
                 radius="full"
                 src={avatar}
             />
-            <div className="font-medium whitespace-nowrap overflow-hidden text-ellipsis" >
+            <div className="font-medium whitespace-nowrap overflow-hidden text-ellipsis cursor-pointer" >
                 {username}
             </div>
             {isBot &&

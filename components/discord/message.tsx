@@ -54,8 +54,9 @@ export default function DiscordMessage({
                             radius="full"
                             src={commandUsed.avatar}
                         />
-                        <span className={cn(mode === "DARK" ? "text-violet-400" : "text-violet-600")}>{commandUsed.username}</span>
+                        *                     <span className={cn(mode === "DARK" ? "text-violet-400" : "text-violet-600")}>{commandUsed.username}</span>
                         {commandUsed.bot &&
+
                             <DiscordAppBadge />
                         }
                         used
@@ -68,7 +69,7 @@ export default function DiscordMessage({
             <div className="flex flex-row items-start pointer-events-none [&>*]:pointer-events-auto">
                 <div className="flex justify-start items-center w-[52px] shrink-0">
                     <Avatar
-                        className="h-10 w-10 hover:cursor-pointer mt-1.5"
+                        className="h-10 w-10 hover:cursor-pointer mt-1"
                         radius="full"
                         src={user.avatar}
                     />
@@ -76,7 +77,7 @@ export default function DiscordMessage({
 
                 <div className="flex-1 w-0">
                     <div className="flex items-center space-x-2">
-                        <div className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis hover:underline" >
+                        <div className="font-medium whitespace-nowrap overflow-hidden text-ellipsis hover:underline cursor-pointer" >
                             {user.username}
                         </div>
                         {user.bot &&
