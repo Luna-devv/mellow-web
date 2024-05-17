@@ -58,7 +58,7 @@ export default function Home() {
     if (error || (data && "message" in data)) {
         return (
             <ScreenMessage
-                top="0rem"
+                top="20vh"
                 title="Something went wrong on this page.."
                 description={
                     (data && "message" in data ? data.message : `${error}`)
@@ -100,130 +100,145 @@ export default function Home() {
         );
     };
 
-    return (
-        <>
+    return (<>
 
-            <div className="flex flex-wrap items-center gap-2 -mt-2 mb-5">
-                {data
-                    .sort((a, b) => a.name.localeCompare(b.name))
-                    .map((tag) => (
-                        <Chip
-                            key={"guildTags-" + tag.id}
-                            as={Button}
-                            className="default border-0"
-                            variant={id === tag.id ? "flat" : "faded"}
-                            color={id === tag.id ? "secondary" : undefined}
-                            startContent={<span className="opacity-50 relative left-2">{tag.applicationCommandId ? "/" : "wm -"}</span>}
-                            onClick={() => setTagId(tag.id)}
-                        >
-                            {tag.name + " "}
-                        </Chip>
-                    ))
-                }
+        <div className="flex flex-wrap items-center gap-2 -mt-2 mb-5">
+            {data
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((tag) => (
+                    <Chip
+                        key={"guildTags-" + tag.id}
+                        as={Button}
+                        className="default border-0"
+                        variant={id === tag.id ? "flat" : "faded"}
+                        color={id === tag.id ? "secondary" : undefined}
+                        startContent={<span className="opacity-50 relative left-2">{tag.applicationCommandId ? "/" : "wm -"}</span>}
+                        onClick={() => setTagId(tag.id)}
+                    >
+                        {tag.name + " "}
+                    </Chip>
+                ))
+            }
 
-                <CreateTag guildId={guild?.id as string} style={Style.Compact} addTag={addTag} setTagId={setTagId} />
+            <CreateTag
+                guildId={guild?.id as string}
+                style={Style.Compact}
+                addTag={addTag}
+                setTagId={setTagId}
+            />
 
-                <div className="ml-auto flex items-center gap-4">
-                    <span className="dark:text-orange-600 text-orange-400 font-medium hidden md:block">This feature is in early testing</span>
-                    <Tooltip content="Created tags / Limit" closeDelay={0}>
-                        <span className="dark:text-neutral-600 text-neutral-400 cursor-default">{data.length}/{30}</span>
-                    </Tooltip>
+            <div className="ml-auto flex items-center gap-4">
+                <Tooltip content="Created tags / Limit" closeDelay={0}>
+                    <span className="dark:text-neutral-600 text-neutral-400 cursor-default">{data.length}/{30}</span>
+                </Tooltip>
 
-                    <DeleteTag guildId={guild?.id as string} id={id} name={tag?.name} removeTag={removeTag} />
-                </div>
-
+                <DeleteTag
+                    guildId={guild?.id as string}
+                    id={id}
+                    name={tag?.name}
+                    removeTag={removeTag}
+                />
             </div>
 
-            {tag &&
-                <>
+        </div>
 
-                    <div className="relative rounded-md overflow-hidden p-[1px]">
-                        <StatsBar
-                            items={[
-                                {
-                                    name: "All time Unique Users",
-                                    number: 420,
-                                    gained: 69,
-                                    append: "yesterday"
-                                },
-                                {
-                                    name: "All time Command Uses",
-                                    number: 69420,
-                                    gained: 42,
-                                    append: "yesterday"
-                                }
-                            ]}
-                        />
+        {tag &&
+            <>
 
-                        <div className="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full backdrop-blur-md backdrop-brightness-75" >
-                            <div className="text-3xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">Nothing to see here.. yet..</div>
-                            <div className="text-md dark:text-neutral-400 text-neutral-600 font-semibold">Here will be the usage of your custom commands soon</div>
-                        </div>
-                    </div>
-
-                    <div className="lg:flex gap-3 mt-6">
-                        <div className="lg:w-1/2">
-                            <TextInput
-                                key={tag.id}
-                                name="Name"
-                                url={url + "/" + tag.id}
-                                dataName="name"
-                                description="The name of the custom command."
-                                defaultState={tag.name}
-                                resetState={tag.name}
-                                onSave={(value) => editTag("name", value as string)}
-                            />
-                        </div>
-
-                        <div className="lg:w-1/2">
-                            <SelectInput
-                                key={tag.id}
-                                name="Permissions"
-                                url={url + "/" + tag.id}
-                                items={
-                                    Permissions.sort((a, b) => a.localeCompare(b)).map((p) => (
-                                        { name: convertCamelCaseToSpaced(p), value: p }
-                                    )) || []
-                                }
-                                dataName="permission"
-                                description="The permissions needed to execute this tag."
-                                defaultState={tag.permission}
-                                onSave={(option) => editTag("permission", option.value as string)}
-                                showClear
-                            />
-                        </div>
-                    </div>
-
-                    <MessageCreatorEmbed
-                        key={tag.id}
-                        name="Message"
-                        url={url + "/" + tag.id}
-                        dataName="message"
-                        defaultMessage={tag.message}
-                        onSave={(value) => editTag("message", value as string)}
+                <div className="relative rounded-md overflow-hidden p-[1px]">
+                    <StatsBar
+                        items={[
+                            {
+                                name: "All time Unique Users",
+                                number: 420,
+                                gained: 69,
+                                append: "yesterday"
+                            },
+                            {
+                                name: "All time Command Uses",
+                                number: 69420,
+                                gained: 42,
+                                append: "yesterday"
+                            }
+                        ]}
                     />
-                </>
-            }
 
-            {!data.length &&
-                <div className="w-full flex flex-col items-center justify-center" style={{ marginTop: "20vh" }}>
-                    <div>
-
-                        <div className="mb-10 flex flex-col items-center text-center">
-                            <span className="text-4xl dark:text-neutral-100 text-neutral-900 font-semibold">You dont have any tags yet</span> <br />
-                            <span className="text-lg dark:text-neutral-400 text-neutral-600 font-semibold">Create new custom commands to get started</span>
-                        </div>
-
-                        <div className="w-full flex flex-col items-center">
-                            <CreateTag guildId={guild?.id as string} style={Style.Big} addTag={addTag} setTagId={setTagId} />
-                        </div>
-
+                    <div className="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full backdrop-blur-md backdrop-brightness-75" >
+                        <div className="text-3xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">Nothing to see here.. yet..</div>
+                        <div className="text-md dark:text-neutral-400 text-neutral-600 font-semibold">Here will be the usage of your custom commands soon</div>
                     </div>
                 </div>
-            }
 
-        </>
-    );
+                <div className="lg:flex gap-3 mt-6">
+                    <div className="lg:w-1/2">
+                        <TextInput
+                            key={tag.id}
+                            name="Name"
+                            url={url + "/" + tag.id}
+                            dataName="name"
+                            description="The name of the custom command."
+                            defaultState={tag.name}
+                            resetState={tag.name}
+                            onSave={(value) => editTag("name", value as string)}
+                        />
+                    </div>
+
+                    <div className="lg:w-1/2">
+                        <SelectInput
+                            key={tag.id}
+                            name="Permissions"
+                            url={url + "/" + tag.id}
+                            items={
+                                Permissions.sort((a, b) => a.localeCompare(b)).map((p) => (
+                                    { name: convertCamelCaseToSpaced(p), value: p }
+                                )) || []
+                            }
+                            dataName="permission"
+                            description="The permissions needed to execute this tag."
+                            defaultState={tag.permission}
+                            onSave={(option) => editTag("permission", option.value as string)}
+                            showClear
+                        />
+                    </div>
+                </div>
+
+                <MessageCreatorEmbed
+                    key={tag.id}
+                    name="Message"
+                    url={url + "/" + tag.id}
+                    dataName="message"
+                    defaultMessage={tag.message}
+                    onSave={(value) => editTag("message", value as string)}
+                />
+            </>
+        }
+
+        {!data.length &&
+            <div
+                className="w-full flex flex-col items-center justify-center"
+                style={{ marginTop: "20vh" }}
+            >
+                <div>
+
+                    <div className="mb-10 flex flex-col items-center text-center">
+                        <span className="text-4xl dark:text-neutral-100 text-neutral-900 font-semibold">You dont have any tags yet</span> <br />
+                        <span className="text-lg dark:text-neutral-400 text-neutral-600 font-semibold">Create new custom commands to get started</span>
+                    </div>
+
+                    <div className="w-full flex flex-col items-center">
+                        <CreateTag
+                            guildId={guild?.id as string}
+                            style={Style.Big}
+                            addTag={addTag}
+                            setTagId={setTagId}
+                        />
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </>);
 }
 
 function convertCamelCaseToSpaced(input: string): string {

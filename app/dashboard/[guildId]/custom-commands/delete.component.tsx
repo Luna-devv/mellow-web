@@ -1,4 +1,5 @@
 "use client";
+
 import { Button, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
