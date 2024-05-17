@@ -18,6 +18,7 @@ import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
+import { BiLogoYoutube } from "react-icons/bi";
 
 export default function RootLayout({
     children
@@ -239,10 +240,15 @@ export default function RootLayout({
                             icon: <HiCode />
                         },
                         {
-                            name: "NSFW Image Moderation",
-                            value: "/nsfw-image-scanning",
-                            icon: <HiEye />
-                        }
+                            name: "YouTube Notifications",
+                            value: "/notifications",
+                            icon: <BiLogoYoutube />
+                        },
+                        // {
+                        //     name: "NSFW Image Moderation",
+                        //     value: "/nsfw-image-scanning",
+                        //     icon: <HiEye />
+                        // }
                     ]}
                     url={`/dashboard/${params.guildId}`}
                     disabled={!guild?.id || !!error}

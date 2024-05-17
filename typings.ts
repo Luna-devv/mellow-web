@@ -393,6 +393,35 @@ export interface ApiV1UsersGetResponse {
     }[];
 }
 
+export interface ApiV1GuildsModulesNotificationsGetResponse {
+    id: string;
+    guildId: string;
+    channelId: string;
+    roleId: string | null;
+
+    type: 0;
+    creatorId: string;
+    lastUploadId: string | null
+
+    message: {
+        content: string | null;
+        embed?: GuildEmbed;
+    };
+
+    createdAt: Date;
+
+    creator: {
+        id: string;
+        username: string;
+        customUrl: string;
+        avatarUrl: string;
+        subs: string;
+        videos: string;
+        views: string;
+    }
+
+}
+
 export interface PronounsResponse {
     status: number;
     content: string[];

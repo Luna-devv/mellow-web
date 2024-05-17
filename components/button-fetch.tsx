@@ -18,7 +18,7 @@ export default function Fetch({
     size,
     className
 }: {
-    url: `/${string}`;
+    url: string;
     payload?: Record<string, unknown>;
     icon: React.ReactNode;
     label: string;
