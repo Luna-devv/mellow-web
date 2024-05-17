@@ -5,24 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
-import { useState } from "react";
-import { HiChartBar, HiMail } from "react-icons/hi";
+import { HiChartBar } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
-import Modal from "@/components/modal";
 import { Section } from "@/components/section";
 
 import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
+import FollowUpdates from "../updates.component";
 
 export default function Home() {
     const cookies = useCookies();
     const guild = guildStore((g) => g);
-
-    const [modal, setModal] = useState(false);
-    const [followchannel, setFollowchannel] = useState<string>();
 
     const params = useParams();
 
@@ -36,55 +32,7 @@ export default function Home() {
                 icon={<HiChartBar />}
             />
 
-            <div>
-                <div className="text-sm mb-0.5">Posting updates {guild?.follownewsChannel?.name && "into"}</div>
-                {guild?.follownewsChannel?.name && <div className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">#{guild?.follownewsChannel?.name}</div>}
-                <button onClick={() => setModal(true)} className="flex dark:text-violet-400/60 dark:hover:text-violet-400/90 text-violet-600/60 hover:text-violet-600/90 duration-200">
-                    <HiMail className="relative top-1" />
-                    <span className="ml-2">{guild?.follownewsChannel?.name ? "Change" : "Set"} channel</span>
-                </button>
-            </div>
-
-            <Modal
-                title="Wamellow updates"
-                show={modal && !!guild}
-                onClose={() => setModal(false)}
-                onSubmit={() => {
-                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/follow-updates`, {
-                        method: "PATCH",
-                        credentials: "include",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            channelId: followchannel
-                        })
-                    });
-                }}
-                onSuccess={() => {
-                    guildStore.setState((g) => {
-                        if (!g) return g;
-
-                        g.follownewsChannel = {
-                            name: g?.channels?.find((c) => c.id === followchannel)?.name,
-                            id: followchannel
-                        };
-
-                        return g;
-                    });
-                }}
-            >
-                <SelectMenu
-                    name="Channel"
-                    dataName="channelId"
-                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id }; })}
-                    description="Select a channel where updates should be send into."
-                    defaultState={guild?.follownewsChannel?.id}
-                    onSave={(o) => {
-                        setFollowchannel(o.value as string);
-                    }}
-                />
-            </Modal>
+            <FollowUpdates />
 
             <Section
                 title="Text to Speech"
@@ -158,7 +106,7 @@ export default function Home() {
                             width={"100%"}
                             src="https://www.youtube.com/embed/NS5fZ1ltovE?si=uODiGspuNGKPRQKp"
                             title="Wamellow Text to Speech tutorial"
-                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                            allow="autoplay; clipboard-write; ENCRYPTION_TOKENed-media; picture-in-picture; web-share"
                         />
                     </AccordionItem>
                     <AccordionItem
