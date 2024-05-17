@@ -2,11 +2,11 @@ Wamellow boasts a feature-rich greeter. This functionality enables the bot to au
 <br />
 <br />
 
-![welcome example](/docs-assets/welcome.webp)
+![welcome example](/docs-assets/welcome.webp?fullwidth=true)
 
 ## Setup
 1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
-2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).
+2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard?to=greeting/welcome).
 3. Select your server from the dashboard.
 4. Navigate to the **Greetings** tab. 
 5. Within the **Greetings** menu, locate and click on the **Welcome greeting** option.
@@ -14,7 +14,7 @@ Wamellow boasts a feature-rich greeter. This functionality enables the bot to au
 7. Set a channel to send greetings into.
 
 ### ✏️ Custom message & embed
-You can create a welcoming message with a **fully customizable message and embed**, making it easy to convey your server's culture and values to your new members.
+You can create a welcoming message with a **fully customizable message and embed for free**, making it easy to convey your server's culture and values to your new members.
 
 ### 🖼️ Image card
 You can create a nice welcome image by **customizing the background for free**.

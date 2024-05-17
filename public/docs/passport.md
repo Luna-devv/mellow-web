@@ -4,7 +4,7 @@ Passport is essential for verifying users joining your Discord server, utilizing
 
 ## Setup
 1. Install Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
-2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).
+2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard?to=greeting/passport).
 3. Select your server from the dashboard.
 4. Navigate to the **Greetings** menu. 
 5. Within the **Greetings** menu, locate and click on the **Passport** tab. 

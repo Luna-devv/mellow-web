@@ -2,11 +2,11 @@ The starboard serves as a channel for showcasing standout messages from your com
 <br />
 <br />
 
-![starboard example](/docs-assets/starboard.webp)
+![starboard example](/docs-assets/starboard.webp?fullwidth=true)
 
 ## Setup
 1. Install Wamellow on your server by going to [wamellow.com/add](https://wamellow.com/add).
-2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).
+2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard?to=starboard).
 3. Select your server from the dashboard.
 4. Navigate to the **Starboard** menu. 
 5. Enable the Starboard module by clicking the enable button.
