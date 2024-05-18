@@ -138,7 +138,7 @@ export default function Home() {
 
                 <Button
                     as={Link}
-                    href="/docs/greetings"
+                    href="/docs/notifications"
                     target="_blank"
                     endContent={<HiExternalLink />}
                 >
