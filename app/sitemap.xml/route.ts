@@ -1,4 +1,5 @@
 import { getCanonicalUrl } from "@/utils/urls";
+import docsMetadata from "@/public/docs/meta.json";
 
 type Sitemap = {
     url: string
@@ -65,8 +66,9 @@ export async function GET() {
         }
     ] as Sitemap;
 
-    for (const uploadId of uploadIds) sitemap.push({ url: getCanonicalUrl("ai-gallery", uploadId), priority: 0.6 });
+    for (const page of docsMetadata.pages) sitemap.push({ url: getCanonicalUrl("docs", page.file.split(".")[0]), priority: 0.6 });
     for (const guildId of guildIds) sitemap.push({ url: getCanonicalUrl("leaderboard", guildId), priority: 0.5 });
+    for (const uploadId of uploadIds) sitemap.push({ url: getCanonicalUrl("ai-gallery", uploadId), priority: 0.4 });
 
     return new Response(`
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
