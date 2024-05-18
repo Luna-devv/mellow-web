@@ -139,8 +139,7 @@ export default async function Home() {
                     { title: "Display user as webhook", free: false, pro: true },
                     { title: "Passport bypass", free: false, pro: true },
                     { title: "Custom page color", free: false, pro: true },
-                    { title: "Statistics & Analytics", free: false, pro: true },
-                    { title: "Sex with me*", free: false, pro: false }
+                    { title: "Statistics & Analytics", free: false, pro: true }
                 ].map((item) => (
                     <div key={item.title} className="flex items-center py-4">
                         <span className="md:text-base text-sm font-medium w-2/4 md:pr-0 pr-4">{item.title}</span>
@@ -155,7 +154,6 @@ export default async function Home() {
                 ))}
 
                 <div className="flex items-center pt-4">
-                    <span className="text-sm dark:text-neutral-400 text-neutral-600 md:w-2/4">*Sex only with cute femboys from Vienna :3</span>
                     <div className="hidden md:flex w-2/4 gap-4">
                         {buttons}
                     </div>
@@ -181,7 +179,7 @@ export default async function Home() {
             />
 
             <div className="p-2 fixed z-10 bottom-0 left-0 w-full md:hidden">
-                <div className="dark:bg-wamellow-light bg-wamellow-100-light rounded-lg shadow-md w-full flex flex-col gap-2 items-center justify-center p-3">
+                <div className="dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-50 rounded-lg shadow-md w-full flex flex-col gap-2 items-center justify-center p-3">
 
                     <div className="flex gap-2 items-center">
                         <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your guilds further!</span>
