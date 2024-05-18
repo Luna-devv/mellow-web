@@ -25,7 +25,7 @@ export default function Highlight({
         console.log(content)
         return content
             .replace(/<(?!(?:[@#]|a:|:))/g, "&lt;")
-            .replaceAll("\n", "<br>")
+            .replaceAll("\n", "\n")
             .replace(/__(.*?)__/g, "<u>$1</u>")
             .replace(/\{(\w*?)\.(\w*?)\}|{ping}/g, (match) => {
                 return renderToString(
@@ -73,18 +73,20 @@ export default function Highlight({
             // @ts-expect-error inline does exist
             rehypePlugins={[rehypeRaw]}
             components={{
-                h1: ({ ...props }) => <div className="text-3xl font-semibold" {...props} />,
-                h2: ({ ...props }) => <div className="text-2xl font-semibold" {...props} />,
-                h3: ({ ...props }) => <div className="text-xl font-semibold" {...props} />,
-                strong: ({ ...props }) => <span className="font-semibold" {...props} />,
-                i: ({ ...props }) => <span className="italic" {...props} />,
-                a: ({ ...props }) => <a className="text-blue-600 hover:underline underline-blue-500" {...props} />,
-                del: ({ ...props }) => <span className="line-through" {...props} />,
-                ins: ({ ...props }) => <span className="underline" {...props} />,
-                li: ({ ...props }) => <div>
-                    <span className="mr-1">•</span>
-                    <span {...props} />
-                </div>,
+                h1: (props) => <div className="text-3xl font-semibold" {...props} />,
+                h2: (props) => <div className="text-2xl font-semibold" {...props} />,
+                h3: (props) => <div className="text-xl font-semibold" {...props} />,
+                strong: (props) => <span className="font-semibold" {...props} />,
+                i: (props) => <span className="italic" {...props} />,
+                a: (props) => <a className="text-blue-600 hover:underline underline-blue-500" {...props} />,
+                del: (props) => <span className="line-through" {...props} />,
+                ins: (props) => <span className="underline" {...props} />,
+                li: (props) => (
+                    <div>
+                        <span className="mr-1">•</span>
+                        <span {...props} />
+                    </div>
+                ),
                 code: ({ inline, children, ...props }) => {
                     if (!inline) return (
                         <div
@@ -108,8 +110,8 @@ export default function Highlight({
                             {children}
                         </code>
                     );
-                }
-
+                },
+                p: (props) => <p className="mb-4" {...props} />,
             }}
         >
             {parseDiscordMarkdown(text)}

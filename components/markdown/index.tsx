@@ -53,7 +53,7 @@ export default async function BeautifyMarkdown({
                 return renderToString(<User username="some-role" />);
             })
             .replace(/<(#!?)\d{15,21}>/g, () => {
-                return renderToString(<Channel name="channel" />);
+                return renderToString(<Channel name="some-channel" />);
             })
             .replace(/<t:\d{1,10}:[Rf]?>/g, (match) => {
                 const timestamp = match.match(/\d{1,10}/)?.[0]!;
