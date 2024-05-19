@@ -61,6 +61,7 @@ export default function Modal<T>({
                         exit="closed"
                         variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
                         className="fixed top-0 left-0 h-screen w-full inset-0 backdrop-blur backdrop-brightness-50 flex items-center justify-center z-50 cursor-default"
+                        style={{ maxHeight: "100dvh" }}
                     >
                         <motion.div
                             initial="closed"
@@ -127,7 +128,7 @@ export default function Modal<T>({
 
                             </div>
 
-                            <div className="md:relative absolute bottom-0 left-0 w-full dark:bg-wamellow bg-wamellow-100 rounded-bl-md rounded-br-md">
+                            <div className="md:relative absolute bottom-0 left-0 w-full dark:bg-wamellow bg-wamellow-100 rounded-bl-md rounded-br-md backdrop-blur-md">
                                 <div className="flex items-center w-full gap-4 p-4">
 
                                     {subChildren}
