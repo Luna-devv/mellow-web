@@ -24,7 +24,7 @@ export function CopyToClipboardButton({
 
     const [saved, setSaved] = useState<boolean>(false);
 
-    const handleCopy = (t: string) => {
+    function handleCopy(t: string) {
         navigator.clipboard.writeText(t);
         setSaved(true);
 
@@ -39,19 +39,33 @@ export function CopyToClipboardButton({
 
             <Button
                 className="w-full !justify-start"
-                color={saved ? "secondary" : undefined}
+                color={
+                    saved
+                        ? "secondary"
+                        : undefined
+                }
                 onClick={() => handleCopy(text)}
                 startContent={icon}
             >
-                {saved ? "Copied to clipboard" : (title || "Copy to clipboard")}
+                {saved
+                    ? "Copied to clipboard"
+                    : (title || "Copy to clipboard")
+                }
             </Button>
 
             {items &&
-                <Dropdown placement="bottom-end">
+                <Dropdown
+                    placement="bottom-end"
+                    className="backdrop-blur-xl backdrop-brightness-50"
+                >
                     <DropdownTrigger>
                         <Button
-                            color={saved ? "secondary" : undefined}
                             className={className}
+                            color={
+                                saved
+                                    ? "secondary"
+                                    : undefined
+                            }
                             isIconOnly
                         >
                             <HiChevronDown />
@@ -60,13 +74,13 @@ export function CopyToClipboardButton({
                     <DropdownMenu variant="faded">
                         {items.map((item, i) => (
                             <DropdownItem
-                                onClick={() => handleCopy(item.text)}
-                                showDivider={i !== (items?.length || 0) - 1}
-                                closeOnSelect
                                 key={i}
+                                className="backdrop-blur-md backdrop-brightness-75"
+                                closeOnSelect
+                                onClick={() => handleCopy(item.text)}
                                 description={item.description}
+                                showDivider={i !== (items?.length || 0) - 1}
                                 startContent={item.icon}
-                                className="backdrop-blur-md"
                             >
                                 {item.name}
                             </DropdownItem>

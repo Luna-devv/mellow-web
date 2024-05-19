@@ -165,48 +165,45 @@ export default function RootLayout({
             <title>{`${guild?.name}'s Dashboard`}</title>
 
             <div className="flex flex-col gap-5 mb-3">
-                <Button
-                    as={Link}
-                    className="w-fit"
-                    href="/profile"
-                    startContent={<HiArrowNarrowLeft />}
-                >
-                    Serverlist
-                </Button>
+                <div className="flex gap-2">
+                    <Button
+                        as={Link}
+                        className="w-fit"
+                        href="/profile"
+                        startContent={<HiArrowNarrowLeft />}
+                    >
+                        Serverlist
+                    </Button>
+                    {cookies.get("devTools") &&
+                        <CopyToClipboardButton
+                            needsWait
+                            text={getCanonicalUrl("leaderboard", params.guildId.toString())}
+                            items={[
+                                { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
+                                { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
+                            ]}
+                            icon={<HiShare />}
+                        />
+                    }
+                </div>
 
-                <div className="text-lg flex flex-col md:flex-row md:items-center">
-                    <div className="flex gap-5">
-                        <Skeleton isLoaded={!!guild?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0">
-                            <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server" />
-                        </Skeleton>
+                <div className="text-lg flex gap-5">
+                    <Skeleton isLoaded={!!guild?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0">
+                        <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server" />
+                    </Skeleton>
 
-                        {!guild?.id ?
-                            <div className="mt-1.5">
-                                <Skeleton className="rounded-xl w-32 h-6 mb-2" />
-                                <Skeleton className="rounded-xl w-10 h-3.5" />
-                            </div>
-                            :
-                            <div className="flex flex-col gap-1">
-                                <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
-                                <div className="text-sm font-semibold flex items-center gap-1"> <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
-                            </div>
-                        }
+                    {!guild?.id ?
+                        <div className="mt-1.5">
+                            <Skeleton className="rounded-xl w-32 h-6 mb-2" />
+                            <Skeleton className="rounded-xl w-10 h-3.5" />
+                        </div>
+                        :
+                        <div className="flex flex-col gap-1">
+                            <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
+                            <div className="text-sm font-semibold flex items-center gap-1"> <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
+                        </div>
+                    }
 
-                    </div>
-
-                    <div className="md:ml-auto mt-6 md:mt-0">
-                        {cookies.get("devTools") &&
-                            <CopyToClipboardButton
-                                needsWait
-                                text={getCanonicalUrl("leaderboard", params.guildId.toString())}
-                                items={[
-                                    { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
-                                    { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
-                                ]}
-                                icon={<HiShare />}
-                            />
-                        }
-                    </div>
                 </div>
 
             </div>
