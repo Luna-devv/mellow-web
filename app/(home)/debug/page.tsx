@@ -1,13 +1,13 @@
 import { Metadata } from "next";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Link from "next/link";
 import { HiTrash } from "react-icons/hi";
 
 import Box from "@/components/box";
 import { ServerButton } from "@/components/server-button";
 import { Shiggy } from "@/components/shiggy";
-import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import Panel from "./panel.component";
 
 export const generateMetadata = async (): Promise<Metadata> => {
     const title = "Shiggy";
@@ -43,6 +43,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 export default function Home() {
+    const headerList: { name: string, value: string }[] = [];
+    for (const [key, value] of headers().entries()) {
+        headerList.push({ name: key, value });
+    }
+    console.log(headerList);
 
     if (cookies().get("devTools")?.value !== "true") {
         return (
@@ -88,66 +93,51 @@ export default function Home() {
         }
     }
 
-    const cookieStore = cookies();
-
     return (
         <div className="md:flex gap-8">
 
-            <div className="w-full">
-                <h2 className="text-2xl font-medium text-neutral-200">Cookies 🍪</h2>
-
-                <div className="mt-2 flex flex-col gap-3 divide-y-1 divide-wamellow">
-
-                    {cookieStore.getAll().map((cookie) => (
-                        <div
-                            className="pt-2 flex gap-4 items-center justify-between"
-                            key={cookie.name}
-                        >
-                            <div>
-                                <h3 className="text-lg font-medium text-neutral-200">{cookie.name}</h3>
-
-                                <div className={cn(
-                                    "break-all",
-                                    cookie.name === "session" ? "blur hover:blur-0 transition duration-50" : ""
-                                )}>
-                                    {cookie.value}
-                                </div>
-                            </div>
-
-                            <form action={deleteCookie}>
-                                <ServerButton
-                                    type="submit"
-                                    isIconOnly
-                                >
-                                    <HiTrash className="text-red-400" />
-                                </ServerButton>
-                                <input className="hidden" type="text" name="name" defaultValue={cookie.name} readOnly />
-                            </form>
-                        </div>
-                    ))}
-
-                </div>
-
-                <div className="mt-4 flex gap-2 items-center">
-                    <form action={deleteCookie}>
+            <div className="space-y-10">
+                <Panel
+                    name="Cookies 🍪"
+                    items={cookies().getAll()}
+                    action={(cookie) => (
+                        <form action={deleteCookie}>
+                            <ServerButton
+                                type="submit"
+                                isIconOnly
+                            >
+                                <HiTrash className="text-red-400" />
+                            </ServerButton>
+                            <input className="hidden" type="text" name="name" defaultValue={cookie.name} readOnly />
+                        </form>
+                    )}
+                >
+                    <div className="mt-4 flex gap-2 items-center">
+                        <form action={deleteCookie}>
+                            <ServerButton
+                                type="submit"
+                            >
+                                Delete all cookies
+                            </ServerButton>
+                        </form>
                         <ServerButton
-                            type="submit"
+                            as={Link}
+                            href="/logout"
+                            prefetch={false}
                         >
-                            Delete all cookies
+                            Logout
                         </ServerButton>
-                    </form>
-                    <ServerButton
-                        as={Link}
-                        href="/logout"
-                        prefetch={false}
-                    >
-                        Logout
-                    </ServerButton>
-                </div>
+                    </div>
+                </Panel>
 
+                <Panel
+                    name="Headers 📃"
+                    items={headerList}
+                />
             </div>
 
             <Shiggy className="mt-auto h-52" />
         </div>
     );
 }
+
