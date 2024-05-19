@@ -12,6 +12,7 @@ import { guildStore } from "@/common/guilds";
 
 import TutorialPic from "@/public/docs-assets/notifications-get-handle.webp"
 import Image from "next/image";
+import Link from "next/link";
 
 const URL_CHANNEL_REGEX = /^https:\/\/(www\.)?youtube\.com\/channel\/UC([a-zA-Z0-9_-]{16,32})$/;
 const URL_HANDLE_REGEX = /^https:\/\/(www\.)?youtube\.com\/@([a-zA-Z0-9\._-]{3,30})$/;
@@ -120,12 +121,19 @@ export default function CreateNotification({ guildId, style, addNotification, se
                 />
 
                 <div className="flex items-center gap-2">
-                    <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a channel's @-Handle or Id</span>
+                    <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a channel's @handle or Id</span>
                 </div>
-                <Image
-                    src={TutorialPic}
-                    alt="How to get a Creator's @handle, id or URL"
-                />
+
+                <Link
+                    href="/docs/notifications"
+                    target="_blank"
+                >
+                    <Image
+                        alt="How to get a Creator's @handle, id or URL"
+                        className="rounded-md"
+                        src={TutorialPic}
+                    />
+                </Link>
 
             </Modal>
         </>
