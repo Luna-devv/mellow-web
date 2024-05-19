@@ -57,11 +57,6 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Video id</td>
         </tr>
         <tr>
-            <td><code>video.desc</code></td>
-            <td>...</td>
-            <td>Video description</td>
-        </tr>
-        <tr>
             <td><code>video.link</code></td>
             <td>https://www.youtube.com/watch?v=74Lj5cHseI8</td>
             <td>Video page</td>
@@ -70,16 +65,6 @@ Placeholders allow you to use variables that change from message to message, for
             <td><code>video.thumbnail</code></td>
             <td>https://i4.ytimg.com/vi/74Lj5cHseI8/hqdefault.jpg</td>
             <td>Video thumbnail url</td>
-        </tr>
-        <tr>
-            <td><code>video.views</code></td>
-            <td>693K</td>
-            <td>Video views</td>
-        </tr>
-        <tr>
-            <td><code>video.likes</code></td>
-            <td>32K</td>
-            <td>Video likes</td>
         </tr>
         <tr>
             <td><code>video.uploaded.ago</code></td>

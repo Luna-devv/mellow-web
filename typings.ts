@@ -401,7 +401,6 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
 
     type: 0;
     creatorId: string;
-    lastUploadId: string | null
 
     message: {
         content: string | null;
