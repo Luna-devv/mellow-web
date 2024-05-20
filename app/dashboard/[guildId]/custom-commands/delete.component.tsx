@@ -20,7 +20,7 @@ export default function DeleteTag({ guildId, id, name, removeTag }: Props) {
 
     return (
         <>
-            <Tooltip content="Delete tag" closeDelay={0}>
+            <Tooltip content="Delete Tag" closeDelay={0}>
                 <Button
                     isIconOnly
                     color="danger"
@@ -35,7 +35,7 @@ export default function DeleteTag({ guildId, id, name, removeTag }: Props) {
             <Modal
                 buttonName="Delete"
                 variant="danger"
-                title={"Delete tag: " + name}
+                title={"Delete Tag: " + name}
                 show={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {

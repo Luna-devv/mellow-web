@@ -20,7 +20,7 @@ export default function DeleteNotification({ guildId, id, name, removeNotificati
 
     return (
         <>
-            <Tooltip content="Delete notification" closeDelay={0}>
+            <Tooltip content="Delete Notification" closeDelay={0}>
                 <Button
                     isIconOnly
                     color="danger"
@@ -28,14 +28,14 @@ export default function DeleteNotification({ guildId, id, name, removeNotificati
                     isDisabled={!id}
                 >
                     <HiTrash className="h-5 w-5" />
-                    <span className="sr-only">Delete selected tag</span>
+                    <span className="sr-only">Delete selected notification</span>
                 </Button>
             </Tooltip>
 
             <Modal
                 buttonName="Delete"
                 variant="danger"
-                title={"Delete tag: " + name}
+                title={"Delete YouTube Notification: " + name}
                 show={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {
@@ -51,7 +51,7 @@ export default function DeleteNotification({ guildId, id, name, removeNotificati
                     if (id) removeNotification(id);
                 }}
             >
-                Are you sure you want to delete the {'"'}{name}{'"'} tag? It will be gone forever, probably, who knows.
+                Are you sure you want to delete the {'"'}{name}{'"'} channel from posting notifications? It will be gone forever, probably, who knows.
             </Modal>
         </>
     );
