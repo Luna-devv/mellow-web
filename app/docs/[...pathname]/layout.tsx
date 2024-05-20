@@ -18,8 +18,17 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
     const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
-    const title = "Documentation";
+    const title = meta?.file === "index.md"
+        ? `Wamellow docs`
+        : `${meta?.name} docs`;
+
     const url = getCanonicalUrl("docs", ...params.pathname);
+    const images = {
+        url: meta?.image || `${getBaseUrl()}/waya-v3.jpg?v=2`,
+        alt: meta?.description,
+        heigth: 600,
+        width: 1200
+    }
 
     return {
         title,
@@ -32,13 +41,13 @@ export const generateMetadata = async ({
             description: meta?.description,
             url,
             type: "website",
-            images: `${getBaseUrl()}/waya-v3.jpg?v=2`
+            images
         },
         twitter: {
             card: "summary",
             title,
             description: meta?.description,
-            images: `${getBaseUrl()}/waya-v3.jpg?v=2`
+            images
         }
     };
 };
@@ -49,13 +58,17 @@ export default async function RootLayout({
 }: Props) {
     const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
+    const title = meta?.file === "index.md"
+        ? `Wamellow`
+        : meta?.name;
+
     return (
         <div className="w-full">
 
             <div className="md:flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-medium text-neutral-100">
-                        Documentation
+                        {title} Documentation
                     </h1>
                     <div>
                         {meta?.description}

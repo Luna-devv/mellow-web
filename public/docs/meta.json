@@ -8,6 +8,7 @@
         {
             "name": "👋 Greetings",
             "file": "greetings.md",
+            "image": "https://cdn.waya.one/r/greeting.png",
             "description": "Create a warm and inviting atmosphere for new members in your community!",
             "permissions": {
                 "bot": [
@@ -24,6 +25,7 @@
         {
             "name": "🔐 Passport",
             "file": "passport.md",
+            "image": "https://cdn.waya.one/r/passport.png",
             "description": "Verify members with a captcha in your community for enhanced security!",
             "permissions": {
                 "bot": [
@@ -42,6 +44,7 @@
         {
             "name": "😔 Farewell",
             "file": "farewell.md",
+            "image": "https://cdn.waya.one/r/greeting.png",
             "description": "Send farewell messages to members leaving your community!",
             "permissions": {
                 "bot": [
@@ -58,6 +61,7 @@
         {
             "name": "⭐ Starboard",
             "file": "starboard.md",
+            "image": "https://cdn.waya.one/r/starboard.png",
             "description": "An engaging and customizable platform for highlighting memorable messages.",
             "permissions": {
                 "bot": [
@@ -74,6 +78,7 @@
         {
             "name": "📢 YouTube Notifications",
             "file": "notifications.md",
+            "image": "https://cdn.waya.one/r/notifications-youtube.png",
             "description": "Notify your community when a new YouTube video gets posted!",
             "permissions": {
                 "bot": [
