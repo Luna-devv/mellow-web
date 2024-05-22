@@ -19,15 +19,15 @@ export const generateMetadata = async ({
     const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
     const title = meta?.file === "index.md"
-        ? `Wamellow docs`
+        ? "Documentation"
         : `${meta?.name} docs`;
 
     const url = getCanonicalUrl("docs", ...params.pathname);
     const images = {
         url: meta?.image || `${getBaseUrl()}/waya-v3.jpg?v=2`,
         alt: meta?.description,
-        heigth: 600,
-        width: 1200
+        heigth: 1008,
+        width: 1935
     }
 
     return {
@@ -44,7 +44,7 @@ export const generateMetadata = async ({
             images
         },
         twitter: {
-            card: "summary",
+            card: "summary_large_image",
             title,
             description: meta?.description,
             images
@@ -82,7 +82,7 @@ export default async function RootLayout({
             <Divider className="mt-2" />
 
             <div className="flex flex-col lg:flex-row gap-6 mt-5 min-h-[63vh]">
-                <div className="w-full lg:w-1/4 space-y-2">
+                <nav className="w-full lg:w-1/4 space-y-2">
 
                     <ul className="space-y-2 mb-4 bg-wamellow p-2 rounded-md border border-wamellow-alpha">
                         {metadata.pages.map((page) => (
@@ -137,14 +137,11 @@ export default async function RootLayout({
                     >
                         <BsGithub /> Contribute
                     </Link>
-                </div>
+                </nav>
 
                 <Divider className="lg:hidden" />
 
-                <div className="w-full lg:w-3/4">
-                    {children}
-                </div>
-
+                {children}
             </div>
 
             <Footer className="mt-24" />

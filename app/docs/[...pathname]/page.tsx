@@ -36,7 +36,10 @@ export default async function Home({ params }: Props) {
     }
 
     return (
-        <div>
+        <article
+            itemType="http://schema.org/Article"
+            className="w-full lg:w-3/4"
+        >
             {meta?.permissions?.bot &&
                 <Notice
                     type={NoticeType.Info}
@@ -62,6 +65,6 @@ export default async function Home({ params }: Props) {
             <div className="h-16" />
 
             <Faq showTitle />
-        </div>
+        </article>
     );
 }
