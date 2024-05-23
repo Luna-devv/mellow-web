@@ -20,13 +20,11 @@ import { getCanonicalUrl } from "@/utils/urls";
 export default function Side({
     guild,
     design,
-    pagination,
-    currentCircular
+    pagination
 }: {
     guild: ApiV1GuildsGetResponse | ApiError | undefined;
     design: ApiV1GuildsModulesLeaderboardGetResponse | ApiError | undefined;
     pagination: ApiV1GuildsTopmembersPaginationGetResponse | ApiError | undefined;
-    currentCircular: "next" | "server" | undefined;
 }) {
     const cookies = useCookies();
     const router = useRouter();
@@ -154,7 +152,11 @@ export default function Side({
                     Users are sorted from most to least active for each category, updates once per minute.
                     <br />
                     <br />
-                    The percentage {currentCircular !== "server" ? "indicates the gap in messages needed to surpass the next user" : "reflects the contribution of server activity from that user"}.
+                    The percentage {
+                        cookies.get("lbc") !== "server"
+                            ? "indicates the gap in messages needed to surpass the next user"
+                            : "reflects the contribution of server activity from that user"
+                    }.
                 </AccordionItem>
 
                 {guild && "id" in guild && guild?.inviteUrl ?

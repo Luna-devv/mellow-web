@@ -1,35 +1,30 @@
-import { Badge, Chip, CircularProgress } from "@nextui-org/react";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import Link from "next/link";
-import { HiBadgeCheck } from "react-icons/hi";
 
-import DiscordAppBadge from "@/components/discord/app-badge";
-import ImageReduceMotion from "@/components/image-reduce-motion";
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import cn from "@/utils/cn";
-import { intl } from "@/utils/numbers";
 
 import { getDesign, getPagination, getTopMembers } from "./api";
-import Icon from "./icon.component";
 import Pagination from "./pagination.component";
-
-interface Props {
-    params: { guildId: string };
-    searchParams: { page: string, type: "messages" | "voiceminutes" | "invites" };
-}
+import { redirect } from "next/navigation";
+import Member from "./member.component";
 
 export const revalidate = 60 * 60;
 
 export default async function Home({
     params,
     searchParams
-}: Props) {
-    if (searchParams) searchParams.type ||= "messages";
+}: {
+    params: { guildId: string };
+    searchParams: { page: string, type: "messages" | "voiceminutes" | "invites" };
+}) {
+    const cookieStore = cookies();
 
+    if (searchParams) searchParams.type ||= "messages";
     const page = parseInt(searchParams.page || "1");
+
+    if (page !== 1 && !cookieStore.get("hasSession")) redirect("/login?callback=/leaderboard/%5BguildId%5D/messages%3Fpage=" + page)
 
     const guildPromise = getGuild(params.guildId);
     const membersPromise = getTopMembers(params.guildId, { page, type: searchParams.type });
@@ -56,7 +51,7 @@ export default async function Home({
                     <SupportButton />
                 </>}
             >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
+                <Image src={SadWumpusPic} alt="" height={141 * 1.5} width={124 * 1.5} />
             </ScreenMessage>
         );
     }
@@ -99,115 +94,19 @@ export default async function Home({
         );
     }
 
-    const key = "lbc";
-
-    async function publish() {
-        "use server";
-
-        const cookieStore = cookies();
-        const currentCircular = cookieStore.get(key)?.value;
-
-        cookies().set(key, currentCircular !== "server" ? "server" : "next");
-    }
-
-    const cookieStore = cookies();
-    const currentCircular = cookieStore.get(key)?.value;
-
     return (
         <>
             {members
                 .sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0))
                 .map((member, i) =>
-                    <div
-                        key={"leaderboard-" + searchParams.type + member.id + i}
-                        className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100 w-full overflow-hidden"
-                    >
-                        <Badge
-                            className={cn(
-                                "size-6 font-bold",
-                                (() => {
-                                    const rank = i + ((page - 1) * 20) + 1;
-
-                                    if (rank === 1) return "bg-[#ffe671] text-[#ff9e03] border-2 border-[#1c1b1f]";
-                                    if (rank === 2) return "bg-[#c1e5fb] text-[#6093ba] border-2 border-[#1c1b1f]";
-                                    if (rank === 3) return "bg-[#f8c396] text-[#c66e04] border-2 border-[#1c1b1f]";
-                                    return "bg-[#1c1b1f]";
-                                })()
-                            )}
-                            showOutline={false}
-                            content={
-                                <span className="px-[3px]">
-                                    {intl.format(i + ((page - 1) * 20) + 1)}
-                                </span>
-                            }
-                            size="sm"
-                            placement="bottom-left"
-                        >
-                            <ImageReduceMotion
-                                alt={`${member.username}'s profile picture`}
-                                className="rounded-full h-12 w-12 mr-3"
-                                url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
-                                size={128}
-                            />
-                        </Badge>
-
-                        <div className="w-full max-w-[calc(100%-17rem)]">
-                            <div className="flex items-center gap-2">
-                                <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800 truncate">
-                                    {member.globalName || member.username || "Unknown user"}
-                                </span>
-                                {member.bot &&
-                                    <DiscordAppBadge />
-                                }
-                                {member.id === "821472922140803112" &&
-                                    <UserBadge>Developer</UserBadge>
-                                }
-                                {member.id === "845287163712372756" &&
-                                    <UserBadge>WOMEN</UserBadge>
-                                }
-                            </div>
-                            <div className="text-sm dark:text-neutral-300 text-neutral-700 truncate">
-                                @{member.username}
-                            </div>
-                        </div>
-
-                        <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">
-                            <span className="mr-1 break-keep">
-                                {searchParams.type === "voiceminutes"
-                                    ? member.activity?.formattedVoicetime
-                                    : intl.format(member.activity?.[searchParams.type || "messages"])
-                                }
-                            </span>
-
-                            <Icon type={searchParams.type} />
-                        </div>
-
-                        <form action={publish}>
-                            <CircularProgress
-                                as="button"
-                                type="submit"
-                                className="ml-4"
-                                aria-label="progress"
-                                size="lg"
-                                color={
-                                    currentCircular === "next"
-                                        ? "default"
-                                        : "secondary"
-                                }
-                                classNames={{
-                                    svg: "drop-shadow-md"
-                                }}
-                                value={
-                                    currentCircular === "next"
-                                        ? (member.activity[searchParams.type || "messages"] * 100) / (members[i - 1]?.activity[searchParams.type || "messages"] || 1)
-                                        : (member.activity[searchParams.type || "messages"] * 100) / parseInt(pagination[searchParams.type || "messages"].total.toString())
-                                        || 100
-                                }
-                                showValueLabel={true}
-                            />
-                        </form>
-
-                    </div>
+                    <Member
+                        key={member.id}
+                        member={member}
+                        index={i + (page * 20) - 19}
+                        type={searchParams.type}
+                        pagination={pagination}
+                        members={members}
+                    />
                 )}
 
             <Pagination
@@ -216,25 +115,5 @@ export default async function Home({
                 pages={pagination[searchParams.type].pages}
             />
         </>
-    );
-}
-
-function UserBadge({
-    children
-}: {
-    children: React.ReactNode
-}) {
-    return (
-        <Chip
-            as={Link}
-            color="secondary"
-            href="/team?utm_source=wamellow.com&utm_medium=leaderboard"
-            size="sm"
-            startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}
-            target="_blank"
-            variant="flat"
-        >
-            <span className="font-bold">{children}</span>
-        </Chip>
     );
 }
