@@ -22,7 +22,6 @@ export default function Highlight({
 }: Props) {
 
     function parseDiscordMarkdown(content: string) {
-        console.log(content)
         return content
             .replace(/<(?!(?:[@#]|a:|:))/g, "&lt;")
             .replaceAll("\n", "\n")

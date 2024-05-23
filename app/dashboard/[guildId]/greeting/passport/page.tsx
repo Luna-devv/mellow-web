@@ -180,7 +180,7 @@ export default function Home() {
                             setPassport({
                                 ...passport,
                                 punishment: o.value as ApiV1GuildsModulesPassportGetResponse["punishment"]
-                            }); console.log(o.value);
+                            });
 
                         }}
                     />

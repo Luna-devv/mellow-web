@@ -11,7 +11,8 @@ interface Props {
     forceStatic?: boolean
 }
 
-export default function ImageReduceMotion({ url,
+export default function ImageReduceMotion({
+    url,
     size,
     alt,
     className,

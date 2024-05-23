@@ -47,7 +47,6 @@ export default function Home() {
     for (const [key, value] of headers().entries()) {
         headerList.push({ name: key, value });
     }
-    console.log(headerList);
 
     if (cookies().get("devTools")?.value !== "true") {
         return (
