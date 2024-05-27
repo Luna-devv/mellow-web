@@ -16,7 +16,7 @@ import { ListTab } from "@/components/list";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1MeGetResponse } from "@/typings";
+import { ApiV1UsersMeGetResponse } from "@/typings";
 import decimalToRgb from "@/utils/decimalToRgb";
 
 export default function RootLayout({
@@ -30,13 +30,12 @@ export default function RootLayout({
     if (!hasSession) redirect("/login?callback=/profile");
 
     const user = userStore((u) => u);
-    const accent = decimalToRgb(user?.accentColor as number);
 
     const url = "/users/@me" as const;
 
     const { data, error } = useQuery(
         url,
-        () => getData<ApiV1MeGetResponse>(url),
+        () => getData<ApiV1UsersMeGetResponse>(url),
         {
             enabled: !!user?.id,
             onSuccess: (d) => userStore.setState({
@@ -75,7 +74,6 @@ export default function RootLayout({
                         <Skeleton
                             isLoaded={!!user?.id}
                             className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
-                            style={user?.accentColor ? { "--tw-ring-color": `rgb(${accent.r}, ${accent.g}, ${accent.b})` } as React.CSSProperties : {}}
                         >
                             <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="you" />
                         </Skeleton>

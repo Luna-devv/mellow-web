@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { ApiV1MeGetResponse } from "@/typings";
+import { ApiV1UsersMeGetResponse } from "@/typings";
 
 export interface User {
     session: string;
@@ -15,7 +15,7 @@ export interface User {
 
     __fetched: boolean;
 
-    extended: ApiV1MeGetResponse | undefined;
+    extended: ApiV1UsersMeGetResponse | undefined;
 }
 
 export const userStore = create<User | undefined>(() => ({

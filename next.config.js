@@ -28,7 +28,7 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "r2.wamellow.com",
                 port: "",
-                pathname: "/ai-image/**"
+                pathname: "/**"
             },
             {
                 protocol: "https",

@@ -135,6 +135,30 @@ div[id="bg"] {
     }
 }
 
+.shake {
+    position: relative;
+    animation: shake 60ms infinite alternate;
+}
+
+@keyframes shake {
+    0% {
+        margin-right: 0px
+    }
+
+    50% {
+        transform: rotate(1deg);
+    }
+
+    80% {
+        transform: rotate(-1deg);
+    }
+
+    100% {
+        margin-right: 10px
+    }
+
+}
+
 button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
 a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
     @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium

@@ -9,6 +9,8 @@ import ImageReduceMotion from "@/components/image-reduce-motion";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import Icon from "./icon.component";
+import getAverageColor from "@/utils/average-color";
+import Image from "next/image";
 
 export default async function Member(
     {
@@ -25,6 +27,10 @@ export default async function Member(
         pagination: ApiV1GuildsTopmembersPaginationGetResponse,
     }
 ) {
+    const emojiUrl = `https://r2.wamellow.com/emoji/${member.emoji}.webp`;
+    const averageColor = member.emoji
+        ? await getAverageColor(emojiUrl + "?size=16")
+        : null;
 
     async function publish() {
         "use server";
@@ -44,7 +50,12 @@ export default async function Member(
     const currentCircular = cookieStore.get("lbc")?.value;
 
     return (
-        <div className="mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100 w-full overflow-hidden">
+        <div
+            className={cn(
+                "mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100 w-full overflow-hidden"
+            )}
+            style={averageColor ? { backgroundColor: averageColor + "50" } : {}}
+        >
             <Badge
                 className={cn(
                     "size-6 font-bold",
@@ -72,7 +83,7 @@ export default async function Member(
                 />
             </Badge>
 
-            <div className="w-full max-w-[calc(100%-17rem)]">
+            <div className="w-full md:max-w-fit">
                 <div className="flex items-center gap-2">
                     <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800 truncate">
                         {member.globalName || member.username || "Unknown user"}
@@ -92,8 +103,22 @@ export default async function Member(
                 </div>
             </div>
 
+            {member.emoji &&
+                <div className="w-full hidden sm:block relative mr-6 -ml-48 md:-ml-6 lg:ml-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-6 w-full gap-2 absolute -bottom-9 rotate-1">
+                        {new Array(12).fill(0).map((_, i) =>
+                            <Emoji
+                                key={"emoji-" + member.id + i}
+                                index={i}
+                                emojiUrl={emojiUrl}
+                            />
+                        )}
+                    </div>
+                </div>
+            }
+
             <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">
-                <span className="mr-1 break-keep">
+                <span className="mr-1 break-keep text-nowrap">
                     {type === "voiceminutes"
                         ? member.activity?.formattedVoicetime
                         : intl.format(member.activity?.[type || "messages"])
@@ -128,7 +153,7 @@ export default async function Member(
                 />
             </form>
 
-        </div>
+        </div >
     );
 
 }
@@ -151,4 +176,28 @@ function UserBadge({
             <span className="font-bold">{children}</span>
         </Chip>
     );
+}
+
+function Emoji({
+    index,
+    emojiUrl
+}: {
+    index: number;
+    emojiUrl: string;
+}) {
+    return (
+        <Image
+            alt=""
+            className="rounded-xl relative size-8 aspect-square"
+            draggable={false}
+            height={48}
+            src={emojiUrl}
+            style={{
+                transform: `rotate(${(index / 2.3) * 360 + index}deg)`,
+                top: `${index * 2 % 4}px`,
+                left: `${index * 8 / 2}px`
+            }}
+            width={48}
+        />
+    )
 }

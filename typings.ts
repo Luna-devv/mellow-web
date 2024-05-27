@@ -50,11 +50,12 @@ export interface ApiV1GuildsGetResponse {
 
 export interface ApiV1GuildsTopmembersGetResponse {
     id: string;
-    globalName: string | null;
     username: string | null;
+    globalName: string | null;
     avatar: string | null;
-    bot?: true;
-    activity: ApiV1MeGetResponse["activity"] & { formattedVoicetime: string };
+    bot: true;
+    emoji: string | null;
+    activity: ApiV1UsersMeGetResponse["activity"] & { formattedVoicetime: string };
 }
 
 export interface ApiV1GuildsTopmembersPaginationGetResponse {
@@ -76,7 +77,7 @@ export interface ApiV1GuildsTopmembersPaginationGetResponse {
 export interface ApiV1GuildsChannelsGetResponse {
     name: string;
     id: string;
-    missingPermissions: string[]
+    missingPermissions: string[];
 }
 
 export interface ApiV1GuildsRolesGetResponse {
@@ -265,11 +266,12 @@ export interface ApiV1GuildsModulesPassportGetResponse {
     accentColor?: number;
 }
 
-export interface ApiV1MeGetResponse {
+export interface ApiV1UsersMeGetResponse {
     voteCount?: number;
 
     rank?: {
         background?: string | null;
+        emoji?: string | null;
         textColor?: number;
         barColor?: number;
         useLeaderboardList?: boolean;
@@ -386,10 +388,10 @@ export interface ApiV1UsersGetResponse {
     voteCount: number;
     likeCount: number;
 
-    activity: Required<ApiV1MeGetResponse>["activity"];
+    activity: Required<ApiV1UsersMeGetResponse>["activity"];
     guilds: {
         guildId: string;
-        activity: Required<ApiV1MeGetResponse>["activity"];
+        activity: Required<ApiV1UsersMeGetResponse>["activity"];
     }[];
 }
 
@@ -419,6 +421,15 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
         views: string;
     }
 
+}
+export interface ApiV1UsersMeRankEmojiPutResponse {
+    id: string;
+    url: string;
+}
+
+export interface ApiV1UsersMeRankEmojiDeleteResponse {
+    id: null;
+    url: null;
 }
 
 export interface PronounsResponse {
