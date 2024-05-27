@@ -33,6 +33,7 @@ import Commands from "./commands.component";
 import Faq from "./faq.component";
 import Ratings from "./ratings.component";
 import Stats from "./stats.component";
+import { ApiV1TopguildsGetResponse } from "@/typings";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
@@ -370,8 +371,7 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps()}>
-                                <Highlight mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!" />
-                                <Highlight mode={"DARK"} text="[https://www.youtube.com/watch?v=74Lj5cHseI8]()" />
+                                <Highlight mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=74Lj5cHseI8]()" />
                                 <DiscordMessageEmbed
                                     mode="DARK"
                                     title="Your PC Can Look Like THIS Now!"

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HTMLProps } from "react";
 import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoTiktok, BiLogoTwitter, BiLogoYoutube } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
-import { HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
+import { HiBookOpen, HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
 import { SiKofi } from "react-icons/si";
 
 import TopggIcon from "@/components/icons/topgg";
@@ -141,6 +141,13 @@ function Links() {
                 >
                     <BsDiscord />
                     Support
+                </Link>
+                <Link
+                    className="flex items-center gap-2"
+                    href="/docs/index?utm_source=wamellow.com&utm_medium=footer"
+                >
+                    <HiBookOpen />
+                    Documentation
                 </Link>
                 <Link
                     className="flex items-center gap-2"

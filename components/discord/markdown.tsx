@@ -24,7 +24,7 @@ export default function Highlight({
     function parseDiscordMarkdown(content: string) {
         return content
             .replace(/<(?!(?:[@#]|a:|:))/g, "&lt;")
-            .replaceAll("\n", "\n")
+            .replaceAll("\\n", "\n\n")
             .replace(/__(.*?)__/g, "<u>$1</u>")
             .replace(/\{(\w*?)\.(\w*?)\}|{ping}/g, (match) => {
                 return renderToString(
