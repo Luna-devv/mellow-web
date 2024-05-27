@@ -16,7 +16,7 @@ import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 
 import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
-import Permissions from "./permissions";
+import Permissions from "./permissions.component";
 import ResetLeaderboard from "./reset.component";
 import UpdatingLeaderboardCard from "./updating.component";
 import DiscordWidget from "./widget.component";
