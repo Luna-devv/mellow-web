@@ -8,7 +8,6 @@ import sleep from "@/utils/sleep";
 import { Button } from "@nextui-org/react";
 import { ApiError } from "next/dist/server/api-utils";
 import Image from "next/image";
-import Link from "next/link";
 import { ChangeEvent, useRef, useState } from "react";
 import { HiUpload } from "react-icons/hi";
 
@@ -101,10 +100,13 @@ export default function CardSyle() {
         });
     }
 
+    const mimetypes = ["image/jpg", "image/jpeg", "image/png", "image/webp"];
+    if (user?.isPremium) mimetypes.push("image/gif");
+
     return (
         <div>
             <input
-                accept={["image/jpg", "image/jpeg", "image/png", "image/webp"].join()}
+                accept={mimetypes.join()}
                 className="hidden"
                 onChange={upload}
                 ref={ref}
@@ -179,7 +181,7 @@ function Emoji({
             className={classNames}
             draggable={false}
             height={64}
-            src={`https://r2.wamellow.com/emoji/${emojiId}.webp`}
+            src={`https://r2.wamellow.com/emoji/${emojiId}`}
             style={{
                 transform: `rotate(${(index / 2.3) * 360}deg)`,
                 top: `${index * 2 % 4}px`,

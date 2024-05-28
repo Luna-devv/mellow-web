@@ -27,7 +27,7 @@ export default async function Member(
         pagination: ApiV1GuildsTopmembersPaginationGetResponse,
     }
 ) {
-    const emojiUrl = `https://r2.wamellow.com/emoji/${member.emoji}.webp`;
+    const emojiUrl = `https://r2.wamellow.com/emoji/${member.emoji}`;
     const averageColor = member.emoji
         ? await getAverageColor(emojiUrl + "?size=16")
         : null;

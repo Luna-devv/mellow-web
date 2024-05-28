@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { ApiV1UsersMeGetResponse } from "@/typings";
 
 export interface User {
-    session: string;
     HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY?: true;
 
     email?: string | null;
@@ -11,7 +10,7 @@ export interface User {
     username: string;
     globalName?: string | null;
     avatar: string | null;
-    accentColor?: number | null;
+    isPremium?: number | null;
 
     __fetched: boolean;
 
