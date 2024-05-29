@@ -1,8 +1,10 @@
-import React, { FunctionComponent, useState } from "react";
+import { Button } from "@nextui-org/react";
+import React, { useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
+import { FaFloppyDisk } from "react-icons/fa6";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
-import { GuildEmbed, RouteErrorResponse } from "@/typings";
+import { GuildEmbed } from "@/typings";
 import cn from "@/utils/cn";
 
 import Highlight from "./discord/markdown";
@@ -10,6 +12,12 @@ import DiscordMessage from "./discord/message";
 import DiscordMessageEmbed from "./discord/message-embed";
 import DumbColorInput from "./inputs/dumb-color-input";
 import DumbTextInput from "./inputs/dumb-text-input";
+
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Success = 2
+}
 
 interface Props {
     children?: React.ReactNode
@@ -28,20 +36,24 @@ interface Props {
     onSave?: (state: { content?: string | null, embed?: GuildEmbed }) => void;
 }
 
-const MessageCreatorEmbed: FunctionComponent<Props> = ({
+export default function MessageCreatorEmbed({
     children,
+
     name,
     url,
     dataName,
+
     defaultMessage,
     isCollapseable,
+
     messageAttachmentComponent,
     showMessageAttachmentComponentInEmbed,
+
     disabled,
     onSave
-}) => {
-    const [state, setState] = useState<"LOADING" | "ERRORED" | "SUCCESS" | undefined>();
-    const [error, setError] = useState<string>();
+}: Props) {
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
 
     const [content, setContent] = useState<string>(defaultMessage?.content || "");
     const [embed, setEmbed] = useState<string>(JSON.stringify(defaultMessage?.embed || {}));
@@ -51,63 +63,83 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({
     const [mode, setMode] = useState<"DARK" | "LIGHT">("DARK");
 
     const modeToggle = (
-        <div className={cn(mode === "DARK" ? "bg-wamellow-light" : "bg-wamellow-100-light", "flex gap-1 text-neutral-400 rounded-md overflow-hidden")}>
-            <button onClick={() => setMode("DARK")} className={`py-2 px-3 rounded-md ${mode === "DARK" ? "bg-wamellow" : "hover:bg-wamellow-100-alpha"}`}>
+        <div
+            className={cn(
+                mode === "DARK" ? "bg-wamellow-light" : "bg-wamellow-100-light",
+                "flex gap-1 text-neutral-400 rounded-md overflow-hidden"
+            )}
+        >
+            <button
+                onClick={() => setMode("DARK")}
+                className={cn(
+                    "py-2 px-3 rounded-md",
+                    mode === "DARK" ? "bg-wamellow" : "hover:bg-wamellow-100-alpha"
+                )}
+            >
                 <BiMoon className="h-5 w-5" />
             </button>
-            <button onClick={() => setMode("LIGHT")} className={`py-2 px-3 rounded-md ${mode === "LIGHT" ? "bg-wamellow-100" : "hover:bg-wamellow-alpha"}`}>
+            <button
+                onClick={() => setMode("LIGHT")}
+                className={cn(
+                    "py-2 px-3 rounded-md",
+                    mode === "LIGHT" ? "bg-wamellow-100" : "hover:bg-wamellow-alpha"
+                )}
+            >
                 <BiSun className="h-5 w-5" />
             </button>
         </div>
     );
 
-    const saveHook = () => {
-        setError(undefined);
-        setState("LOADING");
+    async function save() {
+        setError(null);
+        setState(State.Loading);
 
-        const body = { content, embed: Object.assign(JSON.parse(embed), embedfooter.length > 2 ? { footer: JSON.parse(embedfooter) } : {}) };
+        const body = {
+            content,
+            embed: Object.assign(
+                JSON.parse(embed),
+                embedfooter.length > 2 ? { footer: JSON.parse(embedfooter) } : {}
+            )
+        };
 
-        fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(dataName.includes(".") ?
-                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: body } }
-                :
-                { [dataName]: body }
+            body: JSON.stringify(dataName.includes(".")
+                ? { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: body } }
+                : { [dataName]: body }
             )
         })
-            .then(async (res) => {
-                const response = await res.json();
-                if (!response) return;
+            .then((r) => r.json())
+            .catch(() => null);
 
-                switch (res.status) {
-                    case 200: {
-                        setState("SUCCESS");
-                        onSave?.(body);
-                        setTimeout(() => setState(undefined), 1_000 * 8);
-                        break;
-                    }
-                    default: {
-                        setState("ERRORED");
-                        setError((response as unknown as RouteErrorResponse).message);
-                        break;
-                    }
-                }
+        if (!res || "statusCode" in res) {
+            setState(State.Idle);
+            setError(
+                "message" in res
+                    ? res.message
+                    : "Something went wrong while saving.."
+            );
 
-            })
-            .catch(() => {
-                setState("ERRORED");
-                setError("Error while updating");
-            });
+            return;
+        }
 
-    };
+        if (onSave) onSave(body);
+        setState(State.Success);
+        setTimeout(() => setState(State.Idle), 1_000 * 8);
+    }
 
     return (
         <div>
-            <div className={cn("mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 py-2", (error || state === "ERRORED") && "outline outline-red-500 outline-1")}>
+            <div
+                className={cn(
+                    "mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 py-2",
+                    error && "outline outline-red-500 outline-1"
+                )}
+            >
                 <div className="text-lg py-2 dark:text-neutral-700 text-neutral-300 font-medium px-2">{name}</div>
 
                 {isCollapseable &&
@@ -135,7 +167,7 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({
                     <div className="md:m-1 relative">
 
                         {children &&
-                            <div className={`mx-1 ${isCollapseable && "mt-6"}`}>
+                            <div className={cn("mx-1", isCollapseable && "mt-6")}>
                                 {children}
                             </div>
                         }
@@ -157,13 +189,19 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({
                                     <DumbTextInput placeholder="Embed Footer" value={embedfooter} setValue={setEmbedfooter} max={256} dataName="text" disabled={disabled} />
                                 </div>
 
-                                <button
-                                    className={`flex justify-center items-center bg-violet-600 hover:bg-violet-500 text-white py-2 px-4 rounded-md duration-200 mt-1 h-12 w-full  ${disabled && "cursor-not-allowed opacity-50"}`}
-                                    onClick={saveHook}
-                                    disabled={disabled}
+                                <Button
+                                    className={cn(
+                                        "mt-1 w-full",
+                                        disabled && "cursor-not-allowed opacity-50"
+                                    )}
+                                    color="secondary"
+                                    isDisabled={disabled}
+                                    isLoading={state === State.Loading}
+                                    onClick={() => save()}
+                                    startContent={state !== State.Loading && <FaFloppyDisk />}
                                 >
-                                    Update
-                                </button>
+                                    Save Changes
+                                </Button>
 
                             </div>
 
@@ -179,7 +217,10 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({
 
                             </div>
 
-                            <div className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200" style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(255, 255, 255)" }}>
+                            <div
+                                className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200"
+                                style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(255, 255, 255)" }}
+                            >
 
                                 <div className="absolute z-10 top-2 right-2 hidden md:block">
                                     {modeToggle}
@@ -227,13 +268,11 @@ const MessageCreatorEmbed: FunctionComponent<Props> = ({
 
             <div className="flex relative bottom-3">
                 <div className="ml-auto mb-2">
-                    {(error || state === "ERRORED") && <div className="ml-auto text-red-500 text-sm">{error || "Unknown error while saving"}</div>}
-                    {state === "SUCCESS" && <div className="ml-auto text-green-500 text-sm">Saved</div>}
+                    {error && <div className="ml-auto text-red-500 text-sm">{error}</div>}
+                    {state === State.Success && <div className="ml-auto text-green-500 text-sm">Saved</div>}
                 </div>
             </div>
 
         </div>
     );
-};
-
-export default MessageCreatorEmbed;
+}
