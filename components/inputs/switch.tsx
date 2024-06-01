@@ -45,29 +45,33 @@ export default function Switch({
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
-    const [value, setValue] = useState<boolean>(false);
-    const [changed, setChanged] = useState<boolean>(false);
+    const [value, setValue] = useState<boolean>(defaultState);
 
     useEffect(() => {
         setValue(defaultState);
-        setChanged(false);
     }, [defaultState]);
 
-    useEffect(() => {
+    function update(now: boolean) {
+        setState(State.Loading);
+        setError(null);
+
+        setValue(now);
 
         if (!url) {
-            if (!onSave) throw new Error("Warning: <Switch.onSave> must be defined when not using <Switch.url>.");
-            onSave(value);
+            if (!onSave) {
+                setValue(!now);
+                throw new Error("Warning: <Switch.onSave> must be defined when not using <Switch.url>.");
+            }
+
             setState(State.Idle);
+            onSave(value);
             return;
         }
 
-        if (!dataName) throw new Error("Warning: <Switch.dataName> must be defined when using <Switch.url>.");
-
-        if (!changed) return;
-        setError(null);
-
-        setState(State.Loading);
+        if (!dataName) {
+            setValue(!now);
+            throw new Error("Warning: <Switch.dataName> must be defined when using <Switch.url>.");
+        }
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
@@ -76,9 +80,9 @@ export default function Switch({
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(dataName.includes(".") ?
-                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: value } }
+                { [dataName.split(".")[0]]: { [dataName.split(".")[1]]: now } }
                 :
-                { [dataName]: value }
+                { [dataName]: now }
             )
         })
             .then(async (res) => {
@@ -87,14 +91,15 @@ export default function Switch({
 
                 switch (res.status) {
                     case 200: {
+                        onSave?.(now);
+
                         setState(State.Success);
-                        onSave?.(value);
                         setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;
                     }
                     default: {
-                        setChanged(false);
-                        setValue(!value);
+                        setValue(!now);
+
                         setState(State.Idle);
                         setError((response as unknown as RouteErrorResponse).message);
                         break;
@@ -103,13 +108,13 @@ export default function Switch({
 
             })
             .catch(() => {
-                setChanged(false);
-                setValue(!value);
+                setValue(!now);
+
                 setState(State.Idle);
                 setError("Error while saving");
             });
 
-    }, [value]);
+    }
 
     return (
         <div className={cn("relative", description && "mb-2", className)}>
@@ -135,17 +140,16 @@ export default function Switch({
                         </Chip>
                     }
 
-                    {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                    {state === State.Loading &&
+                        <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />
+                    }
                 </div>
 
                 {isTickbox ?
                     <Checkbox
                         className="ml-auto"
                         isSelected={value}
-                        onValueChange={(now) => {
-                            setChanged(true);
-                            setValue(now);
-                        }}
+                        onValueChange={update}
                         aria-label={name}
                         color="secondary"
                         isDisabled={disabled}
@@ -154,10 +158,7 @@ export default function Switch({
                     <UiSwitch
                         className="ml-auto"
                         isSelected={value}
-                        onValueChange={(now) => {
-                            setChanged(true);
-                            setValue(now);
-                        }}
+                        onValueChange={update}
                         aria-label={name}
                         color="secondary"
                         isDisabled={disabled}
