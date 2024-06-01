@@ -21,6 +21,8 @@ export default async function getAverageColor(url: string) {
     let blueSum = 0;
 
     for (let i = 0; i < data.length; i += 4) {
+        if ((data[i] + data[i + 1] + data[1 + 2]) < 10) continue;
+
         redSum += data[i];
         greenSum += data[i + 1];
         blueSum += data[i + 2];
@@ -32,7 +34,7 @@ export default async function getAverageColor(url: string) {
         b: Math.round(blueSum / pixelCount)
     };
 
-    const hex = `#${rgb.r.toString(16).padStart(2, "0")}${rgb.g.toString(16).padStart(2, "0")}${rgb.b.toString(16).padStart(2, "0")}`
+    const hex = `#${rgb.r.toString(16).padStart(2, "0")}${rgb.g.toString(16).padStart(2, "0")}${rgb.b.toString(16).padStart(2, "0")}`;
     cache.set(url, hex);
 
     return hex;

@@ -1,16 +1,16 @@
 import { cookies } from "next/headers";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 import { getDesign, getPagination, getTopMembers } from "./api";
-import Pagination from "./pagination.component";
-import { redirect } from "next/navigation";
 import Member from "./member.component";
+import Pagination from "./pagination.component";
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 export default async function Home({
     params,
@@ -24,7 +24,7 @@ export default async function Home({
     if (searchParams) searchParams.type ||= "messages";
     const page = parseInt(searchParams.page || "1");
 
-    if (page !== 1 && !cookieStore.get("hasSession")) redirect("/login?callback=/leaderboard/%5BguildId%5D/messages%3Fpage=" + page)
+    if (page !== 1 && !cookieStore.get("hasSession")) redirect("/login?callback=/leaderboard/%5BguildId%5D/messages%3Fpage=" + page);
 
     const guildPromise = getGuild(params.guildId);
     const membersPromise = getTopMembers(params.guildId, { page, type: searchParams.type });
