@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { HiMail } from "react-icons/hi";
 
-import Modal from "@/components/modal";
-import SelectMenu from "@/components/inputs/select-menu";
 import { guildStore } from "@/common/guilds";
+import SelectMenu from "@/components/inputs/select-menu";
+import Modal from "@/components/modal";
 
 
 export default function FollowUpdates() {
@@ -44,7 +44,8 @@ export default function FollowUpdates() {
 
             <Modal
                 title="Wamellow updates"
-                show={open && !!guild}
+                className="!overflow-visible"
+                isOpen={open && !!guild}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/follow-updates`, {

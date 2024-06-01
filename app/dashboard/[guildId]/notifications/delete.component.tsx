@@ -36,7 +36,7 @@ export default function DeleteNotification({ guildId, id, name, removeNotificati
                 buttonName="Delete"
                 variant="danger"
                 title={"Delete YouTube Notification: " + name}
-                show={open}
+                isOpen={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/notifications/${id}`, {

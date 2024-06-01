@@ -51,7 +51,7 @@ export default function CreateTag({ guildId, style, addTag, setTagId }: Props) {
 
             <Modal<ApiV1GuildsModulesTagsGetResponse>
                 title="Create new tag"
-                show={open}
+                isOpen={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/tags`, {

@@ -36,7 +36,7 @@ export default function DeleteTag({ guildId, id, name, removeTag }: Props) {
                 buttonName="Delete"
                 variant="danger"
                 title={"Delete Tag: " + name}
-                show={open}
+                isOpen={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/tags/${id}`, {

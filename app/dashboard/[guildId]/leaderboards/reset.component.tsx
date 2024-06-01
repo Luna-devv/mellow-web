@@ -35,7 +35,7 @@ export default function ResetLeaderboard({ guild }: Props) {
                 title="Reset @everyone's stats"
                 buttonName="Reset"
                 variant="danger"
-                show={modal === ModalType.Delete}
+                isOpen={modal === ModalType.Delete}
                 onClose={() => setModal(undefined)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild.id}/top-members`, {

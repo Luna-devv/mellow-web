@@ -45,7 +45,7 @@ export default function CompleteSetup({
         <>
             <Modal
                 title="Verified role"
-                show={!!guild && modal === ModalType.VerifiedRole}
+                isOpen={!!guild && modal === ModalType.VerifiedRole}
                 onClose={() => setModal(ModalType.None)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
@@ -79,7 +79,7 @@ export default function CompleteSetup({
 
             <Modal
                 title="Punishment role"
-                show={!!guild && modal === ModalType.PunishmentRole}
+                isOpen={!!guild && modal === ModalType.PunishmentRole}
                 onClose={() => setModal(ModalType.None)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {

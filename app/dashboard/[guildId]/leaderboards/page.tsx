@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";

@@ -74,7 +74,7 @@ export default function CreateNotification({ guildId, style, addNotification, se
 
             <Modal<ApiV1GuildsModulesNotificationsGetResponse>
                 title="Create new notification"
-                show={open}
+                isOpen={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {
                     const validated = validateAccount(name);

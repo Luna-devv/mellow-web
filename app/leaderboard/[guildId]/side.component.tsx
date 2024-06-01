@@ -180,7 +180,7 @@ export default function Side({
                 title="Reset @everyone's stats"
                 buttonName="Reset"
                 variant="danger"
-                show={modal}
+                isOpen={modal}
                 onClose={() => setModal(false)}
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild && "id" in guild ? guild?.id : ""}/top-members`, {
