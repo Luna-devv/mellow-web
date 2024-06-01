@@ -14,20 +14,28 @@ interface Props {
     removeNotification: (id: string) => void;
 }
 
-export default function DeleteNotification({ guildId, id, name, removeNotification }: Props) {
+export default function DeleteNotification({
+    guildId,
+    id,
+    name,
 
+    removeNotification
+}: Props) {
     const [open, setOpen] = useState(false);
 
     return (
         <>
-            <Tooltip content="Delete Notification" closeDelay={0}>
+            <Tooltip
+                content="Delete Notification"
+                closeDelay={0}
+            >
                 <Button
                     isIconOnly
                     color="danger"
                     onClick={() => setOpen(true)}
                     isDisabled={!id}
                 >
-                    <HiTrash className="h-5 w-5" />
+                    <HiTrash />
                     <span className="sr-only">Delete selected notification</span>
                 </Button>
             </Tooltip>
