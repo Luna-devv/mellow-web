@@ -1,14 +1,18 @@
 "use client";
 
-import { Button, Chip, Tooltip } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
+import { BiLogoYoutube } from "react-icons/bi";
 import { HiChat, HiExternalLink, HiViewGridAdd } from "react-icons/hi";
 import { useQuery, useQueryClient } from "react-query";
 
 import { guildStore } from "@/common/guilds";
+import Fetch from "@/components/button-fetch";
 import MessageCreatorEmbed from "@/components/embed-creator";
+import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
@@ -16,10 +20,6 @@ import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
 
 import CreateNotification, { Style } from "./create.component";
 import DeleteNotification from "./delete.component";
-import { BiLogoYoutube } from "react-icons/bi";
-import SelectMenu from "@/components/inputs/select-menu";
-import Fetch from "@/components/button-fetch";
-import Link from "next/link";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -102,42 +102,42 @@ export default function Home() {
 
     return (<>
 
-        <div className="flex flex-wrap items-center gap-2 -mt-2 mb-5">
-            {data
-                .sort((a, b) => a.creator.username.localeCompare(b.creator.username))
-                .map((notification) => (
-                    <Chip
-                        key={"guildnotifications-" + notification.id}
-                        as={Button}
-                        className="default border-0"
-                        variant={id === notification.id ? "flat" : "faded"}
-                        color={id === notification.id ? "secondary" : undefined}
-                        startContent={
-                            <span className="opacity-50 relative left-2">
-                                <BiLogoYoutube />
-                            </span>
-                        }
-                        onClick={() => setNotificationId(notification.id)}
-                    >
-                        {notification.creator.username + " "}
-                    </Chip>
-                ))
-            }
+        <div className="flex flex-col-reverse md:flex-row gap-3 -mt-2 mb-5">
 
-            <CreateNotification
-                guildId={guild?.id as string}
-                style={Style.Compact}
-                addNotification={addNotification}
-                setNotificationId={setNotificationId}
-            />
+            <div className="flex flex-wrap gap-2">
+                {data
+                    .sort((a, b) => a.creator.username.localeCompare(b.creator.username))
+                    .map((notification) => (
+                        <Chip
+                            key={"guildnotifications-" + notification.id}
+                            as={Button}
+                            className="default border-0"
+                            variant={id === notification.id ? "flat" : "faded"}
+                            color={id === notification.id ? "secondary" : undefined}
+                            startContent={
+                                <span className="opacity-50 relative left-2">
+                                    <BiLogoYoutube />
+                                </span>
+                            }
+                            onClick={() => setNotificationId(notification.id)}
+                        >
+                            {notification.creator.username + " "}
+                        </Chip>
+                    ))
+                }
 
-            <div className="ml-auto flex items-center gap-4">
-                <Tooltip content="Created notifications / Limit" closeDelay={0}>
-                    <span className="dark:text-neutral-600 text-neutral-400 cursor-default">{data.length}/{30}</span>
-                </Tooltip>
+                <CreateNotification
+                    guildId={guild?.id as string}
+                    style={Style.Compact}
+                    addNotification={addNotification}
+                    setNotificationId={setNotificationId}
+                />
+            </div>
 
+            <div className="ml-auto flex items-center gap-4 w-full md:w-[unset] mb-auto">
                 <Button
                     as={Link}
+                    className="w-full md:w-[unset]"
                     href="/docs/notifications"
                     target="_blank"
                     endContent={<HiExternalLink />}

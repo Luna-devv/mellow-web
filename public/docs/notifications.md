@@ -1,6 +1,6 @@
 - We only support **YouTube**, use [NotifyMe](https://notifyme.bot) or [DisPing](https://disping.xyz) for Twitch, Kick, Twitter, etc.
-- Every guild can have **up to 30 different channels for free**.
-- Notifications are sent within **less than 1 (one) minute**.
+- Every server can have **up to 30 different channels for free**.
+- Notifications are sent with **less than 1 (one) minute delay**.
 - And **free custom message & embed** for every notification individually.
 <br />
 <br />
@@ -21,13 +21,20 @@
 
 ### ✏️ Custom message & embed
 You can create a notification message with a **fully customizable message and embed for free**, enabling you to style the messages the way you love.
+<br />
+<br />
 
-Image previews might be broken on the site*
+**Note:** Image previews might be broken on the dashboard
 
 ### 🏓 Pings
 The role that should get notified about new uploads.
+- `@everyone` will ping every member in the server.
+- `@here` will ping every *currently online* member in the server.
+- `@some-role` will ping everyone with that role.
+<br />
+<br />
 
-(You can add more pings in the message content like `<@& 1200776778801750167>`)
+**Note:** If Wamellow does not have the `Mention Everyone` permissions inside the channel, it might not be able to actually notify those roles.
 
 ## Placeholders
 Placeholders allow you to use variables that change from message to message, for example to display information about the uploaded video or creator. They are always enclosed in curly braces, such as `{creator.name}`.
