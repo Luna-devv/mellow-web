@@ -28,7 +28,7 @@ export const generateMetadata = async ({
         alt: meta?.description,
         heigth: 1008,
         width: 1935
-    }
+    };
 
     return {
         title,
@@ -59,7 +59,7 @@ export default async function RootLayout({
     const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
 
     const title = meta?.file === "index.md"
-        ? `Wamellow`
+        ? "Wamellow"
         : meta?.name;
 
     return (
@@ -84,19 +84,13 @@ export default async function RootLayout({
             <div className="flex flex-col lg:flex-row gap-6 mt-5 min-h-[63vh]">
                 <nav className="w-full lg:w-1/4 space-y-2">
 
-                    <ul className="space-y-2 mb-4 bg-wamellow p-2 rounded-md border border-wamellow-alpha">
-                        {metadata.pages.map((page) => (
-                            <li key={page.file}>
-                                <Button
-                                    as={Link}
-                                    className="w-full !justify-start"
-                                    href={`/docs/${page.file.replace(/\.md$/, "")}`}
-                                    size="sm"
-                                >
-                                    {page.name}
-                                </Button>
-                            </li>
-                        ))}
+                    <ul className="space-y-1 mb-4 bg-wamellow p-2 rounded-md border border-wamellow-alpha">
+                        {metadata.pages.map((page, i) =>
+                            <NavButton
+                                key={"nav-" + page.file + i}
+                                page={page}
+                            />
+                        )}
                     </ul>
 
                     <Button
@@ -147,5 +141,29 @@ export default async function RootLayout({
             <Footer className="mt-24" />
 
         </div>
+    );
+}
+
+function NavButton({
+    page
+}: {
+    page: typeof metadata.pages[0]
+}) {
+    const file = page.file.replace(/\.md$/, "");
+    const icon = page.name.split(" ").shift() || "";
+    const name = page.name.replace(icon, "");
+
+    return (
+        <li>
+            <Button
+                as={Link}
+                className="w-full !justify-start bg-transparent hover:bg-wamellow"
+                href={`/docs/${file}`}
+                size="sm"
+                startContent={<span>{icon}</span>}
+            >
+                {name}
+            </Button>
+        </li>
     );
 }
