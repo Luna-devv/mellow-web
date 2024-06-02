@@ -3,12 +3,18 @@ import React from "react";
 import { User } from "@/common/user";
 import { RouteErrorResponse } from "@/typings";
 
+enum State {
+    Idle = 0,
+    Loading = 1,
+    Failure = 2
+}
+
 export async function authorize({
-    stateHook
+    setState
 }: {
-    stateHook: React.Dispatch<React.SetStateAction<"LOADING" | "ERRORED" | undefined>>;
+    setState: React.Dispatch<React.SetStateAction<State>>;
 }) {
-    stateHook(undefined);
+    setState(State.Idle);
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/sessions`, {
         credentials: "include",
@@ -25,10 +31,10 @@ export async function authorize({
     }
 
     if (!res) {
-        stateHook("ERRORED");
+        setState(State.Failure);
         return null;
     }
 
-    stateHook(undefined);
+    setState(State.Idle);
     return res;
 }
