@@ -10,6 +10,7 @@ import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 import { Guild } from "@/common/guilds";
 import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
+import TextInput from "@/components/inputs/text-input";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
 
@@ -17,6 +18,13 @@ interface Props {
     guild: Guild;
     lb: ApiV1GuildsModulesLeaderboardUpdatingPostResponse | undefined;
     type: "messages" | "voiceminutes" | "invites";
+}
+
+interface Embed {
+    title?: string;
+    color?: number;
+    thumbnail?: string;
+    image?: string;
 }
 
 enum ModalType {
@@ -35,9 +43,10 @@ export default function UpdatingLeaderboardCard({
     const [modal, setModal] = useState<ModalType>();
 
     const [channelId, setChannelId] = useState(leaderboard?.channelId);
-    const [structure, setStructure] = useState(leaderboard?.structure);
+    const [structure, setStructure] = useState(leaderboard?.structure || 1);
     const [emoji, setEmoji] = useState(leaderboard?.emoji);
     const [styles, setStyles] = useState<ApiV1GuildsModulesLeaderboardUpdatingPostResponse["styles"]>(leaderboard?.styles || { useQuotes: false, rank: null, number: null, user: null });
+    const [embed, setEmbed] = useState<Embed>({});
 
     const stylesList = [
         { name: "Bold", value: "**" },
@@ -78,16 +87,20 @@ export default function UpdatingLeaderboardCard({
                     className="flex dark:text-violet-400/60 dark:hover:text-violet-400/90 text-violet-600/60 hover:text-violet-600/90 duration-200"
                 >
                     <HiPencil className="h-4 w-4 relative top-1" />
-                    <span className="ml-1">{leaderboard?.channelId ? "Edit" : "Create"} leaderboard</span>
+                    <span className="ml-1">
+                        {leaderboard?.channelId ? "Edit" : "Create"} leaderboard
+                    </span>
                 </button>
 
-                {leaderboard?.channelId && cookies.get("devTools") &&
+                {leaderboard?.channelId &&
                     <button
                         onClick={() => setModal(ModalType.Delete)}
                         className="flex dark:text-red-400/60 dark:hover:text-red-400/90 text-red-600/60 hover:text-red-600/90 duration-200"
                     >
-                        <HiTrash className="h-5 w-5" />
-                        <span className="ml-1">Delete</span>
+                        <HiTrash className="h-5 relative top-0.5" />
+                        <span className="ml-1">
+                            Delete
+                        </span>
                     </button>
                 }
             </div>
@@ -98,6 +111,7 @@ export default function UpdatingLeaderboardCard({
             className="flex flex-col gap-3"
             title={`${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
             isOpen={modal === ModalType.CreateAndEdit && !!guild}
+            isDisabled={!channelId}
             onClose={() => {
                 setModal(undefined);
             }}
@@ -113,7 +127,10 @@ export default function UpdatingLeaderboardCard({
                         channelId,
                         structure,
                         emoji,
-                        styles
+                        styles,
+                        embed: leaderboard?.channelId
+                            ? undefined
+                            : embed
                     })
                 });
             }}
@@ -193,7 +210,7 @@ export default function UpdatingLeaderboardCard({
                 </Tabs>
             </div>
 
-            {structure === 0 &&
+            {structure === 0 && <>
                 <div className="flex gap-2">
                     <SelectInput
                         name="Rank"
@@ -220,9 +237,7 @@ export default function UpdatingLeaderboardCard({
                         }}
                     />
                 </div>
-            }
 
-            {structure === 0 &&
                 <SelectInput
                     name="Emoji"
                     items={guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({
@@ -243,9 +258,22 @@ export default function UpdatingLeaderboardCard({
                         setEmoji(o.value as string);
                     }}
                 />
-            }
 
-            {structure === 0 &&
+                {!leaderboard?.channelId &&
+                    <TextInput
+                        name="Title"
+                        description="The title of the embed"
+                        defaultState={"☕ " + `${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
+                        max={256}
+                        onSave={(v) => {
+                            setEmbed({
+                                ...embed,
+                                title: v as string
+                            });
+                        }}
+                    />
+                }
+
                 <Switch
                     name="Use quotes for text"
                     isTickbox
@@ -254,8 +282,7 @@ export default function UpdatingLeaderboardCard({
                         setStyles({ ...styles, useQuotes: s });
                     }}
                 />
-            }
-
+            </>}
         </Modal>
 
         <Modal
@@ -279,13 +306,15 @@ export default function UpdatingLeaderboardCard({
             }}
             onSuccess={() => {
                 setChannelId(undefined);
-                setStructure(undefined);
+                setStructure(0);
                 setEmoji(undefined);
                 setStyles({ useQuotes: false, rank: null, number: null, user: null });
                 setLeaderboard(undefined);
             }}
         >
-            Are you sure you want to delete this from the database?
+            Are you sure you want to deactivate this leaderboard?
+            This still stop updating the message in discord.
+            This will not reset or delete any statistics or ranks.
         </Modal>
 
     </div>);
