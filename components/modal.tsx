@@ -29,6 +29,8 @@ interface Props<T> {
     onClose: () => void;
 
     isOpen: boolean;
+    isDisabled?: boolean;
+
     buttonName?: string;
 }
 
@@ -44,21 +46,26 @@ export default function Modal<T>({
     onSuccess,
 
     isOpen,
+    isDisabled,
+
     buttonName = "Submit"
 }: Props<T>) {
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        setError(null);
+        setState(State.Idle);
+
         const html = document.getElementsByTagName("html")?.[0];
         if (isOpen) {
-            html.style.overflow = "hidden";
+            html.style.overflow = document.body.style.overflow = "hidden";
         } else {
-            html.style.overflow = "auto";
+            html.style.overflow = document.body.style.overflow = "auto";
         }
 
         return () => {
-            html.style.overflow = "auto";
+            html.style.overflow = document.body.style.overflow = "auto";
         };
     }, [isOpen]);
 
@@ -137,7 +144,7 @@ export default function Modal<T>({
                         "ml-auto text-sm font-medium dark:text-neutral-200 text-neutral-800",
                         state === State.Idle && "cursort-not-allowed"
                     )}
-                    disabled={state === State.Idle}
+                    disabled={state !== State.Idle}
                 >
                     Cancel
                 </button>
@@ -148,6 +155,7 @@ export default function Modal<T>({
                 onClick={() => submit()}
                 className={cn(!onSubmit && "ml-auto")}
                 isLoading={state === State.Loading}
+                isDisabled={isDisabled}
             >
                 {buttonName}
             </Button>
@@ -197,7 +205,7 @@ export default function Modal<T>({
 
                             <div
                                 className={cn(
-                                    "scrollbar-none p-0.5 pb-8 md:pb-4 sm:max-h-[512px] max-h-[420px] overflow-y-scroll md:overflow-visible",
+                                    "scrollbar-none p-0.5 pb-8 md:pb-4 max-h-[512px] overflow-y-scroll md:overflow-y-visible overflow-x-hidden",
                                     className
                                 )}
                             >
