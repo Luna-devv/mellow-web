@@ -1,3 +1,9 @@
+import { Button } from "@nextui-org/react";
+import { ApiError } from "next/dist/server/api-utils";
+import Image from "next/image";
+import { ChangeEvent, useRef, useState } from "react";
+import { HiUpload } from "react-icons/hi";
+
 import { userStore } from "@/common/user";
 import { User } from "@/common/user";
 import Box from "@/components/box";
@@ -5,11 +11,6 @@ import { ApiV1UsersMeRankEmojiDeleteResponse, ApiV1UsersMeRankEmojiPutResponse }
 import cn from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
 import sleep from "@/utils/sleep";
-import { Button } from "@nextui-org/react";
-import { ApiError } from "next/dist/server/api-utils";
-import Image from "next/image";
-import { ChangeEvent, useRef, useState } from "react";
-import { HiUpload } from "react-icons/hi";
 
 enum State {
     Idle = 0,
@@ -51,7 +52,7 @@ export default function CardSyle() {
             .catch(() => null) as ApiV1UsersMeRankEmojiPutResponse | ApiError | null;
 
         if (!res || "message" in res) {
-            setState(State.Idle)
+            setState(State.Idle);
             setError(
                 res && "message" in res
                     ? res.message
@@ -82,7 +83,7 @@ export default function CardSyle() {
             .catch(() => null) as ApiV1UsersMeRankEmojiDeleteResponse | ApiError | null;
 
         if (!res || "message" in res) {
-            setState(State.Idle)
+            setState(State.Idle);
             setError(
                 res && "message" in res
                     ? res.message
@@ -173,7 +174,7 @@ function Emoji({
         <div
             className={cn(classNames, "bg-wamellow shadow-xl hover:scale-105 duration-100")}
         />
-    )
+    );
 
     return (
         <Image

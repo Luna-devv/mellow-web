@@ -1,16 +1,17 @@
 import { Badge, Chip, CircularProgress } from "@nextui-org/react";
-
+import { cookies } from "next/headers";
+import Image from "next/image";
 import Link from "next/link";
 import { HiBadgeCheck } from "react-icons/hi";
-import cn from "@/utils/cn";
-import { cookies } from "next/headers";
-import { intl } from "@/utils/numbers";
-import ImageReduceMotion from "@/components/image-reduce-motion";
+
 import DiscordAppBadge from "@/components/discord/app-badge";
+import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
-import Icon from "./icon.component";
 import getAverageColor from "@/utils/average-color";
-import Image from "next/image";
+import cn from "@/utils/cn";
+import { intl } from "@/utils/numbers";
+
+import Icon from "./icon.component";
 
 export default async function Member(
     {
@@ -190,14 +191,14 @@ function Emoji({
             alt=""
             className="rounded-xl relative size-8 aspect-square"
             draggable={false}
-            height={48}
+            height={64}
             src={emojiUrl}
             style={{
                 transform: `rotate(${(index / 2.3) * 360 + index}deg)`,
                 top: `${index * 2 % 4}px`,
                 left: `${index * 8 / 2}px`
             }}
-            width={48}
+            width={64}
         />
-    )
+    );
 }
