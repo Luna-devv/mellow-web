@@ -55,7 +55,7 @@ export default function Home({
                     title="Nothing to see here.. yet.."
                     description="Cool things will come soon"
                     className="bg-[#1ed760] hover:bg-[#1ed760]/80 text-black cursor-not-allowed opacity-50"
-                    href={"/profile/spotify" ?? `${process.env.NEXT_PUBLIC_API}/connections/spotify`}
+                    href="/login/spotify"
                     icon={<BsSpotify />}
                     button="Connect Spotify"
                 />
@@ -101,7 +101,7 @@ export default function Home({
                             }}
                         >
 
-                            <Highlight mode={"DARK"} text={`wm play [https://open.data.com/track/${data.playing?.id || "4cOdK2wGLETKBW3PvgPWqT"}](#)`} />
+                            <Highlight mode={"DARK"} text={`wm play [https://open.spotify.com/track/${data.playing?.id || "4cOdK2wGLETKBW3PvgPWqT"}](#)`} />
 
                         </DiscordMessage>
                         <DiscordMessage

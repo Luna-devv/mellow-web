@@ -4,10 +4,11 @@ import { User, userStore } from "@/common/user";
 import ImageUrlInput from "@/components/inputs/image-url-input";
 import SelectInput from "@/components/inputs/select-menu";
 import TextInput from "@/components/inputs/text-input";
-import { deepMerge } from "@/utils/deepMerge";
-import LeaderboardStyle from "./leaderboard-style.component";
 import { Section } from "@/components/section";
+import { deepMerge } from "@/utils/deepMerge";
+
 import CardSyle from "./card-style.component";
+import LeaderboardStyle from "./leaderboard-style.component";
 
 export default function Home() {
     const user = userStore((s) => s);
