@@ -17,7 +17,6 @@ import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-me
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1UsersMeGetResponse } from "@/typings";
-import decimalToRgb from "@/utils/decimalToRgb";
 
 export default function RootLayout({
     children
@@ -75,7 +74,12 @@ export default function RootLayout({
                             isLoaded={!!user?.id}
                             className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
                         >
-                            <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="you" />
+                            <ImageReduceMotion
+                                alt="you"
+                                className="rounded-full"
+                                url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
+                                size={128}
+                            />
                         </Skeleton>
 
                         {!user?.id ?

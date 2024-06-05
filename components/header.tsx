@@ -59,7 +59,12 @@ export default function Header(props: React.ComponentProps<"div">) {
         >
 
             <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
-                <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={96} alt="your avatar" />
+                <ImageReduceMotion
+                    alt="your avatar"
+                    className="rounded-full"
+                    url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
+                    size={96}
+                />
             </Skeleton>
 
             {!user?.id ?
@@ -250,7 +255,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                 {user?.id && menu &&
                         <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 overflow-x-hidden">
                             <div className="ml-auto">
-                                <div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full">
+                                <div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full sm:w-0">
                                     {UserDropdown}
                                 </div>
                             </div>

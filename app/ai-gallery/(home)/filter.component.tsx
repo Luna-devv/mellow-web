@@ -11,7 +11,11 @@ export default function SearchFilter(
     {
         searchParams
     }: {
-        searchParams: { page: string, model: string; nsfw: string };
+        searchParams: {
+            page: string;
+            model: string;
+            nsfw: string
+        };
     }
 ) {
     const router = useRouter();

@@ -2,8 +2,8 @@
 
 import { Pagination as UiPagination } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { useCookies } from "next-client-cookies";
 
-import { userStore } from "@/common/user";
 import LoginButton from "@/components/login-button";
 
 export default function Pagination(
@@ -15,12 +15,11 @@ export default function Pagination(
         pages: number;
     }
 ) {
-    const user = userStore((s) => s);
+    const cookies = useCookies();
     const router = useRouter();
 
-    if (!user?.__fetched) return <></>;
 
-    if (!user?.id) return (
+    if (!cookies.get("hasSession")) return (
         <LoginButton
             addClassName="justify-center"
             message="Login to view more"

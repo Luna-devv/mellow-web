@@ -53,7 +53,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             "discord", "bot", "app", "intefration", "discord bot", "discord app", "discord application", "app list", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish", "Luna-devv", "mee6 alternative",
             "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboard", "lb", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify",
             "captcha.bot", "security", "tts", "text to speech", "free", "customizable", "next-gen", "next generation", "ai", "ai images", "nsfw detection", "moderation", "anime",
-            "nekos", "waifus", "chat to speech", "accessibility", "aphonia", "dysphonia", "mute", "liapew", "wumpus", "wumpus store", "wumpus bots"
+            "nekos", "waifus", "chat to speech", "accessibility", "aphonia", "dysphonia", "mute", "liapew", "wumpus", "wumpus store", "wumpus bots", "youtube notifications", "youtube notifis", "youtube to discord"
         ],
 
         alternates: {
@@ -104,7 +104,10 @@ export default function RootLayout({
 
                 <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
 
-                <body className={cn("w-full max-w-7xl", outfit.className)}>
+                <body
+                    className={cn("w-full max-w-7xl !overflow-visible", outfit.className)}
+                    style={{ overflow: "visible" }}
+                >
                     <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
 
                     <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
@@ -124,7 +127,7 @@ export default function RootLayout({
 
                         <div className="flex gap-1">
                             <Link
-                                href="https://lunish.nl/kofi"
+                                href="https://ko-fi.com/mwlica"
                                 className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
                             >
                                 <SiKofi className="group-hover:text-[#ff6c6b] duration-200 mt-0.5" />

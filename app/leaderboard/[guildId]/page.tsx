@@ -94,26 +94,24 @@ export default async function Home({
         );
     }
 
-    return (
-        <>
-            {members
-                .sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0))
-                .map((member, i) =>
-                    <Member
-                        key={member.id}
-                        member={member}
-                        index={i + (page * 20) - 19}
-                        type={searchParams.type}
-                        pagination={pagination}
-                        members={members}
-                    />
-                )}
+    return (<>
+        {members
+            .sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0))
+            .map((member, i) =>
+                <Member
+                    key={member.id}
+                    member={member}
+                    index={i + (page * 20) - 19}
+                    type={searchParams.type}
+                    pagination={pagination}
+                    members={members}
+                />
+            )}
 
-            <Pagination
-                key={searchParams.type}
-                searchParams={searchParams}
-                pages={pagination[searchParams.type].pages}
-            />
-        </>
-    );
+        <Pagination
+            key={searchParams.type}
+            searchParams={searchParams}
+            pages={pagination[searchParams.type].pages}
+        />
+    </>);
 }

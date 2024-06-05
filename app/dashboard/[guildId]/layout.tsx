@@ -6,6 +6,7 @@ import Link from "next/link";
 import { redirect, useParams, usePathname } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense, useEffect, useState } from "react";
+import { BiLogoYoutube } from "react-icons/bi";
 import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
@@ -18,7 +19,6 @@ import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse, RouteErrorResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
-import { BiLogoYoutube } from "react-icons/bi";
 
 export default function RootLayout({
     children
@@ -189,7 +189,12 @@ export default function RootLayout({
 
                 <div className="text-lg flex gap-5">
                     <Skeleton isLoaded={!!guild?.id} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0">
-                        <ImageReduceMotion url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`} size={128} alt="Server" />
+                        <ImageReduceMotion
+                            alt="this server"
+                            className="rounded-full"
+                            url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`}
+                            size={128}
+                        />
                     </Skeleton>
 
                     {!guild?.id ?
@@ -232,20 +237,20 @@ export default function RootLayout({
                             icon: <HiStar />
                         },
                         {
-                            name: "Custom Commands",
-                            value: "/custom-commands",
-                            icon: <HiCode />
-                        },
-                        {
                             name: "YouTube Notifications",
                             value: "/notifications",
                             icon: <BiLogoYoutube />
                         },
-                        // {
-                        //     name: "NSFW Image Moderation",
-                        //     value: "/nsfw-image-scanning",
-                        //     icon: <HiEye />
-                        // }
+                        {
+                            name: "NSFW Moderation",
+                            value: "/nsfw-image-scanning",
+                            icon: <HiEye />
+                        },
+                        {
+                            name: "Custom Commands",
+                            value: "/custom-commands",
+                            icon: <HiCode />
+                        }
                     ]}
                     url={`/dashboard/${params.guildId}`}
                     disabled={!guild?.id || !!error}
