@@ -20,10 +20,11 @@ import AiPic from "@/public/ai.webp";
 import ArrowPic from "@/public/arroww.webp";
 import CaptchaPic from "@/public/captcha.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
+import NotificationsPic from "@/public/notifications-thumbnail.webp";
 import SpacePic from "@/public/space.webp";
 import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
-import NotificationsPic from "@/public/notifications-thumbnail.webp";
+import { ApiV1TopguildsGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { actor } from "@/utils/tts";
@@ -33,7 +34,6 @@ import Commands from "./commands.component";
 import Faq from "./faq.component";
 import Ratings from "./ratings.component";
 import Stats from "./stats.component";
-import { ApiV1TopguildsGetResponse } from "@/typings";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
@@ -52,25 +52,23 @@ export default async function Home() {
         h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
     };
 
-    const messageProps = (command?: string) => {
-        return {
-            mode: "DARK" as const,
-            commandUsed: command
-                ? {
-                    name: command,
-                    username: "@mwlica",
-                    avatar: "/luna-small.webp",
-                    bot: false
-                }
-                : undefined,
-
-            user: {
-                username: "Wamellow",
-                avatar: "/waya-v3-small.webp",
-                bot: true
+    const messageProps = (command?: string) => ({
+        mode: "DARK" as const,
+        commandUsed: command
+            ? {
+                name: command,
+                username: "@mwlica",
+                avatar: "/luna-small.webp",
+                bot: false
             }
-        } as const;
-    };
+            : undefined,
+
+        user: {
+            username: "Wamellow",
+            avatar: "/waya-v3-small.webp",
+            bot: true
+        }
+    });
 
     const Invite = () => (
         <ServerButton
