@@ -1,19 +1,17 @@
 "use client";
 
 import { Accordion, AccordionItem, Code } from "@nextui-org/react";
-import Link from "next/link";
 import { useCookies } from "next-client-cookies";
-import { HiCash, HiChat, HiExternalLink, HiLockClosed, HiUser, HiUserAdd } from "react-icons/hi";
+import { HiCash, HiChat, HiLockClosed, HiUser, HiUserAdd } from "react-icons/hi";
 
 import DiscordAppBadge from "@/components/discord/app-badge";
-import cn from "@/utils/cn";
-import { Section } from "@/components/section";
 import LinkTag from "@/components/link-tag";
+import { Section } from "@/components/section";
 
 const data = [
     {
         startContent: <HiUserAdd />,
-        title: "How do I invite Wamellow to my server?",
+        title: "How do I invite Wamellow to my Server?",
         subtitle: "Invite Wamellow to your server to get started!",
         content: (
             <ol className="list-decimal list-inside marker:text-neutral-500">
@@ -40,13 +38,13 @@ const data = [
         title: "Is the /image Ai or Text to Speech free to use?",
         content: (
             <div>
-                Yes, the image Ai and Text to Speech are free to use. However, you might have to <LinkTag href="/vote">vote for Wamellow on top.gg</LinkTag> if you start using it alot.
+                Yes, the image Ai and Text to Speech are free to use. However, you might have to <LinkTag href="/vote">vote for Wamellow on top.gg</LinkTag> if you start using it a lot.
             </div>
         )
     },
     {
         startContent: <HiChat />,
-        title: "How do I set up Chat to Speech TTS?",
+        title: "How do I set up Chat to Speech (TTS)?",
         content: (
             <div>
 
@@ -84,13 +82,13 @@ const data = [
     },
     {
         startContent: <HiLockClosed />,
-        title: "How can I disable a command for a roles or channels?",
+        title: "How do I disable a command for roles or channels?",
         content: (
             <div>
-                If you want to disable a command because you don{"'"}t like XYZ feature., you can do so within discord{"'"}s integration settings as shown in the video.
+                If you want to disable a command, essentially making that no member of your server can use the command but Server Administrators, you can do so within discord{"'"}s integration settings as shown in the video.
                 <iframe
                     className="mt-6 aspect-video rounded-lg"
-                    width={"100%"}
+                    width="100%"
                     src="https://c.lunish.nl/r/vkTh6Q.mp4"
                     title="How to disable commands for roles or channels"
                     allow="autoplay; picture-in-picture; web-share"
@@ -114,7 +112,7 @@ interface Props {
 }
 
 export default function Faq({
-    showTitle = false,
+    showTitle = false
 }: Props) {
     const cookies = useCookies();
 
@@ -166,5 +164,3 @@ export default function Faq({
         </div>
     );
 }
-
-
