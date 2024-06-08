@@ -21,6 +21,8 @@ Specify whether wamellow should include messages from NSFW-marked channels in th
 
 ### 🖊️ Allow message edits
 If allowed, messages that are edited will also be updated in the starboard.
+<br />
+<br />
 
 **Note:** To prevent abusing the starboard, it's recommended to leave this option disabled.
 
@@ -48,9 +50,9 @@ Chose what should be displayed of the message author.
 - Guild Nickname (`Luna`)
 - Guild Nickname & Per-Guild Avatar
 
-### ❌ Blacklisted roles
+### 🤚 Blacklist roles
 Specify roles that are restricted from starring other people's messages and prevent their own messages from appearing on the starboard.
 
-### ⚙️ Blacklisted channels
+### 🤚 Blacklist channels
 Designate specific channels where message starring will be ignored.
 

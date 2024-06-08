@@ -14,15 +14,20 @@ Passport is essential for verifying users joining your Discord server, utilizing
 9. Click `Copy link to Passport` and send it into your `#verify` channel.
 10. Get an alt-account and test out the verification process.
 11. **🎉 Done!** Your server is now secure.
+<br />
+<br />
 
-![passport setup example](/docs-assets/passport-setup.webp)
+![passport verification flow chart](/docs-assets/passport-flow.webp?fullwidth=true)
 
-![channel permission setup](/docs-assets/passport-permissions.webp)
+## Permissions
+Here is a quick reference on how permissions should be setup so everything works as expected.
 
-### 🔒 Send direct message to member on fail
+![channel permission setup](/docs-assets/passport-permissions.webp?fullwidth=true)
+
+### 💬 Send direct message to member on fail
 If the member should recieve a DM if they failed verification, along with the following punishment (eg.: a ban).
 
-### 💬 Logging channel
+### 📑 Logging channel
 The channel where passport logs should be sent into, such as verification success and failures.
 
 ### 🔐 Unverified role
