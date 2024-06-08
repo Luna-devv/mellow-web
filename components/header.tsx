@@ -158,7 +158,12 @@ export default function Header(props: React.ComponentProps<"div">) {
         >
             <div className="flex items-center space-x-3 px-4 py-2">
                 <Skeleton isLoaded={!!user?.id} className="rounded-full h-14 w-14 sm:h-10 sm:w-10 shrink-0">
-                    <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={128} alt="your avatar" />
+                    <ImageReduceMotion
+                        alt="your avatar"
+                        className="rounded-full"
+                        url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
+                        size={128}
+                    />
                 </Skeleton>
                 <div className="w-full">
                     <div className="dark:text-neutral-200 text-neutral-800 truncate max-w-44 flex items-center gap-2">
