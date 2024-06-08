@@ -91,6 +91,26 @@
                     "Manage Server"
                 ]
             }
+        },
+        {
+            "name": "🔊 Text to Speech",
+            "file": "text-to-speech.md",
+            "image": "",
+            "description": "Convert conversational text to human-like speech in voice channels.",
+            "permissions": {
+                "bot": [
+                    "Connect",
+                    "Speak",
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links"
+                ],
+                "user": [
+                    "View Channel",
+                    "Send Messages",
+                    "Use Application Commands"
+                ]
+            }
         }
     ]
 }
