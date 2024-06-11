@@ -4,9 +4,9 @@ import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import { HiUpload } from "react-icons/hi";
 
-import { userStore } from "@/common/user";
-import { User } from "@/common/user";
+import { User, userStore } from "@/common/user";
 import Box from "@/components/box";
+import { Shiggy } from "@/components/shiggy";
 import { ApiV1UsersMeRankEmojiDeleteResponse, ApiV1UsersMeRankEmojiPutResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
@@ -28,7 +28,6 @@ export default function CardSyle() {
     if (user?.id && !user.extended) return <></>;
 
     // TODO: Confetti & rainbow animation
-    // TODO: Add skeletons
     // TODO: Image replace animation(?)
     // TODO: Better error message
 
@@ -114,8 +113,13 @@ export default function CardSyle() {
                 type="file"
             />
 
-            <Box className="flex h-56">
-                <div className="w-1/2 flex items-center justify-center">
+            <Box className="flex flex-col md:flex-row justify-center items-center h-56 relative overflow-hidden">
+
+                <Shiggy
+                    className="hidden md:block absolute bottom-0 left-2 w-52 opacity-40"
+                />
+
+                <div className="md:w-1/2 flex items-center justify-center relative z-10">
                     <div className="flex flex-col">
                         <Button
                             className={cn(state === State.Loading && "shake")}
@@ -139,7 +143,8 @@ export default function CardSyle() {
                         }
                     </div>
                 </div>
-                <div className="w-1/2 grid grid-cols-6 lg:grid-cols-6 gap-4 rotate-1 relative bottom-4">
+
+                <div className="absolute blur-sm gap-4 grid grid-cols-6 left-4 lg:grid-cols-6 md:blur-none md:bottom-4 md:left-0 md:opacity-100 md:relative md:scale-100 md:top-0 md:w-1/2 opacity-45 rotate-1 scale-105 top-6 w-full">
                     {new Array(18).fill(0).map((_, i) =>
                         <Emoji
                             key={"emoji-" + i}
@@ -148,6 +153,7 @@ export default function CardSyle() {
                         />
                     )}
                 </div>
+
             </Box>
 
             <div className="flex">
@@ -169,10 +175,16 @@ function Emoji({
     emojiId: string | null
 }) {
     const classNames = "rounded-xl relative size-12 aspect-square";
+    const style = {
+        transform: `rotate(${(index / 2.3) * 360}deg)`,
+        top: `${index * 2 % 4}px`,
+        left: `${index * 8 / 2}px`
+    };
 
     if (!emojiId) return (
         <div
             className={cn(classNames, "bg-wamellow shadow-xl hover:scale-105 duration-100")}
+            style={style}
         />
     );
 
@@ -183,11 +195,7 @@ function Emoji({
             draggable={false}
             height={64}
             src={`https://r2.wamellow.com/emoji/${emojiId}`}
-            style={{
-                transform: `rotate(${(index / 2.3) * 360}deg)`,
-                top: `${index * 2 % 4}px`,
-                left: `${index * 8 / 2}px`
-            }}
+            style={style}
             width={64}
         />
     );
