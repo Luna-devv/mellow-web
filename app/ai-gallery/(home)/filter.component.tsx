@@ -75,7 +75,7 @@ export default function SearchFilter(
                                     const params = new URLSearchParams(searchParams);
                                     params.delete("nsfw");
 
-                                    if (checked) params.append("nsfw", "true");
+                                    if (!checked) params.append("nsfw", "true");
 
                                     router.replace(`?${params.toString()}`);
                                 }}
