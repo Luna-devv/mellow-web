@@ -11,10 +11,14 @@ import SearchFilter from "./filter.component";
 import Pagination from "./pagination.component";
 
 interface Props {
-    searchParams: { page: string; model: string; nsfw: string };
+    searchParams: {
+        page: string;
+        model: string;
+        nsfw: string
+    };
 }
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 export default async function Home({
     searchParams
@@ -49,63 +53,61 @@ export default async function Home({
         );
     }
 
-    return (
-        <>
+    return (<>
 
-            <div className="w-full mb-4 flex justify-between">
-                <div
-                    className="text-lg font-medium mb-2"
-                >
-                    Images that were generated using the /image Ai in discord with Wamellow.
-                </div>
-                <SearchFilter
-                    searchParams={searchParams}
-                />
+        <div className="w-full mb-4 flex justify-between">
+            <div
+                className="text-lg font-medium mb-2"
+            >
+                Images that were generated using the /image Ai in discord with Wamellow.
             </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
-                {uploads.results.map((upload) => (
-                    <Link
-                        key={"upload-" + upload.id}
-                        className="bg-wamellow rounded-xl shadow-md relative duration-100 outline-violet-500 hover:outline"
-                        href={`/ai-gallery/${upload.id}`}
-                        target="_blank"
-                    >
-                        <Image
-                            alt=""
-                            className="rounded-xl"
-                            height={300}
-                            itemProp="image"
-                            loading="lazy"
-                            src={`https://r2.wamellow.com/ai-image/${upload.id}.webp`}
-                            width={300}
-                        />
-
-                        <Chip
-                            className="absolute top-2 left-2 z-10 backdrop-blur-xl backdrop-brightness-50"
-                            color="secondary"
-                            size="sm"
-                            variant="dot"
-                        >
-                            {upload.model}
-                        </Chip>
-
-                        <div className="p-3 flex gap-2">
-                            <p className="truncate">
-                                {upload.prompt}
-                            </p>
-                        </div>
-
-                    </Link>
-                ))}
-            </div>
-
-            <Pagination
-                key={searchParams.model}
+            <SearchFilter
                 searchParams={searchParams}
-                pages={uploads.pagination.pages}
             />
+        </div>
 
-        </>
-    );
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+            {uploads.results.map((upload) => (
+                <Link
+                    key={"upload-" + upload.id}
+                    className="bg-wamellow rounded-xl shadow-md relative duration-100 outline-violet-500 hover:outline"
+                    href={`/ai-gallery/${upload.id}`}
+                    target="_blank"
+                >
+                    <Image
+                        alt=""
+                        className="rounded-xl"
+                        height={300}
+                        itemProp="image"
+                        loading="lazy"
+                        src={`https://r2.wamellow.com/ai-image/${upload.id}.webp`}
+                        width={300}
+                    />
+
+                    <Chip
+                        className="absolute top-2 left-2 z-10 backdrop-blur-xl backdrop-brightness-50"
+                        color="secondary"
+                        size="sm"
+                        variant="dot"
+                    >
+                        {upload.model}
+                    </Chip>
+
+                    <div className="p-3 flex gap-2">
+                        <p className="truncate">
+                            {upload.prompt}
+                        </p>
+                    </div>
+
+                </Link>
+            ))}
+        </div>
+
+        <Pagination
+            key={searchParams.model}
+            searchParams={searchParams}
+            pages={uploads.pagination.pages}
+        />
+
+    </>);
 }

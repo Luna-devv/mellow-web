@@ -11,7 +11,10 @@ export default function Pagination(
         searchParams,
         pages
     }: {
-        searchParams: { page: string, type: string };
+        searchParams: {
+            page: string;
+            type: string
+        };
         pages: number;
     }
 ) {

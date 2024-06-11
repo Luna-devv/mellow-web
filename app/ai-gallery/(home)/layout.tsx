@@ -18,7 +18,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
