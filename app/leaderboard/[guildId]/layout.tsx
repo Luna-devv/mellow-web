@@ -132,7 +132,7 @@ export default async function RootLayout({
                 tabs={[
                     {
                         name: "Messages",
-                        value: "",
+                        value: "messages",
                         icon: <HiAnnotation />
                     },
                     {
