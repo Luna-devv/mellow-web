@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 
 import cn from "@/utils/cn";
 
@@ -7,7 +7,7 @@ import Highlight from "./markdown";
 interface Props {
     children: React.ReactNode;
     mode: "DARK" | "LIGHT";
-    classname?: string;
+    className?: string;
 
     author?: {
         icon_url?: string;
@@ -27,7 +27,7 @@ interface Props {
 
 export default function DiscordMessageEmbed({
     children,
-    classname,
+    className,
     author,
     title,
     color,
@@ -39,26 +39,55 @@ export default function DiscordMessageEmbed({
     if (!title && !image && !footer?.text && (!children || children.toString() === ",false")) return <></>;
 
     return (
-        <div className={cn("w-full font-light p-3 rounded border-l-4", mode === "DARK" ? "text-neutral-200" : "text-neutral-800", classname)} style={{ backgroundColor: mode === "DARK" ? "rgb(40, 42, 46)" : "rgb(242, 243, 245)", borderLeftColor: `#${color?.toString(16)}` }}>
+        <div
+            className={cn(
+                "w-full font-light p-3 rounded border-l-4",
+                mode === "DARK" ? "text-neutral-200" : "text-neutral-800",
+                className
+            )}
+            style={{
+                backgroundColor: mode === "DARK" ? "rgb(40, 42, 46)" : "rgb(242, 243, 245)",
+                borderLeftColor: `#${color?.toString(16)}`
+            }}
+        >
 
             <div className="flex w-full max-w-full">
                 <div className={thumbnail ? "w-9/12" : "w-full"}>
                     {author &&
-                        <div className={`${mode === "DARK" ? "text-neutral-100" : "text-neutral-900"} font-semibold text-semibold mb-2 flex gap-2 items-center`}>
+                        <div
+                            className={cn(
+                                mode === "DARK" ? "text-neutral-100" : "text-neutral-900",
+                                "font-semibold text-semibold mb-2 flex gap-2 items-center"
+                            )}
+                        >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             {author.icon_url && <img src={author.icon_url} alt="" className="rounded-full h-6 w-6" />}
-                            <Highlight mode={mode} text={author.text} discord={false} />
+                            <Highlight
+                                mode={mode}
+                                text={author.text}
+                                discord={false}
+                            />
                         </div>
                     }
                     {title &&
-                        <div className={`${mode === "DARK" ? "text-neutral-100" : "text-neutral-900"} font-semibold text-lg mb-2`}>
-                            <Highlight mode={mode} text={title} discord={false} />
+                        <div
+                            className={cn(
+                                mode === "DARK" ? "text-neutral-100" : "text-neutral-900",
+                                "font-semibold text-lg mb-2"
+                            )}
+                        >
+                            <Highlight
+                                mode={mode}
+                                text={title}
+                                discord={false}
+                            />
                         </div>
                     }
                     <div className="text-sm">
                         {children}
                     </div>
                 </div>
+
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {thumbnail && <img src={thumbnail} alt="" className="ml-auto h-20 w-20 rounded-md" />}
             </div>
@@ -78,4 +107,4 @@ export default function DiscordMessageEmbed({
 
         </div>
     );
-};
+}

@@ -98,9 +98,13 @@ export default function MessageCreatorEmbed({
             content,
             embed: Object.assign(
                 JSON.parse(embed),
-                embedfooter.length > 2 ? { footer: JSON.parse(embedfooter) } : {}
+                embedfooter.length
+                    ? { footer: JSON.parse(embedfooter) }
+                    : undefined
             )
         };
+
+        if (!body.embed.footer.text) body.embed.footer = { text: null };
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
