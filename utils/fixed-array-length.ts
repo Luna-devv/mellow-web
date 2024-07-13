@@ -1,6 +1,7 @@
 export function toFixedArrayLength<T>(arr: T[], length: number): T[] {
-    const originalLength = arr.length;
-    const numCopies = Math.ceil(length / originalLength);
+    if (!arr.length) return [];
+
+    const numCopies = Math.ceil(length / arr.length);
     const slicedArray: T[] = [];
 
     for (let i = 0; i < numCopies; i++) {
