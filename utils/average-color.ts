@@ -11,7 +11,10 @@ export default async function getAverageColor(url: string) {
         await (await fetch(url)).arrayBuffer()
     )
         .raw()
-        .toBuffer({ resolveWithObject: true });
+        .toBuffer({ resolveWithObject: true })
+        .catch(() => ({ data: null, info: null }));
+
+    if (!data || !info) return null;
 
     const { width, height } = info;
     const pixelCount = width * height;
