@@ -105,7 +105,7 @@ export default function RootLayout({
                 <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
 
                 <body
-                    className={cn("w-full max-w-7xl !overflow-visible", outfit.className)}
+                    className={cn("w-full max-w-7xl overflow-x-hidden xl:!overflow-visible", outfit.className)}
                     style={{ overflow: "visible" }}
                 >
                     <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
