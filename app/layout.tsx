@@ -13,11 +13,11 @@ import { SiKofi } from "react-icons/si";
 import Header from "@/components/header";
 import TopggIcon from "@/components/icons/topgg";
 import LoginButton from "@/components/login-button";
+import Notice, { NoticeType } from "@/components/notice";
 import cn from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
 
 import { Provider } from "./provider";
-import { StoreLastPage } from "./store-lastpage";
 
 const outfit = Outfit({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -91,7 +91,6 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const cookieStore = cookies();
 
     return (
         <CookiesProvider>
@@ -110,50 +109,72 @@ export default function RootLayout({
                 >
                     <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
 
-                    <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
-                        <Link
-                            aria-label="Go to Wamellow's homepage"
-                            className={cn("font-semibold flex items-center mr-2", montserrat.className)}
-                            href="/?utm_source=wamellow.com&utm_medium=header"
-                        >
-                            <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
-                            <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
-                        </Link>
 
-                        <Divider
-                            className="h-10 rotate-6 mx-1"
-                            orientation="vertical"
-                        />
-
-                        <div className="flex gap-1">
-                            <Link
-                                href="https://ko-fi.com/mwlica"
-                                className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
-                            >
-                                <SiKofi className="group-hover:text-[#ff6c6b] duration-200 mt-0.5" />
-                                Donate
-                            </Link>
-                            <Link href="/vote" className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 flex items-center gap-2 group">
-                                <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5 mt-0.5" />
-                                Vote
-                            </Link>
-                        </div>
-
-                        {cookieStore.get("hasSession")?.value === "true" ?
-                            <Header className="ml-auto" />
-                            :
-                            <LoginButton />
-                        }
-                    </nav>
+                    <NoScript />
+                    <NavBar />
 
                     <Provider>
                         {children}
                     </Provider>
 
-                    <StoreLastPage />
-
                 </body>
             </html>
         </CookiesProvider>
+    );
+}
+
+function NoScript() {
+    return (
+        <noscript className="p-4 pb-0 flex">
+            <Notice
+                className="mb-0"
+                message="This site needs JavaScript to work - Please either enable JavaScript or update to a supported Browser."
+                type={NoticeType.Info}
+            />
+        </noscript>
+    );
+}
+
+function NavBar() {
+    const cookieStore = cookies();
+
+    return (
+        <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
+            <Link
+                aria-label="Go to Wamellow's homepage"
+                className={cn("font-semibold flex items-center mr-2", montserrat.className)}
+                href="/?utm_source=wamellow.com&utm_medium=header"
+            >
+                <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
+                <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
+            </Link>
+
+            <Divider
+                className="h-10 rotate-6 mx-1"
+                orientation="vertical"
+            />
+
+            <div className="flex gap-1">
+                <Link
+                    href="https://ko-fi.com/mwlica"
+                    className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
+                >
+                    <SiKofi className="group-hover:text-[#ff6c6b] duration-200 mt-0.5" />
+                    Donate
+                </Link>
+                <Link
+                    href="/vote"
+                    className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 flex items-center gap-2 group"
+                >
+                    <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5 mt-0.5" />
+                    Vote
+                </Link>
+            </div>
+
+            {cookieStore.get("hasSession")?.value === "true"
+                ? <Header className="ml-auto" />
+                : <LoginButton />
+            }
+        </nav>
     );
 }
