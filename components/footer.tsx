@@ -12,8 +12,9 @@ import { getUser } from "@/lib/discord/user";
 import BlahajPic from "@/public/blahaj.webp";
 import cn from "@/utils/cn";
 
-export default async function Footer(props: HTMLProps<HTMLDivElement>) {
+export async function Footer(props: HTMLProps<HTMLDivElement>) {
 
+    // do not change
     const dev = await getUser("821472922140803112");
 
     return (

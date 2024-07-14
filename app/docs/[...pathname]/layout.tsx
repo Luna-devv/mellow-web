@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BsDiscord, BsGithub } from "react-icons/bs";
 import { HiExternalLink, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
-import Footer from "@/components/footer";
+import { Footer } from "@/components/footer";
 import metadata from "@/public/docs/meta.json";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 

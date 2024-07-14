@@ -11,7 +11,7 @@ interface Commands {
     uses: number;
 }
 
-export default async function Commands() {
+export async function Commands() {
 
     const commands = await fetch(`${process.env.NEXT_PUBLIC_API}/commands`, defaultFetchOptions)
         .then((res) => res.json())

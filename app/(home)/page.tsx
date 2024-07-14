@@ -16,6 +16,7 @@ import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ServerButton } from "@/components/server-button";
+import { defaultFetchOptions } from "@/lib/api";
 import AiPic from "@/public/ai.webp";
 import ArrowPic from "@/public/arroww.webp";
 import CaptchaPic from "@/public/captcha.webp";
@@ -30,24 +31,17 @@ import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { actor } from "@/utils/tts";
 import { getCanonicalUrl } from "@/utils/urls";
 
-import Commands from "./commands.component";
-import Faq from "./faq.component";
-import Ratings from "./ratings.component";
+import { Commands } from "./commands.component";
+import { Faq } from "./faq.component";
+import { Ratings } from "./ratings.component";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 export const revalidate = 43200;
 
-const fetchOptions = {
-    headers: {
-        Authorization: process.env.API_SECRET as string
-    },
-    next: { revalidate: 60 * 60 * 12 }
-};
-
 export default async function Home() {
-    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions)
+    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions)
         .then((res) => res.json())
         .catch(() => null) as ApiV1TopguildsGetResponse[] | null;
 

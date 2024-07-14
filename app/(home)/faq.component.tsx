@@ -111,7 +111,7 @@ interface Props {
     showTitle?: boolean;
 }
 
-export default function Faq({
+export function Faq({
     showTitle = false
 }: Props) {
     const cookies = useCookies();

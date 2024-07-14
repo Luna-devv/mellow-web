@@ -2,7 +2,7 @@ import { Code } from "@nextui-org/react";
 import { readFile } from "fs/promises";
 import Image from "next/image";
 
-import Faq from "@/app/(home)/faq.component";
+import { Faq } from "@/app/(home)/faq.component";
 import BeautifyMarkdown from "@/components/markdown";
 import Notice, { NoticeType } from "@/components/notice";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";

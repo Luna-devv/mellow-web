@@ -15,7 +15,7 @@ export interface Review {
     rating: "positive" | "negative";
 }
 
-export default async function Ratings() {
+export async function Ratings() {
     const reviews = await fetch(`${process.env.RATINGS_API}/?id=${process.env.CLIENT_ID}`, defaultFetchOptions)
         .then((res) => res.json())
         .catch(() => []) as Review[];
