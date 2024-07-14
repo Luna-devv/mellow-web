@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import { guildStore } from "@/common/guilds";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
+import Slider from "@/components/inputs/slider-input";
 import Switch from "@/components/inputs/switch";
 import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
@@ -66,7 +67,7 @@ export default function Home() {
 
             <Notice
                 type={NoticeType.Info}
-                message="Images could be false positives of false negatives, this will not replace human moderation."
+                message="Images can be false positives or false negatives. This does not replace human moderation."
             />
 
             <Switch
@@ -146,6 +147,14 @@ export default function Home() {
                     />
                 </div>
             </div>
+
+            <Slider
+                name="Threshold"
+                description="The threshold at which an image should be considered NSFW; low values are sensitive, high values are lax."
+                url={url}
+                dataName="threshold"
+                defaultState={0.1}
+            />
 
             <span className="mb-2" >
                 Members with the <Code color="secondary">Manage Messages</Code> permission bypass the NSFW image scanning automatically. <br />
