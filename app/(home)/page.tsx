@@ -33,14 +33,18 @@ import { getCanonicalUrl } from "@/utils/urls";
 import Commands from "./commands.component";
 import Faq from "./faq.component";
 import Ratings from "./ratings.component";
-import Stats from "./stats.component";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
-export const revalidate = 3600;
+export const revalidate = 43200;
 
-const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
+const fetchOptions = {
+    headers: {
+        Authorization: process.env.API_SECRET as string
+    },
+    next: { revalidate: 60 * 60 * 12 }
+};
 
 export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions)
@@ -62,7 +66,6 @@ export default async function Home() {
                 bot: false
             }
             : undefined,
-
         user: {
             username: "Wamellow",
             avatar: "/waya-v3-small.webp",
@@ -506,7 +509,6 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps("anime")}>
-                                <Highlight mode={"DARK"} text="Please help us on [top.gg](https://top.gg/bot/1125449347451068437/vote), only takes a few seconds" />
                                 <Image
                                     alt=""
                                     className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-xs mt-2"
@@ -834,8 +836,6 @@ export default async function Home() {
 
             <Commands />
 
-            <Stats />
-
-        </div >
+        </div>
     );
 }
