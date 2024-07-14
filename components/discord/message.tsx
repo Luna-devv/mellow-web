@@ -33,7 +33,12 @@ export default function DiscordMessage({
 }: Props) {
 
     function formatTime(date: Date) {
-        const timeString = date.toLocaleString("en-US", { hour: "numeric", minute: "numeric" });
+        const timeString = date.toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            timeZone: "Europe/Vienna"
+        });
+
         return `Today at ${timeString}`;
     }
 
@@ -85,9 +90,9 @@ export default function DiscordMessage({
                         }
                         <time
                             className="mt-[2px] text-xs opacity-70 font-light"
-                            dateTime={new Date(955988260).toISOString()}
+                            dateTime={new Date().toISOString()}
                         >
-                            {formatTime(new Date(955988260))}
+                            {formatTime(new Date())}
                         </time>
                     </div>
 
