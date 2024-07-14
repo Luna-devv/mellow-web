@@ -61,11 +61,11 @@ export default function Modal<T>({
         if (isOpen) {
             html.style.overflow = document.body.style.overflow = "hidden";
         } else {
-            html.style.overflow = document.body.style.overflow = "auto";
+            html.style.overflow = document.body.style.overflow = "";
         }
 
         return () => {
-            html.style.overflow = document.body.style.overflow = "auto";
+            html.style.overflow = document.body.style.overflow = "";
         };
     }, [isOpen]);
 
