@@ -153,7 +153,7 @@ export default function Home() {
                 description="The threshold at which an image should be considered NSFW; low values are sensitive, high values are lax."
                 url={url}
                 dataName="threshold"
-                defaultState={0.1}
+                defaultState={data.threshold}
             />
 
             <span className="mb-2" >

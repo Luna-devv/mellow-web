@@ -340,7 +340,7 @@ export interface ApiV1GuildsModulesNsfwModerationGetResponse {
      * 3 - Delete message
      */
     punishment: 0 | 1 | 2 | 3;
-    timeout: number;
+    threshold: number;
 
     whitelistChannelIds: string[];
     whitelistRoleIds: string[];
