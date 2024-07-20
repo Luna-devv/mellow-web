@@ -4,7 +4,7 @@ import NextImage from "next/image";
 import Link from "next/link";
 import { HiArrowLeft, HiHome, HiPlus } from "react-icons/hi";
 
-import Footer from "@/components/footer";
+import { Footer } from "@/components/footer";
 import Notice from "@/components/notice";
 import { ScreenMessage, SupportButton } from "@/components/screen-message";
 import { ServerButton } from "@/components/server-button";
@@ -22,7 +22,7 @@ export interface Props {
     children: React.ReactNode;
 }
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 export const generateMetadata = async ({
     params

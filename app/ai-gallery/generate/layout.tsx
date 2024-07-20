@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi";
 
-import Footer from "@/components/footer";
+import { Footer } from "@/components/footer";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 export interface Props {
@@ -11,7 +11,7 @@ export interface Props {
     children: React.ReactNode;
 }
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 export const generateMetadata = async ({
     params

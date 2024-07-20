@@ -5,7 +5,7 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
 
-import Footer from "@/components/footer";
+import { Footer } from "@/components/footer";
 import { ServerButton } from "@/components/server-button";
 import CommandPic from "@/public/image-command.webp";
 import cn from "@/utils/cn";
