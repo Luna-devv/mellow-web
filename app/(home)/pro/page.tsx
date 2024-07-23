@@ -35,14 +35,14 @@ export const generateMetadata = async (): Promise<Metadata> => {
             description,
             type: "website",
             url,
-            images: `${getBaseUrl()}/waya-v3.jpg`
+            images: `${getBaseUrl()}/waya-v3.webp`
         },
         twitter: {
             card: "summary",
             site: "wamellow.com",
             title,
             description,
-            images: `${getBaseUrl()}/waya-v3.jpg`
+            images: `${getBaseUrl()}/waya-v3.webp`
         }
     };
 };
@@ -173,7 +173,7 @@ export default async function Home() {
 
             <Comment
                 username="@mwlica"
-                avatar="/luna-small.webp"
+                avatar="/luna.webp"
                 bio="Cute femboy"
                 content="buy it, buy it, buy it, buy it, buy it, buy it"
             />

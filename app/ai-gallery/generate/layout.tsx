@@ -19,7 +19,7 @@ export const generateMetadata = async ({
 
     const title = "Generate images with your Intel® Arc™ A-Series GPU";
     const description = "Generate AI images using your Intel® Arc™ A-Series GPU with Luna-devv/intel-arc-ai installed and running locally on your machine or network.";
-    const images = `${getBaseUrl()}/waya-v3.jpg?v=2`;
+    const images = `${getBaseUrl()}/waya-v3.webp?v=2`;
     const url = getCanonicalUrl("ai-gallery", params.uploadId);
 
     return {

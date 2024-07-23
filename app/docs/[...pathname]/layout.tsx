@@ -24,7 +24,7 @@ export const generateMetadata = async ({
 
     const url = getCanonicalUrl("docs", ...params.pathname);
     const images = {
-        url: meta?.image || `${getBaseUrl()}/waya-v3.jpg?v=2`,
+        url: meta?.image || `${getBaseUrl()}/waya-v3.webp?v=2`,
         alt: meta?.description,
         heigth: 1008,
         width: 1935

@@ -34,7 +34,7 @@ export const generateMetadata = async ({
 
     const title = prompt ? `${prompt} - /image Ai` : "Free /image Ai for Discord";
     const description = `Amazing AI generated images ${"model" in upload ? `using the ${upload.model}` : ""}, created using Wamellow's versatile /image command for Discord.`.replace(/ +/g, " ");
-    const images = "id" in upload ? `https://r2.wamellow.com/ai-image/${upload.id}.webp` : `${getBaseUrl()}/waya-v3.jpg`;
+    const images = "id" in upload ? `https://r2.wamellow.com/ai-image/${upload.id}.webp` : `${getBaseUrl()}/waya-v3.webp`;
     const url = getCanonicalUrl("ai-gallery", params.uploadId);
 
     return {

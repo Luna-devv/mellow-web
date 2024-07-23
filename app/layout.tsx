@@ -39,7 +39,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         appleWebApp: {
             capable: true,
             title: "Wamellow",
-            startupImage: "/waya-v3.jpg",
+            startupImage: "/waya-v3.webp",
             statusBarStyle: "black-translucent"
         },
 
@@ -68,7 +68,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             description,
             type: "website",
             url: getBaseUrl(),
-            images: `${getBaseUrl()}/waya-v3.jpg?v=2`
+            images: `${getBaseUrl()}/waya-v3.webp?v=2`
         },
 
         twitter: {
@@ -76,7 +76,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             site: "wamellow.com",
             title,
             description,
-            images: `${getBaseUrl()}/waya-v3.jpg?v=2`
+            images: `${getBaseUrl()}/waya-v3.webp?v=2`
         },
 
         creator: "Luna (lunish.nl)",
@@ -145,7 +145,7 @@ function NavBar() {
                 className={cn("font-semibold flex items-center mr-2", montserrat.className)}
                 href="/?utm_source=wamellow.com&utm_medium=header"
             >
-                <Image src="/waya-v3-small.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
+                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
                 <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
             </Link>
 

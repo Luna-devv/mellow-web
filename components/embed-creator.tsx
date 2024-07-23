@@ -234,7 +234,7 @@ export default function MessageCreatorEmbed({
                                     mode={mode}
                                     user={{
                                         username: "Wamellow",
-                                        avatar: "/waya-v3-small.webp",
+                                        avatar: "/waya-v3.webp",
                                         bot: true
                                     }}
                                 >

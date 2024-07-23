@@ -56,13 +56,13 @@ export default async function Home() {
             ? {
                 name: command,
                 username: "@mwlica",
-                avatar: "/luna-small.webp",
+                avatar: "/luna.webp",
                 bot: false
             }
             : undefined,
         user: {
             username: "Wamellow",
-            avatar: "/waya-v3-small.webp",
+            avatar: "/waya-v3.webp",
             bot: true
         }
     });
@@ -290,9 +290,9 @@ export default async function Home() {
                                         type="voice"
                                         name="• Public"
                                     >
-                                        <DiscordUser username="mwlica" avatar="/luna-small.webp" />
+                                        <DiscordUser username="mwlica" avatar="/luna.webp" />
                                         <DiscordUser username="Space" avatar="/space.webp" />
-                                        <DiscordUser username="Wamellow" avatar="/waya-v3-small.webp" isTalking />
+                                        <DiscordUser username="Wamellow" avatar="/waya-v3.webp" isTalking />
                                     </DiscordChannel>
                                 </DiscordChannelCategory>
 
@@ -616,7 +616,7 @@ export default async function Home() {
                                     color={0xbd7fd6}
                                     author={{
                                         text: "@mwlica",
-                                        icon_url: "/luna-small.webp"
+                                        icon_url: "/luna.webp"
                                     }}
                                 >
                                     I DONT EVEN HAVE A CAR
@@ -791,7 +791,7 @@ export default async function Home() {
                                 mode={"DARK"}
                                 user={{
                                     username: "mwlica",
-                                    avatar: "/luna-small.webp",
+                                    avatar: "/luna.webp",
                                     bot: false
                                 }}
                             >
@@ -802,7 +802,7 @@ export default async function Home() {
                                 mode={"DARK"}
                                 user={{
                                     username: "Wamellow",
-                                    avatar: "/waya-v3-small.webp",
+                                    avatar: "/waya-v3.webp",
                                     bot: true
                                 }}
                             >
