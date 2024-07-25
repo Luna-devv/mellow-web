@@ -1,4 +1,10 @@
-export const repos = ["Luna-devv/mellow-web", "Luna-devv/nekostic", "Luna-devv/lunify.js", "Luna-devv/dlist.js", "Luna-devv/githook"] as const;
+export const repos = [
+    "Luna-devv/mellow-web",
+    "Luna-devv/nekostic",
+    "Luna-devv/lunify.js",
+    "Luna-devv/dlist.js",
+    "Luna-devv/githook"
+] as const;
 
 export enum TeamType {
     Developer = "developer",
@@ -10,7 +16,7 @@ export const members = [
     {
         id: "821472922140803112",
         team: TeamType.Developer,
-        social: "https://lunish.nl/kofi"
+        social: "https://ko-fi.com/mwlica"
     },
 
     {
@@ -56,5 +62,15 @@ export const members = [
         id: "748968886237397036",
         team: TeamType.Donator,
         social: "https://www.tiktok.com/@.noxern"
+    },
+    {
+        id: "313711746550595594",
+        team: TeamType.Donator,
+        social: "https://discord.gg/RmAF3DkQXd"
+    },
+    {
+        id: "452848052810547201",
+        team: TeamType.Donator,
+        social: "https://nekos.best/"
     }
 ] as const;
