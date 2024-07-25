@@ -31,7 +31,12 @@ interface Props {
     setNotificationId: (id: string) => void;
 }
 
-export default function CreateNotification({ guildId, style, addNotification, setNotificationId }: Props) {
+export default function CreateNotification({
+    guildId,
+    style,
+    addNotification,
+    setNotificationId
+}: Props) {
     const channels = guildStore((g) => g?.channels);
 
     const [open, setOpen] = useState(false);
@@ -55,7 +60,6 @@ export default function CreateNotification({ guildId, style, addNotification, se
                 <Chip
                     as={Button}
                     className="default"
-                    variant="faded"
                     onClick={() => setOpen(true)}
                     startContent={<HiPencil className="relative left-1 ml-1" />}
                 >

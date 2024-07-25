@@ -32,10 +32,13 @@ export default function DeleteNotification({
                 <Button
                     isIconOnly
                     color="danger"
+                    variant="flat"
                     onClick={() => setOpen(true)}
                     isDisabled={!id}
                 >
-                    <HiTrash />
+                    <span>
+                        <HiTrash />
+                    </span>
                     <span className="sr-only">Delete selected notification</span>
                 </Button>
             </Tooltip>
