@@ -36,7 +36,8 @@ export default function DiscordMessageEmbed({
     footer,
     mode
 }: Props) {
-    if (!title && !image && !footer?.text && (!children || children.toString() === ",false")) return <></>;
+    console.log(children)
+    if (!title && !image && !footer?.text && (!children || children.toString() === ",false" || (Array.isArray(children) && !children.filter(Boolean).length))) return <></>;
 
     return (
         <div
