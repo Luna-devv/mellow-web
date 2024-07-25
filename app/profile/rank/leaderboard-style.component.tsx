@@ -1,9 +1,10 @@
+import { useState } from "react";
+
 import { userStore } from "@/common/user";
 import { User } from "@/common/user";
-import { ApiError, ApiV1UsersMeGetResponse, ApiV1UsersGetResponse } from "@/typings";
+import { ApiError,ApiV1UsersMeGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
-import { useState } from "react";
 
 export default function LeaderboardStyle() {
     const user = userStore((s) => s);
@@ -98,7 +99,7 @@ export default function LeaderboardStyle() {
                         <div key={i} className="flex gap-2">
                             <div
                                 className={cn(
-                                    `duration-200 h-4 w-4 aspect-square rounded-full`,
+                                    "duration-200 h-4 w-4 aspect-square rounded-full",
                                     !user?.extended?.rank?.useLeaderboardList
                                         ? "dark:bg-neutral-700/90 dark:group-hover:bg-neutral-400/60 bg-neutral-300/90 group-hover:bg-neutral-600/60"
                                         : "dark:bg-violet-400/50 dark:group-hover:bg-violet-400/70 bg-violet-600/50 group-hover:bg-violet-600/70"

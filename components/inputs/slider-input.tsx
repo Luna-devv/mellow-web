@@ -2,8 +2,8 @@ import { Chip, Slider as UiSlider } from "@nextui-org/react";
 import { useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import { RouteErrorResponse } from "@/typings";
 import cn from "@/utils/cn";
+
 import { request } from "./request";
 
 enum State {
@@ -43,7 +43,7 @@ export default function Slider({
 
     url,
     dataName,
-    defaultState,
+    defaultState
 }: Props) {
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);

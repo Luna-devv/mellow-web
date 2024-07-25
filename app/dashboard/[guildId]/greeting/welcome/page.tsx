@@ -16,8 +16,8 @@ import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
-import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 import { Section } from "@/components/section";
+import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Home() {
     const guild = guildStore((g) => g);

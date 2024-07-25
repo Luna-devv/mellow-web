@@ -1,12 +1,12 @@
 "use client";
 
 import { Button, Checkbox } from "@nextui-org/react";
-import { useCookies } from "next-client-cookies";
-
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ApiV1UploadGetResponse } from "@/typings";
+import { useCookies } from "next-client-cookies";
+import { useEffect, useState } from "react";
 import { HiCloudUpload } from "react-icons/hi";
+
+import { ApiV1UploadGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 
 enum State {
@@ -22,7 +22,7 @@ export default function UploadButton({
     model: string;
     prompt: string;
 }) {
-    const search = useSearchParams()
+    const search = useSearchParams();
     const cookies = useCookies();
 
     const imageUrl = search.get("image_url");

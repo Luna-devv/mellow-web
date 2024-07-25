@@ -14,7 +14,7 @@ export default function Time({
         if (loading === previousLoading) return;
 
         if (!previousLoading && loading) setEstimatedTime(0);
-        setPreviousLoading(loading)
+        setPreviousLoading(loading);
 
         if (!loading) {
             if (intervalRef.current) clearInterval(intervalRef.current);
@@ -30,5 +30,5 @@ export default function Time({
         <span className="inline">
             {(estimatedTime / 1000).toFixed(1)}s
         </span>
-    )
+    );
 }

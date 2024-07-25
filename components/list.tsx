@@ -3,9 +3,9 @@
 import { Tab, Tabs } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 import decimalToRgb from "@/utils/decimalToRgb";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 interface ListProps {
     tabs: {
@@ -51,24 +51,24 @@ export function ListTab({ tabs, url, searchParamName, disabled, children }: List
             left: direction === "right"
                 ? ref.current.clientWidth - position
                 : -position,
-            behavior: 'smooth',
+            behavior: "smooth"
         });
-    };
+    }
 
     function setScrollPosition() {
         if (!ref.current) return;
         const { scrollLeft } = ref.current;
         setPosition(scrollLeft);
-    };
+    }
 
     useEffect(() => {
         if (!ref.current) return;
 
-        ref.current.addEventListener('scroll', setScrollPosition);
+        ref.current.addEventListener("scroll", setScrollPosition);
         setScrollPosition();
 
         return () => {
-            ref.current?.removeEventListener('scroll', setScrollPosition);
+            ref.current?.removeEventListener("scroll", setScrollPosition);
         };
     }, []);
 

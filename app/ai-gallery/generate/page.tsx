@@ -2,17 +2,18 @@
 
 import { Button, Image, Spinner } from "@nextui-org/react";
 import NextImage from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCookies } from "next-client-cookies";
+import { useEffect, useState } from "react";
+import { HiPrinter } from "react-icons/hi";
 
 import DumbTextInput from "@/components/inputs/dumb-text-input";
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Notice from "@/components/notice";
-import UploadButton from "./upload.component";
-import { HiPrinter } from "react-icons/hi";
-import Time from "./time.component";
 import LinkTag from "@/components/link-tag";
+import Notice from "@/components/notice";
 import cn from "@/utils/cn";
-import { useCookies } from "next-client-cookies";
+
+import Time from "./time.component";
+import UploadButton from "./upload.component";
 
 enum State {
     Idle = 0,
@@ -21,7 +22,7 @@ enum State {
 
 export default function Home() {
     const cookies = useCookies();
-    const search = useSearchParams()
+    const search = useSearchParams();
     const router = useRouter();
 
     const imageUrl = search.get("image_url");
@@ -40,10 +41,10 @@ export default function Home() {
             .then((res) => res.json() as Promise<{ gpu: string }>)
             .then((res) => {
                 setError(null);
-                setGpu(res.gpu || null)
+                setGpu(res.gpu || null);
             })
             .catch((err) => {
-                setError(`Could not fetch local GPU instance (${err.toString()})`)
+                setError(`Could not fetch local GPU instance (${err.toString()})`);
             });
     }, [baseUrl]);
 
@@ -55,7 +56,7 @@ export default function Home() {
         router.push(`?${params.toString()}`, { scroll: false });
 
         const reqparams = new URLSearchParams({
-            prompt: prompt,
+            prompt: prompt
         });
 
         const res = await fetch(`${baseUrl}/generate/image/${model}?${reqparams.toString()}`)

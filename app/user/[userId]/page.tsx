@@ -7,7 +7,7 @@ interface Props {
 export const revalidate = 60 * 60;
 
 export default async function Home({
-    params,
+    params
 }: Props) {
     const user = await getUser(params.userId);
 
@@ -15,5 +15,5 @@ export default async function Home({
         <>
             <i>User has no bio yet</i>
         </>
-    )
+    );
 }

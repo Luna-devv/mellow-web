@@ -1,5 +1,6 @@
-import { getUser } from "@/lib/discord/user";
 import sharp from "sharp";
+
+import { getUser } from "@/lib/discord/user";
 
 export async function GET() {
     const user = await getUser(process.env.CLIENT_ID!);
@@ -8,7 +9,7 @@ export async function GET() {
         ? user.avatarUrl + "?size=64"
         : "https://cdn.discordapp.com/embed/avatars/5.png"
     )
-        .then(r => r.arrayBuffer())
+        .then((r) => r.arrayBuffer());
 
     const { data, info } = await sharp(Buffer.from(avatar))
         .resize(64, 64)
@@ -23,7 +24,7 @@ export async function GET() {
     const icon = await sharp(data)
         .composite([{
             input: Buffer.from(svgCircle),
-            blend: 'dest-in'
+            blend: "dest-in"
         }])
         .toFormat("png")
         .toBuffer();
@@ -33,8 +34,8 @@ export async function GET() {
         icon,
         {
             headers: {
-                'Content-Type': 'image/png'
+                "Content-Type": "image/png"
             }
         }
-    )
+    );
 }

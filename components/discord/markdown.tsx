@@ -4,10 +4,12 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+
+import cn from "@/utils/cn";
+
+import Channel from "../markdown/channel";
 import Emoji from "../markdown/emoji";
 import User from "../markdown/user";
-import Channel from "../markdown/channel";
-import cn from "@/utils/cn";
 
 interface Props {
     text: string;
@@ -31,7 +33,7 @@ export default function Highlight({
                     <span
                         className={cn(
                             mode === "DARK" ? "bg-wamellow text-neutral-200" : "bg-wamellow-100 text-neutral-800",
-                            'border-1 border-violet-400 px-[3px] rounded-md font-light'
+                            "border-1 border-violet-400 px-[3px] rounded-md font-light"
                         )}
                     >
                         {match.slice(1, -1)}
@@ -48,7 +50,7 @@ export default function Highlight({
             })
             .replace(/<(#!?)\d{15,21}>/g, () => {
                 return renderToString(<Channel name="some-channel" />);
-            })
+            });
     }
 
     if (!discord) return (
@@ -91,7 +93,7 @@ export default function Highlight({
                         <div
                             className={cn(
                                 mode === "DARK" ? "bg-neutral-900" : "bg-neutral-200",
-                                'px-4 py-3 text-sm rounded-md min-w-full max-w-full my-2 break-all'
+                                "px-4 py-3 text-sm rounded-md min-w-full max-w-full my-2 break-all"
                             )}
                         >
                             {children}
@@ -110,7 +112,7 @@ export default function Highlight({
                         </code>
                     );
                 },
-                p: (props) => <p className="mb-4" {...props} />,
+                p: (props) => <p className="mb-4" {...props} />
             }}
         >
             {parseDiscordMarkdown(text)}

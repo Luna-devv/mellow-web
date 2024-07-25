@@ -36,5 +36,5 @@ export default function Panel({
 
             {children}
         </div>
-    )
+    );
 }

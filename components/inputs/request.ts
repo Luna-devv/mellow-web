@@ -37,5 +37,5 @@ export async function request(url: string, {
     const response = await res?.json()
         .catch(() => null);
 
-    onError((response as unknown as RouteErrorResponse | null)?.message || "unknown server error")
+    onError((response as unknown as RouteErrorResponse | null)?.message || "unknown server error");
 }

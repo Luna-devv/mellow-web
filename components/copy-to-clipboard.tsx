@@ -30,7 +30,7 @@ export function CopyToClipboardButton({
 
         if (timeoutRef.current) clearInterval(timeoutRef.current);
         timeoutRef.current = setTimeout(() => setSaved(false), 1000 * 2);
-    };
+    }
 
     return (
         <ButtonGroup

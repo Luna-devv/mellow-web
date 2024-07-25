@@ -103,7 +103,6 @@ export default function DiscordMessage({
                 </div>
             </div>
 
-
         </div>
     );
 }

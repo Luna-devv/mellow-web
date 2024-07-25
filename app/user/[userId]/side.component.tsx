@@ -1,10 +1,11 @@
 "use client";
 
-import { ClientCountUp } from "@/components/counter";
-import { ApiV1UsersGetResponse, RouteErrorResponse } from "@/typings";
 import { Accordion, AccordionItem, Skeleton } from "@nextui-org/react";
 import { useCookies } from "next-client-cookies";
 import { HiAnnotation, HiLink, HiVolumeUp } from "react-icons/hi";
+
+import { ClientCountUp } from "@/components/counter";
+import { ApiV1UsersGetResponse, RouteErrorResponse } from "@/typings";
 
 export default function Side({
     user
@@ -62,7 +63,7 @@ export default function Side({
                     }
                 </div>
             </div>
-        )
+        );
     }
 
     return (
@@ -86,5 +87,5 @@ export default function Side({
                 </AccordionItem>
             </Accordion>
         </div>
-    )
+    );
 }

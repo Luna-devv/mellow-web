@@ -1,7 +1,9 @@
-import ImageReduceMotion from "@/components/image-reduce-motion";
 import { Image } from "@nextui-org/react";
-import { getUser } from "./api";
+
+import ImageReduceMotion from "@/components/image-reduce-motion";
 import paintPic from "@/public/paint.webp";
+
+import { getUser } from "./api";
 import Side from "./side.component";
 
 interface Props {

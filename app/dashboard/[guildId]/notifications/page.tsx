@@ -1,6 +1,8 @@
 "use client";
 
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { HiArrowLeft, HiChat, HiExternalLink, HiViewGridAdd } from "react-icons/hi";
@@ -16,8 +18,6 @@ import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
 
 import { ChannelSelector } from "./channel-selector.component";
-import { Button } from "@nextui-org/react";
-import Link from "next/link";
 
 export default function Home() {
     const guild = guildStore((g) => g);

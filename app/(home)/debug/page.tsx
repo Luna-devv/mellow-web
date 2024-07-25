@@ -7,6 +7,7 @@ import Box from "@/components/box";
 import { ServerButton } from "@/components/server-button";
 import { Shiggy } from "@/components/shiggy";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
 import Panel from "./panel.component";
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -139,4 +140,3 @@ export default function Home() {
         </div>
     );
 }
-

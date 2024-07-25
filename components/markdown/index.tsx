@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { getBaseUrl } from "@/utils/urls";
 import { Code } from "@nextui-org/react";
 import Link from "next/link";
+import { ReactNode } from "react";
 import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import Notice, { NoticeType } from "../notice";
 
 import { getUser } from "@/lib/discord/user";
-import { filterDuplicates } from "@/utils/filter-duplicates";
 import cn from "@/utils/cn";
-import Emoji from "./emoji";
-import User from "./user";
+import { filterDuplicates } from "@/utils/filter-duplicates";
+import { getBaseUrl } from "@/utils/urls";
+
+import Notice, { NoticeType } from "../notice";
 import Channel from "./channel";
-import { ReactNode } from "react";
+import Emoji from "./emoji";
 import Timestamp from "./timestamp";
+import User from "./user";
 
 const ALLOWED_IFRAMES = [
     "https://www.youtube.com/embed/",
@@ -65,7 +66,7 @@ export default async function BeautifyMarkdown({
                         format={format.slice(1, -1)}
                     />
                 );
-            })
+            });
     }
 
     function createHId(text: ReactNode) {
@@ -138,7 +139,7 @@ export default async function BeautifyMarkdown({
                             <img alt={alt} className="rounded-md" loading="lazy" {...props} />
                             {alt && alt !== "emoji" && <span aria-hidden="true" className="text-neutral-500 font-medium relative bottom-1">{alt}</span>}
                         </span>
-                    )
+                    );
                 },
                 a: ({ href, children, ...props }) => (
                     <Link
@@ -167,7 +168,7 @@ export default async function BeautifyMarkdown({
                                 )}
                                 {...props}
                             />
-                        )
+                        );
                     }
 
                     return (
@@ -177,7 +178,7 @@ export default async function BeautifyMarkdown({
                                 message={`Iframe from "${props.src?.split("/")[2]}" is not allowed`}
                             />
                         </div>
-                    )
+                    );
                 },
 
                 ol: ({ ordered, ...props }) => <ol className="list-decimal list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
