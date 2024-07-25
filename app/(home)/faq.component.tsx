@@ -47,7 +47,6 @@ const data = [
         title: "How do I set up Chat to Speech (TTS)?",
         content: (
             <div>
-
                 <ol className="list-decimal list-inside marker:text-neutral-500 mb-4">
                     <li>
                         <LinkTag href="/login?invite=true">Invite Wamellow</LinkTag> to your Server. If you do not own it, ask the server Administrators to add Wamellow.
@@ -72,7 +71,7 @@ const data = [
                 You can also watch the video tutorial below or <LinkTag href="https://youtu.be/NS5fZ1ltovE?si=8hE1o6BBELxAxJbH">watch it on YouTube</LinkTag>.
                 <iframe
                     className="mt-2 aspect-video rounded-lg"
-                    width={"100%"}
+                    width="100%"
                     src="https://www.youtube.com/embed/NS5fZ1ltovE?si=uODiGspuNGKPRQKp"
                     title="Wamellow Text to Speech tutorial"
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -85,13 +84,31 @@ const data = [
         title: "How do I disable a command for roles or channels?",
         content: (
             <div>
-                If you want to disable a command, essentially making that no member of your server can use the command but Server Administrators, you can do so within discord{"'"}s integration settings as shown in the video.
+                <ol className="list-decimal list-inside marker:text-neutral-500 mb-4">
+                    <li>
+                        In the Discord App, click on your servers' name and click {'"'}Settings{'"'}
+                    </li>
+                    <li>
+                        Then go to the tab {'"'}Integrations{'"'} in the {'"'}Apps{'"'} category.
+                    </li>
+                    <li>
+                        In the {'"'}Bots and Apps{'"'} list, find Wamellow and click on {'"'}Manage{'"'}.
+                    </li>
+                    <li>
+                        You can choose to disable commands for everyone by their roles, or only in certain channels.
+                    </li>
+                    <li>
+                        <span className="font-semibold">Done!</span> 🎉
+                    </li>
+                </ol>
+
+                You can also watch the video tutorial below or <LinkTag href="https://youtu.be/ehc0_whydu8?si=8hE1o6BBELxAxJbH">watch it on YouTube</LinkTag>.
                 <iframe
-                    className="mt-6 aspect-video rounded-lg"
+                    className="mt-2 aspect-video rounded-lg"
                     width="100%"
-                    src="https://c.lunish.nl/r/vkTh6Q.mp4"
-                    title="How to disable commands for roles or channels"
-                    allow="autoplay; picture-in-picture; web-share"
+                    src="https://www.youtube.com/embed/ehc0_whydu8?si=uODiGspuNGKPRQKp"
+                    title="How to disable slash commands from bots and apps in discord"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 />
             </div>
         )
