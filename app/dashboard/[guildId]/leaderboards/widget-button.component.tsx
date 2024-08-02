@@ -59,6 +59,7 @@ export default function DiscordWidgetButton({
     return (
         <>
             <Button
+                className="w-fit"
                 onClick={handle}
                 color={
                     isEnabled
