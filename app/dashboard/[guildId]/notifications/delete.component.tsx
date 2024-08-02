@@ -46,7 +46,7 @@ export default function DeleteNotification({
             <Modal
                 buttonName="Delete"
                 variant="danger"
-                title={"Delete YouTube Notification: " + name}
+                title={"Delete Notification: " + name}
                 isOpen={open}
                 onClose={() => setOpen(false)}
                 onSubmit={() => {

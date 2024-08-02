@@ -7,6 +7,7 @@ import { HiExternalLink, HiPencil } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import cn from "@/utils/cn";
 
 import CreateNotification, { Style } from "./create.component";
 import DeleteNotification from "./delete.component";
@@ -36,7 +37,6 @@ export function ChannelSelector({
                     <Channel
                         key={"notification-" + notification.id}
                         notification={notification}
-                        onClick={() => setNotificationId(notification.id)}
                     >
                         <Button
                             color="secondary"
@@ -57,7 +57,7 @@ export function ChannelSelector({
             }
         </div>
 
-        <div className="flex items-start justify-between w-full mt-3">
+        <div className={cn("flex items-start justify-between w-full", notifications.length && "mt-3")}>
             <CreateNotification
                 guildId={guild?.id as string}
                 style={Style.Compact}
@@ -91,21 +91,16 @@ export function ChannelSelector({
 
 function Channel({
     notification,
-    children,
-    onClick
+    children
 }: {
     notification: ApiV1GuildsModulesNotificationsGetResponse;
     children: React.ReactNode;
-    onClick: () => void;
 }) {
     const guild = guildStore((g) => g);
     const channel = guild?.channels?.find((channel) => channel.id === notification.channelId);
 
     return (
-        <button
-            className="flex justify-between p-4 bg-wamellow rounded-xl w-full duration-100"
-            onClick={onClick}
-        >
+        <div className="flex justify-between p-4 bg-wamellow rounded-xl w-full duration-100">
             <div className="flex gap-3 items-center">
                 <Image
                     alt={`${notification.creator.username}'s avatar`}
@@ -129,7 +124,7 @@ function Channel({
             <div className="space-x-2">
                 {children}
             </div>
-        </button>
+        </div>
     );
 }
 
