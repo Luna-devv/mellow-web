@@ -7,7 +7,6 @@ import { guildStore } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
 
-
 export default function FollowUpdates() {
     const guild = guildStore((g) => g);
 
