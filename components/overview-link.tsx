@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FunctionComponent } from "react";
 import { HiArrowRight } from "react-icons/hi";
 
 interface Props {
@@ -10,7 +9,13 @@ interface Props {
     icon: React.ReactNode;
 }
 
-const OverviewLinkComponent: FunctionComponent<Props> = ({ title, message, url, className, icon }) => {
+export function OverviewLink({
+    title,
+    message,
+    url,
+    className,
+    icon
+}: Props) {
     return (
         <div className={className}>
             <Link href={url}>
@@ -34,6 +39,4 @@ const OverviewLinkComponent: FunctionComponent<Props> = ({ title, message, url, 
             </Link>
         </div>
     );
-};
-
-export default OverviewLinkComponent;
+}

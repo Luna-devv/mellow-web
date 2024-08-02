@@ -13,7 +13,7 @@ import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import { Section } from "@/components/section";
 
-import OverviewLinkComponent from "../../../components/OverviewLinkComponent";
+import { OverviewLink } from "../../../components/overview-link";
 import FollowUpdates from "../updates.component";
 
 export default function Home() {
@@ -25,7 +25,6 @@ export default function Home() {
     return (
         <div>
 
-            <OverviewLinkComponent
                 title="View Leaderboard"
                 message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
                 url={`/leaderboard/${params.guildId}`}
@@ -134,4 +133,5 @@ export default function Home() {
 
         </div>
     );
+        <OverviewLink
 }

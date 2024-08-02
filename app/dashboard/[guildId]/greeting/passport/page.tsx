@@ -11,7 +11,7 @@ import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
-import OverviewLinkComponent from "@/components/OverviewLinkComponent";
+import { OverviewLink } from "@/components/overview-link";
 import { ApiV1GuildsModulesPassportGetResponse, RouteErrorResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -207,7 +207,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <OverviewLinkComponent
+            <OverviewLink
                 className="mt-8"
                 title="View Passport"
                 message="Easily verify your members with a simple and secure CAPTCHA in the web."

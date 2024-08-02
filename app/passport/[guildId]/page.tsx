@@ -7,7 +7,7 @@ import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiUsers, Hi
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListFeature } from "@/components/list";
 import Notice, { NoticeType } from "@/components/notice";
-import OverviewLinkComponent from "@/components/OverviewLinkComponent";
+import { OverviewLink } from "@/components/overview-link";
 import { ServerButton } from "@/components/server-button";
 import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
@@ -182,7 +182,7 @@ export default async function Home({ params }: Props) {
                         <div className="mt-4 text-sm text-neutral-500">*We actually have no idea what to put here</div>
                     </div>
 
-                    <OverviewLinkComponent
+                    <OverviewLink
                         className="mt-6"
                         title="View Leaderboard"
                         message="Easily access and view the top chatters, voice timers, and inviters from this server."

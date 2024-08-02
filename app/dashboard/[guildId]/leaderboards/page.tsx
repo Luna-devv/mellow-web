@@ -16,7 +16,7 @@ import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 
-import OverviewLinkComponent from "../../../../components/OverviewLinkComponent";
+import { OverviewLink } from "../../../../components/overview-link";
 import Permissions from "./permissions.component";
 import ResetLeaderboard from "./reset.component";
 import UpdatingLeaderboardCard from "./updating.component";
@@ -64,7 +64,6 @@ export default function Home() {
 
             <div className="flex flex-col-reverse md:flex-row gap-6">
                 <div>
-                    <OverviewLinkComponent
                         title="View Leaderboard"
                         message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
                         url={`/leaderboard/${params.guildId}`}
@@ -130,6 +129,7 @@ export default function Home() {
                 <Permissions
                     className="w-full md:w-1/3 lg:w-1/4 shrink-0"
                     guild={guild}
+                <OverviewLink
                 />
 
             </div>
