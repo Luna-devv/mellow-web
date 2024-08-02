@@ -15,10 +15,22 @@ export interface Review {
     rating: "positive" | "negative";
 }
 
+// wumpus.store doesn't know how to keep a website online
+const review = {
+    author: {
+        id: "1",
+        username: "System",
+        avatar_url: "/waya-v3.webp"
+    },
+    content: "Something went wrong when loading the reviews.",
+    helpful: 0,
+    rating: "positive"
+} satisfies Review;
+
 export async function Ratings() {
     const reviews = await fetch(`${process.env.RATINGS_API}/?id=${process.env.CLIENT_ID}`, defaultFetchOptions)
         .then((res) => res.json())
-        .catch(() => []) as Review[];
+        .catch(() => [review]) as Review[];
 
     const cumulativeStars = reviews?.reduce((acc, review) => acc + (review.rating === "positive" ? 5 : 1), 0);
     const averageStars = Math.floor(cumulativeStars / reviews.length) || 0;
