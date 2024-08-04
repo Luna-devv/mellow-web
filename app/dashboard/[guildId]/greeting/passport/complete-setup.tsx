@@ -45,6 +45,7 @@ export default function CompleteSetup({
         <>
             <Modal
                 title="Verified role"
+                className="!overflow-visible"
                 isOpen={!!guild && modal === ModalType.VerifiedRole}
                 onClose={() => setModal(ModalType.None)}
                 onSubmit={() => {

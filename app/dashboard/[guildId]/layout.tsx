@@ -47,7 +47,8 @@ export default function RootLayout({
         () => getData<ApiV1GuildsGetResponse>(url),
         {
             enabled: !!params.guildId,
-            ...cacheOptions
+            ...cacheOptions,
+            refetchOnMount: true
         }
     );
 
