@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 
 import { userStore } from "@/common/user";
 import Box from "@/components/box";
-import Highlight from "@/components/discord/markdown";
+import { DiscordMarkdown } from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
@@ -101,7 +101,7 @@ export default function Home({
                             }}
                         >
 
-                            <Highlight mode={"DARK"} text={`wm play [https://open.spotify.com/track/${data.playing?.id || "4cOdK2wGLETKBW3PvgPWqT"}](#)`} />
+                            <DiscordMarkdown mode={"DARK"} text={`wm play [https://open.spotify.com/track/${data.playing?.id || "4cOdK2wGLETKBW3PvgPWqT"}](#)`} />
 
                         </DiscordMessage>
                         <DiscordMessage
@@ -115,7 +115,7 @@ export default function Home({
 
                             <div className="flex items-center gap-1">
                                 <Image src="https://cdn.discordapp.com/emojis/845043307351900183.gif?size=44&quality=lossless" height={18} width={18} alt="" />
-                                <Highlight mode={"DARK"} text={`@${user.username} now playing [${data.playing?.name || "Never Gonna Give You Up"}](#) for **${data.playing?.duration || "3 minutes 33 seconds"}**`} />
+                                <DiscordMarkdown mode={"DARK"} text={`@${user.username} now playing [${data.playing?.name || "Never Gonna Give You Up"}](#) for **${data.playing?.duration || "3 minutes 33 seconds"}**`} />
                             </div>
 
                             <div className="flex flex-row gap-1.5 h-8 mt-3">
@@ -141,7 +141,7 @@ export default function Home({
                             }}
                         >
 
-                            <Highlight mode={"DARK"} text="wm" />
+                            <DiscordMarkdown mode={"DARK"} text="wm" />
 
                         </DiscordMessage>
                         <DiscordMessage
@@ -155,7 +155,7 @@ export default function Home({
 
                             <div className="flex items-center gap-1">
                                 <Image src="https://cdn.discordapp.com/emojis/845043307351900183.gif?size=44&quality=lossless" height={18} width={18} alt="" />
-                                <Highlight mode={"DARK"} text={`@${user.username} is playing [${data.playing?.name || "Never Gonna Give You Up"}](#) by ${data.playing?.artists || "[Rick Astley]()"}`} />
+                                <DiscordMarkdown mode={"DARK"} text={`@${user.username} is playing [${data.playing?.name || "Never Gonna Give You Up"}](#) by ${data.playing?.artists || "[Rick Astley]()"}`} />
                             </div>
 
                             <div className="flex gap-1.5 h-8 mt-3">

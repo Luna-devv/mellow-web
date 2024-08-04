@@ -7,7 +7,7 @@ import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { GuildEmbed } from "@/typings";
 import cn from "@/utils/cn";
 
-import Highlight from "./discord/markdown";
+import { DiscordMarkdown } from "./discord/markdown";
 import DiscordMessage from "./discord/message";
 import DiscordMessageEmbed from "./discord/message-embed";
 import DumbColorInput from "./inputs/dumb-color-input";
@@ -238,7 +238,7 @@ export default function MessageCreatorEmbed({
                                         bot: true
                                     }}
                                 >
-                                    <Highlight
+                                    <DiscordMarkdown
                                         mode={mode}
                                         text={content || ""}
                                     />
@@ -251,7 +251,7 @@ export default function MessageCreatorEmbed({
                                         image={JSON.parse(embed).image}
                                         footer={JSON.parse(embedfooter)}
                                     >
-                                        {JSON.parse(embed).description && <Highlight mode={mode} text={JSON.parse(embed).description} />}
+                                        {JSON.parse(embed).description && <DiscordMarkdown mode={mode} text={JSON.parse(embed).description} />}
                                         {showMessageAttachmentComponentInEmbed && messageAttachmentComponent}
                                     </DiscordMessageEmbed>
 

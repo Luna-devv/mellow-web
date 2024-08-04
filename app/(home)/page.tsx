@@ -10,7 +10,7 @@ import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import DiscordChannel from "@/components/discord/channel";
 import DiscordChannelCategory from "@/components/discord/channel-category";
-import Highlight from "@/components/discord/markdown";
+import { DiscordMarkdown } from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
@@ -299,7 +299,7 @@ export default async function Home() {
                                 <div className="bg-[#313338] h-0.5 w-full sm:w-0.5 sm:h-32 md:h-0.5 md:w-full lg:w-0.5 lg:h-32 rounded-full ml-2" />
 
                                 <DiscordMessage {...messageProps("tts voice")}>
-                                    <Highlight mode={"DARK"} text="Now talking..." />
+                                    <DiscordMarkdown mode={"DARK"} text="Now talking..." />
                                 </DiscordMessage>
                             </div>
 
@@ -366,7 +366,7 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps()}>
-                                <Highlight mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=74Lj5cHseI8]()" />
+                                <DiscordMarkdown mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=74Lj5cHseI8](https://youtube.com/watch?v=74Lj5cHseI8)" />
                                 <DiscordMessageEmbed
                                     mode="DARK"
                                     title="Your PC Can Look Like THIS Now!"
@@ -441,7 +441,7 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps("image")}>
-                                <Highlight mode={"DARK"} text="query: **femboy**" />
+                                <DiscordMarkdown mode={"DARK"} text="query: **femboy**" />
                                 <Image
                                     alt=""
                                     className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
@@ -627,8 +627,8 @@ export default async function Home() {
                                         <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
                                     </div>
 
-                                    <Highlight mode={"DARK"} text="**Replied to @drijon**" />
-                                    <Highlight mode={"DARK"} text="As if someone creates a discord account being like: OH I NEED TO KNOW THE GAS PRICES. THERE IS A NICE WAY FOR IT. MEE6 PREMIUM!" />
+                                    <DiscordMarkdown mode={"DARK"} text="**Replied to @drijon**" />
+                                    <DiscordMarkdown mode={"DARK"} text="As if someone creates a discord account being like: OH I NEED TO KNOW THE GAS PRICES. THERE IS A NICE WAY FOR IT. MEE6 PREMIUM!" />
                                 </DiscordMessageEmbed>
                             </DiscordMessage>
                         </div>
@@ -676,7 +676,7 @@ export default async function Home() {
                             style={{ backgroundColor: "rgb(43, 45, 49)" }}
                         >
                             <DiscordMessage {...messageProps()}>
-                                <Highlight mode={"DARK"} text="Welcome @mwlica to **Someone's** 👋" />
+                                <DiscordMarkdown mode={"DARK"} text="Welcome @mwlica to **Someone's** 👋" />
                                 <Image
                                     alt="example welcome card"
                                     src={WelcomePic}
@@ -795,7 +795,7 @@ export default async function Home() {
                                     bot: false
                                 }}
                             >
-                                <Highlight mode={"DARK"} text="wm - howto" />
+                                <DiscordMarkdown mode={"DARK"} text="wm - howto" />
                             </DiscordMessage>
 
                             <DiscordMessage
@@ -810,7 +810,7 @@ export default async function Home() {
                                     mode={"DARK"}
                                     color={0xbc7ed4}
                                 >
-                                    <Highlight mode={"DARK"} text="To create a custom command, go to [your server's dashboard](/dashboard?to=custom-commands), click on `Create`, fill in the response **content**, **embed title**, **embed description**, **embed color**, **embed images**, command **permissions** and more. When you're done you can start using the command 🎉" />
+                                    <DiscordMarkdown mode={"DARK"} text="To create a custom command, go to [your server's dashboard](/dashboard?to=custom-commands), click on `Create`, fill in the response **content**, **embed title**, **embed description**, **embed color**, **embed images**, command **permissions** and more. When you're done you can start using the command 🎉" />
                                 </DiscordMessageEmbed>
                             </DiscordMessage>
                         </div>

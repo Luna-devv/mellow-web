@@ -1,0 +1,39 @@
+.discord-md a {
+    @apply text-blurple hover:underline
+}
+
+.discord-md code {
+    @apply bg-neutral-900 border-[1px] border-neutral-600 p-1 text-xs rounded
+}
+
+.discord-md-light code {
+    @apply !bg-neutral-300 !border-neutral-400
+}
+
+.discord-md .d-mention {
+    @apply bg-blurple/30 hover:bg-blurple/50 py-0.5 px-1 rounded-md dark:text-neutral-100 text-neutral-900 font-light duration-200 cursor-pointer
+}
+
+.discord-md .d-emoji {
+    @apply size-5 inline
+}
+
+.discord-md .d-spoiler {
+    @apply bg-neutral-500/75 px-0.5 text-sm rounded
+}
+
+.discord-md h1 {
+    @apply text-3xl font-semibold text-white
+}
+
+.discord-md h2 {
+    @apply text-2xl font-semibold text-white
+}
+
+.discord-md h3 {
+    @apply text-xl font-semibold text-white
+}
+
+.discord-md strong {
+    @apply font-semibold
+}

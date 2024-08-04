@@ -2,7 +2,7 @@ import React from "react";
 
 import cn from "@/utils/cn";
 
-import Highlight from "./markdown";
+import { DiscordMarkdown } from "./markdown";
 
 interface Props {
     children: React.ReactNode;
@@ -62,10 +62,10 @@ export default function DiscordMessageEmbed({
                         >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             {author.icon_url && <img src={author.icon_url} alt="" className="rounded-full h-6 w-6" />}
-                            <Highlight
+                            <DiscordMarkdown
                                 mode={mode}
                                 text={author.text}
-                                discord={false}
+                                embed={true}
                             />
                         </div>
                     }
@@ -76,10 +76,10 @@ export default function DiscordMessageEmbed({
                                 "font-semibold text-lg mb-2"
                             )}
                         >
-                            <Highlight
+                            <DiscordMarkdown
                                 mode={mode}
                                 text={title}
-                                discord={false}
+                                embed={true}
                             />
                         </div>
                     }
@@ -89,22 +89,34 @@ export default function DiscordMessageEmbed({
                 </div>
 
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {thumbnail && <img src={thumbnail} alt="" className="ml-auto h-20 w-20 rounded-md" />}
+                {thumbnail && <img src={replaceTemplatesToUrl(thumbnail)} alt="" className="ml-auto h-20 w-20 rounded-md" />}
             </div>
 
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            {image && <img src={image} alt="" className="ml-auto rounded-md h-full w-full mt-4" />}
+            {image && <img src={replaceTemplatesToUrl(image)} alt="" className="ml-auto rounded-md h-full w-full mt-4" />}
 
             {footer?.text &&
                 <div className="flex gap-1 items-center mt-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     {footer.icon_url && <img src={footer.icon_url} alt="" className="rounded-full h-5 w-5" />}
                     <span className="text-xs">
-                        <Highlight mode={mode} text={footer.text} discord={false} />
+                        <DiscordMarkdown
+                            mode={mode}
+                            text={footer.text}
+                            embed={true}
+                        />
                     </span>
                 </div>
             }
 
         </div>
     );
+}
+
+function replaceTemplatesToUrl(input: string) {
+    if (/^{(user|guild|creator)\.(icon|avatar)}$/.test(input)) return "https://cdn.discordapp.com/embed/avatars/0.png";
+    if (/^{video\.thumbnail}/.test(input)) return "/_next/image?url=/notifications-thumbnail-placeholder.webp&w=384&q=75";
+
+    if (!input.startsWith("http")) return;
+    return input;
 }

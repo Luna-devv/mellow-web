@@ -1,12 +1,13 @@
+import { Accordion, AccordionItem } from "@nextui-org/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useCookies } from "next-client-cookies";
+
 import { guildStore } from "@/common/guilds";
 import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
-import { Accordion, AccordionItem } from "@nextui-org/react";
-import { useCookies } from "next-client-cookies";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
 
 export function TTSSettings() {
     const guild = guildStore((g) => g);
@@ -63,7 +64,7 @@ export function TTSSettings() {
 
             <Faq />
         </div>
-    )
+    );
 }
 
 function Faq() {
@@ -111,5 +112,5 @@ function Faq() {
                 </Link>
             </AccordionItem>
         </Accordion>
-    )
+    );
 }

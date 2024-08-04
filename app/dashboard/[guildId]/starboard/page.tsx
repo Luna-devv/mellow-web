@@ -8,7 +8,7 @@ import { HiExternalLink, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
-import Highlight from "@/components/discord/markdown";
+import { DiscordMarkdown } from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
@@ -308,7 +308,7 @@ export default function Home() {
                     bot: true
                 }}
             >
-                <Highlight
+                <DiscordMarkdown
                     mode={"DARK"}
                     text={""}
                 />

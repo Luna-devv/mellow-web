@@ -40,7 +40,7 @@ export default async function BeautifyMarkdown({
         return content
             .replace(/__(.*?)__/g, "<u>$1</u>")
             .replace(/<a?:\w{2,32}:\d{15,21}>/g, (match) => {
-                const emojiId = match.match(/\d{15,21}/)?.[0]!;
+                const emojiId = match.match(/\d{15,21}/)?.[0] as string;
 
                 return renderToString(<Emoji emojiId={emojiId} />);
             })
@@ -57,7 +57,7 @@ export default async function BeautifyMarkdown({
                 return renderToString(<Channel name="some-channel" />);
             })
             .replace(/<t:\d{1,10}:[Rf]?>/g, (match) => {
-                const timestamp = match.match(/\d{1,10}/)?.[0]!;
+                const timestamp = match.match(/\d{1,10}/)?.[0] as string;
                 const format = match.match(/:\w*?>/)?.[0] || "f";
 
                 return renderToString(
@@ -182,7 +182,8 @@ export default async function BeautifyMarkdown({
                 },
 
                 ol: ({ ordered, ...props }) => <ol className="list-decimal list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
-                ul: ({ ordered, ...props }) => <ul className="list-disc list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />
+                ul: ({ ordered, ...props }) => <ul className="list-disc list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
+                p: (props) => <span {...props} />
 
             }}
         >
