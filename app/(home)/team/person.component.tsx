@@ -1,10 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { HTMLProps } from "react";
+import { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
 import { HiExternalLink } from "react-icons/hi";
 
 import { getUser } from "@/lib/discord/user";
 import cn from "@/utils/cn";
+
+type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+type LinkProps = DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
 export async function Person({
     id,
@@ -45,7 +48,14 @@ export async function Person({
     );
 }
 
-function Component(props: HTMLProps<HTMLDivElement | HTMLLinkElement>) {
-    if ("href" in props && props.href) return <Link {...props} />;
-    return <div {...props} />;
+function isLinkProps(props: DivProps | LinkProps): props is LinkProps {
+    return "href" in props && !!props.href;
+}
+
+function Component(props: DivProps | LinkProps) {
+    if (isLinkProps(props)) {
+        return <Link href={props.href as string} {...props}>{props.children}</Link>;
+    }
+
+    return <div {...props}>{props.children}</div>;
 }
