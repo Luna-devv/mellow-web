@@ -72,5 +72,10 @@ export const members = [
         id: "452848052810547201",
         team: TeamType.Donator,
         social: "https://nekos.best/"
+    },
+    {
+        id: "77755087602065408",
+        team: TeamType.Donator,
+        social: "https://notswayze.stream/"
     }
 ] as const;

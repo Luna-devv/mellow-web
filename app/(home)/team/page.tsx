@@ -8,10 +8,10 @@ import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 import { members, repos } from "./constants";
 import { DiscordServer } from "./discord.component";
-import { PersonUser } from "./person.component";
+import { Person } from "./person.component";
 import { Repository } from "./repository.component";
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 export const generateMetadata = async (): Promise<Metadata> => {
     const title = "Team";
@@ -46,7 +46,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     };
 };
 
-export default function Home() {
+export default async function Home() {
     return (
         <div>
             <h2 className="text-2xl font-medium text-neutral-200">Team 🍪</h2>
@@ -55,7 +55,7 @@ export default function Home() {
             </div>
 
             <div className="relative divide-y-1 divide-wamellow mb-10">
-                {filterDuplicates(members.map((person) => person.team)).map((team) => (
+                {filterDuplicates(members.map((member) => member.team)).map((team) => (
                     <div
                         key={team}
                         className="py-5"
@@ -66,12 +66,12 @@ export default function Home() {
 
                         <div className="mt-2 flex flex-wrap gap-3">
                             {members
-                                .filter((person) => person.team === team)
-                                .map((person) => (
-                                    <PersonUser
-                                        key={person.id}
-                                        id={person.id}
-                                        social={"social" in person ? person.social as string : undefined}
+                                .filter((member) => member.team === team)
+                                .map((member) => (
+                                    <Person
+                                        key={member.id}
+                                        id={member.id}
+                                        social={"social" in member ? member.social as string : undefined}
                                     />
                                 ))
                             }
