@@ -53,61 +53,59 @@ export default function RootLayout({
     children
 }: Props) {
 
-    return (
-        <div>
+    return (<>
 
-            <h1
-                className={cn(montserrat.className, "lg:text-5xl text-4xl font-bold dark:text-neutral-100 text-neutral-900 break-words mb-2")}
-            >
-                <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">/image Ai</span>
-                {" generated in "}
-                <span className="underline decoration-blurple break-keep">discord</span>
-            </h1>
+        <h1
+            className={cn(montserrat.className, "lg:text-5xl text-4xl font-bold dark:text-neutral-100 text-neutral-900 break-words mb-2 w-full")}
+        >
+            <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">/image Ai</span>
+            {" generated in "}
+            <span className="underline decoration-blurple break-keep">Discord</span>
+        </h1>
 
-            {children}
+        {children}
 
-            <Link
+        <Link
+            href="/login?invite=true"
+            prefetch={false}
+            target="_blank"
+        >
+            <span className="sr-only">/image command usage</span>
+            <Image
+                alt=""
+                className="w-full rounded-md shadow-md mt-12"
+                height={580}
+                src={CommandPic}
+                width={1550}
+            />
+        </Link>
+
+        <div className="flex gap-2 mt-4">
+            <ServerButton
+                as={Link}
+                className="w-1/2 lg:w-fit !text-xl !font-medium"
+                color="secondary"
                 href="/login?invite=true"
                 prefetch={false}
-                target="_blank"
+                size="lg"
+                startContent={<HiUserAdd />}
             >
-                <span className="sr-only">/image command usage</span>
-                <Image
-                    alt=""
-                    className="w-full rounded-md shadow-md mt-12"
-                    height={580}
-                    src={CommandPic}
-                    width={1550}
-                />
-            </Link>
-
-            <div className="flex gap-2 mt-4">
-                <ServerButton
-                    as={Link}
-                    className="w-1/2 lg:w-fit !text-xl !font-medium"
-                    color="secondary"
-                    href="/login?invite=true"
-                    prefetch={false}
-                    size="lg"
-                    startContent={<HiUserAdd />}
-                >
-                    <span className="block sm:hidden">Invite</span>
-                    <span className="hidden sm:block">Invite Wamellow</span>
-                </ServerButton>
-                <ServerButton
-                    as={Link}
-                    startContent={<BsDiscord />}
-                    className="w-1/2 lg:w-fit !text-xl !font-medium"
-                    href="/support"
-                    size="lg"
-                >
-                    <span className="block sm:hidden">Support</span>
-                    <span className="hidden sm:block">Join support</span>
-                </ServerButton>
-            </div>
-
-            <Footer />
-
+                <span className="block sm:hidden">Invite</span>
+                <span className="hidden sm:block">Invite Wamellow</span>
+            </ServerButton>
+            <ServerButton
+                as={Link}
+                startContent={<BsDiscord />}
+                className="w-1/2 lg:w-fit !text-xl !font-medium"
+                href="/support"
+                size="lg"
+            >
+                <span className="block sm:hidden">Support</span>
+                <span className="hidden sm:block">Join support</span>
+            </ServerButton>
         </div>
-    );
+
+        <Footer />
+
+    </>);
 }
