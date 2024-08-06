@@ -1,5 +1,9 @@
 import { ApiError, ApiV1GuildsGetResponse, RouteErrorResponse } from "@/typings";
 
+export interface ApiRequestOptions {
+    force?: boolean;
+}
+
 export const cacheOptions = {
     cacheTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
@@ -19,12 +23,14 @@ export async function getData<T>(path: string, domain?: string) {
     return response.json() as Promise<T | RouteErrorResponse>;
 }
 
-export async function getGuild(guildId?: string | null): Promise<ApiV1GuildsGetResponse | ApiError | undefined> {
+export async function getGuild(guildId?: string | null, options?: ApiRequestOptions): Promise<ApiV1GuildsGetResponse | ApiError | undefined> {
     if (!guildId) return;
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}`, {
         headers: { Authorization: process.env.API_SECRET as string },
-        next: { revalidate: 60 * 60 }
+        next: options?.force
+            ? { revalidate: 0 }
+            : { revalidate: 60 * 60 }
     });
 
     return res.json();

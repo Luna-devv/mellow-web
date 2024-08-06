@@ -23,7 +23,7 @@ export async function GET(
     if (type !== "messages" && type !== "voiceminutes" && type !== "invites") type = "messages";
 
     const guild = await getGuild(params.guildId);
-    const members = await getTopMembers(params.guildId, { page: 1, type: "messages" });
+    const members = await getTopMembers(params.guildId, { page: 1, type: "messages" }, { force:true });
 
     const guildExists = guild && "id" in guild;
 
