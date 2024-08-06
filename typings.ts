@@ -45,6 +45,7 @@ export interface ApiV1GuildsGetResponse {
         logChannelId: string | null;
         priorityRoleId: string | null;
         maxLength?: number | null;
+        queue: boolean | null;
     };
     embedLinks: boolean;
 }

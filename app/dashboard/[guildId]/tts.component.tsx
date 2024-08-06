@@ -15,7 +15,7 @@ export function TTSSettings() {
 
     return (
         <div className="lg:flex gap-6 mt-5">
-            <div className="lg:w-1/2 space-y-6">
+            <div className="lg:w-1/2 flex flex-col gap-2">
                 <SelectMenu
                     name="Chat to Speech channel"
                     url={`/guilds/${params.guildId}`}
@@ -51,8 +51,16 @@ export function TTSSettings() {
                     description="If I should say who is currently speaking via tts."
                     defaultState={guild?.tts.announceUser || false}
                 />
+                <Switch
+                    name="Queue messages"
+                    badge="Experimental"
+                    url={`/guilds/${params.guildId}`}
+                    dataName="tts.queue"
+                    description="Queue sent messages instead of refusing to speak."
+                    defaultState={guild?.tts.queue || false}
+                />
                 <NumberInput
-                    className="pt-7"
+
                     name="Max message length"
                     description="The maximum length of a message that can be spoken."
                     url={`/guilds/${params.guildId}`}
