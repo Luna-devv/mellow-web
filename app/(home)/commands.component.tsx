@@ -11,7 +11,11 @@ interface Commands {
     uses: number;
 }
 
-export async function Commands() {
+export async function Commands({
+    limit = 6
+}: {
+    limit?: number;
+}) {
 
     const commands = await fetch(`${process.env.NEXT_PUBLIC_API}/commands`, defaultFetchOptions)
         .then((res) => res.json())
@@ -41,7 +45,7 @@ export async function Commands() {
                 <div className="divide-y divide-wamellow">
                     {commands
                         .sort((a, b) => b.uses - a.uses)
-                        .slice(0, 6)
+                        .slice(0, limit)
                         .map((command) => (
                             <div
                                 key={command.name}
