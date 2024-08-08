@@ -43,7 +43,7 @@ export default function Home() {
             name="Embed message links"
             badge="Experimental"
             url={`/guilds/${params.guildId}`}
-            dataName="tts.embedLinks"
+            dataName="embedLinks"
             description="Reply with the original content of a message if a message link is sent."
             defaultState={guild?.embedLinks || false}
         />
