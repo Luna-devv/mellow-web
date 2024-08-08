@@ -23,7 +23,7 @@ export function Node({ index, node }: {index:number;node:ApiNode}) {
 
                 {node.id.endsWith("-lun-1") &&
                      <Chip
-                         className="ml-auto"
+                         className="ml-auto hidden sm:flex"
                          startContent={<FaCrown className="ml-1" />}
                          color="warning"
                          variant="flat"

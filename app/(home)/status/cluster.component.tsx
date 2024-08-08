@@ -4,6 +4,8 @@ import { ReactNode } from "react";
 import { FaCrown } from "react-icons/fa6";
 import { HiLightningBolt } from "react-icons/hi";
 
+import cn from "@/utils/cn";
+
 import { ApiCluster } from "./api";
 
 export function Cluster(cluster: ApiCluster) {
@@ -12,19 +14,21 @@ export function Cluster(cluster: ApiCluster) {
             className="p-4 bg-wamellow rounded-lg space-y-2 outline-violet-400 duration-200 h-fit"
             id={"cluster-" + cluster.id}
         >
-            <div className="flex items-center gap-1">
-                <Icon />
-                <span className="text-neutral-100 text-lg font-medium">
-                    {cluster.name}
-                </span>
+            <div className="sm:flex items-center">
+                <div className="flex gap-1 items-center">
+                    <Icon ping={cluster.ping} />
+                    <span className="text-neutral-100 text-lg font-medium">
+                        {cluster.name}
+                    </span>
 
-                <span className="text-neutral-300">
+                    <span className="text-neutral-300">
                     #{cluster.id}
-                </span>
+                    </span>
+                </div>
 
                 {cluster.id === 0
                     ? <Chip
-                        className="ml-auto"
+                        className="mt-1 sm:mt-0 ml-auto"
                         startContent={<FaCrown className="ml-1" />}
                         color="warning"
                         variant="flat"
@@ -32,9 +36,10 @@ export function Cluster(cluster: ApiCluster) {
                         master, {cluster.ping}ms
                     </Chip>
                     : <Chip
-                        className="ml-auto text-neutral-400 bg-wamellow"
+                        className={cn("ml-auto", cluster.ping > 0 && "text-neutral-400 bg-wamellow")}
                         startContent={<HiLightningBolt className="ml-1" />}
                         variant="flat"
+                        color={cluster.ping < 0 ? "danger" : "default"}
                     >
                         {cluster.ping}ms
                     </Chip>
@@ -56,12 +61,16 @@ export function Cluster(cluster: ApiCluster) {
     );
 }
 
-function Icon() {
+function Icon({ ping }: { ping: number; }) {
+    const emoteId = ping > 0
+        ? "949003338186383491"
+        : "949003440091201587";
+
     return (
         <Image
             alt="online"
             className="size-7"
-            src="https://cdn.discordapp.com/emojis/949003338186383491.webp?size=32&quality=lossless"
+            src={`https://cdn.discordapp.com/emojis/${emoteId}.webp?size=32&quality=lossless`}
             width={32}
             height={32}
         />

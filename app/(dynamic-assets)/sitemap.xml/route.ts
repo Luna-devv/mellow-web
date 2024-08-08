@@ -42,7 +42,11 @@ export async function GET() {
             priority: 0.9
         },
         {
-            url: getCanonicalUrl("ai"),
+            url: getCanonicalUrl("ai-gallery"),
+            priority: 0.9
+        },
+        {
+            url: getCanonicalUrl("status"),
             priority: 0.9
         },
         {
