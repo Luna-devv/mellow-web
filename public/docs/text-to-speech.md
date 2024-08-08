@@ -34,6 +34,13 @@ Wamellow will announce which user is currently talking through it. If a user say
 
 **Note:** This feature is experimental. Please note that usernames written in languages other than the actual written message will cause the Text to Speech to fail.
 
+### 🛒 Message queue 
+Queue up sent messages, messages are spoked in the same order as they were written.
+<br />
+<br />
+
+**Note:** This feature is experimental. 
+
 ### 🔏 Max message length
 Set a maximum length for messages to avoid spamming.
 <br />

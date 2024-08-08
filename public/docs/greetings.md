@@ -43,7 +43,7 @@ Ghost ping members in up to 5 channels when they join, the ghost pings will be i
 ### 👀 Roles
 Assign up to 5 roles to new members.
 
-### ♻️ Restore roles/nick after rejoin
+### ♻️ Restore roles & nick after rejoin
 You can re-assign all roles and past nickname when a member left and rejoins your server.
 
 ### 💬 Direct Message
