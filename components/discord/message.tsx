@@ -59,7 +59,9 @@ export default function DiscordMessage({
                             radius="full"
                             src={commandUsed.avatar}
                         />
-                        <span className={cn(mode === "DARK" ? "text-violet-400" : "text-violet-600")}>{commandUsed.username}</span>
+                        <span className={mode === "DARK" ? "text-violet-400" : "text-violet-600"}>
+                            {commandUsed.username}
+                        </span>
                         {commandUsed.bot &&
                             <DiscordAppBadge />
                         }
@@ -88,7 +90,7 @@ export default function DiscordMessage({
                             <DiscordAppBadge />
                         }
                         <time
-                            className="mt-[2px] text-xs opacity-70 font-light"
+                            className="mt-[2px] text-xs opacity-50 truncate"
                             dateTime={new Date().toISOString()}
                         >
                             {formatTime(new Date())}

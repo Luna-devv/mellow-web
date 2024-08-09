@@ -73,7 +73,7 @@ export default async function Home() {
                     </div>
                 </div>
 
-                <div className="w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col gap-5" style={{ backgroundColor: "rgb(43, 45, 49)" }}>
+                <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col gap-5">
                     {[["pronouns", "@She/They"], ["sexuality", "lesbian"], ["gender", "transwoman"]].map(([type, name]) =>
                         <div className="w-full" key={"prns-" + type + name}>
                             <DiscordMessage {...messageProps("add " + type)} >

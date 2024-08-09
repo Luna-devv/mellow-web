@@ -11,13 +11,13 @@ export default function DiscordAppBadge({
     return (
         <div
             className={cn(
-                "!text-xxs text-white bg-blurple rounded py-[1px] px-1 h-4 inline-flex items-center",
+                "!text-xxs  text-white bg-blurple rounded py-[1px] px-1 h-4 inline-flex items-center",
                 className
             )}
             {...props}
         >
             <HiCheck />
-            <span className="ml-1">
+            <span className="ml-1 font-semibold">
                 {children || "APP"}
             </span>
         </div>

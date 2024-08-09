@@ -42,12 +42,12 @@ export default function DiscordMessageEmbed({
     return (
         <div
             className={cn(
-                "w-full font-light p-3 rounded border-l-4",
                 mode === "DARK" ? "text-neutral-200" : "text-neutral-800",
+                "w-full font-light p-3 rounded border-l-4",
                 className
             )}
             style={{
-                backgroundColor: mode === "DARK" ? "rgb(40, 42, 46)" : "rgb(242, 243, 245)",
+                backgroundColor: mode === "DARK" ? "#26272f" : "#f2f3f5",
                 borderLeftColor: `#${color?.toString(16)}`
             }}
         >

@@ -3,7 +3,7 @@
 }
 
 .discord-md code {
-    @apply bg-neutral-900 border-[1px] border-neutral-600 p-1 text-xs rounded
+    @apply bg-[#26272f] border-[1px] border-[#31323b] p-1 text-xs rounded
 }
 
 .discord-md-light code {
@@ -19,7 +19,7 @@
 }
 
 .discord-md .d-spoiler {
-    @apply bg-neutral-500/75 px-0.5 text-sm rounded
+    @apply bg-[#333439] px-0.5 text-sm rounded
 }
 
 .discord-md h1 {

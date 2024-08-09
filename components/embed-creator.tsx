@@ -222,8 +222,10 @@ export default function MessageCreatorEmbed({
                             </div>
 
                             <div
-                                className="relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200"
-                                style={{ backgroundColor: mode === "DARK" ? "rgb(43, 45, 49)" : "rgb(255, 255, 255)" }}
+                                className={cn(
+                                    "relative lg:w-3/6 lg:mt-2 m-1 md:mt-8 mt-4 min-h-full rounded-md p-4 break-all overflow-hidden max-w-full text-neutral-200",
+                                    mode === "DARK" ? "bg-discord-gray" : "bg-white"
+                                )}
                             >
 
                                 <div className="absolute z-10 top-2 right-2 hidden md:block">

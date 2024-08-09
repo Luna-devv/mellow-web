@@ -244,7 +244,7 @@ export default async function Home() {
 
                             <AvatarGroup
                                 className="mt-4"
-                                max={8}
+                                max={9}
                             >
                                 {["us", "de", "es", "fr", "jp", "kr", "br", "id"].map((lang) => {
                                     const name = Object
@@ -282,8 +282,8 @@ export default async function Home() {
                         <div className="w-full md:w-1/2 ">
 
                             <div
-                                className="px-8 py-6 md:py-12 rounded-lg flex flex-col sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center gap-4 min-h-56"
-                                style={{ backgroundColor: "rgb(43, 45, 49)" }}
+                                className="bg-discord-gray px-8 py-6 md:py-12 rounded-lg flex flex-col sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center gap-4 min-h-56"
+
                             >
                                 <DiscordChannelCategory name="#/voice/dev/null">
                                     <DiscordChannel
@@ -332,14 +332,14 @@ export default async function Home() {
                             <h3 className={styles.h3}>Stay up-to-date on YouTube</h3>
                             <div className="pt-6">
                                 Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
-                                Unlike MEE6, which requires a paid subscription for many features, Wamellow provides these capabilities for free.
 
                                 <ol className="mt-4">
                                     {[
                                         "Up to 30 channels",
                                         "Custom message & embed",
-                                        "<1 minute delay",
-                                        "99% uptime"
+                                        "Sub 30 second delay",
+                                        "99.9% uptime",
+                                        "For free"
                                     ].map((name) => (
                                         <li key={name} className="flex gap-1 items-center">
                                             <HiCheck className="text-violet-400" />
@@ -361,10 +361,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
+                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps()}>
                                 <DiscordMarkdown mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=74Lj5cHseI8](https://youtube.com/watch?v=74Lj5cHseI8)" />
                                 <DiscordMessageEmbed
@@ -436,10 +433,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
+                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps("image")}>
                                 <DiscordMarkdown mode={"DARK"} text="query: **femboy**" />
                                 <Image
@@ -498,10 +492,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
+                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps("anime")}>
                                 <Image
                                     alt=""
@@ -552,10 +543,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
+                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps("leaderboard")}>
                                 <Image
                                     alt="example leaderboard card"
@@ -606,10 +594,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
+                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps()}>
                                 <DiscordMessageEmbed
                                     mode={"DARK"}
@@ -671,10 +656,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
+                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps()}>
                                 <DiscordMarkdown mode={"DARK"} text="Welcome @mwlica to **Someone's** 👋" />
                                 <Image
@@ -783,10 +765,7 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <div
-                            className="w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col gap-4"
-                            style={{ backgroundColor: "rgb(43, 45, 49)" }}
-                        >
+                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg flex flex-col gap-4">
                             <DiscordMessage
                                 mode={"DARK"}
                                 user={{
