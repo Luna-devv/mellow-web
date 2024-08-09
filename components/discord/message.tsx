@@ -61,7 +61,6 @@ export default function DiscordMessage({
                         />
                         <span className={cn(mode === "DARK" ? "text-violet-400" : "text-violet-600")}>{commandUsed.username}</span>
                         {commandUsed.bot &&
-
                             <DiscordAppBadge />
                         }
                         used

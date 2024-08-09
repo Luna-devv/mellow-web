@@ -71,7 +71,6 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
 
 function Socials() {
     return (
-
         <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
             <Link href="https://tiktok.com/@wamellow.com" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
                 <BiLogoTiktok />

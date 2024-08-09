@@ -16,7 +16,6 @@ export async function Commands({
 }: {
     limit?: number;
 }) {
-
     const commands = await fetch(`${process.env.NEXT_PUBLIC_API}/commands`, defaultFetchOptions)
         .then((res) => res.json())
         .catch(() => null) as Commands[] | null;

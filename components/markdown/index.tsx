@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/prop-types */
 import { Code } from "@nextui-org/react";
 import Link from "next/link";
 import { ReactNode } from "react";

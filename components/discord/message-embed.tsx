@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 
 import cn from "@/utils/cn";
@@ -12,7 +13,7 @@ interface Props {
     author?: {
         icon_url?: string;
         text: string;
-    }
+    };
 
     title?: string;
     color: number;
@@ -22,7 +23,7 @@ interface Props {
     footer?: {
         icon_url?: string;
         text: string;
-    }
+    };
 }
 
 export default function DiscordMessageEmbed({
@@ -60,7 +61,6 @@ export default function DiscordMessageEmbed({
                                 "font-semibold text-semibold mb-2 flex gap-2 items-center"
                             )}
                         >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             {author.icon_url && <img src={author.icon_url} alt="" className="rounded-full h-6 w-6" />}
                             <DiscordMarkdown
                                 mode={mode}
@@ -88,16 +88,13 @@ export default function DiscordMessageEmbed({
                     </div>
                 </div>
 
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 {thumbnail && <img src={replaceTemplatesToUrl(thumbnail)} alt="" className="ml-auto h-20 w-20 rounded-md" />}
             </div>
 
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             {image && <img src={replaceTemplatesToUrl(image)} alt="" className="ml-auto rounded-md h-full w-full mt-4" />}
 
             {footer?.text &&
                 <div className="flex gap-1 items-center mt-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     {footer.icon_url && <img src={footer.icon_url} alt="" className="rounded-full h-5 w-5" />}
                     <span className="text-xs">
                         <DiscordMarkdown

@@ -1,7 +1,7 @@
 import { getUser } from "@/lib/discord/user";
 
 export async function GET() {
-    const user = await getUser(process.env.CLIENT_ID!);
+    const user = await getUser(process.env.CLIENT_ID as string);
 
     return await fetch(user?.avatarUrl
         ? user.avatarUrl + "?size=1024"

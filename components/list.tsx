@@ -20,7 +20,7 @@ interface ListProps {
     children?: React.ReactNode
 }
 
-export function ListTab({ tabs, url, searchParamName, disabled, children }: ListProps) {
+export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
     const [position, setPosition] = useState(0);
     const path = usePathname();
     const params = useSearchParams();

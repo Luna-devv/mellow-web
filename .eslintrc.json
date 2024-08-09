@@ -2,7 +2,8 @@
     "extends": [
         "next/core-web-vitals",
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended" 
     ],
     "overrides": [],
     "parser": "@typescript-eslint/parser",
@@ -12,10 +13,13 @@
     "plugins": [
         "@typescript-eslint",
         "simple-import-sort",
-        "unused-imports"
+        "unused-imports",
+         "eslint-plugin-react-compiler"
     ],
     "rules": {
+        "react-compiler/react-compiler": "error",
         "react-hooks/exhaustive-deps": "off",
+        "react/react-in-jsx-scope": "off",
         "@typescript-eslint/ban-ts-comment": "error",
         "@typescript-eslint/no-explicit-any": "error",
         "consistent-return": "off",

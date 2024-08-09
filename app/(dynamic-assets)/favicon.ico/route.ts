@@ -3,7 +3,7 @@ import sharp from "sharp";
 import { getUser } from "@/lib/discord/user";
 
 export async function GET() {
-    const user = await getUser(process.env.CLIENT_ID!);
+    const user = await getUser(process.env.CLIENT_ID as string);
 
     const avatar = await fetch(user?.avatarUrl
         ? user.avatarUrl + "?size=64"

@@ -1,16 +1,6 @@
-import { getUser } from "./api";
+export const revalidate = 3600;
 
-interface Props {
-    params: { userId: string };
-}
-
-export const revalidate = 60 * 60;
-
-export default async function Home({
-    params
-}: Props) {
-    const user = await getUser(params.userId);
-
+export default async function Home() {
     return (
         <>
             <i>User has no bio yet</i>
