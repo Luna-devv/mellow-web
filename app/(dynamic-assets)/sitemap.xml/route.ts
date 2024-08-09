@@ -6,14 +6,12 @@ interface Sitemap {
     priority: number
 }
 
-// Update sitemap only one a day
-export const revalidate = 60 * 60 * 24;
+export const revalidate = 691200; // 8 days
 
 const fetchOptions = {
     headers: {
         Authorization: process.env.API_SECRET as string
-    },
-    next: { revalidate: 60 * 12 }
+    }
 };
 
 export async function GET() {
