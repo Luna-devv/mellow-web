@@ -1,5 +1,7 @@
 import { Footer } from "@/components/footer";
 
+export const revalidate = 43200;
+
 export default async function RootLayout({
     children
 }: {

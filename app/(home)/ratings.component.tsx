@@ -27,10 +27,16 @@ const review = {
     rating: "positive"
 } satisfies Review;
 
-export async function Ratings() {
-    const reviews = await fetch(`${process.env.RATINGS_API}/?id=${process.env.CLIENT_ID}`, defaultFetchOptions)
+function getReviews(){
+    return fetch(`${process.env.RATINGS_API}/?id=${process.env.CLIENT_ID}`, defaultFetchOptions)
         .then((res) => res.json())
-        .catch(() => [review]) as Review[];
+        .catch(() => [review]) as Promise<Review[]> ;
+}
+
+export async function Ratings() {
+    const reviews = process.env.RATINGS_API
+        ? await getReviews()
+        : [review];
 
     const cumulativeStars = reviews?.reduce((acc, review) => acc + (review.rating === "positive" ? 5 : 1), 0);
     const averageStars = Math.floor(cumulativeStars / reviews.length) || 0;
