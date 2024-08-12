@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     request.headers.set("Cache-Control", "public, max-age=691200, immutable");
 
     return await fetch(user?.avatarUrl
-        ? user.avatarUrl + "?size=1024"
+        ? user.avatarUrl + "?size=256"
         : "https://cdn.discordapp.com/embed/avatars/5.png"
     );
 }
