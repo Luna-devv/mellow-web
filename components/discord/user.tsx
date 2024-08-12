@@ -1,8 +1,8 @@
-import { Avatar } from "@nextui-org/react";
 import React from "react";
 
 import cn from "@/utils/cn";
 
+import { Avatar } from "../avatar";
 import DiscordAppBadge from "./app-badge";
 
 interface Props {

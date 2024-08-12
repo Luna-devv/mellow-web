@@ -1,10 +1,11 @@
-import { Avatar, AvatarGroup, Chip, Code } from "@nextui-org/react";
+import { AvatarGroup, Chip, Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord, BsYoutube } from "react-icons/bs";
 import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
+import { Avatar } from "@/components/avatar";
 import Box from "@/components/box";
 import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
@@ -114,12 +115,10 @@ export default async function Home() {
                         renderCount={renderCount}
                     >
                         {toFixedArrayLength(topGuilds || [], 8)
-                            ?.map((guild, i) => (
+                            ?.map((guild) => (
                                 <Avatar
-                                    as={Link}
-                                    href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
-                                    key={"mobileGuildGrid-" + guild.id + i}
-                                    src={guild.icon || "/discord.webp"}
+                                    key={"mobileGuildGrid-" + guild.id}
+                                    src={guild.icon ? guild.icon + "?size=128" : "/discord.webp"}
                                     alt={guild.name}
                                     title={guild.name}
                                 />
@@ -186,6 +185,7 @@ export default async function Home() {
                                             key={"guildGrid-" + guild.id + i + i2}
                                             className="relative md:h-32 h-24 md:w-32 w-24 hover:scale-110 duration-200"
                                             href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
+                                            prefetch={false}
                                         >
                                             <ImageReduceMotion
                                                 alt="server"

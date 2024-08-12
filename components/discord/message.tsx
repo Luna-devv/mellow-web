@@ -1,10 +1,10 @@
 "use client";
 
-import { Avatar } from "@nextui-org/react";
 import React from "react";
 
 import cn from "@/utils/cn";
 
+import { Avatar } from "../avatar";
 import DiscordAppBadge from "./app-badge";
 
 interface Props {
@@ -45,8 +45,8 @@ export default function DiscordMessage({
     return (
         <div className={cn("group relative rounded-lg px-1 w-full", mode === "DARK" ? "text-neutral-100" : "text-neutral-900")}>
 
-            {commandUsed ?
-                <div className={cn("flex items-center gap-1 opacity-70 text-sm ml-4", mode === "DARK" ? "text-neutral-400" : "text-neutral-600")} >
+            {commandUsed
+                ? <div className={cn("flex items-center gap-1 opacity-70 text-sm ml-4", mode === "DARK" ? "text-neutral-400" : "text-neutral-600")} >
                     <div
                         className={cn(
                             "border-t-2 border-l-2 rounded-tl-md w-7 relative shrink-0 h-2.5 top-1",
