@@ -36,7 +36,8 @@ export async function GET() {
         icon,
         {
             headers: {
-                "Content-Type": "image/png"
+                "Content-Type": "image/png",
+                "Cache-Control": "public, max-age=691200, immutable"
             }
         }
     );
