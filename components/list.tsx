@@ -22,9 +22,11 @@ interface ListProps {
 
 export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
     const [position, setPosition] = useState(0);
+
     const path = usePathname();
     const params = useSearchParams();
     const router = useRouter();
+
     const ref = useRef<HTMLDivElement | null>(null);
 
     function handleChange(key: unknown) {
@@ -40,7 +42,7 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
         if (key) newparams.append(searchParamName, key as string);
         else newparams.delete(searchParamName);
 
-        router.push(`${url}?${newparams.toString()}`);
+        router[params.get(searchParamName) ? "push" : "replace"](`${url}?${newparams.toString()}`);
     }
 
     function scroll(direction: "left" | "right") {
