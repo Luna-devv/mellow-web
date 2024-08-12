@@ -22,7 +22,7 @@ Pick a channel where any Text to Speech events from your server should be logged
 <br />
 <br />
 
-**Note:** This does not log any `/tts file` command. This is simply for simplicity and privacy reasons.
+**Note:** This does not log any `/tts file` command usage.
 
 ### 😷 Priority role
 Pick a role that lets users override other messages that are currently being spoken. This lets users start talking right away without the "please wait..." message popping up. It's a good idea to give this role to people who are actually disabled.
@@ -61,3 +61,24 @@ To prevent Wamellow from speaking your messages inside of Chat to Speech channel
 - Just add some special characters at the start of your message, like `!`, `?`, `>`, `.`, `,` and so on.
 - If you're not connected to any voice channels, those messages will also be ignored.
 - If you want to disable Chat to Speech permanently, you can use the command `/tts set chat-to-speech`.
+
+## Voice filters
+Filters are a way to tamper with the voices for voice chat moderators. They can be toggled using `/tts set filter` when using Wamellow in VCs.
+<br />
+<br />
+
+All currently available filters:
+- `Vaporwave`
+- `Nightcore`
+- `Rotation`
+- `Tremolo`
+- `Vibrato`
+- `LowPass`
+<br />
+<br />
+
+To change the volume of the tts or mute it entirely,
+- (desktop) Right-click Wamellow, and set the "User Volume" slider.
+- (mobile) Open Wamellows' profile, and set the "Volume" slider.
+
+![how to change the volume of wamellow tts](/docs-assets/tts-volume.webp)
