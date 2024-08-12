@@ -244,7 +244,7 @@ export default async function Home() {
 
                             <AvatarGroup
                                 className="mt-4"
-                                max={9}
+                                max={8}
                             >
                                 {["us", "de", "es", "fr", "jp", "kr", "br", "id"].map((lang) => {
                                     const name = Object
