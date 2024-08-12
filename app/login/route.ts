@@ -67,11 +67,14 @@ export async function GET(request: Request) {
     }
 
     const res = await createSession(code, session?.value);
+    let redirectUrl = getRedirectUrl(searchParams);
 
     if (!res || "statusCode" in res) {
         const data = { statusCode: 500, message: res?.message || "An error occurred" };
         console.log(data);
-        return Response.json(data);
+
+        redirectUrl += "?error=" + JSON.stringify(data);
+        redirect(redirectUrl);
     }
 
     cookieStore.set(
@@ -89,16 +92,15 @@ export async function GET(request: Request) {
         }
     );
 
+    redirect(redirectUrl);
+}
 
+function getRedirectUrl(searchParams: URLSearchParams) {
     const guildId = searchParams.get("guild_id");
-    let redirectUrl = decodeURIComponent(searchParams.get("state") || "/");
+    if (guildId) return `/dashboard/${guildId}`;
 
-    if (redirectUrl.includes("://")) redirectUrl = "/";
+    const redirectUrl = decodeURIComponent(searchParams.get("state") || "/");
+    if (redirectUrl.includes("://")) return "/";
 
-    redirect(
-        guildId
-            ? `/dashboard/${guildId}`
-            : redirectUrl
-    );
-
+    return redirectUrl;
 }
