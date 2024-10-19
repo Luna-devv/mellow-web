@@ -1,8 +1,10 @@
+import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { ReactNode } from "react";
 
 import { Section } from "@/components/section";
 import cn from "@/utils/cn";
+import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 import { Commands } from "../commands.component";
 
@@ -11,6 +13,39 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 interface Props {
     children: ReactNode
 }
+
+export const generateMetadata = async (): Promise<Metadata> => {
+    const title = "Status";
+    const description = "Check the status of all clusters and voice chat nodes, double check if we screwed something up - again!";
+    const url = getCanonicalUrl("status");
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            type: "website",
+            images: {
+                url: `${getBaseUrl()}/waya-v3.webp`,
+                type: "image/webp"
+            }
+        },
+        twitter: {
+            card: "summary",
+            title,
+            description,
+            images: {
+                url: `${getBaseUrl()}/waya-v3.webp`,
+                alt: title
+            }
+        }
+    };
+};
 
 export default function RootLayout({
     children
