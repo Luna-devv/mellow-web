@@ -17,11 +17,14 @@ export function Side({
     const cookies = useCookies();
     const [guildId, setGuildId] = useState<string>("");
 
-    const clusterId = useMemo(() => findClusterId(guildId || "", status.clusters.length), [guildId]);
+    const clusterId = useMemo(
+        () => /^\d{15,20}$/.test(guildId) ?
+            getClusterId(guildId || "", status.clusters.length)
+            : null,
+        [guildId]
+    );
 
     useEffect(() => {
-        if (!/^\d{15,20}$/.test(guildId)) return;
-
         const element = document.getElementById("cluster-" + clusterId);
         if (!element) return;
 
@@ -85,6 +88,6 @@ function Row({ name, children }: { name: string; children: ReactNode; }) {
     );
 }
 
-function findClusterId(guildId: string, totalShards: number) {
+function getClusterId(guildId: string, totalShards: number) {
     return Number((BigInt(guildId) >> BigInt(22))) % totalShards;
 }
