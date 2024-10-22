@@ -57,7 +57,7 @@ export function ChannelSelector({
             }
         </div>
 
-        <div className={cn("flex items-start justify-between w-full", notifications.length && "mt-3")}>
+        <div className={cn("flex items-start justify-between gap-2 w-full", notifications.length && "mt-3")}>
             <CreateNotification
                 guildId={guild?.id as string}
                 style={Style.Compact}

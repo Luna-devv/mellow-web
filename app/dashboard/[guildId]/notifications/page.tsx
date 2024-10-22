@@ -94,38 +94,39 @@ export default function Home() {
     };
 
     const Head = () => (
-        <div className="flex items-center gap-2 relative bottom-2 mb-3">
-            <Button
-                as={Link}
-                href={`/dashboard/${guild?.id}/notifications`}
-                startContent={<HiArrowLeft />}
-                size="sm"
-            >
-                Back to channel list
-            </Button>
+        <div className="flex items-start justify-between gap-2 relative bottom-2 mb-5 md:mb-3">
+            <div className="flex flex-col md:flex-row gap-2">
+                <Button
+                    as={Link}
+                    href={`/dashboard/${guild?.id}/notifications`}
+                    startContent={<HiArrowLeft />}
+                    size="sm"
+                >
+                    Back to channels
+                </Button>
 
-            <div className="flex items-center gap-1.5">
-                <Image
-                    alt={`${notification?.creator.username}'s avatar`}
-                    className="rounded-full size-5.5"
-                    src={notification?.creator.avatarUrl || ""}
-                    width={24}
-                    height={24}
-                />
+                <div className="flex items-center gap-1.5">
+                    <Image
+                        alt={`${notification?.creator.username}'s avatar`}
+                        className="rounded-full size-5.5"
+                        src={notification?.creator.avatarUrl || ""}
+                        width={24}
+                        height={24}
+                    />
 
-                <div className="flex flex-col">
-                    <span className="text-xxs -mb-1">
-                        Editing:
-                    </span>
-                    <span className="text-neutral-100 font-medium">
-                        {notification?.creator.username}
-                    </span>
+                    <div className="flex flex-col">
+                        <span className="text-xxs -mb-1">
+                            Editing:
+                        </span>
+                        <span className="text-neutral-100 font-medium">
+                            {notification?.creator.username}
+                        </span>
+                    </div>
                 </div>
             </div>
 
             <Button
                 as={Link}
-                className="ml-auto"
                 href="/docs/notifications"
                 target="_blank"
                 endContent={<HiExternalLink />}
