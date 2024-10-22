@@ -52,10 +52,7 @@ export default function DeleteNotification({
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/notifications/${id}`, {
                         method: "DELETE",
-                        credentials: "include",
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
+                        credentials: "include"
                     });
                 }}
                 onSuccess={() => {
