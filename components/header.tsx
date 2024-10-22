@@ -49,7 +49,7 @@ export default function Header(props: React.ComponentProps<"div">) {
     }, []);
 
 
-    const UserButton = (
+    const UserButton = () => (
         <button
             className={cn(
                 "ml-auto flex dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center",
@@ -71,7 +71,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                 <Skeleton className="rounded-xl w-20 h-4" />
                 :
                 <>
-                    <div className="mr-1 relative bottom-[1px]">@{user?.username}</div>
+                    <div className="mr-1 relative bottom-[1px]">{user?.globalName || user?.username}</div>
                     <HiChevronDown />
                 </>
             }
@@ -132,7 +132,7 @@ export default function Header(props: React.ComponentProps<"div">) {
         )
     ];
 
-    const UserDropdown = (
+    const UserDropdown = () => (
         <motion.div
             initial="closed"
             animate={menu ? "open" : "closed"}
@@ -178,7 +178,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                     </div>
                     <div className="text-neutral-500 dark:text-neutral-400 max-w-40 truncate">
                         <span className="text-medium sm:text-sm">
-                        @{user?.username}
+                            @{user?.username}
                         </span>
                     </div>
                 </div>
@@ -246,7 +246,7 @@ export default function Header(props: React.ComponentProps<"div">) {
 
         {state === State.Failure
             ? <LoginButton state={state} />
-            : UserButton
+            : <UserButton />
         }
 
         <MotionConfig
@@ -261,7 +261,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                         <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 overflow-x-hidden">
                             <div className="ml-auto">
                                 <div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full sm:w-0">
-                                    {UserDropdown}
+                                    <UserDropdown />
                                 </div>
                             </div>
                         </div>
