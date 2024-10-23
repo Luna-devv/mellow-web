@@ -1,10 +1,11 @@
 ## Terms of Service
 **last modified 10/22/2024 (MM/DD/YYYY)**
+
 These Terms of Service apply to the website "wamellow.com," all its associated subdomains, and our Discord bot application(s) with the user ID(s) "1125449347451068437".
 "we", "us", and "our" refer to the online service Wamellow.
 
 ## General
-This page contains the terms of use ("Agreement," "Terms of Use") that all users must adhere to. We are required to clearly define the applicable rights and limitations. By using our service, you …
+This page contains the Terms of Service ("Agreement," "Terms of Use") that all users must adhere to. We are required to clearly define the applicable rights and limitations. By using our service, you …
 * (1.) … accept these Terms of Service.
 * (2.) … accept our Privacy Policy.
 * (3.) … automatically enter into a contract between you (the "Consumer," "User"), us, and these Terms of Service.
@@ -36,9 +37,6 @@ When using our Services, you must comply with these Terms and all applicable law
 
 * **Do not use the Services to do anything else that is illegal.** This includes using the Services to commit a crime or infringe the intellectual property rights of others.
 
-## Age requirements
-By accessing our Services, you confirm that you are at least 13 years old and meet the minimum age for digital consent applicable in your country. If you are old enough in your country to access our Services but not old enough to agree to our Terms, your parent or legal guardian must agree to the Terms on your behalf. Ask your parent or legal guardian to read these terms with you. If you are a parent or legal guardian and you allow your teen to use the Services, these Terms also apply to you and you are responsible for your teen's activities on the Services.
-
 ## Intellectual Property
 Virtual elements (including but not limited to images, graphics, design, text, videos, music, sound) that belong to us and/or represent, reflect or identify us may not be reproduced by your own.
 
@@ -49,6 +47,12 @@ Any media uploaded is done so with the users consent and Wamellow and its develo
 - Leaderboard Rank Card emojis
 - Leaderboard banners
 - Discord user avatars or banners
+
+## Age requirements
+By accessing our Services, you confirm that you are at least 13 years old and meet the minimum age for digital consent applicable in your country. If you are old enough in your country to access our Services but not old enough to agree to our Terms, your parent or legal guardian must agree to the Terms on your behalf. Ask your parent or legal guardian to read these terms with you. If you are a parent or legal guardian and you allow your teen to use the Services, these Terms also apply to you and you are responsible for your teen's activities on the Services.
+
+# Governing Law and Dispute Resolution
+Any dispute or claim arising from or related to these Terms of Service, including any non-contractual disputes or claims connected to their subject matter or formation, shall be governed by and construed in accordance with the laws of the Republic of Austria.
 
 ## Violations
 In the event of violations of our Terms of Service, we reserve the right to delete the content in question from our database, to exclude the responsible user from our Service and to take legal action. Any violation against these Terms of Service will be dealt with on an individual basis by the Service management.

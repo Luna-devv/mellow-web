@@ -1,5 +1,6 @@
 ## Privacy Policy
 **last modified 10/22/2024 (MM/DD/YYYY)**
+
 This Privacy Policy adheres to and encompasses the same definitions and entities as outlined in the Terms of Service.
 
 ## Data Collection
