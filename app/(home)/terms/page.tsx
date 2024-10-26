@@ -1,9 +1,11 @@
+import { readFile } from "fs/promises";
 import { Metadata } from "next";
-import React from "react";
 
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import BeautifyMarkdown from "@/components/markdown";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
+export const revalidate = false;
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
@@ -34,14 +36,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
     };
 };
 
+const PATH = `${process.cwd()}/public/legal/terms.md` as const;
+
 export default async function Home() {
-    const res = await fetch("https://gist.githubusercontent.com/Luna-devv/12eaa667250165ba17d3319634923da8/raw/8edfb7746b00a59c064d3f85e50ce49e222531cd/terms.md", { next: { revalidate: 60 * 60 } });
-    const markdown = (await res.text())
-        .replaceAll(/waya\.one/gi, "wamellow.com")
-        .replaceAll(/waya#0325/gi, "Wamellow#1138")
-        .replaceAll(/waya/gi, "wamellow")
-        .replaceAll("/config command", "web dashboard (wamellow.com/dashboard)")
-        .replaceAll("@wamellow.com", "@waya.one");
+    const terms = await readFile(PATH, { encoding: "utf-8" });
 
     return (
         <div>
@@ -50,7 +48,7 @@ export default async function Home() {
                 <CopyToClipboardButton text={getCanonicalUrl("terms")} />
             </div>
 
-            <BeautifyMarkdown markdown={markdown} />
+            <BeautifyMarkdown markdown={terms} />
 
         </div>
     );

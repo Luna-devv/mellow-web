@@ -1,9 +1,11 @@
+import { readFile } from "fs/promises";
 import { Metadata } from "next";
-import React from "react";
 
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import BeautifyMarkdown from "@/components/markdown";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
+export const revalidate = false;
 
 export const generateMetadata = async (): Promise<Metadata> => {
 
@@ -34,16 +36,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
     };
 };
 
+const PATH = `${process.cwd()}/public/legal/privacy.md` as const;
+
 export default async function Home() {
-    const res = await fetch("https://gist.githubusercontent.com/Luna-devv/c79375ba9e1834e87bcc88be8694113a/raw/9210c928b7b16aa52d37d145f628d971ea8447a7/privacy.md", { next: { revalidate: 60 * 60 } });
-    const markdown = (await res.text())
-        .replaceAll(/waya\.one/gi, "wamellow.com")
-        .replaceAll(/waya#0325/gi, "Wamellow#1138")
-        .replaceAll(/waya/gi, "wamellow")
-        .replaceAll("/config command with our application on Discord", "web dashboard (wamellow.com/dashboard and wamellow.com/profile)")
-        .replaceAll("@wamellow.com", "@waya.one")
-        .replaceAll("Google Analytics", "a self-hosted instance of Plausible Analytics")
-        .replaceAll("navigating to the `/config` menu and selecting the ‘Export Data’ option.", "");
+    const privacy = await readFile(PATH, { encoding: "utf-8" });
 
     return (
         <div>
@@ -52,7 +48,7 @@ export default async function Home() {
                 <CopyToClipboardButton text={getCanonicalUrl("privacy")} />
             </div>
 
-            <BeautifyMarkdown markdown={markdown} />
+            <BeautifyMarkdown markdown={privacy} />
 
         </div>
     );

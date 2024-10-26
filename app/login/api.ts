@@ -29,7 +29,6 @@ export async function deleteSession(session: string): Promise<true | RouteErrorR
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/sessions`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json",
             "Cookie": `session=${session}`,
             authorization: process.env.API_SECRET as string
         }

@@ -1,15 +1,16 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { HiArrowLeft, HiChat, HiExternalLink, HiViewGridAdd } from "react-icons/hi";
+import { HiChat, HiViewGridAdd } from "react-icons/hi";
 import { useQuery, useQueryClient } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import Fetch from "@/components/button-fetch";
+import { CreateSplash } from "@/components/dashboard/lists/create-splash";
+import { Navigation } from "@/components/dashboard/lists/navigation";
+import { ItemSelector } from "@/components/dashboard/lists/selector";
 import MessageCreatorEmbed from "@/components/embed-creator";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
@@ -17,7 +18,8 @@ import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
 
-import { ChannelSelector } from "./channel-selector.component";
+import CreateNotification, { Style } from "./create.component";
+import DeleteNotification from "./delete.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -93,63 +95,87 @@ export default function Home() {
         );
     };
 
-    const Head = () => (
-        <div className="flex items-start justify-between gap-2 relative bottom-2 mb-5 md:mb-3">
-            <div className="flex flex-col md:flex-row gap-2">
-                <Button
-                    as={Link}
-                    href={`/dashboard/${guild?.id}/notifications`}
-                    startContent={<HiArrowLeft />}
-                    size="sm"
-                >
-                    Back to channels
-                </Button>
-
-                <div className="flex items-center gap-1.5">
-                    <Image
-                        alt={`${notification?.creator.username}'s avatar`}
-                        className="rounded-full size-5.5"
-                        src={notification?.creator.avatarUrl || ""}
-                        width={24}
-                        height={24}
-                    />
-
-                    <div className="flex flex-col">
-                        <span className="text-xxs -mb-1">
-                            Editing:
-                        </span>
-                        <span className="text-neutral-100 font-medium">
-                            {notification?.creator.username}
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <Button
-                as={Link}
-                href="/docs/notifications"
-                target="_blank"
-                endContent={<HiExternalLink />}
-                size="sm"
-            >
-                Read docs & view placeholders
-            </Button>
-        </div>
-    );
-
     if (!notification) {
         return (
-            <ChannelSelector
-                notifications={data || []}
-                addNotification={addNotification}
-                setNotificationId={setNotificationId}
-                removeNotification={removeNotification}
-            />
+            <ItemSelector<ApiV1GuildsModulesNotificationsGetResponse>
+                items={(data || []) as ApiV1GuildsModulesNotificationsGetResponse[]}
+
+                set={setNotificationId}
+                sort={(a, b) => a.creator.username.localeCompare(b.creator.username)}
+                name={(item) => item.creator.username}
+
+                docs="/notifications"
+
+                createButton={(options) => (
+                    <CreateNotification
+                        style={options.style}
+                        add={addNotification}
+                        set={setNotificationId}
+                    />
+                )}
+
+                deleteButton={(options) => (
+                    <DeleteNotification
+                        id={options.id}
+                        name={options.name}
+                        remove={removeNotification}
+                    />
+                )}
+
+                item={(item) => {
+                    const channel = guild?.channels?.find((channel) => channel.id === item.channelId);
+
+                    return (<>
+                        <Image
+                            alt={`${item.creator.username}'s avatar`}
+                            className="rounded-full"
+                            src={item.creator.avatarUrl}
+                            width={46}
+                            height={46}
+                        />
+
+                        <div className="flex flex-col items-start">
+                            <span className="text-neutral-100 text-lg font-medium -mb-[0.5]">
+                                {item.creator.username}
+                            </span>
+
+                            <div className="bg-blurple/50 text-neutral-100 px-1 rounded-md">
+                                #{channel?.name || "unknown"}
+                            </div>
+                        </div>
+                    </>);
+                }}
+            >
+                <CreateSplash
+                    name="notifications"
+                    description="Notify your community when new videos are released."
+                >
+                    <CreateNotification
+                        style={Style.Big}
+                        add={addNotification}
+                        set={setNotificationId}
+                    />
+                </CreateSplash>
+            </ItemSelector>
         );
     }
 
     return (<>
-        <Head />
+        <Navigation
+            href="/notifications"
+            docs="/notifications"
+
+            icon={
+                <Image
+                    alt={`${notification?.creator.username}'s avatar`}
+                    className="rounded-full size-5.5"
+                    src={notification?.creator.avatarUrl || ""}
+                    width={24}
+                    height={24}
+                />
+            }
+            name={notification.creator.username}
+        />
 
         <div className="flex md:gap-4 gap-2">
             <SelectMenu
