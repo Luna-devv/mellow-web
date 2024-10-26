@@ -86,7 +86,7 @@ const data = [
             <div>
                 <ol className="list-decimal list-inside marker:text-neutral-500 mb-4">
                     <li>
-                        In the Discord App, click on your servers' name and click {'"'}Settings{'"'}
+                        In the Discord App, click on your servers&apos; name and click {'"'}Settings{'"'}
                     </li>
                     <li>
                         Then go to the tab {'"'}Integrations{'"'} in the {'"'}Apps{'"'} category.

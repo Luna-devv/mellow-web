@@ -40,7 +40,7 @@ export default function ResetLeaderboard({ guild }: Props) {
                 onSubmit={() => {
                     return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild.id}/top-members`, {
                         method: "DELETE",
-                        credentials: "include",
+                        credentials: "include"
                     });
                 }}
             >

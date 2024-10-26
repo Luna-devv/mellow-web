@@ -317,7 +317,7 @@ export default function Home() {
                 className="mb-6"
                 title="Click to say hi!"
             >
-                Bring Discord's "Wave to say hi!" feature on customized messages, just with a random greet!
+                Bring Discord&apos;s &quot;Wave to say hi!&quot; feature on customized messages, just with a random greet!
             </Section>
 
             <Switch
