@@ -1,5 +1,6 @@
 ## Privacy Policy
-**last modified 10/22/2024 (MM/DD/YYYY)**
+**last modified 10/26/2024 (MM/DD/YYYY)**
+<br />
 
 This Privacy Policy adheres to and encompasses the same definitions and entities as outlined in the Terms of Service.
 
@@ -16,18 +17,18 @@ The data that we collect and store is used to provide you with the best possible
 
 ## Security
 We take the security of your information very seriously. When we collect your data, we make every effort to protect it from theft, loss, unauthorized access, disclosure, copying, and use. We employ a variety of security measures to safeguard your information and ensure its confidentiality.
-
+<br /><br />
 However, it is important to note that no electronic data transmission or storage is completely secure and absolute data security cannot be guaranteed. Despite our best efforts, there is always a risk of a data breach. In such an event, we will comply with all applicable laws and regulations to protect your information and mitigate any potential harm.
-
+<br /><br />
 It is also important for you to take responsibility for the security of your own data within our services. This includes choosing a strong and secure password and being mindful of the information you share with us.
-
+<br /><br />
 Access to sensitive data is strictly limited to our chief developers. We have strict protocols in place to ensure that this data is never viewed, edited, shared or published without the express permission of the data creator. Our goal is to provide you with a secure and trustworthy service that respects your privacy and protects your information.
 
 ## Data Retention Period
 We retain your personal data only for as long as it is necessary for the purposes outlined in this privacy policy. The specific retention period will vary depending on the nature of the data and how it is used. When your personal data is no longer required, we will take steps to either delete it or anonymize it by removing any identifying details.
-
+<br /><br />
 In certain circumstances, we may be required to retain your personal data for longer periods in order to comply with legal, accounting or reporting obligations. This may also apply to data that is retained for archiving purposes in the public interest, or for scientific, historical research or statistical purposes.
-
+<br /><br />
 We may collect or share personal data if we think someone’s life is in danger - for example, to help resolve an urgent medical situation.
 
 ## Children's Privacy and Data Collection
@@ -47,7 +48,7 @@ If you wish to make a request to access your personal data that we have collecte
  
 ## Privacy Policy Updates and Changes
 We reserve the right to make changes to our Privacy Policy at our discretion in order to reflect updates to our business processes, current acceptable practices, or legal or regulatory changes. In the event that we decide to make changes to our Privacy Policy, we will post the updated version on our website at the same link where you currently access our Privacy Policy. Please note that we may update our Privacy Policy at any time without prior notice.
-
+<br /><br />
 It is important to note that we have no control over the privacy policies of any external services that may be linked on our website. We are not affiliated with any of the services linked on our website and cannot be held responsible for their privacy practices.
 
 ## Contact

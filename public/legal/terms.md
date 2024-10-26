@@ -1,5 +1,6 @@
 ## Terms of Service
-**last modified 10/22/2024 (MM/DD/YYYY)**
+**last modified 10/26/2024 (MM/DD/YYYY)**
+<br />
 
 These Terms of Service apply to the website "wamellow.com," all its associated subdomains, and our Discord bot application(s) with the user ID(s) "1125449347451068437".
 "we", "us", and "our" refer to the online service Wamellow.
@@ -10,7 +11,7 @@ This page contains the Terms of Service ("Agreement," "Terms of Use") that all u
 * (2.) … accept our Privacy Policy.
 * (3.) … automatically enter into a contract between you (the "Consumer," "User"), us, and these Terms of Service.
 * (4.) … confirm that you have reached the digital age of majority in your country or have the consent of your legal guardian.
-
+<br /><br />
 If you do not agree to these Terms of Service or the Privacy Policy, you agree not to use this service in any way. If you use a translator and there is any discrepancy, the English and original versions shall prevail.
 
 ## Services “AS IS”
@@ -23,9 +24,9 @@ TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, WAMELLOW AND ITS AFFILIATES, 
 * (2.) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE;
 * (3.) ANY CONTENT OBTAINED FROM THE SERVICE; AND
 * (4.) UNAUTHORIZED ACCESS, USE, OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), OR ANY OTHER LEGAL THEORY, WHETHER OR NOT WE HAVE BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+<br /><br />
 IN NO EVENT SHALL WAMELLOW’S TOTAL LIABILITY TO YOU FOR ALL DAMAGES EXCEED THE AMOUNT PAID BY YOU, IF ANY, FOR USING THE SERVICE DURING THE TWELVE (12) MONTHS PRECEDING THE EVENT GIVING RISE TO THE LIABILITY.
-
+<br /><br />
 SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, SO THE ABOVE LIMITATION MAY NOT APPLY TO YOU. IN SUCH JURISDICTIONS, OUR LIABILITY SHALL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY LAW.
 
 ## Restrictions
@@ -59,7 +60,7 @@ In the event of violations of our Terms of Service, we reserve the right to dele
 
 ## Changes and Limits
 We have the discretion to change our Terms of Service to reflect updates to our business processes, current acceptable practices, or legal or regulatory changes. If we decide to change these Terms of Service, we will post the changes here at the same link you use to access these Terms of Service. We reserve the right to update our Terms of Service at any time without notice.
-
+<br /><br />
 We have no control over the Terms of Service of any external services that this website might link. We are not affiliated with any service linked on this website.
 
 ## Contact
