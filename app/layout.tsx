@@ -68,7 +68,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             description,
             type: "website",
             url: getBaseUrl(),
-            images: `${getBaseUrl()}/waya-v3.webp?v=2`
+            images: `${getBaseUrl()}/waya-v3.webp?v=3`
         },
 
         twitter: {
@@ -76,7 +76,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
             site: "wamellow.com",
             title,
             description,
-            images: `${getBaseUrl()}/waya-v3.webp?v=2`
+            images: `${getBaseUrl()}/waya-v3.webp?v=3`
         },
 
         creator: "Luna (lunish.nl)",
@@ -89,7 +89,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 export default function RootLayout({
     children
 }: {
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
 
     return (
@@ -100,7 +100,6 @@ export default function RootLayout({
                 lang="en"
                 className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden"
             >
-
                 <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
 
                 <body

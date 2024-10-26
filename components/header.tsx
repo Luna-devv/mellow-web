@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import React, { useEffect, useState } from "react";
-import { HiAdjustments, HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiIdentification, HiLogout, HiViewGridAdd } from "react-icons/hi";
+import { HiAdjustments, HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiFire, HiIdentification, HiLogout, HiTrendingUp, HiViewGridAdd } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
@@ -117,6 +117,16 @@ export default function Header(props: React.ComponentProps<"div">) {
                     url: "/debug"
                 },
                 {
+                    name: "Issues",
+                    icon: <HiFire />,
+                    url: "https://redirect.wamellow.com/issues"
+                },
+                {
+                    name: "Metrics",
+                    icon: <HiTrendingUp />,
+                    url: "https://redirect.wamellow.com/metrics"
+                },
+                {
                     name: "Lunar Tools",
                     icon: <HiBeaker />,
                     value: devTools,
@@ -176,7 +186,7 @@ export default function Header(props: React.ComponentProps<"div">) {
                             </Chip>
                         }
                     </div>
-                    <div className="text-neutral-500 dark:text-neutral-400 max-w-40 truncate">
+                    <div className="text-neutral-500 dark:text-neutral-400 max-w-40 truncate -mt-1">
                         <span className="text-medium sm:text-sm">
                             @{user?.username}
                         </span>
@@ -258,13 +268,13 @@ export default function Header(props: React.ComponentProps<"div">) {
         >
             <AnimatePresence initial={false}>
                 {user?.id && menu &&
-                        <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 overflow-x-hidden">
-                            <div className="ml-auto">
-                                <div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full sm:w-0">
-                                    <UserDropdown />
-                                </div>
+                    <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 overflow-x-hidden">
+                        <div className="ml-auto">
+                            <div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full sm:w-0">
+                                <UserDropdown />
                             </div>
                         </div>
+                    </div>
                 }
             </AnimatePresence>
         </MotionConfig>
