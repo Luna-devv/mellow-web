@@ -4,23 +4,21 @@ import { Button, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 
+import { guildStore } from "@/common/guilds";
 import Modal from "@/components/modal";
 
 interface Props {
-    guildId: string;
     id: string | null;
-    name?: string;
-
-    removeNotification: (id: string) => void;
+    name: string;
+    remove: (id: string) => void;
 }
 
 export default function DeleteNotification({
-    guildId,
     id,
     name,
-
-    removeNotification
+    remove
 }: Props) {
+    const guildId = guildStore((g) => g?.id);
     const [open, setOpen] = useState(false);
 
     return (
@@ -56,7 +54,7 @@ export default function DeleteNotification({
                     });
                 }}
                 onSuccess={() => {
-                    if (id) removeNotification(id);
+                    if (id) remove(id);
                 }}
             >
                 Are you sure you want to delete the {'"'}{name}{'"'} channel from posting notifications? It will be gone forever, probably, who knows.
