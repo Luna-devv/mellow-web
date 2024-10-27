@@ -1,20 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useParams } from "next/navigation";
 import { HiChat, HiViewGridAdd } from "react-icons/hi";
-import { useQuery, useQueryClient } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import Fetch from "@/components/button-fetch";
 import { CreateSplash } from "@/components/dashboard/lists/create-splash";
+import { useList } from "@/components/dashboard/lists/hook";
 import { Navigation } from "@/components/dashboard/lists/navigation";
 import { ItemSelector } from "@/components/dashboard/lists/selector";
 import MessageCreatorEmbed from "@/components/embed-creator";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
-import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
 
@@ -23,41 +21,26 @@ import DeleteNotification from "./delete.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);
-    const pathname = usePathname();
-    const search = useSearchParams();
-    const router = useRouter();
     const params = useParams();
-    const queryClient = useQueryClient();
 
     const url = `/guilds/${params.guildId}/modules/notifications` as const;
+    const {
+        item,
+        items,
+        setItemId,
+        editItem,
+        addItem,
+        removeItem,
+        isLoading,
+        error
+    } = useList<ApiV1GuildsModulesNotificationsGetResponse>({ url });
 
-    const { data, isLoading, error } = useQuery(
-        url,
-        () => getData<ApiV1GuildsModulesNotificationsGetResponse[]>(url),
-        {
-            enabled: !!params.guildId,
-            ...cacheOptions
-        }
-    );
-
-    const id = search.get("id");
-    const notification = (Array.isArray(data) ? data : []).find((t) => t.id === id);
-
-    const createQueryString = useCallback((name: string, value: string) => {
-        const params = new URLSearchParams(search);
-        params.set(name, value);
-
-        return params.toString();
-    }, [search]);
-
-    if (error || (data && "message" in data)) {
+    if (error) {
         return (
             <ScreenMessage
                 top="20vh"
                 title="Something went wrong on this page.."
-                description={
-                    (data && "message" in data ? data.message : `${error}`)
-                    || "An unknown error occurred."}
+                description={error}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
@@ -67,40 +50,14 @@ export default function Home() {
         );
     }
 
-    if (isLoading || !data) return <></>;
+    if (isLoading || !items) return <></>;
 
-    const setNotificationId = (id: string) => {
-        router.push(pathname + "?" + createQueryString("id", id));
-    };
-
-    const editNotification = <T extends keyof ApiV1GuildsModulesNotificationsGetResponse>(k: keyof ApiV1GuildsModulesNotificationsGetResponse, value: ApiV1GuildsModulesNotificationsGetResponse[T]) => {
-        if (!notification) return;
-
-        queryClient.setQueryData<ApiV1GuildsModulesNotificationsGetResponse[]>(url, () => [
-            ...(data?.filter((t) => t.id !== notification.id) || []),
-            { ...notification, [k]: value }
-        ]);
-    };
-
-    const addNotification = (notification: ApiV1GuildsModulesNotificationsGetResponse) => {
-        queryClient.setQueryData<ApiV1GuildsModulesNotificationsGetResponse[]>(url, () => [
-            ...(data || []),
-            notification
-        ]);
-    };
-
-    const removeNotification = (id: string) => {
-        queryClient.setQueryData<ApiV1GuildsModulesNotificationsGetResponse[]>(url, () =>
-            data?.filter((t) => t.id !== id) || []
-        );
-    };
-
-    if (!notification) {
+    if (!item) {
         return (
             <ItemSelector<ApiV1GuildsModulesNotificationsGetResponse>
-                items={(data || []) as ApiV1GuildsModulesNotificationsGetResponse[]}
+                items={items}
 
-                set={setNotificationId}
+                set={setItemId}
                 sort={(a, b) => a.creator.username.localeCompare(b.creator.username)}
                 name={(item) => item.creator.username}
 
@@ -109,8 +66,8 @@ export default function Home() {
                 createButton={(options) => (
                     <CreateNotification
                         style={options.style}
-                        add={addNotification}
-                        set={setNotificationId}
+                        add={addItem}
+                        set={setItemId}
                     />
                 )}
 
@@ -118,7 +75,7 @@ export default function Home() {
                     <DeleteNotification
                         id={options.id}
                         name={options.name}
-                        remove={removeNotification}
+                        remove={removeItem}
                     />
                 )}
 
@@ -152,8 +109,8 @@ export default function Home() {
                 >
                     <CreateNotification
                         style={Style.Big}
-                        add={addNotification}
-                        set={setNotificationId}
+                        add={addItem}
+                        set={setItemId}
                     />
                 </CreateSplash>
             </ItemSelector>
@@ -167,30 +124,30 @@ export default function Home() {
 
             icon={
                 <Image
-                    alt={`${notification?.creator.username}'s avatar`}
+                    alt={`${item?.creator.username}'s avatar`}
                     className="rounded-full size-5.5"
-                    src={notification?.creator.avatarUrl || ""}
+                    src={item?.creator.avatarUrl || ""}
                     width={24}
                     height={24}
                 />
             }
-            name={notification.creator.username}
+            name={item.creator.username}
         />
 
         <div className="flex md:gap-4 gap-2">
             <SelectMenu
                 name="Channel"
-                url={url + "/" + notification.id}
+                url={url + "/" + item.id}
                 dataName="channelId"
                 items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
                 description="Select a channel where notifications should be send into."
-                defaultState={notification.channelId}
-                onSave={(o) => editNotification("channelId", o.value as string)}
+                defaultState={item.channelId}
+                onSave={(o) => editItem("channelId", o.value as string)}
             />
 
             <Fetch
                 className="w-1/3 md:w-1/6 relative top-8"
-                url={url + "/" + notification.id + "/test"}
+                url={url + "/" + item.id + "/test"}
                 icon={<HiChat className="min-h-4 min-w-4" />}
                 label="Test Message"
                 method="POST"
@@ -201,7 +158,7 @@ export default function Home() {
         <SelectMenu
             className="md:w-1/2 w-full"
             name="Ping role"
-            url={url + "/" + notification.id}
+            url={url + "/" + item.id}
             dataName="roleId"
             items={[
                 { name: "@everyone (everyone in server)", value: "everyone" },
@@ -209,18 +166,18 @@ export default function Home() {
                 ...guild?.roles?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `@${c.name}`, value: c.id, color: c.color })) || []
             ]}
             description="Select a role which should get pinged on uploads."
-            defaultState={notification.roleId}
-            onSave={(o) => editNotification("roleId", o.value as string)}
+            defaultState={item.roleId}
+            onSave={(o) => editItem("roleId", o.value as string)}
             showClear
         />
 
         <MessageCreatorEmbed
-            key={notification.id}
+            key={item.id}
             name="Message"
-            url={url + "/" + notification.id}
+            url={url + "/" + item.id}
             dataName="message"
-            defaultMessage={notification.message}
-            onSave={(value) => editNotification("message", value as string)}
+            defaultMessage={item.message}
+            onSave={(value) => editItem("message", { content: value.content ?? null, embed: value.embed })}
         />
     </>);
 }
