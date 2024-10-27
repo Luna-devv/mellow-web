@@ -18,16 +18,16 @@ import { getUpload, getUploads } from "../api";
 import Side from "./side.component";
 
 export interface Props {
-    params: { uploadId: string };
+    params: Promise<{ uploadId: string }>;
     children: React.ReactNode;
 }
 
 export const revalidate = 3600;
 
-export const generateMetadata = async ({
-    params
-}: Props): Promise<Metadata> => {
-    const upload = await getUpload(params.uploadId);
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+    const { uploadId } = await params;
+
+    const upload = await getUpload(uploadId);
     const prompt = "prompt" in upload
         ? truncate(upload.prompt.split(" ").map((str) => str.replace(/^\w/, (char) => char.toUpperCase())).join(" "), 24)
         : null;
@@ -35,7 +35,7 @@ export const generateMetadata = async ({
     const title = prompt ? `${prompt} - /image Ai` : "Free /image Ai for Discord";
     const description = `Amazing AI generated images ${"model" in upload ? `using the ${upload.model}` : ""}, created using Wamellow's versatile /image command for Discord.`.replace(/ +/g, " ");
     const images = "id" in upload ? `https://r2.wamellow.com/ai-image/${upload.id}.webp` : `${getBaseUrl()}/waya-v3.webp`;
-    const url = getCanonicalUrl("ai-gallery", params.uploadId);
+    const url = getCanonicalUrl("ai-gallery", uploadId);
 
     return {
         title,
@@ -60,16 +60,15 @@ export const generateMetadata = async ({
     };
 };
 
-export default async function RootLayout({
-    params,
-    children
-}: Props) {
-    const upload = await getUpload(params.uploadId);
+export default async function RootLayout({ params, children }: Props) {
+    const { uploadId } = await params;
+
+    const upload = await getUpload(uploadId);
 
     const [guild, uploads, analytics] = await Promise.all([
         "guildId" in upload ? getGuild(upload.guildId) : undefined,
         "model" in upload ? getUploads({ query: upload.prompt, nsfw: upload.nsfw }) : undefined,
-        getPageAnalytics("/ai-gallery/" + params.uploadId)
+        getPageAnalytics("/ai-gallery/" + uploadId)
     ]);
 
     return (

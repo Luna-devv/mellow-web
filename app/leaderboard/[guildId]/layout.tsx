@@ -14,21 +14,21 @@ import { getDesign, getPagination } from "./api";
 import Side from "./side.component";
 
 export interface Props {
-    params: { guildId: string };
+    params: Promise<{ guildId: string }>;
     children: React.ReactNode;
 }
 
 export const revalidate = 3600;
 
-export const generateMetadata = async ({
-    params
-}: Props): Promise<Metadata> => {
-    const guild = await getGuild(params.guildId);
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+    const { guildId } = await params;
+
+    const guild = await getGuild(guildId);
     const name = guild && "name" in guild ? guild.name : "Unknown";
 
     const title = `${name}'s Leaderboard`;
     const description = `Discover the most active chatters, voice timers, and top inviters. ${name ? `Explore the community of the ${name} discord server right from your web browser.` : ""}`;
-    const url = getCanonicalUrl("leaderboard", params.guildId);
+    const url = getCanonicalUrl("leaderboard", guildId);
 
     const date = new Date();
     const cacheQuery = `${date.getDate()}${date.getHours()}`;
@@ -45,7 +45,7 @@ export const generateMetadata = async ({
             url,
             type: "website",
             images: {
-                url: getCanonicalUrl("leaderboard", params.guildId, `open-graph.png?ca=${cacheQuery}`),
+                url: getCanonicalUrl("leaderboard", guildId, `open-graph.png?ca=${cacheQuery}`),
                 width: 1200,
                 height: 630,
                 type: "image/png"
@@ -56,7 +56,7 @@ export const generateMetadata = async ({
             title,
             description,
             images: {
-                url: getCanonicalUrl("leaderboard", params.guildId, `open-graph.png?ca=${cacheQuery}`),
+                url: getCanonicalUrl("leaderboard", guildId, `open-graph.png?ca=${cacheQuery}`),
                 alt: title
             }
         },
@@ -64,13 +64,12 @@ export const generateMetadata = async ({
     };
 };
 
-export default async function RootLayout({
-    params,
-    children
-}: Props) {
-    const guildPromise = getGuild(params.guildId);
-    const designPromise = getDesign(params.guildId);
-    const paginationPromise = getPagination(params.guildId);
+export default async function RootLayout({ params, children }: Props) {
+    const { guildId } = await params;
+
+    const guildPromise = getGuild(guildId);
+    const designPromise = getDesign(guildId);
+    const paginationPromise = getPagination(guildId);
 
     const [guild, design, pagination] = await Promise.all([guildPromise, designPromise, paginationPromise]).catch(() => []);
 
@@ -146,7 +145,7 @@ export default async function RootLayout({
                         icon: <HiLink />
                     }
                 ]}
-                url={`/leaderboard/${params.guildId}`}
+                url={`/leaderboard/${guildId}`}
                 searchParamName="type"
                 disabled={!guild}
             >

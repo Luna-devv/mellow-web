@@ -1,15 +1,16 @@
 import { notFound, redirect } from "next/navigation";
 
 interface Props {
-    params: { pathname: string }
+    params: Promise<{ pathname: string }>
 }
 
 const fetchOptions = { next: { revalidate: 60 * 60 } };
 const utm = "?utm_source=wamellow.com&utm_medium=redirect";
 
 export default async function Home({ params }: Props) {
+    const { pathname } = await params;
 
-    switch (params.pathname) {
+    switch (pathname) {
         case "support": return redirect("https://discord.com/invite/DNyyA2HFM9");
         case "vote": return redirect("https://top.gg/bot/1125449347451068437/vote" + utm);
         case "wumpus": return redirect("https://wumpus.store/bot/1125449347451068437" + utm);

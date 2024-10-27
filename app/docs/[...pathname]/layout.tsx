@@ -9,20 +9,19 @@ import metadata from "@/public/docs/meta.json";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 interface Props {
-    params: { pathname: string[] };
+    params: Promise<{ pathname: string[] }>;
     children: React.ReactNode;
 }
 
-export const generateMetadata = async ({
-    params
-}: Props): Promise<Metadata> => {
-    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+    const { pathname } = await params;
+    const meta = metadata.pages.find((page) => page.file === `${pathname.join("/").toLowerCase()}.md`);
 
     const title = meta?.file === "index.md"
         ? "Documentation"
         : `${meta?.name} docs`;
 
-    const url = getCanonicalUrl("docs", ...params.pathname);
+    const url = getCanonicalUrl("docs", ...pathname);
     const images = {
         url: meta?.image || `${getBaseUrl()}/waya-v3.webp?v=2`,
         alt: meta?.description,
@@ -52,11 +51,9 @@ export const generateMetadata = async ({
     };
 };
 
-export default async function RootLayout({
-    params,
-    children
-}: Props) {
-    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
+export default async function RootLayout({ params, children }: Props) {
+    const { pathname } = await params;
+    const meta = metadata.pages.find((page) => page.file === `${pathname.join("/").toLowerCase()}.md`);
 
     const title = meta?.file === "index.md"
         ? "Wamellow"

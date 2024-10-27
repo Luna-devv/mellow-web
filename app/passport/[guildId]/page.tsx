@@ -19,21 +19,21 @@ import { getPassport } from "./api";
 import Verify from "./verify.component";
 
 interface Props {
-    params: { guildId: string };
-    searchParams: { page: string, type: string };
+    params: Promise<{ guildId: string }>;
+    searchParams: Promise<{ page: string, type: string }>;
 }
 
 export const revalidate = 60;
 
-export const generateMetadata = async ({
-    params
-}: Props): Promise<Metadata> => {
-    const guild = await getGuild(params.guildId);
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+    const { guildId } = await params;
+
+    const guild = await getGuild(guildId);
     const name = guild && "name" in guild ? guild.name : "Unknown";
 
     const title = `Verify in ${name}`;
     const description = `Easily verify yourself in ${name} with a simple and safe captcha in the web to gain access all channels.`;
-    const url = getCanonicalUrl("passport", params.guildId);
+    const url = getCanonicalUrl("passport", guildId);
 
     return {
         title,
@@ -57,8 +57,10 @@ export const generateMetadata = async ({
 };
 
 export default async function Home({ params }: Props) {
-    const guildPromise = getGuild(params.guildId);
-    const passportPromise = getPassport(params.guildId);
+    const { guildId } = await params;
+
+    const guildPromise = getGuild(guildId);
+    const passportPromise = getPassport(guildId);
 
     const [guild, passport] = await Promise.all([guildPromise, passportPromise]);
 
@@ -186,7 +188,7 @@ export default async function Home({ params }: Props) {
                         className="mt-6"
                         title="View Leaderboard"
                         message="Easily access and view the top chatters, voice timers, and inviters from this server."
-                        url={`/leaderboard/${params.guildId}`}
+                        url={`/leaderboard/${guildId}`}
                         icon={<HiChartBar />}
                     />
 

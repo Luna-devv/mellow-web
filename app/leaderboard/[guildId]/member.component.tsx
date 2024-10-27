@@ -36,10 +36,10 @@ export default async function Member(
     async function publish() {
         "use server";
 
-        const cookieStore = cookies();
-        const currentCircular = cookieStore.get("lbc")?.value;
+        const jar = await cookies();
+        const currentCircular = jar.get("lbc")?.value;
 
-        cookieStore.set(
+        jar.set(
             "lbc",
             currentCircular !== "server"
                 ? "server"
@@ -47,8 +47,8 @@ export default async function Member(
         );
     }
 
-    const cookieStore = cookies();
-    const currentCircular = cookieStore.get("lbc")?.value;
+    const jar = await cookies();
+    const currentCircular = jar.get("lbc")?.value;
 
     return (
         <div

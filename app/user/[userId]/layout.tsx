@@ -7,16 +7,14 @@ import { getUser } from "./api";
 import Side from "./side.component";
 
 interface Props {
-    params: { userId: string };
+    params: Promise<{ userId: string }>;
     children: React.ReactNode;
 }
 
-export default async function RootLayout({
-    params,
-    children
-}: Props) {
-    const user = await getUser(params.userId);
+export default async function RootLayout({ params, children }: Props) {
+    const { userId } = await params;
 
+    const user = await getUser(userId);
     const userExists = user && "id" in user;
 
     return (

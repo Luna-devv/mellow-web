@@ -58,7 +58,7 @@ export default function RootLayout({
         {
             enabled: !!guild?.id,
             onSettled: (d) => {
-                if (!d||"message" in d) {
+                if (!d || "message" in d) {
                     setError(d?.message || "Failed to fetch channels.");
                     return;
                 }
@@ -80,7 +80,7 @@ export default function RootLayout({
         {
             enabled: !!guild?.id,
             onSettled: (d) => {
-                if (!d||"message" in d) {
+                if (!d || "message" in d) {
                     setError(d?.message || "Failed to fetch roles.");
                     return;
                 }
@@ -102,7 +102,7 @@ export default function RootLayout({
         {
             enabled: !!guild?.id,
             onSettled: (d) => {
-                if (!d||"message" in d) {
+                if (!d || "message" in d) {
                     setError(d?.message || "Failed to fetch emojis.");
                     return;
                 }
@@ -143,7 +143,7 @@ export default function RootLayout({
                     </Button>
                     {isDevMode &&
                         <CopyToClipboardButton
-                            text={getCanonicalUrl("leaderboard", params.guildId.toString())}
+                            text={getCanonicalUrl("leaderboard", params.guildId?.toString() as string)}
                             items={[
                                 { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
                                 { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }

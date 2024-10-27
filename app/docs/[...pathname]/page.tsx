@@ -10,14 +10,15 @@ import metadata from "@/public/docs/meta.json";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 interface Props {
-    params: { pathname: string[] };
+    params: Promise<{ pathname: string[] }>;
 }
 
 const PATH = `${process.cwd()}/public/docs` as const;
 
 export default async function Home({ params }: Props) {
-    const markdown = await readFile(`${PATH}/${params.pathname.join("/").toLowerCase()}.md`, "utf-8").catch(() => null);
-    const meta = metadata.pages.find((page) => page.file === `${params.pathname.join("/").toLowerCase()}.md`);
+    const { pathname } = await params;
+    const markdown = await readFile(`${PATH}/${pathname.join("/").toLowerCase()}.md`, "utf-8").catch(() => null);
+    const meta = metadata.pages.find((page) => page.file === `${pathname.join("/").toLowerCase()}.md`);
 
     if (!markdown || !meta) {
         return (

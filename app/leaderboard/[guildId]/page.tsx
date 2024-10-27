@@ -12,24 +12,29 @@ import Pagination from "./pagination.component";
 
 export const revalidate = 3600;
 
-export default async function Home({
-    params,
-    searchParams
-}: {
-    params: { guildId: string };
-    searchParams: { page: string, type: "messages" | "voiceminutes" | "invites" };
-}) {
-    const cookieStore = cookies();
+interface Props {
+    params: Promise<{ guildId: string }>;
+    searchParams: Promise<{
+        page: string;
+        type: "messages" | "voiceminutes" | "invites";
+    }>;
+}
 
-    if (searchParams) searchParams.type ||= "messages";
-    const page = parseInt(searchParams.page || "1");
+export default async function Home({ searchParams, params }: Props) {
+    const search = await searchParams;
+    const { guildId } = await params;
 
-    if (page !== 1 && !cookieStore.get("hasSession")) redirect("/login?callback=/leaderboard/%5BguildId%5D/messages%3Fpage=" + page);
+    const jar = await cookies();
 
-    const guildPromise = getGuild(params.guildId);
-    const membersPromise = getTopMembers(params.guildId, { page, type: searchParams.type });
-    const designPromise = getDesign(params.guildId);
-    const paginationPromise = getPagination(params.guildId);
+    const type = search.type || "messages";
+    const page = parseInt(search.page || "1");
+
+    if (page !== 1 && !jar.get("hasSession")) redirect("/login?callback=/leaderboard/%5BguildId%5D/messages%3Fpage=" + page);
+
+    const guildPromise = getGuild(guildId);
+    const membersPromise = getTopMembers(guildId, { page, type: type });
+    const designPromise = getDesign(guildId);
+    const paginationPromise = getPagination(guildId);
 
     const [guild, members, design, pagination] = await Promise.all([guildPromise, membersPromise, designPromise, paginationPromise]).catch(() => []);
 
@@ -58,11 +63,11 @@ export default async function Home({
 
     const candisplay = guild.name &&
         (
-            searchParams.type === "messages" ||
-            searchParams.type === "voiceminutes" ||
-            searchParams.type === "invites"
+            type === "messages" ||
+            type === "voiceminutes" ||
+            type === "invites"
         ) &&
-        pagination[searchParams.type].pages >= parseInt(searchParams.page || "0");
+        pagination[type].pages >= page;
 
     if (!candisplay) {
         return (
@@ -96,22 +101,22 @@ export default async function Home({
 
     return (<>
         {members
-            .sort((a, b) => (b.activity[searchParams.type] ?? 0) - (a.activity[searchParams.type] ?? 0))
+            .sort((a, b) => (b.activity[type] ?? 0) - (a.activity[type] ?? 0))
             .map((member, i) =>
                 <Member
                     key={member.id}
                     member={member}
                     index={i + (page * 20) - 19}
-                    type={searchParams.type}
+                    type={type}
                     pagination={pagination}
                     members={members}
                 />
             )}
 
         <Pagination
-            key={searchParams.type}
-            searchParams={searchParams}
-            pages={pagination[searchParams.type].pages}
+            key={type}
+            searchParams={search}
+            pages={pagination[type].pages}
         />
     </>);
 }

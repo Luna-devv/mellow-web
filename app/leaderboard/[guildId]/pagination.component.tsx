@@ -6,21 +6,17 @@ import { useCookies } from "next-client-cookies";
 
 import LoginButton from "@/components/login-button";
 
-export default function Pagination(
-    {
-        searchParams,
-        pages
-    }: {
-        searchParams: {
-            page: string;
-            type: string
-        };
-        pages: number;
-    }
-) {
+interface Props {
+    searchParams: {
+        page: string;
+        type: string;
+    };
+    pages: number;
+}
+
+export default function Pagination({ searchParams, pages }: Props) {
     const cookies = useCookies();
     const router = useRouter();
-
 
     if (!cookies.get("hasSession")) return (
         <LoginButton

@@ -1,6 +1,6 @@
 import "./markdown.css";
 
-import md from "@odiffey/discord-markdown";
+import * as md from "@odiffey/discord-markdown";
 
 import cn from "@/utils/cn";
 

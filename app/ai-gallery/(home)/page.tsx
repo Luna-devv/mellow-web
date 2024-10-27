@@ -11,22 +11,22 @@ import SearchFilter from "./filter.component";
 import Pagination from "./pagination.component";
 
 interface Props {
-    searchParams: {
+    searchParams: Promise<{
         page: string;
         model: string;
         nsfw: string
-    };
+    }>;
 }
 
 export const revalidate = 3600;
 
-export default async function Home({
-    searchParams
-}: Props) {
+export default async function Home({ searchParams }: Props) {
+    const { page, model, nsfw } = await searchParams;
+
     const uploads = await getUploads({
-        page: parseInt(searchParams.page || "1"),
-        model: searchParams.model,
-        nsfw: searchParams.nsfw === "true"
+        page: parseInt(page || "1"),
+        model: model,
+        nsfw: nsfw === "true"
     });
 
     if ("message" in uploads) {
@@ -61,9 +61,7 @@ export default async function Home({
             >
                 Images that were generated using the /image Ai in discord with Wamellow.
             </div>
-            <SearchFilter
-                searchParams={searchParams}
-            />
+            <SearchFilter searchParams={{ page, model, nsfw }} />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
@@ -104,8 +102,8 @@ export default async function Home({
         </div>
 
         <Pagination
-            key={searchParams.model}
-            searchParams={searchParams}
+            key={model}
+            searchParams={{ page, model }}
             pages={uploads.pagination.pages}
         />
 
