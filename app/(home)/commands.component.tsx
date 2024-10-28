@@ -1,7 +1,7 @@
-import { Chip } from "@nextui-org/react";
 import { HiFire, HiInformationCircle } from "react-icons/hi";
 
 import Box from "@/components/box";
+import { ClientChip } from "@/components/client";
 import { defaultFetchOptions } from "@/lib/api";
 import { intl } from "@/utils/numbers";
 
@@ -26,14 +26,14 @@ export async function Commands({
             className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg my-4 w-full"
         >
             <div className="flex">
-                <Chip
+                <ClientChip
                     color="secondary"
                     variant="flat"
                     size="sm"
                     startContent={<HiFire className="ml-1" />}
                 >
                     <span className="font-semibold">Popular Slash Commands</span>
-                </Chip>
+                </ClientChip>
                 <div className="ml-auto flex items-center gap-1 opacity-80">
                     <span className="text-xs">Since 7th December</span>
                     <HiInformationCircle />

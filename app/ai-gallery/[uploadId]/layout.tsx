@@ -4,10 +4,10 @@ import NextImage from "next/image";
 import Link from "next/link";
 import { HiArrowLeft, HiHome, HiPlus } from "react-icons/hi";
 
+import { ClientButton } from "@/components/client";
 import { Footer } from "@/components/footer";
 import Notice from "@/components/notice";
 import { ScreenMessage, SupportButton } from "@/components/screen-message";
-import { ServerButton } from "@/components/server-button";
 import { getPageAnalytics } from "@/lib/analytics";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
@@ -85,13 +85,13 @@ export default async function RootLayout({ params, children }: Props) {
                             title="Something went wrong!"
                             description={upload.message}
                             buttons={<>
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     href="/"
                                     startContent={<HiHome />}
                                 >
                                     Go back to Home
-                                </ServerButton>
+                                </ClientButton>
                                 <SupportButton />
                             </>}
                         >

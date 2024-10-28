@@ -1,9 +1,9 @@
-import { Badge, Chip, CircularProgress } from "@nextui-org/react";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { HiBadgeCheck } from "react-icons/hi";
 
+import { ClientBadge, ClientChip, ClientCircularProgress } from "@/components/client";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
@@ -57,7 +57,7 @@ export default async function Member(
             )}
             style={averageColor ? { backgroundColor: averageColor + "50" } : {}}
         >
-            <Badge
+            <ClientBadge
                 className={cn(
                     "size-6 font-bold",
                     (() => {
@@ -82,7 +82,7 @@ export default async function Member(
                     url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
                     size={128}
                 />
-            </Badge>
+            </ClientBadge>
 
             <div className="w-full md:max-w-fit">
                 <div className="flex items-center gap-2">
@@ -130,7 +130,7 @@ export default async function Member(
             </div>
 
             <form action={publish}>
-                <CircularProgress
+                <ClientCircularProgress
                     as="button"
                     type="submit"
                     className="ml-4"
@@ -165,7 +165,7 @@ function UserBadge({
     children: React.ReactNode
 }) {
     return (
-        <Chip
+        <ClientChip
             as={Link}
             color="secondary"
             href="/team?utm_source=wamellow.com&utm_medium=leaderboard"
@@ -175,7 +175,7 @@ function UserBadge({
             variant="flat"
         >
             <span className="font-bold">{children}</span>
-        </Chip>
+        </ClientChip>
     );
 }
 

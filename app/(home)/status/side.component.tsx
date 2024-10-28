@@ -12,7 +12,7 @@ import { ApiV1StatusGetResponse } from "./api";
 export function Side({
     status
 }: {
-    status:ApiV1StatusGetResponse;
+    status: ApiV1StatusGetResponse;
 }) {
     const cookies = useCookies();
     const [guildId, setGuildId] = useState<string>("");

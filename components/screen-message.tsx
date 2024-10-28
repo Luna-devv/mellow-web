@@ -5,7 +5,7 @@ import { HiHome } from "react-icons/hi";
 
 import cn from "@/utils/cn";
 
-import { ServerButton } from "./server-button";
+import { ClientButton } from "./client";
 
 type Props = {
     title: string;
@@ -58,14 +58,14 @@ export function ScreenMessage({
 
                 {(button && props.href) &&
                     <div className="w-full flex flex-col items-center">
-                        <ServerButton
+                        <ClientButton
                             as={Link}
                             {...props}
                             className={cn("px-20", props.className)}
                             startContent={icon}
                         >
                             {button}
-                        </ServerButton>
+                        </ClientButton>
                     </div>
                 }
 
@@ -85,19 +85,19 @@ export function ScreenMessage({
 
 export function HomeButton() {
     return (
-        <ServerButton
+        <ClientButton
             as={Link}
             href="/"
             startContent={<HiHome />}
         >
             Go back to Home
-        </ServerButton>
+        </ClientButton>
     );
 }
 
 export function AddButton() {
     return (
-        <ServerButton
+        <ClientButton
             as={Link}
             className="button-primary"
             href="/login?invite=true"
@@ -105,19 +105,19 @@ export function AddButton() {
             startContent={<BsDiscord />}
         >
             Add Wamellow to your server
-        </ServerButton>
+        </ClientButton>
     );
 }
 
 export function SupportButton() {
     return (
-        <ServerButton
+        <ClientButton
             as={Link}
             className="button-primary"
             href="/support"
             startContent={<BsDiscord />}
         >
             Join support server
-        </ServerButton>
+        </ClientButton>
     );
 }

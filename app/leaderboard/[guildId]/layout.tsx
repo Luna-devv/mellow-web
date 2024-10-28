@@ -1,7 +1,8 @@
-import { Image } from "@nextui-org/react";
 import { Metadata } from "next";
+import Image from "next/image";
 import { HiAnnotation, HiLink, HiUsers, HiVolumeUp } from "react-icons/hi";
 
+import { ClientImageWall } from "@/components/client";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { getGuild } from "@/lib/api";
@@ -93,7 +94,7 @@ export default async function RootLayout({ params, children }: Props) {
             }
 
             <div className="relative mb-14 w-full">
-                <Image
+                <ClientImageWall
                     alt=""
                     className="w-full object-cover"
                     classNames={{ img: "!h-36 md:!h-64", blurredImg: "!h-40 md:!h-72 -top-5" }}

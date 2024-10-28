@@ -5,8 +5,8 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
 
+import { ClientButton } from "@/components/client";
 import { Footer } from "@/components/footer";
-import { ServerButton } from "@/components/server-button";
 import CommandPic from "@/public/image-command.webp";
 import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
@@ -81,7 +81,7 @@ export default function RootLayout({
         </Link>
 
         <div className="flex gap-2 mt-4">
-            <ServerButton
+            <ClientButton
                 as={Link}
                 className="w-1/2 lg:w-fit !text-xl !font-medium"
                 color="secondary"
@@ -92,8 +92,8 @@ export default function RootLayout({
             >
                 <span className="block sm:hidden">Invite</span>
                 <span className="hidden sm:block">Invite Wamellow</span>
-            </ServerButton>
-            <ServerButton
+            </ClientButton>
+            <ClientButton
                 as={Link}
                 startContent={<BsDiscord />}
                 className="w-1/2 lg:w-fit !text-xl !font-medium"
@@ -102,7 +102,7 @@ export default function RootLayout({
             >
                 <span className="block sm:hidden">Support</span>
                 <span className="hidden sm:block">Join support</span>
-            </ServerButton>
+            </ClientButton>
         </div>
 
         <Footer />

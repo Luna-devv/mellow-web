@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HiTrash } from "react-icons/hi";
 
 import Box from "@/components/box";
-import { ServerButton } from "@/components/server-button";
+import { ClientButton } from "@/components/client";
 import { Shiggy } from "@/components/shiggy";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -101,31 +101,31 @@ export default async function Home() {
                     items={(await cookies()).getAll()}
                     action={(cookie) => (
                         <form action={deleteCookie}>
-                            <ServerButton
+                            <ClientButton
                                 type="submit"
                                 isIconOnly
                             >
                                 <HiTrash className="text-red-400" />
-                            </ServerButton>
+                            </ClientButton>
                             <input className="hidden" type="text" name="name" defaultValue={cookie.name} readOnly />
                         </form>
                     )}
                 >
                     <div className="mt-4 flex gap-2 items-center">
                         <form action={deleteCookie}>
-                            <ServerButton
+                            <ClientButton
                                 type="submit"
                             >
                                 Delete all cookies
-                            </ServerButton>
+                            </ClientButton>
                         </form>
-                        <ServerButton
+                        <ClientButton
                             as={Link}
                             href="/logout"
                             prefetch={false}
                         >
                             Logout
-                        </ServerButton>
+                        </ClientButton>
                     </div>
                 </Panel>
 

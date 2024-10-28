@@ -5,7 +5,7 @@ import { FaCrown } from "react-icons/fa";
 
 import { ApiNode } from "./api";
 
-export function Node({ index, node }: {index:number;node:ApiNode}) {
+export function Node({ index, node }: { index: number; node: ApiNode }) {
     return (
         <div
             className="p-4 bg-wamellow rounded-lg space-y-2 outline-violet-400 duration-200 h-fit"
@@ -22,14 +22,14 @@ export function Node({ index, node }: {index:number;node:ApiNode}) {
                 </span>
 
                 {node.id.endsWith("-lun-1") &&
-                     <Chip
-                         className="ml-auto hidden sm:flex"
-                         startContent={<FaCrown className="ml-1" />}
-                         color="warning"
-                         variant="flat"
-                     >
+                    <Chip
+                        className="ml-auto hidden sm:flex"
+                        startContent={<FaCrown className="ml-1" />}
+                        color="warning"
+                        variant="flat"
+                    >
                         master
-                     </Chip>
+                    </Chip>
                 }
             </div>
 
@@ -51,7 +51,7 @@ export function Node({ index, node }: {index:number;node:ApiNode}) {
     );
 }
 
-function Icon({ id }: {id:string}) {
+function Icon({ id }: { id: string }) {
     return (
         <Image
             alt={`${id} country flag`}
@@ -63,7 +63,7 @@ function Icon({ id }: {id:string}) {
     );
 }
 
-function Row({ name, children }:{ name:string; children: ReactNode; }) {
+function Row({ name, children }: { name: string; children: ReactNode; }) {
     return (
         <div>
             <span className="text-neutral-300 font-medium">{children}</span>

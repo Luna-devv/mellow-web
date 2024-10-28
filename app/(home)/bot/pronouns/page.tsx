@@ -5,8 +5,8 @@ import Link from "next/link";
 import { HiCash, HiPlus } from "react-icons/hi";
 
 import Box from "@/components/box";
+import { ClientButton } from "@/components/client";
 import DiscordMessage from "@/components/discord/message";
-import { ServerButton } from "@/components/server-button";
 import cn from "@/utils/cn";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -62,14 +62,14 @@ export default async function Home() {
                     </div>
 
                     <div className="flex gap-2 mt-6">
-                        <ServerButton
+                        <ClientButton
                             as={Link}
                             className="bg-wamellow-alpha"
                             startContent={<HiPlus />}
                             href="/support"
                         >
                             Request additional
-                        </ServerButton>
+                        </ClientButton>
                     </div>
                 </div>
 

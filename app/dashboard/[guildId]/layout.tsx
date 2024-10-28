@@ -11,11 +11,11 @@ import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, Hi
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
+import { ClientButton } from "@/components/client";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { AddButton, ScreenMessage, SupportButton } from "@/components/screen-message";
-import { ServerButton } from "@/components/server-button";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
@@ -236,13 +236,13 @@ export default function RootLayout({
                     }
                     description={error}
                     buttons={<>
-                        <ServerButton
+                        <ClientButton
                             as={Link}
                             href="/profile"
                             startContent={<HiViewGridAdd />}
                         >
                             Go back to Dashboard
-                        </ServerButton>
+                        </ClientButton>
                         {error.includes("permissions")
                             ? <AddButton />
                             : <SupportButton />
