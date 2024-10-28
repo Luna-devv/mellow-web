@@ -9,7 +9,7 @@ import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
 import { ServerButton } from "@/components/server-button";
 import { defaultFetchOptions } from "@/lib/api";
-import ArrowPic from "@/public/arroww.webp";
+import ArrowPic from "@/public/icons/arroww.webp";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";

@@ -19,8 +19,8 @@ import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ServerButton } from "@/components/server-button";
 import { defaultFetchOptions } from "@/lib/api";
 import AiPic from "@/public/ai.webp";
-import ArrowPic from "@/public/arroww.webp";
 import CaptchaPic from "@/public/captcha.webp";
+import ArrowPic from "@/public/icons/arroww.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
 import NotificationsPic from "@/public/notifications-thumbnail.webp";
 import SpacePic from "@/public/space.webp";
@@ -256,7 +256,7 @@ export default async function Home() {
                                         <Avatar
                                             size="sm"
                                             key={"ttsLang-" + lang}
-                                            src={`/${lang}.webp`}
+                                            src={`/icons/${lang}.webp`}
                                             alt={name}
                                             title={name}
                                         />
