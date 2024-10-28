@@ -7,7 +7,7 @@ import { redirect, useParams, usePathname } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense, useEffect, useState } from "react";
 import { BiLogoYoutube } from "react-icons/bi";
-import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiPaperAirplane, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
@@ -206,6 +206,11 @@ export default function RootLayout({
                             name: "YouTube Notifications",
                             value: "/notifications",
                             icon: <BiLogoYoutube />
+                        },
+                        {
+                            name: "Dailyposts",
+                            value: "/dailyposts",
+                            icon: <HiPaperAirplane className="rotate-45" />
                         },
                         {
                             name: "NSFW Moderation",
