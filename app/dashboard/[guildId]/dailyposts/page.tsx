@@ -179,7 +179,7 @@ export default function Home() {
                 className="lg:w-1/2 w-full"
                 name="Run at"
                 url={url + "/" + item.id}
-                dataName="runetimeHours"
+                dataName="runtimeHours"
                 items={hoursArray}
                 defaultState={
                     item.runtimeHours

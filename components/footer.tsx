@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { HTMLProps, Suspense } from "react";
+import { HTMLProps } from "react";
 import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoTiktok, BiLogoTwitter, BiLogoYoutube } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
 import { HiBookOpen, HiCloud, HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
