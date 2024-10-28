@@ -111,6 +111,50 @@
                     "Use Application Commands"
                 ]
             }
+        },
+        {
+            "name": "📊 Leaderboards",
+            "file": "leaderboards.md",
+            "image": "",
+            "description": "User messages, voice and invite leaderboards, made easy.",
+            "permissions": {
+                "bot": [
+                    "View Channel"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
+        },
+        {
+            "name": "🫣 NSFW Image Scanning",
+            "file": "nsfw-image-scanning.md",
+            "image": "",
+            "description": "Scan your server for NSFW content containing images.",
+            "permissions": {
+                "bot": [
+                    "Manage Server", 
+                    "Moderate Messages" 
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
+        },
+        {
+            "name": "💾 Custom Commands",
+            "file": "custom-commands.md",
+            "image": "",
+            "description": "Custom commands for your server's needs.",
+            "permissions": {
+                "bot": [
+                    "Manage Server", 
+                    "Moderate Messages" 
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
         }
     ]
 }
