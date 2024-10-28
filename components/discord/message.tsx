@@ -91,9 +91,9 @@ export default function DiscordMessage({
                         }
                         <time
                             className="mt-[2px] text-xs opacity-50 truncate"
-                            dateTime={new Date().toISOString()}
+                            dateTime={new Date(1019060317).toISOString()}
                         >
-                            {formatTime(new Date())}
+                            {formatTime(new Date(1019060317))}
                         </time>
                     </div>
 
