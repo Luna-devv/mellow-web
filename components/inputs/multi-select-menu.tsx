@@ -17,13 +17,15 @@ type Props = {
     className?: string;
 
     name: string;
-    url: string;
-    dataName: string;
+    url?: string;
+    dataName?: string;
     items: { icon?: React.ReactNode; name: string; value: string | number; error?: string; color?: number; }[] | undefined;
     disabled?: boolean;
     max?: number;
     description?: string;
     defaultState?: (string | number)[];
+
+    onSave?: (options: { name: string; value: string | number | null; error?: string }[]) => void;
 };
 
 
@@ -36,7 +38,8 @@ export default function MultiSelectMenu({
     disabled,
     max = Infinity,
     description,
-    defaultState = []
+    defaultState,
+    onSave
 }: Props) {
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
@@ -46,9 +49,11 @@ export default function MultiSelectMenu({
     const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string | number; error?: string; color?: number; }[]>([]);
 
     useEffect(() => {
+        if (!defaultState) return;
+
         setValues(items.filter((i) => defaultState?.includes(i.value)));
         setDefaultalue(defaultState);
-    }, [defaultState]);
+    }, [defaultState, items]);
 
     useEffect(() => {
         setError(null);
@@ -57,6 +62,15 @@ export default function MultiSelectMenu({
             setState(State.Idle);
             return;
         }
+
+        if (!url) {
+            if (!onSave) throw new Error("Warning: <MultiSelectMenu.onSave> must be defined when not using <MultiSelectMenu.url>.");
+            onSave(values);
+            setState(State.Idle);
+            return;
+        }
+
+        if (!dataName) throw new Error("Warning: <MultiSelectMenu.dataName> must be defined when using <MultiSelectMenu.url>.");
 
         setState(State.Loading);
 
