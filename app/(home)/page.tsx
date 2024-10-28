@@ -363,20 +363,18 @@ export default async function Home() {
 
                         <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps()}>
-                                <DiscordMarkdown mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=74Lj5cHseI8](https://youtube.com/watch?v=74Lj5cHseI8)" />
+                                <DiscordMarkdown mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=tN-arR2UoRk](https://youtube.com/watch?v=tN-arR2UoRk)" />
                                 <DiscordMessageEmbed
                                     mode="DARK"
-                                    title="Your PC Can Look Like THIS Now!"
-                                    color={0xfa4d0a}
+                                    title="My wife insisted I do this for her"
+                                    color={0x8a57ff}
                                 >
                                     <Image
                                         alt=""
-                                        className="rounded-md shadow-md w-64 md:w-56 lg:w-[320px] md:w-unset max-w-md mt-2"
-                                        height={500}
+                                        className="rounded-md shadow-md w-full mt-2"
                                         itemProp="image"
                                         loading="lazy"
                                         src={NotificationsPic}
-                                        width={281}
                                     />
                                 </DiscordMessageEmbed>
                             </DiscordMessage>
@@ -438,7 +436,7 @@ export default async function Home() {
                                 <DiscordMarkdown mode={"DARK"} text="query: **femboy**" />
                                 <Image
                                     alt=""
-                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
+                                    className="rounded-md shadow-md w-full max-w-[308px] mt-2"
                                     height={290}
                                     itemProp="image"
                                     loading="lazy"
