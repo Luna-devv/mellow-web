@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HiTrash } from "react-icons/hi";
 
 import Box from "@/components/box";
-import { ServerButton } from "@/components/server-button";
+import { ClientButton } from "@/components/client";
 import { Shiggy } from "@/components/shiggy";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -43,13 +43,13 @@ export const generateMetadata = async (): Promise<Metadata> => {
     };
 };
 
-export default function Home() {
+export default async function Home() {
     const headerList: { name: string, value: string }[] = [];
-    for (const [key, value] of headers().entries()) {
+    for (const [key, value] of (await headers()).entries()) {
         headerList.push({ name: key, value });
     }
 
-    if (cookies().get("devTools")?.value !== "true") {
+    if ((await cookies()).get("devTools")?.value !== "true") {
         return (
             <Box
                 className="relative mb-64 mt-12"
@@ -67,10 +67,10 @@ export default function Home() {
     async function deleteCookie(formData: FormData) {
         "use server";
 
-        const cookieStore = cookies();
+        const jar = await cookies();
 
         function del(name: string) {
-            cookieStore.set(
+            jar.set(
                 name,
                 "",
                 {
@@ -87,46 +87,45 @@ export default function Home() {
             return;
         }
 
-        const cookieNames = cookieStore.getAll();
+        const cookieNames = jar.getAll();
         for (const cookie of cookieNames) {
             if (cookie.name !== "devTools") del(cookie.name);
         }
     }
 
     return (
-        <div className="md:flex gap-8">
-
+        (<div className="md:flex gap-8">
             <div className="space-y-10">
                 <Panel
                     name="Cookies 🍪"
-                    items={cookies().getAll()}
+                    items={(await cookies()).getAll()}
                     action={(cookie) => (
                         <form action={deleteCookie}>
-                            <ServerButton
+                            <ClientButton
                                 type="submit"
                                 isIconOnly
                             >
                                 <HiTrash className="text-red-400" />
-                            </ServerButton>
+                            </ClientButton>
                             <input className="hidden" type="text" name="name" defaultValue={cookie.name} readOnly />
                         </form>
                     )}
                 >
                     <div className="mt-4 flex gap-2 items-center">
                         <form action={deleteCookie}>
-                            <ServerButton
+                            <ClientButton
                                 type="submit"
                             >
                                 Delete all cookies
-                            </ServerButton>
+                            </ClientButton>
                         </form>
-                        <ServerButton
+                        <ClientButton
                             as={Link}
                             href="/logout"
                             prefetch={false}
                         >
                             Logout
-                        </ServerButton>
+                        </ClientButton>
                     </div>
                 </Panel>
 
@@ -135,8 +134,7 @@ export default function Home() {
                     items={headerList}
                 />
             </div>
-
             <Shiggy className="mt-auto h-52" />
-        </div>
+        </div>)
     );
 }

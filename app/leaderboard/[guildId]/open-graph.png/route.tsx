@@ -16,15 +16,14 @@ import { Props } from "../layout";
 
 export const revalidate = 3600; // 1 hour
 
-export async function GET(
-    request: NextRequest,
-    { params }: Props
-) {
+export async function GET(request: NextRequest, { params }: Props) {
+    const { guildId } = await params;
+
     let type = request.nextUrl.searchParams.get("type");
     if (type !== "messages" && type !== "voiceminutes" && type !== "invites") type = "messages";
 
-    const guild = await getGuild(params.guildId);
-    const members = await getTopMembers(params.guildId, { page: 1, type: "messages" }, { force: true });
+    const guild = await getGuild(guildId);
+    const members = await getTopMembers(guildId, { page: 1, type: "messages" }, { force: true });
 
     const guildExists = guild && "id" in guild;
 

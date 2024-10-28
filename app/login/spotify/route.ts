@@ -5,10 +5,10 @@ import { connectSpotify, disconnectSpotify } from "./api";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const cookieStore = cookies();
+    const jar = await cookies();
 
     const logout = searchParams.get("logout");
-    const session = cookieStore.get("session");
+    const session = jar.get("session");
 
     if (!session?.value) {
         redirect("/login?callback=" + encodeURIComponent(`/login/spotify${logout === "true" ? "?logout=true" : ""}`));

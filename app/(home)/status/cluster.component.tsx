@@ -22,7 +22,7 @@ export function Cluster(cluster: ApiCluster) {
                     </span>
 
                     <span className="text-neutral-300">
-                    #{cluster.id}
+                        #{cluster.id}
                     </span>
                 </div>
 
@@ -77,7 +77,7 @@ function Icon({ ping }: { ping: number; }) {
     );
 }
 
-function Row({ name, children }: { name:string; children: ReactNode; }) {
+function Row({ name, children }: { name: string; children: ReactNode; }) {
     return (
         <div>
             <span className="text-neutral-300 font-medium">{children}</span>

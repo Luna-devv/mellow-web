@@ -14,7 +14,7 @@ interface Props {
     remove: (id: string) => void;
 }
 
-export default function DeleteNotification({
+export default function DeleteDailypost({
     id,
     name,
 
@@ -25,7 +25,7 @@ export default function DeleteNotification({
 
     return (<>
         <Tooltip
-            content="Delete Notification"
+            content="Delete Dailypost"
             closeDelay={0}
         >
             <Button
@@ -38,18 +38,18 @@ export default function DeleteNotification({
                 <span>
                     <HiTrash />
                 </span>
-                <span className="sr-only">Delete selected notification</span>
+                <span className="sr-only">Delete selected dailypost</span>
             </Button>
         </Tooltip>
 
         <Modal
             buttonName="Delete"
             variant="danger"
-            title={"Delete Notification: " + name}
+            title={"Delete Dailypost: " + name}
             isOpen={open}
             onClose={() => setOpen(false)}
             onSubmit={() => {
-                return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/notifications/${id}`, {
+                return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/dailyposts/${id}`, {
                     method: "DELETE",
                     credentials: "include"
                 });
@@ -58,7 +58,7 @@ export default function DeleteNotification({
                 if (id) remove(id);
             }}
         >
-            Are you sure you want to delete the {'"'}{name}{'"'} channel from posting notifications? It will be gone forever, probably, who knows.
+            Are you sure you want to delete the {'"'}{name}{'"'} dailypost? It will be gone forever, probably, who knows.
         </Modal>
     </>);
 }

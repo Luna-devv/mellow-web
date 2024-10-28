@@ -1,4 +1,4 @@
-import { AvatarGroup, Chip, Code } from "@nextui-org/react";
+import { Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +7,7 @@ import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, 
 
 import { Avatar } from "@/components/avatar";
 import Box from "@/components/box";
+import { ClientAvatarGroup, ClientButton, ClientChip } from "@/components/client";
 import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import DiscordChannel from "@/components/discord/channel";
@@ -16,11 +17,10 @@ import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
-import { ServerButton } from "@/components/server-button";
 import { defaultFetchOptions } from "@/lib/api";
 import AiPic from "@/public/ai.webp";
-import ArrowPic from "@/public/arroww.webp";
 import CaptchaPic from "@/public/captcha.webp";
+import ArrowPic from "@/public/icons/arroww.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
 import NotificationsPic from "@/public/notifications-thumbnail.webp";
 import SpacePic from "@/public/space.webp";
@@ -69,7 +69,7 @@ export default async function Home() {
     });
 
     const Invite = () => (
-        <ServerButton
+        <ClientButton
             as={Link}
             color="secondary"
             href="/login?invite=true"
@@ -78,7 +78,7 @@ export default async function Home() {
         >
             <span className="block sm:hidden">Invite</span>
             <span className="hidden sm:block">Invite Wamellow</span>
-        </ServerButton>
+        </ClientButton>
     );
 
     async function renderCount() {
@@ -109,7 +109,7 @@ export default async function Home() {
                         Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.
                     </span>
 
-                    <AvatarGroup
+                    <ClientAvatarGroup
                         className="mr-auto md:hidden"
                         max={8}
                         renderCount={renderCount}
@@ -124,7 +124,7 @@ export default async function Home() {
                                 />
                             ))
                         }
-                    </AvatarGroup>
+                    </ClientAvatarGroup>
 
                     <div className="space-y-4">
                         <Link
@@ -135,7 +135,7 @@ export default async function Home() {
                         </Link>
 
                         <div className="flex gap-2 lg:mt-0">
-                            <ServerButton
+                            <ClientButton
                                 as={Link}
                                 className="w-1/2 lg:w-fit !text-xl !font-medium"
                                 color="secondary"
@@ -146,8 +146,8 @@ export default async function Home() {
                             >
                                 <span className="block sm:hidden">Invite</span>
                                 <span className="hidden sm:block">Invite Wamellow</span>
-                            </ServerButton>
-                            <ServerButton
+                            </ClientButton>
+                            <ClientButton
                                 as={Link}
                                 startContent={<BsDiscord />}
                                 className="w-1/2 lg:w-fit !text-xl !font-medium"
@@ -156,7 +156,7 @@ export default async function Home() {
                             >
                                 <span className="block sm:hidden">Support</span>
                                 <span className="hidden sm:block">Join support</span>
-                            </ServerButton>
+                            </ClientButton>
                         </div>
 
                         <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-medium mt-3 opacity-80 pl-20 lg:pr-20 rotate-2", handwritten.className)}>
@@ -225,7 +225,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2 flex flex-col items-start">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -233,7 +233,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">100% free forever</span>
-                            </Chip>
+                            </ClientChip>
 
                             <h3 className={styles.h3}>40 Voices in 8 Languages</h3>
 
@@ -242,7 +242,7 @@ export default async function Home() {
                                 Great for people with aphonia, dysphonia, or other speech impairments.
                             </div>
 
-                            <AvatarGroup
+                            <ClientAvatarGroup
                                 className="mt-4"
                                 max={8}
                             >
@@ -256,18 +256,18 @@ export default async function Home() {
                                         <Avatar
                                             size="sm"
                                             key={"ttsLang-" + lang}
-                                            src={`/${lang}.webp`}
+                                            src={`/icons/${lang}.webp`}
                                             alt={name}
                                             title={name}
                                         />
                                     );
                                 })}
                                 <span className="sr-only">Change Text-to-Speech language and voice</span>
-                            </AvatarGroup>
+                            </ClientAvatarGroup>
 
                             <div className="flex gap-2 mt-5">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<BsYoutube />}
@@ -275,7 +275,7 @@ export default async function Home() {
                                     target="_blank"
                                 >
                                     Watch YouTube Video
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 
@@ -320,7 +320,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -328,7 +328,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">Styling & 30 Channels free</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>Stay up-to-date on YouTube</h3>
                             <div className="pt-6">
                                 Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
@@ -350,33 +350,31 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=notifications&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 
                         <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
                             <DiscordMessage {...messageProps()}>
-                                <DiscordMarkdown mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=74Lj5cHseI8](https://youtube.com/watch?v=74Lj5cHseI8)" />
+                                <DiscordMarkdown mode={"DARK"} text="Hey **@everyone**, Linus Tech Tips just posted a new video!\n[youtube.com/watch?v=tN-arR2UoRk](https://youtube.com/watch?v=tN-arR2UoRk)" />
                                 <DiscordMessageEmbed
                                     mode="DARK"
-                                    title="Your PC Can Look Like THIS Now!"
-                                    color={0xfa4d0a}
+                                    title="My wife insisted I do this for her"
+                                    color={0x8a57ff}
                                 >
                                     <Image
                                         alt=""
-                                        className="rounded-md shadow-md w-64 md:w-56 lg:w-[320px] md:w-unset max-w-md mt-2"
-                                        height={500}
+                                        className="rounded-md shadow-md w-full mt-2"
                                         itemProp="image"
                                         loading="lazy"
                                         src={NotificationsPic}
-                                        width={281}
                                     />
                                 </DiscordMessageEmbed>
                             </DiscordMessage>
@@ -392,7 +390,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -400,14 +398,14 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">100% no money loss</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>Free /image command</h3>
                             <div className="pt-6">
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
                                 Customize the rating, quality, aesthetics, image width and height, upscaled, generation steps and the CFG scale all for free.
                             </div>
                             <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <Chip
+                                <ClientChip
                                     className="mb-2"
                                     color="secondary"
                                     variant="flat"
@@ -415,21 +413,21 @@ export default async function Home() {
                                     startContent={<HiFire className="mx-1" />}
                                 >
                                     <span className="font-semibold">NSFW Supported</span>
-                                </Chip>
+                                </ClientChip>
                                 <div className="text-base">
                                     Generate spicy images and more in nsfw marked channels.
                                 </div>
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/ai-gallery?utm_source=wamellow.com&utm_medium=home"
                                 >
                                     View Images
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 
@@ -438,7 +436,7 @@ export default async function Home() {
                                 <DiscordMarkdown mode={"DARK"} text="query: **femboy**" />
                                 <Image
                                     alt=""
-                                    className="rounded-md shadow-md w-64 md:w-56 lg:w-72 md:w-unset max-w-md mt-2"
+                                    className="rounded-md shadow-md w-full max-w-[308px] mt-2"
                                     height={290}
                                     itemProp="image"
                                     loading="lazy"
@@ -458,7 +456,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -466,7 +464,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">100% sexy forever</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>/anime command</h3>
                             <div className="pt-6">
                                 Unleash the magic of anime right within your Discord server with Wamellow{"'"}s 25+ categories.
@@ -474,7 +472,7 @@ export default async function Home() {
                                 Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
                             </div>
                             <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <Chip
+                                <ClientChip
                                     className="mb-2"
                                     color="secondary"
                                     variant="flat"
@@ -482,7 +480,7 @@ export default async function Home() {
                                     startContent={<HiFire className="mx-1" />}
                                 >
                                     <span className="font-semibold">NSFW Supported</span>
-                                </Chip>
+                                </ClientChip>
                                 <div className="text-base">
                                     Find spicy nekos, waifus, and more in nsfw marked channels.
                                 </div>
@@ -516,7 +514,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -524,7 +522,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">100% free forever</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>/leaderboard & /rank</h3>
                             <div className="pt-6">
                                 Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
@@ -532,14 +530,14 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/leaderboard/828676951023550495?utm_source=wamellow.com&utm_medium=home"
                                 >
                                     View Leaderboard
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 
@@ -566,7 +564,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -574,7 +572,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">My lawyer said that title below</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>POGBOARD DEEZ NUTS</h3>
                             <div className="pt-6">
                                 With Starboards, you have the power to elevate remarkable messages within our server.
@@ -583,14 +581,14 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=starboard&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 
@@ -628,7 +626,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -636,7 +634,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">w/ free image background</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>Greetings</h3>
                             <div className="pt-6">
                                 Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
@@ -645,14 +643,14 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 
@@ -680,7 +678,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -688,7 +686,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">Of course it{"'"}s free</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>Captcha verification</h3>
                             <div className="pt-6">
                                 Protect your server from unwanted attacks such as bot-raids with our captcha verification system.
@@ -696,22 +694,22 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiLockOpen />}
                                     href="/passport/1125063180801036329?utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Try it out
-                                </ServerButton>
-                                <ServerButton
+                                </ClientButton>
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 
@@ -737,7 +735,7 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <Chip
+                            <ClientChip
                                 className="mb-2"
                                 color="secondary"
                                 variant="flat"
@@ -745,7 +743,7 @@ export default async function Home() {
                                 startContent={<HiCash className="mx-1" />}
                             >
                                 <span className="font-semibold">30 tags free</span>
-                            </Chip>
+                            </ClientChip>
                             <h3 className={styles.h3}>Wamellow tags</h3>
                             <div className="pt-6">
                                 Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
@@ -754,14 +752,14 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ServerButton
+                                <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=custom-commands&utm_source=wamellow.com&utm_medium=home"
                                 >
                                     Setup
-                                </ServerButton>
+                                </ClientButton>
                             </div>
                         </div>
 

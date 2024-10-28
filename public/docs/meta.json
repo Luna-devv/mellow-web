@@ -8,7 +8,7 @@
         {
             "name": "👋 Greetings",
             "file": "greetings.md",
-            "image": "https://cdn.waya.one/r/greeting.png",
+            "image": "/docs-assets/open-graph/greetings.webp",
             "description": "Create a warm and inviting atmosphere for new members in your community!",
             "permissions": {
                 "bot": [
@@ -44,7 +44,7 @@
         {
             "name": "😔 Farewell",
             "file": "farewell.md",
-            "image": "https://cdn.waya.one/r/greeting.png",
+            "image": "/docs-assets/open-graph/greetings.webp",
             "description": "Send farewell messages to members leaving your community!",
             "permissions": {
                 "bot": [
@@ -61,7 +61,7 @@
         {
             "name": "⭐ Starboard",
             "file": "starboard.md",
-            "image": "https://cdn.waya.one/r/starboard.png",
+            "image": "/docs-assets/open-graph/starboard.webp",
             "description": "An engaging and customizable platform for highlighting memorable messages.",
             "permissions": {
                 "bot": [
@@ -78,7 +78,7 @@
         {
             "name": "📢 YouTube Notifications",
             "file": "notifications.md",
-            "image": "https://cdn.waya.one/r/notifications-youtube.png",
+            "image": "/docs-assets/open-graph/notifications-youtube.webp",
             "description": "Notify your community when a new YouTube video gets posted!",
             "permissions": {
                 "bot": [
@@ -95,7 +95,7 @@
         {
             "name": "🔊 Text to Speech",
             "file": "text-to-speech.md",
-            "image": "",
+            "image": "/docs-assets/open-graph/text-to-speech.webp",
             "description": "Convert conversational text to human-like speech in voice channels.",
             "permissions": {
                 "bot": [

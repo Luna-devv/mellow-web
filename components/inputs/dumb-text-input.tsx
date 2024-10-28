@@ -92,7 +92,7 @@ export default function DumbTextInput({
                                 setValue(e.target.value || null);
                             }
                         }}
-                        value={dataName ? JSON.parse(value)[dataName] : value}
+                        value={(dataName ? JSON.parse(value)[dataName] : value) || ""}
                         disabled={disabled}
                         rows={2}
                         maxLength={max || Infinity}
@@ -108,7 +108,7 @@ export default function DumbTextInput({
                                 setValue(e.target.value || null);
                             }
                         }}
-                        value={dataName ? JSON.parse(value)[dataName] : value}
+                        value={(dataName ? JSON.parse(value)[dataName] : value) || ""}
                         disabled={disabled}
                         type={type}
                         maxLength={max || Infinity}

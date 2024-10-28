@@ -5,11 +5,11 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiHome, HiUserAdd } from "react-icons/hi";
 
+import { ClientButton } from "@/components/client";
 import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
-import { ServerButton } from "@/components/server-button";
 import { defaultFetchOptions } from "@/lib/api";
-import ArrowPic from "@/public/arroww.webp";
+import ArrowPic from "@/public/icons/arroww.webp";
 import { ApiV1TopguildsGetResponse } from "@/typings";
 import cn from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
@@ -82,36 +82,36 @@ export default async function RootLayout({
 
             <div className="md:text-xl text-lg lg:flex w-full mt-4">
                 <div className="font-medium w-full grid grid-cols-2 md:flex flex-wrap h-min gap-2">
-                    <ServerButton
+                    <ClientButton
                         as={Link}
                         href="/bot/pronouns"
                     >
                         <HiHome />
-                    </ServerButton>
-                    <ServerButton
+                    </ClientButton>
+                    <ClientButton
                         as={Link}
                         href="/bot/pronouns/pronouns"
                     >
                         Pronouns
-                    </ServerButton>
-                    <ServerButton
+                    </ClientButton>
+                    <ClientButton
                         as={Link}
                         href="/bot/pronouns/genders"
                     >
                         Genders
-                    </ServerButton>
-                    <ServerButton
+                    </ClientButton>
+                    <ClientButton
                         as={Link}
                         href="/bot/pronouns/sexualities"
                     >
                         Sexualities
-                    </ServerButton>
+                    </ClientButton>
                 </div>
 
                 <div className="flex flex-col min-w-full lg:min-w-[420px]">
 
                     <div className="lg:ml-auto flex gap-2 text-xl font-medium mt-4 lg:mt-0">
-                        <ServerButton
+                        <ClientButton
                             as={Link}
                             startContent={<HiUserAdd />}
                             className="button-primary w-1/2 lg:w-fit !text-xl !font-medium"
@@ -120,8 +120,8 @@ export default async function RootLayout({
                         >
                             <span className="block sm:hidden">Invite</span>
                             <span className="hidden sm:block">Invite Pronouns</span>
-                        </ServerButton>
-                        <ServerButton
+                        </ClientButton>
+                        <ClientButton
                             as={Link}
                             startContent={<BsDiscord />}
                             className="w-1/2 lg:w-fit !text-xl !font-medium"
@@ -130,7 +130,7 @@ export default async function RootLayout({
                         >
                             <span className="block sm:hidden">Support</span>
                             <span className="hidden sm:block">Join support</span>
-                        </ServerButton>
+                        </ClientButton>
                     </div>
 
 

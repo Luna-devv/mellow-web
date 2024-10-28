@@ -6,15 +6,15 @@ import { HiExternalLink } from "react-icons/hi";
 import { getUpload } from "../api";
 
 export interface Props {
-    params: { uploadId: string };
+    params: Promise<{ uploadId: string }>;
 }
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
-export default async function Home({
-    params
-}: Props) {
-    const upload = await getUpload(params.uploadId);
+export default async function Home({ params }: Props) {
+    const { uploadId } = await params;
+
+    const upload = await getUpload(uploadId);
     if (!upload || "statusCode" in upload) return;
 
     const src = `https://r2.wamellow.com/ai-image/${upload.id}.webp`;

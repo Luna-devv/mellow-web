@@ -1,4 +1,3 @@
-import { Chip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { HTMLProps } from "react";
@@ -11,6 +10,8 @@ import TopggIcon from "@/components/icons/topgg";
 import { getUser } from "@/lib/discord/user";
 import BlahajPic from "@/public/blahaj.webp";
 import cn from "@/utils/cn";
+
+import { ClientChip } from "./client";
 
 export async function Footer(props: HTMLProps<HTMLDivElement>) {
 
@@ -44,14 +45,14 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
                             <HiCube />
                             <span className="flex items-center">
                                 Made by
-                                <Chip
+                                <ClientChip
                                     className="relative top-0.5 ml-0.5"
                                     as={Link}
                                     href="/team"
                                     startContent={<Image src={dev?.avatarUrl as string} alt="Luna" width={18} height={18} className="rounded-full" />}
                                 >
                                     {dev?.username}
-                                </Chip>
+                                </ClientChip>
                             </span>
                         </span>
                     </div>

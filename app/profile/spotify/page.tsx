@@ -1,6 +1,8 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { use } from "react";
 import { BsSpotify } from "react-icons/bs";
 import { useQuery } from "react-query";
 
@@ -13,11 +15,12 @@ import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1UsersMeConnectionsSpotifyGetResponse } from "@/typings";
 
-export default function Home({
-    searchParams
-}: {
-    searchParams: { spotify_login_success?: string }
-}) {
+interface Props {
+    searchParams: Promise<{ spotify_login_success?: string }>
+}
+
+export default function Home({ searchParams }: Props) {
+    const search = use(searchParams);
     const user = userStore((s) => s);
 
     const url = "/users/@me/connections/spotify" as const;
@@ -80,7 +83,7 @@ export default function Home({
                                 >
                                     Not you?
                                 </Link>
-                                {searchParams.spotify_login_success === "true" && data.displayName && <>
+                                {search.spotify_login_success === "true" && data.displayName && <>
                                     <span className="mx-2 text-neutral-500">•</span>
                                     <div className="text-green-500 duration-200">Link was successfull!</div>
                                 </>}

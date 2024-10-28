@@ -90,7 +90,6 @@ export default function CreateNotification({
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        guildId,
                         type: 0,
                         channelId,
                         creatorHandle: isId ? undefined : validated,

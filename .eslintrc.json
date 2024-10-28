@@ -3,7 +3,7 @@
         "next/core-web-vitals",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended" 
+        "plugin:react/recommended"
     ],
     "overrides": [],
     "parser": "@typescript-eslint/parser",
@@ -14,7 +14,7 @@
         "@typescript-eslint",
         "simple-import-sort",
         "unused-imports",
-         "eslint-plugin-react-compiler"
+        "react-compiler"
     ],
     "rules": {
         "react-compiler/react-compiler": "error",

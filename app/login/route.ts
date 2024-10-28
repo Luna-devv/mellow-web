@@ -13,10 +13,10 @@ const defaultCookieOptions = {
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const cookieStore = cookies();
+    const jar = await cookies();
 
     const logout = searchParams.get("logout");
-    const session = cookieStore.get("session");
+    const session = jar.get("session");
 
     if (logout) {
 
@@ -35,7 +35,7 @@ export async function GET(request: Request) {
             return Response.json(data);
         }
 
-        cookieStore.set(
+        jar.set(
             "session",
             "",
             {
@@ -44,7 +44,7 @@ export async function GET(request: Request) {
             }
         );
 
-        cookieStore.set(
+        jar.set(
             "hasSession",
             "",
             {
@@ -61,7 +61,7 @@ export async function GET(request: Request) {
 
     if (!code) {
         const callback = searchParams.get("callback");
-        const lastpage = cookieStore.get("lastpage");
+        const lastpage = jar.get("lastpage");
 
         redirect(`${process.env.NEXT_PUBLIC_LOGIN}${invite ? "+bot" : ""}&state=${encodeURIComponent(callback || lastpage?.value || "/")}`);
     }
@@ -77,13 +77,13 @@ export async function GET(request: Request) {
         redirect(redirectUrl);
     }
 
-    cookieStore.set(
+    jar.set(
         "session",
         res.session,
         defaultCookieOptions
     );
 
-    cookieStore.set(
+    jar.set(
         "hasSession",
         "true",
         {

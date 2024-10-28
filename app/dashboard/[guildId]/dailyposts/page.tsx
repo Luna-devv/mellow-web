@@ -2,28 +2,32 @@
 
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { HiChat, HiViewGridAdd } from "react-icons/hi";
+import { useMemo } from "react";
+import { HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
-import Fetch from "@/components/button-fetch";
 import { CreateSplash } from "@/components/dashboard/lists/create-splash";
 import { useList } from "@/components/dashboard/lists/hook";
 import { Navigation } from "@/components/dashboard/lists/navigation";
 import { ItemSelector } from "@/components/dashboard/lists/selector";
-import MessageCreatorEmbed from "@/components/embed-creator";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import { ApiV1GuildsModulesDailypostsGetResponse } from "@/typings";
 
 import CreateNotification, { Style } from "./create.component";
-import DeleteNotification from "./delete.component";
+import DeleteDailypost from "./delete.component";
+import { generateHourArray, typeToIcon, typeToName } from "./util";
 
 export default function Home() {
     const guild = guildStore((g) => g);
     const params = useParams();
 
-    const url = `/guilds/${params.guildId}/modules/notifications` as const;
+    const hoursArray = useMemo(() => generateHourArray(), []);
+    const date = useMemo(() => new Date(), []);
+
+    const url = `/guilds/${params.guildId}/modules/dailyposts` as const;
     const {
         item,
         items,
@@ -33,7 +37,7 @@ export default function Home() {
         removeItem,
         isLoading,
         error
-    } = useList<ApiV1GuildsModulesNotificationsGetResponse>({ url });
+    } = useList<ApiV1GuildsModulesDailypostsGetResponse>({ url });
 
     if (error) {
         return (
@@ -54,14 +58,14 @@ export default function Home() {
 
     if (!item) {
         return (
-            <ItemSelector<ApiV1GuildsModulesNotificationsGetResponse>
+            <ItemSelector<ApiV1GuildsModulesDailypostsGetResponse>
                 items={items}
 
                 set={setItemId}
-                sort={(a, b) => a.creator.username.localeCompare(b.creator.username)}
-                name={(item) => item.creator.username}
+                sort={(a, b) => a.type - b.type}
+                name={(item) => typeToName(item.type)}
 
-                docs="/notifications"
+                docs="/dailyposts"
 
                 createButton={(options) => (
                     <CreateNotification
@@ -72,7 +76,7 @@ export default function Home() {
                 )}
 
                 deleteButton={(options) => (
-                    <DeleteNotification
+                    <DeleteDailypost
                         id={options.id}
                         name={options.name}
                         remove={removeItem}
@@ -84,16 +88,16 @@ export default function Home() {
 
                     return (<>
                         <Image
-                            alt={`${item.creator.username}'s avatar`}
+                            alt={`${typeToName} icon`}
                             className="rounded-full"
-                            src={item.creator.avatarUrl}
+                            src={typeToIcon(item.type)}
                             width={46}
                             height={46}
                         />
 
                         <div className="flex flex-col items-start">
                             <span className="text-neutral-100 text-lg font-medium -mb-[0.5]">
-                                {item.creator.username}
+                                {typeToName(item.type)}
                             </span>
 
                             <div className="bg-blurple/50 text-neutral-100 px-1 rounded-md">
@@ -119,19 +123,19 @@ export default function Home() {
 
     return (<>
         <Navigation
-            href="/notifications"
-            docs="/notifications"
+            href="/dailyposts"
+            docs="/dailyposts"
 
             icon={
                 <Image
-                    alt={`${item?.creator.username}'s avatar`}
+                    alt={`${typeToName} icon`}
                     className="rounded-full size-5.5"
-                    src={item?.creator.avatarUrl || ""}
+                    src={typeToIcon(item.type)}
                     width={24}
                     height={24}
                 />
             }
-            name={item.creator.username}
+            name={typeToName(item.type)}
         />
 
         <div className="flex md:gap-4 gap-2">
@@ -140,44 +144,50 @@ export default function Home() {
                 url={url + "/" + item.id}
                 dataName="channelId"
                 items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
-                description="Select a channel where notifications should be send into."
+                description="Select a channel where dailyposts should be send into."
                 defaultState={item.channelId}
                 onSave={(o) => editItem("channelId", o.value as string)}
             />
 
-            <Fetch
+            {/* <Fetch
                 className="w-1/3 md:w-1/6 relative top-8"
                 url={url + "/" + item.id + "/test"}
                 icon={<HiChat className="min-h-4 min-w-4" />}
                 label="Test Message"
                 method="POST"
                 size="lg"
-            />
+            /> */}
         </div>
 
-        <SelectMenu
-            className="md:w-1/2 w-full"
-            name="Ping role"
-            url={url + "/" + item.id}
-            dataName="roleId"
-            items={[
-                { name: "@everyone (everyone in server)", value: "everyone" },
-                { name: "@here (everyone online)", value: "here" },
-                ...guild?.roles?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `@${c.name}`, value: c.id, color: c.color })) || []
-            ]}
-            description="Select a role which should get pinged on uploads."
-            defaultState={item.roleId}
-            onSave={(o) => editItem("roleId", o.value as string)}
-            showClear
-        />
-
-        <MessageCreatorEmbed
-            key={item.id}
-            name="Message"
-            url={url + "/" + item.id}
-            dataName="message"
-            defaultMessage={item.message}
-            onSave={(value) => editItem("message", { content: value.content ?? null, embed: value.embed })}
-        />
+        <div className="lg:flex gap-3">
+            <SelectMenu
+                className="lg:w-1/2 w-full"
+                name="Ping role"
+                url={url + "/" + item.id}
+                dataName="roleId"
+                items={[
+                    { name: "@everyone (everyone in server)", value: "everyone" },
+                    { name: "@here (everyone online)", value: "here" },
+                    ...guild?.roles?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `@${c.name}`, value: c.id, color: c.color })) || []
+                ]}
+                description="Select a role which should get pinged on posts."
+                defaultState={item.roleId}
+                onSave={(o) => editItem("roleId", o.value as string)}
+                showClear
+            />
+            <MultiSelectMenu
+                className="lg:w-1/2 w-full"
+                name="Run at"
+                url={url + "/" + item.id}
+                dataName="runtimeHours"
+                items={hoursArray}
+                defaultState={
+                    item.runtimeHours
+                        .map(parseInt)
+                        .map((hour) => hour - (date.getTimezoneOffset() / 60))
+                }
+                description="Select one or multiple hours when posts should be made."
+            />
+        </div>
     </>);
 }

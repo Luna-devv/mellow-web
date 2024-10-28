@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 
-export default function Home({
-    searchParams
-}: {
-    searchParams: Record<string, string>;
-}) {
-    redirect(`/profile?${objectToSearchParams(searchParams)}`);
+interface Props {
+    searchParams: Promise<Record<string, string>>;
+}
+
+export default async function Home({ searchParams }: Props) {
+    redirect(`/profile?${objectToSearchParams(await searchParams)}`);
 }
 
 function objectToSearchParams(obj: Record<string, string>): string {

@@ -424,6 +424,25 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
     }
 
 }
+
+export enum DailypostType {
+    Anime = 1,
+    Blahaj = 2,
+    NekosBest = 3
+}
+
+export interface ApiV1GuildsModulesDailypostsGetResponse {
+    id: string;
+    guildId: string;
+    channelId: string;
+    roleId: string | null;
+
+    runtimeHours: `${number}`[];
+
+    type: DailypostType;
+    query: string | null;
+}
+
 export interface ApiV1UsersMeRankEmojiPutResponse {
     id: string;
     url: string;

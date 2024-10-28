@@ -134,8 +134,8 @@ function NoScript() {
     );
 }
 
-function NavBar() {
-    const cookieStore = cookies();
+async function NavBar() {
+    const jar = await cookies();
 
     return (
         <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
@@ -170,7 +170,7 @@ function NavBar() {
                 </Link>
             </div>
 
-            {cookieStore.get("hasSession")?.value === "true"
+            {jar.get("hasSession")?.value === "true"
                 ? <Header className="ml-auto" />
                 : <LoginButton />
             }

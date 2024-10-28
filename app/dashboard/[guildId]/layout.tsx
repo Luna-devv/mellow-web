@@ -7,15 +7,15 @@ import { redirect, useParams, usePathname } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense, useEffect, useState } from "react";
 import { BiLogoYoutube } from "react-icons/bi";
-import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiPaperAirplane, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
+import { ClientButton } from "@/components/client";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { AddButton, ScreenMessage, SupportButton } from "@/components/screen-message";
-import { ServerButton } from "@/components/server-button";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
@@ -58,7 +58,7 @@ export default function RootLayout({
         {
             enabled: !!guild?.id,
             onSettled: (d) => {
-                if (!d||"message" in d) {
+                if (!d || "message" in d) {
                     setError(d?.message || "Failed to fetch channels.");
                     return;
                 }
@@ -80,7 +80,7 @@ export default function RootLayout({
         {
             enabled: !!guild?.id,
             onSettled: (d) => {
-                if (!d||"message" in d) {
+                if (!d || "message" in d) {
                     setError(d?.message || "Failed to fetch roles.");
                     return;
                 }
@@ -102,7 +102,7 @@ export default function RootLayout({
         {
             enabled: !!guild?.id,
             onSettled: (d) => {
-                if (!d||"message" in d) {
+                if (!d || "message" in d) {
                     setError(d?.message || "Failed to fetch emojis.");
                     return;
                 }
@@ -143,7 +143,7 @@ export default function RootLayout({
                     </Button>
                     {isDevMode &&
                         <CopyToClipboardButton
-                            text={getCanonicalUrl("leaderboard", params.guildId.toString())}
+                            text={getCanonicalUrl("leaderboard", params.guildId?.toString() as string)}
                             items={[
                                 { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
                                 { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
@@ -208,6 +208,11 @@ export default function RootLayout({
                             icon: <BiLogoYoutube />
                         },
                         {
+                            name: "Dailyposts",
+                            value: "/dailyposts",
+                            icon: <HiPaperAirplane className="rotate-45" />
+                        },
+                        {
                             name: "NSFW Moderation",
                             value: "/nsfw-image-scanning",
                             icon: <HiEye />
@@ -231,13 +236,13 @@ export default function RootLayout({
                     }
                     description={error}
                     buttons={<>
-                        <ServerButton
+                        <ClientButton
                             as={Link}
                             href="/profile"
                             startContent={<HiViewGridAdd />}
                         >
                             Go back to Dashboard
-                        </ServerButton>
+                        </ClientButton>
                         {error.includes("permissions")
                             ? <AddButton />
                             : <SupportButton />
