@@ -23,7 +23,7 @@ export default async function Home({ params }: Props) {
     if (!markdown || !meta) {
         return (
             <ScreenMessage
-                top="0rem"
+                top="6rem"
                 title="Sadly, this page can not be found.."
                 description="Seems like you got a little lost here? Here's wumpus for now!"
                 buttons={<>
