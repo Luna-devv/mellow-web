@@ -12,6 +12,8 @@ const defaultCookieOptions = {
 } as const;
 
 export async function GET(request: Request) {
+    if (request.headers.get("user-agent")?.includes("Discordbot/2.0")) redirect("/login/open-graph");
+
     const { searchParams } = new URL(request.url);
     const jar = await cookies();
 
