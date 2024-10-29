@@ -108,8 +108,8 @@ export default function Home() {
                 }}
             >
                 <CreateSplash
-                    name="notifications"
-                    description="Notify your community when new videos are released."
+                    name="dailyposts"
+                    description="Send cute characters into your channels daily."
                 >
                     <CreateNotification
                         style={Style.Big}

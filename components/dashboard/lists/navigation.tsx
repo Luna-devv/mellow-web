@@ -51,7 +51,7 @@ export function Navigation({
 
             <Button
                 as={Link}
-                href={`/docs/${docs}`}
+                href={`/docs${docs}`}
                 target="_blank"
                 endContent={<HiExternalLink />}
                 size="sm"
