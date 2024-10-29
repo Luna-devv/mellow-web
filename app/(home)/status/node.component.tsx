@@ -56,7 +56,7 @@ function Icon({ id }: { id: string }) {
         <Image
             alt={`${id} country flag`}
             className="p-0.5 size-7 rounded-full"
-            src={`/${id}.webp`}
+            src={`/icons/${id}.webp`}
             width={32}
             height={32}
         />
