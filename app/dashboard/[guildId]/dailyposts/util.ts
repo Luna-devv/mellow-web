@@ -16,12 +16,14 @@ export function typeToIcon(type: DailypostType) {
     }
 }
 
-export function generateHourArray() {
+export function generateHourArray(date: Date) {
     const hoursArray = [];
 
     for (let hour = 0; hour < 24; hour++) {
-        const name = `${((hour + 11) % 12 + 1)}${hour < 12 ? "am" : "pm"}`;
-        hoursArray.push({ name, value: hour });
+        hoursArray.push({
+            name: `${((hour + 11) % 12 + 1)}${hour < 12 ? "am" : "pm"}`,
+            value: (hour + Math.floor(date.getTimezoneOffset() / 60) + 24) % 24
+        });
     }
 
     return hoursArray;

@@ -24,8 +24,8 @@ export default function Home() {
     const guild = guildStore((g) => g);
     const params = useParams();
 
-    const hoursArray = useMemo(() => generateHourArray(), []);
     const date = useMemo(() => new Date(), []);
+    const hoursArray = useMemo(() => generateHourArray(date), []);
 
     const url = `/guilds/${params.guildId}/modules/dailyposts` as const;
     const {
@@ -181,11 +181,7 @@ export default function Home() {
                 url={url + "/" + item.id}
                 dataName="runtimeHours"
                 items={hoursArray}
-                defaultState={
-                    item.runtimeHours
-                        .map(parseInt)
-                        .map((hour) => hour - (date.getTimezoneOffset() / 60))
-                }
+                defaultState={item.runtimeHours.map(Number)}
                 description="Select one or multiple hours when posts should be made."
             />
         </div>

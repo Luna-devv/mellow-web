@@ -36,7 +36,8 @@ export default function CreateDailypost({
     const [hours, setHours] = useState<number[]>([]);
     const [channelId, setChannelId] = useState<string | null>(null);
 
-    const hoursArray = useMemo(() => generateHourArray(), []);
+    const date = useMemo(() => new Date(), []);
+    const hoursArray = useMemo(() => generateHourArray(date), []);
 
     return (<>
         {style === Style.Compact
@@ -65,8 +66,6 @@ export default function CreateDailypost({
             isOpen={open}
             onClose={() => setOpen(false)}
             onSubmit={() => {
-                const date = new Date();
-
                 return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/dailyposts`, {
                     method: "POST",
                     credentials: "include",
@@ -75,7 +74,7 @@ export default function CreateDailypost({
                     },
                     body: JSON.stringify({
                         channelId,
-                        runtimeHours: hours.map((hour) => hour + (date.getTimezoneOffset() / 60)),
+                        runtimeHours: hours,
                         type
                     })
                 });
