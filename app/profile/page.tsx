@@ -32,8 +32,8 @@ export default function Home() {
     function filter(guild: UserGuild) {
         if (!search) return true;
 
-        if (guild.name.toLowerCase().includes(search.toLowerCase())) return true;
-        if (search.toLowerCase().includes(guild.name.toLowerCase())) return true;
+        if (guild.name?.toLowerCase().includes(search.toLowerCase())) return true;
+        if (search.toLowerCase().includes(guild.name?.toLowerCase())) return true;
 
         if (guild.id.includes(search)) return true;
         if (search.includes(guild.id)) return true;
