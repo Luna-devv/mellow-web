@@ -99,7 +99,7 @@ export default async function Home() {
                             Next generation
                         </span>
                         {" of "}
-                        <span className="underline decoration-blurple break-keep inline-flex items-center">
+                        <span className="break-keep inline-flex items-center">
                             Discord
                             <DiscordAppBadge className="mt-1 scale-[250%] md:scale-[300%] lg:scale-[360%] relative left-12 md:left-14 lg:left-20" />
                         </span>
