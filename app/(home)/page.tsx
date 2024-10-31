@@ -353,6 +353,15 @@ export default async function Home() {
                                 <ClientButton
                                     as={Link}
                                     className="bg-wamellow"
+                                    startContent={<BsYoutube />}
+                                    href="https://youtu.be/xizs-hrwK4I?si=6pIYALygtNhUwpph"
+                                    target="_blank"
+                                >
+                                    Watch YouTube Video
+                                </ClientButton>
+                                <ClientButton
+                                    as={Link}
+                                    className="bg-wamellow"
                                     startContent={<HiArrowRight />}
                                     href="/dashboard?to=notifications&utm_source=wamellow.com&utm_medium=home"
                                 >

@@ -3,10 +3,9 @@
 - Notifications are sent with **less than 1 (one) minute delay**.
 - And **free custom message & embed** for every notification individually.
 <br />
-<br />
 
-![notification example](/docs-assets/notifications-example.webp?fullwidth=true)
-
+<iframe src="https://www.youtube.com/embed/xizs-hrwK4I" height="513" frameborder="0" allow="autoplay">
+</iframe>
 
 ## Setup
 1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).

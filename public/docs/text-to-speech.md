@@ -1,7 +1,7 @@
 It's absolutely crucial for people with speech impairments like aphonia or dysphonia. It ensures inclusivity and allows everyone to participate fully, promoting accessibility and community engagement.
 <br />
 
-<iframe src="https://www.youtube.com/embed/NS5fZ1ltovE" height="513" frameborder="0">
+<iframe src="https://www.youtube.com/embed/NS5fZ1ltovE" height="513" frameborder="0" allow="autoplay">
 </iframe>
 
 ## Setup
