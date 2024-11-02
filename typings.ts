@@ -15,10 +15,11 @@ export interface ApiV1TopguildsGetResponse {
     partnered: boolean;
 }
 
-export interface UserGuild {
+export interface ApiV1UsersMeGuildsGetResponse {
     id: string;
     name: string;
     icon: string | null;
+    bot: boolean;
 }
 
 export interface RouteErrorResponse {
