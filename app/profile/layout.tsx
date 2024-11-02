@@ -24,9 +24,9 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     const cookies = useCookies();
-    const hasSession = cookies.get("hasSession") === "true";
+    const session = cookies.get("session");
 
-    if (!hasSession) redirect("/login?callback=/profile");
+    if (!session) redirect("/login?callback=/profile");
 
     const user = userStore((u) => u);
 

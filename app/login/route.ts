@@ -1,15 +1,41 @@
+import { PermissionFlagsBits } from "discord-api-types/v10";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { createSession, deleteSession } from "./api";
+import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+
+import { createSession } from "./api";
 
 const defaultCookieOptions = {
-    secure: process.env.NEXT_PUBLIC_BASE_URL?.startsWith("https://"),
-    httpOnly: true,
+    secure: getBaseUrl().startsWith("https://"),
+    httpOnly: false,
     sameSite: "none",
-    domain: process.env.NEXT_PUBLIC_BASE_URL?.split("://")[1],
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7 * 4)
+    domain: getBaseUrl().split("://")[1],
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 28)
 } as const;
+
+const permissions = [
+    PermissionFlagsBits.AddReactions, // greetings
+    PermissionFlagsBits.AttachFiles, // /image, /tts, leaderboards
+    PermissionFlagsBits.BanMembers, // passport
+    PermissionFlagsBits.Connect, // /tts
+    PermissionFlagsBits.CreatePublicThreads, // nsfw moderation
+    PermissionFlagsBits.EmbedLinks, // everything
+    PermissionFlagsBits.KickMembers, // passport
+    PermissionFlagsBits.ManageChannels, // nsfw stuff, /tts, invite tracking
+    PermissionFlagsBits.ManageGuild, // invite tracking
+    PermissionFlagsBits.ManageMessages, // nsfw moderation
+    PermissionFlagsBits.ManageRoles, // greetings
+    PermissionFlagsBits.ManageWebhooks, // greetings
+    PermissionFlagsBits.MentionEveryone, // notifications
+    PermissionFlagsBits.ModerateMembers, // passport
+    PermissionFlagsBits.ReadMessageHistory, // leaderboards, text commands
+    PermissionFlagsBits.SendMessages, // leaderboards, text commands, nsfw moderation, passport
+    PermissionFlagsBits.SendMessagesInThreads, // text commands, nsfw moderation
+    PermissionFlagsBits.Speak, // /tts
+    PermissionFlagsBits.UseExternalEmojis, // everything
+    PermissionFlagsBits.ViewChannel // leaderboards, text commands, nsfw moderation, passport, activity tracking
+];
 
 export async function GET(request: Request) {
     if (request.headers.get("user-agent")?.includes("Discordbot/2.0")) redirect("/login/open-graph");
@@ -18,57 +44,33 @@ export async function GET(request: Request) {
     const jar = await cookies();
 
     const logout = searchParams.get("logout");
-    const session = jar.get("session");
 
     if (logout) {
-
-        if (!session?.value) {
-            redirect("/");
-        }
-
-        const res = await deleteSession(session.value);
-
-        if (
-            (res !== true || typeof res !== "boolean" && "statusCode" in res) &&
-            res?.statusCode !== 401
-        ) {
-            const data = { statusCode: 500, message: res?.message || "An error occurred" };
-            console.log(data);
-            return Response.json(data);
-        }
-
         jar.set(
             "session",
             "",
             {
                 expires: new Date(0),
-                domain: process.env.NEXT_PUBLIC_BASE_URL?.split("://")[1]
-            }
-        );
-
-        jar.set(
-            "hasSession",
-            "",
-            {
-                expires: new Date(0),
-                domain: process.env.NEXT_PUBLIC_BASE_URL?.split("://")[1]
+                domain: getBaseUrl().split("://")[1]
             }
         );
 
         redirect("/");
     }
 
-    const invite = searchParams.get("invite");
+    const guildId = searchParams.get("guild_id");
+    const invite = Boolean(searchParams.get("invite") || guildId);
     const code = searchParams.get("code");
 
-    if (!code) {
+    if (!code || invite) {
         const callback = searchParams.get("callback");
         const lastpage = jar.get("lastpage");
 
-        redirect(`${process.env.NEXT_PUBLIC_LOGIN}${invite ? "+bot" : ""}&state=${encodeURIComponent(callback || lastpage?.value || "/")}`);
+        const url = generateOauthUrl(invite, callback || lastpage?.value, guildId);
+        redirect(url);
     }
 
-    const res = await createSession(code, session?.value);
+    const res = await createSession(code);
     let redirectUrl = getRedirectUrl(searchParams);
 
     if (!res || "statusCode" in res) {
@@ -85,16 +87,25 @@ export async function GET(request: Request) {
         defaultCookieOptions
     );
 
-    jar.set(
-        "hasSession",
-        "true",
-        {
-            ...defaultCookieOptions,
-            httpOnly: false
-        }
-    );
-
     redirect(redirectUrl);
+}
+
+function generateOauthUrl(invite: boolean, redirectUrl: string | undefined, guildId: string | null) {
+    const params = new URLSearchParams();
+
+    params.append("client_id", process.env.CLIENT_ID as string);
+    params.append("redirect_uri", getCanonicalUrl("login"));
+    params.append("permissions", permissions.reduce((acc, cur) => acc + Number(cur), 0).toString());
+    params.append("prompt", "none");
+    params.append("response_type", "code");
+    params.append("state", encodeURIComponent(redirectUrl || "/"));
+
+    if (invite) params.append("scope", "identify guilds bot");
+    else params.append("scope", "identify guilds email");
+
+    if (guildId) params.append("guild_id", guildId);
+
+    return "https://discord.com/oauth2/authorize?" + params.toString();
 }
 
 function getRedirectUrl(searchParams: URLSearchParams) {

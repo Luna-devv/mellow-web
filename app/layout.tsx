@@ -170,7 +170,7 @@ async function NavBar() {
                 </Link>
             </div>
 
-            {jar.get("hasSession")?.value === "true"
+            {jar.get("session")?.value
                 ? <Header className="ml-auto" />
                 : <LoginButton />
             }

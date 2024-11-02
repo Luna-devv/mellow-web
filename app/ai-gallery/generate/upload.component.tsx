@@ -32,7 +32,7 @@ export default function UploadButton({
 
     const [nsfw, setNsfw] = useState(false);
 
-    const isDisabled = !cookies.get("hasSession") || !imageUrl;
+    const isDisabled = !cookies.get("session") || !imageUrl;
 
     useEffect(() => {
         setState(State.Idle);

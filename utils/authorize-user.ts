@@ -17,10 +17,7 @@ export async function authorize({
     setState(State.Idle);
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/sessions`, {
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json"
-        }
+        credentials: "include"
     })
         .then((res) => res.json())
         .catch(() => null) as User | RouteErrorResponse | null;

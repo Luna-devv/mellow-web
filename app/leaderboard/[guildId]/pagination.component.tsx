@@ -18,7 +18,7 @@ export default function Pagination({ searchParams, pages }: Props) {
     const cookies = useCookies();
     const router = useRouter();
 
-    if (!cookies.get("hasSession")) return (
+    if (!cookies.get("session")) return (
         <LoginButton
             addClassName="justify-center"
             message="Login to view more"

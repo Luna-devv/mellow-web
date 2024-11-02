@@ -29,7 +29,7 @@ export default async function Home({ searchParams, params }: Props) {
     const type = search.type || "messages";
     const page = parseInt(search.page || "1");
 
-    if (page !== 1 && !jar.get("hasSession")) redirect("/login?callback=/leaderboard/%5BguildId%5D/messages%3Fpage=" + page);
+    if (page !== 1 && !jar.get("session")) redirect(`/login?callback=/leaderboard/${guildId}%3Ftype%3Dmessages%3Fpage=${page}`);
 
     const guildPromise = getGuild(guildId);
     const membersPromise = getTopMembers(guildId, { page, type: type });
