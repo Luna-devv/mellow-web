@@ -12,11 +12,11 @@ export interface ApiCluster {
 }
 
 export interface ApiNode {
-        id: string;
-        uptime: string;
-        memory: number;
-        usage: number;
-        players: number;
+    id: string;
+    uptime: string;
+    memory: number;
+    usage: number;
+    players: number;
 }
 
 export interface ApiV1StatusGetResponse {

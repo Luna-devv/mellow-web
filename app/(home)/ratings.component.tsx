@@ -27,10 +27,10 @@ const review = {
     rating: "positive"
 } satisfies Review;
 
-function getReviews(){
+function getReviews() {
     return fetch(`${process.env.RATINGS_API}/?id=${process.env.CLIENT_ID}`, defaultFetchOptions)
         .then((res) => res.json())
-        .catch(() => [review]) as Promise<Review[]> ;
+        .catch(() => [review]) as Promise<Review[]>;
 }
 
 export async function Ratings() {
