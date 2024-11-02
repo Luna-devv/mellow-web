@@ -338,8 +338,7 @@ export default async function Home() {
                                         "Up to 30 channels",
                                         "Custom message & embed",
                                         "Sub 30 second delay",
-                                        "99.9% uptime",
-                                        "For free"
+                                        "99.9% uptime"
                                     ].map((name) => (
                                         <li key={name} className="flex gap-1 items-center">
                                             <HiCheck className="text-violet-400" />
@@ -357,7 +356,7 @@ export default async function Home() {
                                     href="https://youtu.be/xizs-hrwK4I?si=6pIYALygtNhUwpph"
                                     target="_blank"
                                 >
-                                    Watch YouTube Video
+                                    Watch Tutorial
                                 </ClientButton>
                                 <ClientButton
                                     as={Link}
