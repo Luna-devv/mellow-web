@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect, useParams, usePathname } from "next/navigation";
 import { useCookies } from "next-client-cookies";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { BiLogoYoutube } from "react-icons/bi";
 import { HiArrowNarrowLeft, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiPaperAirplane, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
@@ -15,12 +15,30 @@ import { ClientButton } from "@/components/client";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
-import { AddButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ScreenMessage, SupportButton } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
+
+function useGuildData<T extends unknown[]>(
+    url: string,
+    onLoad: (data: T, error: boolean) => void
+) {
+    return useQuery(
+        url,
+        () => getData<T>(url),
+        {
+            enabled: !!guildStore((g) => g)?.id,
+            onSettled: (data) => {
+                const isError = !data || "message" in data;
+                onLoad(isError ? [] as unknown as T : data, isError);
+            },
+            ...cacheOptions
+        }
+    );
+}
 
 export default function RootLayout({
     children
@@ -33,12 +51,13 @@ export default function RootLayout({
 
     const [error, setError] = useState<string>();
     const [loaded, setLoaded] = useState<string[]>([]);
+
     const guild = guildStore((g) => g);
 
-    const hasSession = cookies.get("hasSession") === "true";
-    const isDevMode = cookies.get("devTools") === "true";
+    const session = useMemo(() => cookies.get("session"), [cookies]);
+    const isDevMode = useMemo(() => cookies.get("devTools") === "true", [cookies]);
 
-    if (!hasSession) redirect(`/login?callback=/dashboard/${params.guildId}`);
+    if (!session) redirect(`/login?callback=/dashboard/${params.guildId}`);
 
     const url = `/guilds/${params.guildId}` as const;
 
@@ -52,69 +71,27 @@ export default function RootLayout({
         }
     );
 
-    useQuery(
-        url + "/channels",
-        () => getData<ApiV1GuildsChannelsGetResponse[]>(url + "/channels"),
-        {
-            enabled: !!guild?.id,
-            onSettled: (d) => {
-                if (!d || "message" in d) {
-                    setError(d?.message || "Failed to fetch channels.");
-                    return;
-                }
-
-                guildStore.setState({
-                    ...guild,
-                    channels: d
-                });
-
-                setLoaded((loaded) => [...loaded, "channels"]);
-            },
-            ...cacheOptions
+    useGuildData<ApiV1GuildsChannelsGetResponse[]>(
+        `${url}/channels`,
+        (data) => {
+            guildStore.setState({ ...guild, channels: data });
+            setLoaded((loaded) => [...loaded, "channels"]);
         }
     );
 
-    useQuery(
-        url + "/roles",
-        () => getData<ApiV1GuildsRolesGetResponse[]>(url + "/roles"),
-        {
-            enabled: !!guild?.id,
-            onSettled: (d) => {
-                if (!d || "message" in d) {
-                    setError(d?.message || "Failed to fetch roles.");
-                    return;
-                }
-
-                guildStore.setState({
-                    ...guild,
-                    roles: d
-                });
-
-                setLoaded((loaded) => [...loaded, "roles"]);
-            },
-            ...cacheOptions
+    useGuildData<ApiV1GuildsRolesGetResponse[]>(
+        `${url}/roles`,
+        (data) => {
+            guildStore.setState({ ...guild, roles: data });
+            setLoaded((loaded) => [...loaded, "roles"]);
         }
     );
 
-    useQuery(
-        url + "/emojis",
-        () => getData<ApiV1GuildsEmojisGetResponse[]>(url + "/emojis"),
-        {
-            enabled: !!guild?.id,
-            onSettled: (d) => {
-                if (!d || "message" in d) {
-                    setError(d?.message || "Failed to fetch emojis.");
-                    return;
-                }
-
-                guildStore.setState({
-                    ...guild,
-                    emojis: d
-                });
-
-                setLoaded((loaded) => [...loaded, "emojis"]);
-            },
-            ...cacheOptions
+    useGuildData<ApiV1GuildsEmojisGetResponse[]>(
+        `${url}/emojis`,
+        (data) => {
+            guildStore.setState({ ...guild, emojis: data });
+            setLoaded((loaded) => [...loaded, "emojis"]);
         }
     );
 
@@ -243,10 +220,7 @@ export default function RootLayout({
                         >
                             Go back to Dashboard
                         </ClientButton>
-                        {error.includes("permissions")
-                            ? <AddButton />
-                            : <SupportButton />
-                        }
+                        <SupportButton />
                     </>}
                 >
                     <Image src={SadWumpusPic} alt="" height={141} width={124} />
