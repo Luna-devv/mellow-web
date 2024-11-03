@@ -105,8 +105,10 @@ export default async function Home() {
                         </span>
                     </h1>
 
-                    <span className="text-lg font-medium max-w-xl mb-4">
-                        Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.
+                    <span className="text-lg font-medium max-w-[38rem] mb-4">
+                        Engage in leaderboards, starboards, and a welcoming atmosphere.
+                        Dive into /anime&apos;s, free /image Ai, and the power of Text-to-Speech.
+                        Stay updated with dailyposts and receive YouTube notifications!
                     </span>
 
                     <ClientAvatarGroup
@@ -128,7 +130,7 @@ export default async function Home() {
 
                     <div className="space-y-4">
                         <Link
-                            className="flex gap-1 items-center text-violet-400 hover:underline"
+                            className="flex gap-1 items-center text-violet-400 hover:underline w-fit"
                             href={getCanonicalUrl("dashboard", "?utm_source=wamellow.com&utm_medium=home")}
                         >
                             Go to Dashboard <HiArrowNarrowRight />
