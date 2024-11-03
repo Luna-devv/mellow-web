@@ -8,10 +8,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { CookiesProvider } from "next-client-cookies/server";
+import { HiBookOpen } from "react-icons/hi";
 import { SiKofi } from "react-icons/si";
 
 import Header from "@/components/header";
-import TopggIcon from "@/components/icons/topgg";
 import LoginButton from "@/components/login-button";
 import Notice, { NoticeType } from "@/components/notice";
 import cn from "@/utils/cn";
@@ -153,7 +153,7 @@ async function NavBar() {
                 orientation="vertical"
             />
 
-            <div className="flex gap-1">
+            <div className="flex">
                 <Link
                     href="https://ko-fi.com/mwlica"
                     className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
@@ -162,11 +162,11 @@ async function NavBar() {
                     Donate
                 </Link>
                 <Link
-                    href="/vote"
+                    href="/docs/index?utm_source=wamellow.com&utm_medium=header"
                     className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 flex items-center gap-2 group"
                 >
-                    <TopggIcon className="group-hover:text-[#ff3366] duration-200 h-5 w-5 mt-0.5" />
-                    Vote
+                    <HiBookOpen className="group-hover:text-neutral-300 duration-200 h-5 w-5 mt-0.5" />
+                    Docs
                 </Link>
             </div>
 

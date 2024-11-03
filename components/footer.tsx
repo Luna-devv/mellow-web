@@ -101,15 +101,6 @@ function Socials() {
                 <TopggIcon />
                 <span className="sr-only">Wamellow on top.gg</span>
             </Link>
-            <Link href="/wumpus" className="text-neutral-400 hover:text-[#b6a5e3] duration-200 h-6 w-6 -ml-0.5" aria-label="Wamellow on wumpus.store">
-                <Image
-                    alt="Wumpus.store"
-                    height={24}
-                    src="https://cdn.discordapp.com/emojis/1184215185964146728.webp?size=96&quality=lossless"
-                    width={24}
-                />
-                <span className="sr-only">Wamellow on wumpus.store</span>
-            </Link>
         </div>
     );
 }
