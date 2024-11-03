@@ -59,10 +59,10 @@ export async function GET(request: Request) {
     }
 
     const guildId = searchParams.get("guild_id");
-    const invite = Boolean(searchParams.get("invite") || guildId);
+    const invite = Boolean(searchParams.get("invite"));
     const code = searchParams.get("code");
 
-    if (!code || invite) {
+    if (!code) {
         const callback = searchParams.get("callback");
         const lastpage = jar.get("lastpage");
 
