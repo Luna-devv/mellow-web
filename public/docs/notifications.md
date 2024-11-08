@@ -1,6 +1,6 @@
 - We only support **YouTube**, use [NotifyMe](https://notifyme.bot) or [DisPing](https://disping.xyz) for Twitch, Kick, Twitter, etc.
 - Every server can have **up to 30 different channels for free**.
-- Notifications are sent with **less than 1 (one) minute delay**.
+- Notifications are sent **within five to ten seconds** after uploading.
 - And **free custom message & embed** for every notification individually.
 <br />
 

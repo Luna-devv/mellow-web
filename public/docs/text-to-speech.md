@@ -55,12 +55,38 @@ While this feature is free, we would be grateful if you could consider [shooting
 ### 🤚 Blacklist users & roles
 If you want to prevent certain users from using text or chat to speech, you can either use Discord's channel or integration permission system.
 
-## Avoiding Chat to Speech
-To prevent Wamellow from speaking your messages inside of Chat to Speech channels, simply take the following actions:
+## Languages
+Wamellows Text to Speech supports many languages, these include
+- 🇺🇸 English (United States)
+- 🇬🇧 English (United Kingdom)
+- 🇦🇺 English (Australia)
+- 🇩🇪 German
+- 🇫🇷 French
+- 🇪🇸 Spanish (ES & MX)
+- 🇵🇹 Portuguese
+- 🇮🇩 Indonesian
+- 🇯🇵 Japanese
+- 🇰🇷 Korean
+<br />
+<br />
 
+- 🇺🇸 Singing:
+
+Alto (Female), Warmy Breeze (Female), Glorious (Female), Dramatic (Female), Tenor (Male), Sunshine Soon (Male), Chipmunk (Male), It Goes Up (Male);
+<br />
+<br />
+
+All languages have one or more variants, including male and female versions. (40 voices in 8 languages)
+<br />
+<br />
+
+You can change your default language and voice either by running `/tts set speaker` or by [setting it on the dashboard](/profile/text-to-speech).
+
+## Avoiding Chat-to-Speech
+To prevent Wamellow from speaking your messages inside of Chat to Speech channels, simply take the following actions:
 - Just add some special characters at the start of your message, like `!`, `?`, `>`, `.`, `,` and so on.
 - If you're not connected to any voice channels, those messages will also be ignored.
-- If you want to disable Chat to Speech permanently, you can use the command `/tts set chat-to-speech`.
+- If you want to disable permanently, you can use `/tts set chat-to-speech`.
 
 ## Voice filters
 Filters are a way to tamper with the voices for voice chat moderators. They can be toggled using `/tts set filter` when using Wamellow in VCs.
