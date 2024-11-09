@@ -194,6 +194,7 @@ function InviteButton({ guildId }: { guildId: string }) {
             as={Link}
             className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
             href={`/login?invite=true&guild_id=${guildId}`}
+            prefetch={false}
             startContent={<HiUserAdd />}
         >
             Add Wamellow
