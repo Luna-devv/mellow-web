@@ -1,7 +1,6 @@
 "use client";
 
 import { Tab, Tabs } from "@nextui-org/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useCookies } from "next-client-cookies";
 import { useState } from "react";
@@ -13,6 +12,7 @@ import Switch from "@/components/inputs/switch";
 import TextInput from "@/components/inputs/text-input";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
+import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
 
 interface Props {
     guild: Guild;
@@ -164,7 +164,7 @@ export default function UpdatingLeaderboardCard({
 
             <SelectInput
                 name="Channel"
-                items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+                items={createSelectableItems(guild.channels, "#")}
                 description="Select a channel where updates should be send into."
                 defaultState={leaderboard?.channelId || undefined}
                 onSave={(o) => {
@@ -240,17 +240,7 @@ export default function UpdatingLeaderboardCard({
 
                 <SelectInput
                     name="Emoji"
-                    items={guild?.emojis?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({
-                        icon: <Image
-                            src={`https://cdn.discordapp.com/emojis/${c.id}.webp?size=64&quality=lossless`}
-                            className="rounded-md h-6 w-6"
-                            alt={c.name}
-                            height={64}
-                            width={64}
-                        />,
-                        name: c.name.replace(/-|_/g, " "),
-                        value: c.id
-                    })) || []}
+                    items={createSelectableEmojiItems(guild.emojis)}
                     description="Select a emots which will be between shown after the data count."
                     defaultState={leaderboard?.emoji || undefined}
                     showClear

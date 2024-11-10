@@ -12,6 +12,7 @@ import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
 import TutorialPic from "@/public/docs-assets/notifications-get-handle.webp";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 
 const URL_CHANNEL_REGEX = /^https:\/\/(www\.)?youtube\.com\/channel\/UC([a-zA-Z0-9_-]{16,32})$/;
 const URL_HANDLE_REGEX = /^https:\/\/(www\.)?youtube\.com\/@([a-zA-Z0-9._-]{3,30})$/;
@@ -115,7 +116,7 @@ export default function CreateNotification({
             <SelectMenu
                 name="Channel"
                 dataName="channelId"
-                items={channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+                items={createSelectableItems(channels, "#")}
                 description="Select a channel where notifications should be send into."
                 onSave={(o) => {
                     setChannelId(o.value as string);

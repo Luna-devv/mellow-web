@@ -19,6 +19,7 @@ import { ScreenMessage } from "@/components/screen-message";
 import { getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesStarboardGetResponse, RouteErrorResponse } from "@/typings";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -110,7 +111,6 @@ export default function Home() {
     if (isLoading || !data) return <></>;
 
     return (<>
-
         <div className="flex justify-between relative bottom-2 mb-3">
             <Button
                 className="ml-auto"
@@ -128,7 +128,7 @@ export default function Home() {
             name="Starboard module enabled"
             url={url}
             dataName="enabled"
-            defaultState={data.enabled || false}
+            defaultState={data.enabled}
             disabled={false}
             onSave={handleSwitchToggle}
         />
@@ -137,7 +137,7 @@ export default function Home() {
             name="Allow bots, apps and webhooks"
             url={url}
             dataName="allowBots"
-            defaultState={data.allowBots || false}
+            defaultState={data.allowBots}
             disabled={!data.enabled}
         />
 
@@ -145,7 +145,7 @@ export default function Home() {
             name="Allow NSFW channels"
             url={url}
             dataName="allowNSFW"
-            defaultState={data.allowNSFW || false}
+            defaultState={data.allowNSFW}
             disabled={!data.enabled}
         />
 
@@ -154,7 +154,7 @@ export default function Home() {
             description="If a message is being edited, update it in the data."
             url={url}
             dataName="allowEdits"
-            defaultState={data.allowEdits || false}
+            defaultState={data.allowEdits}
             disabled={!data.enabled}
         />
 
@@ -163,7 +163,7 @@ export default function Home() {
             description="Lets the message author star their own messages."
             url={url}
             dataName="allowSelfReact"
-            defaultState={data.allowSelfReact || false}
+            defaultState={data.allowSelfReact}
             disabled={!data.enabled}
         />
 
@@ -172,7 +172,7 @@ export default function Home() {
             description="Repost the message reply in the data."
             url={url}
             dataName="displayReference"
-            defaultState={data.displayReference || false}
+            defaultState={data.displayReference}
             disabled={!data.enabled}
         />
 
@@ -181,7 +181,7 @@ export default function Home() {
             description="If a message in the starboard looses the required reactions, it gets deleted."
             url={url}
             dataName="delete"
-            defaultState={data.delete || false}
+            defaultState={data.delete}
             disabled={!data.enabled}
         />
 
@@ -199,7 +199,7 @@ export default function Home() {
             name="Channel"
             url={url}
             dataName="channelId"
-            items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+            items={createSelectableItems(guild?.channels, "#")}
             description="Select the channel where the starboard messages should be send into."
             defaultState={data.channelId}
             disabled={!data.enabled}
@@ -274,25 +274,24 @@ export default function Home() {
         <div className="lg:flex gap-3">
             <div className="lg:w-1/2">
                 <MultiSelectMenu
-                    name="Blacklisted roles"
+                    name="Blacklisted channels"
                     url={url}
-                    dataName="blacklistRoleIds"
-                    items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, color: r.color }))}
-                    description="Select roles which should not be able to data."
-                    defaultState={data.blacklistRoleIds || []}
+                    dataName="blacklistChannelIds"
+                    items={createSelectableItems(guild?.channels, "#", () => false)}
+                    description="Select channels which should not be able to be in the data."
+                    defaultState={data.blacklistChannelIds || []}
                     max={500}
                     disabled={!data.enabled}
                 />
             </div>
-
             <div className="lg:w-1/2">
                 <MultiSelectMenu
-                    name="Blacklisted channels"
+                    name="Blacklisted roles"
                     url={url}
-                    dataName="blacklistChannelIds"
-                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
-                    description="Select channels which should not be able to be in the data."
-                    defaultState={data.blacklistChannelIds || []}
+                    dataName="blacklistRoleIds"
+                    items={createSelectableItems(guild?.roles, "@")}
+                    description="Select roles which should not be able to data."
+                    defaultState={data.blacklistRoleIds || []}
                     max={500}
                     disabled={!data.enabled}
                 />
@@ -329,14 +328,19 @@ export default function Home() {
                     <br />
 
                     <div className="flex items-center gap-1">
-                        <span className="font-bold flex items-center"><Emoji emoji={data.emoji} /> 9</span> | <span className="text-blue-500 hover:underline cursor-pointer">#・lounge</span>
+                        <span className="font-bold flex items-center">
+                            <Emoji emoji={data.emoji} /> 9
+                        </span>
+                        |
+                        <span className="text-blue-500 hover:underline cursor-pointer">
+                            #lounge
+                        </span>
                     </div>
 
                 </DiscordMessageEmbed>
 
             </DiscordMessage>
         </div>
-
     </>);
 }
 

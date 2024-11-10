@@ -8,6 +8,7 @@ import { guildStore } from "@/common/guilds";
 import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 
 export function TTSSettings() {
     const guild = guildStore((g) => g);
@@ -20,7 +21,7 @@ export function TTSSettings() {
                     name="Chat to Speech channel"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.channelId"
-                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.filter((mp) => mp === "ViewChannel").join(", ") }))}
+                    items={createSelectableItems(guild?.channels, "#", (p) => p === "ViewChannel")}
                     description="Select a channel what channel should be used for tts."
                     defaultState={guild?.tts.channelId}
                     showClear
@@ -29,7 +30,7 @@ export function TTSSettings() {
                     name="Usage logs"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.logChannelId"
-                    items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+                    items={createSelectableItems(guild?.channels, "#")}
                     description="Select a channel where usage logs should be posted into."
                     defaultState={guild?.tts.logChannelId}
                     showClear
@@ -38,7 +39,7 @@ export function TTSSettings() {
                     name="Priority role"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.priorityRoleId"
-                    items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, color: r.color }))}
+                    items={createSelectableItems(guild?.roles, "@")}
                     description="People with this role bypass the queue and speak immediately."
                     defaultState={guild?.tts.priorityRoleId}
                     showClear
@@ -104,7 +105,7 @@ function Faq() {
                 aria-label="how to blacklist users"
                 title="How to blacklist users"
             >
-                <div>Blacklist a user using discord channel permissions</div>
+                <div>Blacklist a user using discord channel permissions.</div>
                 <br />
                 <Link
                     href="https://cdn.waya.one/r/YcU2CC.gif"

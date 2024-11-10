@@ -13,6 +13,7 @@ import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { OverviewLink } from "@/components/overview-link";
 import { ApiV1GuildsModulesPassportGetResponse, RouteErrorResponse } from "@/typings";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
 
 import CompleteSetup from "./complete-setup";
@@ -62,163 +63,158 @@ export default function Home() {
         </div>
     );
 
-    return (
-        <div>
-
-            <div className="flex justify-between relative bottom-2 mb-3">
-                <Button
-                    as={Link}
-                    href={`/dashboard/${guild?.id}/greeting`}
-                    startContent={<HiArrowLeft />}
-                    size="sm"
-                >
-                    Back
-                </Button>
-                <Button
-                    as={Link}
-                    href="/docs/passport"
-                    target="_blank"
-                    endContent={<HiExternalLink />}
-                    size="sm"
-                >
-                    Read docs
-                </Button>
-            </div>
-
-            {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId &&
-                <div className="mt-6">
-                    <Notice message="When using 'Assign role to member', a punishment role must be set." />
-                </div>
-            }
-
-            {passport.enabled && !passport.successRoleId &&
-                <div className="mt-6">
-                    <Notice message="A verified role must be set for passport to work." />
-                </div>
-            }
-
-            <CompleteSetup
-                guild={guild}
-                passport={passport}
-                setPassport={setPassport}
-            />
-
-            <Switch
-                name="Passport module enabled"
-                url={`/guilds/${guild?.id}/modules/passport`}
-                dataName="enabled"
-                defaultState={passport?.enabled || false}
-                disabled={false}
-                onSave={(s) => {
-                    setPassport({
-                        ...passport,
-                        enabled: s
-                    });
-                }}
-            />
-
-            <Switch
-                name="Send direct message to member on fail"
-                url={`/guilds/${guild?.id}/modules/passport`}
-                dataName="sendFailedDm"
-                defaultState={passport?.sendFailedDm || false}
-                disabled={!passport.enabled}
-            />
-
-            <SelectInput
-                name="Logging channel"
-                url={`/guilds/${guild?.id}/modules/passport`}
-                dataName="channelId"
-                items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => { return { name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }; })}
-                description="Select the channel where verifications should be send into."
-                defaultState={passport?.channelId}
-                disabled={!passport.enabled}
-            />
-
-            <div className="lg:flex gap-3">
-                <div className="lg:w-1/2">
-                    <SelectInput
-                        name="Unverified role"
-                        url={`/guilds/${guild?.id}/modules/passport`}
-                        dataName="unverifiedRoleId"
-                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
-                        description="Select what role members should get when joining."
-                        defaultState={passport?.unverifiedRoleId}
-                        disabled={!passport.enabled}
-                    />
-                </div>
-
-                <div className="lg:w-1/2">
-                    <SelectInput
-                        name="Verified role"
-                        url={`/guilds/${guild?.id}/modules/passport`}
-                        dataName="successRoleId"
-                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
-                        description="Select what role members should get when completing verification."
-                        defaultState={passport?.successRoleId}
-                        disabled={!passport.enabled}
-                    />
-                </div>
-            </div>
-
-            <div className="lg:flex gap-3">
-                <div className="lg:w-1/2">
-                    <SelectInput
-                        name="Failed verification action"
-                        url={`/guilds/${guild?.id}/modules/passport`}
-                        dataName="punishment"
-                        items={[
-                            { name: "Ban member", value: 0 },
-                            { name: "Kick member", value: 1 },
-                            { name: "Assign role to member", value: 2 }
-                        ]}
-                        description="Choose what should happen if a member failes verification."
-                        defaultState={passport?.punishment}
-                        disabled={!passport.enabled}
-                        onSave={(o) => {
-
-                            setPassport({
-                                ...passport,
-                                punishment: o.value as ApiV1GuildsModulesPassportGetResponse["punishment"]
-                            });
-
-                        }}
-                    />
-                </div>
-
-
-
-                <div className="lg:w-1/2">
-                    <SelectInput
-                        name="Punishment role"
-                        url={`/guilds/${guild?.id}/modules/passport`}
-                        dataName="punishmentRoleId"
-                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
-                        description="Select what role members should get when failing verification."
-                        defaultState={passport?.punishmentRoleId}
-                        disabled={!passport.enabled || passport.punishment !== 2}
-                        onSave={(o) => {
-                            setPassport({
-                                ...passport,
-                                punishment: o.value as ApiV1GuildsModulesPassportGetResponse["punishment"]
-                            });
-                        }}
-                    />
-                </div>
-            </div>
-
-            <OverviewLink
-                className="mt-8"
-                title="View Passport"
-                message="Easily verify your members with a simple and secure CAPTCHA in the web."
-                url={`/passport/${params.guildId}`}
-                icon={<HiFingerPrint />}
-            />
-
-            <div className="w-fit">
-                <CopyToClipboardButton title="Copy link to passport" text={getCanonicalUrl("passport", guild?.id as string)} />
-            </div>
-
+    return (<>
+        <div className="flex justify-between relative bottom-2 mb-3">
+            <Button
+                as={Link}
+                href={`/dashboard/${guild?.id}/greeting`}
+                startContent={<HiArrowLeft />}
+                size="sm"
+            >
+                Back
+            </Button>
+            <Button
+                as={Link}
+                href="/docs/passport"
+                target="_blank"
+                endContent={<HiExternalLink />}
+                size="sm"
+            >
+                Read docs
+            </Button>
         </div>
-    );
+
+        {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId &&
+            <div className="mt-6">
+                <Notice message="When using 'Assign role to member', a punishment role must be set." />
+            </div>
+        }
+
+        {passport.enabled && !passport.successRoleId &&
+            <div className="mt-6">
+                <Notice message="A verified role must be set for passport to work." />
+            </div>
+        }
+
+        <CompleteSetup
+            guild={guild}
+            passport={passport}
+            setPassport={setPassport}
+        />
+
+        <Switch
+            name="Passport module enabled"
+            url={`/guilds/${guild?.id}/modules/passport`}
+            dataName="enabled"
+            defaultState={passport?.enabled}
+            disabled={false}
+            onSave={(s) => {
+                setPassport({
+                    ...passport,
+                    enabled: s
+                });
+            }}
+        />
+
+        <Switch
+            name="Send direct message to member on fail"
+            url={`/guilds/${guild?.id}/modules/passport`}
+            dataName="sendFailedDm"
+            defaultState={passport?.sendFailedDm}
+            disabled={!passport.enabled}
+        />
+
+        <SelectInput
+            name="Logging channel"
+            url={`/guilds/${guild?.id}/modules/passport`}
+            dataName="channelId"
+            items={createSelectableItems(guild?.channels, "#")}
+            description="Select the channel where verifications should be send into."
+            defaultState={passport?.channelId}
+            disabled={!passport.enabled}
+        />
+
+        <div className="lg:flex gap-3">
+            <div className="lg:w-1/2">
+                <SelectInput
+                    name="Unverified role"
+                    url={`/guilds/${guild?.id}/modules/passport`}
+                    dataName="unverifiedRoleId"
+                    items={createSelectableItems(guild?.roles, "@")}
+                    description="Select what role members should get when joining."
+                    defaultState={passport?.unverifiedRoleId}
+                    disabled={!passport.enabled}
+                />
+            </div>
+
+            <div className="lg:w-1/2">
+                <SelectInput
+                    name="Verified role"
+                    url={`/guilds/${guild?.id}/modules/passport`}
+                    dataName="successRoleId"
+                    items={createSelectableItems(guild?.roles, "@")}
+                    description="Select what role members should get when completing verification."
+                    defaultState={passport?.successRoleId}
+                    disabled={!passport.enabled}
+                />
+            </div>
+        </div>
+
+        <div className="lg:flex gap-3">
+            <div className="lg:w-1/2">
+                <SelectInput
+                    name="Failed verification action"
+                    url={`/guilds/${guild?.id}/modules/passport`}
+                    dataName="punishment"
+                    items={[
+                        { name: "Ban member", value: 0 },
+                        { name: "Kick member", value: 1 },
+                        { name: "Assign role to member", value: 2 }
+                    ]}
+                    description="Choose what should happen if a member failes verification."
+                    defaultState={passport?.punishment}
+                    disabled={!passport.enabled}
+                    onSave={(o) => {
+                        setPassport({
+                            ...passport,
+                            punishment: o.value as ApiV1GuildsModulesPassportGetResponse["punishment"]
+                        });
+                    }}
+                />
+            </div>
+
+
+
+            <div className="lg:w-1/2">
+                <SelectInput
+                    name="Punishment role"
+                    url={`/guilds/${guild?.id}/modules/passport`}
+                    dataName="punishmentRoleId"
+                    items={createSelectableItems(guild?.roles, "@")}
+                    description="Select what role members should get when failing verification."
+                    defaultState={passport?.punishmentRoleId}
+                    disabled={!passport.enabled || passport.punishment !== 2}
+                    onSave={(o) => {
+                        setPassport({
+                            ...passport,
+                            punishment: o.value as ApiV1GuildsModulesPassportGetResponse["punishment"]
+                        });
+                    }}
+                />
+            </div>
+        </div>
+
+        <OverviewLink
+            className="mt-8"
+            title="View Passport"
+            message="Easily verify your members with a simple and secure CAPTCHA in the web."
+            url={`/passport/${params.guildId}`}
+            icon={<HiFingerPrint />}
+        />
+
+        <div className="w-fit">
+            <CopyToClipboardButton title="Copy link to passport" text={getCanonicalUrl("passport", guild?.id as string)} />
+        </div>
+
+    </>);
 }

@@ -9,6 +9,7 @@ import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
 import { ApiV1GuildsModulesDailypostsGetResponse, DailypostType } from "@/typings";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import { generateHourArray, typeToName } from "./util";
 
@@ -89,7 +90,7 @@ export default function CreateDailypost({
             <SelectMenu
                 name="Channel"
                 dataName="channelId"
-                items={channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+                items={createSelectableItems(channels, "#")}
                 description="Select a channel where dailyposts should be send into."
                 onSave={(o) => {
                     setChannelId(o.value as string);
@@ -118,6 +119,6 @@ export default function CreateDailypost({
                     setType(o.value as number);
                 }}
             />
-        </Modal >
+        </Modal>
     </>);
 }

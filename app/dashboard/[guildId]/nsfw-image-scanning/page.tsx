@@ -17,6 +17,7 @@ import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesNsfwModerationGetResponse, RouteErrorResponse } from "@/typings";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -62,104 +63,103 @@ export default function Home() {
 
     if (isLoading || !data) return <></>;
 
-    return (
-        <>
+    return (<>
+        <Notice
+            type={NoticeType.Info}
+            message="Images can be false positives or false negatives. This does not replace human moderation."
+        />
 
-            <Notice
-                type={NoticeType.Info}
-                message="Images can be false positives or false negatives. This does not replace human moderation."
-            />
+        <Switch
+            name="NSFW image moderation enabled."
+            url={url}
+            dataName="enabled"
+            defaultState={data.enabled || false}
+            disabled={false}
+            onSave={handleSwitchToggle}
+        />
 
-            <Switch
-                name="NSFW image moderation enabled."
-                url={url}
-                dataName="enabled"
-                defaultState={data.enabled || false}
-                disabled={false}
-                onSave={handleSwitchToggle}
-            />
-
-            <div className="lg:flex gap-3">
-                <div className="lg:w-1/2">
-                    <SelectMenu
-                        name="Logging channel"
-                        url={url}
-                        dataName="logChannelId"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
-                        description="Select the channel where the logs should be send into."
-                        defaultState={data.logChannelId}
-                        disabled={!data.enabled}
-                    />
-                </div>
-                <div className="lg:w-1/2">
-                    <SelectMenu
-                        name="Punishment"
-                        url={url}
-                        dataName="punishment"
-                        items={[
-                            {
-                                name: "Nothing",
-                                value: 0
-                            },
-                            {
-                                name: "Ban member",
-                                value: 1
-                            },
-                            {
-                                name: "Kick member",
-                                value: 2
-                            },
-                            {
-                                name: "Delete message",
-                                value: 3
-                            }
-                        ]}
-                        description="Select what should happen if a user sets images containing nsfw."
-                        defaultState={data.punishment}
-                        disabled={!data.enabled}
-                    />
-                </div>
+        <div className="lg:flex gap-3">
+            <div className="lg:w-1/2">
+                <SelectMenu
+                    name="Logging channel"
+                    url={url}
+                    dataName="logChannelId"
+                    items={createSelectableItems(guild?.channels, "#")}
+                    description="Select the channel where the logs should be send into."
+                    defaultState={data.logChannelId}
+                    disabled={!data.enabled}
+                />
             </div>
-
-
-
-            <div className="lg:flex gap-3">
-                <div className="lg:w-1/2">
-                    <MultiSelectMenu
-                        name="Whitelist channels"
-                        url={url}
-                        dataName="whitelistChannelIds"
-                        items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
-                        description="Select channels where images should not be scanned in."
-                        defaultState={data.whitelistChannelIds}
-                        disabled={!data.enabled}
-                    />
-                </div>
-                <div className="lg:w-1/2">
-                    <MultiSelectMenu
-                        name="Whitelist roles"
-                        url={url}
-                        dataName="whitelistRoleIds"
-                        items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, color: r.color }))}
-                        description="Select roles by who images should not be scanned for."
-                        defaultState={data.whitelistRoleIds}
-                        disabled={!data.enabled}
-                    />
-                </div>
+            <div className="lg:w-1/2">
+                <SelectMenu
+                    name="Punishment"
+                    url={url}
+                    dataName="punishment"
+                    items={[
+                        {
+                            name: "Nothing",
+                            value: 0
+                        },
+                        {
+                            name: "Ban member",
+                            value: 1
+                        },
+                        {
+                            name: "Kick member",
+                            value: 2
+                        },
+                        {
+                            name: "Delete message",
+                            value: 3
+                        }
+                    ]}
+                    description="Select what should happen if a user sets images containing nsfw."
+                    defaultState={data.punishment}
+                    disabled={!data.enabled}
+                />
             </div>
+        </div>
 
-            <Slider
-                name="Threshold"
-                description="The threshold at which an image should be considered NSFW; low values are sensitive, high values are lax."
-                url={url}
-                dataName="threshold"
-                defaultState={data.threshold || 0.5}
-            />
 
-            <span className="mb-2" >
-                Members with the <Code color="secondary">Manage Messages</Code> permission bypass the NSFW image scanning automatically. <br />
-            </span>
 
-        </>
-    );
+        <div className="lg:flex gap-3">
+            <div className="lg:w-1/2">
+                <MultiSelectMenu
+                    name="Whitelist channels"
+                    url={url}
+                    dataName="whitelistChannelIds"
+                    items={createSelectableItems(guild?.channels, "#", () => false)}
+                    description="Select channels where images should not be scanned in."
+                    defaultState={data.whitelistChannelIds}
+                    max={500}
+                    disabled={!data.enabled}
+                />
+            </div>
+            <div className="lg:w-1/2">
+                <MultiSelectMenu
+                    name="Whitelist roles"
+                    url={url}
+                    dataName="whitelistRoleIds"
+                    items={createSelectableItems(guild?.roles, "@")}
+                    description="Select roles by who images should not be scanned for."
+                    defaultState={data.whitelistRoleIds}
+                    max={500}
+                    disabled={!data.enabled}
+                />
+            </div>
+        </div>
+
+        <Slider
+            name="Threshold"
+            description="The threshold at which an image should be considered NSFW; low values are sensitive, high values are lax."
+            url={url}
+            dataName="threshold"
+            defaultState={data.threshold || 0.5}
+        />
+
+        <span className="mb-2" >
+            Members with the <Code color="secondary">Manage Messages</Code> permission bypass the NSFW image scanning automatically. <br />
+        </span>
+
+    </>);
 }

@@ -13,6 +13,7 @@ import { Section, SubSection } from "@/components/section";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import { OverviewLink } from "../../../../components/overview-link";
 import Permissions from "./permissions.component";
@@ -93,7 +94,7 @@ export default function Home() {
                     name="Top messager roles"
                     url={url}
                     dataName="roles.messages"
-                    items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
+                    items={createSelectableItems(guild?.roles, "@")}
                     description="Select roles which should be assigned to the top message members."
                     defaultState={data.roles?.messages || []}
                     max={3}
@@ -104,7 +105,7 @@ export default function Home() {
                     name="Top voice roles"
                     url={url}
                     dataName="roles.voiceminutes"
-                    items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
+                    items={createSelectableItems(guild?.roles, "@")}
                     description="Select roles which should be assigned to the top voice members."
                     defaultState={data.roles?.voiceminutes || []}
                     max={3}
@@ -117,7 +118,7 @@ export default function Home() {
                 name="Blacklisted channels"
                 url={url}
                 dataName="blacklistChannelIds"
-                items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id }))}
+                items={createSelectableItems(guild?.channels, "#", () => false)}
                 description="Select channels which should not be able to be counted."
                 defaultState={data.blacklistChannelIds || []}
                 max={500}

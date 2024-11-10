@@ -41,77 +41,74 @@ export default function CompleteSetup({
         }
     }, [passport]);
 
-    return (
-        <>
-            <Modal
-                title="Verified role"
-                className="!overflow-visible"
-                isOpen={!!guild && modal === ModalType.VerifiedRole}
-                onClose={() => setModal(ModalType.None)}
-                onSubmit={() => {
-                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
-                        method: "PATCH",
-                        credentials: "include",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            successRoleId: roleId
-                        })
-                    });
-                }}
-                onSuccess={() => {
-                    setPassport({
-                        ...passport,
+    return (<>
+        <Modal
+            title="Verified role"
+            className="!overflow-visible"
+            isOpen={!!guild && modal === ModalType.VerifiedRole}
+            onClose={() => setModal(ModalType.None)}
+            onSubmit={() => {
+                return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
+                    method: "PATCH",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
                         successRoleId: roleId
-                    });
+                    })
+                });
+            }}
+            onSuccess={() => {
+                setPassport({
+                    ...passport,
+                    successRoleId: roleId
+                });
+            }}
+        >
+            <SelectMenu
+                name="Role"
+                items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
+                description="Select what role members should get when completing verification."
+                defaultState={passport.punishmentRoleId}
+                onSave={(o) => {
+                    setRoleId(o.value as string);
                 }}
-            >
-                <SelectMenu
-                    name="Role"
-                    items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
-                    description="Select what role members should get when completing verification."
-                    defaultState={passport.punishmentRoleId}
-                    onSave={(o) => {
-                        setRoleId(o.value as string);
-                    }}
-                />
-            </Modal>
+            />
+        </Modal>
 
-            <Modal
-                title="Punishment role"
-                isOpen={!!guild && modal === ModalType.PunishmentRole}
-                onClose={() => setModal(ModalType.None)}
-                onSubmit={() => {
-                    return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
-                        method: "PATCH",
-                        credentials: "include",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            punishmentRoleId: roleId
-                        })
-                    });
-                }}
-                onSuccess={() => {
-                    setPassport({
-                        ...passport,
+        <Modal
+            title="Punishment role"
+            isOpen={!!guild && modal === ModalType.PunishmentRole}
+            onClose={() => setModal(ModalType.None)}
+            onSubmit={() => {
+                return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
+                    method: "PATCH",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
                         punishmentRoleId: roleId
-                    });
+                    })
+                });
+            }}
+            onSuccess={() => {
+                setPassport({
+                    ...passport,
+                    punishmentRoleId: roleId
+                });
+            }}
+        >
+            <SelectMenu
+                name="Role"
+                items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
+                description="Select what role members should get when failing verification."
+                defaultState={passport.punishmentRoleId}
+                onSave={(o) => {
+                    setRoleId(o.value as string);
                 }}
-            >
-                <SelectMenu
-                    name="Role"
-                    items={guild?.roles?.sort((a, b) => b.position - a.position).map((r) => ({ name: `@${r.name}`, value: r.id, error: r.missingPermissions.join(", "), color: r.color }))}
-                    description="Select what role members should get when failing verification."
-                    defaultState={passport.punishmentRoleId}
-                    onSave={(o) => {
-                        setRoleId(o.value as string);
-                    }}
-                />
-            </Modal>
-        </>
-    );
-
+            />
+        </Modal>
+    </>);
 }
