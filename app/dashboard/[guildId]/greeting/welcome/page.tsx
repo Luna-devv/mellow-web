@@ -110,6 +110,7 @@ export default function Home() {
                 dataName="restore"
                 defaultState={welcome?.restore || false}
                 disabled={!welcome.enabled}
+                showClear
             />
 
             <Switch
