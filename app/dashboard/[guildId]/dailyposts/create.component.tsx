@@ -76,7 +76,10 @@ export default function CreateDailypost({
                     body: JSON.stringify({
                         channelId,
                         runtimeHours: hours,
-                        type
+                        type,
+                        query: type === DailypostType.Anime
+                            ? "sfw/waifu"
+                            : null
                     })
                 });
             }}
