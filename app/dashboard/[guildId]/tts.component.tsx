@@ -90,30 +90,41 @@ function Faq() {
                 aria-label="how this works"
                 title="How this works"
             >
-                Users who are currently in a voice channel can send messages to this tts channel and wamellow will then read the message out loud in vc. Note that wamellow can only be in one voice channel at a time.
+                Users in a voice channel can send messages to this channel, and Wamellow will read them aloud in the voice channel. Please note that Wamellow can only be in one voice channel at a time.
 
                 <iframe
-                    className="mt-6 aspect-video rounded-lg"
+                    className="mt-4 aspect-video rounded-lg"
                     width="100%"
                     src="https://www.youtube.com/embed/NS5fZ1ltovE?si=uODiGspuNGKPRQKp"
                     title="Wamellow Text to Speech tutorial"
-                    allow="autoplay; clipboard-write; ENCRYPTION_TOKENed-media; picture-in-picture; web-share"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 />
+
+                <Button
+                    as={Link}
+                    className="my-2"
+                    href="/docs/text-to-speech"
+                    target="_blank"
+                    endContent={<HiExternalLink />}
+                    size="sm"
+                >
+                    Read the documentation
+                </Button>
             </AccordionItem>
             <AccordionItem
                 key="2"
                 aria-label="how to blacklist users"
                 title="How to blacklist users"
             >
-                <div>Blacklist a user using discord channel permissions.</div>
-                <br />
+                Blacklist a user using discord channel permissions.
+
                 <Link
                     href="https://cdn.waya.one/r/YcU2CC.gif"
                     target="_blank"
                 >
                     <Image
                         alt="blacklist a user with discord channel permissions"
-                        className="rounded-md"
+                        className="mt-4 rounded-md"
                         height={945 / 2}
                         src="https://cdn.waya.one/r/YcU2CC.gif"
                         width={1040 / 2}
