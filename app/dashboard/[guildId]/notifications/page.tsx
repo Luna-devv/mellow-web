@@ -15,6 +15,7 @@ import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import CreateNotification, { Style } from "./create.component";
 import DeleteNotification from "./delete.component";
@@ -139,7 +140,7 @@ export default function Home() {
                 name="Channel"
                 url={url + "/" + item.id}
                 dataName="channelId"
-                items={guild?.channels?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `#${c.name}`, value: c.id, error: c.missingPermissions.join(", ") }))}
+                items={createSelectableItems(guild?.channels)}
                 description="Select a channel where notifications should be send into."
                 defaultState={item.channelId}
                 onSave={(o) => editItem("channelId", o.value as string)}
@@ -163,7 +164,7 @@ export default function Home() {
             items={[
                 { name: "@everyone (everyone in server)", value: "everyone" },
                 { name: "@here (everyone online)", value: "here" },
-                ...guild?.roles?.sort((a, b) => a.name.localeCompare(b.name)).map((c) => ({ name: `@${c.name}`, value: c.id, color: c.color })) || []
+                ...createSelectableItems(guild?.roles)
             ]}
             description="Select a role which should get pinged on uploads."
             defaultState={item.roleId}
