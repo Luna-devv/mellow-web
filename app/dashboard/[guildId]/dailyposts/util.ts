@@ -10,7 +10,7 @@ export function typeToName(type: DailypostType) {
 
 export function typeToIcon(type: DailypostType) {
     switch (type) {
-        case DailypostType.Anime: return "/icons/anime.webp";
+        case DailypostType.Anime: return "/icons/waifu.webp";
         case DailypostType.Blahaj: return "/icons/blahaj.webp";
         case DailypostType.NekosBest: return "/icons/neko.webp";
     }
