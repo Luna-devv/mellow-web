@@ -13,20 +13,28 @@ enum State {
     Success = 2
 }
 
-type Props = {
+interface Item {
+    icon?: React.ReactNode;
+    name: string;
+    value: string | number | null;
+    error?: string;
+    color?: number;
+}
+
+interface Props {
     className?: string;
 
     name: string;
     url?: string;
     dataName?: string;
-    items: { icon?: React.ReactNode; name: string; value: string | number | null; error?: string }[] | undefined;
+    items: Item[] | undefined;
     disabled?: boolean;
     description?: string;
     defaultState?: string | number | null;
     showClear?: boolean;
 
     onSave?: (options: { name: string; value: string | number | null; error?: string }) => void;
-};
+}
 
 export default function SelectMenu({
     className,
@@ -45,7 +53,7 @@ export default function SelectMenu({
 
     const [open, setOpen] = useState<boolean>(false);
     const [defaultvalue, setDefaultalue] = useState<string | number | null | undefined>();
-    const [value, setValue] = useState<{ icon?: React.ReactNode; name: string; value: string | number | null; error?: string } | undefined>();
+    const [value, setValue] = useState<Item | undefined>();
 
     useEffect(() => {
         setValue(items.find((i) => i.value === defaultState));
@@ -132,6 +140,7 @@ export default function SelectMenu({
                         "flex flex-wrap overflow-x-hidden gap-1 py-3 dark:text-neutral-600 text-neutral-400",
                         value?.name && "dark:text-neutral-300 text-neutral-700"
                     )}
+                    style={value?.color ? { color: `#${value.color.toString(16)}` } : {}}
                 >
                     {value?.icon && <span className="mr-2">{value?.icon}</span>}
                     {value?.name || "Select.."}
@@ -161,13 +170,14 @@ export default function SelectMenu({
                     <ClickOutside onClose={(() => setOpen(false))} />
 
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
-                        {items.map((item, i) => (
+                        {items.map((item) => (
                             <button
+                                key={"select-" + item.value}
                                 className={cn(
                                     "p-4 py-2 w-full text-left duration-200 flex items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
                                     item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
                                 )}
-                                key={"select-" + item.value + i}
+                                style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
                                 onClick={() => {
                                     setOpen(false);
                                     setState(State.Idle);

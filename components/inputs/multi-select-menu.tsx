@@ -13,13 +13,21 @@ enum State {
     Success = 2
 }
 
+interface Item {
+    icon?: React.ReactNode;
+    name: string;
+    value: string | number;
+    error?: string;
+    color?: number;
+}
+
 type Props = {
     className?: string;
 
     name: string;
     url?: string;
     dataName?: string;
-    items: { icon?: React.ReactNode; name: string; value: string | number; error?: string; color?: number; }[] | undefined;
+    items: Item[] | undefined;
     disabled?: boolean;
     max?: number;
     description?: string;
@@ -27,7 +35,6 @@ type Props = {
 
     onSave?: (options: { name: string; value: string | number | null; error?: string }[]) => void;
 };
-
 
 export default function MultiSelectMenu({
     className,
@@ -46,7 +53,7 @@ export default function MultiSelectMenu({
 
     const [open, setOpen] = useState<boolean>(false);
     const [defaultvalue, setDefaultalue] = useState<(string | number)[]>([]);
-    const [values, setValues] = useState<{ icon?: React.ReactNode; name: string; value: string | number; error?: string; color?: number; }[]>([]);
+    const [values, setValues] = useState<Item[]>([]);
 
     useEffect(() => {
         if (!defaultState) return;
@@ -141,7 +148,7 @@ export default function MultiSelectMenu({
                     {!values.length && <span>Select..</span>}
                     {values.map((v) => (
                         <button
-                            key={v.value}
+                            key={"multiselected-" + v.value}
                             className={cn("relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md flex items-center gap-1 wamellow-modal", open && "hover:bg-danger text-neutral-100")}
                             style={v.color ? { color: `#${v.color.toString(16)}` } : {}}
                             onClick={(e) => {
@@ -178,14 +185,14 @@ export default function MultiSelectMenu({
                     <ClickOutside onClose={(() => setOpen(false))} />
 
                     <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
-                        {items.map((item, i) => (
+                        {items.map((item) => (
                             <button
                                 className={cn(
                                     "p-4 py-2 w-full text-left duration-200 flex items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
                                     item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
                                 )}
                                 style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
-                                key={"multiselect-" + item.value + i}
+                                key={"multiselect-" + item.value}
                                 onClick={() => {
                                     setState(State.Idle);
                                     setValues((v) => {
