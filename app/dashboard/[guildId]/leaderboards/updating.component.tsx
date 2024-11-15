@@ -165,7 +165,7 @@ export default function UpdatingLeaderboardCard({
             <SelectInput
                 name="Channel"
                 items={createSelectableItems(guild.channels, "#")}
-                description="Select a channel where updates should be send into."
+                description="Select a channel where the leaderboard should be send into."
                 defaultState={leaderboard?.channelId || undefined}
                 onSave={(o) => {
                     setChannelId(o.value as string);

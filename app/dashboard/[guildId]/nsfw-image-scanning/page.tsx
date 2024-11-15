@@ -129,7 +129,7 @@ export default function Home() {
                     url={url}
                     dataName="whitelistChannelIds"
                     items={createSelectableItems(guild?.channels, "#", () => false)}
-                    description="Select channels where images should not be scanned in."
+                    description="Select channels where images should not be moderated in."
                     defaultState={data.whitelistChannelIds}
                     max={500}
                     disabled={!data.enabled}
@@ -141,7 +141,7 @@ export default function Home() {
                     url={url}
                     dataName="whitelistRoleIds"
                     items={createSelectableItems(guild?.roles, "@")}
-                    description="Select roles by who images should not be scanned for."
+                    description="Select roles by who images should not be moderated for."
                     defaultState={data.whitelistRoleIds}
                     max={500}
                     disabled={!data.enabled}

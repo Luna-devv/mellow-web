@@ -278,7 +278,7 @@ export default function Home() {
                     url={url}
                     dataName="blacklistChannelIds"
                     items={createSelectableItems(guild?.channels, "#", () => false)}
-                    description="Select channels which should not be able to be in the data."
+                    description="Select channels which should not be able to get into the starboard."
                     defaultState={data.blacklistChannelIds || []}
                     max={500}
                     disabled={!data.enabled}
@@ -290,7 +290,7 @@ export default function Home() {
                     url={url}
                     dataName="blacklistRoleIds"
                     items={createSelectableItems(guild?.roles, "@")}
-                    description="Select roles which should not be able to data."
+                    description="Select roles which should not be able to star or be starred."
                     defaultState={data.blacklistRoleIds || []}
                     max={500}
                     disabled={!data.enabled}

@@ -33,8 +33,8 @@ export default function FollowUpdates() {
                 <HiMail className="relative top-1" />
                 <span className="ml-2">
                     {guild?.follownewsChannel?.name
-                        ? "Change"
-                        : "Set"
+                        ? "Change "
+                        : "Set "
                     }
                     channel
                 </span>

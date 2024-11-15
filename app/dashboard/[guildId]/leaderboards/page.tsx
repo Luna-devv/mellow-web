@@ -106,6 +106,7 @@ export default function Home() {
                     url={url}
                     dataName="roles.voiceminutes"
                     items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select roles which should be assigned to the top voice members."
                     defaultState={data.roles?.voiceminutes || []}
                     max={3}
@@ -119,7 +120,7 @@ export default function Home() {
                 url={url}
                 dataName="blacklistChannelIds"
                 items={createSelectableItems(guild?.channels, "#", () => false)}
-                description="Select channels which should not be able to be counted."
+                description="Select channels which should not be counted."
                 defaultState={data.blacklistChannelIds || []}
                 max={500}
             />

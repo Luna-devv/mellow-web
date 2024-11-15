@@ -129,7 +129,7 @@ export default function Home() {
             url={`/guilds/${guild?.id}/modules/passport`}
             dataName="channelId"
             items={createSelectableItems(guild?.channels, "#")}
-            description="Select the channel where verifications should be send into."
+            description="Select the channel where verification logs should be send into."
             defaultState={passport?.channelId}
             disabled={!passport.enabled}
         />
