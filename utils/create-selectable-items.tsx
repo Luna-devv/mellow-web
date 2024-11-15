@@ -2,10 +2,19 @@ import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1Guil
 import Image from "next/image";
 
 type Item = ApiV1GuildsChannelsGetResponse | ApiV1GuildsRolesGetResponse;
+type PermissionNames = keyof typeof PermissionFlagsBits | "RoleHirachy"
+
+function parsePermissions(permissions: number, required: PermissionNames[]) {
+    if (permissions === -1 && required.includes("RoleHirachy")) return ["Role is above Wamellow"];
+
+    return required
+        .map((perm) => (permissions & PermissionFlagsBits[perm as keyof typeof PermissionFlagsBits]) === 0 ? perm : false)
+        .filter(Boolean);
+}
 
 export function createSelectableItems<T extends Item>(
     items: T[] | undefined,
-    requiredPermissions: (keyof typeof PermissionFlagsBits)[] = ["ViewChannel", "SendMessages", "EmbedLinks"],
+    requiredPermissions: PermissionNames[] = ["ViewChannel", "SendMessages", "EmbedLinks"],
     allowNSFW: boolean = false
 ) {
     if (!items?.length) return [];
@@ -17,7 +26,7 @@ export function createSelectableItems<T extends Item>(
             name: `${"type" in item ? "#" : "@"}${item.name}`,
             value: item.id,
             error: "permissions" in item
-                ? requiredPermissions.map((perm) => (item.permissions & PermissionFlagsBits[perm]) === 0 ? perm : false).filter(Boolean).join(", ")
+                ? parsePermissions(item.permissions, requiredPermissions).join(", ")
                 : undefined,
             color: "color" in item ? item.color : undefined
         }));

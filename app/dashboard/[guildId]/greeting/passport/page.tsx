@@ -140,7 +140,7 @@ export default function Home() {
                     name="Unverified role"
                     url={`/guilds/${guild?.id}/modules/passport`}
                     dataName="unverifiedRoleId"
-                    items={createSelectableItems(guild?.roles)}
+                    items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                     description="Select what role members should get when joining."
                     defaultState={passport?.unverifiedRoleId}
                     disabled={!passport.enabled}
@@ -152,7 +152,7 @@ export default function Home() {
                     name="Verified role"
                     url={`/guilds/${guild?.id}/modules/passport`}
                     dataName="successRoleId"
-                    items={createSelectableItems(guild?.roles)}
+                    items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                     description="Select what role members should get when completing verification."
                     defaultState={passport?.successRoleId}
                     disabled={!passport.enabled}
@@ -183,14 +183,12 @@ export default function Home() {
                 />
             </div>
 
-
-
             <div className="lg:w-1/2">
                 <SelectInput
                     name="Punishment role"
                     url={`/guilds/${guild?.id}/modules/passport`}
                     dataName="punishmentRoleId"
-                    items={createSelectableItems(guild?.roles)}
+                    items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                     description="Select what role members should get when failing verification."
                     defaultState={passport?.punishmentRoleId}
                     disabled={!passport.enabled || passport.punishment !== 2}

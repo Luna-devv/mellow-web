@@ -159,7 +159,7 @@ export default function Home() {
                     name="Roles"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="roleIds"
-                    items={createSelectableItems(guild?.roles)}
+                    items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                     description="Select roles which members should get."
                     defaultState={welcome?.roleIds}
                     max={5}

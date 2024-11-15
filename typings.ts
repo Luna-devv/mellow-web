@@ -77,6 +77,9 @@ export interface ApiV1GuildsChannelsGetResponse {
     type: ChannelType;
     name: string;
     id: string;
+    /**
+     * @description permission bitfield for the bot in the channel
+     */
     permissions: number;
     nsfw: boolean;
 }
@@ -84,7 +87,10 @@ export interface ApiV1GuildsChannelsGetResponse {
 export interface ApiV1GuildsRolesGetResponse {
     name: string;
     id: string;
-    missingPermissions: string[];
+    /**
+     * @description -1 represents the role being above the bot's highest role
+     */
+    permissions: -1 | 0; 
     position: number;
     color: number;
 }
