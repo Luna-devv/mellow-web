@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 import cn from "@/utils/cn";
 
 import { useStateDebounced } from "../../utils/useDebounce";
@@ -99,7 +99,7 @@ export default function TextInput({
                     }
                     default: {
                         setState(State.Idle);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

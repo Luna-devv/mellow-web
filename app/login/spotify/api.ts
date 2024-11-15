@@ -1,6 +1,6 @@
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 
-export async function connectSpotify(code: string, session: string): Promise<true | RouteErrorResponse> {
+export async function connectSpotify(code: string, session: string): Promise<true | ApiError> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/connections/spotify`, {
         method: "PUT",
         headers: {
@@ -16,7 +16,7 @@ export async function connectSpotify(code: string, session: string): Promise<tru
     return res.ok ? true : await res.json();
 }
 
-export async function disconnectSpotify(session: string): Promise<true | RouteErrorResponse> {
+export async function disconnectSpotify(session: string): Promise<true | ApiError> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/connections/spotify`, {
         method: "DELETE",
         headers: {

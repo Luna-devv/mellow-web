@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { HiCheck, HiChevronDown, HiExclamationCircle, HiX } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 import cn from "@/utils/cn";
 
 import { ClickOutside } from "../click-outside";
@@ -105,7 +105,7 @@ export default function MultiSelectMenu({
                     }
                     default: {
                         setState(State.Idle);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

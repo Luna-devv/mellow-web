@@ -23,11 +23,6 @@ export interface ApiV1UsersMeGuildsGetResponse {
     bot: boolean;
 }
 
-export interface RouteErrorResponse {
-    statusCode: number;
-    message: string;
-}
-
 export interface ApiV1GuildsGetResponse {
     id: string;
     name: string;

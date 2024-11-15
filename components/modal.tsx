@@ -5,7 +5,7 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
 
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 import cn from "@/utils/cn";
 
 import { ClickOutside } from "./click-outside";
@@ -93,7 +93,7 @@ export default function Modal<T>({
             return;
         }
 
-        setError((await res.json() as RouteErrorResponse).message || "Unknown server error");
+        setError((await res.json() as ApiError).message || "Unknown server error");
     }
 
     function Header() {

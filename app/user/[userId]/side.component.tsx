@@ -5,12 +5,12 @@ import { useCookies } from "next-client-cookies";
 import { HiAnnotation, HiLink, HiVolumeUp } from "react-icons/hi";
 
 import { ClientCountUp } from "@/components/counter";
-import { ApiV1UsersGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiError,ApiV1UsersGetResponse } from "@/typings";
 
 export default function Side({
     user
 }: {
-    user: ApiV1UsersGetResponse | RouteErrorResponse | undefined;
+    user: ApiV1UsersGetResponse | ApiError | undefined;
 }) {
     const cookies = useCookies();
     const userExists = user && "id" in user;

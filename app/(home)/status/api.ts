@@ -1,5 +1,5 @@
 import { defaultFetchOptions } from "@/lib/api";
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 
 export interface ApiCluster {
     id: number;
@@ -24,7 +24,7 @@ export interface ApiV1StatusGetResponse {
     nodes: ApiNode[];
 }
 
-export async function getStatus(): Promise<ApiV1StatusGetResponse | RouteErrorResponse | undefined> {
+export async function getStatus(): Promise<ApiV1StatusGetResponse | ApiError | undefined> {
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_API}/status`,
         {

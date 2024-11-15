@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 
 import { useStateDebounced } from "../../utils/useDebounce";
 import DumbColorInput from "./dumb-color-input";
@@ -79,7 +79,7 @@ export default function ColorInput({
                     }
                     default: {
                         setState(State.Idle);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

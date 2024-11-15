@@ -15,7 +15,7 @@ import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
-import { ApiV1GuildsModulesByeGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiError,ApiV1GuildsModulesByeGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {
@@ -43,7 +43,7 @@ export default function Home() {
                     }
                     default: {
                         setBye(undefined);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

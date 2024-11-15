@@ -17,7 +17,7 @@ import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { Section } from "@/components/section";
-import { ApiV1GuildsModulesWelcomeGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiError,ApiV1GuildsModulesWelcomeGetResponse } from "@/typings";
 import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {
@@ -45,7 +45,7 @@ export default function Home() {
                     }
                     default: {
                         setWelcome(undefined);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

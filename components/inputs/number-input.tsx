@@ -4,7 +4,7 @@ import { HiMinus, HiPlus } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 import cn from "@/utils/cn";
 
 enum State {
@@ -112,7 +112,7 @@ export default function NumberInput({
                     }
                     default: {
                         setState(State.Idle);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

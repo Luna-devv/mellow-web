@@ -1,11 +1,11 @@
 import { User } from "@/common/user";
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 
 interface UserSessionCreate extends User {
     session: string;
 }
 
-export async function createSession(code: string): Promise<UserSessionCreate | RouteErrorResponse | undefined> {
+export async function createSession(code: string): Promise<UserSessionCreate | ApiError | undefined> {
 
     const headers: Record<string, string> = {
         "Content-Type": "application/json",

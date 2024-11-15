@@ -2,7 +2,7 @@ import { Checkbox, Chip, Switch as UiSwitch } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 import cn from "@/utils/cn";
 
 enum State {
@@ -101,7 +101,7 @@ export default function Switch({
                         setValue(!now);
 
                         setState(State.Idle);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

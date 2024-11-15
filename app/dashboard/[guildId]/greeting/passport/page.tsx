@@ -12,7 +12,7 @@ import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { OverviewLink } from "@/components/overview-link";
-import { ApiV1GuildsModulesPassportGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiError,ApiV1GuildsModulesPassportGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -42,7 +42,7 @@ export default function Home() {
                     }
                     default: {
                         setPassport(undefined);
-                        setError((response as unknown as RouteErrorResponse).message);
+                        setError((response as unknown as ApiError).message);
                         break;
                     }
                 }

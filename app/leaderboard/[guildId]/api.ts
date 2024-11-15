@@ -1,12 +1,11 @@
 import { ApiRequestOptions, defaultFetchOptions } from "@/lib/api";
 import {
+    ApiError,
     ApiV1GuildsModulesLeaderboardGetResponse,
     ApiV1GuildsTopmembersGetResponse,
-    ApiV1GuildsTopmembersPaginationGetResponse,
-    RouteErrorResponse
-} from "@/typings";
+    ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 
-export async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLeaderboardGetResponse | RouteErrorResponse | undefined> {
+export async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLeaderboardGetResponse | ApiError | undefined> {
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/leaderboard`,
         defaultFetchOptions
@@ -15,7 +14,7 @@ export async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLead
     return res.json();
 }
 
-export async function getTopMembers(guildId: string, params: { page: number, type: string }, options?: ApiRequestOptions): Promise<ApiV1GuildsTopmembersGetResponse[] | RouteErrorResponse | undefined> {
+export async function getTopMembers(guildId: string, params: { page: number, type: string }, options?: ApiRequestOptions): Promise<ApiV1GuildsTopmembersGetResponse[] | ApiError | undefined> {
     if (params.type !== "messages" && params.type !== "voiceminutes" && params.type !== "invites") return [];
 
     const res = await fetch(
@@ -31,7 +30,7 @@ export async function getTopMembers(guildId: string, params: { page: number, typ
     return res.json();
 }
 
-export async function getPagination(guildId: string): Promise<ApiV1GuildsTopmembersPaginationGetResponse | RouteErrorResponse | undefined> {
+export async function getPagination(guildId: string): Promise<ApiV1GuildsTopmembersPaginationGetResponse | ApiError | undefined> {
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/top-members/pagination`,
         defaultFetchOptions

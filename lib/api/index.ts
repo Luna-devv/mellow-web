@@ -1,4 +1,4 @@
-import { ApiError, ApiV1GuildsGetResponse, RouteErrorResponse } from "@/typings";
+import { ApiError, ApiError,ApiV1GuildsGetResponse } from "@/typings";
 
 export interface ApiRequestOptions {
     force?: boolean;
@@ -20,7 +20,7 @@ export async function getData<T>(path: string, domain?: string) {
         credentials: "include"
     });
 
-    return response.json() as Promise<T | RouteErrorResponse>;
+    return response.json() as Promise<T | ApiError>;
 }
 
 export async function getGuild(guildId?: string | null, options?: ApiRequestOptions): Promise<ApiV1GuildsGetResponse | ApiError | undefined> {

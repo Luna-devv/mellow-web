@@ -1,7 +1,7 @@
 import React from "react";
 
 import { User } from "@/common/user";
-import { RouteErrorResponse } from "@/typings";
+import { ApiError } from "@/typings";
 
 enum State {
     Idle = 0,
@@ -20,7 +20,7 @@ export async function authorize({
         credentials: "include"
     })
         .then((res) => res.json())
-        .catch(() => null) as User | RouteErrorResponse | null;
+        .catch(() => null) as User | ApiError | null;
 
     if (res && "statusCode" in res && res.statusCode.toString().startsWith("4")) {
         window.location.href = "/login";
