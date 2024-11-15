@@ -199,7 +199,7 @@ export default function Home() {
             name="Channel"
             url={url}
             dataName="channelId"
-            items={createSelectableItems(guild?.channels, "#")}
+            items={createSelectableItems(guild?.channels)}
             description="Select the channel where the starboard messages should be send into."
             defaultState={data.channelId}
             disabled={!data.enabled}
@@ -277,7 +277,7 @@ export default function Home() {
                     name="Blacklisted channels"
                     url={url}
                     dataName="blacklistChannelIds"
-                    items={createSelectableItems(guild?.channels, "#", () => false)}
+                    items={createSelectableItems(guild?.channels)}
                     description="Select channels which should not be able to get into the starboard."
                     defaultState={data.blacklistChannelIds || []}
                     max={500}
@@ -289,7 +289,7 @@ export default function Home() {
                     name="Blacklisted roles"
                     url={url}
                     dataName="blacklistRoleIds"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select roles which should not be able to star or be starred."
                     defaultState={data.blacklistRoleIds || []}
                     max={500}

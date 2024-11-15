@@ -94,7 +94,7 @@ export default function Home() {
                     name="Top messager roles"
                     url={url}
                     dataName="roles.messages"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select roles which should be assigned to the top message members."
                     defaultState={data.roles?.messages || []}
                     max={3}
@@ -105,7 +105,6 @@ export default function Home() {
                     name="Top voice roles"
                     url={url}
                     dataName="roles.voiceminutes"
-                    items={createSelectableItems(guild?.roles, "@")}
                     items={createSelectableItems(guild?.roles)}
                     description="Select roles which should be assigned to the top voice members."
                     defaultState={data.roles?.voiceminutes || []}
@@ -119,7 +118,7 @@ export default function Home() {
                 name="Blacklisted channels"
                 url={url}
                 dataName="blacklistChannelIds"
-                items={createSelectableItems(guild?.channels, "#", () => false)}
+                items={createSelectableItems(guild?.channels, [])}
                 description="Select channels which should not be counted."
                 defaultState={data.blacklistChannelIds || []}
                 max={500}

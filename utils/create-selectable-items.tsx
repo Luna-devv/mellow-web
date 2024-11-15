@@ -1,29 +1,25 @@
-import { ApiV1GuildsEmojisGetResponse } from "@/typings";
+import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsRolesGetResponse, PermissionFlagsBits } from "@/typings";
 import Image from "next/image";
 
-interface Item {
-    name: string;
-    id: string;
-    missingPermissions?: string[];
-    color?: number;
-}
+type Item = ApiV1GuildsChannelsGetResponse | ApiV1GuildsRolesGetResponse;
 
 export function createSelectableItems<T extends Item>(
     items: T[] | undefined,
-    prefix: "#" | "@" | "",
-    filter?: (perm: string) => boolean
+    requiredPermissions: (keyof typeof PermissionFlagsBits)[] = ["ViewChannel", "SendMessages", "EmbedLinks"],
+    allowNSFW: boolean = false
 ) {
-    if (!items) return [];
+    if (!items?.length) return [];
 
     return items
         .sort((a, b) => a.name.localeCompare(b.name))
+        .filter((item) => !allowNSFW && !("nsfw" in item ? item.nsfw : false))
         .map((item) => ({
-            name: `${prefix}${item.name}`,
+            name: `${"type" in item ? "#" : "@"}${item.name}`,
             value: item.id,
-            error: filter
-                ? item.missingPermissions?.filter(filter).join(", ")
-                : item.missingPermissions?.join(", "),
-            color: item.color
+            error: "permissions" in item
+                ? requiredPermissions.map((perm) => (item.permissions & PermissionFlagsBits[perm]) === 0 ? perm : false).filter(Boolean).join(", ")
+                : undefined,
+            color: "color" in item ? item.color : undefined
         }));
 }
 

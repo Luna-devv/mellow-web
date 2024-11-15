@@ -93,7 +93,7 @@ export default function CreateDailypost({
             <SelectMenu
                 name="Channel"
                 dataName="channelId"
-                items={createSelectableItems(channels, "#")}
+                items={createSelectableItems(channels, ["ViewChannel", "SendMessages", "AttachFiles"])}
                 description="Select a channel where dailyposts should be send into."
                 onSave={(o) => {
                     setChannelId(o.value as string);

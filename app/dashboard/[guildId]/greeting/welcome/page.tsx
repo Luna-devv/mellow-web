@@ -136,7 +136,7 @@ export default function Home() {
                 name="Channel"
                 url={`/guilds/${guild?.id}/modules/welcome`}
                 dataName="channelId"
-                items={createSelectableItems(guild?.channels, "#")}
+                items={createSelectableItems(guild?.channels)}
                 description="Select the channel where the welcome message should be send into."
                 defaultState={welcome?.channelId}
                 disabled={!welcome.enabled}
@@ -159,7 +159,7 @@ export default function Home() {
                     name="Roles"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="roleIds"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select roles which members should get."
                     defaultState={welcome?.roleIds}
                     max={5}
@@ -172,7 +172,7 @@ export default function Home() {
                     name="Pings"
                     url={`/guilds/${guild?.id}/modules/welcome`}
                     dataName="pingIds"
-                    items={createSelectableItems(guild?.channels, "#", (perm) => perm !== "EmbedLinks")}
+                    items={createSelectableItems(guild?.channels, ["ViewChannel", "SendMessages"])}
                     description="Select in what channels user should get ghostpinged."
                     defaultState={welcome?.pingIds}
                     max={5}

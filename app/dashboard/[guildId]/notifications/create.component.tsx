@@ -116,7 +116,7 @@ export default function CreateNotification({
             <SelectMenu
                 name="Channel"
                 dataName="channelId"
-                items={createSelectableItems(channels, "#")}
+                items={createSelectableItems(channels)}
                 description="Select a channel where notifications should be send into."
                 onSave={(o) => {
                     setChannelId(o.value as string);

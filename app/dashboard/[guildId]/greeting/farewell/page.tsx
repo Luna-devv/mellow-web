@@ -115,7 +115,7 @@ export default function Home() {
                 name="Channel"
                 url={`/guilds/${guild?.id}/modules/bye`}
                 dataName="channelId"
-                items={createSelectableItems(guild?.channels, "#")}
+                items={createSelectableItems(guild?.channels)}
                 description="Select the channel where the farewell message should be send into."
                 defaultState={bye?.channelId}
                 disabled={!bye.enabled}

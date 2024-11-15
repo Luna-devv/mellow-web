@@ -84,7 +84,7 @@ export default function Home() {
                     name="Logging channel"
                     url={url}
                     dataName="logChannelId"
-                    items={createSelectableItems(guild?.channels, "#")}
+                    items={createSelectableItems(guild?.channels)}
                     description="Select the channel where the logs should be send into."
                     defaultState={data.logChannelId}
                     disabled={!data.enabled}
@@ -128,7 +128,7 @@ export default function Home() {
                     name="Whitelist channels"
                     url={url}
                     dataName="whitelistChannelIds"
-                    items={createSelectableItems(guild?.channels, "#", () => false)}
+                    items={createSelectableItems(guild?.channels, [])}
                     description="Select channels where images should not be moderated in."
                     defaultState={data.whitelistChannelIds}
                     max={500}
@@ -140,7 +140,7 @@ export default function Home() {
                     name="Whitelist roles"
                     url={url}
                     dataName="whitelistRoleIds"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select roles by who images should not be moderated for."
                     defaultState={data.whitelistRoleIds}
                     max={500}

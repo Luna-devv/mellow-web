@@ -1,8 +1,9 @@
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
+import { HiExternalLink } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import NumberInput from "@/components/inputs/number-input";
@@ -21,7 +22,7 @@ export function TTSSettings() {
                     name="Chat to Speech channel"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.channelId"
-                    items={createSelectableItems(guild?.channels, "#", (p) => p === "ViewChannel")}
+                    items={createSelectableItems(guild?.channels, ["ViewChannel", "SendMessages", "EmbedLinks", "ReadMessageHistory"])}
                     description="Select a channel what channel should be used for tts."
                     defaultState={guild?.tts.channelId}
                     showClear
@@ -30,7 +31,7 @@ export function TTSSettings() {
                     name="Usage logs"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.logChannelId"
-                    items={createSelectableItems(guild?.channels, "#")}
+                    items={createSelectableItems(guild?.channels)}
                     description="Select a channel where usage logs should be posted into."
                     defaultState={guild?.tts.logChannelId}
                     showClear
@@ -39,7 +40,7 @@ export function TTSSettings() {
                     name="Priority role"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.priorityRoleId"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="People with this role bypass the queue and speak immediately."
                     defaultState={guild?.tts.priorityRoleId}
                     showClear

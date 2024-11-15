@@ -128,7 +128,7 @@ export default function Home() {
             name="Logging channel"
             url={`/guilds/${guild?.id}/modules/passport`}
             dataName="channelId"
-            items={createSelectableItems(guild?.channels, "#")}
+            items={createSelectableItems(guild?.channels)}
             description="Select the channel where verification logs should be send into."
             defaultState={passport?.channelId}
             disabled={!passport.enabled}
@@ -140,7 +140,7 @@ export default function Home() {
                     name="Unverified role"
                     url={`/guilds/${guild?.id}/modules/passport`}
                     dataName="unverifiedRoleId"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select what role members should get when joining."
                     defaultState={passport?.unverifiedRoleId}
                     disabled={!passport.enabled}
@@ -152,7 +152,7 @@ export default function Home() {
                     name="Verified role"
                     url={`/guilds/${guild?.id}/modules/passport`}
                     dataName="successRoleId"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select what role members should get when completing verification."
                     defaultState={passport?.successRoleId}
                     disabled={!passport.enabled}
@@ -190,7 +190,7 @@ export default function Home() {
                     name="Punishment role"
                     url={`/guilds/${guild?.id}/modules/passport`}
                     dataName="punishmentRoleId"
-                    items={createSelectableItems(guild?.roles, "@")}
+                    items={createSelectableItems(guild?.roles)}
                     description="Select what role members should get when failing verification."
                     defaultState={passport?.punishmentRoleId}
                     disabled={!passport.enabled || passport.punishment !== 2}
