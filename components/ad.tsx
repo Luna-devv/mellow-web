@@ -52,6 +52,7 @@ const Ad: FunctionComponent<Props> = ({
                 className="mt-3 font-medium"
                 href={url}
                 target="_blank"
+                prefetch={false}
                 endContent={<HiArrowNarrowRight />}
             >
                 {button}
