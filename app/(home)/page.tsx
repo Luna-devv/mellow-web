@@ -27,7 +27,7 @@ import SpacePic from "@/public/space.webp";
 import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
 import { ApiV1TopguildsGetResponse } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { actor } from "@/utils/tts";
 import { getCanonicalUrl } from "@/utils/urls";

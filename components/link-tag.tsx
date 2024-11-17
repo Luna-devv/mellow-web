@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HiExternalLink } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 export default function LinkTag({
     href,

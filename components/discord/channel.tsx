@@ -1,7 +1,7 @@
 import React from "react";
 import { HiHashtag, HiVolumeUp } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 interface Props {
     type: "text" | "voice";

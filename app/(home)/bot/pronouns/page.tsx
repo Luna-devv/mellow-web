@@ -7,7 +7,7 @@ import { HiCash, HiPlus } from "react-icons/hi";
 import Box from "@/components/box";
 import { ClientButton } from "@/components/client";
 import DiscordMessage from "@/components/discord/message";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 

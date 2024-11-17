@@ -8,7 +8,7 @@ import { HiUserAdd } from "react-icons/hi";
 import { ClientButton } from "@/components/client";
 import { Footer } from "@/components/footer";
 import CommandPic from "@/public/image-command.webp";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 

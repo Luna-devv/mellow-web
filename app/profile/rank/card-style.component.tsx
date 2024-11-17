@@ -8,7 +8,7 @@ import { User, userStore } from "@/common/user";
 import Box from "@/components/box";
 import { Shiggy } from "@/components/shiggy";
 import { ApiV1UsersMeRankEmojiDeleteResponse, ApiV1UsersMeRankEmojiPutResponse } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
 import sleep from "@/utils/sleep";
 

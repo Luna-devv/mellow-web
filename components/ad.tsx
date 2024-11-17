@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FunctionComponent } from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "700" });
 

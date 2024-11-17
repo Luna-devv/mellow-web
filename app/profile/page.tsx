@@ -15,7 +15,7 @@ import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-me
 import { useApi } from "@/lib/api/hook";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1UsersMeGuildsGetResponse } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 const MAX_GUILDS = 200 as const;
 

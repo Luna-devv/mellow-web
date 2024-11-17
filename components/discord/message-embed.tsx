@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { DiscordMarkdown } from "./markdown";
 

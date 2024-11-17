@@ -3,7 +3,7 @@ import { Montserrat } from "next/font/google";
 import { ReactNode } from "react";
 
 import { Section } from "@/components/section";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 import { Commands } from "../commands.component";

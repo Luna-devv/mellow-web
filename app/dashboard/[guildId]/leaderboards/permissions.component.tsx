@@ -6,7 +6,7 @@ import { HiExclamation } from "react-icons/hi";
 import { Guild } from "@/common/guilds";
 import DiscordChannel from "@/components/discord/channel";
 import { ApiV1GuildsChannelsGetResponse } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 interface Props {
     className: string;

@@ -14,7 +14,7 @@ import { SiKofi } from "react-icons/si";
 import Header from "@/components/header";
 import LoginButton from "@/components/login-button";
 import Notice, { NoticeType } from "@/components/notice";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
 
 import { Provider } from "./provider";

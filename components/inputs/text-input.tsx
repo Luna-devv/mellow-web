@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
 import { ApiError } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { useStateDebounced } from "../../utils/useDebounce";
 import DumbTextInput from "./dumb-text-input";

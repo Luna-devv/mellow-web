@@ -9,7 +9,7 @@ import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { GT4Init } from "@/lib/gt4";
 import { ApiV1GuildsGetResponse } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 enum State {
     Idle = 0,

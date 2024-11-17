@@ -6,7 +6,7 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiExclamation } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 

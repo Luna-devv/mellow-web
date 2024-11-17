@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 import { Guild } from "@/common/guilds";
 import Notice from "@/components/notice";
 import { cacheOptions } from "@/lib/api";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import DiscordWidgetButton from "./widget-button.component";
 

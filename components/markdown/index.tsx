@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
 import { getUser } from "@/lib/discord/user";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl } from "@/utils/urls";
 

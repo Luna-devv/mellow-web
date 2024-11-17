@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { Avatar } from "../avatar";
 import DiscordAppBadge from "./app-badge";

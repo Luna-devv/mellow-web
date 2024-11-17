@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { FaCrown } from "react-icons/fa6";
 import { HiLightningBolt } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { ApiCluster } from "./api";
 

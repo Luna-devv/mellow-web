@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
 
 import { ApiError } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { ClickOutside } from "./click-outside";
 import Notice, { NoticeType } from "./notice";
