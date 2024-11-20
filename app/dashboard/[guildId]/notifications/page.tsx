@@ -17,8 +17,8 @@ import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
-import CreateNotification, { Style } from "./create.component";
-import DeleteNotification from "./delete.component";
+import { DeleteNotification } from "./delete.component";
+import { CreateNotificationSelect, Style } from "./select.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -65,7 +65,7 @@ export default function Home() {
                 docs="/notifications"
 
                 createButton={(options) => (
-                    <CreateNotification
+                    <CreateNotificationSelect
                         style={options.style}
                         add={addItem}
                         set={setItemId}
@@ -108,7 +108,7 @@ export default function Home() {
                     name="notifications"
                     description="Notify your community when new videos are released."
                 >
-                    <CreateNotification
+                    <CreateNotificationSelect
                         style={Style.Big}
                         add={addItem}
                         set={setItemId}

@@ -14,7 +14,7 @@ interface Props {
     remove: (id: string) => void;
 }
 
-export default function DeleteNotification({
+export function DeleteNotification({
     id,
     name,
 
