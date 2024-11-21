@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import Link from "next/link";
 
 import { cn } from "@/utils/cn"
 
@@ -46,8 +47,35 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 {...props}
             />
         )
+
+export interface LinkButtonProps extends Omit<ButtonProps, "asChild"> {
+    href: string;
+    target?: "_blank";
+    prefetch?: false;
+}
+
+const LinkButton = React.forwardRef<HTMLButtonElement, LinkButtonProps>(
+    ({ children, href, target, prefetch, ...props }, ref) => {
+        return (
+            <Button
+                asChild
+                ref={ref}
+                {...props}
+            >
+                <Link
+                    href={href}
+                    target={target}
+                    prefetch={prefetch || true}
+                >
+                    {children}
+                </Link>
+            </Button>
+        );
     }
 )
 Button.displayName = "Button"
+);
 
-export { Button, buttonVariants }
+LinkButton.displayName = "LinkButton";
+
+export { Button, buttonVariants,LinkButton };
