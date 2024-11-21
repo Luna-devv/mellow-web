@@ -1,6 +1,7 @@
 "use client";
 
 import { Progress } from "@nextui-org/react";
+import { Separator } from "@radix-ui/react-separator";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
@@ -10,7 +11,6 @@ import { cn } from "@/utils/cn";
 
 import { ClickOutside } from "./click-outside";
 import Notice, { NoticeType } from "./notice";
-import { Separator } from "@radix-ui/react-separator";
 import { Button } from "./ui/button";
 
 enum State {
@@ -146,7 +146,7 @@ export default function Modal<T>({
             }
 
             <Button
-                            variant={variant}
+                variant={variant}
                 onClick={() => submit()}
                 className={cn(!onSubmit && "ml-auto")}
                 disabled={isDisabled}
