@@ -14,7 +14,7 @@ export default async function Home() {
 
     return (<>
         <div className="md:flex gap-4 mb-12">
-            <div className="grid gap-2 grid-cols-2 lg:grid-cols-3 w-full md:w-3/4">
+            <div className="space-y-2 w-full md:w-3/4">
                 {status.clusters.map((cluster) => (
                     <Cluster
                         key={"cluster-" + cluster.id}
