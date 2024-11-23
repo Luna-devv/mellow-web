@@ -8,7 +8,7 @@ import DiscordAppBadge from "@/components/discord/app-badge";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import getAverageColor from "@/utils/average-color";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
 
 import Icon from "./icon.component";

@@ -9,7 +9,7 @@ import { SiKofi } from "react-icons/si";
 import TopggIcon from "@/components/icons/topgg";
 import { getUser } from "@/lib/discord/user";
 import BlahajPic from "@/public/blahaj.webp";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { ClientChip } from "./client";
 

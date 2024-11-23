@@ -1,6 +1,6 @@
 import { HiExclamation, HiExclamationCircle } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 export enum NoticeType {
     Error = "error",

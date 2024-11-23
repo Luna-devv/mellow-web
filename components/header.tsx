@@ -12,7 +12,7 @@ import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
 import LoginButton from "@/components/login-button";
 import { authorize } from "@/utils/authorize-user";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import ImageReduceMotion from "./image-reduce-motion";
 

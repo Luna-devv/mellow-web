@@ -1,10 +1,11 @@
-import { Button, Divider } from "@nextui-org/react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { BsDiscord, BsGithub } from "react-icons/bs";
-import { HiExternalLink, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
+import { HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
 import { Footer } from "@/components/footer";
+import { LinkButton } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import metadata from "@/public/docs/meta.json";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -62,7 +63,7 @@ export default async function RootLayout({ params, children }: Props) {
     return (
         <div className="w-full">
 
-            <div className="md:flex justify-between items-center">
+            <div className="md:flex justify-between items-end">
                 <div>
                     <h1 className="text-2xl font-medium text-neutral-100">
                         {title} Documentation
@@ -76,8 +77,6 @@ export default async function RootLayout({ params, children }: Props) {
                 </div>
             </div>
 
-            <Divider className="mt-2" />
-
             <div className="flex flex-col lg:flex-row gap-6 mt-5 min-h-[63vh]">
                 <nav className="w-full lg:w-1/4 space-y-2">
 
@@ -90,37 +89,32 @@ export default async function RootLayout({ params, children }: Props) {
                         )}
                     </ul>
 
-                    <Button
-                        as={Link}
-                        className="w-full !justify-start button-blurple"
+                    <LinkButton
+                        className="w-full !justify-start"
                         href="/support"
                         target="_blank"
-                        startContent={<BsDiscord />}
-                        endContent={<HiExternalLink />}
+                        variant="blurple"
                     >
+                        <BsDiscord />
                         Join Support
-                    </Button>
-                    <Button
-                        as={Link}
-                        className="w-full !justify-start font-medium"
+                    </LinkButton>
+                    <LinkButton
+                        className="w-full !justify-start"
                         href="/invite"
                         target="_blank"
-                        color="secondary"
-                        startContent={<HiUserAdd />}
-                        endContent={<HiExternalLink />}
+                        variant="secondary"
                     >
+                        <HiUserAdd />
                         Invite Wamellow
-                    </Button>
-                    <Button
-                        as={Link}
+                    </LinkButton>
+                    <LinkButton
                         className="w-full !justify-start"
                         href="/profile"
                         target="_blank"
-                        startContent={<HiViewGridAdd />}
-                        endContent={<HiExternalLink />}
                     >
+                        <HiViewGridAdd />
                         Dashboard
-                    </Button>
+                    </LinkButton>
                     <Link
                         className="flex items-center gap-1.5 hover:text-violet-400 duration-100"
                         href={"https://github.com/Luna-devv/mellow-web/blob/master/public/docs"}
@@ -130,13 +124,12 @@ export default async function RootLayout({ params, children }: Props) {
                     </Link>
                 </nav>
 
-                <Divider className="lg:hidden" />
+                <Separator className="lg:hidden" />
 
                 {children}
             </div>
 
             <Footer className="mt-24" />
-
         </div>
     );
 }
@@ -152,15 +145,16 @@ function NavButton({
 
     return (
         <li>
-            <Button
-                as={Link}
-                className="w-full !justify-start bg-transparent hover:bg-wamellow"
+            <LinkButton
+                className="w-full !justify-start bg-transparent h-[30px]"
                 href={`/docs/${file}`}
                 size="sm"
-                startContent={<span>{icon}</span>}
             >
+                <span className="mr-[2px]">
+                    {icon}
+                </span>
                 {name}
-            </Button>
+            </LinkButton>
         </li>
     );
 }

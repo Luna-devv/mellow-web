@@ -10,7 +10,7 @@ import { HiPrinter } from "react-icons/hi";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import LinkTag from "@/components/link-tag";
 import Notice from "@/components/notice";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import Time from "./time.component";
 import UploadButton from "./upload.component";

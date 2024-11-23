@@ -278,7 +278,7 @@ export default function UpdatingLeaderboardCard({
         <Modal
             className="flex flex-col gap-3"
             buttonName="Delete"
-            variant="danger"
+            variant="destructive"
             title={`Delete ${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
             isOpen={modal === ModalType.Delete && !!guild}
             onClose={() => {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HiExternalLink } from "react-icons/hi";
 
 import { getGuild } from "@/lib/discord/guild";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
 
 export async function DiscordServer({

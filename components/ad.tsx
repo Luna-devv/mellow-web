@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FunctionComponent } from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "700" });
 
@@ -52,6 +52,7 @@ const Ad: FunctionComponent<Props> = ({
                 className="mt-3 font-medium"
                 href={url}
                 target="_blank"
+                prefetch={false}
                 endContent={<HiArrowNarrowRight />}
             >
                 {button}

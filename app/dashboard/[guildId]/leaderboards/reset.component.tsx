@@ -34,7 +34,7 @@ export default function ResetLeaderboard({ guild }: Props) {
             <Modal
                 title="Reset @everyone's stats"
                 buttonName="Reset"
-                variant="danger"
+                variant="destructive"
                 isOpen={modal === ModalType.Delete}
                 onClose={() => setModal(undefined)}
                 onSubmit={() => {

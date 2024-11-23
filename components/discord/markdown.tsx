@@ -2,7 +2,7 @@ import "./markdown.css";
 
 import * as md from "@odiffey/discord-markdown";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 export function DiscordMarkdown({
     text,

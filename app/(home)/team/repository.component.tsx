@@ -3,7 +3,7 @@ import { HiBeaker, HiExternalLink, HiStar } from "react-icons/hi";
 
 import { ClientChip } from "@/components/client";
 import { getRepository } from "@/lib/github";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 export async function Repository({
     fullname

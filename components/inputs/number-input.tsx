@@ -5,7 +5,7 @@ import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
 import { ApiError } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 enum State {
     Idle = 0,

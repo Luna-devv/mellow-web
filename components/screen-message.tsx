@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiHome } from "react-icons/hi";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { ClientButton } from "./client";
 

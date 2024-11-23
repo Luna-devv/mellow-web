@@ -180,7 +180,7 @@ export default function RootLayout({
                             icon: <HiStar />
                         },
                         {
-                            name: "YouTube Notifications",
+                            name: "Notifications",
                             value: "/notifications",
                             icon: <BiLogoYoutube />
                         },

@@ -14,7 +14,7 @@ interface Props {
     remove: (id: string) => void;
 }
 
-export default function DeleteNotification({
+export function DeleteNotification({
     id,
     name,
 
@@ -44,7 +44,7 @@ export default function DeleteNotification({
 
         <Modal
             buttonName="Delete"
-            variant="danger"
+            variant="destructive"
             title={"Delete Notification: " + name}
             isOpen={open}
             onClose={() => setOpen(false)}

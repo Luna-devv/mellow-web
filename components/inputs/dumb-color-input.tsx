@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 type Props = {
     name?: string;

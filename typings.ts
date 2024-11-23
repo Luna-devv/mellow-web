@@ -90,7 +90,7 @@ export interface ApiV1GuildsRolesGetResponse {
     /**
      * @description -1 represents the role being above the bot's highest role
      */
-    permissions: -1 | 0; 
+    permissions: -1 | 0;
     position: number;
     color: number;
 }
@@ -402,13 +402,18 @@ export interface ApiV1UsersGetResponse {
     }[];
 }
 
+export enum NotificationType {
+    YouTube = 0,
+    Twitch = 1
+}
+
 export interface ApiV1GuildsModulesNotificationsGetResponse {
     id: string;
     guildId: string;
     channelId: string;
     roleId: string | null;
 
-    type: 0;
+    type: NotificationType;
     creatorId: string;
 
     message: {

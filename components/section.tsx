@@ -1,6 +1,6 @@
 import { Divider } from "@nextui-org/react";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 export function Section({
     title,

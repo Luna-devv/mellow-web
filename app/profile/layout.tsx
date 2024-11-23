@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip, Skeleton } from "@nextui-org/react";
+import { Chip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -13,7 +13,9 @@ import { useQuery } from "react-query";
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
+import { MetricCard, Metrics } from "@/components/metric-card";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { ApiV1UsersMeGetResponse } from "@/typings";
@@ -71,7 +73,7 @@ export default function RootLayout({
                 <div className="text-lg flex flex-col md:flex-row md:items-center">
                     <div className="flex gap-5">
                         <Skeleton
-                            isLoaded={!!user?.id}
+                            isLoading={!user?.id}
                             className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
                         >
                             <ImageReduceMotion
@@ -89,7 +91,9 @@ export default function RootLayout({
                             </div>
                             :
                             <div className="flex flex-col gap-1">
-                                <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">@{user?.username || "Unknown User"}</div>
+                                <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">
+                                    {user.globalName || user.username}
+                                </div>
                                 <Chip
                                     as={Link}
                                     href="/vote"
@@ -99,38 +103,25 @@ export default function RootLayout({
                                     variant="flat"
                                     radius="sm"
                                 >
-                                    <span className="font-bold uppercase"> {user.extended?.voteCount} votes </span>
+                                    <span className="font-bold uppercase">
+                                        {user.extended?.voteCount} votes
+                                    </span>
                                 </Chip>
                             </div>
                         }
                     </div>
 
-                    <div className="md:ml-auto flex items-center gap-5 mt-6 md:mt-0">
-                        <div>
-                            <div className="text-sm font-medium">Messages</div>
-                            {!user?.extended?.activity
-                                ? <Skeleton className="rounded-md mt-1.5 w-12 h-6 mb-1" />
-                                :
-                                <CountUp className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium" duration={4} end={user?.extended?.activity?.messages || 0} />
-                            }
-                        </div>
-                        <div>
-                            <div className="text-sm font-medium">Invites</div>
-                            {!user?.extended?.activity
-                                ? <Skeleton className="rounded-md mt-1.5 w-8 h-6 mb-1" />
-                                :
-                                <CountUp className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium" duration={4} end={user?.extended?.activity?.invites || 0} />
-                            }
-                        </div>
-                        <div>
-                            <div className="text-sm font-medium">Voice</div>
-                            {!user?.extended?.activity
-                                ? <Skeleton className="rounded-md mt-1.5 w-20 h-6 mb-1" />
-                                :
-                                <span className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">{user?.extended?.activity?.formattedVoicetime}</span>
-                            }
-                        </div>
-                    </div>
+                    <Metrics>
+                        <MetricCard name="Messages" isLoading={!user?.extended}>
+                            <CountUp className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium" duration={4} end={user?.extended?.activity?.messages || 0} />
+                        </MetricCard>
+                        <MetricCard name="Invites" isLoading={!user?.extended}>
+                            <CountUp className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium" duration={4} end={user?.extended?.activity?.invites || 0} />
+                        </MetricCard>
+                        <MetricCard name="Voice" isLoading={!user?.extended}>
+                            <span className="text-2xl dark:text-neutral-100 text-neutral-900 font-medium">{user?.extended?.activity?.formattedVoicetime}</span>
+                        </MetricCard>
+                    </Metrics>
                 </div>
             </div>
 
@@ -169,13 +160,12 @@ export default function RootLayout({
                             []
                         )
                     ]}
-                    url={"/profile"}
+                    url="/profile"
                     disabled={!user?.id}
                 />
             </Suspense>
 
             {user?.id ? children : <></>}
-
         </div>
     );
 }

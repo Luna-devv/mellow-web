@@ -4,7 +4,7 @@ import { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
 import { HiExternalLink } from "react-icons/hi";
 
 import { getUser } from "@/lib/discord/user";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 type LinkProps = DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;

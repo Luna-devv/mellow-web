@@ -5,7 +5,7 @@ import Link from "next/link";
 import { HiExternalLink, HiPencil } from "react-icons/hi";
 
 import { Guild, guildStore } from "@/common/guilds";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 interface TBase {
     id: string;

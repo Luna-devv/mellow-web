@@ -1,4 +1,4 @@
-import { ApiError, ApiError,ApiV1GuildsGetResponse } from "@/typings";
+import { ApiError, ApiV1GuildsGetResponse } from "@/typings";
 
 export interface ApiRequestOptions {
     force?: boolean;

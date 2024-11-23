@@ -2,7 +2,7 @@ import { Chip, Slider as UiSlider } from "@nextui-org/react";
 import { useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { request } from "./request";
 

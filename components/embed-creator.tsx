@@ -5,7 +5,7 @@ import { FaFloppyDisk } from "react-icons/fa6";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 import { GuildEmbed } from "@/typings";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { DiscordMarkdown } from "./discord/markdown";
 import DiscordMessage from "./discord/message";

@@ -41,6 +41,12 @@ const nextConfig = {
                 hostname: "yt3.ggpht.com",
                 port: "",
                 pathname: "/**"
+            },
+            {
+                protocol: "https",
+                hostname: "static-cdn.jtvnw.net",
+                port: "",
+                pathname: "/jtv_user_pictures/**"
             }
         ]
     }

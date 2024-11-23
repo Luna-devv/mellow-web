@@ -1,7 +1,7 @@
-- We only support **YouTube**, use [NotifyMe](https://notifyme.bot) or [DisPing](https://disping.xyz) for Twitch, Kick, Twitter, etc.
-- Every server can have **up to 30 different channels for free**.
+- We only support **YouTube and Twitch**, use [NotifyMe](https://notifyme.bot) or [DisPing](https://disping.xyz) for TikTok, Kick, Twitter, etc.
+- Every server can have **up to 30 different channels and streamers for free**.
 - Notifications are sent **within five to ten seconds** after uploading.
-- And **free custom message & embed** for every notification individually.
+- And **free custom messages** for every notification individually.
 <br />
 
 <iframe src="https://www.youtube.com/embed/xizs-hrwK4I" height="513" frameborder="0" allow="autoplay">
@@ -11,19 +11,19 @@
 1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
 2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard?to=notifications).
 3. Select your server from the dashboard.
-4. Navigate to the **YouTube Notifications** tab. 
-5. Click **Add a YouTube channel** and enter a channel url/handle/id.
+4. Navigate to the **Notifications** tab.
+5. Click **Create new Notification**, select a platform and enter a channel url or @handle.
 7. Click **Submit** and start customizing your message!
 <br/>
 
-![How to get YouTube channel handle or id](/docs-assets/notifications-get-handle.webp)
+![Either  copy the entire url, or the handle/id](/docs-assets/notifications-channel-urls.webp)
 
 ### ✏️ Custom message & embed
 You can create a notification message with a **fully customizable message and embed for free**, enabling you to style the messages the way you love.
 <br />
 <br />
 
-**Note:** Image previews might be broken on the dashboard
+**Note:** Image previews might be broken on the dashboard.
 
 ### 🏓 Pings
 The role that should get notified about new uploads.
@@ -33,15 +33,22 @@ The role that should get notified about new uploads.
 <br />
 <br />
 
-**Note:** If Wamellow does not have the `Mention Everyone` permissions inside the channel, it might not be able to actually notify those roles.
+**Note:** If Wamellow does not have the `Mention Everyone` permissions inside the channel, it might not be able to actually notify members with those roles.
+
+### 🥳 Test notification
+Test notifications let you see how your message will look like when a video is uploaded or a streamer goes live. For the purpose of testing, all pings are disabled, so no member will get notified. For streaming platforms, like Twitch, mock (fake) data is used to simulate a live stream.
 
 ## Placeholders
 Placeholders allow you to use variables that change from message to message, for example to display information about the uploaded video or creator. They are always enclosed in curly braces, such as `{creator.name}`.
+<br />
+<br />
+
+**Note:** Placeholders marked with a <code>*</code> only work for YouTube. The examples assume you use YouTube, though they will work for any other platform.
 
 <table>
     <thead>
         <tr>
-            <th width="181">Placeholder</th>
+            <th width="192">Placeholder</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
@@ -50,27 +57,27 @@ Placeholders allow you to use variables that change from message to message, for
         <tr>
             <td><code>ping</code></td>
             <td><@&1200776778801750167></td>
-            <td>Notification ping</td>
+            <td>Notify members</td>
         </tr>
         <tr>
             <td><code>video.title</code></td>
             <td>Your PC Can Look Like THIS Now!</td>
-            <td>Video title</td>
+            <td>Video/Stream title</td>
         </tr>
         <tr>
             <td><code>video.id</code></td>
             <td>74Lj5cHseI8</td>
-            <td>Video id</td>
+            <td>Video/Stream id</td>
         </tr>
         <tr>
             <td><code>video.link</code></td>
-            <td>https://www.youtube.com/watch?v=74Lj5cHseI8</td>
-            <td>Video page</td>
+            <td>https://youtube.com/watch?v=74Lj5cHseI8</td>
+            <td>Video/Stream page</td>
         </tr>
         <tr>
             <td><code>video.thumbnail</code></td>
             <td>https://i4.ytimg.com/vi/74Lj5cHseI8/hqdefault.jpg</td>
-            <td>Video thumbnail url</td>
+            <td>Video/Stream image</td>
         </tr>
         <tr>
             <td><code>video.uploaded.ago</code></td>
@@ -88,7 +95,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="181">Placeholder</th>
+            <th width="192">Placeholder</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
@@ -106,26 +113,26 @@ Placeholders allow you to use variables that change from message to message, for
         </tr>
         <tr>
             <td><code>creator.link</code></td>
-            <td>https://www.youtube.com/@LinusTechTips</td>
+            <td>https://youtube.com/@LinusTechTips</td>
             <td>Creator page</td>
         </tr>
         <tr>
             <td><code>creator.avatar</code></td>
-            <td>https://yt3.ggpht.com/...</td>
+            <td>https://.../...</td>
             <td>Creator avatar url</td>
         </tr>
         <tr>
-            <td><code>creator.subs</code></td>
+            <td><code>creator.subs</code>*</td>
             <td>16M</td>
             <td>Subscriber count</td>
         </tr>
         <tr>
-            <td><code>creator.videos</code></td>
+            <td><code>creator.videos</code>*</td>
             <td>6.9K</td>
             <td>Amount of videos</td>
         </tr>
         <tr>
-            <td><code>creator.views</code></td>
+            <td><code>creator.views</code>*</td>
             <td>7.8B</td>
             <td>Total views</td>
         </tr>
@@ -135,7 +142,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="181">Placeholder</th>
+            <th width="192">Placeholder</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
