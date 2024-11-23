@@ -2,13 +2,14 @@ import { Button, Chip } from "@nextui-org/react";
 import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
-import { BsDiscord, BsQuestionLg } from "react-icons/bs";
-import { HiLightningBolt, HiOutlineCheck, HiX } from "react-icons/hi";
+import { BsQuestionLg } from "react-icons/bs";
+import { HiLightningBolt, HiOutlineCheck, HiUserAdd, HiX } from "react-icons/hi";
 import { IoMdInfinite } from "react-icons/io";
 
 import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
 import { ApiV1TopguildsGetResponse } from "@/typings";
+import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 const maybe = null;
@@ -50,28 +51,26 @@ export const generateMetadata = async (): Promise<Metadata> => {
 export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
 
-    const buttons = (
-        <>
-            <Button
-                as={Link}
-                className="w-1/2 font-medium"
-                href="/login?invite=true"
-                prefetch={false}
-                startContent={<BsDiscord />}
-            >
+    const buttons = (<>
+        <Button
+            as={Link}
+            className="w-1/2 font-medium"
+            href="/login?invite=true"
+            prefetch={false}
+            startContent={<HiUserAdd />}
+        >
                 Get started
-            </Button>
-            <Button
-                as={Link}
-                color="secondary"
-                className="w-1/2 font-medium"
-                href="https://lunish.nl/kofi"
-                startContent={<HiLightningBolt />}
-            >
+        </Button>
+        <Button
+            as={Link}
+            color="secondary"
+            className="w-1/2 font-medium"
+            href="https://lunish.nl/kofi"
+            startContent={<HiLightningBolt />}
+        >
                 Subscribe
-            </Button>
-        </>
-    );
+        </Button>
+    </>);
 
     const displayState = (is: string | number | boolean | null) => {
         if (typeof is === "boolean" || is === null) {
@@ -87,8 +86,9 @@ export default async function Home() {
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="md:text-5xl text-4xl font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 flex gap-2 w-full">
-                <h1 className={montserrat.className}>
+            <div className="md:text-5xl text-4xl font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 flex gap-2 items-center w-full">
+                <h1 className={cn("flex gap-4", montserrat.className)}>
+                    <span className="hidden md:block">Wamellow</span>
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep block md:hidden">Pro</span>
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep hidden md:block">Professional</span>
                 </h1>
@@ -127,19 +127,22 @@ export default async function Home() {
                 </div>
 
                 {[
-                    { title: "Price", free: "$0 /month", pro: "$3.21 /month" },
+                    { title: "Price", free: "$0 /month", pro: "$3.99 /month" },
                     { title: "Custom commands", free: 30, pro: Infinity },
-                    { title: "Stickymessages", free: 10, pro: 50 },
-                    { title: "Custom footers", free: false, pro: true },
+                    { title: "Social notifications", free: 30, pro: Infinity },
+                    { title: "Dailyposts", free: 30, pro: Infinity },
+                    // { title: "Stickymessages", free: 10, pro: 50 },
+                    // { title: "Custom footers", free: false, pro: true },
                     { title: "Welcome roles", free: 5, pro: 10 },
                     { title: "Welcome pings", free: 5, pro: 15 },
-                    { title: "Level roles", free: 15, pro: 25 },
+                    // { title: "Level roles", free: 15, pro: 25 },
                     { title: "Spotify control", free: maybe, pro: true, url: "/profile/spotify" },
-                    { title: "Custom rank sub-text", free: false, pro: true },
-                    { title: "Display user as webhook", free: false, pro: true },
+                    { title: "Custom /rank sub-text", free: false, pro: true },
+                    // { title: "Display user as webhook", free: false, pro: true },
                     { title: "Passport bypass", free: false, pro: true },
-                    { title: "Custom page color", free: false, pro: true },
-                    { title: "Statistics & Analytics", free: false, pro: true }
+                    // { title: "Custom page color", free: false, pro: true },
+                    // { title: "Statistics & Analytics", free: false, pro: true },
+                    { title: "Crosspost social notifications", free: false, pro: true }
                 ].map((item) => (
                     <div key={item.title} className="flex items-center py-4">
                         <span className="md:text-base text-sm font-medium w-2/4 md:pr-0 pr-4">{item.title}</span>
@@ -154,7 +157,8 @@ export default async function Home() {
                 ))}
 
                 <div className="flex items-center pt-4">
-                    <div className="hidden md:flex w-2/4 gap-4">
+                    <div className="w-1/2" />
+                    <div className="hidden md:flex w-1/2 gap-4">
                         {buttons}
                     </div>
                 </div>
