@@ -23,7 +23,7 @@ You can create a notification message with a **fully customizable message and em
 <br />
 <br />
 
-**Note:** Image previews might be broken on the dashboard
+**Note:** Image previews might be broken on the dashboard.
 
 ### 🏓 Pings
 The role that should get notified about new uploads.
@@ -34,6 +34,9 @@ The role that should get notified about new uploads.
 <br />
 
 **Note:** If Wamellow does not have the `Mention Everyone` permissions inside the channel, it might not be able to actually notify members with those roles.
+
+### 🥳 Test notification
+Test notifications let you see how your message will look like when a video is uploaded or a streamer goes live. For the purpose of testing, all pings are disabled, so no member will get notified. For streaming platforms, like Twitch, mock (fake) data is used to simulate a live stream.
 
 ## Placeholders
 Placeholders allow you to use variables that change from message to message, for example to display information about the uploaded video or creator. They are always enclosed in curly braces, such as `{creator.name}`.
@@ -54,7 +57,7 @@ Placeholders allow you to use variables that change from message to message, for
         <tr>
             <td><code>ping</code></td>
             <td><@&1200776778801750167></td>
-            <td>Notification ping</td>
+            <td>Notify members</td>
         </tr>
         <tr>
             <td><code>video.title</code></td>
@@ -62,9 +65,9 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Video/Stream title</td>
         </tr>
         <tr>
-            <td><code>video.id</code>*</td>
+            <td><code>video.id</code></td>
             <td>74Lj5cHseI8</td>
-            <td>Video id</td>
+            <td>Video/Stream id</td>
         </tr>
         <tr>
             <td><code>video.link</code></td>
@@ -77,12 +80,12 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Video/Stream image</td>
         </tr>
         <tr>
-            <td><code>video.uploaded.ago</code>*</td>
+            <td><code>video.uploaded.ago</code></td>
             <td><t:1715878720:R></td>
             <td>Time since upload</td>
         </tr>
         <tr>
-            <td><code>video.uploaded.at</code>*</td>
+            <td><code>video.uploaded.at</code></td>
             <td><t:1715878720:f></td>
             <td>Upload time & date</td>
         </tr>
