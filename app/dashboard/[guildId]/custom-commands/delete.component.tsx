@@ -34,7 +34,7 @@ export default function DeleteTag({ guildId, id, name, removeTag }: Props) {
 
             <Modal
                 buttonName="Delete"
-                variant="danger"
+                variant="destructive"
                 title={"Delete Tag: " + name}
                 isOpen={open}
                 onClose={() => setOpen(false)}

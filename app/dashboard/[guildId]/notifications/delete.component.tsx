@@ -44,7 +44,7 @@ export function DeleteNotification({
 
         <Modal
             buttonName="Delete"
-            variant="danger"
+            variant="destructive"
             title={"Delete Notification: " + name}
             isOpen={open}
             onClose={() => setOpen(false)}

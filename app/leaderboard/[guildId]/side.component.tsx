@@ -179,7 +179,7 @@ export default function Side({
             <Modal
                 title="Reset @everyone's stats"
                 buttonName="Reset"
-                variant="danger"
+                variant="destructive"
                 isOpen={modal}
                 onClose={() => setModal(false)}
                 onSubmit={() => {

@@ -44,7 +44,7 @@ export default function DeleteDailypost({
 
         <Modal
             buttonName="Delete"
-            variant="danger"
+            variant="destructive"
             title={"Delete Dailypost: " + name}
             isOpen={open}
             onClose={() => setOpen(false)}
