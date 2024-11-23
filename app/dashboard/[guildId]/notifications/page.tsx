@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { BsTwitch, BsYoutube } from "react-icons/bs";
 import { HiChat, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import Fetch from "@/components/button-fetch";
+import { ClientBadge } from "@/components/client";
 import { CreateSplash } from "@/components/dashboard/lists/create-splash";
 import { useList } from "@/components/dashboard/lists/hook";
 import { Navigation } from "@/components/dashboard/lists/navigation";
@@ -14,7 +16,8 @@ import MessageCreatorEmbed from "@/components/embed-creator";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import { ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
+import { cn } from "@/utils/cn";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import { DeleteNotification } from "./delete.component";
@@ -84,16 +87,24 @@ export default function Home() {
                     const channel = guild?.channels?.find((channel) => channel.id === item.channelId);
 
                     return (<>
-                        <Image
-                            alt={`${item.creator.username}'s avatar`}
-                            className="rounded-full"
-                            src={item.creator.avatarUrl}
-                            width={46}
-                            height={46}
-                        />
+                        <ClientBadge
+                            className="aspect-square bg-[#1c1b1f]"
+                            content={<Icon type={item.type} className="size-4 mt-0.5" />}
+                            showOutline={false}
+                            size="sm"
+                            placement="bottom-left"
+                        >
+                            <Image
+                                alt={`${item.creator.username}'s avatar`}
+                                className="rounded-full"
+                                src={item.creator.avatarUrl}
+                                width={46}
+                                height={46}
+                            />
+                        </ClientBadge>
 
                         <div className="flex flex-col items-start">
-                            <span className="text-neutral-100 text-lg font-medium -mb-[0.5]">
+                            <span className="flex gap-2 text-neutral-100 text-lg font-medium -mb-[0.5]">
                                 {item.creator.username}
                             </span>
 
@@ -181,4 +192,17 @@ export default function Home() {
             onSave={(value) => editItem("message", { content: value.content ?? null, embed: value.embed })}
         />
     </>);
+}
+
+function Icon({
+    type,
+    className
+}: {
+    type: NotificationType;
+        className?: string;
+}) {
+    switch (type) {
+        case NotificationType.YouTube: return <BsYoutube className={cn("text-red-500", className)} />;
+        case NotificationType.Twitch: return <BsTwitch className={cn("text-violet-500", className)} />;
+    }
 }

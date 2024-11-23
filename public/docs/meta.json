@@ -76,10 +76,10 @@
             }
         },
         {
-            "name": "📢 YouTube Notifications",
+            "name": "📢 Social Notifications",
             "file": "notifications.md",
             "image": "/docs-assets/open-graph/notifications-youtube.webp",
-            "description": "Notify your community when a new YouTube video gets posted!",
+            "description": "Notify your community when your favourite content creators post videos or go live!",
             "permissions": {
                 "bot": [
                     "View Channel",

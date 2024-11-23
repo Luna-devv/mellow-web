@@ -1,14 +1,16 @@
+import { PopoverClose } from "@radix-ui/react-popover";
+import React, { useEffect, useState } from "react";
+import { BsTwitch, BsYoutube } from "react-icons/bs";
+
+import { badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
-import { BsTwitch, BsYoutube } from "react-icons/bs";
-import { YoutubeNotificationModal } from "./create-youtube.component";
-import React, { useEffect, useState } from "react";
-import { PopoverClose } from "@radix-ui/react-popover";
-import { TwitchNotificationModal } from "./create-twitch.component";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
-import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/utils/cn";
+
+import { TwitchNotificationModal } from "./create-twitch.component";
+import { YoutubeNotificationModal } from "./create-youtube.component";
 
 export const Style = {
     Compact: 1,
@@ -31,7 +33,11 @@ const platforms = [
         icon: <BsYoutube />,
         name: Platform.YouTube
     },
-]
+    {
+        icon: <BsTwitch />,
+        name: Platform.Twitch
+    }
+];
 
 export function CreateNotificationSelect({
     style,
@@ -41,22 +47,22 @@ export function CreateNotificationSelect({
     const [isMobile, setIsMobile] = useState(false);
     const [platform, setPlatform] = useState<Platform | null>(null);
 
-      useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 768px)"); // Adjust breakpoint as needed
-    const handleMediaChange = () => setIsMobile(mediaQuery.matches);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)"); // Adjust breakpoint as needed
+        const handleMediaChange = () => setIsMobile(mediaQuery.matches);
 
-    handleMediaChange(); // Check initial value
-    mediaQuery.addEventListener("change", handleMediaChange);
+        handleMediaChange(); // Check initial value
+        mediaQuery.addEventListener("change", handleMediaChange);
 
-    return () => mediaQuery.removeEventListener("change", handleMediaChange);
-  }, []);
+        return () => mediaQuery.removeEventListener("change", handleMediaChange);
+    }, []);
 
     const Wrapper = isMobile ? DrawerWrapper : PopoverWrapper;
 
     return (<>
         <Wrapper
             button={
-                <Button 
+                <Button
                     className={style === Style.Compact ? cn(badgeVariants(), "h-6") : ""}
                     variant="secondary"
                 >
@@ -76,7 +82,8 @@ export function CreateNotificationSelect({
         />
 
         <YoutubeNotificationModal add={add} set={set} isOpen={platform === Platform.YouTube} onClose={() => setPlatform(null)} />
-    </>)
+        <TwitchNotificationModal add={add} set={set} isOpen={platform === Platform.Twitch} onClose={() => setPlatform(null)} />
+    </>);
 }
 
 function PopoverWrapper({
@@ -84,7 +91,7 @@ function PopoverWrapper({
     button,
     style
 }: {
-    children: (platform: typeof platforms[number]) => React.ReactNode; 
+    children: (platform: typeof platforms[number]) => React.ReactNode;
     button: React.ReactNode;
     style: typeof Style[keyof typeof Style];
 }) {
@@ -140,5 +147,5 @@ function DrawerWrapper({
                 ))}
             </DrawerContent>
         </Drawer>
-    )
+    );
 }
