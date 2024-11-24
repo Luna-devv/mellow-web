@@ -10,6 +10,8 @@ This is the [wamellow.com](https://wamellow.com) website for our Discord App, in
 
 If you need help developing with this, join **[our Discord Server](https://discord.com/invite/yYd6YKHQZH)**.
 
+Note that this project is not meant to be used by anyone else, including other bots, as it is specifically designed for our bot and the backend API stays private. We will not provide support for this project if you use it for your own bot, though you are allowed to by the license.
+
 ## Setup
 Clone this repo with the following commands:
 
@@ -19,40 +21,53 @@ git clone https://github.com/Luna-devv/mellow-web
 
 Create a `.env` file and add the following values:
 ```env
+# Register a https://www.geetest.com/en/ account, this is used for
 NEXT_PUBLIC_CAPTCHA_ID=""
-NEXT_PUBLIC_API="https://api.local.wamellow.com/v1"
+
+# The API URL, this is the base URL for the backend
+NEXT_PUBLIC_API="https://api.wamellow.com/v1"
+API_SECRET=""
+
+# The Nekostic API URL, https://github.com/Luna-devv/nekostic
 NEXT_PUBLIC_NEKOSTIC="https://nekostic.wamellow.com/statistics"
-NEXT_PUBLIC_LOGIN="https://discord.com/oauth2/authorize?client_id=1116414956972290119&redirect_uri=https://local.wamellow.com/login&response_type=code&permissions=1426738113654&prompt=none&scope=identify+email+guilds"
-NEXT_PUBLIC_BASE_URL="https://local.wamellow.com"
 
-API_SECRET="a"
+# The base URL for the website, this is used for the meta tags and other things
+NEXT_PUBLIC_BASE_URL="https://wamellow.com"
 
+# https://plausible.com analytics
 PLAUSIBLE_API="https://analytics.wamellow.com/api"
 PLAUSIBLE_DOMAIN="wamellow.com"
 PLAUSIBLE_API_KEY=""
 
-RATINGS_API="http://100.65.0.1:5002"
-CLIENT_ID="1125449347451068437"
+# The base URL for the ratings API
+RATINGS_API="http://localhost:5002"
 
+# The Discord client ID and bot token
+CLIENT_ID="1125449347451068437"
 DISCORD_TOKEN=""
+
+# A personal GitHub access token (read repositories)
+GITHUB_TOKEN=""
 ```
-For the `NEXT_PUBLIC_CAPTCHA_ID` register a https://www.geetest.com/en/ account, this is used for /passport's.
-For the `API_SECRET` hack my computer to get access to the backend API and it's secrets. (dun't duh)
-For the `PLAUSIBE_*` stuff you have to either create or selfhost https://plausible.com/
-For the `RATINGS_API` enter a ip/domain to a ratings api duh, read the typings for a structure.
-For the `CLIENT_ID` enter your Discord client id.
-For the `DISCORD_TOKEN` go on repl.it and find a random repo that leaks the token and use it.
+
+## Developing
+This project uses pnpm with nodejs, to start developing, run:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+If you work on this project, please note that nextui is being phased out in favor of shadcn/ui, so please use the latter for new components.
 
 ## Deploy
-The bun package manager is cool, the runtime sucks imo tho, you can also use pnpm.
-
-To run the develoment server run
-```bash
-bun dev
-```
-
 To build and run the website use
 ```bash
-bun build
-bun start
+pnpm build
+pnpm start
+```
+or 
+```bash
+docker build -t mw-web .
+docker compose up -d
 ```
