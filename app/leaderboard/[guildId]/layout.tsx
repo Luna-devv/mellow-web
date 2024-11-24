@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { HiAnnotation, HiLink, HiUsers, HiVolumeUp } from "react-icons/hi";
 
@@ -15,7 +15,7 @@ import { getDesign, getPagination } from "./api";
 import Side from "./side.component";
 
 export interface Props {
-    params: Promise<{ guildId: string }>;
+    params: Promise<{ guildId: string; }>;
     children: React.ReactNode;
 }
 

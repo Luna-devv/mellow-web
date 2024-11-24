@@ -10,7 +10,7 @@ interface Props {
         id: string;
         url: string;
         link?: string;
-    }[]
+    }[];
 }
 
 export default function ImageGrid({ images }: Props) {

@@ -6,7 +6,7 @@ import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
 import { HiCloudUpload } from "react-icons/hi";
 
-import { ApiV1UploadGetResponse } from "@/typings";
+import type { ApiV1UploadGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
 enum State {

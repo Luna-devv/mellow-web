@@ -5,7 +5,7 @@ import { useCookies } from "next-client-cookies";
 import { HiAnnotation, HiLink, HiVolumeUp } from "react-icons/hi";
 
 import { ClientCountUp } from "@/components/counter";
-import { ApiError,ApiV1UsersGetResponse } from "@/typings";
+import type { ApiError, ApiV1UsersGetResponse } from "@/typings";
 
 export default function Side({
     user

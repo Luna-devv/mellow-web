@@ -58,7 +58,7 @@ export default function DeleteDailypost({
                 if (id) remove(id);
             }}
         >
-            Are you sure you want to delete the {'"'}{name}{'"'} dailypost? It will be gone forever, probably, who knows.
+            Are you sure you want to delete the {"\""}{name}{"\""} dailypost? It will be gone forever, probably, who knows.
         </Modal>
     </>);
 }

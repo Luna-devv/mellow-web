@@ -10,8 +10,8 @@ import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { formatDate } from "@/components/time";
-import { AnalyticsError, AnalyticsResponse } from "@/lib/analytics";
-import { ApiError, ApiV1GuildsGetResponse, ApiV1UploadGetResponse } from "@/typings";
+import type { AnalyticsError, AnalyticsResponse } from "@/lib/analytics";
+import type { ApiError, ApiV1GuildsGetResponse, ApiV1UploadGetResponse } from "@/typings";
 import { truncate } from "@/utils/truncate";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -22,7 +22,7 @@ export default function Side({
 }: {
     upload: ApiV1UploadGetResponse | ApiError;
     guild: ApiV1GuildsGetResponse | ApiError | undefined;
-    analytics: { results: AnalyticsResponse[] } | AnalyticsError | undefined;
+    analytics: { results: AnalyticsResponse[]; } | AnalyticsError | undefined;
 }) {
     const cookies = useCookies();
 

@@ -1,5 +1,5 @@
 import { defaultFetchOptions } from "@/lib/api";
-import { ApiError,ApiV1UsersGetResponse } from "@/typings";
+import type { ApiError, ApiV1UsersGetResponse } from "@/typings";
 
 export async function getUser(userId: string): Promise<ApiV1UsersGetResponse | ApiError | undefined> {
     const res = await fetch(

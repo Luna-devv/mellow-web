@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,7 +20,7 @@ interface Props {
 
 export const revalidate = 3600;
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
 
     const title = "Free /image Ai for Discord";
     const description = "Summon the enchantment of AI generated images to your Discord server with our versatile /image command, featuring over 40+ distinct SD and 10+ SDXL models.";

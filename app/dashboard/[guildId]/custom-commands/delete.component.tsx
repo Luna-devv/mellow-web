@@ -48,7 +48,7 @@ export default function DeleteTag({ guildId, id, name, removeTag }: Props) {
                     if (id) removeTag(id);
                 }}
             >
-                Are you sure you want to delete the {'"'}{name}{'"'} tag? It will be gone forever, probably, who knows.
+                Are you sure you want to delete the {"\""}{name}{"\""} tag? It will be gone forever, probably, who knows.
             </Modal>
         </>
     );

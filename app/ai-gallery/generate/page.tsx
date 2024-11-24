@@ -38,7 +38,7 @@ export default function Home() {
 
     useEffect(() => {
         fetch(baseUrl)
-            .then((res) => res.json() as Promise<{ gpu: string }>)
+            .then((res) => res.json() as Promise<{ gpu: string; }>)
             .then((res) => {
                 setError(null);
                 setGpu(res.gpu || null);
@@ -60,7 +60,7 @@ export default function Home() {
         });
 
         const res = await fetch(`${baseUrl}/generate/image/${model}?${reqparams.toString()}`)
-            .then((res) => res.json()) as { url: string, duration: number };
+            .then((res) => res.json()) as { url: string; duration: number; };
 
         params = new URLSearchParams();
         params.delete("image_url");

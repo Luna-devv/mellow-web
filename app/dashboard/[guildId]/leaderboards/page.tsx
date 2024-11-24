@@ -5,14 +5,14 @@ import { useParams } from "next/navigation";
 import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
-import { Guild, guildStore } from "@/common/guilds";
+import { type Guild, guildStore } from "@/common/guilds";
 import ImageUrlInput from "@/components/inputs/image-url-input";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import { Section, SubSection } from "@/components/section";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
+import type { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import { OverviewLink } from "../../../../components/overview-link";

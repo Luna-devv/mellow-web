@@ -10,7 +10,7 @@ import metadata from "@/public/docs/meta.json";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 interface Props {
-    params: Promise<{ pathname: string[] }>;
+    params: Promise<{ pathname: string[]; }>;
 }
 
 const PATH = `${process.cwd()}/public/docs` as const;

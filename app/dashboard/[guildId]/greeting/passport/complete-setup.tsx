@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import { Guild } from "@/common/guilds";
+import type { Guild } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
-import { ApiV1GuildsModulesPassportGetResponse } from "@/typings";
+import type { ApiV1GuildsModulesPassportGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 enum ModalType {
     None = 0,
     VerifiedRole = 1,
-    PunishmentRole = 2,
+    PunishmentRole = 2
 }
 
 interface Props {

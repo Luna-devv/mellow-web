@@ -1,8 +1,9 @@
-import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsRolesGetResponse, PermissionFlagsBits } from "@/typings";
 import Image from "next/image";
 
+import { type ApiV1GuildsChannelsGetResponse, type ApiV1GuildsEmojisGetResponse, type ApiV1GuildsRolesGetResponse, PermissionFlagsBits } from "@/typings";
+
 type Item = ApiV1GuildsChannelsGetResponse | ApiV1GuildsRolesGetResponse;
-type PermissionNames = keyof typeof PermissionFlagsBits | "RoleHirachy"
+type PermissionNames = keyof typeof PermissionFlagsBits | "RoleHirachy";
 
 function parsePermissions(permissions: number, required: PermissionNames[]) {
     if (permissions === -1 && required.includes("RoleHirachy")) return ["Role is above Wamellow"];
@@ -49,5 +50,5 @@ export function createSelectableEmojiItems(emojis: ApiV1GuildsEmojisGetResponse[
                 name: c.name.replace(/-|_/g, " "),
                 value: c.id
             }))
-    ]
+    ];
 }

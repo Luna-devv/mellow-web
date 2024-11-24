@@ -16,7 +16,7 @@ import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiError,ApiV1GuildsModulesNsfwModerationGetResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsModulesNsfwModerationGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {
@@ -119,7 +119,6 @@ export default function Home() {
                 />
             </div>
         </div>
-
 
 
         <div className="lg:flex gap-3">

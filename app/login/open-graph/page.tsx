@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { getCanonicalUrl } from "@/utils/urls";
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
     const title = "Login with Discord";
     const description = "Start customising your profile and managing servers.";
     const url = getCanonicalUrl("login");

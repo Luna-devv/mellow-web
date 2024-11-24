@@ -1,11 +1,11 @@
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 
 export async function connectSpotify(code: string, session: string): Promise<true | ApiError> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/connections/spotify`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            "Cookie": `session=${session}`,
+            Cookie: `session=${session}`,
             authorization: process.env.API_SECRET as string
         },
         body: JSON.stringify({
@@ -21,7 +21,7 @@ export async function disconnectSpotify(session: string): Promise<true | ApiErro
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
-            "Cookie": `session=${session}`,
+            Cookie: `session=${session}`,
             authorization: process.env.API_SECRET as string
         }
     });

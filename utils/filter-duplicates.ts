@@ -1,1 +1,1 @@
-export const filterDuplicates = (strings: string[]) => [...new Set(strings)]
+export const filterDuplicates = (strings: string[]) => [...new Set(strings)];

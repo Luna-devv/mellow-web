@@ -6,7 +6,7 @@ import { HiPencil } from "react-icons/hi";
 
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Modal from "@/components/modal";
-import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
+import type { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
 export enum Style {
     Compact = 1,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 
 import DumbTextInput from "./dumb-text-input";
@@ -12,17 +12,17 @@ enum State {
     Success = 2
 }
 
-type Props = {
+interface Props {
     name: string;
     url: string;
     dataName: string;
     disabled?: boolean;
     description?: string;
     defaultState: string;
-    ratio: `aspect-[${number}/${number}]`
+    ratio: `aspect-[${number}/${number}]`;
 
     onSave?: (value: string) => void;
-};
+}
 
 export default function ImageUrlInput({
     name,

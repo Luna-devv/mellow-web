@@ -1,11 +1,11 @@
 import { Chip } from "@nextui-org/react";
 import Image from "next/image";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { FaCrown } from "react-icons/fa";
 
-import { ApiNode } from "./api";
+import type { ApiNode } from "./api";
 
-export function Node({ index, node }: { index: number; node: ApiNode }) {
+export function Node({ index, node }: { index: number; node: ApiNode; }) {
     return (
         <div
             className="p-4 bg-wamellow rounded-lg space-y-2 outline-violet-400 duration-200 h-fit"
@@ -51,7 +51,7 @@ export function Node({ index, node }: { index: number; node: ApiNode }) {
     );
 }
 
-function Icon({ id }: { id: string }) {
+function Icon({ id }: { id: string; }) {
     return (
         <Image
             alt={`${id} country flag`}

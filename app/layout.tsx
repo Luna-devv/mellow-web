@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import { Divider } from "@nextui-org/react";
-import { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Outfit } from "next/font/google";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -27,7 +27,7 @@ export const viewport: Viewport = {
     initialScale: 0.85
 };
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
 
     const title = "Wamellow: Next-gen of Discord Bots & Apps";
     const description = "Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.";
@@ -50,10 +50,66 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
         description,
         keywords: [
-            "discord", "bot", "app", "intefration", "discord bot", "discord app", "discord application", "app list", "waya", "waya bot", "waya.one", "mwya", "mellow", "wamellow", "mwlica", "lunish", "Luna-devv", "mee6 alternative",
-            "arcane alternative", "dyno alternative", "starboard", "ranks", "leaderboard", "lb", "leaderboards", "text to speech", "captcha", "passport", "verification", "verify",
-            "captcha.bot", "security", "tts", "text to speech", "free", "customizable", "next-gen", "next generation", "ai", "ai images", "nsfw detection", "moderation", "anime",
-            "nekos", "waifus", "chat to speech", "accessibility", "aphonia", "dysphonia", "mute", "liapew", "wumpus", "wumpus store", "wumpus bots", "youtube notifications", "youtube notifis", "youtube to discord"
+            "discord",
+            "bot",
+            "app",
+            "intefration",
+            "discord bot",
+            "discord app",
+            "discord application",
+            "app list",
+            "waya",
+            "waya bot",
+            "waya.one",
+            "mwya",
+            "mellow",
+            "wamellow",
+            "mwlica",
+            "lunish",
+            "Luna-devv",
+            "mee6 alternative",
+            "arcane alternative",
+            "dyno alternative",
+            "starboard",
+            "ranks",
+            "leaderboard",
+            "lb",
+            "leaderboards",
+            "text to speech",
+            "captcha",
+            "passport",
+            "verification",
+            "verify",
+            "captcha.bot",
+            "security",
+            "tts",
+            "text to speech",
+            "free",
+            "customizable",
+            "next-gen",
+            "next generation",
+            "ai",
+            "ai images",
+            "nsfw detection",
+            "moderation",
+            "anime",
+            "nekos",
+            "waifus",
+            "chat to speech",
+            "accessibility",
+            "aphonia",
+            "dysphonia",
+            "mute",
+            "liapew",
+            "wumpus",
+            "wumpus store",
+            "wumpus bots",
+            "youtube notifications",
+            "youtube notifis",
+            "youtube to discord",
+            "twitch notifications",
+            "twitch notifis",
+            "twitch to discord"
         ],
 
         alternates: {

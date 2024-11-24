@@ -13,10 +13,10 @@ import DiscordMessage from "@/components/discord/message";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1UsersMeConnectionsSpotifyGetResponse } from "@/typings";
+import type { ApiV1UsersMeConnectionsSpotifyGetResponse } from "@/typings";
 
 interface Props {
-    searchParams: Promise<{ spotify_login_success?: string }>
+    searchParams: Promise<{ spotify_login_success?: string; }>;
 }
 
 export default function Home({ searchParams }: Props) {

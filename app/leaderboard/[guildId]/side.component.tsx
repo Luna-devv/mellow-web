@@ -13,7 +13,7 @@ import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
-import { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 

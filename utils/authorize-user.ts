@@ -1,7 +1,7 @@
-import React from "react";
+import type React from "react";
 
-import { User } from "@/common/user";
-import { ApiError } from "@/typings";
+import type { User } from "@/common/user";
+import type { ApiError } from "@/typings";
 
 enum State {
     Idle = 0,

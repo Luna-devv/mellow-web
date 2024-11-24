@@ -1,5 +1,5 @@
 import { readFile } from "fs/promises";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import BeautifyMarkdown from "@/components/markdown";
@@ -7,7 +7,7 @@ import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 export const revalidate = false;
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
 
     const title = "Privacy";
     const description = "We take your privacy seriously. Read about Wamellow's Privacy Policy to learn how.";

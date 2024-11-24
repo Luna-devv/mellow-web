@@ -2,15 +2,14 @@ import Link from "next/link";
 import { HiAcademicCap } from "react-icons/hi";
 
 import Ad from "@/components/ad";
-import { PronounsResponse } from "@/typings";
+import type { PronounsResponse } from "@/typings";
 
 interface Props {
     res: PronounsResponse;
     type: string;
 }
 
-export default async function List({ res, type }: Props) {
-
+export default function List({ res, type }: Props) {
     return (
         <div>
             <div className="w-full flex items-center justify-between mb-2">

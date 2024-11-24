@@ -1,5 +1,5 @@
 import { Patrick_Hand } from "next/font/google";
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { HiChevronRight } from "react-icons/hi";
 
 import { cn } from "@/utils/cn";
@@ -13,7 +13,7 @@ interface Props {
     content: string | React.ReactNode;
 }
 
-export default async function Comment({
+export default function Comment({
     username,
     bio,
     avatar,

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/prop-types */
+
 import { Code } from "@nextui-org/react";
 import Link from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -27,7 +27,7 @@ const ALLOWED_IFRAMES = [
 export default async function BeautifyMarkdown({
     markdown
 }: {
-    markdown: string
+    markdown: string;
 }) {
     const { renderToString } = await import("react-dom/server");
 
@@ -113,6 +113,7 @@ export default async function BeautifyMarkdown({
                 del: (props) => <span className="line-through" {...props} />,
                 ins: (props) => <span className="underline" {...props} />,
 
+                // eslint-disable-next-line unused-imports/no-unused-vars
                 code: ({ ref, color, ...props }) => {
                     return <Code color="secondary" {...props} />;
                 },

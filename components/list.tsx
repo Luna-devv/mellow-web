@@ -17,7 +17,7 @@ interface ListProps {
     searchParamName?: string;
     disabled: boolean;
 
-    children?: React.ReactNode
+    children?: React.ReactNode;
 }
 
 export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
@@ -134,7 +134,7 @@ interface FeatureProps {
         description: string;
         icon: React.ReactNode;
         color: number;
-    }[]
+    }[];
 }
 
 export function ListFeature({ items }: FeatureProps) {

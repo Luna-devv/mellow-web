@@ -9,13 +9,13 @@ import { StatsBar } from "@/components/counter";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { NekosticResponse } from "@/typings";
+import type { NekosticResponse } from "@/typings";
 import { convertMonthToName } from "@/utils/time";
 
 interface CalcUses {
     snapshot: string;
     uses: number;
-    users: number
+    users: number;
 }
 
 interface CalcNames {
@@ -90,7 +90,7 @@ export default function Home() {
     );
 }
 
-function ChartArea(options: { name: string; data: NekosticResponse[]; dataKey: keyof NekosticResponse }) {
+function ChartArea(options: { name: string; data: NekosticResponse[]; dataKey: keyof NekosticResponse; }) {
     return (
         <Box none className="dark:bg-wamellow bg-wamellow-100 w-full rounded-md">
 
@@ -147,7 +147,7 @@ function ChartArea(options: { name: string; data: NekosticResponse[]; dataKey: k
     );
 }
 
-function ChartBar(options: { name: string; data: NekosticResponse[]; dataKey: keyof CalcNames }) {
+function ChartBar(options: { name: string; data: NekosticResponse[]; dataKey: keyof CalcNames; }) {
     const data = calcNameOccurrences(options.data)
         .filter((entry) =>
             entry.name !== "eval" &&
@@ -236,12 +236,10 @@ function CustomXAxisTick(props: any) {
     );
 }
 
-interface SnapshotData {
-    [snapshot: string]: {
-        uses: number;
-        users: number;
-    };
-}
+type SnapshotData = Record<string, {
+    uses: number;
+    users: number;
+}>;
 
 function calcUses(data: NekosticResponse[]): CalcUses[] {
     const snapshotData: SnapshotData = {};

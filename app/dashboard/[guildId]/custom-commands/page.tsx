@@ -16,7 +16,7 @@ import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import { Permissions } from "@/lib/discord/enum/permissions";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
+import type { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
 import CreateTag, { Style } from "./create.component";
 import DeleteTag from "./delete.component";

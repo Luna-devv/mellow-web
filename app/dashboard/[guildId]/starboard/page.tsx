@@ -18,7 +18,7 @@ import Switch from "@/components/inputs/switch";
 import { ScreenMessage } from "@/components/screen-message";
 import { getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiError,ApiV1GuildsModulesStarboardGetResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsModulesStarboardGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {
@@ -344,7 +344,7 @@ export default function Home() {
     </>);
 }
 
-function Emoji({ emoji }: { emoji: string }) {
+function Emoji({ emoji }: { emoji: string; }) {
     if (!/\d{15,20}/.test(emoji)) {
         return emoji;
     }

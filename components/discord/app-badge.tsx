@@ -1,4 +1,4 @@
-import { HTMLProps } from "react";
+import type { HTMLProps } from "react";
 import { HiCheck } from "react-icons/hi";
 
 import { cn } from "@/utils/cn";

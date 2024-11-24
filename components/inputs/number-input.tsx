@@ -4,7 +4,7 @@ import { HiMinus, HiPlus } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
 import { webStore } from "@/common/webstore";
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 
 enum State {
@@ -13,7 +13,7 @@ enum State {
     Success = 2
 }
 
-type Props = {
+interface Props {
     className?: string;
 
     name: string;
@@ -25,7 +25,7 @@ type Props = {
 
     min?: number;
     max?: number;
-};
+}
 
 export default function NumberInput({
     className,

@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
@@ -19,8 +19,8 @@ import { getPassport } from "./api";
 import Verify from "./verify.component";
 
 interface Props {
-    params: Promise<{ guildId: string }>;
-    searchParams: Promise<{ page: string, type: string }>;
+    params: Promise<{ guildId: string; }>;
+    searchParams: Promise<{ page: string; type: string; }>;
 }
 
 export const revalidate = 60;

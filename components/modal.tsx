@@ -6,7 +6,7 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
 
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 
 import { ClickOutside } from "./click-outside";
@@ -20,7 +20,7 @@ enum State {
 
 interface Props<T> {
     className?: string;
-    variant?:"secondary" | "default" | "destructive";
+    variant?: "secondary" | "default" | "destructive";
 
     title: string;
     children: React.ReactNode;

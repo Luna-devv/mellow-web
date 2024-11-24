@@ -4,7 +4,7 @@ import { BiMoon, BiSun } from "react-icons/bi";
 import { FaFloppyDisk } from "react-icons/fa6";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
-import { GuildEmbed } from "@/typings";
+import type { GuildEmbed } from "@/typings";
 import { cn } from "@/utils/cn";
 
 import { DiscordMarkdown } from "./discord/markdown";
@@ -20,20 +20,20 @@ enum State {
 }
 
 interface Props {
-    children?: React.ReactNode
+    children?: React.ReactNode;
 
     name: string;
     url: string;
     dataName: string;
 
-    defaultMessage?: { content?: string | null, embed?: GuildEmbed };
+    defaultMessage?: { content?: string | null; embed?: GuildEmbed; };
     isCollapseable?: boolean;
 
     messageAttachmentComponent?: React.ReactNode;
     showMessageAttachmentComponentInEmbed?: boolean;
 
     disabled?: boolean;
-    onSave?: (state: { content?: string | null, embed?: GuildEmbed }) => void;
+    onSave?: (state: { content?: string | null; embed?: GuildEmbed; }) => void;
 }
 
 export default function MessageCreatorEmbed({

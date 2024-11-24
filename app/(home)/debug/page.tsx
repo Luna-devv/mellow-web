@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import Link from "next/link";
 import { HiTrash } from "react-icons/hi";
@@ -10,7 +10,7 @@ import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 import Panel from "./panel.component";
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
     const title = "Shiggy";
     const description = "";
     const url = getCanonicalUrl("debug");
@@ -44,7 +44,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 export default async function Home() {
-    const headerList: { name: string, value: string }[] = [];
+    const headerList: { name: string; value: string; }[] = [];
     for (const [key, value] of (await headers()).entries()) {
         headerList.push({ name: key, value });
     }

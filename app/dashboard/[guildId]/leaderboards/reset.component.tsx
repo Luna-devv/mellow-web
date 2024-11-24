@@ -2,7 +2,7 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { HiTrash, HiUsers } from "react-icons/hi";
 
-import { Guild } from "@/common/guilds";
+import type { Guild } from "@/common/guilds";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
@@ -13,7 +13,7 @@ interface Props {
 }
 
 enum ModalType {
-    Delete = 1,
+    Delete = 1
 }
 
 export default function ResetLeaderboard({ guild }: Props) {

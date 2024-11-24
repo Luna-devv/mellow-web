@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
 import { HiExternalLink } from "react-icons/hi";
 
 import { getUser } from "@/lib/discord/user";

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 
 import { useStateDebounced } from "../../utils/useDebounce";
 import DumbColorInput from "./dumb-color-input";
@@ -12,7 +12,7 @@ enum State {
     Success = 2
 }
 
-type Props = {
+interface Props {
     name: string;
     url: string;
     dataName: string;
@@ -24,7 +24,7 @@ type Props = {
     placeholder?: string;
 
     onSave?: (value: string | number) => void;
-};
+}
 
 
 export default function ColorInput({

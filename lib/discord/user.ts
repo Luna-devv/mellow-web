@@ -1,5 +1,5 @@
 import { Collection } from "@discordjs/collection";
-import { APIUser, RESTError, RESTGetAPIUserResult, Routes } from "discord-api-types/v10";
+import { type APIUser, type RESTError, type RESTGetAPIUserResult, Routes } from "discord-api-types/v10";
 
 import { rest } from "./index";
 

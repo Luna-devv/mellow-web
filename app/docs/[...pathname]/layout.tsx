@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BsDiscord, BsGithub } from "react-icons/bs";
 import { HiUserAdd, HiViewGridAdd } from "react-icons/hi";
@@ -10,7 +10,7 @@ import metadata from "@/public/docs/meta.json";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 interface Props {
-    params: Promise<{ pathname: string[] }>;
+    params: Promise<{ pathname: string[]; }>;
     children: React.ReactNode;
 }
 
@@ -137,7 +137,7 @@ export default async function RootLayout({ params, children }: Props) {
 function NavButton({
     page
 }: {
-    page: typeof metadata.pages[0]
+    page: typeof metadata.pages[0];
 }) {
     const file = page.file.replace(/\.md$/, "");
     const icon = page.name.split(" ").shift() || "";

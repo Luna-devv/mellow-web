@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { ApiV1UsersMeGetResponse } from "@/typings";
+import type { ApiV1UsersMeGetResponse } from "@/typings";
 
 export interface User {
     HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY?: true;

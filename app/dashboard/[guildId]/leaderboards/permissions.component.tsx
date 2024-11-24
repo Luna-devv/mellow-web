@@ -3,9 +3,9 @@ import { PermissionFlagsBits } from "discord-api-types/v10";
 import { useMemo } from "react";
 import { HiExclamation } from "react-icons/hi";
 
-import { Guild } from "@/common/guilds";
+import type { Guild } from "@/common/guilds";
 import DiscordChannel from "@/components/discord/channel";
-import { ApiV1GuildsChannelsGetResponse } from "@/typings";
+import type { ApiV1GuildsChannelsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
 interface Props {
@@ -46,7 +46,7 @@ function Channels({
 }) {
     return (<>
         <p className="text-sm opacity-75 mb-3">
-                Wammellow cannot track acivity in {channels.length} channels as it is missing permissions.
+            Wammellow cannot track acivity in {channels.length} channels as it is missing permissions.
         </p>
 
         <div className="flex flex-col gap-1">

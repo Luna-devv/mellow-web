@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import NextImage from "next/image";
 import Link from "next/link";
 import { HiArrowLeft, HiHome, HiPlus } from "react-icons/hi";
@@ -18,7 +18,7 @@ import { getUpload, getUploads } from "../api";
 import Side from "./side.component";
 
 export interface Props {
-    params: Promise<{ uploadId: string }>;
+    params: Promise<{ uploadId: string; }>;
     children: React.ReactNode;
 }
 

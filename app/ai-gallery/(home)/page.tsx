@@ -14,7 +14,7 @@ interface Props {
     searchParams: Promise<{
         page: string;
         model: string;
-        nsfw: string
+        nsfw: string;
     }>;
 }
 

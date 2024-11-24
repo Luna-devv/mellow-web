@@ -14,7 +14,7 @@ export default function SearchFilter(
         searchParams: {
             page: string;
             model: string;
-            nsfw: string
+            nsfw: string;
         };
     }
 ) {

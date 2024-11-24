@@ -1,4 +1,4 @@
-import { ApiError, ApiV1GuildsModulesPassportGetResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsModulesPassportGetResponse } from "@/typings";
 
 export async function getPassport(guildId: string): Promise<ApiV1GuildsModulesPassportGetResponse | true | ApiError | undefined> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/passport-verification`, {

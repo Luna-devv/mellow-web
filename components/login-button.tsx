@@ -18,7 +18,7 @@ enum State {
 
 interface Props {
     state?: State;
-    message?: string
+    message?: string;
     className?: string;
     addClassName?: string; // idk why that name
 }
@@ -50,7 +50,7 @@ export default function LoginButton({
                 startContent={<Icon />}
             >
                 {!state ?
-                    <span className={cn(montserrat.className,"font-semibold")}>
+                    <span className={cn(montserrat.className, "font-semibold")}>
                         {message ||
                             <>
                                 <span className="hidden md:block">Login with Discord</span>

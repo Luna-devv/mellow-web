@@ -8,7 +8,7 @@ type Props = HTMLProps<HTMLDivElement> & {
     small?: boolean;
     none?: boolean;
     border?: boolean;
-}
+};
 
 export default function Box({
     children,
@@ -24,7 +24,8 @@ export default function Box({
                 "bg-wamellow rounded-lg",
                 !none && "py-6 px-8 md:py-10 md:px-16",
                 small && "py-4 px-6 md:py-8 md:px-10",
-                border && "", className // border-wamellow-alpha border
+                border && "",
+                className // border-wamellow-alpha border
             )}
             {...props}
         >

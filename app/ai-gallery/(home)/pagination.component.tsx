@@ -8,7 +8,7 @@ export default function Pagination(
         searchParams,
         pages
     }: {
-        searchParams: { page: string, model: string };
+        searchParams: { page: string; model: string; };
         pages: number;
     }
 ) {

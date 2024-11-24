@@ -8,7 +8,7 @@ interface Props {
     size: number;
     alt: string;
     className?: string;
-    forceStatic?: boolean
+    forceStatic?: boolean;
 }
 
 export default function ImageReduceMotion({

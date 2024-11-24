@@ -9,7 +9,7 @@ interface Props {
     username: string;
     avatar: string;
     isBot?: boolean;
-    isTalking?: boolean
+    isTalking?: boolean;
 }
 
 export default function DiscordUser({

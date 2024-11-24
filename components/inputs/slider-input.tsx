@@ -20,11 +20,11 @@ interface Props {
     disabled?: boolean;
     description?: string;
 
-    minValue?: number
+    minValue?: number;
     maxValue?: number;
     steps?: number;
 
-    url: string
+    url: string;
     dataName: string;
     defaultState: number;
 }

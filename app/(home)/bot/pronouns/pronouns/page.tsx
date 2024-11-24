@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
-import { PronounsResponse } from "@/typings";
+import type { PronounsResponse } from "@/typings";
 import { getCanonicalUrl } from "@/utils/urls";
 
 import List from "../list.component";

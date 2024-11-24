@@ -1,9 +1,9 @@
 "use client";
 
-import { User, userStore } from "@/common/user";
+import { type User, userStore } from "@/common/user";
 import SelectInput from "@/components/inputs/select-menu";
 import { deepMerge } from "@/utils/deepMerge";
-import { actor, getVoices, voices } from "@/utils/tts";
+import { type actor, getVoices, voices } from "@/utils/tts";
 
 export default function Home() {
     const user = userStore((s) => s);

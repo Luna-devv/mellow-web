@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Section } from "@/components/section";
 import { cn } from "@/utils/cn";
@@ -11,10 +11,10 @@ import { Commands } from "../commands.component";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface Props {
-    children: ReactNode
+    children: ReactNode;
 }
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
     const title = "Status";
     const description = "Check the status of all clusters and voice chat nodes, double check if we screwed something up - again!";
     const url = getCanonicalUrl("status");

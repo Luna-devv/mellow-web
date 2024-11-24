@@ -1,4 +1,4 @@
-import { Endpoints } from "@octokit/types";
+import type { Endpoints } from "@octokit/types";
 
 export async function getRepository(fullname: string) {
     const res = await request<Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"]>("GET", `/repos/${fullname}`);

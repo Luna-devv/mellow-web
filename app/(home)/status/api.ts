@@ -1,5 +1,5 @@
 import { defaultFetchOptions } from "@/lib/api";
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 
 export interface ApiCluster {
     id: number;

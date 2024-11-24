@@ -17,7 +17,7 @@ import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { Section } from "@/components/section";
-import { ApiError,ApiV1GuildsModulesWelcomeGetResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsModulesWelcomeGetResponse } from "@/typings";
 import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {

@@ -1,6 +1,5 @@
-import { ApiRequestOptions, defaultFetchOptions } from "@/lib/api";
-import {
-    ApiError,
+import { type ApiRequestOptions, defaultFetchOptions } from "@/lib/api";
+import type { ApiError,
     ApiV1GuildsModulesLeaderboardGetResponse,
     ApiV1GuildsTopmembersGetResponse,
     ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
@@ -14,7 +13,7 @@ export async function getDesign(guildId: string): Promise<ApiV1GuildsModulesLead
     return res.json();
 }
 
-export async function getTopMembers(guildId: string, params: { page: number, type: string }, options?: ApiRequestOptions): Promise<ApiV1GuildsTopmembersGetResponse[] | ApiError | undefined> {
+export async function getTopMembers(guildId: string, params: { page: number; type: string; }, options?: ApiRequestOptions): Promise<ApiV1GuildsTopmembersGetResponse[] | ApiError | undefined> {
     if (params.type !== "messages" && params.type !== "voiceminutes" && params.type !== "invites") return [];
 
     const res = await fetch(

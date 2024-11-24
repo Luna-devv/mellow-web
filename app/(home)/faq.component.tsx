@@ -22,10 +22,10 @@ const data = [
                     Open Discord{"'"}s add-app flow at <LinkTag href="/login?invite=true">wamellow.com/invite</LinkTag>.
                 </li>
                 <li>
-                    Select a server and click on {'"'}Continue{'"'}.
+                    Select a server and click on {"\""}Continue{"\""}.
                 </li>
                 <li>
-                    Do <span className="font-semibold">not uncheck</span> any permissions and click on {'"'}Authorize{'"'}.
+                    Do <span className="font-semibold">not uncheck</span> any permissions and click on {"\""}Authorize{"\""}.
                 </li>
                 <li>
                     <span className="font-semibold">Done!</span> 🎉 You should now find yourself on the Dashboard for your server!
@@ -52,10 +52,10 @@ const data = [
                         <LinkTag href="/login?invite=true">Invite Wamellow</LinkTag> to your Server. If you do not own it, ask the server Administrators to add Wamellow.
                     </li>
                     <li>
-                        Go to the <LinkTag href="/login?invite=true">Dashboard on wamellow.com/dashboard</LinkTag>, find your server and click {'"'}manage{'"'}.
+                        Go to the <LinkTag href="/login?invite=true">Dashboard on wamellow.com/dashboard</LinkTag>, find your server and click {"\""}manage{"\""}.
                     </li>
                     <li>
-                        Select a channel to be used in the {'"'}Text to Speech{'"'} section.
+                        Select a channel to be used in the {"\""}Text to Speech{"\""} section.
                     </li>
                     <li>
                         Join any voice channel in your Server (be sure Wamellow can join it too).
@@ -86,13 +86,13 @@ const data = [
             <div>
                 <ol className="list-decimal list-inside marker:text-neutral-500 mb-4">
                     <li>
-                        In the Discord App, click on your servers&apos; name and click {'"'}Settings{'"'}
+                        In the Discord App, click on your servers&apos; name and click {"\""}Settings{"\""}
                     </li>
                     <li>
-                        Then go to the tab {'"'}Integrations{'"'} in the {'"'}Apps{'"'} category.
+                        Then go to the tab {"\""}Integrations{"\""} in the {"\""}Apps{"\""} category.
                     </li>
                     <li>
-                        In the {'"'}Bots and Apps{'"'} list, find Wamellow and click on {'"'}Manage{'"'}.
+                        In the {"\""}Bots and Apps{"\""} list, find Wamellow and click on {"\""}Manage{"\""}.
                     </li>
                     <li>
                         You can choose to disable commands for everyone by their roles, or only in certain channels.

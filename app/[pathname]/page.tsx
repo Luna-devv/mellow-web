@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 
 interface Props {
-    params: Promise<{ pathname: string }>
+    params: Promise<{ pathname: string; }>;
 }
 
 const fetchOptions = { next: { revalidate: 60 * 60 } };
@@ -26,7 +26,7 @@ export default async function Home({ params }: Props) {
         case "youtube": {
             const res = await fetch("http://100.65.0.1:5001/?channel_id=UClWBeVcz5LUmcCN1gHG_GCg", fetchOptions)
                 .then((res) => res.json())
-                .catch(() => null) as { videoUrl: string } | null;
+                .catch(() => null) as { videoUrl: string; } | null;
 
             return redirect(res?.videoUrl || "https://www.youtube.com/channel/UClWBeVcz5LUmcCN1gHG_GCg");
         }

@@ -3,7 +3,7 @@
 import { Button } from "@nextui-org/react";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 import { cn } from "@/utils/cn";

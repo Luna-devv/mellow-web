@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { HiCheck, HiChevronDown, HiExclamationCircle, HiX } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
 
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 
 import { ClickOutside } from "../click-outside";
@@ -33,7 +33,7 @@ interface Props {
     defaultState?: string | number | null;
     showClear?: boolean;
 
-    onSave?: (options: { name: string; value: string | number | null; error?: string }) => void;
+    onSave?: (options: { name: string; value: string | number | null; error?: string; }) => void;
 }
 
 export default function SelectMenu({

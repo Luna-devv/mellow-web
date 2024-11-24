@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
+import type { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
 
 export interface Guild extends ApiV1GuildsGetResponse {
     channels?: ApiV1GuildsChannelsGetResponse[];

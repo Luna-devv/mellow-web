@@ -12,7 +12,7 @@ export default function Panel({
     children
 }: {
     name: string;
-    items: Item[],
+    items: Item[];
     action?: (item: Item) => React.ReactNode;
     children?: React.ReactNode;
 }) {

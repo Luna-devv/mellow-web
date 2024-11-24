@@ -1,12 +1,12 @@
 "use client";
 
-import { AvatarIcon, AvatarProps as BaseAvatarProps, useAvatar } from "@nextui-org/react";
+import { AvatarIcon, type AvatarProps as BaseAvatarProps, useAvatar } from "@nextui-org/react";
 import Image from "next/image";
 import { forwardRef, useMemo } from "react";
 
-export type AvatarProps = BaseAvatarProps
+export type AvatarProps = BaseAvatarProps;
 
-export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(({ src: source,...props }, ref) => {
+export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(({ src: source, ...props }, ref) => {
     const {
         src,
         icon = <AvatarIcon />,

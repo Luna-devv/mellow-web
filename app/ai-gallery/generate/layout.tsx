@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi";
 
@@ -7,7 +7,7 @@ import { Footer } from "@/components/footer";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 export interface Props {
-    params: Promise<{ uploadId: string }>;
+    params: Promise<{ uploadId: string; }>;
     children: React.ReactNode;
 }
 
@@ -44,7 +44,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     };
 };
 
-export default async function RootLayout({
+export default function RootLayout({
     children
 }: Props) {
 

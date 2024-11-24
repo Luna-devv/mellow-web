@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { User, userStore } from "@/common/user";
-import { ApiError,ApiV1UsersMeGetResponse } from "@/typings";
+import { type User, userStore } from "@/common/user";
+import type { ApiError, ApiV1UsersMeGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
 

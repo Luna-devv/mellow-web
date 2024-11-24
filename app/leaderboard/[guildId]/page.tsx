@@ -13,7 +13,7 @@ import Pagination from "./pagination.component";
 export const revalidate = 3600;
 
 interface Props {
-    params: Promise<{ guildId: string }>;
+    params: Promise<{ guildId: string; }>;
     searchParams: Promise<{
         page: string;
         type: "messages" | "voiceminutes" | "invites";

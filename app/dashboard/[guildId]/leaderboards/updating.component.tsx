@@ -6,12 +6,12 @@ import { useCookies } from "next-client-cookies";
 import { useState } from "react";
 import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 
-import { Guild } from "@/common/guilds";
+import type { Guild } from "@/common/guilds";
 import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import TextInput from "@/components/inputs/text-input";
 import Modal from "@/components/modal";
-import { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
+import type { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
 import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
 
 interface Props {

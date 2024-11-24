@@ -16,7 +16,7 @@ import MessageCreatorEmbed from "@/components/embed-creator";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
+import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { cn } from "@/utils/cn";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
@@ -199,7 +199,7 @@ function Icon({
     className
 }: {
     type: NotificationType;
-        className?: string;
+    className?: string;
 }) {
     switch (type) {
         case NotificationType.YouTube: return <BsYoutube className={cn("text-red-500", className)} />;

@@ -18,7 +18,7 @@ import { ListTab } from "@/components/list";
 import { ScreenMessage, SupportButton } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
+import type { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -43,7 +43,7 @@ function useGuildData<T extends unknown[]>(
 export default function RootLayout({
     children
 }: {
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
     const cookies = useCookies();
     const params = useParams();

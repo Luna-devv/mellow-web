@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
 import { defaultFetchOptions } from "@/lib/api";
 import ArrowPic from "@/public/icons/arroww.webp";
-import { ApiV1TopguildsGetResponse } from "@/typings";
+import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -51,7 +51,7 @@ export const generateMetadata = (): Metadata => {
 export default async function RootLayout({
     children
 }: {
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions)
         .then((res) => res.json())

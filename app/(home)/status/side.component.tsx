@@ -2,12 +2,12 @@
 
 import { Accordion, AccordionItem, Chip } from "@nextui-org/react";
 import { useCookies } from "next-client-cookies";
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import { intl } from "@/utils/numbers";
 
-import { ApiV1StatusGetResponse } from "./api";
+import type { ApiV1StatusGetResponse } from "./api";
 
 export function Side({
     status

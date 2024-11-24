@@ -1,4 +1,3 @@
-
 import { Button } from "@nextui-org/react";
 import React, { useState } from "react";
 import { HiEmojiHappy, HiLockClosed } from "react-icons/hi";
@@ -39,8 +38,7 @@ export default function DiscordWidgetButton({
         if (res.status === 429) {
             setState(State.Ratelimited);
             setTimeout(() => setState(State.Idle), 6 * 1000);
-        }
-        else setState(State.Idle);
+        } else setState(State.Idle);
 
         if (res.ok) {
             setEnabled(!isEnabled);

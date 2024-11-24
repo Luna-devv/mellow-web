@@ -2,8 +2,8 @@ import docsMetadata from "@/public/docs/meta.json";
 import { getCanonicalUrl } from "@/utils/urls";
 
 interface Sitemap {
-    url: string
-    priority: number
+    url: string;
+    priority: number;
 }
 
 export const revalidate = 691200; // 8 days

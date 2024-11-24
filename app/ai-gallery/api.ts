@@ -1,5 +1,5 @@
 import { defaultFetchOptions } from "@/lib/api";
-import {
+import type {
     ApiError,
     ApiV1UploadGetResponse,
     ApiV1UploadsGetResponse

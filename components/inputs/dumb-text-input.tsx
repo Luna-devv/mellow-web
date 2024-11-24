@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { cn } from "@/utils/cn";
 
-type Props = {
+interface Props {
     name?: string;
     placeholder?: string;
 
@@ -16,7 +16,7 @@ type Props = {
     type?: string;
 
     dataName?: string;
-};
+}
 
 export default function DumbTextInput({
     name,

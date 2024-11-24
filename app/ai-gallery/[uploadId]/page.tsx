@@ -6,7 +6,7 @@ import { HiExternalLink } from "react-icons/hi";
 import { getUpload } from "../api";
 
 export interface Props {
-    params: Promise<{ uploadId: string }>;
+    params: Promise<{ uploadId: string; }>;
 }
 
 export const revalidate = 3600;
@@ -49,7 +49,6 @@ export default async function Home({ params }: Props) {
                     </div>
                 </div>
             </div>
-
 
 
             <Link

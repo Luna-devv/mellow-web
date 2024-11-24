@@ -4,7 +4,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 
 import { cn } from "@/utils/cn";
 
-type Props = {
+interface Props {
     name?: string;
     placeholder?: string;
 
@@ -16,7 +16,7 @@ type Props = {
     thin?: boolean;
 
     dataName?: string;
-};
+}
 
 export default function DumbColorInput({
     name,

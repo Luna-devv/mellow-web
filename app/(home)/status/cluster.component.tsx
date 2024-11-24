@@ -6,7 +6,7 @@ import { HiLightningBolt } from "react-icons/hi";
 import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
 
-import { ApiCluster } from "./api";
+import type { ApiCluster } from "./api";
 
 export function Cluster(cluster: ApiCluster) {
     return (

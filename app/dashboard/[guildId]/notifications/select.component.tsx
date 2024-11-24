@@ -6,7 +6,7 @@ import { badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import type { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
 import { TwitchNotificationModal } from "./create-twitch.component";
@@ -69,7 +69,9 @@ export function CreateNotificationSelect({
                     Create new Notification
                 </Button>
             }
-            children={(platform) => (
+            style={style}
+        >
+            {(platform) => (
                 <Button
                     className="w-full"
                     onClick={() => setPlatform(Platform[platform.name])}
@@ -78,8 +80,7 @@ export function CreateNotificationSelect({
                     {platform.name}
                 </Button>
             )}
-            style={style}
-        />
+        </Wrapper>
 
         <YoutubeNotificationModal add={add} set={set} isOpen={platform === Platform.YouTube} onClose={() => setPlatform(null)} />
         <TwitchNotificationModal add={add} set={set} isOpen={platform === Platform.Twitch} onClose={() => setPlatform(null)} />

@@ -14,7 +14,7 @@ import DumbTextInput from "@/components/inputs/dumb-text-input";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { useApi } from "@/lib/api/hook";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1UsersMeGuildsGetResponse } from "@/typings";
+import type { ApiV1UsersMeGuildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
 const MAX_GUILDS = 200 as const;
@@ -188,7 +188,7 @@ function Guild({ id, name, icon, bot: hasBotInvited }: ApiV1UsersMeGuildsGetResp
     );
 }
 
-function InviteButton({ guildId }: { guildId: string }) {
+function InviteButton({ guildId }: { guildId: string; }) {
     return (
         <Button
             as={Link}
@@ -202,7 +202,7 @@ function InviteButton({ guildId }: { guildId: string }) {
     );
 }
 
-function ManageButton({ guildId }: { guildId: string }) {
+function ManageButton({ guildId }: { guildId: string; }) {
     const searchParams = useSearchParams();
 
     return (
@@ -217,7 +217,7 @@ function ManageButton({ guildId }: { guildId: string }) {
     );
 }
 
-function LeaderboardButton({ guildId }: { guildId: string }) {
+function LeaderboardButton({ guildId }: { guildId: string; }) {
     return (
         <Button
             as={Link}

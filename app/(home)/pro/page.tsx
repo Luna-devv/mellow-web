@@ -1,5 +1,5 @@
 import { Button, Chip } from "@nextui-org/react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { BsQuestionLg } from "react-icons/bs";
@@ -8,7 +8,7 @@ import { IoMdInfinite } from "react-icons/io";
 
 import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
-import { ApiV1TopguildsGetResponse } from "@/typings";
+import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -19,7 +19,7 @@ export const revalidate = 3600;
 
 const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
 
     const title = "Professional experience";
     const description = "Get epic Pro+ ULTRA HD features for wamellow to upgrade your servers to a whole new experience and unlock tons of premium features.";
@@ -59,7 +59,7 @@ export default async function Home() {
             prefetch={false}
             startContent={<HiUserAdd />}
         >
-                Get started
+            Get started
         </Button>
         <Button
             as={Link}
@@ -68,7 +68,7 @@ export default async function Home() {
             href="https://lunish.nl/kofi"
             startContent={<HiLightningBolt />}
         >
-                Subscribe
+            Subscribe
         </Button>
     </>);
 

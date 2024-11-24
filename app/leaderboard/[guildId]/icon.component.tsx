@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import type { SVGProps } from "react";
 
 import InvitesIcon from "@/components/icons/invites";
 import MessagesIcon from "@/components/icons/messages";
@@ -6,8 +6,8 @@ import VoiceIcon from "@/components/icons/voice";
 import { cn } from "@/utils/cn";
 
 type Props = SVGProps<SVGSVGElement> & {
-    type: "messages" | "voiceminutes" | "invites"
-}
+    type: "messages" | "voiceminutes" | "invites";
+};
 
 export default function Icon({
     type,

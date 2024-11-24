@@ -3,7 +3,7 @@
 
 import { readFile } from "fs/promises";
 import { ImageResponse } from "next/og";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 import { getGuild } from "@/lib/api";
 import { intl } from "@/utils/numbers";
@@ -12,7 +12,7 @@ import { getCanonicalUrl } from "@/utils/urls";
 
 import { getTopMembers } from "../api";
 import Icon from "../icon.component";
-import { Props } from "../layout";
+import type { Props } from "../layout";
 
 export const revalidate = 3600; // 1 hour
 

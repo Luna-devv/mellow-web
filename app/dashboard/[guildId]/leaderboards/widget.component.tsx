@@ -1,11 +1,10 @@
-
 import { Skeleton } from "@nextui-org/react";
-import { RESTError, RESTGetAPIGuildWidgetJSONResult } from "discord-api-types/v10";
+import type { RESTError, RESTGetAPIGuildWidgetJSONResult } from "discord-api-types/v10";
 import { useState } from "react";
 import { HiEmojiHappy, HiLockClosed } from "react-icons/hi";
 import { useQuery } from "react-query";
 
-import { Guild } from "@/common/guilds";
+import type { Guild } from "@/common/guilds";
 import Notice from "@/components/notice";
 import { cacheOptions } from "@/lib/api";
 import { cn } from "@/utils/cn";

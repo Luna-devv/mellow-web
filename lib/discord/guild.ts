@@ -1,5 +1,5 @@
 import { Collection } from "@discordjs/collection";
-import { APIGuild, RESTError, RESTGetAPIGuildResult, Routes } from "discord-api-types/v10";
+import { type APIGuild, type RESTError, type RESTGetAPIGuildResult, Routes } from "discord-api-types/v10";
 
 import { rest } from "./index";
 import { fetchWidget } from "./widget";

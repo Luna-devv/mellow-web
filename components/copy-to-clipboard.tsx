@@ -9,7 +9,7 @@ interface Props {
     text: string;
     title?: string;
     className?: string;
-    items?: { icon?: React.ReactNode, name: string, description?: string, text: string }[];
+    items?: { icon?: React.ReactNode; name: string; description?: string; text: string; }[];
     needsWait?: boolean;
 }
 

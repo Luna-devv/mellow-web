@@ -5,7 +5,7 @@ export function CreateSplash({
 }: {
     name: string;
     description: string;
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
     return (
         <div

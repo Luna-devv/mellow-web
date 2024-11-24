@@ -8,13 +8,13 @@ import { HiExclamation, HiFingerPrint, HiLockClosed } from "react-icons/hi";
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { GT4Init } from "@/lib/gt4";
-import { ApiV1GuildsGetResponse } from "@/typings";
+import type { ApiV1GuildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
 enum State {
     Idle = 0,
     Loading = 1,
-    Success = 2,
+    Success = 2
 }
 
 interface Props {
@@ -47,7 +47,7 @@ export default function VerifyComponent({ guild }: Props) {
     }, [user]);
 
     // @ts-expect-error GeeTest types suck
-    async function handlerForBind(c) {
+    function handlerForBind(c) {
 
         const button = btnRef.current;
         let isReady = false;

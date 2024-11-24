@@ -1,4 +1,4 @@
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 
 interface Props {
     key: string;

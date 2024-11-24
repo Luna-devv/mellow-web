@@ -58,7 +58,7 @@ export function DeleteNotification({
                 if (id) remove(id);
             }}
         >
-            Are you sure you want to delete the {'"'}{name}{'"'} channel from posting notifications? It will be gone forever, probably, who knows.
+            Are you sure you want to delete the {"\""}{name}{"\""} channel from posting notifications? It will be gone forever, probably, who knows.
         </Modal>
     </>);
 }

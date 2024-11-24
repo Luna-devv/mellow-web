@@ -8,7 +8,7 @@ import { guildStore } from "@/common/guilds";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
-import { ApiV1GuildsModulesDailypostsGetResponse, DailypostType } from "@/typings";
+import { type ApiV1GuildsModulesDailypostsGetResponse, DailypostType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import { generateHourArray, typeToName } from "./util";

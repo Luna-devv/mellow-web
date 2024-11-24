@@ -7,7 +7,7 @@ import { getUser } from "./api";
 import Side from "./side.component";
 
 interface Props {
-    params: Promise<{ userId: string }>;
+    params: Promise<{ userId: string; }>;
     children: React.ReactNode;
 }
 

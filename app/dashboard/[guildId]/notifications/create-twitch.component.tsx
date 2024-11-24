@@ -8,7 +8,7 @@ import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
 import TutorialPic from "@/public/docs-assets/notifications-channel-urls.webp";
-import { ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
+import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?twitch\.tv\/([a-zA-Z0-9_-]{1,32})$/;

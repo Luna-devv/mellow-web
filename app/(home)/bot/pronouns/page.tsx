@@ -11,7 +11,7 @@ import { cn } from "@/utils/cn";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-export default async function Home() {
+export default function Home() {
 
     const styles = {
         h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-violet-300 font-bold underline decoration-violet-400"),

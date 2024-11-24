@@ -14,7 +14,7 @@ import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1GuildsModulesDailypostsGetResponse } from "@/typings";
+import type { ApiV1GuildsModulesDailypostsGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import CreateNotification, { Style } from "./create.component";

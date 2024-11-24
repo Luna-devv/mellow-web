@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import { ApiError } from "@/typings";
+import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 
 import { useStateDebounced } from "../../utils/useDebounce";

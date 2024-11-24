@@ -1,13 +1,13 @@
 import { Button } from "@nextui-org/react";
-import { ApiError } from "next/dist/server/api-utils";
+import type { ApiError } from "next/dist/server/api-utils";
 import Image from "next/image";
-import { ChangeEvent, useRef, useState } from "react";
+import { type ChangeEvent, useRef, useState } from "react";
 import { HiUpload } from "react-icons/hi";
 
-import { User, userStore } from "@/common/user";
+import { type User, userStore } from "@/common/user";
 import Box from "@/components/box";
 import { Shiggy } from "@/components/shiggy";
-import { ApiV1UsersMeRankEmojiDeleteResponse, ApiV1UsersMeRankEmojiPutResponse } from "@/typings";
+import type { ApiV1UsersMeRankEmojiDeleteResponse, ApiV1UsersMeRankEmojiPutResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
 import sleep from "@/utils/sleep";
@@ -171,8 +171,8 @@ function Emoji({
     index,
     emojiId
 }: {
-    index: number,
-    emojiId: string | null
+    index: number;
+    emojiId: string | null;
 }) {
     const classNames = "rounded-xl relative size-12 aspect-square";
     const style = {

@@ -1,4 +1,4 @@
-import { RESTError, RESTGetAPIGuildWidgetJSONResult, Routes } from "discord-api-types/v10";
+import { type RESTError, type RESTGetAPIGuildWidgetJSONResult, Routes } from "discord-api-types/v10";
 
 import { rest } from ".";
 

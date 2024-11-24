@@ -18,12 +18,12 @@ import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-me
 import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { ApiV1UsersMeGetResponse } from "@/typings";
+import type { ApiV1UsersMeGetResponse } from "@/typings";
 
 export default function RootLayout({
     children
 }: {
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
     const cookies = useCookies();
     const session = cookies.get("session");

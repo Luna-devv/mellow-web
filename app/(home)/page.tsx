@@ -26,7 +26,7 @@ import NotificationsPic from "@/public/notifications-thumbnail.webp";
 import SpacePic from "@/public/space.webp";
 import WaifuPic from "@/public/waifu.webp";
 import WelcomePic from "@/public/welcome.webp";
-import { ApiV1TopguildsGetResponse } from "@/typings";
+import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { actor } from "@/utils/tts";
@@ -81,7 +81,7 @@ export default async function Home() {
         </ClientButton>
     );
 
-    async function renderCount() {
+    function renderCount() {
         "use server";
         return <span>trust us!</span>;
     }

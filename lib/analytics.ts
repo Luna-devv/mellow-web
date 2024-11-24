@@ -7,7 +7,7 @@ export interface AnalyticsError {
     error: string;
 }
 
-export async function getPageAnalytics(page: string): Promise<{ results: AnalyticsResponse[] } | AnalyticsError | undefined> {
+export async function getPageAnalytics(page: string): Promise<{ results: AnalyticsResponse[]; } | AnalyticsError | undefined> {
 
     const params = {
         site_id: process.env.PLAUSIBLE_DOMAIN as string,

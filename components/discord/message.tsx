@@ -16,13 +16,13 @@ interface Props {
         username: string;
         avatar: string;
         bot: boolean;
-    }
+    };
 
     user: {
         username: string;
         avatar: string;
         bot: boolean;
-    }
+    };
 }
 
 export default function DiscordMessage({

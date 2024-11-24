@@ -1,4 +1,3 @@
-
 "use client";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
@@ -12,7 +11,7 @@ import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { OverviewLink } from "@/components/overview-link";
-import { ApiError,ApiV1GuildsModulesPassportGetResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsModulesPassportGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
 

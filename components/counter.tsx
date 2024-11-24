@@ -41,9 +41,9 @@ interface Options {
         name: string;
         number: number;
         gained: number | string | React.ReactNode;
-        append?: string
-        info?: string
-    }[]
+        append?: string;
+        info?: string;
+    }[];
 }
 
 export function StatsBar(options: Options) {

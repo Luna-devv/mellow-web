@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { BsDiscord, BsGithub } from "react-icons/bs";
 
@@ -13,7 +13,7 @@ import { Repository } from "./repository.component";
 
 export const revalidate = 3600;
 
-export const generateMetadata = async (): Promise<Metadata> => {
+export const generateMetadata = (): Metadata => {
     const title = "Team";
     const description = "Meet the creators of Wamellow and its products. Our dedicated team, including developers and donors, drives innovation and community growth.";
     const url = getCanonicalUrl("team");
@@ -46,7 +46,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     };
 };
 
-export default async function Home() {
+export default function Home() {
     return (
         <div>
             <h2 className="text-2xl font-medium text-neutral-200">Team 🍪</h2>

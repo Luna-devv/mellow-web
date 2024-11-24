@@ -6,7 +6,7 @@ import { HiBadgeCheck } from "react-icons/hi";
 import { ClientBadge, ClientChip, ClientCircularProgress } from "@/components/client";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import ImageReduceMotion from "@/components/image-reduce-motion";
-import { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
+import type { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import getAverageColor from "@/utils/average-color";
 import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
@@ -21,11 +21,11 @@ export default async function Member(
         members,
         pagination
     }: {
-        index: number,
-        type: "messages" | "voiceminutes" | "invites",
-        member: ApiV1GuildsTopmembersGetResponse,
-        members: ApiV1GuildsTopmembersGetResponse[],
-        pagination: ApiV1GuildsTopmembersPaginationGetResponse,
+        index: number;
+        type: "messages" | "voiceminutes" | "invites";
+        member: ApiV1GuildsTopmembersGetResponse;
+        members: ApiV1GuildsTopmembersGetResponse[];
+        pagination: ApiV1GuildsTopmembersPaginationGetResponse;
     }
 ) {
     const emojiUrl = `https://r2.wamellow.com/emoji/${member.emoji}`;
@@ -162,7 +162,7 @@ export default async function Member(
 function UserBadge({
     children
 }: {
-    children: React.ReactNode
+    children: React.ReactNode;
 }) {
     return (
         <ClientChip
