@@ -143,6 +143,7 @@ export default function Home() {
                     items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                     description="Select what role members should get when joining."
                     defaultState={passport?.unverifiedRoleId}
+                    showClear
                     disabled={!passport.enabled}
                 />
             </div>
