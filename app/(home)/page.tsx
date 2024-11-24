@@ -81,7 +81,8 @@ export default async function Home() {
         </ClientButton>
     );
 
-    function renderCount() {
+    // eslint-disable-next-line
+    async function renderCount() {
         "use server";
         return <span>trust us!</span>;
     }
