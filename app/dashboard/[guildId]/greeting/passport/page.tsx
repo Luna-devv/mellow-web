@@ -84,15 +84,11 @@ export default function Home() {
         </div>
 
         {passport.enabled && passport.punishment === 2 && !passport.punishmentRoleId &&
-            <div className="mt-6">
-                <Notice message="When using 'Assign role to member', a punishment role must be set." />
-            </div>
+            <Notice message="A punishment role must be set when using 'Assign role to member'." />
         }
 
         {passport.enabled && !passport.successRoleId &&
-            <div className="mt-6">
-                <Notice message="A verified role must be set for passport to work." />
-            </div>
+            <Notice message="A verified role must be set for passport to work." />
         }
 
         <CompleteSetup
