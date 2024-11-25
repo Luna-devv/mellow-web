@@ -79,6 +79,7 @@ export default function CompleteSetup({
 
         <Modal
             title="Punishment role"
+            className="!overflow-visible"
             isOpen={!!guild && modal === ModalType.PunishmentRole}
             onClose={() => setModal(ModalType.None)}
             onSubmit={() => {
