@@ -14,7 +14,7 @@ export function Cluster(cluster: ApiCluster) {
             className="w-full md:flex gap-4 space-y-2 md:space-y-0 justify-between items-center p-4 bg-wamellow rounded-lg outline-violet-400 duration-200 h-min"
             id={"cluster-" + cluster.id}
         >
-            <div className="sm:flex items-center">
+            <div className="sm:flex items-center w-1/6">
                 <div className="flex gap-1 items-center">
                     <Icon ping={cluster.ping} />
                     <span className="text-neutral-100 text-lg font-medium">
@@ -48,7 +48,7 @@ export function Cluster(cluster: ApiCluster) {
 
             {cluster.id === 0
                 ? <Chip
-                    className="-mt-2"
+                    className="-mt-2 w-1/6"
                     startContent={<FaCrown className="ml-1" />}
                     color="warning"
                     variant="flat"
@@ -56,7 +56,7 @@ export function Cluster(cluster: ApiCluster) {
                     {cluster.ping}ms
                 </Chip>
                 : <Chip
-                    className={cn(cluster.ping > 0 && "text-neutral-400 bg-wamellow")}
+                    className={cn(cluster.ping > 0 && "text-neutral-400 bg-wamellow w-1/6")}
                     startContent={<HiLightningBolt className="ml-1" />}
                     variant="flat"
                     color={cluster.ping < 0 ? "danger" : "default"}
