@@ -1,3 +1,4 @@
+import { ChannelType } from "discord-api-types/v10";
 import Image from "next/image";
 
 import { type ApiV1GuildsChannelsGetResponse, type ApiV1GuildsEmojisGetResponse, type ApiV1GuildsRolesGetResponse, PermissionFlagsBits } from "@/typings";
@@ -9,6 +10,7 @@ function parsePermissions(permissions: number, required: PermissionNames[]) {
     if (permissions === -1 && required.includes("RoleHirachy")) return ["Role is above Wamellow"];
 
     return required
+        .filter((perm) => perm !== "RoleHirachy")
         .map((perm) => (permissions & PermissionFlagsBits[perm as keyof typeof PermissionFlagsBits]) === 0 ? perm : false)
         .filter(Boolean);
 }
@@ -23,6 +25,7 @@ export function createSelectableItems<T extends Item>(
     return items
         .sort((a, b) => a.name.localeCompare(b.name))
         .filter((item) => !allowNSFW && !("nsfw" in item ? item.nsfw : false))
+        .filter((item) => "type" in item ? [ChannelType.GuildText, ChannelType.GuildAnnouncement].includes(item.type) : true)
         .map((item) => ({
             name: `${"type" in item ? "#" : "@"}${item.name}`,
             value: item.id,
