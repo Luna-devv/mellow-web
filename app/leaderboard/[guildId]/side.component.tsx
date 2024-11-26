@@ -13,17 +13,15 @@ import Ad from "@/components/ad";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
-import type { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsModulesLeaderboardGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
 export default function Side({
     guild,
-    design,
     pagination
 }: {
     guild: ApiV1GuildsGetResponse | ApiError | undefined;
-    design: ApiV1GuildsModulesLeaderboardGetResponse | ApiError | undefined;
     pagination: ApiV1GuildsTopmembersPaginationGetResponse | ApiError | undefined;
 }) {
     const cookies = useCookies();
@@ -33,7 +31,6 @@ export default function Side({
 
     return (
         <div className="flex flex-col gap-3">
-            {!!design}
 
             {guild && "id" in guild &&
                 <div className="flex gap-2 w-full">
@@ -202,7 +199,7 @@ export default function Side({
                 Are you sure you want to delete the leaderboard? It will be gone forever, probably, who knows.
             </Modal>
 
-        </div >
+        </div>
     );
 
 }

@@ -6,7 +6,7 @@ import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/component
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
-import { getDesign, getPagination, getTopMembers } from "./api";
+import { getPagination, getTopMembers } from "./api";
 import Member from "./member.component";
 import Pagination from "./pagination.component";
 
@@ -36,16 +36,14 @@ export default async function Home({ searchParams, params }: Props) {
     const designPromise = getDesign(guildId);
     const paginationPromise = getPagination(guildId);
 
-    const [guild, members, design, pagination] = await Promise.all([guildPromise, membersPromise, designPromise, paginationPromise]).catch(() => []);
+    const [guild, members, pagination] = await Promise.all([guildPromise, membersPromise, paginationPromise]).catch(() => []);
 
     let error = "";
     if (guild && "message" in guild) error = guild.message;
     if (members && "message" in members) error = members.message;
-    if (design && "message" in design) error = design.message;
     if (pagination && "message" in pagination) error = pagination.message;
 
-    // wtf is this
-    if (error || !guild || !members || !design || !pagination || "message" in guild || "message" in members || "message" in design || "message" in pagination) {
+    if (error || !guild || !members || !pagination || "message" in pagination) {
         return (
             <ScreenMessage
                 top="0rem"

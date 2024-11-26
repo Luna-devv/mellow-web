@@ -115,7 +115,7 @@ export interface GuildEmbed {
 
 export interface ApiV1GuildsModulesWelcomeGetResponse {
     enabled: boolean;
-    channelId?: string;
+    channelId: string | null;
 
     message: {
         content?: string;
@@ -160,7 +160,7 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
 
 export interface ApiV1GuildsModulesByeGetResponse {
     enabled: boolean;
-    channelId?: string;
+    channelId: string | null;
     webhookURL?: string;
 
     message: {
@@ -232,16 +232,11 @@ export interface ApiV1GuildsModulesLeaderboardUpdatingPostResponse {
 export interface ApiV1GuildsModulesLeaderboardGetResponse {
     bannerUrl: string | null;
 
-    backgroundColor: number | null;
-    textColor: number | null;
-    accentColor: number | null;
-
     blacklistChannelIds: string[];
 
     roles: {
         messages: string[];
         voiceminutes: string[];
-        // invites: string[]; // again'st tos
     } | undefined;
 
     updating: ApiV1GuildsModulesLeaderboardUpdatingPostResponse[];
@@ -267,10 +262,6 @@ export interface ApiV1GuildsModulesPassportGetResponse {
 
     sendFailedDm: boolean;
     alsoFailIf: ("disposableEmailAddress")[]
-
-    backgroundColor?: number;
-    textColor?: number;
-    accentColor?: number;
 }
 
 export interface ApiV1UsersMeGetResponse {
@@ -328,12 +319,6 @@ export interface ApiV1GuildsModulesTagsGetResponse {
     authorId: string;
 
     createdAt: Date;
-}
-
-export interface ApiV1GuildsModulesEmbedmessagelinksGetResponse {
-    enabled: boolean;
-    color?: number | null;
-    display: 0 | 1 | 2;
 }
 
 export interface ApiV1GuildsModulesNsfwModerationGetResponse {

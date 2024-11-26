@@ -7,7 +7,6 @@ import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
-import decimalToRgb from "@/utils/decimalToRgb";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -76,22 +75,8 @@ export default async function RootLayout({ params, children }: Props) {
 
     const guildExists = guild && "id" in guild;
 
-    const backgroundRgb = design && "backgroundColor" in design && design.backgroundColor
-        ? decimalToRgb(design.backgroundColor || 0)
-        : undefined;
-
     return (
         <div className="w-full">
-
-            {backgroundRgb &&
-                <style>
-                    {`
-                        :root {
-                            --background-rgb: rgb(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b});
-                        }
-                    `}
-                </style>
-            }
 
             <div className="relative mb-14 w-full">
                 <ClientImageWall
@@ -149,9 +134,7 @@ export default async function RootLayout({ params, children }: Props) {
                 url={`/leaderboard/${guildId}`}
                 searchParamName="type"
                 disabled={!guild}
-            >
-                {/* {searchParams.type === "voiceminutes" ? pagination.voiceminutes : intl.format(pagination[searchParams.type] || 0)} {searchParams.type} */}
-            </ListTab>
+            />
 
             <div className="md:flex">
 
@@ -170,13 +153,12 @@ export default async function RootLayout({ params, children }: Props) {
                 <div className="lg:w-1/4 md:w-1/3 mt-8 md:mt-0">
                     <Side
                         guild={guild}
-                        design={design}
                         pagination={pagination}
                     />
                 </div>
 
             </div>
 
-        </div >
+        </div>
     );
 }

@@ -11,7 +11,6 @@ import Notice, { NoticeType } from "@/components/notice";
 import { OverviewLink } from "@/components/overview-link";
 import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
-import decimalToRgb from "@/utils/decimalToRgb";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
@@ -66,22 +65,8 @@ export default async function Home({ params }: Props) {
 
     const guildExists = guild && "id" in guild;
 
-    const backgroundRgb = typeof passport === "object" && "backgroundColor" in passport && passport.backgroundColor
-        ? decimalToRgb(passport.backgroundColor || 0)
-        : undefined;
-
     return (
         <div className="w-full">
-
-            {backgroundRgb &&
-                <style>
-                    {`
-                        :root {
-                            --background-rgb: rgb(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b});
-                        }
-                    `}
-                </style>
-            }
 
             {typeof passport === "object" && "message" in passport &&
                 <Notice type={NoticeType.Error} message={passport.message} />
