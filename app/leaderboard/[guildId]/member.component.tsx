@@ -13,21 +13,21 @@ import { intl } from "@/utils/numbers";
 
 import Icon from "./icon.component";
 
-export default async function Member(
-    {
-        index,
-        type,
-        member,
-        members,
-        pagination
-    }: {
-        index: number;
-        type: "messages" | "voiceminutes" | "invites";
-        member: ApiV1GuildsTopmembersGetResponse;
-        members: ApiV1GuildsTopmembersGetResponse[];
-        pagination: ApiV1GuildsTopmembersPaginationGetResponse;
-    }
-) {
+interface Props {
+    index: number;
+    type: "messages" | "voiceminutes" | "invites";
+    member: ApiV1GuildsTopmembersGetResponse;
+    members: ApiV1GuildsTopmembersGetResponse[];
+    pagination: ApiV1GuildsTopmembersPaginationGetResponse;
+}
+
+export default async function Member({
+    index,
+    type,
+    member,
+    members,
+    pagination
+}: Props) {
     const emojiUrl = `https://r2.wamellow.com/emoji/${member.emoji}`;
     const averageColor = member.emoji
         ? await getAverageColor(emojiUrl + "?size=16")

@@ -33,7 +33,6 @@ export default async function Home({ searchParams, params }: Props) {
 
     const guildPromise = getGuild(guildId);
     const membersPromise = getTopMembers(guildId, { page, type: type });
-    const designPromise = getDesign(guildId);
     const paginationPromise = getPagination(guildId);
 
     const [guild, members, pagination] = await Promise.all([guildPromise, membersPromise, paginationPromise]).catch(() => []);
@@ -52,30 +51,6 @@ export default async function Home({ searchParams, params }: Props) {
                 buttons={<>
                     <HomeButton />
                     <SupportButton />
-                </>}
-            >
-                <Image src={SadWumpusPic} alt="" height={141 * 1.5} width={124 * 1.5} />
-            </ScreenMessage>
-        );
-    }
-
-    const candisplay = guild.name &&
-        (
-            type === "messages" ||
-            type === "voiceminutes" ||
-            type === "invites"
-        ) &&
-        pagination[type].pages >= page;
-
-    if (!candisplay) {
-        return (
-            <ScreenMessage
-                top="0rem"
-                title="Sadly, this leaderboard can not be found.."
-                description="Seems like you got a little lost here? Here's wumpus for now!"
-                buttons={<>
-                    <HomeButton />
-                    <AddButton />
                 </>}
             >
                 <Image src={SadWumpusPic} alt="" height={141 * 1.5} width={124 * 1.5} />
