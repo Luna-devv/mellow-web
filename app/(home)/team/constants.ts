@@ -1,5 +1,6 @@
 export const repos = [
     "Luna-devv/mellow-web",
+    "Luna-devv/mellow-transgirl",
     "Luna-devv/nekostic",
     "Luna-devv/lunify.js",
     "Luna-devv/dlist.js",
