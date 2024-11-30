@@ -43,45 +43,32 @@ const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 export const revalidate = 43200;
 
+const styles = {
+    h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-bold mb-4"),
+    h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
+};
+
+const messageProps = (command?: string) => ({
+    mode: "DARK" as const,
+    commandUsed: command
+        ? {
+            name: command,
+            username: "@mwlica",
+            avatar: "/luna.webp",
+            bot: false
+        }
+        : undefined,
+    user: {
+        username: "Wamellow",
+        avatar: "/waya-v3.webp",
+        bot: true
+    }
+});
+
 export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions)
         .then((res) => res.json())
         .catch(() => null) as ApiV1TopguildsGetResponse[] | null;
-
-    const styles = {
-        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-bold"),
-        h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
-    };
-
-    const messageProps = (command?: string) => ({
-        mode: "DARK" as const,
-        commandUsed: command
-            ? {
-                name: command,
-                username: "@mwlica",
-                avatar: "/luna.webp",
-                bot: false
-            }
-            : undefined,
-        user: {
-            username: "Wamellow",
-            avatar: "/waya-v3.webp",
-            bot: true
-        }
-    });
-
-    const Invite = () => (
-        <ClientButton
-            as={Link}
-            color="secondary"
-            href="/login?invite=true"
-            prefetch={false}
-            startContent={<HiUserAdd />}
-        >
-            <span className="block sm:hidden">Invite</span>
-            <span className="hidden sm:block">Invite Wamellow</span>
-        </ClientButton>
-    );
 
     // eslint-disable-next-line
     async function renderCount() {
@@ -224,11 +211,6 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Next-Level text to speech 🔊</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        It{"'"}s crucial for people with speech impairments.
-                        It ensures inclusivity and allows everyone to participate fully, promoting accessibility and community engagement. ❤️
-                        <span className="sr-only">One of the msot important Accessibility feature you need.</span>
-                    </div>
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2 flex flex-col items-start">
@@ -290,7 +272,6 @@ export default async function Home() {
 
                             <div
                                 className="bg-discord-gray px-8 py-6 md:py-12 rounded-lg flex flex-col sm:flex-row sm:items-center md:flex-col md:items-start lg:flex-row lg:items-center gap-4 min-h-56"
-
                             >
                                 <DiscordChannelCategory name="#/voice/dev/null">
                                     <DiscordChannel
@@ -320,10 +301,7 @@ export default async function Home() {
                 </div>
 
                 <div>
-                    <h2 className={styles.h2}>Stylish YouTube Notifications 📢</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        Notify your community about freshly released videos in style with free custom messages & embeds for up to 30 channels.
-                    </div>
+                    <h2 className={styles.h2}>Stylish Social Notifications 📢</h2>
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
@@ -334,18 +312,18 @@ export default async function Home() {
                                 size="sm"
                                 startContent={<HiCash className="mx-1" />}
                             >
-                                <span className="font-semibold">Styling & 30 Channels free</span>
+                                <span className="font-semibold">Free styling, 30 Channels</span>
                             </ClientChip>
-                            <h3 className={styles.h3}>Stay up-to-date on YouTube</h3>
+                            <h3 className={styles.h3}>Stay up-to-date on YouTube & Twitch</h3>
                             <div className="pt-6">
                                 Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
 
                                 <ol className="mt-4">
                                     {[
+                                        "Youtube and Twitch",
                                         "Up to 30 channels",
                                         "Custom message & embed",
-                                        "Sub 30 second delay",
-                                        "99.9% uptime"
+                                        "Insanely fast"
                                     ].map((name) => (
                                         <li key={name} className="flex gap-1 items-center">
                                             <HiCheck className="text-violet-400" />
@@ -399,9 +377,6 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Create unique images with Ai 🏳️‍⚧️</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        Unlock complimentary access to a variety of image generation models directly within your Discord server. Without paying a shit ton to MEE6.
-                    </div>
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
@@ -465,9 +440,6 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Watchin{"'"} Anime ❤️</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        They{"'"}re like windows to stories that provide the perfect distraction, letting you take a breather before diving back into the real world.
-                    </div>
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
@@ -523,9 +495,6 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        Have you ever dreamed of not using <span className="line-through">MEE6&trade;</span>? Just use <span className="font-bold">Wamellow</span> instead and don{"'"}t pay premium to personalise your cards and webpages! 👀
-                    </div>
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
@@ -573,9 +542,6 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Fun with Starboards ⭐</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        Join us in celebrating the best of your community by using Starboards to highlight and share messages that shine!
-                    </div>
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
@@ -590,9 +556,8 @@ export default async function Home() {
                             </ClientChip>
                             <h3 className={styles.h3}>POGBOARD DEEZ NUTS</h3>
                             <div className="pt-6">
-                                With Starboards, you have the power to elevate remarkable messages within our server.
-                                When you come across a post that deserves recognition, simply vote it up, and watch as it takes center stage for everyone to see.
-                                This feature ensures that exceptional content gets the attention it deserves, fostering a lively and engaging atmosphere.
+                                With Starboards, you have the power to highlight remarkable messages in your server.
+                                When you come across a message that is either funny or hilarious, simply react with a star, and if enough people star the message, it will be posted to the set starboard channel.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
@@ -620,7 +585,7 @@ export default async function Home() {
                                     I DONT EVEN HAVE A CAR
 
                                     <div className="flex gap-1 mt-4 mb-1">
-                                        <span className="font-bold flex gap-1 items-center">⭐ 3</span>
+                                        <span className="font-bold flex gap-1 items-center">⭐ 38</span>
                                         •
                                         <span className="text-blue-500 hover:underline cursor-pointer">#lounge</span>
                                     </div>
@@ -634,10 +599,7 @@ export default async function Home() {
                 </div>
 
                 <div>
-                    <h2 className={styles.h2}>Heyho and bye @user 👋</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        Make newcomers feel valued, enabling them to actively contribute to your vibrant channels.
-                    </div>
+                    <h2 className={styles.h2}>Heyho and farewell @user 👋</h2>
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
@@ -648,12 +610,11 @@ export default async function Home() {
                                 size="sm"
                                 startContent={<HiCash className="mx-1" />}
                             >
-                                <span className="font-semibold">w/ free image background</span>
+                                <span className="font-semibold">w/ free image card backgrounds</span>
                             </ClientChip>
                             <h3 className={styles.h3}>Greetings</h3>
                             <div className="pt-6">
                                 Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
-                                Ensure a positive, inclusive experience from the start, fostering community and engagement.
                                 Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
                             </div>
                             <div className="flex gap-2 mt-6">
@@ -687,9 +648,6 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Verify members w/ Passport</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        Secure your server from raider attacks and ensure that only verified members can access your channels.
-                    </div>
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
@@ -704,8 +662,8 @@ export default async function Home() {
                             </ClientChip>
                             <h3 className={styles.h3}>Captcha verification</h3>
                             <div className="pt-6">
-                                Protect your server from unwanted attacks such as bot-raids with our captcha verification system.
-                                Ensure that only verified members can access your channels, safeguarding your server from raider attacks and ensuring a safe and secure environment for all your members.
+                                Protect your server from unwanted attacks, such as bot-raids, with our captcha verification system.
+                                Ensure that only human members can access your channels, safeguarding your server from raider attacks and ensuring a safe and secure environment for all your members.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
@@ -744,9 +702,6 @@ export default async function Home() {
 
                 <div>
                     <h2 className={styles.h2}>Create Custom Responses 🖊️</h2>
-                    <div className="my-6 max-w-md font-medium">
-                        Level up your Discord support game with Wamellow{"'"}s custom respones, called tags!
-                    </div>
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
@@ -762,7 +717,7 @@ export default async function Home() {
                             <h3 className={styles.h3}>Wamellow tags</h3>
                             <div className="pt-6">
                                 Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
-                                Empower your server with quick access to essential info, making support a breeze.
+                                Empower your server with quick access to custom commands.
                                 Boost engagement and create a knowledgeable community for free!
                             </div>
                             <div className="flex gap-2 mt-6">
@@ -825,5 +780,20 @@ export default async function Home() {
             </Suspense>
 
         </div>
+    );
+}
+
+function Invite() {
+    return (
+        <ClientButton
+            as={Link}
+            color="secondary"
+            href="/login?invite=true"
+            prefetch={false}
+            startContent={<HiUserAdd />}
+        >
+            <span className="block sm:hidden">Invite</span>
+            <span className="hidden sm:block">Invite Wamellow</span>
+        </ClientButton>
     );
 }
