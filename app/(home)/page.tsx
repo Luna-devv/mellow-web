@@ -2,6 +2,7 @@ import { Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { BsDiscord, BsYoutube } from "react-icons/bs";
 import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
@@ -17,6 +18,7 @@ import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { Skeleton } from "@/components/ui/skeleton";
 import { defaultFetchOptions } from "@/lib/api";
 import AiPic from "@/public/ai.webp";
 import CaptchaPic from "@/public/captcha.webp";
@@ -93,7 +95,9 @@ export default async function Home() {
             <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-14rem)] md:h-[calc(100svh-17rem)]">
                 <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
-                    <Ratings />
+                    <Suspense fallback={<Skeleton className="w-[15rem] !h-6 !m-0" isLoading={true} />}>
+                        <Ratings />
+                    </Suspense>
 
                     <h1 className={cn(montserrat.className, "lg:text-7xl md:text-6xl text-5xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
                         <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">
@@ -816,7 +820,9 @@ export default async function Home() {
                 content="FUCK EVERYTHING! EXCEPT LUNA, LUNA MUST BE PROTECTED AT ALL COSTS"
             />
 
-            <Commands />
+            <Suspense>
+                <Commands />
+            </Suspense>
 
         </div>
     );

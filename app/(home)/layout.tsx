@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { Footer } from "@/components/footer";
 
 export const revalidate = 43200;
@@ -11,7 +13,9 @@ export default function RootLayout({
         <div className="w-full">
             {children}
 
-            <Footer />
+            <Suspense>
+                <Footer />
+            </Suspense>
         </div>
     );
 }

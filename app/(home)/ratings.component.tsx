@@ -44,7 +44,7 @@ export async function Ratings() {
     return (
         <Link
             aria-label="Reviews on Wumpus.store"
-            className="flex gap-2 items-center w-fit"
+            className="flex gap-2 items-center w-fit !h-6"
             href={`https://wumpus.store/bot/${process.env.CLIENT_ID}#reviews`}
             target="_blank"
         >
