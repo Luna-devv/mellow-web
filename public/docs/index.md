@@ -1,6 +1,9 @@
 <iframe src="https://e.widgetbot.io/channels/828676951023550495/1135588403782619317" height="800" frameborder="0" class="-mt-[2px]">
 </iframe>
 
+## Commands
+A list of all commands can be found by just typing `/` into the chat box inside Discord, or online at [discordlist.gg](https://discordlist.gg/bot/1125449347451068437/commands).
+
 ## Languages
 Wamellow is translated into many different languages, including
 - 🇺🇸 English
