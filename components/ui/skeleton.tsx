@@ -11,7 +11,7 @@ function Skeleton({
     isLoading,
     ...props
 }: SkeletonProps) {
-    if (!isLoading) {
+    if (!isLoading || isLoading === undefined) {
         return (
             <div className={className} {...props}>
                 {children}
