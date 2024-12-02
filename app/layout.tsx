@@ -22,6 +22,19 @@ import { Provider } from "./provider";
 const outfit = Outfit({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
+// TODO: get automatically from top.gg
+const reviews = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "wamellow",
+    aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.99",
+        reviewCount: "56",
+        bestRating: "5"
+    }
+};
+
 export const viewport: Viewport = {
     themeColor: "#8957ff",
     initialScale: 0.85
@@ -157,6 +170,13 @@ export default function RootLayout({
                 className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden"
             >
                 <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
+
+                <Script
+                    id="reviews"
+                    type="application/ld+json"
+                >
+                    {JSON.stringify(reviews)}
+                </Script>
 
                 <body
                     className={cn("w-full max-w-7xl overflow-x-hidden xl:!overflow-visible", outfit.className)}
