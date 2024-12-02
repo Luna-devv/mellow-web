@@ -111,6 +111,22 @@
                     "Use Application Commands"
                 ]
             }
+        },
+        {
+            "name": "📅 Daily Posts",
+            "file": "dailyposts.md",
+            "image": "/docs-assets/open-graph/dailyposts.webp",
+            "description": "Automatically post daily images of cute characters in your community!",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Attach Files"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
         }
     ]
 }
