@@ -27,19 +27,19 @@ Pick a channel where any Text to Speech events from your server should be logged
 ### 😷 Priority role
 Pick a role that lets users override other messages that are currently being spoken. This lets users start talking right away without the "please wait..." message popping up. It's a good idea to give this role to people who are actually disabled.
 
-### 🔉 Announce user 
+### 🔉 Announce user
 Wamellow will announce which user is currently talking through it. If a user says "hello there," the bot will speak "Luna says: hello there."
 <br />
 <br />
 
 **Note:** This feature is experimental. Please note that usernames written in languages other than the actual written message will cause the Text to Speech to fail.
 
-### 🛒 Message queue 
+### 🛒 Message queue
 Queue up sent messages, messages are spoked in the same order as they were written.
 <br />
 <br />
 
-**Note:** This feature is experimental. 
+**Note:** This feature is experimental.
 
 ### 🔏 Max message length
 Set a maximum length for messages to avoid spamming.
@@ -81,6 +81,15 @@ All languages have one or more variants, including male and female versions. (40
 <br />
 
 You can change your default language and voice either by running `/tts set speaker` or by [setting it on the dashboard](/profile/text-to-speech).
+
+## Server nodes & regions
+For optimal latency and performance when using Text to Speech in voice channels, Wamellow has multiple server nodes in different regions.
+A list of available nodes and regions can be found [on the status page](/status).
+<br />
+<br />
+
+If the voice channel's *Region Override* is set to `Automatic`, it will default to Frankfurt, Germany.
+If an override is set, it will use the selected region, if available.
 
 ## Avoiding Chat-to-Speech
 To prevent Wamellow from speaking your messages inside of Chat to Speech channels, simply take the following actions:
