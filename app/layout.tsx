@@ -160,7 +160,6 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-
     return (
         <CookiesProvider>
             <html
@@ -183,7 +182,6 @@ export default function RootLayout({
                     style={{ overflow: "visible" }}
                 >
                     <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
-
 
                     <NoScript />
                     <NavBar />

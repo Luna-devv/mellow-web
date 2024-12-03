@@ -34,7 +34,6 @@ export default function Header(props: React.ComponentProps<"div">) {
     const router = useRouter();
 
     useEffect(() => {
-
         authorize({ setState })
             .then((_user) => {
                 userStore.setState({
