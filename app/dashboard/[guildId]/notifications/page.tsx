@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { BsTwitch, BsYoutube } from "react-icons/bs";
 import { HiChat, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
@@ -16,12 +15,11 @@ import MessageCreatorEmbed from "@/components/embed-creator";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
-import { cn } from "@/utils/cn";
+import type { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import { DeleteNotification } from "./delete.component";
-import { CreateNotificationSelect, Style } from "./select.component";
+import { CreateNotificationSelect, Icon, Style } from "./select.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -192,17 +190,4 @@ export default function Home() {
             onSave={(value) => editItem("message", { content: value.content ?? null, embed: value.embed })}
         />
     </>);
-}
-
-function Icon({
-    type,
-    className
-}: {
-    type: NotificationType;
-    className?: string;
-}) {
-    switch (type) {
-        case NotificationType.YouTube: return <BsYoutube className={cn("text-red-500", className)} />;
-        case NotificationType.Twitch: return <BsTwitch className={cn("text-violet-500", className)} />;
-    }
 }

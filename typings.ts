@@ -33,8 +33,8 @@ export interface ApiV1GuildsGetResponse {
     inviteUrl: string | undefined;
     description: string | null;
     follownewsChannel?: {
-        id?: string;
-        name?: string;
+        id: string;
+        name: string;
     };
     tts: {
         channelId: string | null;
@@ -389,7 +389,8 @@ export interface ApiV1UsersGetResponse {
 
 export enum NotificationType {
     YouTube = 0,
-    Twitch = 1
+    Twitch = 1,
+    Bluesky = 2,
 }
 
 export interface ApiV1GuildsModulesNotificationsGetResponse {
@@ -413,11 +414,7 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
         username: string;
         customUrl: string;
         avatarUrl: string;
-        subs: string;
-        videos: string;
-        views: string;
-    }
-
+    };
 }
 
 export enum DailypostType {
