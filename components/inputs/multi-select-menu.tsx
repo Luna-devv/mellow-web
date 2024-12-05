@@ -149,8 +149,11 @@ export default function MultiSelectMenu({
                     {values.map((v) => (
                         <button
                             key={"multiselected-" + v.value}
-                            className={cn("relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md flex items-center gap-1 wamellow-modal", open && "hover:bg-danger text-neutral-100")}
-                            style={v.color ? { color: `#${v.color.toString(16)}` } : {}}
+                            className={cn(
+                                "relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md flex items-center gap-1 wamellow-modal",
+                                open && "hover:!bg-red-500/50 text-neutral-100 duration-200"
+                            )}
+                            // style={v.color ? { color: `#${v.color.toString(16)}` } : {}}
                             onClick={(e) => {
                                 if (!open) return;
                                 e.stopPropagation();
@@ -159,8 +162,8 @@ export default function MultiSelectMenu({
                                 });
                             }}
                         >
-                            {v.icon && <span className="absolute left-0">{v.icon}</span>}
-                            <span className={cn(v.icon ? "ml-6" : "")}>{v.name}</span>
+                            {v.icon && <span>{v.icon}</span>}
+                            <span>{v.name}</span>
                             {open && <HiX className="h-4 w-4" />}
                         </button>
                     ))}

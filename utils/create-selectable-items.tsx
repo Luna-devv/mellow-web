@@ -1,5 +1,6 @@
 import { ChannelType } from "discord-api-types/v10";
 import Image from "next/image";
+import { HiAtSymbol, HiHashtag, HiMenuAlt2, HiNewspaper, HiVolumeUp } from "react-icons/hi";
 
 import { type ApiV1GuildsChannelsGetResponse, type ApiV1GuildsEmojisGetResponse, type ApiV1GuildsRolesGetResponse, PermissionFlagsBits } from "@/typings";
 
@@ -18,16 +19,16 @@ function parsePermissions(permissions: number, required: PermissionNames[]) {
 export function createSelectableItems<T extends Item>(
     items: T[] | undefined,
     requiredPermissions: PermissionNames[] = ["ViewChannel", "SendMessages", "EmbedLinks"],
-    allowNSFW: boolean = false
+    allowedTypes: ChannelType[] = [ChannelType.GuildText, ChannelType.GuildAnnouncement]
 ) {
     if (!items?.length) return [];
 
     return items
         .sort((a, b) => a.name.localeCompare(b.name))
-        .filter((item) => !allowNSFW && !("nsfw" in item ? item.nsfw : false))
-        .filter((item) => "type" in item ? [ChannelType.GuildText, ChannelType.GuildAnnouncement].includes(item.type) : true)
+        .filter((item) => "type" in item ? allowedTypes.includes(item.type) : true)
         .map((item) => ({
-            name: `${"type" in item ? "#" : "@"}${item.name}`,
+            icon: getIconByType("type" in item ? item.type : -1),
+            name: item.name,
             value: item.id,
             error: "permissions" in item
                 ? parsePermissions(item.permissions, requiredPermissions).join(", ")
@@ -54,4 +55,14 @@ export function createSelectableEmojiItems(emojis: ApiV1GuildsEmojisGetResponse[
                 value: c.id
             }))
     ];
+}
+
+function getIconByType(type: ChannelType | -1) {
+    switch (type) {
+        case ChannelType.GuildVoice: return <HiVolumeUp />;
+        case ChannelType.GuildCategory: return <HiMenuAlt2 />;
+        case ChannelType.GuildAnnouncement: return <HiNewspaper />;
+        case -1: return <HiAtSymbol />;
+        default: return <HiHashtag />;
+    }
 }

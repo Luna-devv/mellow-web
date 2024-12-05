@@ -1,5 +1,6 @@
 "use client";
 
+import { ChannelType } from "discord-api-types/v10";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
@@ -118,7 +119,7 @@ export default function Home() {
                 name="Blacklisted channels"
                 url={url}
                 dataName="blacklistChannelIds"
-                items={createSelectableItems(guild?.channels, [])}
+                items={createSelectableItems(guild?.channels, [], [ChannelType.GuildCategory, ChannelType.GuildText, ChannelType.GuildAnnouncement, ChannelType.GuildVoice])}
                 description="Select channels which should not be counted."
                 defaultState={data.blacklistChannelIds || []}
                 max={500}

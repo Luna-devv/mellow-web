@@ -1,6 +1,7 @@
 "use client";
 
 import { Code } from "@nextui-org/react";
+import { ChannelType } from "discord-api-types/v10";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -120,14 +121,13 @@ export default function Home() {
             </div>
         </div>
 
-
         <div className="lg:flex gap-3">
             <div className="lg:w-1/2">
                 <MultiSelectMenu
                     name="Whitelist channels"
                     url={url}
                     dataName="whitelistChannelIds"
-                    items={createSelectableItems(guild?.channels, [])}
+                    items={createSelectableItems(guild?.channels, [], [ChannelType.GuildCategory, ChannelType.GuildText, ChannelType.GuildAnnouncement])}
                     description="Select channels where images should not be moderated in."
                     defaultState={data.whitelistChannelIds}
                     max={500}

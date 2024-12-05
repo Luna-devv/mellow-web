@@ -137,12 +137,12 @@ export default function SelectMenu({
             >
                 <div
                     className={cn(
-                        "flex flex-wrap overflow-x-hidden gap-1 py-3 dark:text-neutral-600 text-neutral-400",
+                        "flex items-center flex-wrap overflow-x-hidden py-3 gap-2 dark:text-neutral-600 text-neutral-400",
                         value?.name && "dark:text-neutral-300 text-neutral-700"
                     )}
                     style={value?.color ? { color: `#${value.color.toString(16)}` } : {}}
                 >
-                    {value?.icon && <span className="mr-2">{value?.icon}</span>}
+                    {value?.icon && <span>{value?.icon}</span>}
                     {value?.name || "Select.."}
                 </div>
                 <div className="ml-auto flex items-center gap-2">
