@@ -10,8 +10,21 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "cdn.discordapp.com",
                 port: "",
-                pathname: "/**"
+                pathname: "/avatars/**"
             },
+            {
+                protocol: "https",
+                hostname: "cdn.discordapp.com",
+                port: "",
+                pathname: "/icons/**"
+            },
+            {
+                protocol: "https",
+                hostname: "cdn.discordapp.com",
+                port: "",
+                pathname: "/emojis/**"
+            },
+
             {
                 protocol: "https",
                 hostname: "cdn.waya.one",
@@ -36,6 +49,7 @@ const nextConfig = {
                 port: "",
                 pathname: "/static/**"
             },
+
             {
                 protocol: "https",
                 hostname: "yt3.ggpht.com",
