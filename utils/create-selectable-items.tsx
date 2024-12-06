@@ -18,10 +18,14 @@ function parsePermissions(permissions: number, required: PermissionNames[]) {
 
 export function createSelectableItems<T extends Item>(
     items: T[] | undefined,
-    requiredPermissions: PermissionNames[] = ["ViewChannel", "SendMessages", "EmbedLinks"],
+    requiredPermissions: PermissionNames[] = [],
     allowedTypes: ChannelType[] = [ChannelType.GuildText, ChannelType.GuildAnnouncement]
 ) {
     if (!items?.length) return [];
+
+    if (requiredPermissions === undefined && "type" in items[0]) {
+        requiredPermissions = ["ViewChannel", "SendMessages", "EmbedLinks"];
+    }
 
     return items
         .sort((a, b) => a.name.localeCompare(b.name))
@@ -30,10 +34,10 @@ export function createSelectableItems<T extends Item>(
             icon: getIconByType("type" in item ? item.type : -1),
             name: item.name,
             value: item.id,
+            color: "color" in item ? item.color : undefined,
             error: "permissions" in item
                 ? parsePermissions(item.permissions, requiredPermissions).join(", ")
-                : undefined,
-            color: "color" in item ? item.color : undefined
+                : undefined
         }));
 }
 
