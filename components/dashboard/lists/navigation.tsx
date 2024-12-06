@@ -10,16 +10,18 @@ interface Props {
     href: `/${string}`;
     docs: `/${string}`;
 
-    icon?: React.ReactNode;
+    avatar?: React.ReactNode;
     name: string;
+    icon?: React.ReactNode;
 }
 
 export function Navigation({
     href,
     docs,
 
-    icon,
-    name
+    avatar,
+    name,
+    icon
 }: Props) {
     const guildId = guildStore((g) => g?.id);
 
@@ -36,14 +38,17 @@ export function Navigation({
                 </Button>
 
                 <div className="flex items-center gap-1.5">
-                    {icon}
+                    {avatar}
 
                     <div className="flex flex-col">
                         <span className="text-xxs -mb-1">
                             Editing:
                         </span>
-                        <span className="text-neutral-100 font-medium">
+                        <span className="text-neutral-100 font-medium flex items-center gap-1">
                             {name}
+                            {icon &&
+                                <span className="relative top-0.5">{icon}</span>
+                            }
                         </span>
                     </div>
                 </div>

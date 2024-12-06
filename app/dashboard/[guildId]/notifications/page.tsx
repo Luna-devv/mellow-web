@@ -132,7 +132,7 @@ export default function Home() {
             href="/notifications"
             docs="/notifications"
 
-            icon={
+            avatar={
                 <Image
                     alt={`${item?.creator.username}'s avatar`}
                     className="rounded-full size-5.5"
@@ -142,6 +142,7 @@ export default function Home() {
                 />
             }
             name={item.creator.username}
+            icon={<Icon type={item.type} className="text-white size-3" />}
         />
 
         <div className="flex md:gap-4 gap-2">
