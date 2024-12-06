@@ -100,7 +100,7 @@ export default async function Home() {
                     <span className="text-lg font-medium max-w-[38rem] mb-4">
                         Engage in leaderboards, starboards, and a welcoming atmosphere.
                         Dive into /anime&apos;s, free /image Ai, and the power of Text-to-Speech.
-                        Stay updated with dailyposts and receive YouTube notifications!
+                        Stay updated with dailyposts and receive social notifications!
                     </span>
 
                     <ClientAvatarGroup
@@ -314,15 +314,15 @@ export default async function Home() {
                             >
                                 <span className="font-semibold">Free styling, 30 Channels</span>
                             </ClientChip>
-                            <h3 className={styles.h3}>Stay up-to-date on YouTube & Twitch</h3>
+                            <h3 className={styles.h3}>YouTube, Twitch & Bluesky</h3>
                             <div className="pt-6">
                                 Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
 
                                 <ol className="mt-4">
                                     {[
-                                        "Youtube and Twitch",
-                                        "Up to 30 channels",
+                                        "Youtube, Twitch, and Bluesky (bsky.app)",
                                         "Custom message & embed",
+                                        "Up to 30 channels",
                                         "Insanely fast"
                                     ].map((name) => (
                                         <li key={name} className="flex gap-1 items-center">

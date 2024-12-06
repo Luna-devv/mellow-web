@@ -2,9 +2,8 @@
 
 import { Accordion, AccordionItem, Code } from "@nextui-org/react";
 import { useCookies } from "next-client-cookies";
-import { HiCash, HiChat, HiLockClosed, HiUser, HiUserAdd } from "react-icons/hi";
+import { HiBell, HiCash, HiChat, HiLockClosed, HiUserAdd } from "react-icons/hi";
 
-import DiscordAppBadge from "@/components/discord/app-badge";
 import LinkTag from "@/components/link-tag";
 import { Section } from "@/components/section";
 
@@ -114,11 +113,11 @@ const data = [
         )
     },
     {
-        startContent: <HiUser />,
-        title: "What's a 'Discord App', and what's the difference to a Bot?",
+        startContent: <HiBell />,
+        title: "Which social platforms does Wamellow Notifications support?",
         content: (
             <div>
-                Discord recently renamed <DiscordAppBadge>BOT</DiscordAppBadge>s to <DiscordAppBadge />s, meaning that there is no difference between them.
+                Wamellow currently support YouTube videos, shorts and livestreams; Twitch live stream; and Bluesky (bsky.app) posts, reposts and quote-replies.
             </div>
         )
     }

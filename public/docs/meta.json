@@ -79,7 +79,7 @@
             "name": "📢 Social Notifications",
             "file": "notifications.md",
             "image": "/docs-assets/open-graph/notifications-youtube.webp",
-            "description": "Notify your community when your favourite content creators post videos or go live!",
+            "description": "Notify your community when creators on YouTube, Twitch or Bluesky post or go live!",
             "permissions": {
                 "bot": [
                     "View Channel",
