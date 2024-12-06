@@ -13,6 +13,7 @@ import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl } from "@/utils/urls";
 
 import Notice, { NoticeType } from "../notice";
+import { Separator } from "../ui/separator";
 import Channel from "./channel";
 import Emoji from "./emoji";
 import Timestamp from "./timestamp";
@@ -81,30 +82,32 @@ export default async function BeautifyMarkdown({
         <ReactMarkdown
             rehypePlugins={[rehypeRaw]}
             components={{
-                h1: (props) => (
+                h1: (props) => (<>
                     <Link
                         href={`#${createHId(props.children)}`}
-                        className="flex mt-10 mb-3 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
+                        className="flex mt-10 mb-3 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline w-fit"
                     >
                         <h2 id={createHId(props.children)} className="text-3xl font-semibold" {...props} />
                     </Link>
-                ),
+                    <Separator className="mb-3" />
+                </>),
 
-                h2: (props) => (
+                h2: (props) => (<>
                     <Link
                         href={`#${createHId(props.children)}`}
-                        className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
+                        className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline w-fit"
                     >
                         <h1 id={createHId(props.children)} className="text-2xl font-semibold" {...props} />
                     </Link>
-                ),
+                    <Separator className="mb-3" />
+                </>),
 
                 h3: (props) => (
                     <Link
                         href={`#${createHId(props.children)}`}
-                        className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline"
+                        className="flex mt-6 mb-2 cursor-pointer dark:text-neutral-100 text-neutral-900 hover:underline w-fit"
                     >
-                        <h3 id={createHId(props.children)} className="text-xl font-semibold" {...props} />
+                        <h3 id={createHId(props.children)} className="text-lg font-semibold" {...props} />
                     </Link>
                 ),
 
@@ -176,7 +179,9 @@ export default async function BeautifyMarkdown({
 
                 ol: (props) => <ol className="list-decimal list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
                 ul: (props) => <ul className="list-disc list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
-                p: (props) => <span {...props} />
+                p: (props) => <span {...props} />,
+
+                mark: ({ children }) => <Notice type={NoticeType.Info} message={children?.toString() || ""} className="mt-4" />
 
             }}
         >
