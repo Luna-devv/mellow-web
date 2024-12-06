@@ -13,7 +13,10 @@ const data = [
         title: "How do I invite Wamellow to my Server?",
         subtitle: "Invite Wamellow to your server to get started!",
         content: (
-            <ol className="list-decimal list-inside marker:text-neutral-500">
+            <ol
+                className="list-decimal list-inside marker:text-neutral-500"
+                itemProp="text"
+            >
                 <li>
                     Be sure to have the <Code color="secondary">Manage Server</Code> permission on the server you want <LinkTag href="/login?invite=true">invite Wamellow</LinkTag> into.
                 </li>
@@ -29,7 +32,7 @@ const data = [
                 <li>
                     <span className="font-semibold">Done!</span> 🎉 You should now find yourself on the Dashboard for your server!
                 </li>
-            </ol >
+            </ol>
         )
     },
     {
@@ -45,7 +48,7 @@ const data = [
         startContent: <HiChat />,
         title: "How do I set up Chat to Speech (TTS)?",
         content: (
-            <div>
+            <div itemProp="text">
                 <ol className="list-decimal list-inside marker:text-neutral-500 mb-4">
                     <li>
                         <LinkTag href="/login?invite=true">Invite Wamellow</LinkTag> to your Server. If you do not own it, ask the server Administrators to add Wamellow.
@@ -82,7 +85,7 @@ const data = [
         startContent: <HiLockClosed />,
         title: "How do I disable a command for roles or channels?",
         content: (
-            <div>
+            <div itemProp="text">
                 <ol className="list-decimal list-inside marker:text-neutral-500 mb-4">
                     <li>
                         In the Discord App, click on your servers&apos; name and click {"\""}Settings{"\""}
@@ -116,7 +119,7 @@ const data = [
         startContent: <HiBell />,
         title: "Which social platforms does Wamellow Notifications support?",
         content: (
-            <div>
+            <div itemProp="text">
                 Wamellow currently support YouTube videos, shorts and livestreams; Twitch live stream; and Bluesky (bsky.app) posts, reposts and quote-replies.
             </div>
         )
@@ -133,7 +136,11 @@ export function Faq({
     const cookies = useCookies();
 
     return (
-        <div className="my-4 w-full">
+        <div
+            className="my-4 w-full"
+            itemType="https://schema.org/FAQPage"
+            itemScope
+        >
 
             {showTitle
                 ?
@@ -163,17 +170,22 @@ export function Faq({
                         key={index}
                         startContent={item.startContent}
                         subtitle={item.subtitle}
-                        title={item.title}
+                        title={
+                            <span itemProp="name">
+                                {item.title}
+                            </span>
+                        }
+                        itemType="https://schema.org/Question"
+                        itemProp="mainEntity"
+                        itemScope
                     >
-                        {item.content}
-
-                        <div className="h-2" />
-
-                        <LinkTag
-                            href="/support"
+                        <span
+                            itemType="https://schema.org/Answer"
+                            itemProp="acceptedAnswer"
+                            itemScope
                         >
-                            Need help? Talk with us!
-                        </LinkTag>
+                            {item.content}
+                        </span>
                     </AccordionItem>
                 ))}
             </Accordion>
