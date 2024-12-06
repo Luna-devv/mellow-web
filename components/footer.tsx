@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HTMLProps } from "react";
-import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoTiktok, BiLogoTwitter, BiLogoYoutube } from "react-icons/bi";
+import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoTiktok, BiLogoYoutube } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
+import { FaBluesky } from "react-icons/fa6";
 import { HiBookOpen, HiCloud, HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
 import { SiKofi } from "react-icons/si";
 
@@ -77,19 +78,19 @@ function Socials() {
                 <BiLogoTiktok />
                 <span className="sr-only">Wamellow on TikTok</span>
             </Link>
-            <Link href="https://youtube.com/@wayabot" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
+            <Link href="https://youtube.com/@wamellow" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
                 <BiLogoYoutube />
                 <span className="sr-only">Wamellow on YouTube</span>
             </Link>
-            <Link href="https://twitter.com/licamw" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
-                <BiLogoTwitter />
-                <span className="sr-only">Wamellow on Twitter</span>
+            <Link href="https://bsky.app/profile/lunish.nl" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
+                <FaBluesky className="p-0.5" />
+                <span className="sr-only">Wamellow&apos;s developer on Bluesky</span>
             </Link>
             <Link href="https://github.com/Luna-devv" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
                 <BiLogoGithub />
                 <span className="sr-only">Wamellow{"'"}s developers on GitHub</span>
             </Link>
-            <Link href="mailto:support@waya.one" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Contact Wamellow via email">
+            <Link href="mailto:support@wamellow.com" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Contact Wamellow via email">
                 <BiLogoGmail />
                 <span className="sr-only">Contact Wamellow via email</span>
             </Link>
