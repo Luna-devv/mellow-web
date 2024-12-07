@@ -14,7 +14,6 @@ export function ClickOutside({
         const handleDocumentClick = (event: MouseEvent): void => {
 
             // @ts-expect-error -- It think's closest doesn't exist, but it does
-
             if (!event.target?.closest(".wamellow-modal")) {
                 onClose();
             }

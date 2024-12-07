@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { HiExternalLink, HiPencil } from "react-icons/hi";
 
 import { type Guild, guildStore } from "@/common/guilds";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 
 interface TBase {
@@ -76,11 +76,11 @@ export function ItemSelector<T extends TBase>({
                         key={i.id}
                         buttons={<>
                             <Button
-                                color="secondary"
-                                variant="flat"
+                                variant="secondary"
+                                className="bg-secondary/30 text-secondary-800"
                                 onClick={() => set(i.id)}
-                                startContent={<HiPencil />}
                             >
+                                <HiPencil />
                                 Edit
                             </Button>
                             {deleteButton({
@@ -99,13 +99,16 @@ export function ItemSelector<T extends TBase>({
             {createButton({ style: 1 })}
 
             <Button
-                as={Link}
+                asChild
                 className="w-full md:w-[unset]"
-                href={`/docs/${docs}`}
-                target="_blank"
-                endContent={<HiExternalLink />}
             >
-                Read docs & view placeholders
+                <Link
+                    href={`/docs/${docs}`}
+                    target="_blank"
+                >
+                    Read docs & view placeholders
+                    <HiExternalLink />
+                </Link>
             </Button>
         </div>
 

@@ -1,11 +1,10 @@
 import { PopoverClose } from "@radix-ui/react-popover";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsTwitch, BsYoutube } from "react-icons/bs";
 import { FaBluesky } from "react-icons/fa6";
 
 import { badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { cn } from "@/utils/cn";
@@ -36,23 +35,10 @@ export function CreateNotificationSelect({
     add,
     set
 }: Props) {
-    const [isMobile, setIsMobile] = useState(false);
     const [platform, setPlatform] = useState<typeof Platform[keyof typeof Platform] | null>(null);
 
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(max-width: 768px)"); // Adjust breakpoint as needed
-        const handleMediaChange = () => setIsMobile(mediaQuery.matches);
-
-        handleMediaChange(); // Check initial value
-        mediaQuery.addEventListener("change", handleMediaChange);
-
-        return () => mediaQuery.removeEventListener("change", handleMediaChange);
-    }, []);
-
-    const Wrapper = isMobile ? DrawerWrapper : PopoverWrapper;
-
     return (<>
-        <Wrapper
+        <PopoverWrapper
             button={
                 <Button
                     className={style === Style.Compact ? cn(badgeVariants(), "h-6") : ""}
@@ -72,7 +58,7 @@ export function CreateNotificationSelect({
                     {Object.keys(Platform)[platform]}
                 </Button>
             )}
-        </Wrapper>
+        </PopoverWrapper>
 
         <YoutubeNotificationModal add={add} set={set} isOpen={platform === Platform.YouTube} onClose={() => setPlatform(null)} />
         <TwitchNotificationModal add={add} set={set} isOpen={platform === Platform.Twitch} onClose={() => setPlatform(null)} />
@@ -112,35 +98,6 @@ function PopoverWrapper({
                 ))}
             </PopoverContent>
         </Popover>
-    );
-}
-
-function DrawerWrapper({
-    children,
-    button
-}: {
-    children: (platform: typeof Platform[keyof typeof Platform]) => React.ReactNode;
-    button: React.ReactNode;
-    style: typeof Style[keyof typeof Style];
-}) {
-    return (
-        <Drawer>
-            <DrawerTrigger asChild>
-                {button}
-            </DrawerTrigger>
-            <DrawerContent className="space-y-2 wamellow-modal">
-                <DrawerHeader>
-                    <DrawerTitle>Platform</DrawerTitle>
-                    <DrawerDescription>Select a platform to create notifications for.</DrawerDescription>
-                </DrawerHeader>
-
-                {Object.values(Platform).map((platform) => (
-                    <DrawerClose key={platform} asChild>
-                        {children(platform)}
-                    </DrawerClose>
-                ))}
-            </DrawerContent>
-        </Drawer>
     );
 }
 
