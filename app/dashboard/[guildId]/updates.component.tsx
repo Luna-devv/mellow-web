@@ -63,8 +63,8 @@ export default function FollowUpdates() {
                     if (!g) return g;
 
                     g.follownewsChannel = {
-                        name: g?.channels?.find((c) => c.id === channelId)?.name,
-                        id: channelId
+                        name: g!.channels!.find((c) => c.id === channelId)!.name,
+                        id: channelId!
                     };
 
                     return g;

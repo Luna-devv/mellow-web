@@ -108,7 +108,7 @@ export default function Side({
                         </Button>
                     </AccordionItem>
                     :
-                    undefined as unknown as JSX.Element
+                    undefined as unknown as React.JSX.Element
                 }
 
                 {pagination && "messages" in pagination ?
@@ -137,7 +137,7 @@ export default function Side({
                             <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
                         </div>
                     </AccordionItem>
-                    : undefined as unknown as JSX.Element
+                    : undefined as unknown as React.JSX.Element
                 }
 
                 <AccordionItem
@@ -169,7 +169,7 @@ export default function Side({
                         <strong>NOTE: </strong> It might take up to an hour for this page to update.
                     </AccordionItem>
                     :
-                    undefined as unknown as JSX.Element
+                    undefined as unknown as React.JSX.Element
                 }
             </Accordion>
 

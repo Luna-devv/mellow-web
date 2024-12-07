@@ -17,7 +17,7 @@ export default function Box({
     none = false,
     border = true,
     ...props
-}: Props): JSX.Element {
+}: Props) {
     return (
         <div
             className={cn(

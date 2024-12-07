@@ -48,12 +48,12 @@ interface Options {
 
 export function StatsBar(options: Options) {
     const [width, setWidth] = useState(0);
-    const ref = useRef<NodeJS.Timeout>();
+    const ref = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         ref.current = setInterval(() => setWidth(window.innerWidth), 1000);
         return () => {
-            clearInterval(ref.current);
+            if (ref.current) clearInterval(ref.current);
         };
     }, []);
 
@@ -88,7 +88,6 @@ export function StatsBar(options: Options) {
 
                 </div>
             ))}
-
         </Box>
     );
 }

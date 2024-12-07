@@ -3,7 +3,7 @@ import { Skeleton } from "./ui/skeleton";
 export function Metrics({
     children
 }: {
-    children: JSX.Element[];
+    children: React.ReactNode;
 }) {
     return (
         <div className="md:ml-auto flex items-center gap-5 mt-6 md:mt-0">
