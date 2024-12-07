@@ -98,9 +98,13 @@ export function BlueskyNotificationModal({
 
             <div>
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a user&apos;s handle</span>
-                The handle is always the part that comes after the <code>@</code> symbol. For example, in the URL <code>https://bsky.app/profile/mwlica.bsky.social</code>, the handle is <code>mwlica.bsky.social</code>.
+                <br />
 
-                Though, the input also allows you to use the full URL of the user&apos;s profile.
+                Your handle is likely something like <code className="break-all">mwlica.bsky.social</code>, some others may have a handle like <code>lunish.nl</code>.
+                <br />
+                <br />
+
+                Though, you can also use the link of the user&apos;s profile.
             </div>
 
         </Modal>
