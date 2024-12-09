@@ -112,7 +112,7 @@ export default function DiscordMessageEmbed({
 
 function replaceTemplatesToUrl(input: string) {
     if (/^{(user|guild|creator)\.(icon|avatar)}$/.test(input)) return "https://cdn.discordapp.com/embed/avatars/0.png";
-    if (/^{video\.thumbnail}/.test(input)) return "/_next/image?url=/notifications-thumbnail-placeholder.webp&w=384&q=75";
+    if (/^{(video|stream)\.thumbnail}/.test(input)) return "/_next/image?url=/notifications-thumbnail-placeholder.webp&w=384&q=75";
 
     if (!input.startsWith("http")) return;
     return input;
