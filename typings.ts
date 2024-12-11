@@ -393,6 +393,11 @@ export enum NotificationType {
     Bluesky = 2,
 }
 
+export enum NotificationFlags {
+    SendReposts = 1 << 0,
+    SendReplies = 1 << 1
+}
+
 export interface ApiV1GuildsModulesNotificationsGetResponse {
     id: string;
     guildId: string;
@@ -400,6 +405,7 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
     roleId: string | null;
 
     type: NotificationType;
+    flags: number;
     creatorId: string;
 
     message: {

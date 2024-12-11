@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { useMemo } from "react";
 import { HiChat, HiViewGridAdd } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
@@ -12,10 +13,12 @@ import { useList } from "@/components/dashboard/lists/hook";
 import { Navigation } from "@/components/dashboard/lists/navigation";
 import { ItemSelector } from "@/components/dashboard/lists/selector";
 import MessageCreatorEmbed from "@/components/embed-creator";
+import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import type { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationFlags, NotificationType } from "@/typings";
+import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 import { DeleteNotification } from "./delete.component";
@@ -36,6 +39,8 @@ export default function Home() {
         isLoading,
         error
     } = useList<ApiV1GuildsModulesNotificationsGetResponse>({ url });
+
+    const flags = useMemo(() => new BitfieldManager(item?.flags || 0), [item?.flags]);
 
     if (error) {
         return (
@@ -166,21 +171,38 @@ export default function Home() {
             />
         </div>
 
-        <SelectMenu
-            className="md:w-1/2 w-full"
-            name="Ping role"
-            url={url + "/" + item.id}
-            dataName="roleId"
-            items={[
-                { name: "@everyone (everyone in server)", value: "everyone" },
-                { name: "@here (everyone online)", value: "here" },
-                ...createSelectableItems(guild?.roles)
-            ]}
-            description="Select a role which should get pinged on uploads."
-            defaultState={item.roleId}
-            onSave={(o) => editItem("roleId", o.value as string)}
-            showClear
-        />
+        <div className="flex md:gap-4 gap-2">
+            <SelectMenu
+                className="md:w-1/2 w-full"
+                name="Ping role"
+                url={url + "/" + item.id}
+                dataName="roleId"
+                items={[
+                    { name: "@everyone (everyone in server)", value: "everyone" },
+                    { name: "@here (everyone online)", value: "here" },
+                    ...createSelectableItems(guild?.roles)
+                ]}
+                description="Select a role which should get pinged on uploads."
+                defaultState={item.roleId}
+                onSave={(o) => editItem("roleId", o.value as string)}
+                showClear
+            />
+            {item.type === NotificationType.Bluesky && (
+                <MultiSelectMenu
+                    className="md:w-1/2 w-full"
+                    name="Also send"
+                    url={url + "/" + item.id}
+                    dataName="flags"
+                    items={bitfieldToArray(NotificationFlags)}
+                    description="Select the types of posts to send in addition to regular posts."
+                    defaultState={flags.toArray()}
+                    onSave={(o) => {
+                        const flags = o.map((flag) => Number(flag.value));
+                        editItem("flags", flags.reduce((a, b) => a | b, 0));
+                    }}
+                />
+            )}
+        </div>
 
         <MessageCreatorEmbed
             key={item.id}
