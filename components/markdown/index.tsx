@@ -181,7 +181,7 @@ export default async function BeautifyMarkdown({
                 ul: (props) => <ul className="list-disc list-inside space-y-1 marker:text-neutral-300/40 my-1" {...props} />,
                 p: (props) => <span {...props} />,
 
-                mark: ({ children }) => <Notice type={NoticeType.Info} message={children?.toString() || ""} className="mt-4" />
+                mark: ({ children }) => <Notice type={NoticeType.Info} message={children?.toString() || ""} className="mt-2 mb-0" />
 
             }}
         >

@@ -41,6 +41,11 @@ The role that should get notified about new uploads.
 
 **Note:** If Wamellow does not have the `Mention Everyone` permissions inside the channel, it might not be able to actually notify members with those roles.
 
+### 📫 Also send
+Allows you to select additional types of notifications for Bluesky to be sent on top of normal posts.
+- `Reposts` will also notify when the user reposts any post.
+- `Replies` will also notify when the user replies to any post.
+
 ### 🥳 Test notification
 Test notifications let you see how your message will look like when a video is uploaded or a streamer goes live, etc.
 
@@ -53,7 +58,7 @@ Placeholders allow you to use variables that change from message to message, for
 <br />
 
 <mark>
-    These are only available for YouTube notifications. (*1)
+    These are only available for YouTube. (*1)
 </mark>
 
 <table>
@@ -115,7 +120,7 @@ Placeholders allow you to use variables that change from message to message, for
 <br />
 
 <mark>
-    These are only available for Twitch notifications. (*2)
+    These are only available for Twitch. (*2)
 </mark>
 
 <table>
@@ -162,7 +167,7 @@ Placeholders allow you to use variables that change from message to message, for
 <br />
 
 <mark>
-    These are only available for Bluesky (bsky.app) notifications. (*3)
+    These are only available for Bluesky. (*3)
 </mark>
 
 <table>
@@ -180,9 +185,9 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post id</td>
         </tr>
         <tr>
-            <td><code>post.type</code></td>
-            <td>post, repost</td>
-            <td>Post or Repost</td>
+            <td><code>post.type</code>*</td>
+            <td>post [or] repost [or] reply</td>
+            <td>Post type</td>
         </tr>
         <tr>
             <td><code>post.link</code></td>
@@ -200,17 +205,25 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post time & date</td>
         </tr>
         <tr>
-            <td><code>creator.followers</code></td>
-            <td>18</td>
-            <td>Amount of followers</td>
+            <td><code>creator.handle</code></td>
+            <td>lunish.nl</td>
+            <td>Creator handle</td>
         </tr>
         <tr>
             <td><code>creator.posts</code></td>
-            <td>20</td>
+            <td>784</td>
             <td>Amount of posts</td>
+        </tr>
+        <tr>
+            <td><code>creator.followers</code></td>
+            <td>48</td>
+            <td>Amount of followers</td>
         </tr>
     </tbody>
 </table>
+<br />
+
+*If a post is a reply, and your custom message is `{post.type}ed` it will display `replied to`, instead of `replyed`.
 
 <br />
 <br />
