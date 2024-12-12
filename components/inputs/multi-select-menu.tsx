@@ -210,7 +210,7 @@ export default function MultiSelectMenu({
                                     </span>
                                 }
 
-                                <span className="max-w-[calc(100%-13rem)] truncate">
+                                <span className="max-w-[calc(100%-1rem)] truncate">
                                     {item.name}
                                 </span>
 
