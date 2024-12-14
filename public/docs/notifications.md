@@ -301,3 +301,26 @@ Placeholders allow you to use variables that change from message to message, for
         </tr>
     </tbody>
 </table>
+
+## Better embeds
+If you’d like to improve embeds (for example, fixing Bluesky embeds), you can use the following custom messages:
+- `https://bskyx.app/profile/{creator.handle}/post/{post.id}` ([Lexedia/VixBluesky](https://github.com/Lexedia/VixBluesky))
+- `https://fxbsky.app/profile/{creator.handle}/post/{post.id}` ([fxbsky.app](https://bsky.app/profile/fxbsky.app))
+- `https://vxbsky.app/profile/{creator.handle}/post/{post.id}` ([dylanpdx/vxBsky](https://github.com/dylanpdx/vxBsky))
+- `https://bskye.app/profile/{creator.handle}/post/{post.id}` ([FerroEduardo/bskye](https://github.com/FerroEduardo/bskye))
+- `https://bsyy.app/profile/{creator.handle}/post/{post.id}`
+
+A preview of all embeds can be found [in this reddit post](https://www.reddit.com/r/BlueskySocial/comments/1he642f/comparing_bluesky_fix_embed_sites/).
+
+## Offline notifications
+If Wamellow is offline when a video, stream or post is published, your notification will be queued and sent as soon as Wamellow comes back online. You can view Wamellow’s current status on [the status page](/status).
+
+## Notification speed
+Notifications are typically sent within these time frames:
+- **YouTube**: 4 to 8 seconds
+- **Twitch**: 10 to 100 seconds
+- **Bluesky**: 0.4 to 0.6 seconds (400ms to 600ms)
+<br />
+<br />
+
+**Note:** YouTube keeps the video private for a few seconds to minutes after uploading, so the notification might be delayed by a few seconds.
