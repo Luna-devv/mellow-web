@@ -29,7 +29,7 @@ const reviews = {
     name: "wamellow",
     aggregateRating: {
         "@type": "AggregateRating",
-        ratingValue: "4.99",
+        ratingValue: "5",
         reviewCount: "60",
         bestRating: "5"
     }
@@ -122,7 +122,12 @@ export const generateMetadata = (): Metadata => {
             "youtube to discord",
             "twitch notifications",
             "twitch notifis",
-            "twitch to discord"
+            "twitch to discord",
+            "bluesky notifications",
+            "bluesky notifis",
+            "bluesky to discord",
+            "bluesky",
+            "bsky"
         ],
 
         alternates: {
@@ -168,7 +173,7 @@ export default function RootLayout({
                 lang="en"
                 className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden"
             >
-                <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.js" />
+                <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.outbound-links.js" />
 
                 <Script
                     id="reviews"
@@ -216,7 +221,7 @@ async function NavBar() {
             <Link
                 aria-label="Go to Wamellow's homepage"
                 className={cn("font-semibold flex items-center mr-2", montserrat.className)}
-                href="/?utm_source=wamellow.com&utm_medium=header"
+                href="/"
             >
                 <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
                 <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
@@ -236,7 +241,7 @@ async function NavBar() {
                     Donate
                 </Link>
                 <Link
-                    href="/docs/index?utm_source=wamellow.com&utm_medium=header"
+                    href="/docs/index"
                     className="dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha py-1 px-3 rounded-md duration-200 flex items-center gap-2 group"
                 >
                     <HiBookOpen className="group-hover:text-neutral-300 duration-200 h-5 w-5 mt-0.5" />
