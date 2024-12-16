@@ -3,12 +3,12 @@ import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { BsDiscord, BsYoutube } from "react-icons/bs";
+import { BsYoutube } from "react-icons/bs";
 import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
 import { Avatar } from "@/components/avatar";
 import Box from "@/components/box";
-import { ClientAvatarGroup, ClientButton, ClientChip } from "@/components/client";
+import { ClientAvatarGroup, ClientChip } from "@/components/client";
 import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import DiscordChannel from "@/components/discord/channel";
@@ -18,6 +18,7 @@ import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { defaultFetchOptions } from "@/lib/api";
 import AiPic from "@/public/ai.webp";
@@ -79,7 +80,7 @@ export default async function Home() {
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-14rem)] md:h-[calc(100svh-17rem)]">
+            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-14rem)] md:h-[calc(100dvh-16rem)]">
                 <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
                     <Suspense fallback={<Skeleton className="w-[15rem] !h-6 !m-0" isLoading={true} />}>
@@ -123,34 +124,39 @@ export default async function Home() {
                     <div className="space-y-4">
                         <Link
                             className="flex gap-1 items-center text-violet-400 hover:underline w-fit"
-                            href={getCanonicalUrl("dashboard", "?utm_source=wamellow.com&utm_medium=home")}
+                            href={getCanonicalUrl("dashboard")}
                         >
                             Go to Dashboard <HiArrowNarrowRight />
                         </Link>
 
                         <div className="flex gap-2 lg:mt-0">
-                            <ClientButton
-                                as={Link}
-                                className="w-1/2 lg:w-fit !text-xl !font-medium"
-                                color="secondary"
-                                prefetch={false}
-                                href="/login?invite=true"
-                                size="lg"
-                                startContent={<HiUserAdd />}
+                            <Button
+                                asChild
+                                className="w-1/2 lg:w-fit text-lg font-medium"
+                                variant="secondary"
                             >
-                                <span className="block sm:hidden">Invite</span>
-                                <span className="hidden sm:block">Invite Wamellow</span>
-                            </ClientButton>
-                            <ClientButton
-                                as={Link}
-                                startContent={<BsDiscord />}
-                                className="w-1/2 lg:w-fit !text-xl !font-medium"
-                                href="/support"
-                                size="lg"
+                                <Link
+                                    prefetch={false}
+                                    href="/login?invite=true"
+                                >
+                                    <HiUserAdd />
+                                    <span className="block sm:hidden">Invite</span>
+                                    <span className="hidden sm:block">Invite Wamellow</span>
+                                </Link>
+                            </Button>
+                            <Button
+                                asChild
+                                className="w-1/2 lg:w-fit text-lg"
                             >
-                                <span className="block sm:hidden">Support</span>
-                                <span className="hidden sm:block">Join support</span>
-                            </ClientButton>
+                                <Link
+                                    prefetch={false}
+                                    href="/support"
+                                >
+                                    <HiUserAdd />
+                                    <span className="block sm:hidden">Support</span>
+                                    <span className="hidden sm:block">Join Support</span>
+                                </Link>
+                            </Button>
                         </div>
 
                         <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-medium mt-3 opacity-80 pl-20 lg:pr-20 rotate-2", handwritten.className)}>
@@ -178,7 +184,7 @@ export default async function Home() {
                                         <Link
                                             key={"guildGrid-" + guild.id + i + i2}
                                             className="relative md:h-32 h-24 md:w-32 w-24 hover:scale-110 duration-200"
-                                            href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
+                                            href={getCanonicalUrl("leaderboard", guild.id)}
                                             prefetch={false}
                                         >
                                             <ImageReduceMotion
@@ -196,11 +202,8 @@ export default async function Home() {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center space-x-2">
-                <div className="animate-scroll rounded-lg rotate-180 md:rounded-3xl md:rotate-0">
-                    <div className="animate-scroll-wheel" />
-                </div>
-                <span className="hidden md:block text-lg font-medium mt-2 text-neutral-500/50">Scroll down...</span>
+            <div className="animate-scroll rounded-lg rotate-180 md:rounded-3xl md:rotate-0">
+                <div className="animate-scroll-wheel" />
             </div>
 
             <article
@@ -256,15 +259,16 @@ export default async function Home() {
 
                             <div className="flex gap-2 mt-5">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<BsYoutube />}
-                                    href="https://youtu.be/NS5fZ1ltovE?si=I3nViYb4sx3n3Uvo"
-                                    target="_blank"
-                                >
-                                    Watch YouTube Video
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        prefetch={false}
+                                        href="https://youtu.be/NS5fZ1ltovE?si=I3nViYb4sx3n3Uvo"
+                                        target="_blank"
+                                    >
+                                        <BsYoutube />
+                                        Watch YouTube Video
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -334,23 +338,26 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<BsYoutube />}
-                                    href="https://youtu.be/xizs-hrwK4I?si=6pIYALygtNhUwpph"
-                                    target="_blank"
-                                >
-                                    Watch Tutorial
-                                </ClientButton>
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=notifications&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        prefetch={false}
+                                        href="https://youtu.be/xizs-hrwK4I?si=6pIYALygtNhUwpph"
+                                        target="_blank"
+                                    >
+                                        <BsYoutube />
+                                        Watch Tutorial
+                                    </Link>
+                                </Button>
+                                <Button asChild>
+                                    <Link
+                                        prefetch={false}
+                                        href="/dashboard?to=notifications"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -394,7 +401,7 @@ export default async function Home() {
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
                                 Customize the rating, quality, aesthetics, image width and height, upscaled, generation steps and the CFG scale all for free.
                             </div>
-                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
+                            <div className="p-4 pb-3 border border-divider rounded-lg my-8">
                                 <ClientChip
                                     className="mb-2"
                                     color="secondary"
@@ -410,14 +417,15 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/ai-gallery?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    View Images
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/ai-gallery"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        View Images
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -458,7 +466,7 @@ export default async function Home() {
                                 Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
                                 Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
                             </div>
-                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
+                            <div className="p-4 pb-3 border border-divider rounded-lg my-8">
                                 <ClientChip
                                     className="mb-2"
                                     color="secondary"
@@ -514,14 +522,15 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/leaderboard/828676951023550495?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    View Leaderboard
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/leaderboard/828676951023550495"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        View Leaderboard
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -561,14 +570,15 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=starboard&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=starboard"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -619,14 +629,15 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=greeting"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -667,22 +678,24 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiLockOpen />}
-                                    href="/passport/1125063180801036329?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Try it out
-                                </ClientButton>
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/passport/1125063180801036329"
+                                        target="_blank"
+                                    >
+                                        <HiLockOpen />
+                                        Try it out
+                                    </Link>
+                                </Button>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=greeting/passport"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -722,14 +735,15 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=custom-commands&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=custom-commands"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -785,15 +799,18 @@ export default async function Home() {
 
 function Invite() {
     return (
-        <ClientButton
-            as={Link}
-            color="secondary"
-            href="/login?invite=true"
-            prefetch={false}
-            startContent={<HiUserAdd />}
+        <Button
+            variant="secondary"
+            asChild
         >
-            <span className="block sm:hidden">Invite</span>
-            <span className="hidden sm:block">Invite Wamellow</span>
-        </ClientButton>
+            <Link
+                href="/login?invite=true"
+                prefetch={false}
+            >
+                <HiUserAdd />
+                <span className="block sm:hidden">Invite</span>
+                <span className="hidden sm:block">Invite Wamellow</span>
+            </Link>
+        </Button>
     );
 }

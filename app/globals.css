@@ -5,7 +5,10 @@
 @layer base {
   .dark {
         --background-rgb: rgb(3, 2, 6);
-        --wamellow-rgb: rgba(255, 255, 255, 0.16);
+
+        --wamellow: #ffffff0d;
+        --wamellow-100: #ffffff1a;
+        --wamellow-200: #ffffff33;
 
         --foreground: 210 20% 98%;
         --card: 224 71.4% 4.1%;
@@ -198,7 +201,7 @@ a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-pr
 }
 
 .button {
-    @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
+    @apply flex text-white bg-wamellow-100 hover:bg-wamellow-200 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .button-primary {

@@ -12,7 +12,7 @@ import { getUser } from "@/lib/discord/user";
 import BlahajPic from "@/public/blahaj.webp";
 import { cn } from "@/utils/cn";
 
-import { ClientChip } from "./client";
+import { Badge } from "./ui/badge";
 
 export async function Footer(props: HTMLProps<HTMLDivElement>) {
 
@@ -21,11 +21,11 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
 
     return (
         <div
-            className={cn("text-neutral-500 w-full mt-10 text-left", props.className)}
+            className={cn("text-primary/75 w-full mt-10 text-left", props.className)}
             {...props}
         >
 
-            <div className="flex items-center dark:text-neutral-100 text-neutral-900 gap-1 font-semibold">
+            <div className="flex items-center gap-1 font-semibold">
                 <BsDiscord className="relative top-[1px] text-[#f8746e]" />
                 <span className="text-xl bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text text-transparent">Wamellow</span>
                 <span className="text-xl bg-gradient-to-r from-yellow-400 to-blue-400 bg-clip-text text-transparent">for</span>
@@ -46,14 +46,24 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
                             <HiCube />
                             <span className="flex items-center">
                                 Made by
-                                <ClientChip
-                                    className="relative top-0.5 ml-0.5"
-                                    as={Link}
-                                    href="/team"
-                                    startContent={<Image src={dev?.avatarUrl as string} alt="Luna" width={18} height={18} className="rounded-full" />}
+                                <Link
+                                    href="https://github.com/Luna-devv/portfolio"
+                                    target="_blank"
                                 >
-                                    {dev?.username}
-                                </ClientChip>
+                                    <Badge
+                                        className="relative top-[3px] ml-0.5"
+                                        radius="rounded"
+                                    >
+                                        <Image
+                                            src={dev?.avatarUrl as string}
+                                            alt="avatar"
+                                            width={18}
+                                            height={18}
+                                            className="rounded-full relative right-1.5 px-[1px]"
+                                        />
+                                        {dev?.username}
+                                    </Badge>
+                                </Link>
                             </span>
                         </span>
                     </div>
@@ -74,33 +84,26 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
 function Socials() {
     return (
         <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
-            <Link href="https://tiktok.com/@wamellow.com" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
+            <Link href="https://tiktok.com/@wamellow.com" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
                 <BiLogoTiktok />
-                <span className="sr-only">Wamellow on TikTok</span>
             </Link>
-            <Link href="https://youtube.com/@wamellow" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
+            <Link href="https://youtube.com/@wamellow" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
                 <BiLogoYoutube />
-                <span className="sr-only">Wamellow on YouTube</span>
             </Link>
-            <Link href="https://bsky.app/profile/lunish.nl" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
+            <Link href="https://bsky.app/profile/lunish.nl" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
                 <FaBluesky className="p-0.5" />
-                <span className="sr-only">Wamellow&apos;s developer on Bluesky</span>
             </Link>
-            <Link href="https://github.com/Luna-devv" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
+            <Link href="https://github.com/Luna-devv" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
                 <BiLogoGithub />
-                <span className="sr-only">Wamellow{"'"}s developers on GitHub</span>
             </Link>
-            <Link href="mailto:support@wamellow.com" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-6 w-6" aria-label="Contact Wamellow via email">
+            <Link href="mailto:support@wamellow.com" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Contact Wamellow via email">
                 <BiLogoGmail />
-                <span className="sr-only">Contact Wamellow via email</span>
             </Link>
-            <Link href="https://lunish.nl/kofi" className="text-neutral-400 hover:dark:text-neutral-300 hover:text-neutral-700 duration-200 h-[22px] w-[22px]" aria-label="Support Wamellow's developers monetarily on Kofi">
+            <Link href="https://ko-fi.com/mwlica" className="text-white/75 hover:text-white duration-200 h-[22px] w-[22px]" aria-label="Support Wamellow's developers monetarily on Kofi">
                 <SiKofi />
-                <span className="sr-only">Support Wamellow{"'"}s developers monetarily on Kofi</span>
             </Link>
             <Link href="/vote" className="text-[#ff3366] duration-200 h-6 w-6" aria-label="Wamellow on top.gg">
                 <TopggIcon />
-                <span className="sr-only">Wamellow on top.gg</span>
             </Link>
         </div>
     );
@@ -110,47 +113,47 @@ function Links() {
     return (
         <div className="flex gap-12 dark:text-neutral-400 text-neutral-600 select-none">
             <div>
-                <div className="font-medium dark:text-neutral-300 text-neutral-800 mb-1">Legal blah blah</div>
+                <div className="font-medium dark:text-neutral-200 text-neutral-800 mb-1">Legal blah blah</div>
                 <Link
-                    className="flex items-center gap-1.5"
-                    href="/terms?utm_source=wamellow.com&utm_medium=footer"
+                    className="text-primary/75 hover:text-primary/65 duration-200 flex items-center gap-2"
+                    href="/terms"
                 >
                     <HiLibrary />
-                    <span>Terms of Service</span>
+                    Terms of Service
                 </Link>
                 <Link
-                    className="flex items-center gap-2"
-                    href="/privacy?utm_source=wamellow.com&utm_medium=footer"
+                    className="text-primary/75 hover:text-primary/65 duration-200 flex items-center gap-2"
+                    href="/privacy"
                 >
                     <HiHand />
-                    <span>Privacy Policy</span>
+                    Privacy Policy
                 </Link>
             </div>
             <div>
-                <div className="font-medium dark:text-neutral-300 text-neutral-800 mb-1">Links</div>
+                <div className="font-medium dark:text-neutral-200 text-neutral-800 mb-1">Links</div>
                 <Link
-                    className="flex items-center gap-2"
+                    className="text-primary/75 hover:text-primary/65 duration-200 flex items-center gap-2"
                     href="/support"
                 >
                     <BsDiscord />
                     Support
                 </Link>
                 <Link
-                    className="flex items-center gap-2"
-                    href="/docs/index?utm_source=wamellow.com&utm_medium=footer"
+                    className="text-primary/75 hover:text-primary/65 duration-200 flex items-center gap-2"
+                    href="/docs/index"
                 >
                     <HiBookOpen />
                     Documentation
                 </Link>
                 <Link
-                    className="flex items-center gap-2"
-                    href="/status?utm_source=wamellow.com&utm_medium=footer"
+                    className="text-primary/75 hover:text-primary/65 duration-200 flex items-center gap-2"
+                    href="/status"
                 >
                     <HiCloud />
                     Status
                 </Link>
                 <Link
-                    className="flex items-center gap-2"
+                    className="text-primary/75 hover:text-primary/65 duration-200 flex items-center gap-2"
                     href="/login?invite=true"
                     prefetch={false}
                 >
