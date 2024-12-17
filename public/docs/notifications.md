@@ -41,10 +41,12 @@ The role that should get notified about new uploads.
 
 **Note:** If Wamellow does not have the `Mention Everyone` permissions inside the channel, it might not be able to actually notify members with those roles.
 
-### 📫 Also send
-Allows you to select additional types of notifications for Bluesky to be sent on top of normal posts.
-- `Reposts` will also notify when the user reposts any post.
-- `Replies` will also notify when the user replies to any post.
+### 📫 Filter
+Allows you to select additional types or filter notifications for Bluesky.
+- `Send Reposts` will also notify when the user reposts any post.
+- `Send Replies` will also notify when the user replies to any post.
+- `Send Quotes` will also notify when the user quotes any post.
+- `Must Contain Image` will only notify when the post contains an image.
 
 ### 🥳 Test notification
 Test notifications let you see how your message will look like when a video is uploaded or a streamer goes live, etc.

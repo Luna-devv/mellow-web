@@ -190,7 +190,7 @@ export default function Home() {
             {item.type === NotificationType.Bluesky && (
                 <MultiSelectMenu
                     className="md:w-1/2 w-full"
-                    name="Also send"
+                    name="Filter"
                     url={url + "/" + item.id}
                     dataName="flags"
                     items={bitfieldToArray(NotificationFlags)}
