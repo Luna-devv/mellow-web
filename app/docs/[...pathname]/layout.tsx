@@ -40,7 +40,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
             title,
             description: meta?.description,
             url,
-            type: "website",
+            type: "article",
             images
         },
         twitter: {
