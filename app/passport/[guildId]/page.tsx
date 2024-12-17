@@ -15,7 +15,7 @@ import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 
 import { getPassport } from "./api";
-import Verify from "./verify.component";
+import { Verify } from "./verify.component";
 
 interface Props {
     params: Promise<{ guildId: string; }>;
@@ -44,24 +44,25 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
             title,
             description,
             url,
-            type: "website",
+            type: "profile",
             images: guild && "icon" in guild && guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=256` : "/discord.png"
         },
         twitter: {
             card: "summary",
             title,
             description
-        }
+        },
+        robots: guild && "id" in guild ? "index, follow" : "noindex"
     };
 };
 
 export default async function Home({ params }: Props) {
     const { guildId } = await params;
 
-    const guildPromise = getGuild(guildId);
-    const passportPromise = getPassport(guildId);
-
-    const [guild, passport] = await Promise.all([guildPromise, passportPromise]);
+    const [guild, passport] = await Promise.all([
+        getGuild(guildId),
+        getPassport(guildId)
+    ]);
 
     const guildExists = guild && "id" in guild;
 
@@ -72,8 +73,11 @@ export default async function Home({ params }: Props) {
                 <Notice type={NoticeType.Error} message={passport.message} />
             }
 
-            {guild && "id" in guild && guild?.id === "1125063180801036329" &&
-                <Notice type={NoticeType.Info} message="This is a demo server to test out passport verification." >
+            {guildExists && guild?.id === "1125063180801036329" &&
+                <Notice
+                    type={NoticeType.Info}
+                    message="This is a demo server to test out passport verification."
+                >
                     <ClientButton
                         as={Link}
                         color="secondary"
@@ -89,7 +93,6 @@ export default async function Home({ params }: Props) {
             <div className="grid md:flex gap-6">
 
                 <div className="w-full md:max-w-[384px] overflow-hidden rounded-xl dark:bg-wamellow bg-wamellow-100 relative">
-
                     <Image
                         alt=""
                         className="w-full object-cover h-[216px]"
@@ -97,11 +100,13 @@ export default async function Home({ params }: Props) {
                         width={960}
                         height={540}
                     />
-                    <div className="absolute top-0 w-full h-[216px]" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgb(22, 19, 31) 100%)" }} />
 
                     <div
-                        className="text-lg flex gap-5 items-center absolute top-[146px] rounded-3xl z-20 left-[4px] md:left-1.5 py-4 px-5 backdrop-blur-3xl backdrop-brightness-90 shadow-md"
-                    >
+                        className="absolute top-0 w-full h-[216px]"
+                        style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgb(30, 23, 43) 100%)" }}
+                    />
+
+                    <div className="text-lg flex gap-5 items-center absolute top-[146px] rounded-3xl z-20 left-[4px] md:left-1.5 py-4 px-5 backdrop-blur-3xl backdrop-brightness-90 shadow-md">
                         <ImageReduceMotion
                             alt="Server icon"
                             className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40"
@@ -123,12 +128,11 @@ export default async function Home({ params }: Props) {
                     </div>
 
                     <div className="mx-4 mb-4 mt-10 font-medium">
-
                         <span className="text-sm font-bold dark:text-neutral-400 text-neutral-600">GET ACCESS TO</span>
                         <ul>
                             {[
                                 "Secure server",
-                                `${guild && "memberCount" in guild ? intl.format(guild?.memberCount) : 0} members`
+                                `${guildExists ? intl.format(guild?.memberCount) : 0} members`
                             ].map((name) => (
                                 <li key={name} className="flex gap-1 items-center">
                                     <HiCheck className="text-violet-400" />
@@ -142,31 +146,26 @@ export default async function Home({ params }: Props) {
                         </ul>
 
                         {
-                            guild && "id" in guild &&
+                            guildExists &&
                             passport === true &&
-                            <Verify
-                                guild={guild}
-                            />
+                            <Verify guild={guild} />
                         }
-
                     </div>
 
                 </div>
 
                 <div>
-
                     <div className="w-full h-min overflow-hidden rounded-xl dark:bg-wamellow bg-wamellow-100 py-4 px-5">
 
                         <div className="mb-4 text-neutral-100 font-semibold text-xl">Modern, Simple, Wamellow 👋</div>
                         <ListFeature
                             items={[
-                                { icon: <HiLockClosed />, title: "Secure", description: "Unrivaled user privacy with our top-notch verification systems.", color: 0xa84b56 },
+                                { icon: <HiLockClosed />, title: "Secure", description: "Wamellow does not store your IP, Geolocation or similar, nothing is kept, no logs.", color: 0xa84b56 },
                                 { icon: <BsDiscord />, title: "Integration", description: "Unparalleled Discord integration, setting us apart from the rest.", color: 0x4752c4 },
                                 { icon: <HiStar />, title: "Easy", description: "The most user-friendly and visually appealing verification process.", color: 0x7f43d8 },
-                                { icon: <HiLightningBolt />, title: "Fast", description: "Welcome new members swiftly with the fastest verification method available.", color: 0xff9156 }
+                                { icon: <HiLightningBolt />, title: "Fast", description: "Welcome new members easily with the fastest verification method available.", color: 0xff9156 }
                             ]}
                         />
-                        <div className="mt-4 text-sm text-neutral-500">*We actually have no idea what to put here</div>
                     </div>
 
                     <OverviewLink
@@ -176,7 +175,6 @@ export default async function Home({ params }: Props) {
                         url={`/leaderboard/${guildId}`}
                         icon={<HiChartBar />}
                     />
-
                 </div>
 
             </div>

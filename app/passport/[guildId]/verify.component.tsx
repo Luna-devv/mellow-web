@@ -15,7 +15,7 @@ interface Props {
     guild: ApiV1GuildsGetResponse;
 }
 
-export default function VerifyComponent({ guild }: Props) {
+export function Verify({ guild }: Props) {
     const user = userStore((s) => s);
 
     const url = `/guilds/${guild.id}/passport-verification/captcha` as const;
