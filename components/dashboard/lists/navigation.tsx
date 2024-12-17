@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { HiArrowLeft, HiExternalLink } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
+import { Button } from "@/components/ui/button";
 
 interface Props {
     href: `/${string}`;
@@ -27,14 +27,15 @@ export function Navigation({
 
     return (
         <div className="flex items-start justify-between gap-2 relative bottom-2 mb-5 md:mb-3">
-            <div className="flex flex-col md:flex-row gap-2">
+            <div className="flex flex-col md:flex-row gap-3">
                 <Button
-                    as={Link}
-                    href={`/dashboard/${guildId}${href}`}
-                    startContent={<HiArrowLeft />}
+                    asChild
                     size="sm"
                 >
-                    Back to channels
+                    <Link href={`/dashboard/${guildId}${href}`}>
+                        <HiArrowLeft />
+                        Back to channels
+                    </Link>
                 </Button>
 
                 <div className="flex items-center gap-1.5">
@@ -55,13 +56,13 @@ export function Navigation({
             </div>
 
             <Button
-                as={Link}
-                href={`/docs${docs}`}
-                target="_blank"
-                endContent={<HiExternalLink />}
+                asChild
                 size="sm"
             >
-                Read docs & view placeholders
+                <Link href={`/docs${docs}`}>
+                    Read the docs & view placeholders
+                    <HiExternalLink />
+                </Link>
             </Button>
         </div>
     );
