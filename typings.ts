@@ -395,7 +395,9 @@ export enum NotificationType {
 
 export enum NotificationFlags {
     SendReposts = 1 << 0,
-    SendReplies = 1 << 1
+    SendReplies = 1 << 1,
+    SendQuotes = 1 << 2,
+    MustContainImage = 1 << 3
 }
 
 export interface ApiV1GuildsModulesNotificationsGetResponse {
