@@ -43,7 +43,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
             title,
             description,
             url,
-            type: "website",
+            type: "profile",
             images: {
                 url: getCanonicalUrl("leaderboard", guildId, `open-graph.png?ca=${cacheQuery}`),
                 width: 1200,
@@ -60,18 +60,18 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
                 alt: title
             }
         },
-        robots: name ? "index, follow" : "noindex"
+        robots: guild && "id" in guild ? "index, follow" : "noindex"
     };
 };
 
 export default async function RootLayout({ params, children }: Props) {
     const { guildId } = await params;
 
-    const guildPromise = getGuild(guildId);
-    const designPromise = getDesign(guildId);
-    const paginationPromise = getPagination(guildId);
-
-    const [guild, design, pagination] = await Promise.all([guildPromise, designPromise, paginationPromise]).catch(() => []);
+    const [guild, design, pagination] = await Promise.all([
+        getGuild(guildId),
+        getDesign(guildId),
+        getPagination(guildId)
+    ]);
 
     const guildExists = guild && "id" in guild;
 
