@@ -153,6 +153,10 @@ export const generateMetadata = (): Metadata => {
             images: `${getBaseUrl()}/waya-v3.webp?v=3`
         },
 
+        other: {
+            google: "notranslate"
+        },
+
         creator: "Luna (lunish.nl)",
         publisher: "Luna (lunish.nl)",
 
