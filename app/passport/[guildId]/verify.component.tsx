@@ -1,21 +1,24 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiExclamation, HiFingerPrint, HiLockClosed } from "react-icons/hi";
+import { TailSpin } from "react-loading-icons";
 
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { ApiV1GuildsGetResponse } from "@/typings";
 import { State, useCaptcha } from "@/utils/captcha";
 import { cn } from "@/utils/cn";
 
 interface Props {
     guild: ApiV1GuildsGetResponse;
+    isLoggedIn: boolean;
 }
 
-export function Verify({ guild }: Props) {
+export function Verify({ guild, isLoggedIn }: Props) {
     const user = userStore((s) => s);
 
     const url = `/guilds/${guild.id}/passport-verification/captcha` as const;
@@ -24,68 +27,78 @@ export function Verify({ guild }: Props) {
     return (
         <div className="flex flex-col gap-3 w-full mt-4">
 
-            <div className="flex items-center gap-1.5 dark:bg-wamellow-alpha bg-wamellow-100-alpha w-fit py-1 pl-2 pr-3 rounded-full">
-                <ImageReduceMotion url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`} size={20} alt="your avatar" className="rounded-full h-5 w-5" />
-                <span className="text-sm">@{user?.username}</span>
-            </div>
+            <Badge className="relative top-[3px] ml-0.5 w-fit h-6">
+                <ImageReduceMotion
+                    className="rounded-full size-5 relative right-1 -ml-[5px]"
+                    alt="your avatar"
+                    url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
+                    size={24}
+                />
+                {user?.username}
+            </Badge>
 
             {error &&
-                <div className="flex items-center gap-1 text-red-400 text-sm">
-                    <HiExclamation className="h-5 w-5 relative top-[1px]" />
+                <div className="gap-1 text-red-400 text-sm">
+                    <HiExclamation className="inline size-4 mr-1" />
                     {error}
                 </div>
             }
 
-            {
-                (user && !user.id) || error?.includes("email") ?
-                    <Button
-                        as={Link}
-                        className="button-blurple font-medium w-full"
+            {isLoggedIn ?
+                <Button
+                    asChild
+                    variant="blurple"
+                >
+                    <Link
                         href="/login"
                         prefetch={false}
-                        startContent={<BsDiscord />}
                     >
-                        Login to Verify
-                    </Button>
-                    :
-                    <Button
-                        ref={button}
-                        color={error ? "danger" : state === State.Success ? "success" : "secondary"}
-                        className={cn(error && "cursor-not-allowed", state === State.Success && "cursor-not-allowed", "font-medium w-full")}
-                        isDisabled={!!error || state === State.Success}
-                        isLoading={state === State.Loading}
-                        startContent={
-                            state === State.Loading
-                                ? <></>
-                                : <HiFingerPrint />
-                        }
-                    >
-                        {
-                            state === State.Success
-                                ? "Verification successful"
-                                : "Complete verification"
-                        }
-                    </Button>
+                        <BsDiscord />
+                        Login to verify
+                    </Link>
+                </Button>
+                :
+                <Button
+                    ref={button}
+                    variant={state === State.Success ? "success" : "secondary"}
+                    className={cn(error && "cursor-not-allowed", state === State.Success && "cursor-not-allowed", "font-medium w-full")}
+                    disabled={!!error || state === State.Success}
+                >
+                    {state === State.Loading
+                        ? <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />
+                        : <HiFingerPrint />
+                    }
+                    {state === State.Success
+                        ? "Verification successful"
+                        : "Complete verification"
+                    }
+                </Button>
             }
 
             <div className="flex w-full gap-2">
                 <Button
-                    as={Link}
-                    href="/support"
-                    target="_blank"
+                    asChild
                     className="w-1/2"
-                    startContent={<BsDiscord />}
                 >
-                    Support
+                    <Link
+                        href="/support"
+                        target="_blank"
+                    >
+                        <BsDiscord />
+                        Support
+                    </Link>
                 </Button>
                 <Button
-                    as={Link}
-                    href="/privacy"
-                    target="_blank"
+                    asChild
                     className="w-1/2"
-                    startContent={<HiLockClosed />}
                 >
-                    Privacy
+                    <Link
+                        href="/privacy"
+                        target="_blank"
+                    >
+                        <HiLockClosed />
+                        Privacy
+                    </Link>
                 </Button>
             </div>
 
