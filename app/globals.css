@@ -25,6 +25,7 @@
         --border: 260 3% 16%;
         --input: 258 89% 66%;
         --ring: 258 89% 66%;
+
         --chart-1: 220 70% 50%;
         --chart-2: 160 60% 45%;
         --chart-3: 30 80% 55%;
@@ -40,8 +41,7 @@
 }
 
 html {
-    min-height: 100vh;
-    min-height: 100svh;
+    min-height: 100svh!important;
     scroll-behavior: smooth;
     background: var(--background-rgb) !important;
 }

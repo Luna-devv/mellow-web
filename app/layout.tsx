@@ -175,7 +175,7 @@ export default function RootLayout({
                 suppressHydrationWarning
                 data-theme="dark"
                 lang="en"
-                className="dark flex justify-center min-h-screen max-w-screen overflow-x-hidden"
+                className="dark flex justify-center max-w-screen overflow-x-hidden"
             >
                 <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.outbound-links.js" />
 

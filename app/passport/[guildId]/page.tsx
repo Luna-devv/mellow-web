@@ -66,8 +66,6 @@ export default async function Home({ params }: Props) {
 
     const guildExists = guild && "id" in guild;
 
-    return (
-        <div className="w-full">
 
             {typeof passport === "object" && "message" in passport &&
                 <Notice type={NoticeType.Error} message={passport.message} />
@@ -77,6 +75,7 @@ export default async function Home({ params }: Props) {
                 <Notice
                     type={NoticeType.Info}
                     message="This is a demo server to test out passport verification."
+    return (<>
                 >
                     <ClientButton
                         as={Link}
@@ -180,5 +179,5 @@ export default async function Home({ params }: Props) {
             </div>
 
         </div>
-    );
+    </>);
 }
