@@ -2,7 +2,7 @@ import "./globals.css";
 
 import { Divider } from "@nextui-org/react";
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Outfit } from "next/font/google";
+import { Lexend, Noto_Sans_JP, Outfit } from "next/font/google";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,8 +19,10 @@ import { getBaseUrl } from "@/utils/urls";
 
 import { Provider } from "./provider";
 
-const outfit = Outfit({ subsets: ["latin"] });
-const montserrat = Montserrat({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin", "latin-ext"], variable: "--font-outfit" });
+const notosansJP = Noto_Sans_JP({ subsets: ["cyrillic", "vietnamese"], variable: "--font-noto-sans-jp" });
+
+const lexend = Lexend({ subsets: ["latin"] });
 
 // TODO: get automatically from top.gg
 const reviews = {
@@ -187,7 +189,7 @@ export default function RootLayout({
                 </Script>
 
                 <body
-                    className={cn("w-full max-w-7xl overflow-x-hidden xl:!overflow-visible", outfit.className)}
+                    className={cn("w-full max-w-7xl overflow-x-hidden xl:!overflow-visible", outfit.variable, notosansJP.variable)}
                     style={{ overflow: "visible" }}
                 >
                     <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
@@ -224,10 +226,10 @@ async function NavBar() {
         <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
             <Link
                 aria-label="Go to Wamellow's homepage"
-                className={cn("font-semibold flex items-center mr-2", montserrat.className)}
+                className={cn("font-semibold flex items-center gap-2 mr-2", lexend.className)}
                 href="/"
             >
-                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
+                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full w-8 h-8 shrink-0" />
                 <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
             </Link>
 

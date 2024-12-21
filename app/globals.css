@@ -5,6 +5,9 @@
 @layer base {
   .dark {
         --background-rgb: rgb(3, 2, 6);
+        --font-outfit: 'Outfit', sans-serif;
+        --font-noto-sans-jp: 'Noto Sans JP', sans-serif;
+
         --wamellow-rgb: rgba(255, 255, 255, 0.16);
 
         --foreground: 210 20% 98%;
@@ -41,6 +44,8 @@
 }
 
 html {
+    font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
+
     min-height: 100svh!important;
     scroll-behavior: smooth;
     background: var(--background-rgb) !important;
