@@ -192,7 +192,8 @@ export default function RootLayout({
                     className={cn("w-full max-w-7xl overflow-x-hidden xl:!overflow-visible", outfit.variable, notosansJP.variable)}
                     style={{ overflow: "visible" }}
                 >
-                    <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-10" />
+                    <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-50" />
+                    <Noise />
 
                     <NoScript />
                     <NavBar />
@@ -204,6 +205,37 @@ export default function RootLayout({
                 </body>
             </html>
         </CookiesProvider>
+    );
+}
+
+function Noise() {
+    return (
+        <svg
+            className="absolute top-0 left-0 w-screen h-full -z-40 blur-[1px] saturate-0"
+            viewBox='0 0 142 158'
+            xmlns='http://www.w3.org/2000/svg'
+        >
+            <filter id='noiseFilter'>
+                <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="9"
+                    numOctaves="1"
+                    stitchTiles="stitch"
+                    result="turbulence"
+
+                />
+                <feComponentTransfer>
+                    <feFuncR type="table" tableValues="-1 0.2" />
+                    <feFuncG type="table" tableValues="-1 0.2" />
+                    <feFuncB type="table" tableValues="-1 0.2" />
+                </feComponentTransfer>
+            </filter>
+
+            <rect
+                className="w-screen h-screen"
+                filter='url(#noiseFilter)'
+            />
+        </svg>
     );
 }
 
