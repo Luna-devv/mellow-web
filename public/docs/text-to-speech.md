@@ -36,10 +36,6 @@ Wamellow will announce which user is currently talking through it. If a user say
 
 ### 🛒 Message queue
 Queue up sent messages, messages are spoked in the same order as they were written.
-<br />
-<br />
-
-**Note:** This feature is experimental.
 
 ### 🔏 Max message length
 Set a maximum length for messages to avoid spamming.
