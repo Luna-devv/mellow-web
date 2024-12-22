@@ -95,10 +95,17 @@ If an override is set, it will use the selected region, if available.
 To prevent Wamellow from speaking your messages inside of Chat to Speech channels, simply take the following actions:
 - Just add some special characters at the start of your message, like `!`, `?`, `>`, `.`, `,` and so on.
 - If you're not connected to any voice channels, those messages will also be ignored.
-- If you want to disable permanently, you can use `/tts set chat-to-speech`.
+- If you want to disable it permanently, you can use `/tts set chat-to-speech`.
+<br />
+<br />
+
+**Note:** Any of those methods only apply to you and your own messages, and not to anyone else using Chat to Speech.
+If you want to disable it for everyone, read the [setup section of these docs](#setup).
 
 ## Voice filters
-Filters are a way to tamper with the voices for voice chat moderators. They can be toggled using `/tts set filter` when using Wamellow in VCs.
+Filters are a way to tamper with the voices when using Wamellow in VCs, they can be toggled using `/tts set filter` by VC moderators.
+This setting applies to anyone currently using Wamellow in the VC, all filters will be removed once Wamellow leaves.
+Multiple filters can be enabled and used at the same time.
 <br />
 <br />
 
@@ -112,7 +119,7 @@ All currently available filters:
 <br />
 <br />
 
-To change the volume of the tts or mute it entirely,
+To change the volume of the TTS or mute it entirely for yourself,
 - (desktop) Right-click Wamellow, and set the "User Volume" slider.
 - (mobile) Open Wamellows' profile, and set the "Volume" slider.
 
