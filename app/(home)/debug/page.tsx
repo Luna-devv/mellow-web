@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
-import Link from "next/link";
 import { HiTrash } from "react-icons/hi";
 
 import Box from "@/components/box";
-import { ClientButton } from "@/components/client";
 import { Shiggy } from "@/components/shiggy";
+import { Button } from "@/components/ui/button";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 import Panel from "./panel.component";
 
 export const generateMetadata = (): Metadata => {
     const title = "Shiggy";
-    const description = "";
+    const description = "Uhhhh debug page???";
     const url = getCanonicalUrl("debug");
 
     return {
         title,
         description,
+
         alternates: {
             canonical: url
         },
+
         openGraph: {
             title,
             description,
@@ -31,6 +32,7 @@ export const generateMetadata = (): Metadata => {
                 type: "image/gif"
             }
         },
+
         twitter: {
             card: "summary",
             title,
@@ -39,7 +41,9 @@ export const generateMetadata = (): Metadata => {
                 url: `${getBaseUrl()}/shiggy.gif`,
                 alt: title
             }
-        }
+        },
+
+        robots: "noindex, follow"
     };
 };
 
@@ -101,31 +105,19 @@ export default async function Home() {
                     items={(await cookies()).getAll()}
                     action={(cookie) => (
                         <form action={deleteCookie}>
-                            <ClientButton
-                                type="submit"
-                                isIconOnly
-                            >
+                            <Button type="submit">
                                 <HiTrash className="text-red-400" />
-                            </ClientButton>
+                            </Button>
                             <input className="hidden" type="text" name="name" defaultValue={cookie.name} readOnly />
                         </form>
                     )}
                 >
                     <div className="mt-4 flex gap-2 items-center">
                         <form action={deleteCookie}>
-                            <ClientButton
-                                type="submit"
-                            >
+                            <Button type="submit">
                                 Delete all cookies
-                            </ClientButton>
+                            </Button>
                         </form>
-                        <ClientButton
-                            as={Link}
-                            href="/logout"
-                            prefetch={false}
-                        >
-                            Logout
-                        </ClientButton>
                     </div>
                 </Panel>
 
