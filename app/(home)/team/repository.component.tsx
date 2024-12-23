@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HiBeaker, HiExternalLink, HiStar } from "react-icons/hi";
 
-import { ClientChip } from "@/components/client";
+import { Badge } from "@/components/ui/badge";
 import { getRepository } from "@/lib/github";
 import { cn } from "@/utils/cn";
 
@@ -28,20 +28,20 @@ export async function Repository({
                     <span className="text-lg text-neutral-200 font-medium -mb-0.5">
                         {repo.full_name}
                     </span>
-                    <ClientChip
-                        startContent={<HiStar className="mx-0.5 size-4" />}
+                    <Badge
                         variant="flat"
-                        color="secondary"
-                        size="sm"
+                        radius="rounded"
                     >
+                        <HiStar />
                         {repo.stargazers_count}
-                    </ClientChip>
-                    <ClientChip
-                        startContent={<HiBeaker className="mx-1 size-3" />}
-                        size="sm"
+                    </Badge>
+                    <Badge
+                        variant="flat"
+                        radius="rounded"
                     >
+                        <HiBeaker />
                         {repo.language}
-                    </ClientChip>
+                    </Badge>
                 </div>
                 <span className="opacity-75">{repo.description}</span>
             </div>

@@ -8,7 +8,7 @@ import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, 
 
 import { Avatar } from "@/components/avatar";
 import Box from "@/components/box";
-import { ClientAvatarGroup, ClientChip } from "@/components/client";
+import { ClientAvatarGroup } from "@/components/client";
 import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import DiscordChannel from "@/components/discord/channel";
@@ -18,6 +18,7 @@ import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { defaultFetchOptions } from "@/lib/api";
@@ -217,15 +218,14 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2 flex flex-col items-start">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% free forever</span>
-                            </ClientChip>
+                                <HiCash />
+                                100% free forever
+                            </Badge>
 
                             <h3 className={styles.h3}>40 Voices in 8 Languages</h3>
 
@@ -309,16 +309,17 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">Free styling, 30 Channels</span>
-                            </ClientChip>
+                                <HiCash />
+                                Free styling — 30 channels
+                            </Badge>
+
                             <h3 className={styles.h3}>YouTube, Twitch & Bluesky</h3>
+
                             <div className="pt-6">
                                 Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
 
@@ -387,30 +388,30 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% no money loss</span>
-                            </ClientChip>
+                                <HiCash />
+                                No premium required
+                            </Badge>
+
                             <h3 className={styles.h3}>Free /image command</h3>
+
                             <div className="pt-6">
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
                                 Customize the rating, quality, aesthetics, image width and height, upscaled, generation steps and the CFG scale all for free.
                             </div>
                             <div className="p-4 pb-3 border border-divider rounded-lg my-8">
-                                <ClientChip
+                                <Badge
                                     className="mb-2"
-                                    color="secondary"
                                     variant="flat"
-                                    size="sm"
-                                    startContent={<HiFire className="mx-1" />}
+                                    radius="rounded"
                                 >
-                                    <span className="font-semibold">NSFW Supported</span>
-                                </ClientChip>
+                                    <HiFire />
+                                    Supports NSFW
+                                </Badge>
                                 <div className="text-base">
                                     Generate spicy images and more in nsfw marked channels.
                                 </div>
@@ -451,31 +452,31 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% sexy forever</span>
-                            </ClientChip>
+                                <HiCash />
+                                100% sexy for free
+                            </Badge>
+
                             <h3 className={styles.h3}>/anime command</h3>
+
                             <div className="pt-6">
                                 Unleash the magic of anime right within your Discord server with Wamellow{"'"}s 25+ categories.
                                 Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
                                 Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
                             </div>
                             <div className="p-4 pb-3 border border-divider rounded-lg my-8">
-                                <ClientChip
+                                <Badge
                                     className="mb-2"
-                                    color="secondary"
                                     variant="flat"
-                                    size="sm"
-                                    startContent={<HiFire className="mx-1" />}
+                                    radius="rounded"
                                 >
-                                    <span className="font-semibold">NSFW Supported</span>
-                                </ClientChip>
+                                    <HiFire />
+                                    Supports NSFW
+                                </Badge>
                                 <div className="text-base">
                                     Find spicy nekos, waifus, and more in nsfw marked channels.
                                 </div>
@@ -506,18 +507,19 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% free forever</span>
-                            </ClientChip>
+                                <HiCash />
+                                Free custom backgrounds
+                            </Badge>
+
                             <h3 className={styles.h3}>/leaderboard & /rank</h3>
+
                             <div className="pt-6">
-                                Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
+                                Enhance your server{"’"}s engagement with text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
                                 By motivating your members to communicate, you{"’"}ll cultivate a more active server community.
                             </div>
                             <div className="flex gap-2 mt-6">
@@ -554,16 +556,17 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">My lawyer said that title below</span>
-                            </ClientChip>
+                                <HiCash />
+                                My lawyer said that title below
+                            </Badge>
+
                             <h3 className={styles.h3}>POGBOARD DEEZ NUTS</h3>
+
                             <div className="pt-6">
                                 With Starboards, you have the power to highlight remarkable messages in your server.
                                 When you come across a message that is either funny or hilarious, simply react with a star, and if enough people star the message, it will be posted to the set starboard channel.
@@ -613,19 +616,19 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">w/ free image card backgrounds</span>
-                            </ClientChip>
+                                <HiCash />
+                                w/ free image card backgrounds
+                            </Badge>
+
                             <h3 className={styles.h3}>Greetings</h3>
+
                             <div className="pt-6">
-                                Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
-                                Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
+                                Give a warm welcome to new members, introducing them to rules, and topics with a fully customized message.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
@@ -662,16 +665,17 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">Of course it{"'"}s free</span>
-                            </ClientChip>
+                                <HiCash />
+                                Free and Secure
+                            </Badge>
+
                             <h3 className={styles.h3}>Captcha verification</h3>
+
                             <div className="pt-6">
                                 Protect your server from unwanted attacks, such as bot-raids, with our captcha verification system.
                                 Ensure that only human members can access your channels, safeguarding your server from raider attacks and ensuring a safe and secure environment for all your members.
@@ -718,16 +722,17 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">30 tags free</span>
-                            </ClientChip>
+                                <HiCash />
+                                30 tags free
+                            </Badge>
+
                             <h3 className={styles.h3}>Wamellow tags</h3>
+
                             <div className="pt-6">
                                 Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
                                 Empower your server with quick access to custom commands.

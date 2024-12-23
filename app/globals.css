@@ -11,23 +11,35 @@
         --wamellow-200: #ffffff33;
 
         --foreground: 210 20% 98%;
+
         --card: 224 71.4% 4.1%;
         --card-foreground: 210 20% 98%;
+
         --popover: 260 3% 4.1%;
         --popover-foreground: 210 20% 98%;
+
         --primary: 0 0% 100%;
         --primary-foreground: 220.9 39.3% 89%;
+
         --secondary: 258 89% 66%;
         --secondary-foreground: 210 20% 98%;
+
+        --flat: var(--secondary);
+        --flat-foreground: 258 89% 86%;
+
         --muted: 260 3% 16%;
         --muted-foreground: 217.9 10.6% 64.9%;
+
         --accent: 258 89% 66%;
         --accent-foreground: 210 20% 98%;
+
         --destructive: 0 62.8% 30.6%;
         --destructive-foreground: 210 20% 98%;
+
         --border: 260 3% 16%;
         --input: 258 89% 66%;
         --ring: 258 89% 66%;
+
         --chart-1: 220 70% 50%;
         --chart-2: 160 60% 45%;
         --chart-3: 30 80% 55%;

@@ -1,20 +1,12 @@
 "use client";
 
-import { AvatarGroup, Badge, Button, Chip, CircularProgress, Image, Skeleton } from "@nextui-org/react";
+import { AvatarGroup, Badge, Button, CircularProgress, Image, Skeleton } from "@nextui-org/react";
 
 export function ClientButton(props: React.ComponentProps<typeof Button>) {
     return (
         <Button {...props}>
             {props.children}
         </Button>
-    );
-}
-
-export function ClientChip(props: React.ComponentProps<typeof Chip>) {
-    return (
-        <Chip {...props}>
-            {props.children}
-        </Chip>
     );
 }
 

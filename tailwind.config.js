@@ -43,6 +43,10 @@ const config = {
     				DEFAULT: 'hsl(var(--secondary))',
     				foreground: 'hsl(var(--secondary-foreground))'
     			},
+                flat: {
+                    DEFAULT: 'hsl(var(--flat))',
+                    foreground: 'hsl(var(--flat-foreground))'
+                },
     			muted: {
     				DEFAULT: 'hsl(var(--muted))',
     				foreground: 'hsl(var(--muted-foreground))'
