@@ -8,10 +8,9 @@ Wamellow's farewell feature provides an exceptional platform to say goodbye to m
 1. Install Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
 2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard?t=greeting/farewell).
 3. Select your server from the dashboard.
-4. Navigate to the **Greetings** menu.
-5. Within the **Greetings** menu, locate and click on the **Leave message** option.
-6. Enable the Bye module by clicking the enable button.
-7. Set a channel to send farewell messages into.
+4. Navigate to the **Greetings** tab and then go to **Farewell**.
+5. Enable the Farewell module by clicking the enable button.
+6. Set a channel to send farewell messages into.
 
 ### ✏️ Custom message & embed
 You can create a leaving message with a **fully customizable message and embed for free**, making it easy to say goodbye to departing members.
