@@ -1,4 +1,3 @@
-import { Button, Chip } from "@nextui-org/react";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
@@ -8,16 +7,36 @@ import { IoMdInfinite } from "react-icons/io";
 
 import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { defaultFetchOptions } from "@/lib/api";
 import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
-const maybe = null;
 const montserrat = Montserrat({ subsets: ["latin"] });
+const maybe = null;
+
+const items = [
+    { title: "Price", free: "$0 /month", pro: "$3.99 /month" },
+    { title: "Custom commands", free: 30, pro: Infinity },
+    { title: "Social notifications", free: 30, pro: Infinity },
+    { title: "Dailyposts", free: 30, pro: Infinity },
+    // { title: "Stickymessages", free: 10, pro: 50 },
+    // { title: "Custom footers", free: false, pro: true },
+    { title: "Welcome roles", free: 5, pro: 10 },
+    { title: "Welcome pings", free: 5, pro: 15 },
+    // { title: "Level roles", free: 15, pro: 25 },
+    { title: "Spotify control", free: maybe, pro: true, url: "/profile/spotify" },
+    { title: "Custom /rank sub-text", free: false, pro: true },
+    // { title: "Display user as webhook", free: false, pro: true },
+    { title: "Passport bypass", free: false, pro: true },
+    // { title: "Custom page color", free: false, pro: true },
+    // { title: "Statistics & Analytics", free: false, pro: true },
+    { title: "Crosspost social notifications", free: false, pro: true }
+];
 
 export const revalidate = 3600;
-
-const fetchOptions = { headers: { Authorization: process.env.API_SECRET as string }, next: { revalidate: 60 * 60 } };
 
 export const generateMetadata = (): Metadata => {
 
@@ -49,39 +68,7 @@ export const generateMetadata = (): Metadata => {
 };
 
 export default async function Home() {
-    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, fetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
-
-    const buttons = (<>
-        <Button
-            as={Link}
-            className="w-1/2 font-medium"
-            href="/login?invite=true"
-            prefetch={false}
-            startContent={<HiUserAdd />}
-        >
-            Get started
-        </Button>
-        <Button
-            as={Link}
-            color="secondary"
-            className="w-1/2 font-medium"
-            href="https://lunish.nl/kofi"
-            startContent={<HiLightningBolt />}
-        >
-            Subscribe
-        </Button>
-    </>);
-
-    const displayState = (is: string | number | boolean | null) => {
-        if (typeof is === "boolean" || is === null) {
-            if (is === true) return <HiOutlineCheck className="dark:text-violet-400 text-violet-600 w-6 h-6" />;
-            if (is === false) return <HiX className="dark:text-red-400 text-red-600 w-6 h-6" />;
-            if (is === null) return <BsQuestionLg className="text-orange-400 dark:text-orange-600 w-6 h-6" title="To be discussed" />;
-        }
-
-        if (is === Infinity) return <IoMdInfinite className="w-7 h-7" title="Infinite" />;
-        return is;
-    };
+    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
 
     return (
         <div className="flex items-center flex-col w-full">
@@ -93,14 +80,14 @@ export default async function Home() {
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep hidden md:block">Professional</span>
                 </h1>
                 <HiLightningBolt className="text-pink-400 rotate-6" />
-                <Chip
-                    className="ml-auto"
-                    color="secondary"
-                    variant="flat"
+                <Badge
+                    className="ml-auto mt-1.5"
                     size="lg"
+                    variant="flat"
+                    radius="rounded"
                 >
-                    <span className="font-semibold">Not available</span>
-                </Chip>
+                    Not available
+                </Badge>
             </div>
 
             {topGuilds &&
@@ -126,24 +113,7 @@ export default async function Home() {
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4 hidden md:block">Pro+ ULTRA HD</span>
                 </div>
 
-                {[
-                    { title: "Price", free: "$0 /month", pro: "$3.99 /month" },
-                    { title: "Custom commands", free: 30, pro: Infinity },
-                    { title: "Social notifications", free: 30, pro: Infinity },
-                    { title: "Dailyposts", free: 30, pro: Infinity },
-                    // { title: "Stickymessages", free: 10, pro: 50 },
-                    // { title: "Custom footers", free: false, pro: true },
-                    { title: "Welcome roles", free: 5, pro: 10 },
-                    { title: "Welcome pings", free: 5, pro: 15 },
-                    // { title: "Level roles", free: 15, pro: 25 },
-                    { title: "Spotify control", free: maybe, pro: true, url: "/profile/spotify" },
-                    { title: "Custom /rank sub-text", free: false, pro: true },
-                    // { title: "Display user as webhook", free: false, pro: true },
-                    { title: "Passport bypass", free: false, pro: true },
-                    // { title: "Custom page color", free: false, pro: true },
-                    // { title: "Statistics & Analytics", free: false, pro: true },
-                    { title: "Crosspost social notifications", free: false, pro: true }
-                ].map((item) => (
+                {items.map((item) => (
                     <div key={item.title} className="flex items-center py-4">
                         <span className="md:text-base text-sm font-medium w-2/4 md:pr-0 pr-4">{item.title}</span>
                         <span className="dark:text-neutral-200 text-neutral-700 font-medium w-1/4">
@@ -159,7 +129,7 @@ export default async function Home() {
                 <div className="flex items-center pt-4">
                     <div className="w-1/2" />
                     <div className="hidden md:flex w-1/2 gap-4">
-                        {buttons}
+                        <Subscribe />
                     </div>
                 </div>
 
@@ -187,12 +157,12 @@ export default async function Home() {
 
                     <div className="flex gap-2 items-center">
                         <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your guilds further!</span>
-                        <Chip
-                            color="secondary"
+                        <Badge
                             variant="flat"
+                            radius="rounded"
                         >
-                            <span className="font-semibold">Not available</span>
-                        </Chip>
+                            Not available
+                        </Badge>
                     </div>
 
                     <button className="flex dark:text-violet-400 text-violet-600 bg-violet-600/30 hover:bg-violet-600/10 py-2 px-4 rounded-md duration-200 justify-center gap-2 w-full opacity-30 cursor-not-allowed" disabled>
@@ -205,4 +175,45 @@ export default async function Home() {
 
         </div>
     );
+}
+
+function displayState(is: string | number | boolean | null) {
+    if (typeof is === "boolean" || is === null) {
+        if (is === true) return <HiOutlineCheck className="dark:text-violet-400 text-violet-600 w-6 h-6" />;
+        if (is === false) return <HiX className="dark:text-red-400 text-red-600 w-6 h-6" />;
+        if (is === null) return <BsQuestionLg className="text-orange-400 dark:text-orange-600 w-6 h-6" title="To be discussed" />;
+    }
+
+    if (is === Infinity) return <IoMdInfinite className="w-7 h-7" title="Infinite" />;
+    return is;
+}
+
+function Subscribe() {
+    return (<>
+        <Button asChild>
+            <Link
+                className="w-1/2"
+                prefetch={false}
+                href="/invite"
+                target="_blank"
+            >
+                <HiUserAdd />
+                Invite Wamellow
+            </Link>
+        </Button>
+        <Button
+            asChild
+            variant="secondary"
+        >
+            <Link
+                className="w-1/2"
+                prefetch={false}
+                href="https://ko-fi.com/mwlica"
+                target="_blank"
+            >
+                <HiLightningBolt />
+                Subscribe
+            </Link>
+        </Button>
+    </>);
 }
