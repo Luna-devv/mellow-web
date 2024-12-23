@@ -1,7 +1,5 @@
-import { Chip } from "@nextui-org/react";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { FaCrown } from "react-icons/fa";
 
 import type { ApiNode } from "./api";
 
@@ -20,17 +18,6 @@ export function Node({ index, node }: { index: number; node: ApiNode; }) {
                 <span className="text-neutral-300">
                     #{index}
                 </span>
-
-                {node.id.endsWith("-lun-1") &&
-                    <Chip
-                        className="ml-auto hidden sm:flex"
-                        startContent={<FaCrown className="ml-1" />}
-                        color="warning"
-                        variant="flat"
-                    >
-                        master
-                    </Chip>
-                }
             </div>
 
             <div>
