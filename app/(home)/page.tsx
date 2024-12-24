@@ -203,7 +203,7 @@ export default async function Home() {
                 </div>
             </div>
 
-            <div className="animate-scroll rounded-lg rotate-180 md:rounded-3xl md:rotate-0">
+            <div className="animate-scroll rounded-medium rotate-180 md:rounded-3xl md:rotate-0">
                 <div className="animate-scroll-wheel" />
             </div>
 
