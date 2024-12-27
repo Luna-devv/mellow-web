@@ -1,18 +1,16 @@
 "use client";
 
-import { Accordion, AccordionItem, Button, Chip, Tooltip } from "@nextui-org/react";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import Link from "next/link";
 import { useCookies } from "next-client-cookies";
-import { FaReddit, FaTwitter } from "react-icons/fa";
-import { HiCheck, HiHand, HiShare, HiUserGroup } from "react-icons/hi";
+import { HiHand, HiUserGroup } from "react-icons/hi";
 
 import Ad from "@/components/ad";
-import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { formatDate } from "@/components/time";
+import { Badge } from "@/components/ui/badge";
 import type { AnalyticsError, AnalyticsResponse } from "@/lib/analytics";
 import type { ApiError, ApiV1GuildsGetResponse, ApiV1UploadGetResponse } from "@/typings";
-import { truncate } from "@/utils/truncate";
 import { getCanonicalUrl } from "@/utils/urls";
 
 export default function Side({
@@ -26,42 +24,8 @@ export default function Side({
 }) {
     const cookies = useCookies();
 
-    const prompt = "prompt" in upload
-        ? truncate(upload.prompt.split(" ").map((str) => str.replace(/^\w/, (char) => char.toUpperCase())).join(" "), 32)
-        : null;
-
     return (
         <div className="flex flex-col gap-3">
-
-            {"id" in upload &&
-                <div className="flex gap-2 w-full">
-                    <CopyToClipboardButton
-                        className="w-full !justify-start"
-                        title="Share image"
-                        text={getCanonicalUrl("ai-gallery", upload.id as string)}
-                        icon={<HiShare />}
-                    />
-                    <Tooltip content="Share on Reddit" delay={0} closeDelay={0} showArrow>
-                        <Button
-                            as={Link}
-                            href={`https://reddit.com/submit?title=${encodeURIComponent(`${prompt} - /image using ${upload.model} with wamellow.com`)}&text=${`Hey! I created this AI /image with the ${upload.model} model and the prompt: "${encodeURIComponent(upload.prompt)}"${encodeURIComponent("\n")}what are your thoughts on it? ${encodeURIComponent("\n\n")}${getCanonicalUrl("ai-gallery", upload.id as string)}`}`}
-                            target="_blank"
-                            isIconOnly
-                        >
-                            <FaReddit />
-                        </Button>
-                    </Tooltip>
-                    <Tooltip content="Share on Twitter/X" delay={0} closeDelay={0} showArrow>
-                        <Button
-                            as={Link}
-                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Created an #ai /image with the ${upload.model} AI model on on wamellow.com with the prompt: ${prompt}`)}&url=${encodeURIComponent(getCanonicalUrl("ai-gallery", upload.id as string))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
-                            target="_blank"
-                            isIconOnly
-                        >
-                            <FaTwitter />
-                        </Button>
-                    </Tooltip>
-                </div>
             }
 
             <Ad
@@ -85,25 +49,19 @@ export default function Side({
 
                     <div className="flex items-center justify-between">
                         <span>Created</span>
-                        <Chip
-                            className="select-none"
-                            radius="sm"
-                        >
+                        <Badge>
                             {"createdAt" in upload ?
                                 formatDate(upload.createdAt as string, "en-US")
                                 :
                                 "unknown"
                             }
-                        </Chip>
+                        </Badge>
                     </div>
 
                     {analytics && "results" in analytics &&
                         <div className="flex items-center justify-between">
-                            <span>Views</span>
-                            <Chip
-                                className="select-none"
-                                radius="sm"
-                            >
+                            Views
+                            <Badge>
                                 {Array.isArray(analytics.results) && analytics.results.length ?
                                     (analytics.results[0].pageviews)
                                     :
@@ -111,58 +69,49 @@ export default function Side({
                                 }
                                 {" "}
                                 views
-                            </Chip>
+                            </Badge>
                         </div>
                     }
 
                     {"author" in upload &&
                         <div className="flex items-center justify-between">
-                            <span>Author</span>
-                            <Chip
-                                className="flex select-none"
-                                startContent={
-                                    <ImageReduceMotion
-                                        className="rounded-full"
-                                        alt="uploader's avatar"
-                                        url={"https://cdn.discordapp.com/avatars/" + upload.authorId + "/" + upload.author.avatar}
-                                        size={16}
-                                    />
-                                }
-                            >
+                            Author
+                            <Badge className="flex">
+                                <ImageReduceMotion
+                                    className="rounded-full relative right-1"
+                                    alt="uploader's avatar"
+                                    url={"https://cdn.discordapp.com/avatars/" + upload.authorId + "/" + upload.author.avatar}
+                                    size={16}
+                                />
+
                                 {upload.author.username}
 
                                 {upload.author.bot &&
-                                    <Chip
-                                        className="ml-2 h-4.5"
-                                        startContent={<HiCheck />}
+                                    <Badge
+                                        className="relative left-1"
                                         color="secondary"
                                         variant="flat"
-                                        size="sm"
+                                        size="xs"
                                     >
-                                        <span className="font-semibold">APP</span>
-                                    </Chip>
+                                        BOT
+                                    </Badge>
                                 }
-                            </Chip>
+                            </Badge>
                         </div>
                     }
 
                     <div className="flex items-center justify-between">
-                        <span>Rating</span>
-                        <Chip
+                        Rating
+                        <Badge
                             className="font-bold select-none"
-                            color={"nsfw" in upload && upload.nsfw ? "danger" : "default"}
-                            radius="sm"
-                            startContent={
-                                <span className="mx-1">
-                                    {"nsfw" in upload && upload.nsfw
-                                        ? <HiHand />
-                                        : <HiUserGroup />
-                                    }
-                                </span>
-                            }
+                            variant={"nsfw" in upload && upload.nsfw ? "destructive" : "default"}
                         >
+                            {"nsfw" in upload && upload.nsfw
+                                ? <HiHand />
+                                : <HiUserGroup />
+                            }
                             {"nsfw" in upload && upload.nsfw ? "Mature" : "Everyone"}
-                        </Chip>
+                        </Badge>
                     </div>
 
                 </AccordionItem>
@@ -203,7 +152,7 @@ export default function Side({
                     />
 
                     <div>
-                        <div className="text-lg text-neutral-200 font-semibold">{guild.name}</div>
+                        <div className="text-lg text-neutral-200 font-semibold truncate">{guild.name}</div>
                         <div className="text-sm font-medium">View leaderboard</div>
                     </div>
                 </Link>
@@ -213,8 +162,7 @@ export default function Side({
                 The image has been generated by artificial intelligence (AI) and not by a human creator. Wamellow and its developers disclaim any responsibility for the content of the images and reserve all rights to the media.
             </div>
 
-
-        </div >
+        </div>
     );
 
 }

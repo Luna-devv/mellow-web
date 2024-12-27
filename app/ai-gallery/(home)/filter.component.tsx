@@ -1,13 +1,13 @@
 "use client";
 
-import { Badge, Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
 
 import Switch from "@/components/inputs/switch";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-export default function SearchFilter(
+export function SearchFilter(
     {
         searchParams
     }: {
@@ -19,7 +19,6 @@ export default function SearchFilter(
     }
 ) {
     const router = useRouter();
-    const cookies = useCookies();
 
     const [isEmbedded, setEmbedded] = useState(false);
 
@@ -31,58 +30,33 @@ export default function SearchFilter(
 
     return (
         <Popover
-            offset={6}
-            placement="bottom"
         >
-
-            <Badge
-                color="secondary"
-                content="enable 18+"
-                placement="top-left"
-                isInvisible={cookies.get("dismissed-ai-nsfw") === "true"}
-            >
-                <PopoverTrigger>
-                    <Button
-                        onClick={() =>
-                            cookies.set(
-                                "dismissed-ai-nsfw",
-                                "true",
-                                {
-                                    expires: 28,
-                                    sameSite: "Strict"
-                                }
-                            )
-                        }
-                    >
-                        Search filter
-                    </Button>
-                </PopoverTrigger>
-            </Badge>
+            <PopoverTrigger asChild>
+                <Button>
+                    Search Filter
+                </Button>
+            </PopoverTrigger>
 
             <PopoverContent
-                className="w-[240px] backdrop-blur-xl backdrop-brightness-50 bg-black/80"
+                className="space-y-2"
+                align="end"
             >
-                {(titleProps) => (
-                    <div className="px-1 pt-2 w-full">
-                        <p className="text-small font-bold text-foreground" {...titleProps}>
-                            Search options
-                        </p>
-                        <div className="mt-2 flex flex-col gap-2 w-full">
-                            <Switch
-                                name="Show 18+"
-                                defaultState={searchParams.nsfw === "true"}
-                                onSave={(checked) => {
-                                    const params = new URLSearchParams(searchParams);
-                                    params.delete("nsfw");
+                <h4 className="font-medium leading-none">Search Options</h4>
+                <div className="flex flex-col gap-2 w-full">
+                    <Switch
+                        className="-mb-5"
+                        name="Show 18+"
+                        defaultState={searchParams.nsfw === "true"}
+                        onSave={(checked) => {
+                            const params = new URLSearchParams(searchParams);
+                            params.delete("nsfw");
 
-                                    if (!checked) params.append("nsfw", "true");
+                            if (!checked) params.append("nsfw", "true");
 
-                                    router.replace(`?${params.toString()}`);
-                                }}
-                            />
-                        </div>
-                    </div>
-                )}
+                            router.replace(`?${params.toString()}`);
+                        }}
+                    />
+                </div>
             </PopoverContent>
 
         </Popover>

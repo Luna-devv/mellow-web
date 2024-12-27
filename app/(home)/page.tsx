@@ -130,7 +130,7 @@ export default async function Home() {
                             Go to Dashboard <HiArrowNarrowRight />
                         </Link>
 
-                        <div className="flex gap-2 lg:mt-0">
+                        <div className="flex gap-2">
                             <Button
                                 asChild
                                 className="w-1/2 lg:w-fit text-lg font-medium"
