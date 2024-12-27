@@ -1,18 +1,17 @@
 "use client";
 
-import { Accordion, AccordionItem, Button, Code, Tooltip } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button, Code } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { useState } from "react";
 import { BsDiscord } from "react-icons/bs";
-import { FaReddit, FaTwitter } from "react-icons/fa";
-import { HiAnnotation, HiLink, HiShare, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
+import { HiAnnotation, HiLink, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
 
 import Ad from "@/components/ad";
-import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
+import { Share } from "@/components/share";
 import type { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -33,34 +32,11 @@ export default function Side({
         <div className="flex flex-col gap-3">
 
             {guild && "id" in guild &&
-                <div className="flex gap-2 w-full">
-                    <CopyToClipboardButton
-                        className="w-full !justify-start"
-                        title="Share link"
-                        text={getCanonicalUrl("leaderboard", guild.id as string)}
-                        icon={<HiShare />}
-                    />
-                    <Tooltip content="Share on Reddit" delay={0} closeDelay={0} showArrow>
-                        <Button
-                            as={Link}
-                            href={`https://reddit.com/submit?title=${encodeURIComponent(`${guild.name} discord leaderboard | wamellow.com`)}&text=${`Check out the leaderboard for ${guild.name} on wamellow.com! Join ${guild.inviteUrl || "the server"} and be the top member :)${encodeURIComponent("\n\n")}${getCanonicalUrl("leaderboard", guild.id as string)}`}`}
-                            target="_blank"
-                            isIconOnly
-                        >
-                            <FaReddit />
-                        </Button>
-                    </Tooltip>
-                    <Tooltip content="Share on Twitter/X" delay={0} closeDelay={0} showArrow>
-                        <Button
-                            as={Link}
-                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out the leaderboard for ${guild.name} on wamellow.com! Join ${guild.inviteUrl ? (guild.inviteUrl?.split("//")[1] + " ") : ""}and be the top member :)\n`)}&url=${encodeURIComponent(getCanonicalUrl("leaderboard", guild.id))}&hashtags=${encodeURIComponent("wamellow,discord")}`}
-                            target="_blank"
-                            isIconOnly
-                        >
-                            <FaTwitter />
-                        </Button>
-                    </Tooltip>
-                </div>
+                <Share
+                    title="Share leaderboard"
+                    url={getCanonicalUrl("leaderboard", guild.id)}
+                    text={`Check out the leaderboard for ${guild.name} on #wamellow! ${guild.inviteUrl ? `Join ${guild.inviteUrl.split("://")[1]} and get to be the top #discord member :p` : ""}`}
+                />
             }
 
             {guild && "inviteUrl" in guild && guild.inviteUrl &&

@@ -7,6 +7,7 @@ import { HiHand, HiUserGroup } from "react-icons/hi";
 
 import Ad from "@/components/ad";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { Share } from "@/components/share";
 import { formatDate } from "@/components/time";
 import { Badge } from "@/components/ui/badge";
 import type { AnalyticsError, AnalyticsResponse } from "@/lib/analytics";
@@ -26,6 +27,12 @@ export default function Side({
 
     return (
         <div className="flex flex-col gap-3">
+            {"prompt" in upload &&
+                <Share
+                    title="Share image"
+                    url={getCanonicalUrl("ai-gallery", upload.id)}
+                    text={`${upload.author.username} created an #ai image with the #wamellow bot for #discord using ${upload.model}!`}
+                />
             }
 
             <Ad
