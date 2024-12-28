@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HTMLProps } from "react";
-import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoTiktok, BiLogoYoutube } from "react-icons/bi";
+import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoReddit, BiLogoTiktok, BiLogoYoutube } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
 import { FaBluesky } from "react-icons/fa6";
 import { HiBookOpen, HiCloud, HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
@@ -84,25 +84,28 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
 function Socials() {
     return (
         <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
-            <Link href="https://tiktok.com/@wamellow.com" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow on TikTok">
+            <Link href="https://tiktok.com/@wamellow.com" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow on TikTok">
                 <BiLogoTiktok />
             </Link>
-            <Link href="https://youtube.com/@wamellow" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow on YouTube">
+            <Link href="https://youtube.com/@wamellow" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow on YouTube">
                 <BiLogoYoutube />
             </Link>
-            <Link href="https://bsky.app/profile/lunish.nl" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow on Twitter (X.com)">
+            <Link href="https://bsky.app/profile/lunish.nl" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow on Twitter (X.com)">
                 <FaBluesky className="p-0.5" />
             </Link>
-            <Link href="https://github.com/Luna-devv" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Wamellow's developers on GitHub">
+            <Link href="https://github.com/Luna-devv" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow's developers on GitHub">
                 <BiLogoGithub />
             </Link>
-            <Link href="mailto:support@wamellow.com" className="text-white/75 hover:text-white duration-200 h-6 w-6" aria-label="Contact Wamellow via email">
+            <Link href="https://reddit.com/r/wamellow" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow on Reddit">
+                <BiLogoReddit />
+            </Link>
+            <Link href="mailto:support@wamellow.com" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Contact Wamellow via email">
                 <BiLogoGmail />
             </Link>
             <Link href="https://ko-fi.com/mwlica" className="text-white/75 hover:text-white duration-200 h-[22px] w-[22px]" aria-label="Support Wamellow's developers monetarily on Kofi">
                 <SiKofi />
             </Link>
-            <Link href="/vote" className="text-[#ff3366] duration-200 h-6 w-6" aria-label="Wamellow on top.gg">
+            <Link href="/vote" className="text-[#ff3366] duration-200 size-6" aria-label="Vote for Wamellow on top.gg">
                 <TopggIcon />
             </Link>
         </div>
