@@ -15,6 +15,7 @@ import { ItemSelector } from "@/components/dashboard/lists/selector";
 import MessageCreatorEmbed from "@/components/embed-creator";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
+import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationFlags, NotificationType } from "@/typings";
@@ -187,8 +188,9 @@ export default function Home() {
                 onSave={(o) => editItem("roleId", o.value as string)}
                 showClear
             />
-            {item.type === NotificationType.Bluesky && (
-                <MultiSelectMenu
+
+            {item.type === NotificationType.Bluesky
+                ? <MultiSelectMenu
                     className="md:w-1/2 w-full"
                     name="Filter"
                     url={url + "/" + item.id}
@@ -201,7 +203,15 @@ export default function Home() {
                         editItem("flags", flags.reduce((a, b) => a | b, 0));
                     }}
                 />
-            )}
+                : <TextInput
+                    className="md:w-1/2 w-full"
+                    name="Regex filter"
+                    url={url + "/" + item.id}
+                    dataName="regex"
+                    description="Uploads that match the provided regex will be ignored."
+                    defaultState={item.regex || ""}
+                />
+            }
         </div>
 
         <MessageCreatorEmbed

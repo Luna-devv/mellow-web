@@ -408,6 +408,8 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
 
     type: NotificationType;
     flags: number;
+    regex: string | null;
+
     creatorId: string;
 
     message: {
