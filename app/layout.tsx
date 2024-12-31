@@ -11,8 +11,8 @@ import { CookiesProvider } from "next-client-cookies/server";
 import { HiBookOpen } from "react-icons/hi";
 import { SiKofi } from "react-icons/si";
 
-import Header from "@/components/header";
-import LoginButton from "@/components/login-button";
+import { Header } from "@/components/header";
+import { LoginButton } from "@/components/login-button";
 import Notice, { NoticeType } from "@/components/notice";
 import { cn } from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
@@ -217,10 +217,10 @@ async function NavBar() {
     const jar = await cookies();
 
     return (
-        <nav className="p-4 flex items-center gap-2 text-base font-medium dark:text-neutral-300 text-neutral-700 select-none h-20">
+        <nav className="p-4 flex items-center gap-2 text-base font-medium text-neutral-300 select-none h-20 relative">
             <Link
                 aria-label="Go to Wamellow's homepage"
-                className={cn("font-semibold flex items-center mr-2", montserrat.className)}
+                className={cn("font-semibold flex items-center mr-2 shrink-0", montserrat.className)}
                 href="/"
             >
                 <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full mr-2 w-8 h-8 shrink-0" />
@@ -232,7 +232,7 @@ async function NavBar() {
                 orientation="vertical"
             />
 
-            <div className="flex">
+            <div className="flex shrink-0">
                 <Link
                     href="https://ko-fi.com/mwlica"
                     className="hover:bg-wamellow-100 py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
@@ -250,8 +250,8 @@ async function NavBar() {
             </div>
 
             {jar.get("session")?.value
-                ? <Header className="ml-auto" />
-                : <LoginButton />
+                ? <Header />
+                : <LoginButton className="ml-auto" />
             }
         </nav>
     );

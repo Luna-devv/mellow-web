@@ -33,7 +33,7 @@
         --accent: 258 89% 66%;
         --accent-foreground: 210 20% 98%;
 
-        --destructive: 0 62.8% 30.6%;
+        --destructive: 0 62.8% 40.6;
         --destructive-foreground: 210 20% 98%;
 
         --border: 260 3% 16%;
@@ -49,8 +49,11 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
+    * {
+        @apply border-border;
+    }
+    svg {
+        @apply shrink-0;
     }
 }
 

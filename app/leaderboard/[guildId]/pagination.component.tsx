@@ -4,7 +4,7 @@ import { Pagination as UiPagination } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 
-import LoginButton from "@/components/login-button";
+import { LoginButton } from "@/components/login-button";
 
 interface Props {
     searchParams: {
@@ -19,10 +19,7 @@ export default function Pagination({ searchParams, pages }: Props) {
     const router = useRouter();
 
     if (!cookies.get("session")) return (
-        <LoginButton
-            addClassName="justify-center"
-            message="Login to view more"
-        />
+        <LoginButton message="Login to view more"/>
     );
 
     return (
