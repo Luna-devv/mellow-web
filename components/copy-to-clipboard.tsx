@@ -30,7 +30,7 @@ export function CopyToClipboardButton({
 
     return (
         <Button
-            className="w-full !justify-start"
+            className="w-full !justify-start truncate"
             variant={saved
                 ? "secondary"
                 : undefined
