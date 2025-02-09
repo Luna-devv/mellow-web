@@ -25,10 +25,10 @@
         --secondary-foreground: 210 20% 98%;
 
         --flat: var(--secondary);
-        --flat-foreground: 258 89% 86%;
+        --flat-foreground: 270 59% 85%;
 
         --muted: 260 3% 16%;
-        --muted-foreground: 217.9 10.6% 64.9%;
+        --muted-foreground: 217 10% 65%;
 
         --accent: 258 89% 66%;
         --accent-foreground: 210 20% 98%;
@@ -55,13 +55,15 @@
     svg {
         @apply shrink-0;
     }
-}
-
-html {
-    min-height: 100vh;
-    min-height: 100svh;
-    scroll-behavior: smooth;
-    background: var(--background-rgb) !important;
+    button {
+        @apply cursor-pointer
+    }
+    html {
+        font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
+        scroll-behavior: smooth;
+        min-height: 100svh;
+        background: var(--background-rgb);
+    }
 }
 
 div[id="bg"] {

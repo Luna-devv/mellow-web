@@ -4,7 +4,7 @@ import React from "react";
 
 import { cn } from "@/utils/cn";
 
-import { Avatar } from "../avatar";
+import { UserAvatar } from "../ui/avatar";
 import DiscordAppBadge from "./app-badge";
 
 interface Props {
@@ -31,17 +31,6 @@ export default function DiscordMessage({
     user,
     mode
 }: Props) {
-
-    function formatTime(date: Date) {
-        const timeString = date.toLocaleString("en-US", {
-            hour: "numeric",
-            minute: "numeric",
-            timeZone: "Europe/Vienna"
-        });
-
-        return `Today at ${timeString}`;
-    }
-
     return (
         <div className={cn("group relative rounded-lg px-1 w-full", mode === "DARK" ? "text-neutral-100" : "text-neutral-900")}>
 
@@ -54,10 +43,10 @@ export default function DiscordMessage({
                         }
                     />
                     <div className="mx-0.5 flex items-center gap-1 font-semibold whitespace-nowrap overflow-hidden text-ellipsis shrink-0">
-                        <Avatar
-                            className="h-4 w-4"
-                            radius="full"
+                        <UserAvatar
+                            className="size-4"
                             src={commandUsed.avatar}
+                            username={commandUsed.username}
                         />
                         <span className={mode === "DARK" ? "text-violet-400" : "text-violet-600"}>
                             {commandUsed.username}
@@ -74,10 +63,10 @@ export default function DiscordMessage({
 
             <div className="flex flex-row items-start pointer-events-none [&>*]:pointer-events-auto">
                 <div className="flex justify-start items-center w-[52px] shrink-0">
-                    <Avatar
-                        className="h-10 w-10 hover:cursor-pointer mt-1"
-                        radius="full"
+                    <UserAvatar
+                        className="size-10 hover:cursor-pointer mt-1"
                         src={user.avatar}
+                        username={user.username}
                     />
                 </div>
 
@@ -106,4 +95,14 @@ export default function DiscordMessage({
 
         </div>
     );
+}
+
+function formatTime(date: Date) {
+    const timeString = date.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        timeZone: "Europe/Vienna"
+    });
+
+    return `Today at ${timeString}`;
 }

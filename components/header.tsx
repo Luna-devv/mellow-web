@@ -115,8 +115,8 @@ export function Header() {
     const UserButton = useCallback(() => (
         <button
             className={cn(
-                "ml-auto truncate flex hover:bg-wamellow-100 py-2 px-4 rounded-lg duration-200 items-center",
-                menu && "dark:bg-wamellow bg-wamellow-100"
+                "ml-auto truncate flex hover:bg-wamellow py-2 px-4 rounded-lg duration-200 items-center",
+                menu && "bg-wamellow"
             )}
             onClick={() => setMenu(!menu)}
         >
