@@ -15,7 +15,7 @@ export default function DiscordMessageFile({
     mode
 }: Props) {
     return (
-        <div className={`w-full ${mode === "DARK" ? "text-neutral-200" : "text-neutral-800"} font-light p-3 rounded mt-2`} style={{ backgroundColor: mode === "DARK" ? "rgb(40, 42, 46)" : "rgb(242, 243, 245)" }}>
+        <div className={`w-full ${mode === "DARK" ? "text-neutral-200" : "text-neutral-800"} font-light p-3 rounded-sm mt-2`} style={{ backgroundColor: mode === "DARK" ? "rgb(40, 42, 46)" : "rgb(242, 243, 245)" }}>
 
             <div className="flex gap-2 w-full max-w-full items-center">
                 <svg width={24 * 1.2} height={40 * 1.2}>

@@ -15,8 +15,8 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 export default function Home() {
 
     const styles = {
-        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-violet-300 font-bold underline decoration-violet-400"),
-        h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
+        h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-linear-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-violet-300 font-bold underline decoration-violet-400"),
+        h3: cn(montserrat.className, "lg:text-2xl text-xl bg-linear-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
     };
 
     const messageProps = (command: string) => {

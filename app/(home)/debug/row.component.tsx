@@ -16,7 +16,7 @@ export default function Row({
 
                 <div className={cn(
                     "break-all",
-                    name === "session" && "blur hover:blur-0 transition duration-50"
+                    name === "session" && "blur-sm hover:blur-0 transition duration-50"
                 )}>
                     {value}
                 </div>

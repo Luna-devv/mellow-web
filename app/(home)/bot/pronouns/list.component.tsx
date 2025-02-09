@@ -13,7 +13,7 @@ export default function List({ res, type }: Props) {
     return (
         <div>
             <div className="w-full flex items-center justify-between mb-2">
-                <span className="text-3xl font-semibold bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep">{type}</span>
+                <span className="text-3xl font-semibold bg-linear-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep">{type}</span>
                 <span>{res.content.length} avaliable</span>
             </div>
 

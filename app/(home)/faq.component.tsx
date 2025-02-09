@@ -165,7 +165,7 @@ export function Faq({
                 {data.map((item, index) => (
                     <AccordionItem
                         aria-label={item.title}
-                        className="!bg-wamellow"
+                        className="bg-wamellow!"
                         classNames={{ content: "mb-2 space-y-4" }}
                         key={index}
                         startContent={item.startContent}

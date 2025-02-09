@@ -43,7 +43,7 @@ export default function FollowUpdates() {
 
         <Modal
             title="Wamellow updates"
-            className="!overflow-visible"
+            className="overflow-visible!"
             isOpen={open && !!guild}
             onClose={() => setOpen(false)}
             onSubmit={() => {

@@ -167,7 +167,7 @@ export default function Modal<T>({
                     animate={isOpen ? "open" : "closed"}
                     exit="closed"
                     variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
-                    className="fixed top-0 left-0 h-screen w-full inset-0 backdrop-brightness-[25%] backdrop-blur flex items-center justify-center z-50 cursor-default"
+                    className="fixed top-0 left-0 h-screen w-full inset-0 backdrop-brightness-[25%] backdrop-blur-sm flex items-center justify-center z-50 cursor-default"
                     style={{ maxHeight: "100dvh" }}
                 >
                     <motion.div

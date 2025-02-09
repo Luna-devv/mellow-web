@@ -35,7 +35,7 @@ export function Side({
     return (
         <div className="flex flex-col gap-5">
             <Accordion
-                variant="shadow"
+                variant="shadow-sm"
                 className="bg-wamellow"
                 selectionMode="multiple"
                 defaultExpandedKeys={["1"]}

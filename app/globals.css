@@ -1,6 +1,56 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-wamellow: rgba(255, 255, 255, 0.05);
+  --color-wamellow-light: rgb(30, 32, 34);
+  --color-wamellow-alpha: rgba(255, 255, 255, 0.06);
+  --color-wamellow-100: #e2e8f0;
+  --color-wamellow-100-light: #ced3da;
+  --color-wamellow-100-alpha: rgba(0, 0, 0, 0.06);
+  --color-wamellow-900-alpha: rgba(0, 0, 0, 0.54);
+  --color-blurple: #5865f2;
+  --color-blurple-dark: #454fbf;
+  --color-discord-gray: #1c1d23;
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --width-128: 32rem;
+  --width-160: 40rem;
+
+  --text-xxs: 0.6rem;
+}
 
 @layer base {
   .dark {
@@ -58,10 +108,9 @@
 }
 
 html {
-    min-height: 100vh;
-    min-height: 100svh;
+    font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
     scroll-behavior: smooth;
-    background: var(--background-rgb) !important;
+    background: var(--background-rgb);
 }
 
 div[id="bg"] {
@@ -201,34 +250,12 @@ div[id="bg"] {
     100% {
         margin-right: 10px
     }
-
-}
-
-button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
-a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
-    @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .text-sm button.subpixel-antialiased,
 .text-sm a[role="button"] {
     font-size: 0.875rem;
     line-height: 1.25rem;
-}
-
-.button {
-    @apply flex text-white bg-wamellow-100 hover:bg-wamellow-200 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
-}
-
-.button-primary {
-    @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
-}
-
-.button-blurple {
-    @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 duration-200 justify-center gap-2 items-center font-medium text-medium
-}
-
-.button-underline {
-    @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min text-medium
 }
 
 .before\:border-t::before {

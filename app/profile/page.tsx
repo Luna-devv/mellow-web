@@ -192,7 +192,7 @@ function InviteButton({ guildId }: { guildId: string; }) {
     return (
         <Button
             as={Link}
-            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
+            className="default dark:bg-neutral-500/40 dark:hover:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
             href={`/login?invite=true&guild_id=${guildId}`}
             prefetch={false}
             startContent={<HiUserAdd />}
@@ -208,7 +208,7 @@ function ManageButton({ guildId }: { guildId: string; }) {
     return (
         <Button
             as={Link}
-            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
+            className="default dark:bg-neutral-500/40 dark:hover:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
             href={`/dashboard/${guildId}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
             startContent={<HiViewGridAdd />}
         >
@@ -221,7 +221,7 @@ function LeaderboardButton({ guildId }: { guildId: string; }) {
     return (
         <Button
             as={Link}
-            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 md:opacity-0 group-hover/card:opacity-100"
+            className="default dark:bg-neutral-500/40 dark:hover:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 md:opacity-0 group-hover/card:opacity-100"
             href={`/leaderboard/${guildId}`}
             startContent={<HiChartBar />}
         >

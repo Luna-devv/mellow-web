@@ -82,7 +82,7 @@ export default async function RootLayout({ params, children }: Props) {
                 <ClientImageWall
                     alt=""
                     className="w-full object-cover"
-                    classNames={{ img: "!h-36 md:!h-64", blurredImg: "!h-40 md:!h-72 -top-5" }}
+                    classNames={{ img: "h-36! md:h-64!", blurredImg: "h-40! md:h-72! -top-5" }}
                     isBlurred
                     src={design && "bannerUrl" in design && design.bannerUrl ? design.bannerUrl : paintPic.src}
                     width={3840 / 2}

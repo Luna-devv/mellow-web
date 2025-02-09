@@ -76,8 +76,8 @@ export default async function Home() {
             <div className="md:text-5xl text-4xl font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 flex gap-2 items-center w-full">
                 <h1 className={cn("flex gap-4", montserrat.className)}>
                     <span className="hidden md:block">Wamellow</span>
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep block md:hidden">Pro</span>
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep hidden md:block">Professional</span>
+                    <span className="bg-linear-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep block md:hidden">Pro</span>
+                    <span className="bg-linear-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep hidden md:block">Professional</span>
                 </h1>
                 <HiLightningBolt className="text-pink-400 rotate-6" />
                 <Badge
@@ -107,10 +107,10 @@ export default async function Home() {
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 block md:hidden">Features</span>
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 hidden md:block">Pricing and Features</span>
 
-                    <span className="bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent w-1/4 ">Free</span>
+                    <span className="bg-linear-to-r from-red-400 to-pink-400 bg-clip-text text-transparent w-1/4 ">Free</span>
 
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4 block md:hidden">Pro</span>
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4 hidden md:block">Pro+ ULTRA HD</span>
+                    <span className="bg-linear-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4 block md:hidden">Pro</span>
+                    <span className="bg-linear-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4 hidden md:block">Pro+ ULTRA HD</span>
                 </div>
 
                 {items.map((item) => (

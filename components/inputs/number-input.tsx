@@ -169,7 +169,7 @@ export default function NumberInput({
                             else setValue((value ?? 0) - 1);
                         }}
                         className={cn(
-                            "dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-l-xl duration-100",
+                            "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-l-xl duration-100",
                             (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-pointer"
                         )}
                         disabled={state === State.Loading || disabled}
@@ -179,7 +179,7 @@ export default function NumberInput({
 
                     <input
                         className={cn(
-                            "outline-none text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-lg flex items-center text-neutral-500 rounded-none",
+                            "outline-hidden text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-lg flex items-center text-neutral-500 rounded-none",
                             (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-text"
                         )}
                         onChange={(e) => {
@@ -198,7 +198,7 @@ export default function NumberInput({
                             else setValue((value ?? 0) + 1);
                         }}
                         className={cn(
-                            "dark:bg-wamellow bg-wamellow-100 hover:dark:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-r-xl duration-100",
+                            "dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light h-full w-12 rounded-r-xl duration-100",
                             (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-pointer"
                         )}
                         disabled={state === State.Loading || disabled}
