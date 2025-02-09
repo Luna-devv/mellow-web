@@ -235,14 +235,14 @@ async function NavBar() {
             <div className="flex shrink-0">
                 <Link
                     href="https://ko-fi.com/mwlica"
-                    className="hover:bg-wamellow-100 py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
+                    className="hover:bg-wamellow py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
                 >
                     <SiKofi className="group-hover:text-[#ff6c6b] duration-200 mt-0.5" />
                     Donate
                 </Link>
                 <Link
                     href="/docs/index"
-                    className="hover:bg-wamellow-100 py-1 px-3 rounded-md duration-200 flex items-center gap-2 group"
+                    className="hover:bg-wamellow py-1 px-3 rounded-md duration-200 flex items-center gap-2 group"
                 >
                     <HiBookOpen className="group-hover:text-neutral-300 duration-200 h-5 w-5 mt-0.5" />
                     Docs

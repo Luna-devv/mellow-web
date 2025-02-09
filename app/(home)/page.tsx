@@ -6,9 +6,7 @@ import { Suspense } from "react";
 import { BsYoutube } from "react-icons/bs";
 import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
-import { Avatar } from "@/components/avatar";
 import Box from "@/components/box";
-import { ClientAvatarGroup } from "@/components/client";
 import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import DiscordChannel from "@/components/discord/channel";
@@ -18,6 +16,7 @@ import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { AvatarGroup, UserAvatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -105,22 +104,18 @@ export default async function Home() {
                         Stay updated with dailyposts and receive social notifications!
                     </span>
 
-                    <ClientAvatarGroup
-                        className="mr-auto md:hidden"
-                        max={8}
-                        renderCount={renderCount}
-                    >
+                    <AvatarGroup className="mr-auto md:hidden">
                         {toFixedArrayLength(topGuilds || [], 8)
                             ?.map((guild) => (
-                                <Avatar
+                                <UserAvatar
                                     key={"mobileGuildGrid-" + guild.id}
-                                    src={guild.icon ? guild.icon + "?size=128" : "/discord.webp"}
                                     alt={guild.name}
-                                    title={guild.name}
+                                    className="-mr-2"
+                                    src={guild.icon ? guild.icon + "?size=128" : "/discord.webp"}
                                 />
                             ))
                         }
-                    </ClientAvatarGroup>
+                    </AvatarGroup>
 
                     <div className="space-y-4">
                         <Link
@@ -234,10 +229,7 @@ export default async function Home() {
                                 Great for people with aphonia, dysphonia, or other speech impairments.
                             </div>
 
-                            <ClientAvatarGroup
-                                className="mt-4"
-                                max={8}
-                            >
+                            <AvatarGroup className="mt-4">
                                 {["us", "de", "es", "fr", "jp", "kr", "br", "id"].map((lang) => {
                                     const name = Object
                                         .entries(actor)
@@ -245,17 +237,15 @@ export default async function Home() {
                                         ?.[1][0] || lang;
 
                                     return (
-                                        <Avatar
-                                            size="sm"
+                                        <UserAvatar
                                             key={"ttsLang-" + lang}
-                                            src={`/icons/${lang}.webp`}
                                             alt={name}
-                                            title={name}
+                                            className="-mr-2 size-8"
+                                            src={`/icons/${lang}.webp`}
                                         />
                                     );
                                 })}
-                                <span className="sr-only">Change Text-to-Speech language and voice</span>
-                            </ClientAvatarGroup>
+                            </AvatarGroup>
 
                             <div className="flex gap-2 mt-5">
                                 <Invite />

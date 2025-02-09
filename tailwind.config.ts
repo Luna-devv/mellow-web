@@ -6,7 +6,7 @@ const wamellow = "rgba(255, 255, 255, 0.05)";
 const violet = "rgb(139 92 246)";
 
 export default {
-    darkMode: "class",
+    darkMode: ["class", "class"],
     content: [
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
