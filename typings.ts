@@ -391,6 +391,7 @@ export enum NotificationType {
     YouTube = 0,
     Twitch = 1,
     Bluesky = 2,
+    Reddit = 3
 }
 
 export enum NotificationFlags {
@@ -423,7 +424,7 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
         id: string;
         username: string;
         customUrl: string;
-        avatarUrl: string;
+        avatarUrl: string | null;
     };
 }
 

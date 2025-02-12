@@ -98,13 +98,18 @@ export default function Home() {
                             size="sm"
                             placement="bottom-left"
                         >
-                            <Image
-                                alt={`${item.creator.username}'s avatar`}
-                                className="rounded-full"
-                                src={item.creator.avatarUrl}
-                                width={46}
-                                height={46}
-                            />
+                            {item.creator.avatarUrl
+                                ? <Image
+                                    alt={`${item.creator.username}'s avatar`}
+                                    className="rounded-full"
+                                    src={item.creator.avatarUrl}
+                                    width={46}
+                                    height={46}
+                                />
+                                : <div className="size-[46px] flex items-center justify-center bg-wamellow rounded-full select-none font-medium text-lg text-neutral-200">
+                                    {item.creator.username.slice(0, 2)}
+                                </div>
+                            }
                         </ClientBadge>
 
                         <div className="flex flex-col items-start">
@@ -138,14 +143,17 @@ export default function Home() {
             href="/notifications"
             docs="/notifications"
 
-            avatar={
-                <Image
-                    alt={`${item?.creator.username}'s avatar`}
-                    className="rounded-full size-5.5"
-                    src={item?.creator.avatarUrl || ""}
+            avatar={item.creator.avatarUrl
+                ? <Image
+                    alt={`${item.creator.username}'s avatar`}
+                    className="rounded-full"
+                    src={item.creator.avatarUrl}
                     width={24}
                     height={24}
                 />
+                : <div className="size-[24px] flex items-center justify-center bg-wamellow rounded-full select-none font-medium text-sm text-neutral-200">
+                    {item.creator.username.slice(0, 2)}
+                </div>
             }
             name={item.creator.username}
             icon={<Icon type={item.type} className="text-white size-3" />}
