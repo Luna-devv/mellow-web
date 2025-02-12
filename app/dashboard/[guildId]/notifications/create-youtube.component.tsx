@@ -98,7 +98,7 @@ export function YoutubeNotificationModal({
                 }}
             />
 
-            <div>
+            <div className="mt-4">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a channel&apos;s @handle or Id</span>
                 <Image
                     alt="How to get a Creator's @handle, id or URL"
