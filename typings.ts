@@ -178,13 +178,21 @@ export interface ApiV1GuildsModulesByeGetResponse {
     };
 }
 
+export enum StarboardStyle {
+    Username = 0,
+    GlobalName = 1,
+    Nickname = 2,
+    NicknameAndGuildAvatar = 3,
+    Anonymous = 4
+}
+
 export interface ApiV1GuildsModulesStarboardGetResponse {
     enabled: boolean;
     channelId?: string;
     emoji: string;
     requiredEmojis: number;
     embedColor: number;
-    style: number;
+    style: StarboardStyle;
 
     allowNSFW: boolean;
     allowBots: boolean;

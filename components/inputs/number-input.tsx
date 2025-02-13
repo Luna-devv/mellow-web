@@ -17,14 +17,16 @@ interface Props {
     className?: string;
 
     name: string;
-    url: string;
-    dataName: string;
+    url?: string;
+    dataName?: string;
     disabled?: boolean;
     description?: string;
     defaultState: number;
 
     min?: number;
     max?: number;
+
+    onSave?: (state: number) => void;
 }
 
 export default function NumberInput({
@@ -35,8 +37,11 @@ export default function NumberInput({
     disabled,
     description,
     defaultState,
+
     min = 0,
-    max = Infinity
+    max = Infinity,
+
+    onSave
 }: Props) {
     const web = webStore((w) => w);
 
@@ -47,7 +52,7 @@ export default function NumberInput({
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const [value, setValue] = useState<number>();
-    const [defaultStatealue, _setDefaultalue] = useState<number>();
+    const [def, setDef] = useState<number>();
 
     useEffect(() => {
         if (!hold) {
@@ -79,13 +84,29 @@ export default function NumberInput({
 
     useEffect(() => {
         setValue(defaultState);
-        _setDefaultalue(defaultState);
+        setDef(defaultState);
     }, [defaultState]);
 
     function handleSave() {
-        if (defaultStatealue === value) return;
+        if (def === value || !value) return;
         setError(undefined);
         setState(State.Loading);
+
+        if (!url) {
+            if (!onSave) {
+                setValue(def);
+                throw new Error("Warning: <Switch.onSave> must be defined when not using <Switch.url>.");
+            }
+
+            setState(State.Idle);
+            setDef(value);
+            return;
+        }
+
+        if (!dataName) {
+            setValue(def);
+            throw new Error("Warning: <Switch.dataName> must be defined when using <Switch.url>.");
+        }
 
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
@@ -105,8 +126,10 @@ export default function NumberInput({
 
                 switch (res.status) {
                     case 200: {
+                        onSave?.(value);
+                        setDef(value);
+
                         setState(State.Success);
-                        _setDefaultalue(value);
                         setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;
                     }
@@ -146,7 +169,7 @@ export default function NumberInput({
                         (state === State.Loading || disabled) && "opacity-50"
                     )}
                 >
-                    {defaultStatealue !== value &&
+                    {def !== value &&
                         <Button
                             onClick={handleSave}
                             className="mr-2"
