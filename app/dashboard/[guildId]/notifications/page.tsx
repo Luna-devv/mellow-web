@@ -213,10 +213,10 @@ export default function Home() {
                 />
                 : <TextInput
                     className="md:w-1/2 w-full"
-                    name="Regex filter"
+                    name="Ignore regex"
                     url={url + "/" + item.id}
                     dataName="regex"
-                    description="Uploads that match the provided regex will be ignored."
+                    description="Posts that match the provided regex will be ignored."
                     defaultState={item.regex || ""}
                 />
             }

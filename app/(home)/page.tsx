@@ -314,13 +314,13 @@ export default async function Home() {
                             >
                                 <span className="font-semibold">Free styling, 30 Channels</span>
                             </ClientChip>
-                            <h3 className={styles.h3}>YouTube, Twitch & Bluesky</h3>
+                            <h3 className={styles.h3}>YouTube, Twitch, Bluesky & Reddit</h3>
                             <div className="pt-6">
                                 Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
 
                                 <ol className="mt-4">
                                     {[
-                                        "Youtube, Twitch, and Bluesky (bsky.app)",
+                                        "Youtube, Twitch, Bluesky and Reddit",
                                         "Custom message & embed",
                                         "Up to 30 channels",
                                         "Insanely fast"
