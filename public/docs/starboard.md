@@ -51,6 +51,9 @@ Chose what should be displayed of the message author.
 - Guild Nickname & Per-Guild Avatar (`Luna`)
 - Anonymous (removes the username & avatar)
 
+### ⭐ Custom color
+Select any RGB color for the message embed.
+
 ### 🤚 Blacklist roles
 Specify roles that are restricted from starring other people's messages and prevent their own messages from appearing on the starboard.
 

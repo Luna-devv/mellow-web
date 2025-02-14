@@ -16,6 +16,7 @@ import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
+import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
@@ -208,7 +209,6 @@ export default function Home() {
                     onSave={(o) => edit("emoji", o.value as string)}
                 />
             </div>
-
             <div className="lg:w-1/2">
                 <SelectMenu
                     name="Profile display style"
@@ -269,6 +269,20 @@ export default function Home() {
                     max={500}
                     disabled={!data.enabled}
                     onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value as string))}
+                />
+            </div>
+        </div>
+
+        <div className="lg:flex gap-3">
+            <div className="w-1/2">
+                <TextInput
+                    name="Color"
+                    url={url}
+                    dataName="embedColor"
+                    description="Color used for the side of the embed."
+                    type="color"
+                    defaultState={data.embedColor ?? 0}
+                    onSave={(o) => edit("embedColor", o as number)}
                 />
             </div>
         </div>
