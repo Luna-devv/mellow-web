@@ -53,12 +53,13 @@ Allows you to select additional types or filter notifications for Bluesky:
 For all other services, you can take advantage of a regex to blacklist posts:
 - `^\[live\]` will not post anything starting with `[live]`.
 - `insult|badword` will not post anything that includes either `insult` or `badword`.
+- `^(?!support$).+$` will only post that are `support`. (useful for reddit flairs)
 <br />
 <br />
 
 You can use [regexr.com](https://regexr.com/) or [ChatGPT](https://chatgpt.com/) to create (JavaScript-like) regexs.
 You can use regex keywords to negate the condition, in order to create a whitelist filter.
-The flags used for string matching are `gi`, only the title is checked.
+The flags used for string matching are `gi`, only the titles and reddit flairs are checked.
 
 ### 🥳 Test notification
 Test notifications let you see how your message will look like when a video is uploaded or a streamer goes live, etc.
@@ -290,14 +291,24 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post id</td>
         </tr>
         <tr>
+            <td><code>post.title</code></td>
+            <td>Some funny title</td>
+            <td>Post title</td>
+        </tr>
+        <tr>
             <td><code>post.text</code></td>
             <td>A very, very long text</td>
             <td>Post body</td>
         </tr>
         <tr>
-            <td><code>post.thumbnail</code>*</td>
+            <td><code>post.thumbnail</code></td>
             <td>https://.../..</td>
             <td>Post thumbnail</td>
+        </tr>
+        <tr>
+            <td><code>post.flair</code></td>
+            <td>Support</td>
+            <td>Post flair</td>
         </tr>
         <tr>
             <td><code>post.posted.ago</code></td>
@@ -341,11 +352,6 @@ Placeholders allow you to use variables that change from message to message, for
         </tr>
     </tbody>
 </table>
-<br />
-
-*`post.thumbnail` is in testing and might change, note that it's content is optional and might be empty.
-
-<br />
 <br />
 
 <table>
