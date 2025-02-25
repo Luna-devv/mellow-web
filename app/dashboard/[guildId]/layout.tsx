@@ -189,8 +189,8 @@ export default function RootLayout({
                             icon: <HiPaperAirplane className="rotate-45" />
                         },
                         {
-                            name: "NSFW Moderation",
-                            value: "/nsfw-image-scanning",
+                            name: "Moderation",
+                            value: "/moderation",
                             icon: <HiEye />
                         },
                         {

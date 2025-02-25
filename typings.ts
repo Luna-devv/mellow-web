@@ -329,19 +329,13 @@ export interface ApiV1GuildsModulesTagsGetResponse {
     createdAt: Date;
 }
 
-export interface ApiV1GuildsModulesNsfwModerationGetResponse {
-    enabled: boolean;
-    logChannelId: string | null;
-    /**
-     * @example
-     * 0 - Nothing
-     * 1 - Ban
-     * 2 - Kick
-     * 3 - Delete message
-     */
-    punishment: 0 | 1 | 2 | 3;
-    threshold: number;
+export enum AutomodType {
+    BlockInvites = "invites",
+    BlockTwitter = "twitter"
+}
 
+export interface ApiV1GuildsModulesAutomodGetResponse {
+    status: Record<AutomodType, boolean>;
     whitelistChannelIds: string[];
     whitelistRoleIds: string[];
 }
