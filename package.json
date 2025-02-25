@@ -25,11 +25,11 @@
     "lucide-react": "^0.469.0",
     "next": "15.1.2",
     "next-client-cookies": "^2.0.1",
-    "postcss": "^8.5.2",
+    "postcss": "^8.5.3",
     "react": "19.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "19.0.0",
-    "react-icons": "^5.4.0",
+    "react-icons": "^5.5.0",
     "react-loading-icons": "^1.1.0",
     "react-markdown": "9.0.1",
     "react-query": "^3.39.3",
@@ -47,10 +47,10 @@
     "@next/eslint-plugin-next": "^15.1.7",
     "@octokit/types": "^13.8.0",
     "@stylistic/eslint-plugin": "^2.13.0",
-    "@types/node": "^22.13.2",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "eslint": "^9.20.1",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^9.21.0",
     "eslint-config-next": "^15.1.7",
     "eslint-plugin-path-alias": "^2.1.0",
     "eslint-plugin-react": "^7.37.4",
@@ -58,6 +58,6 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.1.4",
-    "typescript-eslint": "^8.24.0"
+    "typescript-eslint": "^8.25.0"
   }
 }
