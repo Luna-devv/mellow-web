@@ -25,9 +25,11 @@ You can create a nice welcome image by **customizing the background for free**.
 
 ![welcome image](/welcome.webp)
 
-Custom background image must be `1024x256px` (width, height) and type of `.png`.
+Custom background image must be `1024x256px` (width, height) and type of `.png`.<br />
+Please note that `cdn.discordapp.com` no longer works due to [attachment authentication](https://discord.com/channels/613425648685547541/697138785317814292/1157372186160537750), you can upload images to [postimg.cc](https://postimg.cc/) and copy the direct image url.
 <br />
 <br />
+
 **Example custom backgrounds:**
 - [images.wamellow.com/static/grass.jpg](https://images.wamellow.com/static/grass.jpg)
 - [images.wamellow.com/static/orange-grass.jpg](https://images.wamellow.com/static/grass.jpg)
