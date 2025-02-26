@@ -234,6 +234,11 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post type</td>
         </tr>
         <tr>
+            <td><code>post.text</code>*</td>
+            <td>“sorry I don’t listen to music, the songs aren’t FOSS”</td>
+            <td>Post text</td>
+        </tr>
+        <tr>
             <td><code>post.link</code></td>
             <td>https://bsky.app/profile/lunish.nl/post/3lck23sfi522v</td>
             <td>Post page</td>
