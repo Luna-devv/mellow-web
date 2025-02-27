@@ -75,30 +75,6 @@ export function useCaptcha(path: string, userId?: string) {
                 setState(State.Success);
             });
 
-            captcha.onFail(async () => {
-                setState(State.Loading);
-
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API + path}?captcha-failed=true`, {
-                    method: "POST",
-                    credentials: "include"
-                });
-
-                if (res.status === 409) {
-                    setState(State.Idle);
-                    return;
-                }
-
-                captcha.destroy();
-                setState(State.Idle);
-
-                const { message } = res
-                    ? await res.json()
-                    : { message: "Unknown server error" };
-
-                setError(message);
-                return;
-            });
-
             captcha.onError((err: string) => {
                 captcha.reset();
                 setState(State.Idle);
