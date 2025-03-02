@@ -222,6 +222,17 @@ export default function Home() {
             }
         </div>
 
+        {item.type !== NotificationType.Bluesky && (
+            <TextInput
+                className="w-full"
+                name="Ignore regex"
+                url={url + "/" + item.id}
+                dataName="regex"
+                description="Posts that match the provided regex will be ignored."
+                defaultState={item.regex || ""}
+            />
+        )}
+
         <MessageCreatorEmbed
             key={item.id}
             name="Message"
