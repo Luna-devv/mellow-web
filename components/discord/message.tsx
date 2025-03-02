@@ -44,6 +44,7 @@ export default function DiscordMessage({
                     />
                     <div className="mx-0.5 flex items-center gap-1 font-semibold whitespace-nowrap overflow-hidden text-ellipsis shrink-0">
                         <UserAvatar
+                            alt={`${commandUsed.username}'s avatar`}
                             className="size-4"
                             src={commandUsed.avatar}
                             username={commandUsed.username}
@@ -64,6 +65,7 @@ export default function DiscordMessage({
             <div className="flex flex-row items-start pointer-events-none [&>*]:pointer-events-auto">
                 <div className="flex justify-start items-center w-[52px] shrink-0">
                     <UserAvatar
+                        alt={`${user.username}'s avatar`}
                         className="size-10 hover:cursor-pointer mt-1"
                         src={user.avatar}
                         username={user.username}

@@ -19,6 +19,7 @@ export default function DiscordUser({
     return (
         <div className="flex items-center space-x-2">
             <UserAvatar
+                alt={`${username}'s avatar`}
                 className={cn("size-6 shrink-0", isTalking && "outline-1.5 outline-green-500")}
                 src={avatar}
                 username={username}
