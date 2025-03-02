@@ -1,8 +1,6 @@
-import React from "react";
-
 import { cn } from "@/utils/cn";
 
-import { Avatar } from "../avatar";
+import { UserAvatar } from "../ui/avatar";
 import DiscordAppBadge from "./app-badge";
 
 interface Props {
@@ -20,10 +18,11 @@ export default function DiscordUser({
 }: Props) {
     return (
         <div className="flex items-center space-x-2">
-            <Avatar
-                className={cn("h-6 w-6 shrink-0", isTalking && "outline-1.5 outline-green-500")}
-                radius="full"
+            <UserAvatar
+                alt={`${username}'s avatar`}
+                className={cn("size-6 shrink-0", isTalking && "outline-1.5 outline-green-500")}
                 src={avatar}
+                username={username}
             />
             <div className="font-medium whitespace-nowrap overflow-hidden text-ellipsis cursor-pointer" >
                 {username}

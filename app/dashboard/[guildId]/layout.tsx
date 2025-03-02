@@ -3,15 +3,14 @@
 import { Button, Skeleton } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect, useParams, usePathname } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { HiArrowNarrowLeft, HiBell, HiChartBar, HiCode, HiCursorClick, HiEye, HiHome, HiPaperAirplane, HiShare, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiBell, HiChartBar, HiCode, HiEye, HiHome, HiPaperAirplane, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import { ClientButton } from "@/components/client";
-import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { ScreenMessage, SupportButton } from "@/components/screen-message";
@@ -19,7 +18,6 @@ import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import type { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
-import { getCanonicalUrl } from "@/utils/urls";
 
 function useGuildData<T extends unknown[]>(
     url: string,
@@ -46,7 +44,6 @@ export default function RootLayout({
 }) {
     const cookies = useCookies();
     const params = useParams();
-    const path = usePathname();
 
     const [error, setError] = useState<string>();
     const [loaded, setLoaded] = useState<string[]>([]);
@@ -54,7 +51,6 @@ export default function RootLayout({
     const guild = guildStore((g) => g);
 
     const session = useMemo(() => cookies.get("session"), [cookies]);
-    const isDevMode = useMemo(() => cookies.get("devTools") === "true", [cookies]);
 
     if (!session) redirect(`/login?callback=/dashboard/${params.guildId}`);
 
@@ -108,26 +104,14 @@ export default function RootLayout({
             <title>{`${guild?.name}'s Dashboard`}</title>
 
             <div className="flex flex-col gap-5 mb-3">
-                <div className="flex gap-2">
-                    <Button
-                        as={Link}
-                        className="w-fit"
-                        href="/profile"
-                        startContent={<HiArrowNarrowLeft />}
-                    >
-                        Serverlist
-                    </Button>
-                    {isDevMode &&
-                        <CopyToClipboardButton
-                            text={getCanonicalUrl("leaderboard", params.guildId?.toString() as string)}
-                            items={[
-                                { icon: <HiShare />, name: "Copy page url", description: "Creates a link to this specific page", text: getCanonicalUrl(...path.split("/").slice(1)) },
-                                { icon: <HiCursorClick />, name: "Copy dash-to url", description: "Creates a dash-to link to the current tab", text: getCanonicalUrl(`dashboard?to=${path.split("/dashboard/")[1].split("/")[1] || "/"}`) }
-                            ]}
-                            icon={<HiShare />}
-                        />
-                    }
-                </div>
+                <Button
+                    as={Link}
+                    className="w-fit"
+                    href="/profile"
+                    startContent={<HiArrowNarrowLeft />}
+                >
+                    Serverlist
+                </Button>
 
                 <div className="text-lg flex gap-5">
                     <Skeleton isLoaded={!isLoading} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0">
@@ -228,6 +212,6 @@ export default function RootLayout({
                 (guild && loaded.length === 3) ? children : <></>
             }
 
-        </div >
+        </div>
     );
 }

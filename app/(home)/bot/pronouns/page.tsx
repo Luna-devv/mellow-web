@@ -1,12 +1,13 @@
-import { Chip } from "@nextui-org/react";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { HiCash, HiPlus } from "react-icons/hi";
+import { BsPlus } from "react-icons/bs";
+import { HiCash } from "react-icons/hi";
 
 import Box from "@/components/box";
-import { ClientButton } from "@/components/client";
 import DiscordMessage from "@/components/discord/message";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -45,14 +46,14 @@ export default function Home() {
 
             <Box className="flex flex-col md:flex-row gap-10 items-center">
                 <div className="md:w-1/2">
-                    <Chip
+                    <Badge
                         className="mb-2"
-                        color="secondary"
                         variant="flat"
-                        startContent={<HiCash className="mx-1" />}
+                        radius="rounded"
                     >
-                        <span className="font-semibold">Everything for free</span>
-                    </Chip>
+                        <HiCash />
+                        Everything for free
+                    </Badge>
 
                     <h3 className={styles.h3}>Sexualities, Genders & Pronouns</h3>
 
@@ -62,14 +63,16 @@ export default function Home() {
                     </div>
 
                     <div className="flex gap-2 mt-6">
-                        <ClientButton
-                            as={Link}
-                            className="bg-wamellow-alpha"
-                            startContent={<HiPlus />}
-                            href="/support"
-                        >
-                            Request additional
-                        </ClientButton>
+                        <Button asChild>
+                            <Link
+                                prefetch={false}
+                                href="/support"
+                                target="_blank"
+                            >
+                                <BsPlus />
+                                Request Additional
+                            </Link>
+                        </Button>
                     </div>
                 </div>
 

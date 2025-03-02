@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { HiBadgeCheck } from "react-icons/hi";
 
-import { ClientBadge, ClientChip, ClientCircularProgress } from "@/components/client";
+import { ClientBadge, ClientCircularProgress } from "@/components/client";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { Badge } from "@/components/ui/badge";
 import type { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import getAverageColor from "@/utils/average-color";
 import { cn } from "@/utils/cn";
@@ -165,17 +166,19 @@ function UserBadge({
     children: React.ReactNode;
 }) {
     return (
-        <ClientChip
-            as={Link}
-            color="secondary"
+        <Link
+            prefetch={false}
             href="/team?utm_source=wamellow.com&utm_medium=leaderboard"
-            size="sm"
-            startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}
             target="_blank"
-            variant="flat"
         >
-            <span className="font-bold">{children}</span>
-        </ClientChip>
+            <Badge
+                variant="flat"
+                radius="rounded"
+            >
+                <HiBadgeCheck />
+                {children}
+            </Badge>
+        </Link>
     );
 }
 

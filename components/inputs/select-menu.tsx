@@ -126,8 +126,8 @@ export default function SelectMenu({
 
             <button
                 className={cn(
-                    "mt-1 h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3 duration-100 wamellow-modal",
-                    open && "outline outline-violet-400 outline-2",
+                    "mt-1 h-12 w-full bg-wamellow rounded-lg flex items-center px-3 wamellow-modal",
+                    open && "outline outline-violet-400 outline-offset-2 outline-2",
                     (value?.error || error) && !open && "outline outline-red-500 outline-1",
                     state === State.Success && !open && "outline outline-green-500 outline-1",
                     (state === State.Loading || disabled) && "cursor-not-allowed opacity-50"
@@ -166,47 +166,44 @@ export default function SelectMenu({
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll overflow-x-hidden shadow-xl z-20 wamellow-modal">
+                <div className="absolute mt-2 w-full bg-wamellow backdrop-blur-lg backdrop-brightness-50 rounded-lg max-h-40 overflow-y-scroll shadow-lg z-20 wamellow-modal">
                     <ClickOutside onClose={(() => setOpen(false))} />
-
-                    <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
-                        {items.map((item) => (
-                            <button
-                                key={"select-" + item.value}
-                                className={cn(
-                                    "p-4 py-2 w-full text-left duration-200 flex items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
-                                    item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
-                                )}
-                                style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
-                                onClick={() => {
-                                    setOpen(false);
-                                    setState(State.Idle);
-                                    if (value?.value) setDefaultalue(value.value);
-                                    setValue(item);
-                                }}
-                            >
-                                {item?.icon &&
-                                    <span className="mr-2">
-                                        {item?.icon}
-                                    </span>
-                                }
-
-                                <span className={cn("truncate", item.error && "max-w-[calc(100%-13rem)]")}>
-                                    {item.name}
+                    {items.map((item) => (
+                        <button
+                            key={"select-" + item.value}
+                            className={cn(
+                                "p-4 py-2 w-full text-left duration-200 flex items-center hover:bg-wamellow",
+                                item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
+                            )}
+                            style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
+                            onClick={() => {
+                                setOpen(false);
+                                setState(State.Idle);
+                                if (value?.value) setDefaultalue(value.value);
+                                setValue(item);
+                            }}
+                        >
+                            {item?.icon &&
+                                <span className="mr-2">
+                                    {item?.icon}
                                 </span>
+                            }
 
-                                {value?.value === item.value &&
-                                    <HiCheck className="ml-1" />
-                                }
+                            <span className={cn("truncate", item.error && "max-w-[calc(100%-13rem)]")}>
+                                {item.name}
+                            </span>
 
-                                {item.error &&
-                                    <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
-                                        <HiExclamationCircle /> {item.error}
-                                    </div>
-                                }
-                            </button>
-                        ))}
-                    </div>
+                            {value?.value === item.value &&
+                                <HiCheck className="ml-1" />
+                            }
+
+                            {item.error &&
+                                <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
+                                    <HiExclamationCircle /> {item.error}
+                                </div>
+                            }
+                        </button>
+                    ))}
                 </div>
             }
 

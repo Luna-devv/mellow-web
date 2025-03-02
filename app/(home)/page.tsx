@@ -3,12 +3,10 @@ import { Montserrat, Patrick_Hand } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { BsDiscord, BsYoutube } from "react-icons/bs";
+import { BsYoutube } from "react-icons/bs";
 import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
-import { Avatar } from "@/components/avatar";
 import Box from "@/components/box";
-import { ClientAvatarGroup, ClientButton, ClientChip } from "@/components/client";
 import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import DiscordChannel from "@/components/discord/channel";
@@ -18,6 +16,9 @@ import DiscordMessage from "@/components/discord/message";
 import DiscordMessageEmbed from "@/components/discord/message-embed";
 import DiscordUser from "@/components/discord/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { AvatarGroup, UserAvatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { defaultFetchOptions } from "@/lib/api";
 import AiPic from "@/public/ai.webp";
@@ -79,7 +80,7 @@ export default async function Home() {
     return (
         <div className="flex items-center flex-col w-full">
 
-            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-14rem)] md:h-[calc(100svh-17rem)]">
+            <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-14rem)] md:h-[calc(100dvh-16rem)]">
                 <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
                     <Suspense fallback={<Skeleton className="w-[15rem] !h-6 !m-0" isLoading={true} />}>
@@ -103,54 +104,55 @@ export default async function Home() {
                         Stay updated with dailyposts and receive social notifications!
                     </span>
 
-                    <ClientAvatarGroup
-                        className="mr-auto md:hidden"
-                        max={8}
-                        renderCount={renderCount}
-                    >
+                    <AvatarGroup className="mr-auto md:hidden">
                         {toFixedArrayLength(topGuilds || [], 8)
                             ?.map((guild) => (
-                                <Avatar
+                                <UserAvatar
                                     key={"mobileGuildGrid-" + guild.id}
-                                    src={guild.icon ? guild.icon + "?size=128" : "/discord.webp"}
                                     alt={guild.name}
-                                    title={guild.name}
+                                    className="-mr-2"
+                                    src={guild.icon ? guild.icon + "?size=128" : "/discord.webp"}
                                 />
                             ))
                         }
-                    </ClientAvatarGroup>
+                    </AvatarGroup>
 
                     <div className="space-y-4">
                         <Link
                             className="flex gap-1 items-center text-violet-400 hover:underline w-fit"
-                            href={getCanonicalUrl("dashboard", "?utm_source=wamellow.com&utm_medium=home")}
+                            href={getCanonicalUrl("dashboard")}
                         >
                             Go to Dashboard <HiArrowNarrowRight />
                         </Link>
 
-                        <div className="flex gap-2 lg:mt-0">
-                            <ClientButton
-                                as={Link}
-                                className="w-1/2 lg:w-fit !text-xl !font-medium"
-                                color="secondary"
-                                prefetch={false}
-                                href="/login?invite=true"
-                                size="lg"
-                                startContent={<HiUserAdd />}
+                        <div className="flex gap-2">
+                            <Button
+                                asChild
+                                className="w-1/2 lg:w-fit text-lg font-medium"
+                                variant="secondary"
                             >
-                                <span className="block sm:hidden">Invite</span>
-                                <span className="hidden sm:block">Invite Wamellow</span>
-                            </ClientButton>
-                            <ClientButton
-                                as={Link}
-                                startContent={<BsDiscord />}
-                                className="w-1/2 lg:w-fit !text-xl !font-medium"
-                                href="/support"
-                                size="lg"
+                                <Link
+                                    prefetch={false}
+                                    href="/login?invite=true"
+                                >
+                                    <HiUserAdd />
+                                    <span className="block sm:hidden">Invite</span>
+                                    <span className="hidden sm:block">Invite Wamellow</span>
+                                </Link>
+                            </Button>
+                            <Button
+                                asChild
+                                className="w-1/2 lg:w-fit text-lg"
                             >
-                                <span className="block sm:hidden">Support</span>
-                                <span className="hidden sm:block">Join support</span>
-                            </ClientButton>
+                                <Link
+                                    prefetch={false}
+                                    href="/support"
+                                >
+                                    <HiUserAdd />
+                                    <span className="block sm:hidden">Support</span>
+                                    <span className="hidden sm:block">Join Support</span>
+                                </Link>
+                            </Button>
                         </div>
 
                         <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-medium mt-3 opacity-80 pl-20 lg:pr-20 rotate-2", handwritten.className)}>
@@ -178,7 +180,7 @@ export default async function Home() {
                                         <Link
                                             key={"guildGrid-" + guild.id + i + i2}
                                             className="relative md:h-32 h-24 md:w-32 w-24 hover:scale-110 duration-200"
-                                            href={getCanonicalUrl("leaderboard", guild.id, "?utm_source=wamellow.com&utm_medium=home")}
+                                            href={getCanonicalUrl("leaderboard", guild.id)}
                                             prefetch={false}
                                         >
                                             <ImageReduceMotion
@@ -196,11 +198,8 @@ export default async function Home() {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center space-x-2">
-                <div className="animate-scroll rounded-lg rotate-180 md:rounded-3xl md:rotate-0">
-                    <div className="animate-scroll-wheel" />
-                </div>
-                <span className="hidden md:block text-lg font-medium mt-2 text-neutral-500/50">Scroll down...</span>
+            <div className="animate-scroll rounded-medium rotate-180 md:rounded-3xl md:rotate-0">
+                <div className="animate-scroll-wheel" />
             </div>
 
             <article
@@ -214,15 +213,14 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2 flex flex-col items-start">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% free forever</span>
-                            </ClientChip>
+                                <HiCash />
+                                100% free forever
+                            </Badge>
 
                             <h3 className={styles.h3}>40 Voices in 8 Languages</h3>
 
@@ -231,10 +229,7 @@ export default async function Home() {
                                 Great for people with aphonia, dysphonia, or other speech impairments.
                             </div>
 
-                            <ClientAvatarGroup
-                                className="mt-4"
-                                max={8}
-                            >
+                            <AvatarGroup className="mt-4">
                                 {["us", "de", "es", "fr", "jp", "kr", "br", "id"].map((lang) => {
                                     const name = Object
                                         .entries(actor)
@@ -242,29 +237,28 @@ export default async function Home() {
                                         ?.[1][0] || lang;
 
                                     return (
-                                        <Avatar
-                                            size="sm"
+                                        <UserAvatar
                                             key={"ttsLang-" + lang}
-                                            src={`/icons/${lang}.webp`}
                                             alt={name}
-                                            title={name}
+                                            className="-mr-2 size-8"
+                                            src={`/icons/${lang}.webp`}
                                         />
                                     );
                                 })}
-                                <span className="sr-only">Change Text-to-Speech language and voice</span>
-                            </ClientAvatarGroup>
+                            </AvatarGroup>
 
                             <div className="flex gap-2 mt-5">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<BsYoutube />}
-                                    href="https://youtu.be/NS5fZ1ltovE?si=I3nViYb4sx3n3Uvo"
-                                    target="_blank"
-                                >
-                                    Watch YouTube Video
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        prefetch={false}
+                                        href="https://youtu.be/NS5fZ1ltovE?si=I3nViYb4sx3n3Uvo"
+                                        target="_blank"
+                                    >
+                                        <BsYoutube />
+                                        Watch YouTube Video
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -305,16 +299,17 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">Free styling, 30 Channels</span>
-                            </ClientChip>
+                                <HiCash />
+                                Free styling — 30 channels
+                            </Badge>
+
                             <h3 className={styles.h3}>YouTube, Twitch, Bluesky & Reddit</h3>
+
                             <div className="pt-6">
                                 Set up notifications with free custom messages and embeds for up to 30 channels and get notified in less than a minute.
 
@@ -334,23 +329,26 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<BsYoutube />}
-                                    href="https://youtu.be/xizs-hrwK4I?si=6pIYALygtNhUwpph"
-                                    target="_blank"
-                                >
-                                    Watch Tutorial
-                                </ClientButton>
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=notifications&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        prefetch={false}
+                                        href="https://youtu.be/xizs-hrwK4I?si=6pIYALygtNhUwpph"
+                                        target="_blank"
+                                    >
+                                        <BsYoutube />
+                                        Watch Tutorial
+                                    </Link>
+                                </Button>
+                                <Button asChild>
+                                    <Link
+                                        prefetch={false}
+                                        href="/dashboard?to=notifications"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -380,44 +378,45 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% no money loss</span>
-                            </ClientChip>
+                                <HiCash />
+                                No premium required
+                            </Badge>
+
                             <h3 className={styles.h3}>Free /image command</h3>
+
                             <div className="pt-6">
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
                                 Customize the rating, quality, aesthetics, image width and height, upscaled, generation steps and the CFG scale all for free.
                             </div>
-                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <ClientChip
+                            <div className="p-4 pb-3 border border-divider rounded-lg my-8">
+                                <Badge
                                     className="mb-2"
-                                    color="secondary"
                                     variant="flat"
-                                    size="sm"
-                                    startContent={<HiFire className="mx-1" />}
+                                    radius="rounded"
                                 >
-                                    <span className="font-semibold">NSFW Supported</span>
-                                </ClientChip>
+                                    <HiFire />
+                                    Supports NSFW
+                                </Badge>
                                 <div className="text-base">
                                     Generate spicy images and more in nsfw marked channels.
                                 </div>
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/ai-gallery?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    View Images
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/ai-gallery"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        View Images
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -443,31 +442,31 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% sexy forever</span>
-                            </ClientChip>
+                                <HiCash />
+                                100% sexy for free
+                            </Badge>
+
                             <h3 className={styles.h3}>/anime command</h3>
+
                             <div className="pt-6">
                                 Unleash the magic of anime right within your Discord server with Wamellow{"'"}s 25+ categories.
                                 Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
                                 Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
                             </div>
-                            <div className="p-4 pb-3 border dark:border-wamellow-alpha border-wamellow-100 rounded-lg my-8">
-                                <ClientChip
+                            <div className="p-4 pb-3 border border-divider rounded-lg my-8">
+                                <Badge
                                     className="mb-2"
-                                    color="secondary"
                                     variant="flat"
-                                    size="sm"
-                                    startContent={<HiFire className="mx-1" />}
+                                    radius="rounded"
                                 >
-                                    <span className="font-semibold">NSFW Supported</span>
-                                </ClientChip>
+                                    <HiFire />
+                                    Supports NSFW
+                                </Badge>
                                 <div className="text-base">
                                     Find spicy nekos, waifus, and more in nsfw marked channels.
                                 </div>
@@ -498,30 +497,32 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">100% free forever</span>
-                            </ClientChip>
+                                <HiCash />
+                                Free custom backgrounds
+                            </Badge>
+
                             <h3 className={styles.h3}>/leaderboard & /rank</h3>
+
                             <div className="pt-6">
-                                Enhance your server{"’"}s engagement with our text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
+                                Enhance your server{"’"}s engagement with text-, voice- and invite based leaderboards, tailored to track and reward your most active members.
                                 By motivating your members to communicate, you{"’"}ll cultivate a more active server community.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/leaderboard/828676951023550495?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    View Leaderboard
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/leaderboard/828676951023550495"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        View Leaderboard
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -545,30 +546,32 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">My lawyer said that title below</span>
-                            </ClientChip>
+                                <HiCash />
+                                My lawyer said that title below
+                            </Badge>
+
                             <h3 className={styles.h3}>POGBOARD DEEZ NUTS</h3>
+
                             <div className="pt-6">
                                 With Starboards, you have the power to highlight remarkable messages in your server.
                                 When you come across a message that is either funny or hilarious, simply react with a star, and if enough people star the message, it will be posted to the set starboard channel.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=starboard&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=starboard"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -603,30 +606,31 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">w/ free image card backgrounds</span>
-                            </ClientChip>
+                                <HiCash />
+                                w/ free image card backgrounds
+                            </Badge>
+
                             <h3 className={styles.h3}>Greetings</h3>
+
                             <div className="pt-6">
-                                Give a warm welcome to new members, introducing them to rules, topics, and ongoing events.
-                                Whether gaming, joining a guild, or casual chat, every member should sense a strong community bond.
+                                Give a warm welcome to new members, introducing them to rules, and topics with a fully customized message.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=greeting"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -651,38 +655,41 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">Of course it{"'"}s free</span>
-                            </ClientChip>
+                                <HiCash />
+                                Free and Secure
+                            </Badge>
+
                             <h3 className={styles.h3}>Captcha verification</h3>
+
                             <div className="pt-6">
                                 Protect your server from unwanted attacks, such as bot-raids, with our captcha verification system.
                                 Ensure that only human members can access your channels, safeguarding your server from raider attacks and ensuring a safe and secure environment for all your members.
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiLockOpen />}
-                                    href="/passport/1125063180801036329?utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Try it out
-                                </ClientButton>
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=greeting&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/passport/1125063180801036329"
+                                        target="_blank"
+                                    >
+                                        <HiLockOpen />
+                                        Try it out
+                                    </Link>
+                                </Button>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=greeting/passport"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -705,16 +712,17 @@ export default async function Home() {
 
                     <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
-                            <ClientChip
+                            <Badge
                                 className="mb-2"
-                                color="secondary"
                                 variant="flat"
-                                size="sm"
-                                startContent={<HiCash className="mx-1" />}
+                                radius="rounded"
                             >
-                                <span className="font-semibold">30 tags free</span>
-                            </ClientChip>
+                                <HiCash />
+                                30 tags free
+                            </Badge>
+
                             <h3 className={styles.h3}>Wamellow tags</h3>
+
                             <div className="pt-6">
                                 Easily handle frequently asked questions, common queries, and repetitive tasks in a snap.
                                 Empower your server with quick access to custom commands.
@@ -722,14 +730,15 @@ export default async function Home() {
                             </div>
                             <div className="flex gap-2 mt-6">
                                 <Invite />
-                                <ClientButton
-                                    as={Link}
-                                    className="bg-wamellow"
-                                    startContent={<HiArrowRight />}
-                                    href="/dashboard?to=custom-commands&utm_source=wamellow.com&utm_medium=home"
-                                >
-                                    Setup
-                                </ClientButton>
+                                <Button asChild>
+                                    <Link
+                                        href="/dashboard?to=custom-commands"
+                                        target="_blank"
+                                    >
+                                        <HiArrowRight />
+                                        Setup
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
 
@@ -785,15 +794,18 @@ export default async function Home() {
 
 function Invite() {
     return (
-        <ClientButton
-            as={Link}
-            color="secondary"
-            href="/login?invite=true"
-            prefetch={false}
-            startContent={<HiUserAdd />}
+        <Button
+            variant="secondary"
+            asChild
         >
-            <span className="block sm:hidden">Invite</span>
-            <span className="hidden sm:block">Invite Wamellow</span>
-        </ClientButton>
+            <Link
+                href="/login?invite=true"
+                prefetch={false}
+            >
+                <HiUserAdd />
+                <span className="block sm:hidden">Invite</span>
+                <span className="hidden sm:block">Invite Wamellow</span>
+            </Link>
+        </Button>
     );
 }

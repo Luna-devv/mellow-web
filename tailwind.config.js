@@ -14,17 +14,19 @@ const config = {
     theme: {
     	extend: {
     		colors: {
-    			'wamellow': wamellow,
-    			'wamellow-light': 'rgb(30, 32, 34)',
-    			'wamellow-alpha': 'rgba(255, 255, 255, 0.06)',
-    			'wamellow-100': '#e2e8f0',
-    			'wamellow-100-light': '#ced3da',
-    			'wamellow-100-alpha': 'rgba(0, 0, 0, 0.06)',
-    			'wamellow-900-alpha': 'rgba(0, 0, 0, 0.54)',
     			'blurple': '#5865f2',
     			'blurple-dark': '#454fbf',
     			'discord-gray': '#1c1d23',
     			foreground: 'hsl(var(--foreground))',
+                wamellow: {
+                    DEFAULT: 'var(--wamellow)'
+                },
+                "wamellow-100": {
+                    DEFAULT: 'var(--wamellow-100)'
+                },
+                "wamellow-200": {
+                    DEFAULT: 'var(--wamellow-200)'
+                },
     			card: {
     				DEFAULT: 'hsl(var(--card))',
     				foreground: 'hsl(var(--card-foreground))'
@@ -41,6 +43,10 @@ const config = {
     				DEFAULT: 'hsl(var(--secondary))',
     				foreground: 'hsl(var(--secondary-foreground))'
     			},
+                flat: {
+                    DEFAULT: 'hsl(var(--flat))',
+                    foreground: 'hsl(var(--flat-foreground))'
+                },
     			muted: {
     				DEFAULT: 'hsl(var(--muted))',
     				foreground: 'hsl(var(--muted-foreground))'

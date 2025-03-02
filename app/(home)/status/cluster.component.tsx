@@ -1,8 +1,7 @@
-import { Chip } from "@nextui-org/react";
 import Image from "next/image";
-import { FaCrown } from "react-icons/fa6";
 import { HiLightningBolt } from "react-icons/hi";
 
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
 
@@ -46,24 +45,14 @@ export function Cluster(cluster: ApiCluster) {
                 </div>
             </div>
 
-            {cluster.id === 0
-                ? <Chip
-                    className="-mt-2 w-1/6"
-                    startContent={<FaCrown className="ml-1" />}
-                    color="warning"
-                    variant="flat"
-                >
-                    {cluster.ping}ms
-                </Chip>
-                : <Chip
-                    className={cn(cluster.ping > 0 && "text-neutral-400 bg-wamellow w-1/6")}
-                    startContent={<HiLightningBolt className="ml-1" />}
-                    variant="flat"
-                    color={cluster.ping < 0 ? "danger" : "default"}
-                >
-                    {cluster.ping}ms
-                </Chip>
-            }
+            <Badge
+                className={cn(cluster.ping > 0 && "text-neutral-400 bg-wamellow max-w-1/6")}
+                variant={cluster.ping < 0 ? "destructive" : "default"}
+                radius="rounded"
+            >
+                <HiLightningBolt />
+                {cluster.ping}ms
+            </Badge>
         </div>
     );
 }

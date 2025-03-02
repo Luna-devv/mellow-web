@@ -1,7 +1,7 @@
 import { HiFire, HiInformationCircle } from "react-icons/hi";
 
 import Box from "@/components/box";
-import { ClientChip } from "@/components/client";
+import { Badge } from "@/components/ui/badge";
 import { defaultFetchOptions } from "@/lib/api";
 import { intl } from "@/utils/numbers";
 
@@ -26,21 +26,21 @@ export async function Commands({
             className="p-5 pb-3 dark:bg-wamellow bg-wamellow-100 rounded-lg my-4 w-full"
         >
             <div className="flex">
-                <ClientChip
-                    color="secondary"
+                <Badge
                     variant="flat"
-                    size="sm"
-                    startContent={<HiFire className="ml-1" />}
+                    radius="rounded"
                 >
-                    <span className="font-semibold">Popular Slash Commands</span>
-                </ClientChip>
+                    <HiFire />
+                    Popular Slash Commands
+                </Badge>
+
                 <div className="ml-auto flex items-center gap-1 opacity-80">
-                    <span className="text-xs">Since 7th December</span>
+                    <span className="text-xs">Since September 2024</span>
                     <HiInformationCircle />
                 </div>
             </div>
 
-            {commands && Array.isArray(commands) ?
+            {commands && Array.isArray(commands) && commands.length ?
                 <div className="divide-y divide-wamellow">
                     {commands
                         .sort((a, b) => b.uses - a.uses)

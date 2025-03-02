@@ -1,20 +1,22 @@
 "use client";
 
-import { Button, Chip, Skeleton, Switch, Tooltip } from "@nextui-org/react";
+import { Switch } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
-import React, { useEffect, useState } from "react";
-import { HiAdjustments, HiBadgeCheck, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiFire, HiIdentification, HiLogout, HiTrendingUp, HiViewGridAdd } from "react-icons/hi";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { HiAdjustments, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiFire, HiIdentification, HiLogout, HiTrendingUp, HiViewGridAdd } from "react-icons/hi";
 
 import { userStore } from "@/common/user";
 import { webStore } from "@/common/webstore";
-import LoginButton from "@/components/login-button";
+import { LoginButton } from "@/components/login-button";
 import { authorize } from "@/utils/authorize-user";
 import { cn } from "@/utils/cn";
 
 import ImageReduceMotion from "./image-reduce-motion";
+import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
 enum State {
     Idle = 0,
@@ -22,7 +24,9 @@ enum State {
     Failure = 2
 }
 
-export default function Header(props: React.ComponentProps<"div">) {
+const split = { type: "split" } as const;
+
+export function Header() {
     const cookies = useCookies();
     const devTools = cookies.get("devTools") === "true";
     const reduceMotions = cookies.get("reduceMotions") === "true";
@@ -47,40 +51,7 @@ export default function Header(props: React.ComponentProps<"div">) {
         });
     }, []);
 
-
-    const UserButton = () => (
-        <button
-            className={cn(
-                "ml-auto flex dark:hover:bg-wamellow hover:bg-wamellow-100 py-2 px-4 rounded-md duration-200 items-center",
-                menu && "dark:bg-wamellow bg-wamellow-100"
-            )}
-            onClick={() => setMenu(!menu)}
-        >
-
-            <Skeleton isLoaded={!!user?.id} className="rounded-full mr-2 h-[30px] w-[30px]">
-                <ImageReduceMotion
-                    alt="your avatar"
-                    className="rounded-full"
-                    url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
-                    size={96}
-                />
-            </Skeleton>
-
-            {!user?.id ?
-                <Skeleton className="rounded-xl w-20 h-4" />
-                :
-                <>
-                    <div className="mr-1 relative bottom-[1px]">{user?.globalName || user?.username}</div>
-                    <HiChevronDown />
-                </>
-            }
-
-        </button>
-    );
-
-    const split = { type: "split" };
-
-    const buttons = [
+    const buttons = useMemo(() => [
         split,
         {
             name: "Dashboard",
@@ -139,9 +110,38 @@ export default function Header(props: React.ComponentProps<"div">) {
             :
             []
         )
-    ];
+    ], [user, reduceMotions, devTools]);
 
-    const UserDropdown = () => (
+    const UserButton = useCallback(() => (
+        <button
+            className={cn(
+                "ml-auto truncate flex hover:bg-wamellow py-2 px-4 rounded-lg duration-200 items-center",
+                menu && "bg-wamellow"
+            )}
+            onClick={() => setMenu(!menu)}
+        >
+            {!user?.id ?
+                <>
+                    <Skeleton className="rounded-full mr-2 size-[30p]" />
+                    <Skeleton className="rounded-xl w-20 h-4" />
+                </>
+                :
+                <>
+                    <ImageReduceMotion
+                        alt="your avatar"
+                        className="rounded-full mr-2 size-[30px] shrink-0"
+                        url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
+                        size={96}
+                    />
+
+                    <p className="mr-1 relative bottom-[1px] truncate block">{user.globalName || user.username}</p>
+                    <HiChevronDown />
+                </>
+            }
+        </button>
+    ), [user, menu]);
+
+    const UserDropdown = useCallback(() => (
         <motion.div
             initial="closed"
             animate={menu ? "open" : "closed"}
@@ -159,54 +159,37 @@ export default function Header(props: React.ComponentProps<"div">) {
                 }
             }}
             className="
-                relative top-2 sm:right-[268px] w-full sm:w-72 dark:bg-black/40 bg-white/40 rounded-xl backdrop-blur-3xl backdrop-brightness-75 overflow-hidden shadow-xl
-                flex flex-col py-2 sm:py-1 p-2 sm:p-0 text-base
+                w-full sm:w-72 bg-black/40 rounded-xl backdrop-blur-2xl backdrop-brightness-75 shadow-xl
+                flex flex-col py-2 sm:py-1 p-2 sm:p-0
                 [--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                 [--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
             "
         >
             <div className="flex items-center space-x-3 px-4 py-2">
-                <Skeleton isLoaded={!!user?.id} className="rounded-full h-14 w-14 sm:h-10 sm:w-10 shrink-0">
-                    <ImageReduceMotion
-                        alt="your avatar"
-                        className="rounded-full"
-                        url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
-                        size={128}
-                    />
-                </Skeleton>
+                <ImageReduceMotion
+                    alt="your avatar"
+                    className="rounded-full size-14 sm:size-10 shrink-0"
+                    url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
+                    size={128}
+                />
                 <div className="w-full">
-                    <div className="dark:text-neutral-200 text-neutral-800 truncate max-w-44 flex items-center gap-2">
-                        <span className="font-medium text-xl sm:text-base">
-                            {user?.globalName || `@${user?.username}`}
-                        </span>
-                        {user?.id === "821472922140803112" &&
-                            <Chip color="secondary" size="sm" variant="flat" startContent={<HiBadgeCheck className="h-3.5 w-3.5 mr-1" />}>
-                                <span className="font-bold">Developer</span>
-                            </Chip>
-                        }
+                    <div className="text-neutral-200 max-w-40 truncate font-medium text-xl sm:text-base">
+                        {user?.globalName || user?.username}
                     </div>
-                    <div className="text-neutral-500 dark:text-neutral-400 max-w-40 truncate -mt-1">
-                        <span className="text-medium sm:text-sm">
-                            @{user?.username}
-                        </span>
+                    <div className="text-neutral-400 max-w-40 truncate -mt-1 text-medium sm:text-sm">
+                        @{user?.username}
                     </div>
                 </div>
-                <Tooltip
-                    content="Logout"
-                    closeDelay={0}
-                    showArrow
+                <button
+                    className="ml-auto text-red-500 m-4"
+                    onClick={() => {
+                        window.location.href = "/login?logout=true";
+                        userStore.setState({ __fetched: true });
+                        setMenu(false);
+                    }}
                 >
-                    <button
-                        className="ml-auto text-red-500 m-4"
-                        onClick={() => {
-                            window.location.href = "/login?logout=true";
-                            userStore.setState({ __fetched: true });
-                            setMenu(false);
-                        }}
-                    >
-                        <HiLogout className="h-6 w-6 sm:h-5 sm:w-5" />
-                    </button>
-                </Tooltip>
+                    <HiLogout className="size-5" />
+                </button>
             </div>
 
             {buttons.map((button, i) => {
@@ -217,13 +200,14 @@ export default function Header(props: React.ComponentProps<"div">) {
                 if ("url" in button) return (
                     <Button
                         key={"headerButton-" + button.name + button.url}
-                        as={Link}
-                        href={button.url}
-                        className="w-full font-medium !justify-start !text-xl !my-1 sm:!text-medium sm:!my-0 bg-transparent"
+                        asChild
+                        className="w-full font-medium justify-start text-xl my-1 sm:my-0 sm:text-medium bg-transparent hover:bg-wamellow rounded-sm"
                         onClick={() => setMenu(false)}
-                        startContent={button.icon}
                     >
-                        {button.name}
+                        <Link href={button.url!}>
+                            {button.icon}
+                            {button.name}
+                        </Link>
                     </Button>
                 );
 
@@ -244,17 +228,14 @@ export default function Header(props: React.ComponentProps<"div">) {
                             size="sm"
                         />
                     </div>
-
                 );
-
             })}
         </motion.div>
-    );
+    ), [user, menu, reduceMotions, devTools]);
 
-    return (<div {...props}>
-
+    return (<>
         {state === State.Failure
-            ? <LoginButton state={state} />
+            ? <LoginButton state={state} className="ml-auto" />
             : <UserButton />
         }
 
@@ -267,16 +248,11 @@ export default function Header(props: React.ComponentProps<"div">) {
         >
             <AnimatePresence initial={false}>
                 {user?.id && menu &&
-                    <div className="pr-4 flex text-base font-medium dark:text-neutral-300 text-neutral-700 overflow-x-hidden">
-                        <div className="ml-auto">
-                            <div className="absolute left-0 sm:left-auto px-4 sm:px-0 z-40 w-full sm:w-0">
-                                <UserDropdown />
-                            </div>
-                        </div>
+                    <div className="absolute top-[72px] right-3.5 z-50">
+                        <UserDropdown />
                     </div>
                 }
             </AnimatePresence>
         </MotionConfig>
-
-    </div>);
+    </>);
 }

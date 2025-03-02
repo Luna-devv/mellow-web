@@ -120,7 +120,7 @@ export default function Modal<T>({
                 aria-label="Loading..."
                 className="mt-3 mb-4 h-0.5"
                 classNames={{
-                    track: "dark:bg-wamellow-light bg-wamellow-100-light",
+                    track: "bg-divider",
                     indicator: "bg-violet-500"
                 }}
                 value={0}

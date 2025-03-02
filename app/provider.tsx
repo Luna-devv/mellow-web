@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { guildStore } from "@/common/guilds";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const queryClient = new QueryClient();
 
@@ -37,12 +38,14 @@ export function Provider({ children }: Props) {
     }, [path]);
 
     return (
-        <NextUIProvider>
-            <QueryClientProvider client={queryClient}>
-                <main className="dark:text-neutral-400 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
-                    {children}
-                </main>
-            </QueryClientProvider>
-        </NextUIProvider>
+        <TooltipProvider>
+            <NextUIProvider>
+                <QueryClientProvider client={queryClient}>
+                    <main className="dark:text-neutral-400 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
+                        {children}
+                    </main>
+                </QueryClientProvider>
+            </NextUIProvider>
+        </TooltipProvider>
     );
 }

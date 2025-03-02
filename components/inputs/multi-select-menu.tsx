@@ -127,7 +127,7 @@ export default function MultiSelectMenu({
 
             <button
                 className={cn(
-                    "mt-1 min-h-12 w-full dark:bg-wamellow bg-wamellow-100 rounded-xl flex items-center px-3 duration-100 wamellow-modal",
+                    "mt-1 min-h-12 w-full bg-wamellow rounded-lg flex items-center px-3 duration-100 wamellow-modal",
                     open && "outline outline-violet-400 outline-2",
                     (values.find((v) => !!v.error) || error) && !open && "outline outline-red-500 outline-1",
                     state === State.Success && !open && "outline outline-green-500 outline-1",
@@ -150,10 +150,9 @@ export default function MultiSelectMenu({
                         <button
                             key={"multiselected-" + v.value}
                             className={cn(
-                                "relative px-2 dark:bg-wamellow-alpha bg-wamellow-100-alpha rounded-md flex items-center gap-1 wamellow-modal",
+                                "relative px-2 bg-wamellow rounded-md flex items-center gap-1 wamellow-modal",
                                 open && "hover:!bg-red-500/50 text-neutral-100 duration-200"
                             )}
-                            // style={v.color ? { color: `#${v.color.toString(16)}` } : {}}
                             onClick={(e) => {
                                 if (!open) return;
                                 e.stopPropagation();
@@ -184,48 +183,45 @@ export default function MultiSelectMenu({
             </button>
 
             {open &&
-                <div className="absolute mt-2 w-full dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-75 rounded-lg max-h-40 overflow-y-scroll shadow-xl z-20 wamellow-modal">
+                <div className="absolute mt-2 w-full bg-wamellow backdrop-blur-lg backdrop-brightness-50 rounded-lg max-h-40 overflow-y-scroll shadow-lg z-20 wamellow-modal">
                     <ClickOutside onClose={(() => setOpen(false))} />
-
-                    <div className="dark:bg-wamellow-alpha bg-wamellow-100-alpha">
-                        {items.map((item) => (
-                            <button
-                                className={cn(
-                                    "p-4 py-2 w-full text-left duration-200 flex items-center dark:hover:bg-wamellow-alpha hover:bg-wamellow-100-alpha",
-                                    item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
-                                )}
-                                style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
-                                key={"multiselect-" + item.value}
-                                onClick={() => {
-                                    setState(State.Idle);
-                                    setValues((v) => {
-                                        if (v.length >= max || v.find((i) => i.value === item.value)) return v.filter((i) => i.value !== item.value);
-                                        return [...v, item];
-                                    });
-                                }}
-                            >
-                                {item?.icon &&
-                                    <span className="mr-2">
-                                        {item?.icon}
-                                    </span>
-                                }
-
-                                <span className="max-w-[calc(100%-1rem)] truncate">
-                                    {item.name}
+                    {items.map((item) => (
+                        <button
+                            className={cn(
+                                "p-4 py-2 w-full text-left duration-200 flex items-center hover:bg-wamellow",
+                                item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
+                            )}
+                            style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
+                            key={"multiselect-" + item.value}
+                            onClick={() => {
+                                setState(State.Idle);
+                                setValues((v) => {
+                                    if (v.length >= max || v.find((i) => i.value === item.value)) return v.filter((i) => i.value !== item.value);
+                                    return [...v, item];
+                                });
+                            }}
+                        >
+                            {item?.icon &&
+                                <span className="mr-2">
+                                    {item?.icon}
                                 </span>
+                            }
 
-                                {values.find((v) => v.value === item.value) &&
-                                    <HiCheck className="ml-1" />
-                                }
+                            <span className="max-w-[calc(100%-1rem)] truncate">
+                                {item.name}
+                            </span>
 
-                                {item.error &&
-                                    <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
-                                        <HiExclamationCircle /> {item.error}
-                                    </div>
-                                }
-                            </button>
-                        ))}
-                    </div>
+                            {values.find((v) => v.value === item.value) &&
+                                <HiCheck className="relative left-1 top-[1px]" />
+                            }
+
+                            {item.error &&
+                                <div className="ml-auto text-sm flex items-center gap-1 text-red-500">
+                                    <HiExclamationCircle /> {item.error}
+                                </div>
+                            }
+                        </button>
+                    ))}
                 </div>
             }
 

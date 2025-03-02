@@ -1,13 +1,12 @@
-import { Button } from "@nextui-org/react";
 import type { Metadata } from "next";
-import NextImage from "next/image";
+import Image from "next/image";
 import Link from "next/link";
-import { HiArrowLeft, HiHome, HiPlus } from "react-icons/hi";
+import { HiArrowLeft, HiPlus } from "react-icons/hi";
 
-import { ClientButton } from "@/components/client";
 import { Footer } from "@/components/footer";
 import Notice from "@/components/notice";
-import { ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ScreenMessage } from "@/components/screen-message";
+import { Button } from "@/components/ui/button";
 import { getPageAnalytics } from "@/lib/analytics";
 import { getGuild } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
@@ -84,18 +83,8 @@ export default async function RootLayout({ params, children }: Props) {
                             top="4rem"
                             title="Something went wrong!"
                             description={upload.message}
-                            buttons={<>
-                                <ClientButton
-                                    as={Link}
-                                    href="/"
-                                    startContent={<HiHome />}
-                                >
-                                    Go back to Home
-                                </ClientButton>
-                                <SupportButton />
-                            </>}
                         >
-                            <NextImage src={SadWumpusPic} alt="" height={141} width={124} />
+                            <Image src={SadWumpusPic} alt="" height={141} width={124} />
                         </ScreenMessage>
                     }
                 </div>
@@ -125,7 +114,7 @@ export default async function RootLayout({ params, children }: Props) {
                                     className="h-24 w-24"
                                     href={`/ai-gallery/${upload.id}`}
                                 >
-                                    <NextImage
+                                    <Image
                                         alt={upload.prompt}
                                         className="rounded-lg"
                                         height={128}
@@ -150,12 +139,13 @@ export default async function RootLayout({ params, children }: Props) {
             </div>
 
             <Button
+                asChild
                 className="!mt-5"
-                as={Link}
-                href="/ai-gallery"
-                startContent={<HiArrowLeft />}
             >
-                View all Uploads
+                <Link href="/ai-gallery">
+                    <HiArrowLeft />
+                    View all Uploads
+                </Link>
             </Button>
 
             <Footer className="mt-10" />

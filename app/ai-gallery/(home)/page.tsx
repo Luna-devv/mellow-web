@@ -1,13 +1,13 @@
-import { Chip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 
 import Notice from "@/components/notice";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { Badge } from "@/components/ui/badge";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 import { getUploads } from "../api";
-import SearchFilter from "./filter.component";
+import { SearchFilter } from "./filter.component";
 import Pagination from "./pagination.component";
 
 interface Props {
@@ -46,11 +46,7 @@ export default async function Home({ searchParams }: Props) {
     }
 
     if (!uploads.results.length) {
-        return (
-            <Notice
-                message="No uploads were found for the specified model."
-            />
-        );
+        return <Notice message="No uploads were found for the specified model." />;
     }
 
     return (<>
@@ -82,14 +78,13 @@ export default async function Home({ searchParams }: Props) {
                         width={300}
                     />
 
-                    <Chip
+                    <Badge
                         className="absolute top-2 left-2 z-10 backdrop-blur-xl backdrop-brightness-50"
-                        color="secondary"
+                        variant="secondary"
                         size="sm"
-                        variant="dot"
                     >
                         {upload.model}
-                    </Chip>
+                    </Badge>
 
                     <div className="p-3 flex gap-2">
                         <p className="truncate">

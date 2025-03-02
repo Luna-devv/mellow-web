@@ -4,6 +4,11 @@
 
 @layer base {
   .dark {
+        --background-rgb: rgb(3, 2, 6);
+
+        --wamellow: #ffffff0d;
+        --wamellow-100: #ffffff1a;
+        --wamellow-200: #ffffff33;
         --font-outfit: 'Outfit', sans-serif;
         --font-noto-sans-jp: 'Noto Sans JP', sans-serif;
 
@@ -11,20 +16,31 @@
         --wamellow-rgb: rgba(255, 255, 255, 0.16);
 
         --foreground: 210 20% 98%;
+
         --card: 224 71.4% 4.1%;
         --card-foreground: 210 20% 98%;
+
         --popover: 260 3% 4.1%;
         --popover-foreground: 210 20% 98%;
+
         --primary: 0 0% 100%;
         --primary-foreground: 220.9 39.3% 89%;
+
         --secondary: 258 89% 66%;
         --secondary-foreground: 210 20% 98%;
+
+        --flat: var(--secondary);
+        --flat-foreground: 270 59% 85%;
+
         --muted: 260 3% 16%;
-        --muted-foreground: 217.9 10.6% 64.9%;
+        --muted-foreground: 217 10% 65%;
+
         --accent: 258 89% 66%;
         --accent-foreground: 210 20% 98%;
-        --destructive: 0 62.8% 30.6%;
+
+        --destructive: 0 62.8% 40.6;
         --destructive-foreground: 210 20% 98%;
+
         --border: 260 3% 16%;
         --input: 258 89% 66%;
         --ring: 258 89% 66%;
@@ -38,16 +54,21 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
+    * {
+        @apply border-border;
     }
-}
-
-html {
-    font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
-
-    min-height: 100svh!important;
-    scroll-behavior: smooth;
+    svg {
+        @apply shrink-0;
+    }
+    button {
+        @apply cursor-pointer
+    }
+    html {
+        font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
+        scroll-behavior: smooth;
+        min-height: 100svh;
+        background: var(--background-rgb);
+    }
 }
 
 div[id="bg"] {
@@ -202,7 +223,7 @@ a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-pr
 }
 
 .button {
-    @apply flex dark:text-neutral-300 text-neutral-700 dark:bg-wamellow bg-wamellow-100 dark:hover:bg-wamellow-light hover:bg-wamellow-100-light py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
+    @apply flex text-white bg-wamellow-100 hover:bg-wamellow-200 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
 }
 
 .button-primary {
