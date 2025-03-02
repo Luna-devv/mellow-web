@@ -8,7 +8,7 @@ The starboard serves as a channel for showcasing standout messages from your com
 1. Install Wamellow on your server by going to [wamellow.com/add](https://wamellow.com/add).
 2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard?to=starboard).
 3. Select your server from the dashboard.
-4. Navigate to the **Starboard** menu. 
+4. Navigate to the **Starboard** menu.
 5. Enable the Starboard module by clicking the enable button.
 6. Select a channel for messages to be posted into.
 7. **🎉 Done!** Try it out by reacting to any message with the selected emote.
@@ -48,7 +48,11 @@ Chose what should be displayed of the message author.
 - Username (`@mwlica`)
 - Global Nickname (`yll`)
 - Guild Nickname (`Luna`)
-- Guild Nickname & Per-Guild Avatar
+- Guild Nickname & Per-Guild Avatar (`Luna`)
+- Anonymous (removes the username & avatar)
+
+### ⭐ Custom color
+Select any RGB color for the message embed.
 
 ### 🤚 Blacklist roles
 Specify roles that are restricted from starring other people's messages and prevent their own messages from appearing on the starboard.

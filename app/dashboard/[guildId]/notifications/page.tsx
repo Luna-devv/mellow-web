@@ -15,6 +15,7 @@ import { ItemSelector } from "@/components/dashboard/lists/selector";
 import MessageCreatorEmbed from "@/components/embed-creator";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
+import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationFlags, NotificationType } from "@/typings";
@@ -97,13 +98,18 @@ export default function Home() {
                             size="sm"
                             placement="bottom-left"
                         >
-                            <Image
-                                alt={`${item.creator.username}'s avatar`}
-                                className="rounded-full"
-                                src={item.creator.avatarUrl}
-                                width={46}
-                                height={46}
-                            />
+                            {item.creator.avatarUrl
+                                ? <Image
+                                    alt={`${item.creator.username}'s avatar`}
+                                    className="rounded-full"
+                                    src={item.creator.avatarUrl}
+                                    width={46}
+                                    height={46}
+                                />
+                                : <div className="size-[46px] flex items-center justify-center bg-wamellow rounded-full select-none font-medium text-lg text-neutral-200">
+                                    {item.creator.username.slice(0, 2)}
+                                </div>
+                            }
                         </ClientBadge>
 
                         <div className="flex flex-col items-start">
@@ -137,14 +143,17 @@ export default function Home() {
             href="/notifications"
             docs="/notifications"
 
-            avatar={
-                <Image
-                    alt={`${item?.creator.username}'s avatar`}
-                    className="rounded-full size-5.5"
-                    src={item?.creator.avatarUrl || ""}
+            avatar={item.creator.avatarUrl
+                ? <Image
+                    alt={`${item.creator.username}'s avatar`}
+                    className="rounded-full"
+                    src={item.creator.avatarUrl}
                     width={24}
                     height={24}
                 />
+                : <div className="size-[24px] flex items-center justify-center bg-wamellow rounded-full select-none font-medium text-sm text-neutral-200">
+                    {item.creator.username.slice(0, 2)}
+                </div>
             }
             name={item.creator.username}
             icon={<Icon type={item.type} className="text-white size-3" />}
@@ -187,10 +196,11 @@ export default function Home() {
                 onSave={(o) => editItem("roleId", o.value as string)}
                 showClear
             />
-            {item.type === NotificationType.Bluesky && (
-                <MultiSelectMenu
+
+            {item.type === NotificationType.Bluesky
+                ? <MultiSelectMenu
                     className="md:w-1/2 w-full"
-                    name="Also send"
+                    name="Filter"
                     url={url + "/" + item.id}
                     dataName="flags"
                     items={bitfieldToArray(NotificationFlags)}
@@ -201,8 +211,27 @@ export default function Home() {
                         editItem("flags", flags.reduce((a, b) => a | b, 0));
                     }}
                 />
-            )}
+                : <TextInput
+                    className="md:w-1/2 w-full"
+                    name="Ignore regex"
+                    url={url + "/" + item.id}
+                    dataName="regex"
+                    description="Posts that match the provided regex will be ignored."
+                    defaultState={item.regex || ""}
+                />
+            }
         </div>
+
+        {item.type !== NotificationType.Bluesky && (
+            <TextInput
+                className="w-full"
+                name="Ignore regex"
+                url={url + "/" + item.id}
+                dataName="regex"
+                description="Posts that match the provided regex will be ignored."
+                defaultState={item.regex || ""}
+            />
+        )}
 
         <MessageCreatorEmbed
             key={item.id}

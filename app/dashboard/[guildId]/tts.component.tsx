@@ -55,14 +55,12 @@ export function TTSSettings() {
                 />
                 <Switch
                     name="Queue messages"
-                    badge="Experimental"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.queue"
                     description="Queue sent messages instead of refusing to speak."
                     defaultState={guild?.tts.queue || false}
                 />
                 <NumberInput
-
                     name="Max message length"
                     description="The maximum length of a message that can be spoken."
                     url={`/guilds/${params.guildId}`}

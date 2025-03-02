@@ -38,9 +38,10 @@ export function useList<T extends { id: string; }>({ url }: UseDataQueryOptions)
         [search]
     );
 
-    const setItemId = (id: string) => {
-        router.push(`${pathname}?${createQueryString("id", id)}`);
-    };
+    const setItemId = useCallback(
+        (id: string) => router.push(`${pathname}?${createQueryString("id", id)}`),
+        [router]
+    );
 
     const editItem = useCallback(
         <K extends keyof T>(key: K, value: T[K]) => {

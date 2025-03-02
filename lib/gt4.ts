@@ -340,7 +340,8 @@ export function GT4Init() {
                     ? config.language
                     : navigator.appName === "Netscape"
                         ? navigator.language.toLowerCase()
-                        : navigator.userLanguage.toLowerCase()
+                        : navigator.userLanguage.toLowerCase(),
+                user_info: config.userInfo
             },
             function (err) {
                 // ç½‘ç»œé—®é¢˜æŽ¥å£æ²¡æœ‰è¿”å›žï¼Œç›´æŽ¥ä½¿ç”¨æœ¬åœ°éªŒè¯ç ï¼Œèµ°å®•æœºæ¨¡å¼

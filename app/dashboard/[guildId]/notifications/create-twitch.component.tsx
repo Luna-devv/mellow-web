@@ -73,7 +73,7 @@ export function TwitchNotificationModal({
             }}
         >
             <DumbTextInput
-                name="Streamer's username or URL"
+                name="Streamer's username"
                 placeholder="DarkViperAU"
                 value={name}
                 setValue={setName}
@@ -89,7 +89,7 @@ export function TwitchNotificationModal({
                 }}
             />
 
-            <div>
+            <div className="mt-4">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a streamer&apos;s username</span>
                 <Image
                     alt="How to get a Creator's @handle, id or URL"

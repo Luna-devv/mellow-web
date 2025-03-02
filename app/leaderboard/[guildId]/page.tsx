@@ -29,13 +29,15 @@ export default async function Home({ searchParams, params }: Props) {
     const type = search.type || "messages";
     const page = parseInt(search.page || "1");
 
-    if (page !== 1 && !jar.get("session")) redirect(`/login?callback=/leaderboard/${guildId}%3Ftype%3Dmessages%3Fpage=${page}`);
+    if (page !== 1 && !jar.get("session")) {
+        redirect(`/login?callback=/leaderboard/${guildId}%3Ftype%3Dmessages%3Fpage=${page}`);
+    }
 
-    const guildPromise = getGuild(guildId);
-    const membersPromise = getTopMembers(guildId, { page, type: type });
-    const paginationPromise = getPagination(guildId);
-
-    const [guild, members, pagination] = await Promise.all([guildPromise, membersPromise, paginationPromise]).catch(() => []);
+    const [guild, members, pagination] = await Promise.all([
+        getGuild(guildId),
+        getTopMembers(guildId, { page, type }),
+        getPagination(guildId)
+    ]);
 
     let error = "";
     if (guild && "message" in guild) error = guild.message;

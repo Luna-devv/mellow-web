@@ -7,7 +7,7 @@ It's absolutely crucial for people with speech impairments like aphonia or dysph
 ## Setup
 1. Install Wamellow on your server by going to [wamellow.com/add](https://wamellow.com/add).
 2. Head to the dashboard by going to [wamellow.com/dashboard](https://wamellow.com/dashboard).
-3. **🎉 Done!** Use the commands `/tts voice` for talking inside Voice Channels.
+3. **🎉 Done!** Use the commands `/tts voice` to talk inside voice channels.
 <br />
 <br />
 
@@ -16,6 +16,9 @@ It's absolutely crucial for people with speech impairments like aphonia or dysph
 3. Select a channel to be used in the "Text to Speech" section on the website
 4. Join any voice channel in your Server (be sure Wamellow can join and talk in it).
 5. **🎉 Done!** Start writing messages in the selected channel for Wamellow to speak!
+<br />
+<br />
+To get a quick **.mp3 file** of your message, use `/tts file` in any text channel.
 
 ### 📑 Usage logs
 Pick a channel where any Text to Speech events from your server should be logged, mainly for moderation purposes.
@@ -36,10 +39,6 @@ Wamellow will announce which user is currently talking through it. If a user say
 
 ### 🛒 Message queue
 Queue up sent messages, messages are spoked in the same order as they were written.
-<br />
-<br />
-
-**Note:** This feature is experimental.
 
 ### 🔏 Max message length
 Set a maximum length for messages to avoid spamming.
@@ -53,7 +52,7 @@ Discord Nitro members can send messages with up to 4,000 characters, while non-N
 While this feature is free, we would be grateful if you could consider [shooting us a donation](https://ko-fi.com/mwlica) or [voting on top.gg](/vote). Please note that messages longer than 300 characters are vote locked. Unfortunately, money and growth (sadly) don't grow on trees (money isn't exactly normal paper).
 
 ### 🤚 Blacklist users & roles
-If you want to prevent certain users from using text or chat to speech, you can either use Discord's channel or integration permission system.
+If you want to prevent certain users from using text or chat to speech, you can either use Discord's channel or integration permission system. ([watch a tutorial](/disable-commands))
 
 ## Languages
 Wamellows Text to Speech supports many languages, these include
@@ -95,10 +94,17 @@ If an override is set, it will use the selected region, if available.
 To prevent Wamellow from speaking your messages inside of Chat to Speech channels, simply take the following actions:
 - Just add some special characters at the start of your message, like `!`, `?`, `>`, `.`, `,` and so on.
 - If you're not connected to any voice channels, those messages will also be ignored.
-- If you want to disable permanently, you can use `/tts set chat-to-speech`.
+- If you want to disable it permanently, you can use `/tts set chat-to-speech`.
+<br />
+<br />
+
+**Note:** Any of those methods only apply to you and your own messages, and not to anyone else using chat to speech.
+If you want to disable it for everyone, read the [setup section of these docs](#setup).
 
 ## Voice filters
-Filters are a way to tamper with the voices for voice chat moderators. They can be toggled using `/tts set filter` when using Wamellow in VCs.
+Filters are a way to tamper with the voices when using Wamellow in VCs, they can be toggled using `/tts set filter` by VC moderators.
+This setting applies to anyone currently using Wamellow in the VC, all filters will be removed once Wamellow leaves.
+Multiple filters can be enabled and used at the same time.
 <br />
 <br />
 
@@ -112,8 +118,16 @@ All currently available filters:
 <br />
 <br />
 
-To change the volume of the tts or mute it entirely,
+To change the volume of the TTS or mute it entirely for yourself,
 - (desktop) Right-click Wamellow, and set the "User Volume" slider.
 - (mobile) Open Wamellows' profile, and set the "Volume" slider.
 
-![how to change the volume of wamellow tts](/docs-assets/tts-volume.webp)
+![how to change the volume of Wamellow TTS](/docs-assets/tts-volume.webp)
+
+## Troubleshooting
+If Wamellow joins the voice channel but doesn't speak, check that it has the `Connect` and `Speak` permissions in the channel settings. If it does, [please report the issue to us](/support).
+<br />
+<br />
+
+If Wamellow says that someone else's message is still being spoken, but it's not talking, use `/tts voice-stop`.
+You can also use this to stop any message that is currently being spoken (i.e.: because of spam).

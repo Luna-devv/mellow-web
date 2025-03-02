@@ -80,8 +80,8 @@ export function BlueskyNotificationModal({
             }}
         >
             <DumbTextInput
-                name="Users's handle or URL"
-                placeholder="mwlica.bsky.social"
+                name="Bluesky user"
+                placeholder="wamellow.bsky.social"
                 value={name}
                 setValue={setName}
             />
@@ -96,7 +96,7 @@ export function BlueskyNotificationModal({
                 }}
             />
 
-            <div>
+            <div className="mt-4">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a user&apos;s handle</span>
                 <br />
 

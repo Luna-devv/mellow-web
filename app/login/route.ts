@@ -109,11 +109,18 @@ function generateOauthUrl(invite: boolean, redirectUrl: string | undefined, guil
 }
 
 function getRedirectUrl(searchParams: URLSearchParams) {
+    const redirectUrl = parseRedirectUrlFromState(searchParams.get("state"));
     const guildId = searchParams.get("guild_id");
-    if (guildId) return `/dashboard/${guildId}`;
 
-    const redirectUrl = decodeURIComponent(searchParams.get("state") || "/");
-    if (redirectUrl.includes("://")) return "/";
-
+    if (guildId) return `/dashboard/${guildId}${redirectUrl}`;
     return redirectUrl;
+}
+
+function parseRedirectUrlFromState(state: string | null) {
+    if (!state) return "/";
+
+    const path = decodeURIComponent(state);
+    if (path.includes("://")) return "/";
+
+    return path || "/";
 }

@@ -178,13 +178,21 @@ export interface ApiV1GuildsModulesByeGetResponse {
     };
 }
 
+export enum StarboardStyle {
+    Username = 0,
+    GlobalName = 1,
+    Nickname = 2,
+    NicknameAndGuildAvatar = 3,
+    Anonymous = 4
+}
+
 export interface ApiV1GuildsModulesStarboardGetResponse {
     enabled: boolean;
     channelId?: string;
     emoji: string;
     requiredEmojis: number;
     embedColor: number;
-    style: number;
+    style: StarboardStyle;
 
     allowNSFW: boolean;
     allowBots: boolean;
@@ -321,19 +329,13 @@ export interface ApiV1GuildsModulesTagsGetResponse {
     createdAt: Date;
 }
 
-export interface ApiV1GuildsModulesNsfwModerationGetResponse {
-    enabled: boolean;
-    logChannelId: string | null;
-    /**
-     * @example
-     * 0 - Nothing
-     * 1 - Ban
-     * 2 - Kick
-     * 3 - Delete message
-     */
-    punishment: 0 | 1 | 2 | 3;
-    threshold: number;
+export enum AutomodType {
+    BlockInvites = "invites",
+    BlockTwitter = "twitter"
+}
 
+export interface ApiV1GuildsModulesAutomodGetResponse {
+    status: Record<AutomodType, boolean>;
     whitelistChannelIds: string[];
     whitelistRoleIds: string[];
 }
@@ -391,11 +393,14 @@ export enum NotificationType {
     YouTube = 0,
     Twitch = 1,
     Bluesky = 2,
+    Reddit = 3
 }
 
 export enum NotificationFlags {
     SendReposts = 1 << 0,
-    SendReplies = 1 << 1
+    SendReplies = 1 << 1,
+    SendQuotes = 1 << 2,
+    MustContainImage = 1 << 3
 }
 
 export interface ApiV1GuildsModulesNotificationsGetResponse {
@@ -406,6 +411,8 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
 
     type: NotificationType;
     flags: number;
+    regex: string | null;
+
     creatorId: string;
 
     message: {
@@ -419,7 +426,7 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
         id: string;
         username: string;
         customUrl: string;
-        avatarUrl: string;
+        avatarUrl: string | null;
     };
 }
 

@@ -1,11 +1,12 @@
 "use client";
+
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useCallback } from "react";
 import { HiExternalLink, HiViewGridAdd } from "react-icons/hi";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import { DiscordMarkdown } from "@/components/discord/markdown";
@@ -15,81 +16,47 @@ import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
+import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
-import { getData } from "@/lib/api";
+import { cacheOptions, getData } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
-import type { ApiError, ApiV1GuildsModulesStarboardGetResponse } from "@/typings";
+import { type ApiV1GuildsModulesStarboardGetResponse, StarboardStyle } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+
+import { useExample } from "./hooks";
 
 export default function Home() {
     const guild = guildStore((g) => g);
     const params = useParams();
 
     const url = `/guilds/${params.guildId}/modules/starboard` as const;
+    const queryClient = useQueryClient();
 
-    const [data, setData] = useState<ApiV1GuildsModulesStarboardGetResponse | ApiError>();
-
-    const { isLoading, error } = useQuery(
+    const { data, isLoading, error } = useQuery(
         url,
         () => getData<ApiV1GuildsModulesStarboardGetResponse>(url),
         {
             enabled: !!params.guildId,
-            onSuccess: (d) => setData(d)
+            ...cacheOptions
         }
     );
 
-    const handleSwitchToggle = (enabled: boolean) => {
-        if (!data) return;
-        const updatedLocalData = { ...data, enabled };
-        setData(updatedLocalData);
-    };
+    const example = useExample(data && !("message" in data)
+        ? data.style
+        : StarboardStyle.Username
+    );
 
-    const [example, setExample] = useState({
-        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-        username: "@spacewolf.",
-        color: 0
-    });
+    const edit = useCallback(
+        <K extends keyof ApiV1GuildsModulesStarboardGetResponse>(key: K, value: ApiV1GuildsModulesStarboardGetResponse[K]) => {
+            if (!data || "message" in data) return;
 
-    const handleUserStyle = (value: number) => {
-        switch (value) {
-            case 0:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                        username: "@spacewolf."
-                    };
-                });
-                break;
-            case 1:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                        username: "Space Wolf"
-                    };
-                });
-                break;
-            case 2:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                        username: "Luna’s Grandpa <3"
-                    };
-                });
-                break;
-            case 3:
-                setExample((e) => {
-                    return {
-                        ...e,
-                        avatar: "https://cdn.waya.one/r/a_3a2fa421f079827d31f4fd1b7a9971ba.gif",
-                        username: "Luna’s Grandpa <3"
-                    };
-                });
-                break;
-        }
-    };
+            queryClient.setQueryData<ApiV1GuildsModulesStarboardGetResponse>(url, () => ({
+                ...data,
+                [key]: value
+            }));
+        },
+        [data]
+    );
 
     if (error || (data && "message" in data)) {
         return (
@@ -130,7 +97,7 @@ export default function Home() {
             dataName="enabled"
             defaultState={data.enabled}
             disabled={false}
-            onSave={handleSwitchToggle}
+            onSave={(v) => edit("enabled", v)}
         />
 
         <Switch
@@ -139,6 +106,7 @@ export default function Home() {
             dataName="allowBots"
             defaultState={data.allowBots}
             disabled={!data.enabled}
+            onSave={(v) => edit("allowBots", v)}
         />
 
         <Switch
@@ -147,6 +115,7 @@ export default function Home() {
             dataName="allowNSFW"
             defaultState={data.allowNSFW}
             disabled={!data.enabled}
+            onSave={(v) => edit("allowNSFW", v)}
         />
 
         <Switch
@@ -156,6 +125,7 @@ export default function Home() {
             dataName="allowEdits"
             defaultState={data.allowEdits}
             disabled={!data.enabled}
+            onSave={(v) => edit("allowEdits", v)}
         />
 
         <Switch
@@ -165,6 +135,7 @@ export default function Home() {
             dataName="allowSelfReact"
             defaultState={data.allowSelfReact}
             disabled={!data.enabled}
+            onSave={(v) => edit("allowSelfReact", v)}
         />
 
         <Switch
@@ -174,6 +145,7 @@ export default function Home() {
             dataName="displayReference"
             defaultState={data.displayReference}
             disabled={!data.enabled}
+            onSave={(v) => edit("displayReference", v)}
         />
 
         <Switch
@@ -183,6 +155,7 @@ export default function Home() {
             dataName="delete"
             defaultState={data.delete}
             disabled={!data.enabled}
+            onSave={(v) => edit("delete", v)}
         />
 
         <NumberInput
@@ -193,6 +166,7 @@ export default function Home() {
             defaultState={data.requiredEmojis ?? 0}
             disabled={!data.enabled}
             min={1}
+            onSave={(v) => edit("requiredEmojis", v)}
         />
 
         <SelectMenu
@@ -203,6 +177,7 @@ export default function Home() {
             description="Select the channel where the starboard messages should be send into."
             defaultState={data.channelId}
             disabled={!data.enabled}
+            onSave={(o) => edit("channelId", o.value as string)}
         />
 
         <div className="lg:flex gap-3">
@@ -230,16 +205,10 @@ export default function Home() {
                     ]}
                     description="Select the emoji that needs to be reacted with."
                     defaultState={data.emoji}
-                    onSave={(options) => {
-                        setData({
-                            ...data,
-                            emoji: options.value as string
-                        });
-                    }}
                     disabled={!data.enabled}
+                    onSave={(o) => edit("emoji", o.value as string)}
                 />
             </div>
-
             <div className="lg:w-1/2">
                 <SelectMenu
                     name="Profile display style"
@@ -248,25 +217,29 @@ export default function Home() {
                     items={[
                         {
                             name: "Username",
-                            value: 0
+                            value: StarboardStyle.Username
                         },
                         {
                             name: "Global Nickname",
-                            value: 1
+                            value: StarboardStyle.GlobalName
                         },
                         {
                             name: "Nickname",
-                            value: 2
+                            value: StarboardStyle.Nickname
                         },
                         {
                             name: "Nickname & Per-guild Avatar",
-                            value: 3
+                            value: StarboardStyle.NicknameAndGuildAvatar
+                        },
+                        {
+                            name: "Anonymous (removes the username & avatar)",
+                            value: StarboardStyle.Anonymous
                         }
                     ]}
                     description="The style members profile gets displayed."
                     defaultState={data.style}
-                    onSave={(options) => handleUserStyle(options.value as number)}
                     disabled={!data.enabled}
+                    onSave={(o) => edit("style", o.value as number)}
                 />
             </div>
         </div>
@@ -282,6 +255,7 @@ export default function Home() {
                     defaultState={data.blacklistChannelIds || []}
                     max={500}
                     disabled={!data.enabled}
+                    onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value as string))}
                 />
             </div>
             <div className="lg:w-1/2">
@@ -294,6 +268,21 @@ export default function Home() {
                     defaultState={data.blacklistRoleIds || []}
                     max={500}
                     disabled={!data.enabled}
+                    onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value as string))}
+                />
+            </div>
+        </div>
+
+        <div className="lg:flex gap-3">
+            <div className="w-1/2">
+                <TextInput
+                    name="Color"
+                    url={url}
+                    dataName="embedColor"
+                    description="Color used for the side of the embed."
+                    type="color"
+                    defaultState={data.embedColor ?? 0}
+                    onSave={(o) => edit("embedColor", o as number)}
                 />
             </div>
         </div>
@@ -314,10 +303,13 @@ export default function Home() {
 
                 <DiscordMessageEmbed
                     className="max-w-lg"
-                    author={{
-                        icon_url: example.avatar,
-                        text: example.username
-                    }}
+                    author={example.username
+                        ? {
+                            icon_url: example.avatar!,
+                            text: example.username
+                        }
+                        : undefined
+                    }
                     mode={"DARK"}
                     color={data.embedColor}
                 >

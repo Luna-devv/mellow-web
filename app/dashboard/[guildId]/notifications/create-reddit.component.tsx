@@ -1,28 +1,20 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 
 import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
-import TutorialPic from "@/public/docs-assets/notifications-channel-urls.webp";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
-const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?youtube\.com\/channel\/UC([a-zA-Z0-9_-]{16,32})$/;
-const URL_HANDLE_REGEX = /^https?:\/\/((www|m)\.)?youtube\.com\/@([a-zA-Z0-9._-]{3,30})$/;
-const CHANNEL_ID = /^UC[a-zA-Z0-9_-]{16,32}$/;
-const CHANNE_HANDLE = /^@?[a-zA-Z0-9._-]{3,30}$/;
+const URL_CHANNEL_REGEX = /^https?:\/\/((www|m|old|oauth)\.)?reddit\.com\/r\/(?=.{3,21}$)[A-Za-z][A-Za-z0-9_]*\/?$/;
+const CHANNE_HANDLE = /^((\/)?r\/)?(?=.{3,21}$)[A-Za-z][A-Za-z0-9_]*$/;
 
 function validateAccount(input: string) {
-    if (URL_CHANNEL_REGEX.exec(input)) return input.split("/channel/")[1];
-    if (URL_HANDLE_REGEX.exec(input)) return input.split("/@")[1];
-
-    if (CHANNEL_ID.exec(input)) return input;
-    if (CHANNE_HANDLE.exec(input)) return input.replace("@", "");
-
+    if (URL_CHANNEL_REGEX.exec(input)) return input.split("/r/")[1].replace(/\/$/, "");
+    if (CHANNE_HANDLE.exec(input)) return input.replace(/^(\/)?r\//, "");
     return null;
 }
 
@@ -34,7 +26,7 @@ interface Props {
     onClose: () => void;
 }
 
-export function YoutubeNotificationModal({
+export function RedditNotificationModal({
     add,
     set,
 
@@ -54,10 +46,8 @@ export function YoutubeNotificationModal({
             onClose={onClose}
             onSubmit={() => {
                 const validated = validateAccount(name);
-                if (!validated && name.startsWith("https://")) return new Error("Invalid channel url");
-                if (!validated) return new Error("Invalid channel id or handle");
-
-                const isId = CHANNEL_ID.exec(validated);
+                if (!validated && name.startsWith("https://")) return new Error("Invalid subreddit url");
+                if (!validated) return new Error("Invalid subreddit name");
 
                 return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/notifications`, {
                     method: "POST",
@@ -66,10 +56,9 @@ export function YoutubeNotificationModal({
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        type: NotificationType.YouTube,
+                        type: NotificationType.Reddit,
                         channelId,
-                        creatorHandle: isId ? undefined : validated,
-                        creatorId: isId ? validated : undefined
+                        creatorHandle: validated
                     })
                 });
             }}
@@ -82,8 +71,8 @@ export function YoutubeNotificationModal({
             }}
         >
             <DumbTextInput
-                name="Creator's @handle, id or URL"
-                placeholder="@LinusTechTips"
+                name="Subreddit"
+                placeholder="r/wamellow"
                 value={name}
                 setValue={setName}
             />
@@ -99,12 +88,14 @@ export function YoutubeNotificationModal({
             />
 
             <div className="mt-4">
-                <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a channel&apos;s @handle or Id</span>
-                <Image
-                    alt="How to get a Creator's @handle, id or URL"
-                    className="rounded-md"
-                    src={TutorialPic}
-                />
+                <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a subreddits&apos; name</span>
+                <br />
+
+                The subreddit name is the string with the leading <code className="break-all">r/</code>, such as <code>r/wamellow</code>.
+                <br />
+                <br />
+
+                Though, you can also use the link of the subreddit.
             </div>
 
         </Modal>

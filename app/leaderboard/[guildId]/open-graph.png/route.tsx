@@ -31,13 +31,15 @@ export async function GET(request: NextRequest, { params }: Props) {
         (
             <div tw="bg-[#07050c] p-18 flex flex-col w-full h-full text-6xl text-white">
                 <div tw="flex mb-6">
-                    <span tw="text-3xl bg-[#2c2146] text-[#895af6] opacity-80 pt-2 px-4 rounded-xl" style={{ fontWeight: 500 }}>Leaderboard</span>
+                    <span tw="text-3xl bg-[#2c2146] text-[#895af6] opacity-80 pt-2 px-4 rounded-xl pb-2" style={{ fontWeight: 500 }}>
+                        Leaderboard
+                    </span>
                 </div>
                 <div tw="flex mb-3 items-center">
                     <img
                         alt=""
                         src={guildExists && guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png` : getCanonicalUrl("discord.png")}
-                        tw="h-20 w-20 rounded-2xl relative bottom-3 mr-5"
+                        tw="h-20 w-20 rounded-2xl mr-5"
                         width={20 * 4}
                         height={20 * 4}
                     />
