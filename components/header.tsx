@@ -248,7 +248,7 @@ export function Header() {
         >
             <AnimatePresence initial={false}>
                 {user?.id && menu &&
-                    <div className="absolute top-[72px] right-3.5 z-10">
+                    <div className="absolute top-[72px] right-3.5 z-50">
                         <UserDropdown />
                     </div>
                 }
