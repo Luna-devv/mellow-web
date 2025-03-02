@@ -88,7 +88,7 @@ export default function NumberInput({
     }, [defaultState]);
 
     function handleSave() {
-        if (def === value || !value) return;
+        if (def === value) return;
         setError(undefined);
         setState(State.Loading);
 
