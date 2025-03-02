@@ -13,7 +13,6 @@ import { SiKofi } from "react-icons/si";
 
 import { Header } from "@/components/header";
 import { LoginButton } from "@/components/login-button";
-import Notice, { NoticeType } from "@/components/notice";
 import { cn } from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
 
@@ -64,73 +63,6 @@ export const generateMetadata = (): Metadata => {
         },
 
         description,
-        keywords: [
-            "discord",
-            "bot",
-            "app",
-            "intefration",
-            "discord bot",
-            "discord app",
-            "discord application",
-            "app list",
-            "waya",
-            "waya bot",
-            "waya.one",
-            "mwya",
-            "mellow",
-            "wamellow",
-            "mwlica",
-            "lunish",
-            "Luna-devv",
-            "mee6 alternative",
-            "arcane alternative",
-            "dyno alternative",
-            "starboard",
-            "ranks",
-            "leaderboard",
-            "lb",
-            "leaderboards",
-            "text to speech",
-            "captcha",
-            "passport",
-            "verification",
-            "verify",
-            "captcha.bot",
-            "security",
-            "tts",
-            "text to speech",
-            "free",
-            "customizable",
-            "next-gen",
-            "next generation",
-            "ai",
-            "ai images",
-            "nsfw detection",
-            "moderation",
-            "anime",
-            "nekos",
-            "waifus",
-            "chat to speech",
-            "accessibility",
-            "aphonia",
-            "dysphonia",
-            "mute",
-            "liapew",
-            "wumpus",
-            "wumpus store",
-            "wumpus bots",
-            "youtube notifications",
-            "youtube notifis",
-            "youtube to discord",
-            "twitch notifications",
-            "twitch notifis",
-            "twitch to discord",
-            "bluesky notifications",
-            "bluesky notifis",
-            "bluesky to discord",
-            "bluesky",
-            "bsky"
-        ],
 
         alternates: {
             canonical: getBaseUrl()
@@ -195,7 +127,6 @@ export default function RootLayout({
                     <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-50" />
                     <Noise />
 
-                    <NoScript />
                     <NavBar />
 
                     <Provider>
@@ -239,18 +170,6 @@ function Noise() {
     );
 }
 
-function NoScript() {
-    return (
-        <noscript className="p-4 pb-0 flex">
-            <Notice
-                className="mb-0"
-                message="This site needs JavaScript to work - Please either enable JavaScript or update to a supported Browser."
-                type={NoticeType.Info}
-            />
-        </noscript>
-    );
-}
-
 async function NavBar() {
     const jar = await cookies();
 
@@ -258,10 +177,10 @@ async function NavBar() {
         <nav className="p-4 flex items-center gap-2 text-base font-medium text-neutral-300 select-none h-20 relative">
             <Link
                 aria-label="Go to Wamellow's homepage"
-                className={cn("font-semibold flex items-center mr-2 shrink-0 mr-2", lexend.className)}
+                className={cn("font-semibold flex items-center mr-2 shrink-0", lexend.className)}
                 href="/"
             >
-                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full w-8 h-8 shrink-0" />
+                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full size-8 shrink-0 mr-2" />
                 <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
             </Link>
 
