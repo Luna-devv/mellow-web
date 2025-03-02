@@ -46,10 +46,7 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
                             <HiCube />
                             <span className="flex items-center">
                                 Made by
-                                <Link
-                                    href="https://github.com/Luna-devv/portfolio"
-                                    target="_blank"
-                                >
+                                <Link href="/team">
                                     <Badge
                                         className="relative top-[3px] ml-0.5"
                                         radius="rounded"
