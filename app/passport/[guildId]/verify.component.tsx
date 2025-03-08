@@ -27,7 +27,7 @@ export function Verify({ guild, isLoggedIn }: Props) {
     return (
         <div className="flex flex-col gap-3 w-full mt-4">
 
-            <Badge className="relative top-[3px] ml-0.5 w-fit h-6">
+            <Badge className="relative top-[3px] ml-0.5 w-fit h-6" radius="rounded">
                 <ImageReduceMotion
                     className="rounded-full size-5 relative right-1 -ml-[5px]"
                     alt="your avatar"

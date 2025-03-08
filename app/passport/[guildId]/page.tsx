@@ -69,7 +69,7 @@ export default async function Home({ params }: Props) {
     const guildExists = guild && "id" in guild;
 
     return (<>
-        {typeof passport === "object" && "message" in passport &&
+        {passport && "message" in passport &&
             <Notice type={NoticeType.Error} message={passport.message} />
         }
 
@@ -147,7 +147,9 @@ export default async function Home({ params }: Props) {
 
                     {
                         guildExists &&
-                        passport === true &&
+                        passport &&
+                        "enabled" in passport &&
+                        passport.enabled &&
                         <Verify
                             guild={guild}
                             isLoggedIn={Boolean(jar.get("token")?.value)}

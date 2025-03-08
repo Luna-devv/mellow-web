@@ -120,7 +120,7 @@ export default function MessageCreatorEmbed({
             .then((r) => r.json())
             .catch(() => null);
 
-        if (!res || "statusCode" in res) {
+        if (!res || "status" in res) {
             setState(State.Idle);
             setError(
                 "message" in res

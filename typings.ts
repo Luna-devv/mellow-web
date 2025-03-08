@@ -2,7 +2,7 @@ import { ChannelType } from "discord-api-types/v10";
 import { actor } from "./utils/tts";
 
 export interface ApiError {
-    statusCode: number;
+    status: number;
     message: string;
 }
 

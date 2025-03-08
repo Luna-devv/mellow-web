@@ -41,7 +41,7 @@ export default function RootLayout({
             enabled: !!user?.id,
             onSuccess: (d) => userStore.setState({
                 ...user,
-                extended: "statusCode" in d ? {} : d
+                extended: "status" in d ? {} : d
             }),
             ...cacheOptions
         }

@@ -16,7 +16,7 @@ export default async function Home({ params }: Props) {
     const { uploadId } = await params;
 
     const upload = await getUpload(uploadId);
-    if (!upload || "statusCode" in upload) return;
+    if (!upload || "status" in upload) return;
 
     const src = `https://r2.wamellow.com/ai-image/${upload.id}.webp`;
 

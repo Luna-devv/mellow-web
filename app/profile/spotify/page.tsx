@@ -31,7 +31,7 @@ export default function Home({ searchParams }: Props) {
         cacheOptions
     );
 
-    if (error || (data && "message" in data && data.statusCode !== 404)) {
+    if (error || (data && "message" in data && data.status !== 404)) {
         return (
             <ScreenMessage
                 title="Something went wrong on this page.."
@@ -53,7 +53,7 @@ export default function Home({ searchParams }: Props) {
     return (
         <div className="h-full">
 
-            {"statusCode" in data &&
+            {"status" in data &&
                 <ScreenMessage
                     title="Nothing to see here.. yet.."
                     description="Cool things will come soon"

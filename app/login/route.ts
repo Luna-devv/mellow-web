@@ -73,7 +73,7 @@ export async function GET(request: Request) {
     const res = await createSession(code);
     let redirectUrl = getRedirectUrl(searchParams);
 
-    if (!res || "statusCode" in res) {
+    if (!res || "status" in res) {
         const data = { statusCode: 500, message: res?.message || "An error occurred" };
         console.log(data);
 

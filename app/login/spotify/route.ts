@@ -15,14 +15,13 @@ export async function GET(request: Request) {
     }
 
     if (logout) {
-
         const res = await disconnectSpotify(session.value);
 
         if (
-            (res !== true || typeof res !== "boolean" && "statusCode" in res) &&
-            res?.statusCode !== 401
+            "status" in res &&
+            res?.status !== 401
         ) {
-            const data = { statusCode: 500, message: res?.message || "An error occurred" };
+            const data = { status: 500, message: res?.message || "An error occurred" };
             console.log(data);
             return Response.json(data);
         }
@@ -39,10 +38,10 @@ export async function GET(request: Request) {
     const res = await connectSpotify(code, session.value);
 
     if (
-        (res !== true || typeof res !== "boolean" && "statusCode" in res) &&
-        res?.statusCode !== 401
+        "status" in res &&
+        res?.status !== 401
     ) {
-        const data = { statusCode: 500, message: res?.message || "An error occurred" };
+        const data = { status: 500, message: res?.message || "An error occurred" };
         console.log(data);
         return Response.json(data);
     }

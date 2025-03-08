@@ -1,6 +1,6 @@
 import type { ApiError } from "@/typings";
 
-export async function connectSpotify(code: string, session: string): Promise<true | ApiError> {
+export async function connectSpotify(code: string, session: string): Promise<{ success: boolean; } | ApiError> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/connections/spotify`, {
         method: "PUT",
         headers: {
@@ -13,10 +13,10 @@ export async function connectSpotify(code: string, session: string): Promise<tru
         })
     });
 
-    return res.ok ? true : await res.json();
+    return res.json();
 }
 
-export async function disconnectSpotify(session: string): Promise<true | ApiError> {
+export async function disconnectSpotify(session: string): Promise<{ success: boolean; } | ApiError> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/connections/spotify`, {
         method: "DELETE",
         headers: {
@@ -26,5 +26,5 @@ export async function disconnectSpotify(session: string): Promise<true | ApiErro
         }
     });
 
-    return res.ok ? true : await res.json();
+    return res.json();
 }
