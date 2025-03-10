@@ -6,7 +6,7 @@ import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 import { createSession } from "./api";
 
-const defaultCookieOptions = {
+export const defaultCookieOptions = {
     secure: getBaseUrl().startsWith("https://"),
     httpOnly: false,
     sameSite: "none",

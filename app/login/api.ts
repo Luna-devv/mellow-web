@@ -1,5 +1,6 @@
 import type { User } from "@/common/user";
 import type { ApiError } from "@/typings";
+import { getCanonicalUrl } from "@/utils/urls";
 
 interface UserSessionCreate extends User {
     session: string;
@@ -15,7 +16,10 @@ export async function createSession(code: string): Promise<UserSessionCreate | A
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/sessions`, {
         method: "POST",
         headers,
-        body: JSON.stringify({ code })
+        body: JSON.stringify({
+            code,
+            redirectUri: getCanonicalUrl("login")
+        })
     });
 
     return res.json();

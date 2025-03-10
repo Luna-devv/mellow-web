@@ -299,15 +299,15 @@ export interface ApiV1UsersMeGetResponse {
     };
 }
 
-export interface ApiV1UsersMeConnectionsSpotifyGetResponse {
-    displayName: string;
+export enum ConnectionType {
+    Spotify = 0,
+    Bluesky = 1
+}
+
+export interface ApiV1UsersMeConnectionsGetResponse {
+    username: string;
     avatar: string | null;
-    playing: {
-        name: string;
-        id: string;
-        artists: string;
-        duration: string;
-    } | undefined;
+    type: ConnectionType;
 }
 
 export interface ApiV1GuildsModulesTagsGetResponse {

@@ -49,12 +49,6 @@ const nextConfig = {
                 port: "",
                 pathname: "/**"
             },
-            {
-                protocol: "https",
-                hostname: "ai.local.wamellow.com",
-                port: "",
-                pathname: "/static/**"
-            },
 
             {
                 protocol: "https",
@@ -68,12 +62,18 @@ const nextConfig = {
                 port: "",
                 pathname: "/jtv_user_pictures/**"
             },
-            {
-                protocol: "https",
-                hostname: "cdn.bsky.app",
-                port: "",
-                pathname: "/img/avatar/plain/**"
-            }
+           {
+               protocol: "https",
+               hostname: "cdn.bsky.app",
+               port: "",
+               pathname: "/img/avatar/plain/**"
+           },
+          {
+              protocol: "https",
+              hostname: "i.scdn.co",
+              port: "",
+              pathname: "/image/**"
+          }
         ]
     }
 };
