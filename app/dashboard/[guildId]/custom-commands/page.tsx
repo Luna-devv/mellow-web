@@ -142,76 +142,73 @@ export default function Home() {
 
         </div>
 
-        {tag &&
-            <>
-
-                <div className="relative rounded-md overflow-hidden p-[1px]">
-                    <StatsBar
-                        items={[
-                            {
-                                name: "All time Unique Users",
-                                number: 420,
-                                gained: 69,
-                                append: "yesterday"
-                            },
-                            {
-                                name: "All time Command Uses",
-                                number: 69420,
-                                gained: 42,
-                                append: "yesterday"
-                            }
-                        ]}
-                    />
-
-                    <div className="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full backdrop-blur-md backdrop-brightness-75" >
-                        <div className="text-3xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">Nothing to see here.. yet..</div>
-                        <div className="text-md dark:text-neutral-400 text-neutral-600 font-semibold">Here will be the usage of your custom commands soon</div>
-                    </div>
-                </div>
-
-                <div className="lg:flex gap-3 mt-6">
-                    <div className="lg:w-1/2">
-                        <TextInput
-                            key={tag.id}
-                            name="Name"
-                            url={url + "/" + tag.id}
-                            dataName="name"
-                            description="The name of the custom command."
-                            defaultState={tag.name}
-                            resetState={tag.name}
-                            onSave={(value) => editTag("name", value as string)}
-                        />
-                    </div>
-
-                    <div className="lg:w-1/2">
-                        <SelectInput
-                            key={tag.id}
-                            name="Permissions"
-                            url={url + "/" + tag.id}
-                            items={
-                                Permissions.sort((a, b) => a.localeCompare(b)).map((p) => (
-                                    { name: convertCamelCaseToSpaced(p), value: p }
-                                )) || []
-                            }
-                            dataName="permission"
-                            description="The permissions needed to execute this tag."
-                            defaultState={tag.permission}
-                            onSave={(option) => editTag("permission", option.value as string)}
-                            showClear
-                        />
-                    </div>
-                </div>
-
-                <MessageCreatorEmbed
-                    key={tag.id}
-                    name="Message"
-                    url={url + "/" + tag.id}
-                    dataName="message"
-                    defaultMessage={tag.message}
-                    onSave={(value) => editTag("message", value as string)}
+        {tag && <>
+            <div className="relative rounded-md overflow-hidden p-[1px]">
+                <StatsBar
+                    items={[
+                        {
+                            name: "All time Unique Users",
+                            number: 420,
+                            gained: 69,
+                            append: "yesterday"
+                        },
+                        {
+                            name: "All time Command Uses",
+                            number: 69420,
+                            gained: 42,
+                            append: "yesterday"
+                        }
+                    ]}
                 />
-            </>
-        }
+
+                <div className="absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full backdrop-blur-md backdrop-brightness-75" >
+                    <div className="text-3xl dark:text-neutral-100 text-neutral-900 font-semibold mb-2">Nothing to see here.. yet..</div>
+                    <div className="text-md dark:text-neutral-400 text-neutral-600 font-semibold">Here will be the usage of your custom commands soon</div>
+                </div>
+            </div>
+
+            <div className="lg:flex gap-3 mt-6">
+                <div className="lg:w-1/2">
+                    <TextInput
+                        key={tag.id}
+                        name="Name"
+                        url={url + "/" + tag.id}
+                        dataName="name"
+                        description="The name of the custom command."
+                        defaultState={tag.name}
+                        resetState={tag.name}
+                        onSave={(value) => editTag("name", value as string)}
+                    />
+                </div>
+
+                <div className="lg:w-1/2">
+                    <SelectInput
+                        key={tag.id}
+                        name="Permissions"
+                        url={url + "/" + tag.id}
+                        items={
+                            Permissions.sort((a, b) => a.localeCompare(b)).map((p) => (
+                                { name: convertCamelCaseToSpaced(p), value: p }
+                            )) || []
+                        }
+                        dataName="permission"
+                        description="The permissions needed to execute this tag."
+                        defaultState={tag.permission}
+                        onSave={(option) => editTag("permission", option.value as string)}
+                        showClear
+                    />
+                </div>
+            </div>
+
+            <MessageCreatorEmbed
+                key={tag.id}
+                name="Message"
+                url={url + "/" + tag.id}
+                dataName="message"
+                defaultMessage={tag.message}
+                onSave={(value) => editTag("message", value as string)}
+            />
+        </> }
 
         {!data.length &&
             <div
