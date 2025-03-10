@@ -29,7 +29,6 @@ export function LoginButton({
     className
 }: Props) {
     if (state === State.Loading) return <></>;
-    console.log(className);
 
     return (
         <Button

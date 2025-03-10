@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Skeleton } from "@nextui-org/react";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
@@ -101,7 +102,11 @@ export default function RootLayout({
 
     return (
         <div className="flex flex-col w-full">
-            <title>{`${guild?.name}'s Dashboard`}</title>
+            {guild?.name && (
+                <Head>
+                    <title>{`${guild?.name}'s Dashboard`}</title>
+                </Head>
+            )}
 
             <div className="flex flex-col gap-5 mb-3">
                 <Button

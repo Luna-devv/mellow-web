@@ -68,7 +68,7 @@ export function ItemSelector<T extends TBase>({
     if (!guild) return <></>;
 
     return (<>
-        <div className="flex flex-col gap-2">
+        <div className="space-y-2">
             {items
                 .sort(sort)
                 .map((i) => (
@@ -123,7 +123,6 @@ function Item({
     buttons: React.ReactNode;
     children: React.ReactNode;
 }) {
-
     return (
         <div className="flex justify-between p-4 bg-wamellow rounded-xl w-full duration-100">
             <div className="flex gap-3 items-center">
