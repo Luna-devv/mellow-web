@@ -65,6 +65,7 @@ function Connection(
     { name: string; type: ConnectionType; data: ApiV1UsersMeConnectionsGetResponse[]; }
 ) {
     const connection = data.find((entry) => entry.type === type);
+    const disabled = type === ConnectionType.Spotify && !connection;
 
     return (
         <div
@@ -99,9 +100,11 @@ function Connection(
             <Button
                 className="ml-auto"
                 onClick={() => {
+                    if (disabled) return;
                     // idk with router.push logout doesn't update
                     window.location.href = `/login/${name.toLowerCase()}${connection ? "?logout=true" : ""}`;
                 }}
+                disabled={disabled}
             >
                 {connection ? <HiTrash /> : <HiFingerPrint />}
                 {connection ? "Disconnect" : "Connect"}
