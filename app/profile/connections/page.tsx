@@ -89,7 +89,7 @@ function Connection(
 
             <div className="truncate">
                 <span className={cn("font-medium text-lg text-red-400 ", connection && "text-neutral-100")}>
-                    {connection?.username || "Not connected"}
+                    {connection ? connection.username : "Not connected"}
                 </span>
                 <div className="flex items-center gap-1">
                     <Icon type={type} />
