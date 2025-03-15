@@ -31,9 +31,6 @@ export function Provider({ children }: Props) {
             }
         );
 
-        const params = new URLSearchParams(window.location.search);
-        if (params.get("spotify_login_success") === "true" && path !== "/login/spotify") window.close();
-
         if (!path.startsWith("/dashboard/")) guildStore.setState(undefined);
     }, [path]);
 
