@@ -240,7 +240,7 @@ Placeholders allow you to use variables that change from message to message, for
         </tr>
         <tr>
             <td><code>post.link</code></td>
-            <td>https://bsky.app/profile/lunish.nl/post/3lck23sfi522v</td>
+            <td>https://bsky.app/profile/shi.gg/post/3lck23sfi522v</td>
             <td>Post page</td>
         </tr>
         <tr>
@@ -255,7 +255,7 @@ Placeholders allow you to use variables that change from message to message, for
         </tr>
         <tr>
             <td><code>creator.handle</code></td>
-            <td>lunish.nl</td>
+            <td>shi.gg</td>
             <td>Creator handle</td>
         </tr>
         <tr>

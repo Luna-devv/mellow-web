@@ -100,7 +100,7 @@ export function BlueskyNotificationModal({
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a user&apos;s handle</span>
                 <br />
 
-                Your handle is likely something like <code className="break-all">mwlica.bsky.social</code>, some others may have a handle like <code>lunish.nl</code>.
+                Your handle is likely something like <code className="break-all">tolgchu.bsky.social</code>, some others may have a handle like <code>shi.gg</code>.
                 <br />
                 <br />
 

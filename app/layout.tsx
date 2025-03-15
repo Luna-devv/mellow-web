@@ -91,8 +91,8 @@ export const generateMetadata = (): Metadata => {
             google: "notranslate"
         },
 
-        creator: "Luna (lunish.nl)",
-        publisher: "Luna (lunish.nl)",
+        creator: "Luna (shi.gg)",
+        publisher: "Luna (shi.gg)",
 
         robots: "index, follow"
     };

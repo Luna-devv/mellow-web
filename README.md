@@ -1,4 +1,4 @@
-[![](https://img.shields.io/discord/828676951023550495?color=5865F2&logo=discord&logoColor=white)](https://lunish.nl/support)
+[![](https://img.shields.io/discord/828676951023550495?color=5865F2&logo=discord&logoColor=white)](https://wamellow.com/support)
 ![](https://img.shields.io/github/repo-size/Luna-devv/mellow-web?maxAge=3600)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I6AFVAP)
@@ -66,7 +66,7 @@ To build and run the website use
 pnpm build
 pnpm start
 ```
-or 
+or
 ```bash
 docker build -t mw-web .
 docker compose up -d

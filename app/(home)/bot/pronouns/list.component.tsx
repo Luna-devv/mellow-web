@@ -44,7 +44,7 @@ export default function List({ res, type }: Props) {
                         color="red"
                     />
                     <span className="text-neutral-500 flex flex-wrap items-center gap-1">
-                        All bots are owned by <Link className="hover:underline" href="https://lunish.nl">lunish.nl</Link>
+                        All bots are owned by <Link className="hover:underline" href="http://shi.gg">shi.gg</Link>
                         <HiAcademicCap />
                     </span>
                 </div>
