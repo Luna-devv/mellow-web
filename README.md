@@ -12,6 +12,8 @@ If you need help developing with this, join **[our Discord Server](https://disco
 
 Note that this project is not meant to be used by anyone else, including other bots, as it is specifically designed for our bot and the backend API stays private. We will not provide support for this project if you use it for your own bot, though you are allowed to by the license.
 
+Other open source projects relating to Wamellow can be found on [wamellow.com/team](https://wamellow.com/team).
+
 ## Setup
 Clone this repo with the following commands:
 
@@ -54,8 +56,8 @@ GITHUB_TOKEN=""
 This project uses pnpm with nodejs, to start developing, run:
 
 ```bash
-pnpm install
-pnpm dev
+bun install
+bun dev
 ```
 
 If you work on this project, please note that nextui is being phased out in favor of shadcn/ui, so please use the latter for new components.
@@ -63,11 +65,12 @@ If you work on this project, please note that nextui is being phased out in favo
 ## Deploy
 To build and run the website use
 ```bash
-pnpm build
-pnpm start
+bun build
+bun start
 ```
 or
 ```bash
 docker build -t mw-web .
 docker compose up -d
 ```
+(docker is not tested nor maintained)
