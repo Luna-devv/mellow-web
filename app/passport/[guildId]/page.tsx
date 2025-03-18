@@ -152,7 +152,7 @@ export default async function Home({ params }: Props) {
                         passport.enabled &&
                         <Verify
                             guild={guild}
-                            isLoggedIn={Boolean(jar.get("token")?.value)}
+                            isLoggedIn={Boolean(jar.get("session")?.value)}
                         />
                     }
                 </div>

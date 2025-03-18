@@ -46,19 +46,6 @@ export function Verify({ guild, isLoggedIn }: Props) {
 
             {isLoggedIn ?
                 <Button
-                    asChild
-                    variant="blurple"
-                >
-                    <Link
-                        href="/login"
-                        prefetch={false}
-                    >
-                        <BsDiscord />
-                        Login to verify
-                    </Link>
-                </Button>
-                :
-                <Button
                     ref={button}
                     variant={state === State.Success ? "success" : "secondary"}
                     className={cn(error && "cursor-not-allowed", state === State.Success && "cursor-not-allowed", "font-medium w-full")}
@@ -72,6 +59,19 @@ export function Verify({ guild, isLoggedIn }: Props) {
                         ? "Verification successful"
                         : "Complete verification"
                     }
+                </Button>
+                :
+                <Button
+                    asChild
+                    variant="blurple"
+                >
+                    <Link
+                        href="/login"
+                        prefetch={false}
+                    >
+                        <BsDiscord />
+                        Login to verify
+                    </Link>
                 </Button>
             }
 
