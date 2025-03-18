@@ -27,15 +27,17 @@ export function Verify({ guild, isLoggedIn }: Props) {
     return (
         <div className="flex flex-col gap-3 w-full mt-4">
 
-            <Badge className="relative top-[3px] ml-0.5 w-fit h-6" radius="rounded">
-                <ImageReduceMotion
-                    className="rounded-full size-5 relative right-1 -ml-[5px]"
-                    alt="your avatar"
-                    url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
-                    size={24}
-                />
-                {user?.username}
-            </Badge>
+            {isLoggedIn && (
+                <Badge className="relative top-[3px] ml-0.5 w-fit h-6" radius="rounded">
+                    <ImageReduceMotion
+                        className="rounded-full size-5 relative right-1 -ml-[5px]"
+                        alt="your avatar"
+                        url={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
+                        size={24}
+                    />
+                    {user?.username}
+                </Badge>
+            )}
 
             {error &&
                 <div className="gap-1 text-red-400 text-sm">
