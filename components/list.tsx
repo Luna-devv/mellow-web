@@ -15,7 +15,7 @@ interface ListProps {
     }[];
     url: string;
     searchParamName?: string;
-    disabled: boolean;
+    disabled?: boolean;
 
     children?: React.ReactNode;
 }

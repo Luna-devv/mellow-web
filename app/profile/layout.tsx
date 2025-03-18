@@ -161,7 +161,6 @@ export default function RootLayout({
                         )
                     ]}
                     url="/profile"
-                    disabled={!user?.id}
                 />
             </Suspense>
 
