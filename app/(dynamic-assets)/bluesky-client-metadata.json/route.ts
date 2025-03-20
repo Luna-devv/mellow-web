@@ -1,11 +1,22 @@
+import { createPublicKey } from "crypto";
+
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
 export const revalidate = 691200; // 8 days
+
+const PUB_KEY = "-----BEGIN PUBLIC KEY-----\n" + process.env.BLUESKY_PUBLIC_KEY + "\n-----END PUBLIC KEY-----";
+
+const jwk = {
+    kid: "1",
+    use: "sig",
+    ...createPublicKey(PUB_KEY).export({ format: "jwk" })
+};
 
 export function GET() {
     return Response.json(
         {
             client_id: getCanonicalUrl("bluesky-client-metadata.json"),
+            application_type: "web",
             client_name: "Wamellow",
             client_uri: getBaseUrl(),
             logo_uri: getCanonicalUrl("waya-v3.webp"),
@@ -22,9 +33,12 @@ export function GET() {
             response_types: [
                 "code"
             ],
-            token_endpoint_auth_method: "none",
-            application_type: "web",
-            dpop_bound_access_tokens: true
+            token_endpoint_auth_method: "private_key_jwt",
+            token_endpoint_auth_signing_alg: "ES256",
+            dpop_bound_access_tokens: true,
+            jwks: {
+                keys: [jwk]
+            }
         },
         {
             headers: {
