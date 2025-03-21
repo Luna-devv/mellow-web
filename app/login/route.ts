@@ -9,9 +9,11 @@ import { createSession } from "./api";
 export const defaultCookieOptions = {
     secure: getBaseUrl().startsWith("https://"),
     httpOnly: false,
-    sameSite: "none",
-    domain: getBaseUrl().split("://")[1],
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 28)
+    sameSite: getBaseUrl().includes("ngrok") ? "none" : "lax",
+    domain: "." + getBaseUrl().split("://")[1],
+    get expires() {
+        return new Date(Date.now() + 1000 * 60 * 60 * 24 * 28);
+    }
 } as const;
 
 const permissions = [
@@ -50,8 +52,8 @@ export async function GET(request: Request) {
             "session",
             "",
             {
-                expires: new Date(0),
-                domain: getBaseUrl().split("://")[1]
+                ...defaultCookieOptions,
+                expires: new Date(0)
             }
         );
 
