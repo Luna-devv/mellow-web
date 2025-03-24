@@ -1,9 +1,11 @@
 "use client";
 
+import { LoaderCircleIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 import { HiChat, HiViewGridAdd } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import Fetch from "@/components/button-fetch";
@@ -17,11 +19,14 @@ import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
+import { Button } from "@/components/ui/button";
+import { cacheOptions } from "@/lib/api";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationFlags, NotificationType } from "@/typings";
 import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
+import { hasBlueskyPost } from "./api";
 import { DeleteNotification } from "./delete.component";
 import { CreateNotificationSelect, Icon, Style } from "./select.component";
 
@@ -170,14 +175,19 @@ export default function Home() {
                 onSave={(o) => editItem("channelId", o.value as string)}
             />
 
-            <Fetch
-                className="w-1/3 md:w-1/6 relative top-8"
-                url={url + "/" + item.id + "/test"}
-                icon={<HiChat className="min-h-4 min-w-4" />}
-                label="Test Message"
-                method="POST"
-                size="lg"
-            />
+            <TestButton
+                type={item.type}
+                creatorId={item.creatorId}
+            >
+                <Fetch
+                    className="w-1/3 md:w-1/6 relative top-8"
+                    url={url + "/" + item.id + "/test"}
+                    icon={<HiChat className="min-h-4 min-w-4" />}
+                    label="Test Message"
+                    method="POST"
+                    size="lg"
+                />
+            </TestButton>
         </div>
 
         <div className="flex md:gap-4 gap-2">
@@ -242,4 +252,42 @@ export default function Home() {
             onSave={(value) => editItem("message", { content: value.content ?? null, embed: value.embed })}
         />
     </>);
+}
+
+function TestButton(
+    { type, creatorId, children }:
+    { type: NotificationType; creatorId: string; children: ReactNode; }
+) {
+
+    const { data, isLoading } = useQuery(
+        [type, creatorId],
+        () => hasBlueskyPost(creatorId),
+        {
+            ...cacheOptions,
+            enabled: type === NotificationType.Bluesky
+        }
+    );
+
+    if (type === NotificationType.Bluesky && (data === false || isLoading)) {
+        return (
+            <Button
+                className="w-1/3 md:w-1/6 relative top-8 flex"
+                onClick={() => {
+                    window.open(`https://bsky.app/intent/compose?text=${encodeURIComponent("I'm just trying out #wamellow for my discord server -> wamellow.com/bluesky")}`);
+                }}
+                size="lg"
+                variant="flat"
+                disabled={isLoading }
+            >
+                {isLoading
+                    ? <LoaderCircleIcon className="animate-spin" />
+                    : <HiChat className="min-h-4 min-w-4" />
+                }
+
+                Test Message
+            </Button>
+        );
+    }
+
+    return children;
 }

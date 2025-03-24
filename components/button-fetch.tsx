@@ -1,5 +1,7 @@
-import { Button } from "@nextui-org/react";
+import { LoaderCircleIcon } from "lucide-react";
 import React, { useState } from "react";
+
+import { Button } from "./ui/button";
 
 enum State {
     Idle = 0,
@@ -22,13 +24,15 @@ export default function Fetch({
     icon: React.ReactNode;
     label: string;
     method: "PUT" | "POST" | "DELETE";
-    size?: "sm" | "md" | "lg";
+    size?: "sm" | "lg";
     className?: string;
 }) {
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
     const handle = async () => {
+        if (state === State.Ratelimited || state === State.Success) return;
+
         setState(State.Loading);
         setError(null);
 
@@ -64,23 +68,22 @@ export default function Fetch({
     };
 
     return (
-        <div
-            className={className}
-        >
+        <div className={className} >
             <Button
                 className="w-full"
                 onClick={handle}
-                color={
+                variant={
                     state === State.Success
                         ? "success"
-                        : "secondary"
+                        : "flat"
                 }
-                startContent={state !== State.Loading && icon}
-                variant="flat"
-                isLoading={state === State.Loading}
-                isDisabled={state === State.Ratelimited || state === State.Success}
-                size={size || "md"}
+                disabled={state !== State.Idle}
+                size={size}
             >
+                {state === State.Loading
+                    ? <LoaderCircleIcon className="animate-spin" />
+                    : icon
+                }
                 {label}
             </Button>
 
