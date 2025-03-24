@@ -25,6 +25,7 @@ import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationFlags, NotificationType } from "@/typings";
 import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { getCanonicalUrl } from "@/utils/urls";
 
 import { hasBlueskyPost } from "./api";
 import { DeleteNotification } from "./delete.component";
@@ -273,7 +274,7 @@ function TestButton(
             <Button
                 className="w-1/3 md:w-1/6 relative top-8 flex"
                 onClick={() => {
-                    window.open(`https://bsky.app/intent/compose?text=${encodeURIComponent("I'm just trying out #wamellow for my discord server -> wamellow.com/bluesky")}`);
+                    window.open(`https://bsky.app/intent/compose?text=${encodeURIComponent(`I'm just trying out #wamellow for my discord server -> ${getCanonicalUrl("bluesky")}`)}`);
                 }}
                 size="lg"
                 variant="flat"
@@ -284,6 +285,22 @@ function TestButton(
                     : <HiChat className="min-h-4 min-w-4" />
                 }
 
+                Test Message
+            </Button>
+        );
+    }
+
+    if (type === NotificationType.Reddit) {
+        return (
+            <Button
+                className="w-1/3 md:w-1/6 relative top-8 flex"
+                onClick={() => {
+                    window.open(`https://reddit.com/r/${creatorId}/submit?title=${encodeURIComponent("Testing Wamellow's Reddit to Discord Notifications")}&url=${encodeURIComponent(getCanonicalUrl("docs", "notifications"))}`);
+                }}
+                size="lg"
+                variant="flat"
+            >
+                <HiChat className="min-h-4 min-w-4" />
                 Test Message
             </Button>
         );
