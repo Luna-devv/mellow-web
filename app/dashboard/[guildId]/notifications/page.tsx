@@ -233,9 +233,9 @@ export default function Home() {
             }
         </div>
 
-        {item.type !== NotificationType.Bluesky && (
+        {item.type === NotificationType.Bluesky && (
             <TextInput
-                className="w-full"
+                className="md:w-1/2 w-full"
                 name="Ignore regex"
                 url={url + "/" + item.id}
                 dataName="regex"
