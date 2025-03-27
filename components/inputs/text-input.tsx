@@ -30,7 +30,7 @@ interface Props {
     max?: number;
     placeholder?: string;
 
-    onSave?: (value: string | number) => void;
+    onSave?: (value: string | number | null) => void;
 }
 
 export default function TextInput({
@@ -75,13 +75,17 @@ export default function TextInput({
 
         setState(State.Loading);
 
+        const def = type === "color"
+            ? 0
+            : null;
+
         fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
             method: "PATCH",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ [dataName]: value || 0x000000 })
+            body: JSON.stringify({ [dataName]: value || def })
         })
             .then(async (res) => {
                 const response = await res.json();
@@ -89,9 +93,9 @@ export default function TextInput({
 
                 switch (res.status) {
                     case 200: {
-                        setValue(value || 0x000000);
-                        onSave?.(value || 0x000000);
-                        setdefaultStateValue(value || 0x000000);
+                        setValue(value || def || "");
+                        onSave?.(value || def);
+                        setdefaultStateValue(value || def || "");
 
                         setState(State.Success);
                         setTimeout(() => setState(State.Idle), 1_000 * 8);
