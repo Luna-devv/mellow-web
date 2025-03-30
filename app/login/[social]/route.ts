@@ -45,7 +45,8 @@ export async function GET(
     const code = searchParams.get("code");
 
     if (!code) {
-        const res = await getAuthorizeUrl(social);
+        const handle = searchParams.get("handle") || undefined;
+        const res = await getAuthorizeUrl(social, handle);
 
         if ("status" in res) {
             const data = { status: 500, message: res?.message || "An error occurred" };
@@ -67,7 +68,12 @@ export async function GET(
         redirect(res.url);
     }
 
-    const res = await connect(social, session.value, code, jar.get(verifier)?.value);
+    const issuer = searchParams.get("iss");
+
+    const res = await connect(social, session.value, code, {
+        verifier: jar.get(verifier)?.value,
+        issuer: issuer ? decodeURIComponent(issuer) : undefined
+    });
 
     jar.delete(verifier);
 
