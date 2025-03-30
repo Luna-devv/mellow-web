@@ -127,6 +127,22 @@
                     "Manage Server"
                 ]
             }
+        },
+        {
+            "name": "🩵 Bluesky Bridge",
+            "file": "bluesky.md",
+            "image": "/wamellow-bluesky-like.webp",
+            "description": "Bridge Bluesky and Discord together! Wamellow let's you like & repost Bluesky posts within Discord, just by reacting with a 🩵-emoji.",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Add Reactions"
+                ],
+                "user": [
+                    "View Channel",
+                    "Add Reactions"
+                ]
+            }
         }
     ]
 }
