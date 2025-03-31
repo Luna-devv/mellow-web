@@ -71,14 +71,18 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
                 <Links />
             </div>
 
-            <div className="w-full flex justify-center mt-20 mb-4 hover:rotate-2 duration-500">
+            <Link
+                className="w-full flex justify-center mt-20 mb-4 hover:rotate-2 duration-500"
+                href="https://blahaj.4k.pics"
+                target="_blank"
+            >
                 <Image
                     alt="Blahaj"
                     src={BlahajPic}
                     height={Math.round(775 / 2)}
                     width={1500 / 2}
                 />
-            </div>
+            </Link>
         </div>
     );
 }
