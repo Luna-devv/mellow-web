@@ -1,11 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { BsSpotify } from "react-icons/bs";
 import { HiFingerPrint, HiTrash } from "react-icons/hi";
 import { SiBluesky } from "react-icons/si";
 import { useQuery } from "react-query";
 
+import DumbTextInput from "@/components/inputs/dumb-text-input";
+import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { Button } from "@/components/ui/button";
@@ -97,18 +101,23 @@ function Connection(
                 </div>
             </div>
 
-            <Button
-                className="ml-auto"
-                onClick={() => {
-                    if (disabled) return;
-                    // idk with router.push logout doesn't update
-                    window.location.href = `/login/${name.toLowerCase()}${connection ? "?logout=true" : ""}`;
-                }}
-                disabled={disabled}
-            >
-                {connection ? <HiTrash /> : <HiFingerPrint />}
-                {connection ? "Disconnect" : "Connect"}
-            </Button>
+            <div className="ml-auto flex items-center">
+                {type === ConnectionType.Bluesky && !connection && (
+                    <BlueskyConnectPDS />
+                )}
+
+                <Button
+                    onClick={() => {
+                        if (disabled) return;
+                        // idk with router.push logout doesn't update
+                        window.location.href = `/login/${name.toLowerCase()}${connection ? "?logout=true" : ""}`;
+                    }}
+                    disabled={disabled}
+                >
+                    {connection ? <HiTrash /> : <HiFingerPrint />}
+                    {connection ? "Disconnect" : "Connect"}
+                </Button>
+            </div>
         </div>
     );
 }
@@ -118,4 +127,41 @@ function Icon({ type }: { type: ConnectionType; }) {
         case ConnectionType.Spotify: return <BsSpotify />;
         case ConnectionType.Bluesky: return <SiBluesky />;
     }
+}
+
+function BlueskyConnectPDS() {
+    const router = useRouter();
+
+    const [handle, setHandle] = useState("");
+    const [open, setOpen] = useState<boolean>(false);
+
+    return (
+        <div>
+            <Button
+                className="text-neutral-300 hidden sm:block"
+                variant="link"
+                onClick={() => setOpen(true)}
+            >
+                Connect using 3rd-party PDS
+            </Button>
+
+            <Modal
+                title="Connect 3rd-party PDS"
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                onSubmit={() => {
+                    router.push(`/login/bluesky?handle=${handle}`);
+                    return undefined;
+                }}
+                buttonName="Continue"
+            >
+                <DumbTextInput
+                    name="Your Bluesky or Atproto Handle"
+                    placeholder="shi.gg"
+                    value={handle}
+                    setValue={setHandle}
+                />
+            </Modal>
+        </div>
+    );
 }
