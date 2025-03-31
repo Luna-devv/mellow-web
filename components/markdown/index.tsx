@@ -133,7 +133,7 @@ export default async function BeautifyMarkdown({
                         >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img alt={alt} className="rounded-md" loading="lazy" {...props} />
-                            {alt && alt !== "emoji" && <span aria-hidden="true" className="text-neutral-500 font-medium relative bottom-1">{alt}</span>}
+                            {alt && alt !== "emoji" && <span aria-hidden="true" className="text-neutral-500 font-medium text-sm text-center">{alt}</span>}
                         </span>
                     );
                 },
