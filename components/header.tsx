@@ -159,7 +159,7 @@ export function Header() {
                 }
             }}
             className="
-                w-full sm:w-72 bg-black/40 rounded-xl backdrop-blur-2xl backdrop-brightness-75 shadow-xl
+                ml-auto w-full sm:w-72 bg-black/40 rounded-xl backdrop-blur-2xl backdrop-brightness-75 shadow-xl
                 flex flex-col py-2 sm:py-1 p-2 sm:p-0
                 [--y-closed:-16px] [--opacity-closed:0%] sm:[--scale-closed:90%]
                 [--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
@@ -248,7 +248,7 @@ export function Header() {
         >
             <AnimatePresence initial={false}>
                 {user?.id && menu &&
-                    <div className="absolute top-[72px] right-3.5 z-50">
+                    <div className="absolute top-[72px] right-3.5 z-50 w-[calc(100%-1.6rem)]">
                         <UserDropdown />
                     </div>
                 }
