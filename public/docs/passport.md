@@ -66,3 +66,6 @@ There are a few reasons why a member might fail verification. These may include 
 <br />
 
 Once people have failed verification due to any reason, they will not be able to verify again at any time, and manual approval by server moderators or admins is required. Wamellow developers cannot verify or punish members in any server.
+
+## Troubleshooting
+If you joined a server, received a Direct Message (DM) from Wamellow, clicked on "Start Verification", and now receive the error message "**You are not a member of this guild**", please make sure that you are logged in with the same Discord account in your browser as you are in the Discord application. Should you be logged in with the wrong account, click on your username in the top right corner and click the `->` (red logout) button.
