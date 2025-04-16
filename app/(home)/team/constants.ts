@@ -72,7 +72,7 @@ export const members = [
     {
         id: "452848052810547201",
         team: TeamType.Donator,
-        social: "https://nekos.best/"
+        social: "https://z1.gg/"
     },
     {
         id: "77755087602065408",
