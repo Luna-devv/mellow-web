@@ -1,5 +1,6 @@
 import { Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -70,6 +71,8 @@ export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions)
         .then((res) => res.json())
         .catch(() => null) as ApiV1TopguildsGetResponse[] | null;
+
+    const isEmbedded = (await headers()).get("sec-fetch-dest") === "iframe";
 
     // eslint-disable-next-line
     async function renderCount() {
@@ -393,19 +396,21 @@ export default async function Home() {
                                 Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
                                 Customize the rating, quality, aesthetics, image width and height, upscaled, generation steps and the CFG scale all for free.
                             </div>
-                            <div className="p-4 pb-3 border border-divider rounded-lg my-8">
-                                <Badge
-                                    className="mb-2"
-                                    variant="flat"
-                                    radius="rounded"
-                                >
-                                    <HiFire />
-                                    Supports NSFW
-                                </Badge>
-                                <div className="text-base">
-                                    Generate spicy images and more in nsfw marked channels.
+                            {!isEmbedded && (
+                                <div className="p-4 pb-3 border border-divider rounded-lg my-8">
+                                    <Badge
+                                        className="mb-2"
+                                        variant="flat"
+                                        radius="rounded"
+                                    >
+                                        <HiFire />
+                                        Supports NSFW
+                                    </Badge>
+                                    <div className="text-base">
+                                        Generate spicy images and more in nsfw marked channels.
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             <div className="flex gap-2 mt-6">
                                 <Invite />
                                 <Button asChild>
@@ -458,19 +463,21 @@ export default async function Home() {
                                 Dive into a world of adorable nekos, charming waifus, and much more, all at your fingertips.
                                 Whether it{"'"}s sharing the cutest characters or discovering stunning artwork, bring the joy of anime directly to your community, making your server a hub for all things anime-related.
                             </div>
-                            <div className="p-4 pb-3 border border-divider rounded-lg my-8">
-                                <Badge
-                                    className="mb-2"
-                                    variant="flat"
-                                    radius="rounded"
-                                >
-                                    <HiFire />
-                                    Supports NSFW
-                                </Badge>
-                                <div className="text-base">
-                                    Find spicy nekos, waifus, and more in nsfw marked channels.
+                            {!isEmbedded && (
+                                <div className="p-4 pb-3 border border-divider rounded-lg my-8">
+                                    <Badge
+                                        className="mb-2"
+                                        variant="flat"
+                                        radius="rounded"
+                                    >
+                                        <HiFire />
+                                        Supports NSFW
+                                    </Badge>
+                                    <div className="text-base">
+                                        Find spicy nekos, waifus, and more in nsfw marked channels.
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             <div className="flex gap-2 mt-6">
                                 <Invite />
                             </div>
