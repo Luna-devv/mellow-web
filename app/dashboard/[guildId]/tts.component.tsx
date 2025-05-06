@@ -1,8 +1,9 @@
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { ChannelType } from "discord-api-types/v10";
+import { useCookies } from "next-client-cookies";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useCookies } from "next-client-cookies";
 import { HiExternalLink } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
@@ -22,7 +23,7 @@ export function TTSSettings() {
                     name="Chat to Speech channel"
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.channelId"
-                    items={createSelectableItems(guild?.channels, ["ViewChannel", "SendMessages", "EmbedLinks", "ReadMessageHistory"])}
+                    items={createSelectableItems(guild?.channels, ["ViewChannel", "SendMessages", "EmbedLinks", "ReadMessageHistory"], [ChannelType.GuildText, ChannelType.GuildVoice])}
                     description="Select a channel what channel should be used for tts."
                     defaultState={guild?.tts.channelId}
                     showClear
