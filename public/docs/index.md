@@ -37,3 +37,6 @@ The list of languages for Text-to-Speech differs:
 - 🇰🇷 Korean
 <br />
 You can find the full list of supported voices in the [Text-to-Speech documentation](/docs/text-to-speech#voices).
+
+## Funding
+Wamellow is essentially a one-(wo)man show. I — [Luna](https://shi.gg) — plan, develop, maintain, host and fund the project alone, as I see it as a hobby and use programming is my form of therapy. I would be very grateful if you could support my work with a generous donation on [ko-fi.com/mwlica](https://ko-fi.com/mwlica) — but obviously there's no pressure!
