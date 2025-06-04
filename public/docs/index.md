@@ -40,3 +40,6 @@ You can find the full list of supported voices in the [Text-to-Speech documentat
 
 ## Funding
 Wamellow is essentially a one-(wo)man show. I — [Luna](https://shi.gg) — plan, develop, maintain, host and fund the project alone, as I see it as a hobby and use programming is my form of therapy. I would be very grateful if you could support my work with a generous donation on [ko-fi.com/mwlica](https://ko-fi.com/mwlica) — but obviously there's no pressure!
+
+## Security
+Wamellow develops and maintains many tools, utilities and APIs in-house on its own infrastructure. Therefore, there is always a risk of security vulnerabilities and the like. You are welcome to search for and report bugs and vulnerabilities in all of our programmes, tools and APIs, as long as you do not gain any advantage, cause us any harm, abuse the system, disrupt service or impact any other user, and do not disclose the issue to third parties until it is resolved. Please report any issues to either Luna@Wamellow.com or mwlica on Discord. Please do not report the following: brute force attacks; DDoS attacks; publicly accessible login panels; reports from scanners and automated tools; reports on the subdomain status.wamellow.com; self-exploitation; or social engineering of users.
