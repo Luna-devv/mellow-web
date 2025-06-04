@@ -17,8 +17,23 @@ Wamellow is translated into many different languages, including
 
 Note that Wamellow will automatically choose the language of your Discord.
 If there are no translations available for your language, it will default to English.
-The list of languages for Text-to-Speech differs, a full list of supported languages can be found in the [Text-to-Speech Documentation](/docs/text-to-speech#languages).
 <br />
 <br />
 
-All translations are done by our community, if your language is missing, feel free to [send a join request on crowdin](https://crowdin.com/project/wamellow) and [message @mwlica](/support) in discord!
+All translations are done by our community, if your language is missing, feel free to [send a join request on crowdin](https://crowdin.com/project/wamellow) and [message @mwlica](/support) on discord!
+<br />
+<br />
+
+The list of languages for Text-to-Speech differs:
+- 🇺🇸 English (US/UK/AU)
+- 🇩🇪 German
+- 🇫🇷 Frensh
+- 🇮🇹 Italian
+- 🇪🇸 Spanish (ES/MX)
+- 🇵🇹 Portuguese
+- 🇧🇷 Brazilian Portuguese
+- 🇮🇩 Indonesian
+- 🇯🇵 Japanese
+- 🇰🇷 Korean
+<br />
+You can find the full list of supported voices in the [Text-to-Speech documentation](/docs/text-to-speech#voices).
