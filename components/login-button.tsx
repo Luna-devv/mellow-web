@@ -1,6 +1,6 @@
 "use client";
 
-import { Montserrat } from "next/font/google";
+import { Lexend } from "next/font/google";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiExclamation } from "react-icons/hi";
@@ -9,7 +9,7 @@ import { cn } from "@/utils/cn";
 
 import { Button } from "./ui/button";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+const lexend = Lexend({ subsets: ["latin"] });
 
 enum State {
     Idle = 0,
@@ -42,7 +42,7 @@ export function LoginButton({
             >
                 <Icon state={state} />
                 {!state ?
-                    <span className={cn(montserrat.className, "font-semibold")}>
+                    <span className={cn(lexend.className, "font-semibold")}>
                         {message ||
                                 <>
                                     <span className="hidden md:block">Login with Discord</span>

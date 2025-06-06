@@ -8,8 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { CookiesProvider } from "next-client-cookies/server";
-import { HiBookOpen } from "react-icons/hi";
-import { SiKofi } from "react-icons/si";
 
 import { Header } from "@/components/header";
 import { LoginButton } from "@/components/login-button";
@@ -174,35 +172,33 @@ async function NavBar() {
     const jar = await cookies();
 
     return (
-        <nav className="p-4 flex items-center gap-2 text-base font-medium text-neutral-300 select-none h-20 relative">
+        <nav className="p-4 flex items-center gap-2 text-base text-neutral-300 select-none h-20 relative">
             <Link
                 aria-label="Go to Wamellow's homepage"
-                className={cn("font-semibold flex items-center mr-2 shrink-0", lexend.className)}
+                className={cn("font-semibold flex items-center shrink-0", lexend.className)}
                 href="/"
             >
-                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full size-8 shrink-0 mr-2" />
+                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full size-8 shrink-0 mr-3" />
                 <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
             </Link>
 
             <Divider
-                className="h-10 rotate-6 mx-1"
+                className="h-10 rotate-6 mx-3"
                 orientation="vertical"
             />
 
-            <div className="flex shrink-0">
-                <Link
-                    href="https://ko-fi.com/mwlica"
-                    className="hover:bg-wamellow py-1 px-3 rounded-md duration-200 hidden sm:flex items-center gap-2 group"
-                >
-                    <SiKofi className="group-hover:text-[#ff6c6b] duration-200 mt-0.5" />
-                    Donate
-                </Link>
+            <div className="flex shrink-0 gap-4">
                 <Link
                     href="/docs/index"
-                    className="hover:bg-wamellow py-1 px-3 rounded-md duration-200 flex items-center gap-2 group"
+                    className="hover:text-neutral-100 duration-100"
                 >
-                    <HiBookOpen className="group-hover:text-neutral-300 duration-200 h-5 w-5 mt-0.5" />
-                    Docs
+                    Documentation
+                </Link>
+                <Link
+                    href="https://ko-fi.com/mwlica"
+                    className="hidden sm:block hover:text-neutral-100 duration-100"
+                >
+                    Donate
                 </Link>
             </div>
 
