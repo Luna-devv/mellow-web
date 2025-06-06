@@ -18,6 +18,7 @@ It's absolutely crucial for people with speech impairments like aphonia or dysph
 5. **🎉 Done!** Start writing messages in the selected channel for Wamellow to speak!
 <br />
 <br />
+
 To get a quick **.mp3 file** of your message, use `/tts file` in any text channel.
 
 ### 📑 Usage logs
@@ -53,33 +54,6 @@ While this feature is free, we would be grateful if you could consider [shooting
 
 ### 🤚 Blacklist users & roles
 If you want to prevent certain users from using text or chat to speech, you can either use Discord's channel or integration permission system. ([watch a tutorial](/disable-commands))
-
-## Languages
-Wamellows Text to Speech supports many languages, these include
-- 🇺🇸 English (United States)
-- 🇬🇧 English (United Kingdom)
-- 🇦🇺 English (Australia)
-- 🇩🇪 German
-- 🇫🇷 French
-- 🇪🇸 Spanish (ES & MX)
-- 🇵🇹 Portuguese
-- 🇮🇩 Indonesian
-- 🇯🇵 Japanese
-- 🇰🇷 Korean
-<br />
-<br />
-
-- 🇺🇸 Singing:
-
-Alto (Female), Warmy Breeze (Female), Glorious (Female), Dramatic (Female), Tenor (Male), Sunshine Soon (Male), Chipmunk (Male), It Goes Up (Male);
-<br />
-<br />
-
-All languages have one or more variants, including male and female versions. (40 voices in 8 languages)
-<br />
-<br />
-
-You can change your default language and voice either by running `/tts set speaker` or by [setting it on the dashboard](/profile/text-to-speech).
 
 ## Server nodes & regions
 For optimal latency and performance when using Text to Speech in voice channels, Wamellow has multiple server nodes in different regions.
@@ -131,3 +105,115 @@ If Wamellow joins the voice channel but doesn't speak, check that it has the `Co
 
 If Wamellow says that someone else's message is still being spoken, but it's not talking, use `/tts voice-stop`.
 You can also use this to stop any message that is currently being spoken (i.e.: because of spam).
+
+## Voices
+You can change your default language and voice either by running `/tts set speaker` or by [setting it on the dashboard](/profile/text-to-speech).
+
+<table>
+    <thead>
+        <tr>
+            <th width="220">Language</th>
+            <th>Name</th>
+            <th width="181">Preview</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>🇺🇸 English (us)</td><td>Jessie</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_001.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Joey</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_006.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Professor</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_007.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Scientist</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_009.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Confidence</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_010.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Emotional</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_emotional.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Empathetic</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_samc.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Serious</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_cody.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Narration</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_narration.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Funny</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_funny.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Alfred</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_jarvis.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Narration Santa</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_santa_narration.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Bae</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_betty.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Beauty Guru</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_makeup.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Bestie</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_richgirl.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Cupid</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_cupid.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Debutante</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_shenna.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Grandma</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_grandma.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Lord Cringe</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_ukneighbor.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Wizard</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_wizard.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Marty</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_trevor.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Mr. Meticulous</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_ukbutler.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Santa</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_santa.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Santa (w/ effect)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_santa_effect.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Jomboy</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_jomboy.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Ashmagic</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_ashmagic.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Olantekkers</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_olantekkers.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Varsity</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_pansino.mp3" /></td></tr>
+        <tr><td>🇬🇧 English (uk)</td><td>Narrator</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_uk_001.mp3" /></td></tr>
+        <tr><td>🇬🇧 English (uk)</td><td>Male</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_uk_003.mp3" /></td></tr>
+        <tr><td>🇦🇺 English (au)</td><td>Metro</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_au_001.mp3" /></td></tr>
+        <tr><td>🇦🇺 English (au)</td><td>Smooth</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_au_002.mp3" /></td></tr>
+        <tr><td>🇫🇷 French (fr)</td><td>Male 1</td><td><audio controls src="https://r2.wamellow.com/tts-preview/fr_001.mp3" /></td></tr>
+        <tr><td>🇫🇷 French (fr)</td><td>Male 2</td><td><audio controls src="https://r2.wamellow.com/tts-preview/fr_002.mp3" /></td></tr>
+        <tr><td>🇩🇪 German (de)</td><td>Female</td><td><audio controls src="https://r2.wamellow.com/tts-preview/de_001.mp3" /></td></tr>
+        <tr><td>🇩🇪 German (de)</td><td>Male</td><td><audio controls src="https://r2.wamellow.com/tts-preview/de_002.mp3" /></td></tr>
+        <tr><td>🇪🇸 Spanish (es)</td><td>Male</td><td><audio controls src="https://r2.wamellow.com/tts-preview/es_002.mp3" /></td></tr>
+        <tr><td>🇪🇸 Spanish (es)</td><td>Julio</td><td><audio controls src="https://r2.wamellow.com/tts-preview/es_male_m3.mp3" /></td></tr>
+        <tr><td>🇪🇸 Spanish (es)</td><td>Alejandra</td><td><audio controls src="https://r2.wamellow.com/tts-preview/es_female_f6.mp3" /></td></tr>
+        <tr><td>🇪🇸 Spanish (es)</td><td>Mariana</td><td><audio controls src="https://r2.wamellow.com/tts-preview/es_female_fp1.mp3" /></td></tr>
+        <tr><td>🇪🇸 Spanish (mx)</td><td>Male</td><td><audio controls src="https://r2.wamellow.com/tts-preview/es_mx_002.mp3" /></td></tr>
+        <tr><td>🇪🇸 Spanish (mx)</td><td>Super Mamá</td><td><audio controls src="https://r2.wamellow.com/tts-preview/es_mx_female_supermom.mp3" /></td></tr>
+        <tr><td>🇧🇷 Portuguese (br)</td><td>Female</td><td><audio controls src="https://r2.wamellow.com/tts-preview/br_003.mp3" /></td></tr>
+        <tr><td>🇧🇷 Portuguese (br)</td><td>Male</td><td><audio controls src="https://r2.wamellow.com/tts-preview/br_005.mp3" /></td></tr>
+        <tr><td>🇵🇹 Portuguese (pt)</td><td>Lhays Macedo</td><td><audio controls src="https://r2.wamellow.com/tts-preview/pt_female_lhays.mp3" /></td></tr>
+        <tr><td>🇵🇹 Portuguese (pt)</td><td>Laizza</td><td><audio controls src="https://r2.wamellow.com/tts-preview/pt_female_laizza.mp3" /></td></tr>
+        <tr><td>🇵🇹 Portuguese (pt)</td><td>Galvão Bueno</td><td><audio controls src="https://r2.wamellow.com/tts-preview/pt_male_bueno.mp3" /></td></tr>
+        <tr><td>🇮🇩 Indonesian (id)</td><td>Female</td><td><audio controls src="https://r2.wamellow.com/tts-preview/id_001.mp3" /></td></tr>
+        <tr><td>🇮🇩 Indonesian (id)</td><td>Darma</td><td><audio controls src="https://r2.wamellow.com/tts-preview/id_male_darma.mp3" /></td></tr>
+        <tr><td>🇮🇩 Indonesian (id)</td><td>Icha</td><td><audio controls src="https://r2.wamellow.com/tts-preview/id_female_icha.mp3" /></td></tr>
+        <tr><td>🇮🇩 Indonesian (id)</td><td>Putra</td><td><audio controls src="https://r2.wamellow.com/tts-preview/id_male_putra.mp3" /></td></tr>
+        <tr><td>🇮🇹 Italian (it)</td><td>male</td><td><audio controls src="https://r2.wamellow.com/tts-preview/it_male_m18.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Female 1</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_001.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Female 2</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_003.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Female 3</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_005.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Male</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_006.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Fujicochan</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_female_fujicochan.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Hasegawariona</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_female_hasegawariona.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Keiichinakano</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_male_keiichinakano.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Oomaeaika</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_female_oomaeaika.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Morisuke</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_male_osada.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Matsuo</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_male_matsuo.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Machikoriiita</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_female_machikoriiita.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Matsudake</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_male_matsudake.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Shuichiro</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_male_shuichiro.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Maruyama Rei</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_female_rei.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Hikakin</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_male_hikakin.mp3" /></td></tr>
+        <tr><td>🇯🇵 Japanese (jp)</td><td>Yagi Saki</td><td><audio controls src="https://r2.wamellow.com/tts-preview/jp_female_yagishaki.mp3" /></td></tr>
+        <tr><td>🇰🇷 Korean (kr)</td><td>Female</td><td><audio controls src="https://r2.wamellow.com/tts-preview/kr_003.mp3" /></td></tr>
+        <tr><td>🇰🇷 Korean (kr)</td><td>Male 1</td><td><audio controls src="https://r2.wamellow.com/tts-preview/kr_002.mp3" /></td></tr>
+        <tr><td>🇰🇷 Korean (kr)</td><td>Male 2</td><td><audio controls src="https://r2.wamellow.com/tts-preview/kr_004.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (scream)</td><td>Ghostface</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_ghostface.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (star wars)</td><td>Chewbacca</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_chewbacca.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (star wars)</td><td>C3PO</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_c3po.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (star wars)</td><td>Stormtrooper</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_stormtrooper.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (lilo & stitch)</td><td>Stitch</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_stitch.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (GotG)</td><td>Rocket</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_rocket.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (disney)</td><td>Madame Leota</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_madam_leota.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (deadpool)</td><td>Mr. GoodGuy</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_deadpool.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (grinch)</td><td>Trickster</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_grinch.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (disney)</td><td>Ghost Host</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_ghosthost.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (disney)</td><td>Pirate</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_pirate.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Alto (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_f08_salut_damour.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Warmy Breeze (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_f08_warmy_breeze.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Glorious (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_ht_f08_glorious.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Dramatic (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_ht_f08_wonderful_world.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Tenor (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_m03_lobby.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Sunshine Soon (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_m03_sunshine_soon.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Chipmunk (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_sing_funny_it_goes_up.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>It Goes Up (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_m2_xhxs_m03_silly.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Caroler (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_sing_deep_jingle.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Classic Electric (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_m03_classical.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Cozy (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_m2_xhxs_m03_christmas.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Halloween (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_ht_f08_halloween.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>NYE 2023 (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_ht_f08_newyear.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Thanksgiving (Male)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_sing_funny_thanksgiving.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (singing)</td><td>Pop Lullaby (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_f08_twinkle.mp3" /></td></tr>
+    </tbody>
+</table>

@@ -4,8 +4,6 @@
 
 @layer base {
   .dark {
-        --background-rgb: rgb(3, 2, 6);
-
         --wamellow: #ffffff0d;
         --wamellow-100: #ffffff1a;
         --wamellow-200: #ffffff33;
@@ -240,4 +238,12 @@ a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-pr
 
 .before\:border-t::before {
     border-top-width: 0px !important;
+}
+
+audio {
+    max-height: 2rem;
+}
+
+td:has(audio) {
+    padding: 1px!important;
 }

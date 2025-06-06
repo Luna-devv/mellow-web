@@ -74,12 +74,6 @@ export default async function Home() {
 
     const isEmbedded = (await headers()).get("sec-fetch-dest") === "iframe";
 
-    // eslint-disable-next-line
-    async function renderCount() {
-        "use server";
-        return <span>trust us!</span>;
-    }
-
     return (
         <div className="flex items-center flex-col w-full">
 
@@ -158,8 +152,8 @@ export default async function Home() {
                             </Button>
                         </div>
 
-                        <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-medium mt-3 opacity-80 pl-20 lg:pr-20 rotate-2", handwritten.className)}>
-                            <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="h-5 w-5 relative top-px" draggable={false} />
+                        <span className={cn("lg:ml-auto flex gap-2 text-neutral-500 font-medium opacity-80 pl-20 lg:pr-20 rotate-2 scale-110 relative pt-0.5", handwritten.className)}>
+                            <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="size-5" draggable={false} />
                             Get started here in seconds
                         </span>
 
@@ -225,30 +219,32 @@ export default async function Home() {
                                 100% free forever
                             </Badge>
 
-                            <h3 className={styles.h3}>40 Voices in 8 Languages</h3>
+                            <h3 className={styles.h3}>97 Voices in 10 Languages</h3>
 
                             <div className="pt-6">
                                 You can either generate files using <Code color="secondary">/tts file</Code>, talk in voice chats with <Code color="secondary">/tts voice</Code> or setup a dedicated channel!
                                 Great for people with aphonia, dysphonia, or other speech impairments.
                             </div>
 
-                            <AvatarGroup className="mt-4">
-                                {["us", "de", "es", "fr", "jp", "kr", "br", "id"].map((lang) => {
-                                    const name = Object
-                                        .entries(actor)
-                                        .find(([, [, langCode]]) => langCode === lang)
-                                        ?.[1][0] || lang;
+                            <Link href="/docs/text-to-speech#voices">
+                                <AvatarGroup className="mt-4">
+                                    {["us", "fr", "de", "es", "br", "pt", "id", "it", "jp", "kr"].map((lang) => {
+                                        const name = Object
+                                            .entries(actor)
+                                            .find(([, [, langCode]]) => langCode === lang)
+                                            ?.[1][0] || lang;
 
-                                    return (
-                                        <UserAvatar
-                                            key={"ttsLang-" + lang}
-                                            alt={name}
-                                            className="-mr-2 size-8"
-                                            src={`/icons/${lang}.webp`}
-                                        />
-                                    );
-                                })}
-                            </AvatarGroup>
+                                        return (
+                                            <UserAvatar
+                                                key={"ttsLang-" + lang}
+                                                alt={name}
+                                                className="-mr-2 size-8"
+                                                src={`/icons/${lang}.webp`}
+                                            />
+                                        );
+                                    })}
+                                </AvatarGroup>
+                            </Link>
 
                             <div className="flex gap-2 mt-5">
                                 <Invite />
@@ -289,7 +285,7 @@ export default async function Home() {
                             </div>
 
                             <span className="text-sm mt-1 opacity-75">
-                                English, French, German, Spanish, Portuguese, Indonesian and Japanese, Korean.
+                                English, French, German, Spanish, Portuguese, Indonesian, Italian, Japanese, Korean.
                             </span>
 
                         </div>
