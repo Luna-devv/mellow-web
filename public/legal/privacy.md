@@ -1,5 +1,5 @@
 ## Privacy Policy
-**last modified 10/26/2024 (MM/DD/YYYY)**
+**last modified 07/06/2025 (MM/DD/YYYY)**
 <br />
 
 This Privacy Policy adheres to and encompasses the same definitions and entities as outlined in the Terms of Service.
@@ -41,11 +41,19 @@ We are headquartered in Austria, which is located in Europe. By using our Servic
 If you wish to have all of your personal data that has been collected by us permanently deleted, please contact us via email at privacy@wamellow.com. We will take all necessary steps to ensure that your request is processed in a timely and efficient manner. In addition, we kindly request that you log out of our Service from all devices and browsers on which you have accessed it. If necessary, please also manually delete all cookies associated with our Service. This will help to ensure that your personal data is fully removed from our systems.
 
 ## Managing Cookies and Analytics
-On our website, we utilize third-party website analytics tools, including Plausible Analytics, to collect anonymized information about your use of our services. These tools use cookies to gather data about user behavior and interactions. If you do not wish for cookies to be used in this manner, you have the option to disable them by adjusting the settings on your internet browser. For detailed instructions on how to disable cookies, please consult the help screen or support documentation provided by your internet browser provider.
+We utilize cookies solely for essential purposes to ensure the proper functioning and security of our website. Specifically:
+* **Authentication.** We use a cookie to maintain your session when you log in. This cookie ensures that you remain authenticated as you navigate through the site.
+* **Cloudflare** Our website is protected and accelerated by [Cloudflare](https://cloudflare.com).
+<br /><br />
+These cookies are essential for security and performance and do not store any personally identifiable information.
+<br /><br />
+For analytics, we employ a self-hosted instance of [Plausible Analytics](https://plausible.io), a privacy-focused tool that does not use cookies or collect personal data. Plausible provides aggregated, anonymized insights into website usage without tracking individual visitors. No personal information is stored or shared. Due to the nature of us using a self-hosted instance, no data is shared with Plausible Insights OÜ or any other third party.
+<br /><br />
+Given that we only use essential cookies, there is no requirement for a cookie consent banner. However, if you do not wish for cookies to be used in this manner, you have the option to disable them by adjusting the settings in your internet browser. For detailed instructions on how to disable cookies, please consult the help screen or support documentation provided by your internet browser provider.
 
 ## Data Access Request Procedure
 If you wish to make a request to access your personal data that we have collected, you may do so by sending an email to privacy@wamellow.com. Upon receipt of your request, we will initiate the necessary procedures to provide you with a link to access your personal data. This process will be completed within 30 days of receiving your request.
- 
+
 ## Privacy Policy Updates and Changes
 We reserve the right to make changes to our Privacy Policy at our discretion in order to reflect updates to our business processes, current acceptable practices, or legal or regulatory changes. In the event that we decide to make changes to our Privacy Policy, we will post the updated version on our website at the same link where you currently access our Privacy Policy. Please note that we may update our Privacy Policy at any time without prior notice.
 <br /><br />
