@@ -1,7 +1,6 @@
 import { readFile } from "fs/promises";
 import type { Metadata } from "next";
 
-import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import BeautifyMarkdown from "@/components/markdown";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -40,16 +39,5 @@ const PATH = `${process.cwd()}/public/legal/privacy.md` as const;
 
 export default async function Home() {
     const privacy = await readFile(PATH, { encoding: "utf-8" });
-
-    return (
-        <div>
-
-            <div className="flex gap-2 mb-5 text-sm">
-                <CopyToClipboardButton text={getCanonicalUrl("privacy")} />
-            </div>
-
-            <BeautifyMarkdown markdown={privacy} />
-
-        </div>
-    );
+    return <BeautifyMarkdown markdown={privacy} />;
 }
