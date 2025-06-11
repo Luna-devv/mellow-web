@@ -228,7 +228,7 @@ export interface ApiV1GuildsModulesLeaderboardUpdatingPostResponse {
     }
 
     range: "daily" | "weekly" | "monthly" | "alltime";
-    display: "tag" | "username" | "nickname" | "id";
+    display: "mention" | "username" | "nickname" | "id";
 
     background: string | null;
     emoji: string | null;

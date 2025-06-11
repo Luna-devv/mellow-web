@@ -46,6 +46,7 @@ export default function UpdatingLeaderboardCard({
     const [structure, setStructure] = useState(leaderboard?.structure || 1);
     const [emoji, setEmoji] = useState(leaderboard?.emoji);
     const [styles, setStyles] = useState<ApiV1GuildsModulesLeaderboardUpdatingPostResponse["styles"]>(leaderboard?.styles || { useQuotes: false, rank: null, number: null, user: null });
+    const [display, setDisplay] = useState<ApiV1GuildsModulesLeaderboardUpdatingPostResponse["display"]>(leaderboard?.display || "username");
     const [embed, setEmbed] = useState<Embed>({});
 
     const stylesList = [
@@ -128,6 +129,7 @@ export default function UpdatingLeaderboardCard({
                         structure,
                         emoji,
                         styles,
+                        display,
                         embed: leaderboard?.channelId
                             ? undefined
                             : embed
@@ -140,6 +142,7 @@ export default function UpdatingLeaderboardCard({
                     type,
                     // @ts-expect-error it works
                     channelId, structure, emoji,
+                    display,
                     styles
                 });
             }}
@@ -210,7 +213,22 @@ export default function UpdatingLeaderboardCard({
                 </Tabs>
             </div>
 
-            {structure === 0 && <>
+            {structure === 0 && (<>
+                {!leaderboard?.channelId && (
+                    <TextInput
+                        name="Title"
+                        description="The title of the embed"
+                        defaultState={"☕ " + `${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
+                        max={256}
+                        onSave={(v) => {
+                            setEmbed({
+                                ...embed,
+                                title: v as string
+                            });
+                        }}
+                    />
+                )}
+
                 <div className="flex gap-2">
                     <SelectInput
                         name="Rank"
@@ -239,6 +257,22 @@ export default function UpdatingLeaderboardCard({
                 </div>
 
                 <SelectInput
+                    name="Display name"
+                    items={
+                        ["mention", "username", "nickname", "id"].map((key) => ({
+                            name: key.replace(/^\w/, (char) => char.toUpperCase()),
+                            value: key
+                        }))
+                    }
+                    description="Select how the username should be displayed."
+                    defaultState={leaderboard?.display}
+                    showClear
+                    onSave={(o) => {
+                        setDisplay(o.value as ApiV1GuildsModulesLeaderboardUpdatingPostResponse["display"]);
+                    }}
+                />
+
+                <SelectInput
                     name="Emoji"
                     items={createSelectableEmojiItems(guild.emojis)}
                     description="Select a emots which will be between shown after the data count."
@@ -249,21 +283,6 @@ export default function UpdatingLeaderboardCard({
                     }}
                 />
 
-                {!leaderboard?.channelId &&
-                    <TextInput
-                        name="Title"
-                        description="The title of the embed"
-                        defaultState={"☕ " + `${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
-                        max={256}
-                        onSave={(v) => {
-                            setEmbed({
-                                ...embed,
-                                title: v as string
-                            });
-                        }}
-                    />
-                }
-
                 <Switch
                     name="Use quotes for text"
                     isTickbox
@@ -272,7 +291,7 @@ export default function UpdatingLeaderboardCard({
                         setStyles({ ...styles, useQuotes: s });
                     }}
                 />
-            </>}
+            </>)}
         </Modal>
 
         <Modal
