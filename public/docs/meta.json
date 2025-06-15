@@ -76,23 +76,6 @@
             }
         },
         {
-            "name": "📢 Social Notifications",
-            "file": "notifications.md",
-            "image": "/docs-assets/open-graph/notifications-youtube.webp",
-            "description": "Notify your community when creators on YouTube, Twitch, Bluesky or Reddit post or go live!",
-            "permissions": {
-                "bot": [
-                    "View Channel",
-                    "Send Messages",
-                    "Embed Links",
-                    "Mention Everyone"
-                ],
-                "user": [
-                    "Manage Server"
-                ]
-            }
-        },
-        {
             "name": "🔊 Text to Speech",
             "file": "text-to-speech.md",
             "image": "/docs-assets/open-graph/text-to-speech.webp",
@@ -129,6 +112,23 @@
             }
         },
         {
+            "name": "📢 Social Notifications",
+            "file": "notifications.md",
+            "image": "/docs-assets/open-graph/notifications-youtube.webp",
+            "description": "Notify your community when creators on YouTube, Twitch, Bluesky or Reddit post or go live!",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links",
+                    "Mention Everyone"
+                ],
+                "user": [
+                    "Manage Server"
+                ]
+            }
+        },
+        {
             "name": "🩵 Bluesky Bridge",
             "file": "bluesky.md",
             "image": "/wamellow-bluesky-like.webp",
@@ -141,6 +141,24 @@
                 "user": [
                     "View Channel",
                     "Add Reactions"
+                ]
+            }
+        },
+        {
+            "name": "🖊️ Custom Commands",
+            "file": "custom-commands.md",
+            "image": "",
+            "description": "Easily handle frequently asked questions, common queries, and repetitive tasks in a snap. Empower your server with quick access to custom commands.",
+            "permissions": {
+                "bot": [
+                    "View Channel",
+                    "Send Messages",
+                    "Embed Links"
+                ],
+                "user": [
+                    "View Channel",
+                    "Send Messages",
+                    "Manage Server"
                 ]
             }
         }
