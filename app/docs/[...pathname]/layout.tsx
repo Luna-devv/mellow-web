@@ -63,18 +63,11 @@ export default async function RootLayout({ params, children }: Props) {
     return (
         <div className="w-full">
 
-            <div className="md:flex justify-between items-end">
-                <div>
-                    <h1 className="text-2xl font-medium text-neutral-100">
-                        {title} Documentation
-                    </h1>
-                    <div>
-                        {meta?.description}
-                    </div>
-                </div>
-                <div className="text-red-400">
-                    The docs are still work in progress!
-                </div>
+            <h1 className="text-2xl font-medium text-neutral-100 mb-1">
+                {title} Documentation
+            </h1>
+            <div>
+                {meta?.description}
             </div>
 
             <div className="flex flex-col lg:flex-row gap-6 mt-5 min-h-[63vh]">
