@@ -1,7 +1,8 @@
-![Like bluesky posts inside of Discord using Wamellow by reacting with a 🩵 emoji](/wamellow-bluesky-like.webp?fullwidth=true)
-<br/>
+Reacting with a *light blue 🩵*-emoji to a message containing a Bluesky post for the first time will send you an authorization link via DMs. You don't have to create an app password or anything, just simply authorize Wamellow with your Bluesky account.
+<br />
+<br />
 
-Reacting with a *light blue 🩵*-emoji to a message containing a Bluesky post for the first time will send you an authorization link via DMs. You don't have to create an app password or anything, just simply authorize Wamellow with your Bluesky account (uses oauth2).
+![Like bluesky posts inside of Discord using Wamellow by reacting with a 🩵 emoji](/wamellow-bluesky-like.webp?fullwidth=true)
 
 ## Setup
 1. Add Wamellow to your server by going to [wamellow.com/add](https://wamellow.com/add).
@@ -10,28 +11,34 @@ Reacting with a *light blue 🩵*-emoji to a message containing a Bluesky post f
 4. Reacting with a **🩵 emoji** to any message containing a Bluesky post.
 
 ### 💻 Does Wamellow have to be in the server?
-Yes! You must [invite wamellow](https://wamellow.com/add) to the server and grand it 'View Channel' permission in every channel that you want to have that feature.
-
-### 🤔 Discord Direct Messages Disabled?
-No worries! You can just go to [wamellow.com/profile/connections](https://wamellow.com/profile/connections) and link your Bluesky account with Wamellow manually.
+Yes, for Wamellow's features to work, you must [invite the bot](https://wamellow.com/add) to your server. Ensure it has the "View Channel" permission in all channels where you want to use its capabilities.
 
 ### 🩵 Any heart emoji?
-No, you must react with either a *light blue heart 🩵-emoji* or with a *blue heart 💙-emoji*.
+No, only specific heart emojis will work. To like a post, you must react with either the light blue heart (🩵) or the blue heart (💙) emoji.
 
-### 🗄️ I have my own PDS ('personal data server')!
-Wamellow supports any PDS, no matter if it's a Bluesky mushroom, a Spark PDS, or your own. On the Wamellow DM or on [wamellow.com/profile/connections](https://wamellow.com/profile/connections), just click on **Connect 3rd-party PDS** and enter your Bluesky handle (like `shi.gg`), and follow the steps.
-<br/>
-<br/>
+### 🤔 Discord Direct Messages Disabled
+If you have DMs disabled on Discord, you can connect your Bluesky account manually. Simply visit [wamellow.com/profile/connections](https://wamellow.com/profile/connections) to link your account directly.
 
-Though, expect minor issues, as this feature is still in testing. Any issues can be solved by just re-authorizing.
-<br/>
-<br/>
+### 🗄️ Using a Custom Personal Data Server (PDS)
+Wamellow is compatible with any PDS, including Bluesky mushroom, Spark PDS, or your own self-hosted server.
+<br />
+<br />
 
-If you don't know what a PDS is, you don't have to worry about it anyway.
+**How to connect your custom PDS:**
+1.  Go to the Wamellow DM on Discord or visit [wamellow.com/profile/connections](https://wamellow.com/profile/connections).
+2.  Click on **Connect 3rd-party PDS**.
+3.  Enter your Bluesky handle (e.g., `shi.gg`) and follow the on-screen instructions.
+<br />
+<br />
 
-### 🚨 Does it work with Wamellow's Bluesky -> Discord notification?
-Yes! [Bluesky notifications sent by Wamellow](https://dev.wamellow.com/docs/notifications) just have two additional buttons, a 🩵-emoji button to like the post and a repost-emoji button to, well, repost the post..
-<br/>
-<br/>
+**Note:** Re-authorizing the connection will typically resolve any problems. If you are unfamiliar with what a PDS is, you can disregard this section.
+
+### 🚨 Interaction with Bluesky Notifications
+When Wamellow sends a [Bluesky post notification in Discord](https://wamellow.com/docs/Notifications), you will see two additional buttons that allow you to interact directly with the post:
+
+* **Like:** Click the 🩵 button to like the post on Bluesky.
+* **Repost:** Click the repost emoji button to repost it.
+<br />
+<br />
 
 ![Discord message sent by Wamellow containing a Bluesky post link with two additional buttons to like and repost the post](https://preview.redd.it/like-bluesky-posts-inside-of-discord-with-wamellow-v0-yio08hyf6roe1.png?width=640&crop=smart&auto=webp&s=43ad0757ae82963d2e2e325d8dfee1799ca5bff9)
