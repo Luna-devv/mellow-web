@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { BsDiscord, BsGithub } from "react-icons/bs";
 
-import MommyPic from "@/public/mommy.webp";
 import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
@@ -49,16 +47,16 @@ export const generateMetadata = (): Metadata => {
 export default function Home() {
     return (
         <div>
-            <h2 className="text-2xl font-medium text-neutral-200">Team 🍪</h2>
-            <div className="max-w-xl mt-1">
+            <h2 className="text-2xl font-medium text-neutral-200">Team 👋</h2>
+            <div className="max-w-xl mt-1 mb-2">
                 Meet the creators of Wamellow and its products. Our dedicated team, including developers and donors, drives innovation and community growth.
             </div>
 
-            <div className="relative divide-y-1 divide-wamellow mb-10">
+            <div className="relative mb-10">
                 {filterDuplicates(members.map((member) => member.team)).map((team) => (
                     <div
                         key={team}
-                        className="py-5"
+                        className="py-3"
                     >
                         <h3 className="text-lg font-medium text-neutral-200">
                             {team.split("-").map((str) => str.replace(/^\w/, (char) => char.toUpperCase())).join(" ")}
@@ -78,14 +76,6 @@ export default function Home() {
                         </div>
                     </div>
                 ))}
-
-                <Image
-                    alt="no mommy? 😢"
-                    className="absolute right-0 top-0 shrink-0 aspect-square rounded-lg"
-                    height={128}
-                    src={MommyPic}
-                    width={128}
-                />
             </div>
 
             <h2 className="text-2xl font-medium text-neutral-200">Open Source <BsGithub className="inline ml-1 mb-1" /></h2>

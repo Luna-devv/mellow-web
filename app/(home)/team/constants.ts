@@ -1,7 +1,8 @@
 export const repos = [
+    "Luna-devv/mellow-bot",
     "Luna-devv/mellow-web",
-    "Luna-devv/mellow-transgirl",
-    "Luna-devv/nekostic",
+    "Luna-devv/mellow-a7s",
+    "Luna-devv/transgirl",
     "Luna-devv/lunify.js",
     "Luna-devv/dlist.js",
     "Luna-devv/githook"
@@ -21,7 +22,7 @@ export const members = [
     },
 
     {
-        id: "845287163712372756",
+        id: "362224559459532800",
         team: TeamType.AdditionalProgramming,
         social: "https://ko-fi.com/aurora_loves_women"
     },
@@ -38,12 +39,12 @@ export const members = [
     {
         id: "797012765352001557",
         team: TeamType.Donator,
-        social: "https://crni.xyz/"
+        social: "https://crni.xyz"
     },
     {
         id: "1044032607207301160",
         team: TeamType.Donator,
-        social: "https://notifyme.bot/"
+        social: "https://notifyme.bot"
     },
     {
         id: "742224557632389160",
@@ -52,12 +53,12 @@ export const members = [
     {
         id: "340243638892101646",
         team: TeamType.Donator,
-        social: "https://sattler.dev/"
+        social: "https://sattler.dev"
     },
     {
         id: "911823996767600730",
         team: TeamType.Donator,
-        social: "https://ibcheechy.com/"
+        social: "https://ibcheechy.com"
     },
     {
         id: "748968886237397036",
@@ -72,11 +73,31 @@ export const members = [
     {
         id: "452848052810547201",
         team: TeamType.Donator,
-        social: "https://z1.gg/"
+        social: "https://z1.gg"
     },
     {
         id: "77755087602065408",
         team: TeamType.Donator,
-        social: "https://notswayze.stream/"
+        social: "https://notswayze.stream"
+    },
+    {
+        id: "354390108918644739",
+        team: TeamType.Donator
+    },
+    {
+        id: "202042394428964865",
+        team: TeamType.Donator
+    },
+    {
+        id: "657078394063945758",
+        team: TeamType.Donator
+    },
+    {
+        id: "1118157956387700857",
+        team: TeamType.Donator
+    },
+    {
+        id: "1322077071920336897",
+        team: TeamType.Donator
     }
 ] as const;

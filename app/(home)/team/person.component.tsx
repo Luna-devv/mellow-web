@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
-import { HiExternalLink } from "react-icons/hi";
 
 import { getUser } from "@/lib/discord/user";
 import { cn } from "@/utils/cn";
@@ -24,7 +23,7 @@ export async function Person({
     return (
         <Component
             className={cn(
-                "flex items-center gap-3 h-16 p-2 pr-4 bg-wamellow rounded-full cursor-default",
+                "flex items-center gap-3 h-14 px-2 pl-[5px] pr-4 hover:bg-wamellow rounded-full cursor-default",
                 social && "duration-100 outline-violet-500 hover:outline cursor-pointer"
             )}
             href={social}
@@ -32,7 +31,7 @@ export async function Person({
         >
             <Image
                 alt={user.username}
-                className="rounded-full shrink-0 aspect-square"
+                className="rounded-full shrink-0 aspect-square size-11"
                 height={48}
                 src={avatarUrl}
                 width={48}
@@ -40,10 +39,8 @@ export async function Person({
 
             <div className="mr-2">
                 <div className="text-lg text-neutral-200 font-medium -mb-1.5">{user.globalName || user.username}</div>
-                <span className="opacity-75">@{user.username}</span>
+                <span className="opacity-75">{user.username}</span>
             </div>
-
-            {social && <HiExternalLink className="w-5 h-5" />}
         </Component>
     );
 }
