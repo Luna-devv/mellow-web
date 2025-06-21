@@ -29,7 +29,7 @@ const reviews = {
     aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: "5",
-        reviewCount: "90",
+        reviewCount: "100",
         bestRating: "5"
     }
 };
