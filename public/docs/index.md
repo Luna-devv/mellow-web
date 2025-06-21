@@ -10,9 +10,7 @@ Wamellow is translated into many different languages, including
 - 🇩🇪 German
 - 🇭🇷 Croatian
 - 🇮🇹 Italian
-- 🇵🇹 Portuguese
-- 🇷🇺 Russian
-<br />
+- 🇵🇹 Portuguese, Brazilian
 <br />
 
 Note that Wamellow will automatically choose the language of your Discord.
@@ -29,9 +27,10 @@ The list of languages for Text-to-Speech differs:
 - 🇩🇪 German
 - 🇫🇷 Frensh
 - 🇮🇹 Italian
-- 🇪🇸 Spanish (ES/MX)
+- 🇪🇸 Spanish
+- 🇲🇽 Spanish, Mexico
 - 🇵🇹 Portuguese
-- 🇧🇷 Brazilian Portuguese
+- 🇧🇷 Portuguese, Brazilian
 - 🇮🇩 Indonesian
 - 🇯🇵 Japanese
 - 🇰🇷 Korean
