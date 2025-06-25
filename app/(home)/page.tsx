@@ -22,7 +22,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { defaultFetchOptions } from "@/lib/api";
-import AiPic from "@/public/ai.webp";
 import CaptchaPic from "@/public/captcha.webp";
 import ArrowPic from "@/public/icons/arroww.webp";
 import LeaderboardPic from "@/public/leaderboard.webp";
@@ -367,72 +366,6 @@ export default async function Home() {
                                         src={NotificationsPic}
                                     />
                                 </DiscordMessageEmbed>
-                            </DiscordMessage>
-                        </div>
-                    </Box>
-                </div>
-
-                <div>
-                    <h2 className={styles.h2}>Create unique images with Ai 🏳️‍⚧️</h2>
-
-                    <Box className="flex flex-col md:flex-row gap-10 items-center">
-                        <div className="md:w-1/2">
-                            <Badge
-                                className="mb-2"
-                                variant="flat"
-                                radius="rounded"
-                            >
-                                <HiCash />
-                                No premium required
-                            </Badge>
-
-                            <h3 className={styles.h3}>Free /image command</h3>
-
-                            <div className="pt-6">
-                                Summon the enchantment of AI-generated images to your Discord server with our versatile /image command, featuring over 40 distinct custom models.
-                                Customize the rating, quality, aesthetics, image width and height, upscaled, generation steps and the CFG scale all for free.
-                            </div>
-                            {!isEmbedded && (
-                                <div className="p-4 pb-3 border border-divider rounded-lg my-8">
-                                    <Badge
-                                        className="mb-2"
-                                        variant="flat"
-                                        radius="rounded"
-                                    >
-                                        <HiFire />
-                                        Supports NSFW
-                                    </Badge>
-                                    <div className="text-base">
-                                        Generate spicy images and more in nsfw marked channels.
-                                    </div>
-                                </div>
-                            )}
-                            <div className="flex gap-2 mt-6">
-                                <Invite />
-                                <Button asChild>
-                                    <Link
-                                        href="/ai-gallery"
-                                        target="_blank"
-                                    >
-                                        <HiArrowRight />
-                                        View Images
-                                    </Link>
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div className="bg-discord-gray w-full md:w-1/2 px-8 py-4 rounded-lg">
-                            <DiscordMessage {...messageProps("image")}>
-                                <DiscordMarkdown mode={"DARK"} text="query: **femboy**" />
-                                <Image
-                                    alt=""
-                                    className="rounded-md shadow-md w-full max-w-[308px] mt-2"
-                                    height={290}
-                                    itemProp="image"
-                                    loading="lazy"
-                                    src={AiPic}
-                                    width={290}
-                                />
                             </DiscordMessage>
                         </div>
                     </Box>
