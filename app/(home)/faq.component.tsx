@@ -37,10 +37,10 @@ const data = [
     },
     {
         startContent: <HiCash />,
-        title: "Is the /image Ai or Text to Speech free to use?",
+        title: "Is Text to Speech free to use?",
         content: (
             <div>
-                Yes, the image Ai and Text to Speech are free to use. However, you might have to <LinkTag href="/vote">vote for Wamellow on top.gg</LinkTag> if you start using it a lot.
+                Yes, Text to Speech is free to use. However, you might have to <LinkTag href="/vote">vote for Wamellow on top.gg</LinkTag> if you start using it a lot.
             </div>
         )
     },
@@ -120,7 +120,7 @@ const data = [
         title: "Which social platforms does Wamellow Notifications support?",
         content: (
             <div itemProp="text">
-                Wamellow currently support YouTube videos, shorts and livestreams; Twitch live stream; and Bluesky (bsky.app) posts, reposts and quote-replies.
+                Wamellow currently support YouTube videos, shorts and livestreams; Twitch live stream; Bluesky (bsky.app) posts, reposts and quote-replies; and Reddit posts.
             </div>
         )
     }

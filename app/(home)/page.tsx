@@ -96,7 +96,7 @@ export default async function Home() {
 
                     <span className="text-lg font-medium max-w-[38rem] mb-4">
                         Engage in leaderboards, starboards, and a welcoming atmosphere.
-                        Dive into /anime&apos;s, free /image Ai, and the power of Text-to-Speech.
+                        Dive into /anime&apos;s, free chat ai, and the power of Text-to-Speech.
                         Stay updated with dailyposts and receive social notifications!
                     </span>
 
@@ -374,7 +374,7 @@ export default async function Home() {
                 <div>
                     <h2 className={styles.h2}>Watchin{"'"} Anime ❤️</h2>
 
-                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
+                    <Box className="flex flex-col md:flex-row gap-10 items-center">
                         <div className="md:w-1/2">
                             <Badge
                                 className="mb-2"
@@ -431,7 +431,7 @@ export default async function Home() {
                 <div>
                     <h2 className={styles.h2}>Fun leveling and leaderboards 🦄</h2>
 
-                    <Box className="flex flex-col md:flex-row gap-10 items-center">
+                    <Box className="flex flex-col md:flex-row-reverse gap-10 items-center">
                         <div className="md:w-1/2">
                             <Badge
                                 className="mb-2"

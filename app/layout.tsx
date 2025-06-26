@@ -42,7 +42,7 @@ export const viewport: Viewport = {
 export const generateMetadata = (): Metadata => {
 
     const title = "Wamellow: Next-gen of Discord Bots & Apps";
-    const description = "Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free /image AI and unleash the power of Text-To-Speech.";
+    const description = "Engage with leaderboards, starboards, and welcoming atmosphere. Dive into anime discussions, enjoy free chat aI and unleash the power of Text-To-Speech.";
 
     return {
         metadataBase: new URL(getBaseUrl()),

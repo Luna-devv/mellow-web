@@ -20,7 +20,7 @@ export const defaultCookieOptions = {
 
 const permissions = [
     PermissionFlagsBits.AddReactions, // greetings
-    PermissionFlagsBits.AttachFiles, // /image, /tts, leaderboards
+    PermissionFlagsBits.AttachFiles, // /tts, leaderboards
     PermissionFlagsBits.BanMembers, // passport
     PermissionFlagsBits.Connect, // /tts
     PermissionFlagsBits.CreatePublicThreads, // nsfw moderation
