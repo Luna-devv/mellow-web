@@ -24,7 +24,7 @@ export interface ApiV1StatusGetResponse {
     nodes: ApiNode[];
 }
 
-export async function getStatus(): Promise<ApiV1StatusGetResponse | ApiError | undefined> {
+export async function getStatus(): Promise<ApiV1StatusGetResponse | ApiError | null> {
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_API}/status`,
         {
@@ -33,5 +33,6 @@ export async function getStatus(): Promise<ApiV1StatusGetResponse | ApiError | u
         }
     );
 
+    if (!res.ok) return null;
     return res.json();
 }

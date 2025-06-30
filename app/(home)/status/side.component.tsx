@@ -18,8 +18,8 @@ export function Side({
     const [guildId, setGuildId] = useState<string>("");
 
     const clusterId = useMemo(
-        () => /^\d{15,20}$/.test(guildId) ?
-            getClusterId(guildId || "", status.clusters.length)
+        () => /^\d{15,20}$/.test(guildId)
+            ? getClusterId(guildId || "", status.clusters.length)
             : null,
         [guildId]
     );
