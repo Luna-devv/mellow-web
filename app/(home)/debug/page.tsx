@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { HiTrash } from "react-icons/hi";
 
-import Box from "@/components/box";
 import { Shiggy } from "@/components/shiggy";
 import { Button } from "@/components/ui/button";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
@@ -51,21 +50,6 @@ export default async function Home() {
     const headerList: { name: string; value: string; }[] = [];
     for (const [key, value] of (await headers()).entries()) {
         headerList.push({ name: key, value });
-    }
-
-    if ((await cookies()).get("devTools")?.value !== "true") {
-        return (
-            <Box
-                className="relative mb-64 mt-12"
-                small
-            >
-                <div>
-                    <h1 className="text-2xl font-medium text-neutral-100">You need to enable dev tools to view this page</h1>
-                    <p>Enable lunar tools in your browser to view this page</p>
-                </div>
-                <Shiggy className="absolute right-4 bottom-0 h-52" />
-            </Box>
-        );
     }
 
     async function deleteCookie(formData: FormData) {
