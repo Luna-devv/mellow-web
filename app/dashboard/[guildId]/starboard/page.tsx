@@ -165,7 +165,7 @@ export default function Home() {
             dataName="requiredEmojis"
             defaultState={data.requiredEmojis ?? 0}
             disabled={!data.enabled}
-            min={1}
+            min={2}
             onSave={(v) => edit("requiredEmojis", v)}
         />
 
