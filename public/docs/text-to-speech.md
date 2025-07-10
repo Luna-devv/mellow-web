@@ -21,6 +21,12 @@ It's absolutely crucial for people with speech impairments like aphonia or dysph
 
 To get a quick **.mp3 file** of your message, use `/tts file` in any text channel.
 
+### 🌎 Auto Translate
+Automatically translate messages from any language to match your [current voice's language](/docs/text-to-speech#voices) for free.
+
+* **For Commands**: Set the `translate` option to `yes` (i.e.: `/tts voice text:Hello World translate:yes`)
+* **For Chat to Speech**: Append `-tr` to the end of your message (i.e.: `Hello World -tr`)
+
 ### 📑 Usage logs
 Pick a channel where any Text to Speech events from your server should be logged, mainly for moderation purposes.
 <br />
@@ -39,7 +45,7 @@ Wamellow will announce which user is currently talking through it. If a user say
 **Note:** This feature is experimental. Please note that usernames written in languages other than the actual written message will cause the Text to Speech to fail.
 
 ### 🛒 Message queue
-Queue up sent messages, messages are spoked in the same order as they were written.
+Queue up sent chat to speech messages, to be spoken in the order they were sent. This is useful for long conversations or when multiple users want to speak at once and will prevent any messages from being skipped and Wamellow returning an error stating that someone else's message is still being spoken.
 
 ### 🔏 Max message length
 Set a maximum length for messages to avoid spamming.
@@ -108,6 +114,9 @@ You can also use this to stop any message that is currently being spoken (i.e.: 
 
 ## Voices
 You can change your default language and voice either by running `/tts set speaker` or by [setting it on the dashboard](/profile/text-to-speech).
+<br />
+<br />
+You can also change the voice on a per-message basis by setting the `voice` option when using `/tts file` or `/tts voice`, i.e.: `/tts voice text:Hello World voice:en_female_samc`. This can also be combined with the [auto translate](/docs/text-to-speech) flag.
 
 <table>
     <thead>

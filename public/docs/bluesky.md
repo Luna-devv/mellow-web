@@ -36,8 +36,8 @@ Wamellow is compatible with any PDS, including Bluesky mushroom, Spark PDS, or y
 ### 🚨 Interaction with Bluesky Notifications
 When Wamellow sends a [Bluesky post notification in Discord](https://wamellow.com/docs/Notifications), you will see two additional buttons that allow you to interact directly with the post:
 
-* **Like:** Click the 🩵 button to like the post on Bluesky.
-* **Repost:** Click the repost emoji button to repost it.
+* **Like**: Click the 🩵 button to like the post on Bluesky.
+* **Repost**: Click the repost emoji button to repost it.
 <br />
 <br />
 
