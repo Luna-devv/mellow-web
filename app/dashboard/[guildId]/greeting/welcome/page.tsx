@@ -113,10 +113,10 @@ export default function Home() {
         />
 
         <Switch
-            name="Delete welcome message after leave"
+            label="Delete welcome message after leave"
             description="This only takes affect if the user joined less than 24h ago."
-            url={`/guilds/${guild?.id}/modules/welcome`}
-            dataName="deleteAfterLeave"
+            endpoint={`/guilds/${guild?.id}/modules/welcome`}
+            k="deleteAfterLeave"
             defaultState={welcome?.deleteAfterLeave || false}
             disabled={!welcome.enabled}
         />

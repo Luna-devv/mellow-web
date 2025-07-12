@@ -1,7 +1,6 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
-import { useCookies } from "next-client-cookies";
-import Image from "next/image";
 import Link from "next/link";
+import { useCookies } from "next-client-cookies";
 import { HiExternalLink } from "react-icons/hi";
 
 import { Button } from "./ui/button";
@@ -30,20 +29,7 @@ export function TTSFaq() {
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 />
 
-                <Button
-                    asChild
-                    className="my-2"
-                    size="sm"
-                >
-                    <Link
-                        className="flex items-center"
-                        href="/docs/text-to-speech"
-                        target="_blank"
-                    >
-                        Read the documentation
-                        <HiExternalLink />
-                    </Link>
-                </Button>
+                <DocumentationLink />
             </AccordionItem>
             <AccordionItem
                 key="2"
@@ -52,19 +38,35 @@ export function TTSFaq() {
             >
                 Blacklist a user using discord channel permissions.
 
-                <Link
-                    href="https://cdn.waya.one/r/YcU2CC.gif"
-                    target="_blank"
-                >
-                    <Image
-                        alt="blacklist a user with discord channel permissions"
-                        className="mt-4 rounded-md"
-                        height={945 / 2}
-                        src="https://cdn.waya.one/r/YcU2CC.gif"
-                        width={1040 / 2}
-                    />
-                </Link>
+                <iframe
+                    className="mt-4 aspect-video rounded-lg"
+                    width="100%"
+                    src="https://www.youtube.com/embed/KLXm2vdH0ro?si=FyxofeytRb-LAOE6"
+                    title="Wamellow restrict Text to Speech access"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                />
+
+                <DocumentationLink />
             </AccordionItem>
         </Accordion>
+    );
+}
+
+function DocumentationLink() {
+    return (
+        <Button
+            asChild
+            className="my-2"
+            size="sm"
+        >
+            <Link
+                className="flex items-center"
+                href="/docs/text-to-speech"
+                target="_blank"
+            >
+                Read the documentation
+                <HiExternalLink />
+            </Link>
+        </Button>
     );
 }
