@@ -91,9 +91,9 @@ export default function Home() {
         <Head />
 
         <Switch
-            name="Welcome module enabled"
-            url={`/guilds/${guild?.id}/modules/welcome`}
-            dataName="enabled"
+            label="Welcome module enabled"
+            endpoint={`/guilds/${guild?.id}/modules/welcome`}
+            k="enabled"
             defaultState={welcome?.enabled}
             disabled={false}
             onSave={(s) => {
@@ -105,9 +105,9 @@ export default function Home() {
         />
 
         <Switch
-            name="Restore members roles and nickname on rejoin"
-            url={`/guilds/${guild?.id}/modules/welcome`}
-            dataName="restore"
+            label="Restore members roles and nickname on rejoin"
+            endpoint={`/guilds/${guild?.id}/modules/welcome`}
+            k="restore"
             defaultState={welcome?.restore}
             disabled={!welcome.enabled}
         />
@@ -230,9 +230,9 @@ export default function Home() {
             <div className={`mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6 ${!welcome.card.enabled && "pb-[0px]"}`}>
 
                 <Switch
-                    name="Show image card"
-                    url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName="card.enabled"
+                    label="Show image card"
+                    endpoint={`/guilds/${guild?.id}/modules/welcome`}
+                    k="card.enabled"
                     defaultState={welcome.card.enabled}
                     disabled={!welcome.enabled}
                     onSave={(s) => {
@@ -248,9 +248,9 @@ export default function Home() {
 
                 {welcome.card.enabled && <>
                     <Switch
-                        name="Set image inside embed."
-                        url={`/guilds/${guild?.id}/modules/welcome`}
-                        dataName="card.inEmbed"
+                        label="Set image inside embed."
+                        endpoint={`/guilds/${guild?.id}/modules/welcome`}
+                        k="card.inEmbed"
                         defaultState={welcome.card.inEmbed || false}
                         disabled={!welcome.card.enabled || !welcome.enabled}
                         onSave={(s) => {
@@ -298,9 +298,9 @@ export default function Home() {
 
             <div className="m-2">
                 <Switch
-                    name="Enabled"
-                    url={`/guilds/${guild?.id}/modules/welcome`}
-                    dataName="dm.enabled"
+                    label="Enabled"
+                    endpoint={`/guilds/${guild?.id}/modules/welcome`}
+                    k="dm.enabled"
                     defaultState={welcome.dm?.enabled}
                     disabled={!welcome.enabled}
                 />
@@ -316,9 +316,9 @@ export default function Home() {
         </Section>
 
         <Switch
-            name="Enable button"
-            url={`/guilds/${guild?.id}/modules/welcome`}
-            dataName="button.enabled"
+            label="Enable button"
+            endpoint={`/guilds/${guild?.id}/modules/welcome`}
+            k="button.enabled"
             defaultState={welcome.button?.enabled}
             disabled={!welcome.enabled}
             onSave={(s) => {
@@ -333,10 +333,10 @@ export default function Home() {
         />
 
         <Switch
-            name="Ping new member"
+            label="Ping new member"
             description="Whenever the mention in the greet message should ping or not."
-            url={`/guilds/${guild?.id}/modules/welcome`}
-            dataName="button.ping"
+            endpoint={`/guilds/${guild?.id}/modules/welcome`}
+            k="button.ping"
             defaultState={welcome.button?.ping || false}
             disabled={!welcome.enabled || !welcome.button?.enabled}
         />

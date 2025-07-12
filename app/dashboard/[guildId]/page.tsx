@@ -40,10 +40,10 @@ export default function Home() {
         </Section>
 
         <Switch
-            name="Embed message links"
+            label="Embed message links"
             badge="Experimental"
-            url={`/guilds/${params.guildId}`}
-            dataName="embedLinks"
+            endpoint={`/guilds/${params.guildId}`}
+            k="embedLinks"
             description="Reply with the original content of a message if a message link is sent."
             defaultState={guild?.embedLinks || false}
         />

@@ -92,67 +92,67 @@ export default function Home() {
         </div>
 
         <Switch
-            name="Starboard module enabled"
-            url={url}
-            dataName="enabled"
+            label="Starboard module enabled"
+            endpoint={url}
+            k="enabled"
             defaultState={data.enabled}
             disabled={false}
             onSave={(v) => edit("enabled", v)}
         />
 
         <Switch
-            name="Allow bots, apps and webhooks"
-            url={url}
-            dataName="allowBots"
+            label="Allow bots, apps and webhooks"
+            endpoint={url}
+            k="allowBots"
             defaultState={data.allowBots}
             disabled={!data.enabled}
             onSave={(v) => edit("allowBots", v)}
         />
 
         <Switch
-            name="Allow NSFW channels"
-            url={url}
-            dataName="allowNSFW"
+            label="Allow NSFW channels"
+            endpoint={url}
+            k="allowNSFW"
             defaultState={data.allowNSFW}
             disabled={!data.enabled}
             onSave={(v) => edit("allowNSFW", v)}
         />
 
         <Switch
-            name="Allow message edits"
+            label="Allow message edits"
             description="If a message is being edited, update it in the data."
-            url={url}
-            dataName="allowEdits"
+            endpoint={url}
+            k="allowEdits"
             defaultState={data.allowEdits}
             disabled={!data.enabled}
             onSave={(v) => edit("allowEdits", v)}
         />
 
         <Switch
-            name="Allow author reaction"
+            label="Allow author reaction"
             description="Lets the message author star their own messages."
-            url={url}
-            dataName="allowSelfReact"
+            endpoint={url}
+            k="allowSelfReact"
             defaultState={data.allowSelfReact}
             disabled={!data.enabled}
             onSave={(v) => edit("allowSelfReact", v)}
         />
 
         <Switch
-            name="Display stared message reference"
+            label="Display stared message reference"
             description="Repost the message reply in the data."
-            url={url}
-            dataName="displayReference"
+            endpoint={url}
+            k="displayReference"
             defaultState={data.displayReference}
             disabled={!data.enabled}
             onSave={(v) => edit("displayReference", v)}
         />
 
         <Switch
-            name="Delete message from starboard upon losing reactions"
+            label="Delete message from starboard upon losing reactions"
             description="If a message in the starboard looses the required reactions, it gets deleted."
-            url={url}
-            dataName="delete"
+            endpoint={url}
+            k="delete"
             defaultState={data.delete}
             disabled={!data.enabled}
             onSave={(v) => edit("delete", v)}

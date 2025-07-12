@@ -88,9 +88,9 @@ export default function Home() {
         <Head />
 
         <Switch
-            name="Farewell module enabled"
-            url={`/guilds/${guild?.id}/modules/bye`}
-            dataName="enabled"
+            label="Farewell module enabled"
+            endpoint={`/guilds/${guild?.id}/modules/bye`}
+            k="enabled"
             defaultState={bye?.enabled || false}
             disabled={false}
             onSave={(s) => {
@@ -152,9 +152,9 @@ export default function Home() {
             <div className={`mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6 ${!bye.card.enabled && "pb-[0px]"}`}>
 
                 <Switch
-                    name="Show image card"
-                    url={`/guilds/${guild?.id}/modules/bye`}
-                    dataName="card.enabled"
+                    label="Show image card"
+                    endpoint={`/guilds/${guild?.id}/modules/bye`}
+                    k="card.enabled"
                     defaultState={bye.card.enabled}
                     disabled={!bye.enabled}
                     onSave={(s) => {
@@ -170,9 +170,9 @@ export default function Home() {
 
                 {bye.card.enabled && <>
                     <Switch
-                        name="Set image inside embed."
-                        url={`/guilds/${guild?.id}/modules/bye`}
-                        dataName="card.inEmbed"
+                        label="Set image inside embed."
+                        endpoint={`/guilds/${guild?.id}/modules/bye`}
+                        k="card.inEmbed"
                         defaultState={bye.card.inEmbed || false}
                         disabled={!bye.card.enabled || !bye.enabled}
                         onSave={(s) => {

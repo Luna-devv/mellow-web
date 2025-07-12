@@ -284,7 +284,7 @@ export default function UpdatingLeaderboardCard({
                 />
 
                 <Switch
-                    name="Use quotes for text"
+                    label="Use quotes for text"
                     isTickbox
                     defaultState={leaderboard?.styles?.useQuotes || false}
                     onSave={(s) => {

@@ -73,10 +73,10 @@ export default function Home() {
         {AUTOMOD_TYPES.map((type) => (
             <Switch
                 key={type}
-                name={`Block ${type.replace(/^\w/, (c) => c.toUpperCase())}`}
+                label={`Block ${type.replace(/^\w/, (c) => c.toUpperCase())}`}
                 description={`Prevent ${type.replace(/s$/, "")} links from being sent.`}
-                url={`${url}/${type}`}
-                dataName="enabled"
+                endpoint={`${url}/${type}`}
+                k="enabled"
                 defaultState={data.status[type] || false}
                 onSave={(value) => {
                     data.status[type] = value;

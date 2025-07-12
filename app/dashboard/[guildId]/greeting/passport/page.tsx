@@ -98,9 +98,9 @@ export default function Home() {
         />
 
         <Switch
-            name="Passport module enabled"
-            url={`/guilds/${guild?.id}/modules/passport`}
-            dataName="enabled"
+            label="Passport module enabled"
+            endpoint={`/guilds/${guild?.id}/modules/passport`}
+            k="enabled"
             defaultState={passport?.enabled}
             disabled={false}
             onSave={(s) => {
@@ -112,9 +112,9 @@ export default function Home() {
         />
 
         <Switch
-            name="Send direct message to member on fail"
-            url={`/guilds/${guild?.id}/modules/passport`}
-            dataName="sendFailedDm"
+            label="Send direct message to member on fail"
+            endpoint={`/guilds/${guild?.id}/modules/passport`}
+            k="sendFailedDm"
             defaultState={passport?.sendFailedDm}
             disabled={!passport.enabled}
         />

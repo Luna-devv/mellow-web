@@ -43,17 +43,17 @@ export function TTSSettings() {
                     showClear
                 />
                 <Switch
-                    name="Announce user"
+                    label="Announce user"
                     badge="Experimental"
-                    url={`/guilds/${params.guildId}`}
-                    dataName="tts.announceUser"
+                    endpoint={`/guilds/${params.guildId}`}
+                    k="tts.announceUser"
                     description="If I should say who is currently speaking via tts."
                     defaultState={guild?.tts.announceUser || false}
                 />
                 <Switch
-                    name="Queue messages"
-                    url={`/guilds/${params.guildId}`}
-                    dataName="tts.queue"
+                    label="Queue messages"
+                    endpoint={`/guilds/${params.guildId}`}
+                    k="tts.queue"
                     description="Queue sent messages instead of refusing to speak."
                     defaultState={guild?.tts.queue || false}
                 />
