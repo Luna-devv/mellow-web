@@ -68,6 +68,21 @@ Bring Discord's "Wave to say hi!" feature to Wamellow's custom messages, just wi
 - Button emoji (must be from same server)
 - Toggle ping
 
+## Behavior
+The timing of when the welcome module triggers depends on which Discord or Wamellow features you have enabled in your server. If you're using Discord's [Community Onboarding](https://support.discord.com/hc/en-us/articles/10394859532823-Community-Onboarding-Examples), [Server Member Applications](https://support.discord.com/hc/en-us/articles/29729107418519-Server-Member-Applications), or [Wamellow's Passport](/docs/passport), the welcome message will be delayed until the respective process is completed.
+<br />
+<br />
+
+If you're using ..., the welcome module will be triggered when the user ...
+- **Community Onboarding**: completes the onboarding process.
+- **Server Member Applications**: has been approved.
+- **Passport**: was successfully verified.
+- **none of the above**: joins the server.
+<br />
+<br />
+
+If you have multiple methods enabled, the welcome module will trigger based on whichever process completes last.
+
 ## Placeholders
 Placeholders allow you to use variables that change from message to message, for example to display information about the joining user or your server. They are always enclosed in curly braces, such as `{user.username}`.
 
