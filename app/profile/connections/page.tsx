@@ -6,14 +6,13 @@ import { useState } from "react";
 import { BsSpotify } from "react-icons/bs";
 import { HiFingerPrint, HiTrash } from "react-icons/hi";
 import { SiBluesky } from "react-icons/si";
-import { useQuery } from "react-query";
 
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
 import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
 import { Button } from "@/components/ui/button";
-import { cacheOptions, getData } from "@/lib/api";
+import { useApi } from "@/lib/api/hook";
 import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { type ApiV1UsersMeConnectionsGetResponse, ConnectionType } from "@/typings";
 import { cn } from "@/utils/cn";
@@ -25,19 +24,13 @@ const CONNECTION_TYPES = Object
 export default function Home() {
     const url = "/users/@me/connections" as const;
 
-    const { isLoading, data, error } = useQuery(
-        url,
-        () => getData<ApiV1UsersMeConnectionsGetResponse[]>(url),
-        cacheOptions
-    );
+    const { isLoading, data, error } = useApi<ApiV1UsersMeConnectionsGetResponse[]>(url);
 
-    if (error || (data && "message" in data)) {
+    if (error) {
         return (
             <ScreenMessage
                 title="Something went wrong on this page.."
-                description={
-                    (data && "message" in data ? data.message : `${error}`)
-                    || "An unknown error occurred."}
+                description={error}
                 buttons={<>
                     <HomeButton />
                     <SupportButton />

@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { defaultCookieOptions } from "../route";
+import { defaultCookieOptions } from "@/lib/cookies";
+
 import { connect, disconnect, getAuthorizeUrl } from "./api";
 
 const SOCIALS = ["spotify", "bluesky"];

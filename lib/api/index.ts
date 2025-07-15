@@ -15,8 +15,8 @@ export const defaultFetchOptions = {
     next: { revalidate: 60 * 60 }
 };
 
-export async function getData<T>(path: string, domain?: string) {
-    const response = await fetch(`${domain || process.env.NEXT_PUBLIC_API}${path}`, {
+export async function getData<T>(path: string) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API}${path}`, {
         credentials: "include"
     });
 

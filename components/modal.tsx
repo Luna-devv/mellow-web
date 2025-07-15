@@ -29,6 +29,7 @@ interface Props<T> {
     onSubmit?: () => Promise<Response> | Error | undefined;
     onSuccess?: (data: T) => void;
     onClose: () => void;
+    onError?: () => void;
 
     isOpen: boolean;
     isDisabled?: boolean;
@@ -46,6 +47,7 @@ export default function Modal<T>({
     onSubmit,
     onClose,
     onSuccess,
+    onError,
 
     isOpen,
     isDisabled,
@@ -75,13 +77,15 @@ export default function Modal<T>({
         if (state === State.Loading) return;
         if (!onSubmit) return onClose();
 
+        setError(null);
         setState(State.Loading);
         const data = onSubmit?.();
 
         if (!data) return onClose();
 
         if (data instanceof Error) {
-            setError(data?.message || "Something went wrong..");
+            setError(data?.message || "something went wrong..");
+            onError?.();
             setState(State.Idle);
             return;
         }
@@ -91,11 +95,12 @@ export default function Modal<T>({
 
         if (res.ok) {
             onClose();
-            onSuccess?.(await res.json());
+            onSuccess?.(res.status === 204 ? null : await res.json());
             return;
         }
 
-        setError((await res.json() as ApiError).message || "Unknown server error");
+        setError((await res.json() as ApiError).message || "unknown server error");
+        onError?.();
     }
 
     function Header() {
@@ -106,7 +111,7 @@ export default function Modal<T>({
                 </span>
 
                 <Button
-                    onClick={() => onClose()}
+                    onClick={() => state !== State.Loading && onClose()}
                     className="ml-auto"
                     size="icon"
                 >
@@ -134,7 +139,7 @@ export default function Modal<T>({
 
             {onSubmit &&
                 <button
-                    onClick={() => onClose()}
+                    onClick={() => state !== State.Loading && onClose()}
                     className={cn(
                         "ml-auto text-sm font-medium dark:text-neutral-200 text-neutral-800",
                         state === State.Idle && "cursort-not-allowed"
@@ -154,7 +159,7 @@ export default function Modal<T>({
                 {buttonName}
             </Button>
 
-            {isOpen && <ClickOutside onClose={onClose} />}
+            {isOpen && state !== State.Loading && <ClickOutside onClose={onClose} />}
         </div>);
     }
 

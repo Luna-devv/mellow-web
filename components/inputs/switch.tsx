@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { TailSpin } from "react-loading-icons";
 
 import { cn } from "@/utils/cn";
@@ -8,6 +9,7 @@ import { Checkbox } from "../ui/checkbox";
 import { Switch } from "../ui/switch";
 
 interface Props {
+    link: string;
     badge: string;
     isTickbox: boolean;
 }
@@ -16,6 +18,7 @@ export default function InputSwitch({
     className,
 
     label,
+    link,
     badge,
     description,
     isTickbox,
@@ -46,13 +49,10 @@ export default function InputSwitch({
 
     return (
         <div className={cn("relative", description && "mb-2", className)}>
-            <div className={cn("flex items-center gap-2", !isTickbox && "mb-6")}>
+            <div className={cn("flex items-center justify-between gap-2", !isTickbox && "mb-6")}>
                 <div className="flex items-center gap-2">
                     <span
-                        className={cn(
-                            "sm:text-lg font-medium dark:text-neutral-400 text-neutral-600",
-                            value && "dark:text-neutral-300 text-neutral-700"
-                        )}
+                        className="sm:text-lg font-medium text-neutral-100"
                     >
                         {label}
                     </span>
@@ -73,14 +73,13 @@ export default function InputSwitch({
 
                 {isTickbox ?
                     <Checkbox
-                        className="ml-auto"
+                        className={description && "relative top-1"}
                         checked={value}
                         onCheckedChange={update}
                         disabled={disabled}
                     />
                     :
                     <Switch
-                        className="ml-auto"
                         checked={value}
                         onCheckedChange={update}
                         aria-label={label}
@@ -93,7 +92,7 @@ export default function InputSwitch({
             <div className="absolute top-6 mt-0.5">
                 {description &&
                     <div className="text-neutral-500 text-sm">
-                        {description}
+                        {description} {link && <Link href={link} target="_blank" className="text-violet-400 hover:underline">Learn more</Link>}
                     </div>
                 }
 

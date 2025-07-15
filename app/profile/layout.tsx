@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense } from "react";
 import CountUp from "react-countup";
-import { HiChartPie, HiCubeTransparent, HiFire, HiHome, HiPhotograph, HiTranslate } from "react-icons/hi";
+import { HiCreditCard, HiCubeTransparent, HiFire, HiHome, HiPhotograph, HiTranslate } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 import { userStore } from "@/common/user";
@@ -148,17 +148,11 @@ export default function RootLayout({
                             value: "/connections",
                             icon: <HiCubeTransparent />
                         },
-                        ...(user?.HELLO_AND_WELCOME_TO_THE_DEV_TOOLS__PLEASE_GO_AWAY ?
-                            [
-                                {
-                                    name: "Analytics",
-                                    value: "/analytics",
-                                    icon: <HiChartPie />
-                                }
-                            ]
-                            :
-                            []
-                        )
+                        {
+                            name: "Billing",
+                            value: "/billing",
+                            icon: <HiCreditCard />
+                        }
                     ]}
                     url="/profile"
                 />

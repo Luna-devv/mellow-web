@@ -272,6 +272,14 @@ export interface ApiV1GuildsModulesPassportGetResponse {
     alsoFailIf: ("disposableEmailAddress")[]
 }
 
+export enum UserFlags {
+    Premium = 1 << 0,
+    VoteReminderNotifications = 1 << 1,
+    VoteReminderNotificationSent = 1 << 2,
+    IgnoreChatToSpeech = 1 << 3,
+    LeaderboardAlternateStyle = 1 << 4
+}
+
 export interface ApiV1UsersMeGetResponse {
     voteCount?: number;
 
@@ -288,8 +296,6 @@ export interface ApiV1UsersMeGetResponse {
     };
     tts?: {
         defaultVoice?: keyof typeof actor;
-        defaultFiletype?: "ogg" | "wav" | "mp3";
-        commandUses?: number;
     };
     activity?: {
         messages: number;
@@ -308,6 +314,30 @@ export interface ApiV1UsersMeConnectionsGetResponse {
     username: string;
     avatar: string | null;
     type: ConnectionType;
+}
+
+export interface ApiV1UsersMeBillingGetRequest {
+    subscriptionId: string;
+    status: 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'paused'
+    | 'trialing'
+    | 'unpaid';
+    priceId: string;
+    created: number;
+    currentPeriodEnd: number;
+    currentPeriodStart: number;
+    cancelAtPeriodEnd: boolean;
+    donationQuantity: number;
+    paymentMethod: {
+        brand: string | null;
+        last4: string | null;
+    } | string | null;
+    portalUrl: string;
+    guildIds: string[]
 }
 
 export interface ApiV1GuildsModulesTagsGetResponse {

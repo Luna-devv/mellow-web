@@ -63,12 +63,12 @@ export default function MultiSelectMenu({
     }, [defaultState, items]);
 
     useEffect(() => {
-        setError(null);
-
         if (values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
             setState(State.Idle);
             return;
         }
+
+        setError(null);
 
         if (!url) {
             if (!onSave) throw new Error("Warning: <MultiSelectMenu.onSave> must be defined when not using <MultiSelectMenu.url>.");

@@ -10,7 +10,7 @@ export interface User {
     username: string;
     globalName?: string | null;
     avatar: string | null;
-    isPremium?: number | null;
+    premium?: number | null;
 
     __fetched: boolean;
 

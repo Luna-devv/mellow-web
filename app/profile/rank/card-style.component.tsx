@@ -101,7 +101,7 @@ export default function CardSyle() {
     }
 
     const mimetypes = ["image/jpg", "image/jpeg", "image/png", "image/webp"];
-    if (user?.isPremium) mimetypes.push("image/gif");
+    // if (user?.premium) mimetypes.push("image/gif");
 
     return (
         <div>

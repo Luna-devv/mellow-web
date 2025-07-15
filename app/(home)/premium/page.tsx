@@ -2,47 +2,41 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { BsQuestionLg } from "react-icons/bs";
-import { HiLightningBolt, HiOutlineCheck, HiUserAdd, HiX } from "react-icons/hi";
+import { HiLightningBolt, HiOutlineCheck, HiX } from "react-icons/hi";
 import { IoMdInfinite } from "react-icons/io";
 
 import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { defaultFetchOptions } from "@/lib/api";
 import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 
+import { Subscribe } from "./subscribe.component";
+
 const montserrat = Montserrat({ subsets: ["latin"] });
 const maybe = null;
 
 const items = [
-    { title: "Price", free: "$0 /month", pro: "$3.99 /month" },
-    { title: "Custom commands", free: 30, pro: Infinity },
-    { title: "Social notifications", free: 30, pro: Infinity },
-    { title: "Dailyposts", free: 30, pro: Infinity },
-    // { title: "Stickymessages", free: 10, pro: 50 },
-    // { title: "Custom footers", free: false, pro: true },
-    { title: "Welcome roles", free: 5, pro: 10 },
-    { title: "Welcome pings", free: 5, pro: 15 },
-    // { title: "Level roles", free: 15, pro: 25 },
-    { title: "Spotify control", free: maybe, pro: true, url: "/profile/spotify" },
-    { title: "Custom /rank sub-text", free: false, pro: true },
-    // { title: "Display user as webhook", free: false, pro: true },
-    { title: "Passport bypass", free: false, pro: true },
-    // { title: "Custom page color", free: false, pro: true },
-    // { title: "Statistics & Analytics", free: false, pro: true },
-    { title: "Crosspost social notifications", free: false, pro: true }
+    { title: "Price", free: "$0", premium: "$4 /month" },
+    { title: "TTS Translations", free: 10_000, premium: 100_000, unit: "chars" },
+    { title: "Custom commands", free: 30, premium: Infinity },
+    { title: "Social notifications", free: 30, premium: Infinity },
+    { title: "Dailyposts", free: 4, premium: 20 },
+    { title: "Welcome roles", free: 5, premium: 10 },
+    { title: "Welcome pings", free: 5, premium: 15 },
+    { title: "Passport bypass", free: false, premium: true },
+    { title: "Crosspost social notifications", free: false, premium: true }
 ];
 
 export const revalidate = 3600;
 
 export const generateMetadata = (): Metadata => {
 
-    const title = "Professional experience";
-    const description = "Get epic Pro+ ULTRA HD features for wamellow to upgrade your servers to a whole new experience and unlock tons of premium features.";
-    const url = getCanonicalUrl("pro");
+    const title = "Premium";
+    const description = "Get epic premium+ ULTRA HD features for wamellow to upgrade your servers to a whole new experience and unlock tons of premium features.";
+    const url = getCanonicalUrl("premium");
 
     return {
         title,
@@ -76,18 +70,9 @@ export default async function Home() {
             <div className="md:text-5xl text-4xl font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 flex gap-2 items-center w-full">
                 <h1 className={cn("flex gap-4", montserrat.className)}>
                     <span className="hidden md:block">Wamellow</span>
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep block md:hidden">Pro</span>
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep hidden md:block">Professional</span>
+                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep">Premium</span>
                 </h1>
                 <HiLightningBolt className="text-pink-400 rotate-6" />
-                <Badge
-                    className="ml-auto mt-1.5"
-                    size="lg"
-                    variant="flat"
-                    radius="rounded"
-                >
-                    Not available
-                </Badge>
             </div>
 
             {topGuilds &&
@@ -106,29 +91,28 @@ export default async function Home() {
                 <div className="flex items-center py-4 text-2xl font-semibold">
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 block md:hidden">Features</span>
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 hidden md:block">Pricing and Features</span>
-
                     <span className="bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent w-1/4 ">Free</span>
-
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4 block md:hidden">Pro</span>
-                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4 hidden md:block">Pro+ ULTRA HD</span>
+                    <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent w-1/4">Premium</span>
                 </div>
 
                 {items.map((item) => (
                     <div key={item.title} className="flex items-center py-4">
                         <span className="md:text-base text-sm font-medium w-2/4 md:pr-0 pr-4">{item.title}</span>
                         <span className="dark:text-neutral-200 text-neutral-700 font-medium w-1/4">
-                            {displayState(item.free)}
+                            {displayState(item.free, item.unit)}
                         </span>
                         <span className="dark:text-neutral-200 text-neutral-700 font-medium w-1/4 flex">
-                            {displayState(item.pro)}
+                            {displayState(item.premium, item.unit)}
                             {item.url && <Link href={item.url} target="_blank" className="ml-auto mr-3 hover:underline italic text-sm text-neutral-500 hidden md:block relative top-0.5">Take me there {"->"}</Link>}
                         </span>
                     </div>
                 ))}
 
-                <div className="flex items-center pt-4">
-                    <div className="w-1/2" />
-                    <div className="hidden md:flex w-1/2 gap-4">
+                <div className="hidden md:flex items-center pt-4">
+                    <div className="w-1/2 text-sm text-neutral-400">
+                        support the project {"<3"}
+                    </div>
+                    <div className="flex w-1/2 gap-4">
                         <Subscribe />
                     </div>
                 </div>
@@ -156,20 +140,16 @@ export default async function Home() {
                 <div className="dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-50 rounded-lg shadow-md w-full flex flex-col gap-2 items-center justify-center p-3">
 
                     <div className="flex gap-2 items-center">
-                        <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your guilds further!</span>
+                        <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your experience further!</span>
                         <Badge
                             variant="flat"
                             radius="rounded"
                         >
-                            Not available
+                            $4/month
                         </Badge>
                     </div>
 
-                    <button className="flex dark:text-violet-400 text-violet-600 bg-violet-600/30 hover:bg-violet-600/10 py-2 px-4 rounded-md duration-200 justify-center gap-2 w-full opacity-30 cursor-not-allowed" disabled>
-                        <HiLightningBolt className="relative top-1" />
-                        <span className="ml-2">Subscribe</span>
-                    </button>
-
+                    <Subscribe />
                 </div>
             </div>
 
@@ -177,7 +157,7 @@ export default async function Home() {
     );
 }
 
-function displayState(is: string | number | boolean | null) {
+function displayState(is: string | number | boolean | null, unit?: string) {
     if (typeof is === "boolean" || is === null) {
         if (is === true) return <HiOutlineCheck className="dark:text-violet-400 text-violet-600 w-6 h-6" />;
         if (is === false) return <HiX className="dark:text-red-400 text-red-600 w-6 h-6" />;
@@ -185,35 +165,6 @@ function displayState(is: string | number | boolean | null) {
     }
 
     if (is === Infinity) return <IoMdInfinite className="w-7 h-7" title="Infinite" />;
+    if (typeof is === "number") return <>{is.toLocaleString()} {unit}</>;
     return is;
-}
-
-function Subscribe() {
-    return (<>
-        <Button asChild>
-            <Link
-                className="w-1/2"
-                prefetch={false}
-                href="/invite"
-                target="_blank"
-            >
-                <HiUserAdd />
-                Invite Wamellow
-            </Link>
-        </Button>
-        <Button
-            asChild
-            variant="secondary"
-        >
-            <Link
-                className="w-1/2"
-                prefetch={false}
-                href="https://ko-fi.com/mwlica"
-                target="_blank"
-            >
-                <HiLightningBolt />
-                Subscribe
-            </Link>
-        </Button>
-    </>);
 }
