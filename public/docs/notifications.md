@@ -70,11 +70,11 @@ Notification filters will be ignored.
 
 ## Better embeds
 If you’d like to improve embeds (for example, fixing Bluesky embeds), you can use the following custom messages:
-- `https://bskyx.app/profile/{creator.handle}/post/{post.id}` ([Lexedia/VixBluesky](https://github.com/Lexedia/VixBluesky))
-- `https://fxbsky.app/profile/{creator.handle}/post/{post.id}` ([fxbsky.app](https://bsky.app/profile/fxbsky.app))
-- `https://vxbsky.app/profile/{creator.handle}/post/{post.id}` ([dylanpdx/vxBsky](https://github.com/dylanpdx/vxBsky))
-- `https://bskye.app/profile/{creator.handle}/post/{post.id}` ([FerroEduardo/bskye](https://github.com/FerroEduardo/bskye))
-- `https://bsyy.app/profile/{creator.handle}/post/{post.id}`
+- `https://bskyx.app/profile/{author.handle}/post/{post.id}` ([Lexedia/VixBluesky](https://github.com/Lexedia/VixBluesky))
+- `https://fxbsky.app/profile/{author.handle}/post/{post.id}` ([fxbsky.app](https://bsky.app/profile/fxbsky.app))
+- `https://vxbsky.app/profile/{author.handle}/post/{post.id}` ([dylanpdx/vxBsky](https://github.com/dylanpdx/vxBsky))
+- `https://bskye.app/profile/{author.handle}/post/{post.id}` ([FerroEduardo/bskye](https://github.com/FerroEduardo/bskye))
+- `https://bsyy.app/profile/{author.handle}/post/{post.id}`
 
 A preview of all embeds can be found [in this reddit post](https://www.reddit.com/r/BlueskySocial/comments/1he642f/comparing_bluesky_fix_embed_sites/).
 
@@ -244,6 +244,11 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post text</td>
         </tr>
         <tr>
+            <td><code>post.image</code>*</td>
+            <td></td>
+            <td>Post image hyperlink</td>
+        </tr>
+        <tr>
             <td><code>post.link</code></td>
             <td>https://bsky.app/profile/shi.gg/post/3lck23sfi522v</td>
             <td>Post page</td>
@@ -259,17 +264,17 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post time & date</td>
         </tr>
         <tr>
-            <td><code>creator.handle</code></td>
+            <td><code>creator.handle</code>\*\*</td>
             <td>shi.gg</td>
             <td>Creator handle</td>
         </tr>
         <tr>
-            <td><code>creator.posts</code></td>
+            <td><code>creator.posts</code>\*\*</td>
             <td>784</td>
             <td>Amount of posts</td>
         </tr>
         <tr>
-            <td><code>creator.followers</code></td>
+            <td><code>creator.followers</code>\*\*</td>
             <td>48</td>
             <td>Amount of followers</td>
         </tr>
@@ -278,6 +283,7 @@ Placeholders allow you to use variables that change from message to message, for
 <br />
 
 *If a post is a reply, and your custom message is `{post.type}ed` it will display `replied to`, instead of `replyed`.
+\*\* You may also use `{author.xxx}` to refer to the author for all `{creator.xxx}` placeholders. In non-reposts, `author` and `creator` will be the same — if a post is a repost, `creator` will be the user who reposted the post, while `author` will be the original author of the post.
 
 <br />
 <br />
