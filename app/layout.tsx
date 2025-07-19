@@ -195,10 +195,10 @@ async function NavBar() {
                     Documentation
                 </Link>
                 <Link
-                    href="https://ko-fi.com/mwlica"
+                    href="/premium"
                     className="hidden sm:block hover:text-neutral-100 duration-100"
                 >
-                    Donate
+                    Premium
                 </Link>
             </div>
 

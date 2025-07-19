@@ -7,6 +7,7 @@ import { IoMdInfinite } from "react-icons/io";
 
 import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
+import { OverviewLink } from "@/components/overview-link";
 import { Badge } from "@/components/ui/badge";
 import { defaultFetchOptions } from "@/lib/api";
 import type { ApiV1TopguildsGetResponse } from "@/typings";
@@ -19,22 +20,24 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 const maybe = null;
 
 const items = [
-    { title: "Price", free: "$0", premium: "$4 /month" },
+    { title: "Price", free: "€0 /forever", premium: "€4 /month" },
     { title: "TTS Translations", free: 10_000, premium: 100_000, unit: "chars" },
     { title: "Custom commands", free: 30, premium: Infinity },
     { title: "Social notifications", free: 30, premium: Infinity },
     { title: "Dailyposts", free: 4, premium: 20 },
     { title: "Welcome roles", free: 5, premium: 10 },
     { title: "Welcome pings", free: 5, premium: 15 },
-    { title: "Passport bypass", free: false, premium: true },
-    { title: "Crosspost social notifications", free: false, premium: true }
+    { title: "Bypass passport", free: false, premium: true },
+    { title: "Bypass Voting", free: false, premium: true },
+    { title: "Crosspost social notifications", free: false, premium: true },
+    { title: "Fast Support", free: true, premium: true }
 ];
 
 export const revalidate = 3600;
 
 export const generateMetadata = (): Metadata => {
 
-    const title = "Premium";
+    const title = "Premium (˶˃ ᵕ ˂˶)";
     const description = "Get epic premium+ ULTRA HD features for wamellow to upgrade your servers to a whole new experience and unlock tons of premium features.";
     const url = getCanonicalUrl("premium");
 
@@ -65,14 +68,16 @@ export default async function Home() {
     const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
 
     return (
-        <div className="flex items-center flex-col w-full">
+        <div className="w-full">
 
             <div className="md:text-5xl text-4xl font-semibold md:mb-6 mb-4 dark:text-neutral-100 text-neutral-900 flex gap-2 items-center w-full">
                 <h1 className={cn("flex gap-4", montserrat.className)}>
                     <span className="hidden md:block">Wamellow</span>
                     <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent break-keep">Premium</span>
                 </h1>
-                <HiLightningBolt className="text-pink-400 rotate-6" />
+                <span className="text-pink-400 rotate-2 ml-2">
+                    (˶˃ ᵕ ˂˶)
+                </span>
             </div>
 
             {topGuilds &&
@@ -88,7 +93,7 @@ export default async function Home() {
 
             <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-10 w-full p-4 rounded-xl text-xl divide-y divide-wamellow">
 
-                <div className="flex items-center py-4 text-2xl font-semibold">
+                <div className="flex items-center pb-4 text-2xl font-semibold">
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 block md:hidden">Features</span>
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 hidden md:block">Pricing and Features</span>
                     <span className="bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent w-1/4 ">Free</span>
@@ -119,9 +124,17 @@ export default async function Home() {
 
             </div>
 
-            <div className="w-full flex">
+            <div className="w-full flex items-center gap-2">
                 <Link
-                    className="ml-auto mt-1 dark:text-violet-400/60 text-violet-600/60 hover:text-violet-400/80 dark:hover:text-violet-600/80 hover:underline duration-200 text-sm"
+                    className="ml-auto text-violet-400/60 hover:text-violet-500/80 hover:underline duration-200 text-sm"
+                    href="/terms/payment"
+                    target="_blank"
+                >
+                    Terms apply
+                </Link>
+                •
+                <Link
+                    className="text-violet-400/60 hover:text-violet-500/80 hover:underline duration-200 text-sm"
                     href="/support"
                     target="_blank"
                 >
@@ -132,8 +145,16 @@ export default async function Home() {
             <Comment
                 username="@mwlica"
                 avatar="/luna.webp"
-                bio="Cute femboy"
-                content="buy it, buy it, buy it, buy it, buy it, buy it"
+                bio="Developer"
+                content="my goal isn't to make profit, but rather to create something that people will love — but I also have to cover server costs, and buy food"
+            />
+
+            <OverviewLink
+                className="mt-10"
+                title="Donate one-time instead"
+                message="Support me and the project by donating to me on Ko-fi (˶˃ ᵕ ˂˶)"
+                url="https://ko-fi.com/mwlica"
+                icon={<HiLightningBolt />}
             />
 
             <div className="p-2 fixed z-10 bottom-0 left-0 w-full md:hidden">

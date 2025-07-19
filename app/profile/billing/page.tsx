@@ -55,27 +55,27 @@ export default function Home() {
     return (
         <div className="space-y-2">
             <Box
-                className="flex justify-between"
+                className="md:flex justify-between"
                 small
             >
                 <div className="flex flex-col">
                     <h2 className="font-bold text-3xl bg-gradient-to-r bg-clip-text text-transparent from-violet-400/80 to-indigo-400/80">Wamellow Premium</h2>
-                    <p className="text-muted-foreground">You have all premium features for <span className="font-semibold text-neutral-300">US${(4 + (data?.donationQuantity || 0)).toFixed(2)} / {data?.priceId.startsWith("monthly_") ? "Month" : "Year"}</span>!</p>
+                    <p className="text-muted-foreground">You have all premium features for <span className="font-semibold text-neutral-300">EUR {(4 + (data?.donationQuantity || 0)).toFixed(2)} / {data?.priceId.startsWith("monthly_") ? "Month" : "Year"}</span>!</p>
                 </div>
-                <div className="flex gap-1">
+                <div className="flex gap-1 mt-4 md:mt-0">
                     {isLoading
-                        ? <Skeleton className="h-10 w-20" />
+                        ? <Skeleton className="h-10 w-full md:w-20" />
                         : <PortalButton data={data!} />
                     }
                 </div>
             </Box>
 
-            <div className="flex gap-4 pt-1">
+            <div className="flex-col lg:flex-row flex gap-4 pt-1">
                 <Box
-                    className="w-1/2 text-sm"
+                    className="lg:w-1/2 text-sm"
                     small
                 >
-                    <h2 className="font-semibold text-xl text-neutral-300 relative bottom-2">Billing Cycle</h2>
+                    <h2 className="font-semibold text-xl text-neutral-300 mb-2 lg:mb-0 lg:relative lg:bottom-2">Billing Cycle</h2>
                     {isLoading
                         ? <Skeleton className="h-12 w-full" />
                         : (data?.cancelAtPeriodEnd
@@ -83,9 +83,9 @@ export default function Home() {
                                 Your subscription will expire on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span> and you will not be charged again.
                             </p>
                             : <p>
-                                Your subscription will be automatically renewed on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span> and you{"'"}ll be charged <span className="font-semibold text-neutral-300">US${(4 + (data!.donationQuantity || 0)).toFixed(2)}</span>.
+                                Your subscription will be automatically renewed on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span> and you{"'"}ll be charged <span className="font-semibold text-neutral-300">EUR {(4 + (data!.donationQuantity || 0)).toFixed(2)}</span>.
 
-                                You{"'"}re paying <span className="font-semibold text-neutral-300">US${(4).toFixed(2)} — Premium</span> and <span className="font-semibold text-neutral-300">US${(data!.donationQuantity || 0).toFixed(2)} — Donation{data!.donationQuantity ? "s" : ""}</span>
+                                You{"'"}re paying <span className="font-semibold text-neutral-300">EUR {(4).toFixed(2)} — Premium</span> and <span className="font-semibold text-neutral-300">EUR {(data!.donationQuantity || 0).toFixed(2)} — Donation{data!.donationQuantity ? "s" : ""}</span>
                                 {" "}
                                 (<Button
                                     className="text-sm p-0 m-0 h-3 text-violet-400"
@@ -100,10 +100,10 @@ export default function Home() {
                     }
                 </Box>
                 <Box
-                    className="w-1/2"
+                    className="lg:w-1/2"
                     small
                 >
-                    <h2 className="font-semibold text-xl text-neutral-300 relative bottom-2">Payment Method</h2>
+                    <h2 className="font-semibold text-xl text-neutral-300 mb-2 lg:mb-0  lg:relative lg:bottom-2">Payment Method</h2>
                     {isLoading
                         ? <Skeleton className="h-12 w-full" />
                         :
@@ -147,7 +147,10 @@ function PortalButton({ data }: { data: ApiV1UsersMeBillingGetRequest; }) {
     const path = getPortalPath(data);
 
     return (
-        <Button asChild>
+        <Button
+            asChild
+            className="w-full md:w-auto"
+        >
             <Link href={data.portalUrl + "/" + path}>
                 {path?.split("/").pop()?.replace(/^\w/, (char) => char.toUpperCase()) || "Manage"}
             </Link>
@@ -203,7 +206,7 @@ function PremiumGuildSelect({
 
     return (
         <MultiSelectMenu
-            className="w-full md:w-1/3"
+            className="w-full md:w-1/2 lg:w-1/3"
             name="Premium Guilds"
             url="/users/@me/billing/premium-guilds"
             dataName="guildIds"
@@ -294,7 +297,7 @@ function ChangeDonationAmountModal({
                             <p className="text-sm text-neutral-500">You{"'"}ll recieve an invoice via email.</p>
                         </div>
 
-                        <span className="text-xl font-medium text-neutral-100">${dueToday.toFixed(2)}</span>
+                        <span className="text-xl font-medium text-neutral-100">€{dueToday.toFixed(2)}</span>
                     </div>
                 )}
 
@@ -304,7 +307,7 @@ function ChangeDonationAmountModal({
                         <p className="text-sm text-neutral-500">The total amount you will be charged monthly.</p>
                     </div>
 
-                    <span className="text-xl font-medium text-neutral-100">${(donation + 4).toFixed(2)}</span>
+                    <span className="text-xl font-medium text-neutral-100">€{(donation + 4).toFixed(2)}</span>
                 </div>
             </p>
 

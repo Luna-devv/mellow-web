@@ -82,7 +82,7 @@ export function DonationSelect({ donation, setDonation, ...props }: DonationProp
                         <HiArrowDown className="!size-3" />
                     </Button>
                 </div>
-                $
+                €
             </InputBaseAdornment>
             <InputBaseControl>
                 <InputBaseInput
