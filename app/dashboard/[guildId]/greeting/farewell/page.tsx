@@ -1,9 +1,7 @@
 "use client";
-import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { HiArrowLeft, HiChat, HiExternalLink } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
@@ -15,69 +13,48 @@ import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
-import type { ApiError, ApiV1GuildsModulesByeGetResponse } from "@/typings";
+import { Button } from "@/components/ui/button";
+import { useApi } from "@/lib/api/hook";
+import type { ApiV1GuildsModulesByeGetResponse } from "@/typings";
+import { cn } from "@/utils/cn";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
 export default function Home() {
     const guild = guildStore((g) => g);
     const user = userStore((s) => s);
 
-    const [error, setError] = useState<string>();
-    const [bye, setBye] = useState<ApiV1GuildsModulesByeGetResponse>();
-
     const params = useParams();
-
-    useEffect(() => {
-
-        fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${params.guildId}/modules/bye`, {
-            credentials: "include"
-        })
-            .then(async (res) => {
-                const response = await res.json() as ApiV1GuildsModulesByeGetResponse;
-                if (!response) return;
-
-                switch (res.status) {
-                    case 200: {
-                        setBye(response);
-                        break;
-                    }
-                    default: {
-                        setBye(undefined);
-                        setError((response as unknown as ApiError).message);
-                        break;
-                    }
-                }
-
-            })
-            .catch(() => {
-                setError("Error while fetching farewell data");
-            });
-
-    }, []);
+    const { data, isLoading, error, edit } = useApi<ApiV1GuildsModulesByeGetResponse>(`/guilds/${params.guildId}/modules/bye`);
 
     const Head = () => (
         <div className="flex justify-between relative bottom-2 mb-3">
             <Button
-                as={Link}
-                href={`/dashboard/${guild?.id}/greeting`}
-                startContent={<HiArrowLeft />}
+                asChild
                 size="sm"
             >
-                Back
+                <Link href={`/dashboard/${guild?.id}/greeting`}>
+                    <HiArrowLeft />
+                    Back
+                </Link>
             </Button>
             <Button
-                as={Link}
-                href="/docs/greetings"
-                target="_blank"
-                endContent={<HiExternalLink />}
+                asChild
                 size="sm"
             >
-                Read docs & view placeholders
+                <Link
+                    href="/docs/greetings"
+                    target="_blank"
+                >
+                    <HiExternalLink />
+                    Read docs & view placeholders
+                </Link>
             </Button>
         </div>
     );
 
-    if (bye === undefined) return (
+    if (isLoading) return <></>;
+
+    if (!data || error) return (
         <div>
             <Head />
             {error && <Notice message={error} />}
@@ -91,23 +68,20 @@ export default function Home() {
             label="Farewell module enabled"
             endpoint={`/guilds/${guild?.id}/modules/bye`}
             k="enabled"
-            defaultState={bye?.enabled || false}
+            defaultState={data.enabled || false}
             disabled={false}
             onSave={(s) => {
-                setBye({
-                    ...bye,
-                    enabled: s
-                });
+                edit("enabled", s);
             }}
         />
 
         <NumberInput
             name="After how many seconds the message should be deleted"
-            description="Set to 0 to disable."
+            description="Set to 0 to disable"
             url={`/guilds/${guild?.id}/modules/bye`}
             dataName="deleteAfter"
-            defaultState={bye?.deleteAfter ?? 0}
-            disabled={!bye.enabled}
+            defaultState={data.deleteAfter ?? 0}
+            disabled={!data.enabled}
         />
 
         <div className="flex md:gap-4 gap-2">
@@ -116,9 +90,9 @@ export default function Home() {
                 url={`/guilds/${guild?.id}/modules/bye`}
                 dataName="channelId"
                 items={createSelectableItems(guild?.channels)}
-                description="Select the channel where the farewell message should be send into."
-                defaultState={bye?.channelId}
-                disabled={!bye.enabled}
+                description="Select the channel where the farewell message should be send into"
+                defaultState={data.channelId}
+                disabled={!data.enabled}
             />
 
             <Fetch
@@ -135,53 +109,46 @@ export default function Home() {
             name="Message"
             url={`/guilds/${guild?.id}/modules/bye`}
             dataName="message"
-            defaultMessage={bye?.message}
-            messageAttachmentComponent={bye.card.enabled &&
+            defaultMessage={data.message}
+            messageAttachmentComponent={data.card.enabled && (
                 <Image
-                    src={`https://image-api.wamellow.com/?type=join&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${bye.card.background ? `&background=${encodeURIComponent(bye.card.background)}` : ""}`}
+                    src={`https://image-api.wamellow.com/?type=leave&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
                     width={1024 / 2}
                     height={(256 + 16) / 2}
                     loading="lazy"
                     alt=""
                 />
-            }
-            showMessageAttachmentComponentInEmbed={bye.card.inEmbed}
-            disabled={!bye.enabled}
+            )}
+            showMessageAttachmentComponentInEmbed={data.card.inEmbed}
+            disabled={!data.enabled}
         >
 
-            <div className={`mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6 ${!bye.card.enabled && "pb-[0px]"}`}>
-
+            <div className={cn("mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6", !data.card.enabled && "pb-0")}>
                 <Switch
                     label="Show image card"
                     endpoint={`/guilds/${guild?.id}/modules/bye`}
                     k="card.enabled"
-                    defaultState={bye.card.enabled}
-                    disabled={!bye.enabled}
+                    defaultState={data.card.enabled}
+                    disabled={!data.enabled}
                     onSave={(s) => {
-                        setBye({
-                            ...bye,
-                            card: {
-                                ...bye.card,
-                                enabled: s
-                            }
+                        edit("card", {
+                            ...data.card,
+                            enabled: s
                         });
                     }}
                 />
 
-                {bye.card.enabled && <>
+                {data.card.enabled && <>
                     <Switch
-                        label="Set image inside embed."
+                        label="Set image inside embed"
                         endpoint={`/guilds/${guild?.id}/modules/bye`}
                         k="card.inEmbed"
-                        defaultState={bye.card.inEmbed || false}
-                        disabled={!bye.card.enabled || !bye.enabled}
+                        defaultState={data.card.inEmbed || false}
+                        disabled={!data.card.enabled || !data.enabled}
                         onSave={(s) => {
-                            setBye({
-                                ...bye,
-                                card: {
-                                    ...bye.card,
-                                    inEmbed: s
-                                }
+                            edit("card", {
+                                ...data.card,
+                                inEmbed: s
                             });
                         }}
                     />
@@ -192,15 +159,12 @@ export default function Home() {
                         ratio="aspect-[4/1]"
                         dataName="card.background"
                         description="Enter a url which should be the background for the image card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
-                        defaultState={bye.card.background || ""}
-                        disabled={!bye.card.enabled || !bye.enabled}
-                        onSave={(v) => {
-                            setBye({
-                                ...bye,
-                                card: {
-                                    ...bye.card,
-                                    background: v
-                                }
+                        defaultState={data.card.background || ""}
+                        disabled={!data.card.enabled || !data.enabled}
+                        onSave={(s) => {
+                            edit("card", {
+                                ...data.card,
+                                background: s
                             });
                         }}
                     />

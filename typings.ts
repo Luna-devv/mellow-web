@@ -316,7 +316,7 @@ export interface ApiV1UsersMeConnectionsGetResponse {
     type: ConnectionType;
 }
 
-export interface ApiV1UsersMeBillingGetRequest {
+export interface ApiV1UsersMeBillingGetResponse {
     subscriptionId: string;
     status: 'active'
     | 'canceled'

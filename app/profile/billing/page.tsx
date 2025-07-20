@@ -20,13 +20,13 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { type ApiEdit, useApi } from "@/lib/api/hook";
-import type { ApiV1UsersMeBillingGetRequest, ApiV1UsersMeGuildsGetResponse } from "@/typings";
+import type { ApiV1UsersMeBillingGetResponse, ApiV1UsersMeGuildsGetResponse } from "@/typings";
 
 export default function Home() {
     const user = userStore((u) => u);
     const [changeDonationModalOpen, setChangeDonationModalOpen] = useState(false);
 
-    const { data, isLoading, error, edit } = useApi<ApiV1UsersMeBillingGetRequest>("/users/@me/billing");
+    const { data, isLoading, error, edit } = useApi<ApiV1UsersMeBillingGetResponse>("/users/@me/billing");
 
     if ((isLoading && !user?.premium) || (!isLoading && !data) || (data && data.status !== "active")) {
         return (<>
@@ -143,7 +143,7 @@ export default function Home() {
     );
 }
 
-function PortalButton({ data }: { data: ApiV1UsersMeBillingGetRequest; }) {
+function PortalButton({ data }: { data: ApiV1UsersMeBillingGetResponse; }) {
     const path = getPortalPath(data);
 
     return (
@@ -158,12 +158,12 @@ function PortalButton({ data }: { data: ApiV1UsersMeBillingGetRequest; }) {
     );
 }
 
-function getPortalPath(data: ApiV1UsersMeBillingGetRequest) {
+function getPortalPath(data: ApiV1UsersMeBillingGetResponse) {
     if (data.cancelAtPeriodEnd) return "subscriptions/" + data.subscriptionId + "/reactivate";
     return "subscriptions/" + data.subscriptionId + "/cancel";
 }
 
-function PaymentMethodIcon({ method }: { method: ApiV1UsersMeBillingGetRequest["paymentMethod"]; }) {
+function PaymentMethodIcon({ method }: { method: ApiV1UsersMeBillingGetResponse["paymentMethod"]; }) {
     if (typeof method === "string") {
         return <HiCreditCard className="size-6" />;
     }
@@ -240,7 +240,7 @@ function ChangeDonationAmountModal({
     open: boolean;
     setOpen: (open: boolean) => void;
     donationQuantity: number;
-    edit: ApiEdit<ApiV1UsersMeBillingGetRequest>;
+    edit: ApiEdit<ApiV1UsersMeBillingGetResponse>;
 }) {
     const [donation, setDonation] = useState(defaultDonationQuantity);
     const [terms, setTerms] = useState(false);
