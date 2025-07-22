@@ -197,6 +197,16 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Game name</td>
         </tr>
         <tr>
+            <td><code>stream.game.id</code></td>
+            <td>32982</td>
+            <td>Game id</td>
+        </tr>
+        <tr>
+            <td><code>stream.game.thumbnail</code></td>
+            <td>https://.../...</td>
+            <td>Game thumbnail</td>
+        </tr>
+        <tr>
             <td><code>stream.thumbnail</code></td>
             <td>https://.../...</td>
             <td>Stream thumbnail</td>
