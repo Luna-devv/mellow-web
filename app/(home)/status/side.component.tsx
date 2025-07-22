@@ -1,10 +1,11 @@
 "use client";
 
-import { Accordion, AccordionItem, Chip } from "@nextui-org/react";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 import { useCookies } from "next-client-cookies";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 
 import DumbTextInput from "@/components/inputs/dumb-text-input";
+import { Badge } from "@/components/ui/badge";
 import { intl } from "@/utils/numbers";
 
 import type { ApiV1StatusGetResponse } from "./api";
@@ -78,12 +79,9 @@ function Row({ name, children }: { name: string; children: ReactNode; }) {
     return (
         <div className="flex items-center justify-between">
             {name}
-            <Chip
-                className="select-none"
-                radius="sm"
-            >
+            <Badge>
                 {children}
-            </Chip>
+            </Badge>
         </div>
     );
 }

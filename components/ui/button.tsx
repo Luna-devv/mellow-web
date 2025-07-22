@@ -5,6 +5,8 @@ import * as React from "react";
 
 import { cn } from "@/utils/cn";
 
+import { LoadingCircle } from "../loading-circle";
+
 const buttonVariants = cva(
     "inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&>svg]:size-5",
     {
@@ -38,18 +40,49 @@ export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
     asChild?: boolean;
+    loading?: boolean;
+    icon?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, asChild = false, ...props }, ref) => {
+    ({ className, variant, size, asChild = false, children, disabled = false, loading = false, icon, ...props }, ref) => {
         const Comp = asChild ? Slot : "button";
+
+        const content = (
+            <>
+                {loading
+                    ? <LoadingCircle />
+                    : icon
+                }
+                {children}
+            </>
+        );
+
+        if (asChild) {
+            return (
+                <Comp
+                    className={cn(buttonVariants({ variant, size, className }))}
+                    data-disabled={disabled || loading}
+                    ref={ref}
+                    {...props}
+                >
+                    {icon
+                        ? React.cloneElement(children as React.ReactElement, {}, content)
+                        : children
+                    }
+                </Comp>
+            );
+        }
 
         return (
             <Comp
                 className={cn(buttonVariants({ variant, size, className }))}
+                disabled={disabled || loading}
                 ref={ref}
                 {...props}
-            />
+            >
+                {content}
+            </Comp>
         );
     }
 );

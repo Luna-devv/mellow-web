@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react";
 import type { ApiError } from "next/dist/server/api-utils";
 import Image from "next/image";
 import { type ChangeEvent, useRef, useState } from "react";
@@ -7,6 +6,7 @@ import { HiUpload } from "react-icons/hi";
 import { type User, userStore } from "@/common/user";
 import Box from "@/components/box";
 import { Shiggy } from "@/components/shiggy";
+import { Button } from "@/components/ui/button";
 import type { ApiV1UsersMeRankEmojiDeleteResponse, ApiV1UsersMeRankEmojiPutResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
@@ -123,24 +123,24 @@ export default function CardSyle() {
                     <div className="flex flex-col">
                         <Button
                             className={cn(state === State.Loading && "shake")}
-                            color="secondary"
-                            startContent={state !== State.Loading && <HiUpload />}
+                            variant="secondary"
                             onClick={() => ref.current?.click()}
-                            isLoading={state === State.Loading}
+                            icon={<HiUpload />}
+                            loading={state === State.Loading}
                         >
                             {state === State.Success
                                 ? "Looking good!"
                                 : "Upload Emoji"
                             }
                         </Button>
-                        {user?.extended?.rank?.emoji &&
+                        {user?.extended?.rank?.emoji && (
                             <button
                                 onClick={() => remove()}
                                 className="text-red-400 hover:underline md:text-sm w-fit mt-1"
                             >
                                 Remove
                             </button>
-                        }
+                        ) }
                     </div>
                 </div>
 
@@ -157,11 +157,11 @@ export default function CardSyle() {
             </Box>
 
             <div className="flex">
-                {error &&
+                {error && (
                     <div className="ml-auto text-red-500 text-sm">
                         {error}
                     </div>
-                }
+                )}
             </div>
         </div>
     );

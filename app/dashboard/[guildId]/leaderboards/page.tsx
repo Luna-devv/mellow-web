@@ -1,18 +1,15 @@
 "use client";
 
 import { ChannelType } from "discord-api-types/v10";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
-import { useQuery } from "react-query";
 
 import { type Guild, guildStore } from "@/common/guilds";
 import ImageUrlInput from "@/components/inputs/image-url-input";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import { ScreenMessage } from "@/components/screen-message";
 import { Section, SubSection } from "@/components/section";
-import { cacheOptions, getData } from "@/lib/api";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { useApi } from "@/lib/api/hook";
 import type { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
@@ -27,35 +24,22 @@ export default function Home() {
     const params = useParams();
 
     const url = `/guilds/${params.guildId}/modules/leaderboard` as const;
+    const { data, isLoading, error } = useApi<ApiV1GuildsModulesLeaderboardGetResponse>(url);
 
-    const { data, isLoading, error } = useQuery(
-        url,
-        () => getData<ApiV1GuildsModulesLeaderboardGetResponse>(url),
-        {
-            enabled: !!params.guildId,
-            ...cacheOptions,
-            refetchOnMount: true
-        }
-    );
+    if (isLoading) return <></>;
 
-    if (error || (data && "message" in data)) {
+    if (!data || error) {
         return (
             <ScreenMessage
                 top="0rem"
-                title="Something went wrong on this page.."
-                description={
-                    (data && "message" in data ? data.message : `${error}`)
-                    || "An unknown error occurred."}
+                description={error}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+            />
         );
     }
 
-    if (isLoading || !data) return <></>;
 
     return (<>
         <div className="flex flex-col-reverse md:flex-row gap-6">

@@ -21,7 +21,6 @@ import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import { Button } from "@/components/ui/button";
 import { cacheOptions } from "@/lib/api";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationFlags, NotificationType } from "@/typings";
 import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
@@ -53,14 +52,11 @@ export default function Home() {
         return (
             <ScreenMessage
                 top="20vh"
-                title="Something went wrong on this page.."
                 description={error}
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+            />
         );
     }
 

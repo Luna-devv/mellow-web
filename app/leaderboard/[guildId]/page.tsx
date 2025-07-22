@@ -1,10 +1,8 @@
 import { cookies } from "next/headers";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
-import { AddButton, HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ScreenMessage } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 import { getPagination, getTopMembers } from "./api";
 import Member from "./member.component";
@@ -47,29 +45,18 @@ export default async function Home({ searchParams, params }: Props) {
     if (error || !guild || !members || !pagination || "message" in pagination) {
         return (
             <ScreenMessage
-                top="0rem"
-                title="Something went wrong on this page.."
+                top="14rem"
                 description={error}
-                buttons={<>
-                    <HomeButton />
-                    <SupportButton />
-                </>}
-            >
-                <Image src={SadWumpusPic} alt="" height={141 * 1.5} width={124 * 1.5} />
-            </ScreenMessage>
+            />
         );
     }
 
     if (!Array.isArray(members) || !members.length) {
         return (
             <ScreenMessage
-                top="0rem"
+                top="14rem"
                 title="No members to see here.."
                 description="No members could be found on this page"
-                buttons={<>
-                    <HomeButton />
-                    <AddButton />
-                </>}
             />
         );
     }

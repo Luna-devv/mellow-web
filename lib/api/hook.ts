@@ -33,7 +33,7 @@ export function useApi<T>(url: string, enabled?: boolean) {
     }
 
     return {
-        data,
+        data: data as T,
         isLoading,
         error: error ? `${error}` : undefined,
         edit

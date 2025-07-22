@@ -1,4 +1,3 @@
-import { Skeleton } from "@nextui-org/react";
 import type { RESTError, RESTGetAPIGuildWidgetJSONResult } from "discord-api-types/v10";
 import { useState } from "react";
 import { HiEmojiHappy, HiLockClosed } from "react-icons/hi";
@@ -6,6 +5,7 @@ import { useQuery } from "react-query";
 
 import type { Guild } from "@/common/guilds";
 import Notice from "@/components/notice";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions } from "@/lib/api";
 import { cn } from "@/utils/cn";
 
@@ -47,35 +47,33 @@ export default function DiscordWidget({ guild }: Props) {
     if (isLoading || !data) {
         return (
             <div className="pt-1">
-                <Skeleton className="h-4 w-96 mb-2.5 rounded-lg" />
+                <Skeleton className="h-5 w-96 mb-2.5 rounded-lg" />
                 <Skeleton className="h-10 w-52 rounded-lg" />
             </div>
         );
     }
 
-    return (
-        <>
-            <div className={cn(
-                "flex items-center gap-1 mb-2 font-medium",
-                isEnabled
-                    ? "text-violet-400"
-                    : "text-red-500"
-            )}>
-                {isEnabled
-                    ? <HiEmojiHappy />
-                    : <HiLockClosed />
-                }
-                {isEnabled
-                    ? "Invite widget is enabled — people can join this server"
-                    : "Invite widget is disabled — this server is private"
-                }
-            </div>
+    return (<>
+        <div className={cn(
+            "flex items-center gap-1 mb-2 font-medium",
+            isEnabled
+                ? "text-violet-400"
+                : "text-red-500"
+        )}>
+            {isEnabled
+                ? <HiEmojiHappy />
+                : <HiLockClosed />
+            }
+            {isEnabled
+                ? "Invite widget is enabled — people can join this server"
+                : "Invite widget is disabled — this server is private"
+            }
+        </div>
 
-            <DiscordWidgetButton
-                guildId={guild.id}
-                isEnabled={isEnabled}
-                setEnabled={setEnabled}
-            />
-        </>
-    );
+        <DiscordWidgetButton
+            guildId={guild.id}
+            isEnabled={isEnabled}
+            setEnabled={setEnabled}
+        />
+    </>);
 }

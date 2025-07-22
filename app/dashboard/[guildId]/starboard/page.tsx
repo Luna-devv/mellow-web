@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -16,6 +15,7 @@ import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import TextInput from "@/components/inputs/text-input";
 import Notice from "@/components/notice";
+import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
 import { type ApiV1GuildsModulesStarboardGetResponse, StarboardStyle } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
@@ -45,14 +45,16 @@ export default function Home() {
     return (<>
         <div className="flex justify-between relative bottom-2 mb-3">
             <Button
-                className="ml-auto"
-                as={Link}
-                href="/docs/starboard"
-                target="_blank"
-                endContent={<HiExternalLink />}
+                asChild
                 size="sm"
             >
-                Read docs
+                <Link
+                    href="/docs/starboard"
+                    target="_blank"
+                >
+                    <HiExternalLink />
+                    Read docs
+                </Link>
             </Button>
         </div>
 

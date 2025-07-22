@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion, AccordionItem, Button, Code } from "@nextui-org/react";
+import { Accordion, AccordionItem, Code } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
@@ -12,6 +12,7 @@ import Ad from "@/components/ad";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
 import { Share } from "@/components/share";
+import { Button } from "@/components/ui/button";
 import type { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -41,14 +42,17 @@ export default function Side({
 
             {guild && "inviteUrl" in guild && guild.inviteUrl &&
                 <Button
-                    as={Link}
-                    className="w-full !justify-start"
-                    color="secondary"
-                    href={guild.inviteUrl}
-                    target="_blank"
-                    startContent={<BsDiscord />}
+                    asChild
+                    className="justify-start"
+                    variant="secondary"
                 >
-                    Join {guild.name}
+                    <Link
+                        href={guild.inviteUrl}
+                        target="_blank"
+                    >
+                        <BsDiscord />
+                        Join {guild.name}
+                    </Link>
                 </Button>
             }
 
@@ -68,19 +72,22 @@ export default function Side({
                         classNames={{ content: "mb-2" }}
                     >
                         <Button
-                            className="w-full !justify-start"
+                            className="w-full justify-start"
                             onClick={() => setModal(true)}
-                            startContent={<HiTrash />}
                         >
+                            <HiTrash />
                             Reset member stats
                         </Button>
                         <Button
-                            as={Link}
-                            className="w-full !justify-start mt-2"
-                            href={getCanonicalUrl("dashboard", guild.id as string)}
-                            startContent={<HiViewGridAdd />}
+                            asChild
+                            className="w-full justify-start mt-2"
                         >
-                            Dashboard
+                            <Link
+                                href={getCanonicalUrl("dashboard", guild.id as string)}
+                            >
+                                <HiViewGridAdd />
+                                Dashboard
+                            </Link>
                         </Button>
                     </AccordionItem>
                     :

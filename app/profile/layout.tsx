@@ -1,7 +1,5 @@
 "use client";
 
-import { Chip } from "@nextui-org/react";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useCookies } from "next-client-cookies";
@@ -14,10 +12,10 @@ import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { MetricCard, Metrics } from "@/components/metric-card";
-import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ScreenMessage } from "@/components/screen-message";
+import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions, getData } from "@/lib/api";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 import type { ApiV1UsersMeGetResponse } from "@/typings";
 
 export default function RootLayout({
@@ -50,17 +48,11 @@ export default function RootLayout({
     if (error || (data && "message" in data)) {
         return (
             <ScreenMessage
-                title="Something went wrong on this page.."
                 description={
                     (data && "message" in data ? data.message : `${error}`)
-                    || "An unknown error occurred."}
-                buttons={<>
-                    <HomeButton />
-                    <SupportButton />
-                </>}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+                    || "An unknown error occurred."
+                }
+            />
         );
     }
 
@@ -87,26 +79,26 @@ export default function RootLayout({
                         {!user?.id ?
                             <div className="flex flex-col mt-2">
                                 <Skeleton className="rounded-xl w-32 h-5 mb-2" />
-                                <Skeleton className="rounded-md w-24 h-7" />
+                                <Skeleton className="rounded-md w-[90px] h-7" />
                             </div>
                             :
                             <div className="flex flex-col gap-1">
                                 <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">
                                     {user.globalName || user.username}
                                 </div>
-                                <Chip
-                                    as={Link}
+                                <Link
+                                    className="font-bold"
                                     href="/vote"
                                     target="_blank"
-                                    color="secondary"
-                                    startContent={<HiFire className="ml-1" />}
-                                    variant="flat"
-                                    radius="sm"
                                 >
-                                    <span className="font-bold uppercase">
-                                        {user.extended?.voteCount} votes
-                                    </span>
-                                </Chip>
+                                    <Badge
+                                        className="h-7 font-semibold"
+                                        variant="flat"
+                                    >
+                                        <HiFire/>
+                                        {user.extended?.voteCount} VOTE{user.extended?.voteCount === 1 ? "" : "S"}
+                                    </Badge>
+                                </Link>
                             </div>
                         }
                     </div>

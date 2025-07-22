@@ -1,8 +1,6 @@
 "use client";
 
-import { Button, Skeleton } from "@nextui-org/react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
@@ -11,12 +9,12 @@ import { HiArrowNarrowLeft, HiBell, HiChartBar, HiCode, HiEye, HiHome, HiPaperAi
 import { useQuery } from "react-query";
 
 import { guildStore } from "@/common/guilds";
-import { ClientButton } from "@/components/client";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { ScreenMessage, SupportButton } from "@/components/screen-message";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions, getData } from "@/lib/api";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 import type { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 
@@ -104,24 +102,28 @@ export default function RootLayout({
         <div className="flex flex-col w-full">
             {guild?.name && (
                 <Head>
-                    <title>{`${guild?.name}'s Dashboard`}</title>
+                    <title>{guild.name}{"'"}s Dashboard</title>
                 </Head>
             )}
 
             <div className="flex flex-col gap-5 mb-3">
                 <Button
-                    as={Link}
+                    asChild
                     className="w-fit"
-                    href="/profile"
-                    startContent={<HiArrowNarrowLeft />}
                 >
-                    Serverlist
+                    <Link href="/profile">
+                        <HiArrowNarrowLeft />
+                        Serverlist
+                    </Link>
                 </Button>
 
                 <div className="text-lg flex gap-5">
-                    <Skeleton isLoaded={!isLoading} className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0">
+                    <Skeleton
+                        isLoading={!guild?.id}
+                        className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
+                    >
                         <ImageReduceMotion
-                            alt="this server"
+                            alt="this server's icon"
                             className="rounded-full"
                             url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`}
                             size={128}
@@ -197,22 +199,22 @@ export default function RootLayout({
                 <ScreenMessage
                     title={error.includes("permssions")
                         ? "You cannot access this page.."
-                        : "Something went wrong on this page.."
+                        : undefined
                     }
                     description={error}
                     buttons={<>
-                        <ClientButton
-                            as={Link}
-                            href="/profile"
-                            startContent={<HiViewGridAdd />}
+                        <Button
+                            asChild
+                            variant="secondary"
                         >
-                            Go back to Dashboard
-                        </ClientButton>
+                            <Link href="/profile">
+                                <HiViewGridAdd />
+                                Go back to Dashboard
+                            </Link>
+                        </Button>
                         <SupportButton />
                     </>}
-                >
-                    <Image src={SadWumpusPic} alt="" height={141} width={124} />
-                </ScreenMessage>
+                />
                 :
                 (guild && loaded.length === 3) ? children : <></>
             }

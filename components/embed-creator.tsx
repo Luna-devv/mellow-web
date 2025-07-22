@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react";
 import React, { useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { FaFloppyDisk } from "react-icons/fa6";
@@ -12,6 +11,7 @@ import DiscordMessage from "./discord/message";
 import DiscordMessageEmbed from "./discord/message-embed";
 import DumbColorInput from "./inputs/dumb-color-input";
 import DumbTextInput from "./inputs/dumb-text-input";
+import { Button } from "./ui/button";
 
 enum State {
     Idle = 0,
@@ -194,15 +194,12 @@ export default function MessageCreatorEmbed({
                                 </div>
 
                                 <Button
-                                    className={cn(
-                                        "mt-1 w-full",
-                                        disabled && "cursor-not-allowed opacity-50"
-                                    )}
-                                    color="secondary"
-                                    isDisabled={disabled}
-                                    isLoading={state === State.Loading}
+                                    className="mt-1 w-full"
                                     onClick={() => save()}
-                                    startContent={state !== State.Loading && <FaFloppyDisk />}
+                                    icon={<FaFloppyDisk />}
+                                    disabled={disabled}
+                                    loading={state === State.Loading}
+                                    variant="secondary"
                                 >
                                     Save Changes
                                 </Button>

@@ -1,13 +1,11 @@
 import { Code } from "@nextui-org/react";
 import { readFile } from "fs/promises";
-import Image from "next/image";
 
 import { Faq } from "@/app/(home)/faq.component";
 import BeautifyMarkdown from "@/components/markdown";
 import Notice, { NoticeType } from "@/components/notice";
-import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ScreenMessage } from "@/components/screen-message";
 import metadata from "@/public/docs/meta.json";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 
 interface Props {
     params: Promise<{ pathname: string[]; }>;
@@ -26,13 +24,7 @@ export default async function Home({ params }: Props) {
                 top="6rem"
                 title="Sadly, this page can not be found.."
                 description="Seems like you got a little lost here? Here's wumpus for now!"
-                buttons={<>
-                    <HomeButton />
-                    <SupportButton />
-                </>}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+            />
         );
     }
 

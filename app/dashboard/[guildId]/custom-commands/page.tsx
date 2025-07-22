@@ -1,7 +1,5 @@
 "use client";
 
-import { Button, Chip, Tooltip } from "@nextui-org/react";
-import Image from "next/image";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { HiViewGridAdd } from "react-icons/hi";
@@ -13,9 +11,10 @@ import MessageCreatorEmbed from "@/components/embed-creator";
 import SelectInput from "@/components/inputs/select-menu";
 import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cacheOptions, getData } from "@/lib/api";
 import { Permissions } from "@/lib/discord/enum/permissions";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 import type { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
 import CreateTag, { Style } from "./create.component";
@@ -66,9 +65,7 @@ export default function Home() {
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+            />
         );
     }
 
@@ -95,9 +92,9 @@ export default function Home() {
     };
 
     const removeTag = (id: string) => {
-        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(url, () =>
+        queryClient.setQueryData<ApiV1GuildsModulesTagsGetResponse[]>(url, () => (
             data?.filter((t) => t.id !== id) || []
-        );
+        ));
     };
 
     return (<>
@@ -106,17 +103,16 @@ export default function Home() {
             {data
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .map((tag) => (
-                    <Chip
+                    <Button
                         key={"guildTags-" + tag.id}
-                        as={Button}
-                        className="default border-0"
-                        variant={id === tag.id ? "flat" : "faded"}
-                        color={id === tag.id ? "secondary" : undefined}
-                        startContent={<span className="opacity-50 relative left-2">{tag.applicationCommandId ? "/" : "wm -"}</span>}
+                        className="rounded-full h-8"
                         onClick={() => setTagId(tag.id)}
                     >
-                        {tag.name + " "}
-                    </Chip>
+                        <span className="opacity-50 text-sm">
+                            {tag.applicationCommandId ? "/" : "wm -"}
+                        </span>
+                        {tag.name}
+                    </Button>
                 ))
             }
 
@@ -128,8 +124,15 @@ export default function Home() {
             />
 
             <div className="ml-auto flex items-center gap-4">
-                <Tooltip content="Created tags / Limit" closeDelay={0}>
-                    <span className="dark:text-neutral-600 text-neutral-400 cursor-default">{data.length}/{30}</span>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <span className="dark:text-neutral-600 text-neutral-400 cursor-default">
+                            {data.length}/{30}
+                        </span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>{data.length} created tags / {30} limit</p>
+                    </TooltipContent>
                 </Tooltip>
 
                 <DeleteTag

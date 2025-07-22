@@ -1,6 +1,5 @@
 import "./globals.css";
 
-import { Divider } from "@nextui-org/react";
 import type { Metadata, Viewport } from "next";
 import { Lexend, Noto_Sans_JP, Outfit } from "next/font/google";
 import { cookies } from "next/headers";
@@ -11,6 +10,7 @@ import { CookiesProvider } from "next-client-cookies/server";
 
 import { Header } from "@/components/header";
 import { LoginButton } from "@/components/login-button";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
 
@@ -182,7 +182,7 @@ async function NavBar() {
                 <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
             </Link>
 
-            <Divider
+            <Separator
                 className="h-10 rotate-6 mx-3"
                 orientation="vertical"
             />

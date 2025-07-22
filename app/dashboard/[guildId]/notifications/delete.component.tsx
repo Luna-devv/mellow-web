@@ -1,11 +1,13 @@
 "use client";
 
-import { Button, Tooltip } from "@nextui-org/react";
+
 import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
 import Modal from "@/components/modal";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface Props {
     id: string | null;
@@ -24,22 +26,20 @@ export function DeleteNotification({
     const [open, setOpen] = useState(false);
 
     return (<>
-        <Tooltip
-            content="Delete Notification"
-            closeDelay={0}
-        >
-            <Button
-                isIconOnly
-                color="danger"
-                variant="flat"
-                onClick={() => setOpen(true)}
-                isDisabled={!id}
-            >
-                <span>
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button
+                    className="size-9 p-1.5"
+                    variant="destructive"
+                    onClick={() => setOpen(true)}
+                    disabled={!id}
+                >
                     <HiTrash />
-                </span>
-                <span className="sr-only">Delete selected notification</span>
-            </Button>
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Delete Notification</p>
+            </TooltipContent>
         </Tooltip>
 
         <Modal

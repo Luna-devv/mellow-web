@@ -13,7 +13,6 @@ import { ItemSelector } from "@/components/dashboard/lists/selector";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import { ScreenMessage } from "@/components/screen-message";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 import type { ApiV1GuildsModulesDailypostsGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
@@ -49,9 +48,7 @@ export default function Home() {
                 href={`/dashboard/${guild?.id}`}
                 button="Go back to overview"
                 icon={<HiViewGridAdd />}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+            />
         );
     }
 

@@ -1,8 +1,6 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
@@ -11,9 +9,9 @@ import { HiChartBar, HiRefresh, HiUserAdd, HiViewGridAdd } from "react-icons/hi"
 
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
-import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ScreenMessage } from "@/components/screen-message";
+import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 import type { ApiV1UsersMeGuildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
@@ -48,15 +46,8 @@ export default function Home() {
         return (
             <ScreenMessage
                 top="10rem"
-                title="Something went wrong on this page.."
                 description={`${error}`}
-                buttons={<>
-                    <HomeButton />
-                    <SupportButton />
-                </>}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+            />
         );
     }
 
@@ -64,7 +55,7 @@ export default function Home() {
 
     return (<div className="flex flex-col w-full">
 
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
             <div className="relative top-2 w-full">
                 <DumbTextInput
                     value={search}
@@ -76,22 +67,29 @@ export default function Home() {
 
             <div className="flex gap-2 md:mt-0">
                 <Button
-                    as={Link}
+                    asChild
                     className="w-1/2 md:w-min"
-                    href="/login?invite=true"
-                    prefetch={false}
-                    startContent={<HiUserAdd />}
                 >
-                    Add to Server
+                    <Link
+                        href="/login?invite=true"
+                        prefetch={false}
+                    >
+                        <HiUserAdd />
+                        Add to Server
+                    </Link>
                 </Button>
                 <Button
-                    as={Link}
-                    className="button-primary w-1/2 md:w-min"
-                    href="/login"
-                    prefetch={false}
-                    startContent={<HiRefresh />}
+                    asChild
+                    className="w-1/2 md:w-min"
+                    variant="secondary"
                 >
-                    Reload
+                    <Link
+                        href="/login"
+                        prefetch={false}
+                    >
+                        <HiRefresh />
+                        Reload
+                    </Link>
                 </Button>
             </div>
         </div>
@@ -121,9 +119,7 @@ export default function Home() {
             <ScreenMessage
                 title="There are too many servers.."
                 description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ~${guilds.length < 1000 ? length : Math.round(length / 1000) * 1000}.`}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
+            />
         }
 
     </div>);
@@ -191,28 +187,36 @@ function Guild({ id, name, icon, bot: hasBotInvited }: ApiV1UsersMeGuildsGetResp
 function InviteButton({ guildId }: { guildId: string; }) {
     return (
         <Button
-            as={Link}
-            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
-            href={`/login?invite=true&guild_id=${guildId}`}
-            prefetch={false}
-            startContent={<HiUserAdd />}
+            asChild
+            className="h-8"
         >
-            Add Wamellow
+            <Link
+                href={`/login?invite=true&guild_id=${guildId}`}
+                prefetch={false}
+            >
+                <HiUserAdd />
+                Add Wamellow
+            </Link>
         </Button>
     );
 }
 
 function ManageButton({ guildId }: { guildId: string; }) {
     const searchParams = useSearchParams();
+    const to = searchParams.get("to");
 
     return (
         <Button
-            as={Link}
-            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9"
-            href={`/dashboard/${guildId}${searchParams.get("to") ? `/${searchParams.get("to")}` : ""}`}
-            startContent={<HiViewGridAdd />}
+            asChild
+            className="h-8"
         >
-            Manage
+            <Link
+                href={`/dashboard/${guildId}${to ? `/${to}` : ""}`}
+                prefetch={false}
+            >
+                <HiViewGridAdd />
+                Manage
+            </Link>
         </Button>
     );
 }
@@ -220,12 +224,16 @@ function ManageButton({ guildId }: { guildId: string; }) {
 function LeaderboardButton({ guildId }: { guildId: string; }) {
     return (
         <Button
-            as={Link}
-            className="default dark:bg-neutral-500/40 hover:dark:bg-neutral-500/20 bg-neutral-400/40 hover:bg-neutral-400/20 text-sm h-9 md:opacity-0 group-hover/card:opacity-100"
-            href={`/leaderboard/${guildId}`}
-            startContent={<HiChartBar />}
+            asChild
+            className="h-8"
         >
-            Leaderboard
+            <Link
+                href={`/leaderboard/${guildId}`}
+                prefetch={false}
+            >
+                <HiChartBar />
+                Leaderboard
+            </Link>
         </Button>
     );
 }

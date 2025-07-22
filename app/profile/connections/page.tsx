@@ -10,10 +10,9 @@ import { SiBluesky } from "react-icons/si";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
-import { HomeButton, ScreenMessage, SupportButton } from "@/components/screen-message";
+import { ScreenMessage } from "@/components/screen-message";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
-import SadWumpusPic from "@/public/sad-wumpus.gif";
 import { type ApiV1UsersMeConnectionsGetResponse, ConnectionType } from "@/typings";
 import { cn } from "@/utils/cn";
 
@@ -27,18 +26,7 @@ export default function Home() {
     const { isLoading, data, error } = useApi<ApiV1UsersMeConnectionsGetResponse[]>(url);
 
     if (error) {
-        return (
-            <ScreenMessage
-                title="Something went wrong on this page.."
-                description={error}
-                buttons={<>
-                    <HomeButton />
-                    <SupportButton />
-                </>}
-            >
-                <Image src={SadWumpusPic} alt="" height={141} width={124} />
-            </ScreenMessage>
-        );
+        return <ScreenMessage description={error} />;
     }
 
     if (isLoading || !data) return <></>;

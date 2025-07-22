@@ -1,6 +1,7 @@
-import { Button } from "@nextui-org/react";
 import React, { useState } from "react";
 import { HiEmojiHappy, HiLockClosed } from "react-icons/hi";
+
+import { Button } from "@/components/ui/button";
 
 enum State {
     Idle = 0,
@@ -54,36 +55,34 @@ export default function DiscordWidgetButton({
         setError(res.status + ": " + res.statusText);
     };
 
-    return (
-        <>
-            <Button
-                className="w-fit"
-                onClick={handle}
-                color={
-                    isEnabled
-                        ? "danger"
-                        : "secondary"
-                }
-                startContent={
-                    isEnabled
-                        ? <HiLockClosed />
-                        : <HiEmojiHappy />
-                }
-                variant="flat"
-                isLoading={state === State.Loading}
-                isDisabled={state === State.Ratelimited}
-            >
-                {isEnabled
-                    ? "Disable invite widget"
-                    : "Enable invite widget"
-                }
-            </Button>
-
-            {error &&
-                <div className="text-red-500 text-sm mt-1">
-                    {error}
-                </div>
+    return (<>
+        <Button
+            className="w-fit"
+            onClick={handle}
+            variant={
+                isEnabled
+                    ? "destructive"
+                    : "secondary"
             }
-        </>
-    );
+            icon={
+                isEnabled
+                    ? <HiLockClosed />
+                    : <HiEmojiHappy />
+
+            }
+            loading={state === State.Loading}
+            disabled={state === State.Ratelimited}
+        >
+            {isEnabled
+                ? "Disable invite widget"
+                : "Enable invite widget"
+            }
+        </Button>
+
+        {error && (
+            <div className="text-red-500 text-sm mt-1">
+                {error}
+            </div>
+        )}
+    </>);
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Chip } from "@nextui-org/react";
 import { useMemo, useState } from "react";
 import { HiPencil } from "react-icons/hi";
 
@@ -8,6 +7,7 @@ import { guildStore } from "@/common/guilds";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
+import { Button } from "@/components/ui/button";
 import { type ApiV1GuildsModulesDailypostsGetResponse, DailypostType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
@@ -43,20 +43,19 @@ export default function CreateDailypost({
     return (<>
         {style === Style.Compact
             ?
-            <Chip
-                as={Button}
-                className="default"
+            <Button
+                className="rounded-full h-8"
                 onClick={() => setOpen(true)}
-                startContent={<HiPencil className="relative left-1 ml-1" />}
             >
-                Add Dailypost
-            </Chip>
+                <HiPencil />
+                Create
+            </Button>
             :
             <Button
-                color="secondary"
+                variant="secondary"
                 onClick={() => setOpen(true)}
-                startContent={<HiPencil />}
             >
+                <HiPencil />
                 Create a new Dailypost
             </Button>
         }

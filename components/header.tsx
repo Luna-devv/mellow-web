@@ -1,6 +1,5 @@
 "use client";
 
-import { Switch } from "@nextui-org/react";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -17,6 +16,7 @@ import { cn } from "@/utils/cn";
 import ImageReduceMotion from "./image-reduce-motion";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
+import { Switch } from "./ui/switch";
 
 enum State {
     Idle = 0,
@@ -221,11 +221,8 @@ export function Header() {
                         <Switch
                             key={"headerButton-" + button.name}
                             className="ml-auto"
-                            isSelected={button.value}
-                            onValueChange={button.onChange}
-                            aria-label={button.name}
-                            color="secondary"
-                            size="sm"
+                            checked={button.value}
+                            onChange={button.onChange}
                         />
                     </div>
                 );
@@ -240,10 +237,9 @@ export function Header() {
         }
 
         <MotionConfig
-            transition={reduceMotions ?
-                { duration: 0 }
-                :
-                { type: "spring", bounce: 0.4, duration: menu ? 0.7 : 0.4 }
+            transition={reduceMotions
+                ? { duration: 0 }
+                : { type: "spring", bounce: 0.4, duration: menu ? 0.7 : 0.4 }
             }
         >
             <AnimatePresence initial={false}>

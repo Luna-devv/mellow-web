@@ -1,10 +1,10 @@
-import { Tooltip } from "@nextui-org/react";
 import { PermissionFlagsBits } from "discord-api-types/v10";
 import { useMemo } from "react";
 import { HiExclamation } from "react-icons/hi";
 
 import type { Guild } from "@/common/guilds";
 import DiscordChannel from "@/components/discord/channel";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { ApiV1GuildsChannelsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
@@ -46,11 +46,10 @@ function Channels({
 }) {
     return (<>
         <p className="text-sm opacity-75 mb-3">
-            Wammellow cannot track acivity in {channels.length} channels as it is missing permissions.
+            Wammellow cannot track activity in {channels.length} channels as it is missing permissions.
         </p>
 
         <div className="flex flex-col gap-1">
-
             {channels.map((c, i) => {
                 if (i >= MAX_CHANNELS) return null;
                 return (
@@ -63,25 +62,30 @@ function Channels({
                             name={c.name}
                             isTruncated
                         />
-                        <Tooltip
-                            content={"Missing View Channel"}
-                            placement="right"
-                            className="bg-[#030206]"
-                            closeDelay={0}
-                        >
-                            <span>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
                                 <HiExclamation className="text-red-500" />
-                            </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Missing View Channel</p>
+                            </TooltipContent>
                         </Tooltip>
                     </div>
                 );
             })}
         </div>
 
-        {channels.length > MAX_CHANNELS &&
-                <p className="text-sm opacity-75 relative bottom-1 mt-2">
-                    +{channels.length - MAX_CHANNELS} more
-                </p>
-        }
+        {channels.length > MAX_CHANNELS && (
+            <Tooltip>
+                <TooltipTrigger>
+                    <p className="text-sm opacity-75 relative bottom-1 mt-2">
+                        +{channels.length - MAX_CHANNELS} more
+                    </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                    {channels.slice(MAX_CHANNELS).map((channel) => "#" + channel.name).join(", ")}
+                </TooltipContent>
+            </Tooltip>
+        )}
     </>);
 }

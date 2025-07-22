@@ -1,12 +1,13 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import type { FunctionComponent } from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 import { cn } from "@/utils/cn";
+
+import { Button } from "./ui/button";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "700" });
 
@@ -48,14 +49,17 @@ const Ad: FunctionComponent<Props> = ({
             </div>
 
             <Button
-                as={Link}
+                asChild
                 className="mt-3 font-medium"
-                href={url}
-                target="_blank"
-                prefetch={false}
-                endContent={<HiArrowNarrowRight />}
             >
-                {button}
+                <Link
+                    href={url}
+                    target="_blank"
+                    prefetch={false}
+                >
+                    {button}
+                    <HiArrowNarrowRight />
+                </Link>
             </Button>
         </div>
     );

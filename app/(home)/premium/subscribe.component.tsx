@@ -97,7 +97,7 @@ export function DonationSelect({ donation, setDonation, ...props }: DonationProp
                     value={donation}
                 />
             </InputBaseControl>
-            <Tooltip delayDuration={0}>
+            <Tooltip>
                 <InputBaseAdornment>
                     <InputBaseAdornmentButton asChild>
                         <TooltipTrigger>

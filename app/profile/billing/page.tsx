@@ -1,7 +1,7 @@
 "use client";
 
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
-import { Link } from "@nextui-org/react";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { GrAmex } from "react-icons/gr";
 import { HiCreditCard, HiLightningBolt } from "react-icons/hi";
@@ -115,7 +115,7 @@ export default function Home() {
                                 className="ml-auto"
                                 variant="link"
                             >
-                                <Link href={data?.portalUrl}>
+                                <Link href={data!.portalUrl}>
                                     Change
                                 </Link>
                             </Button>
