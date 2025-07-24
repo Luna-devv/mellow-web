@@ -27,6 +27,7 @@ const items = [
     { title: "Dailyposts", free: 4, premium: 20 },
     { title: "Welcome roles", free: 5, premium: 10 },
     { title: "Welcome pings", free: 5, premium: 15 },
+    { title: "Spotify control", free: maybe, premium: true, url: "/profile/connections" },
     { title: "Bypass passport", free: false, premium: true },
     { title: "Bypass Voting", free: false, premium: true },
     { title: "Crosspost social notifications", free: false, premium: true },
@@ -166,7 +167,7 @@ export default async function Home() {
                             variant="flat"
                             radius="rounded"
                         >
-                            $4/month
+                            €4 /month
                         </Badge>
                     </div>
 

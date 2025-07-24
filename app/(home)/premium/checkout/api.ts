@@ -1,4 +1,4 @@
-import type { ApiError } from "next/dist/server/api-utils";
+import type { ApiError } from "@/typings";
 
 interface CheckoutResponse {
     url: string;
