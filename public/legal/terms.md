@@ -1,5 +1,5 @@
 ## Terms of Service
-**last modified 10/26/2024 (MM/DD/YYYY)**
+**last modified 07/24/2025 (MM/DD/YYYY)**
 <br />
 
 These Terms of Service apply to the website "wamellow.com," all its associated subdomains, and our Discord bot application(s) with the user ID(s) "1125449347451068437".
@@ -8,9 +8,10 @@ These Terms of Service apply to the website "wamellow.com," all its associated s
 ## General
 This page contains the Terms of Service ("Agreement," "Terms of Use") that all users must adhere to. We are required to clearly define the applicable rights and limitations. By using our service, you …
 * (1.) … accept these Terms of Service.
-* (2.) … accept our Privacy Policy.
-* (3.) … automatically enter into a contract between you (the "Consumer," "User"), us, and these Terms of Service.
-* (4.) … confirm that you have reached the digital age of majority in your country or have the consent of your legal guardian.
+* (2.) … accept our [Privacy Policy](/privacy).
+* (3.) … accept our [Payment Terms](/terms/payment).
+* (4.) … automatically enter into a contract between you (the "Consumer," "User"), us, and these Terms of Service.
+* (5.) … confirm that you have reached the digital age of majority in your country or have the consent of your legal guardian.
 <br /><br />
 If you do not agree to these Terms of Service or the Privacy Policy, you agree not to use this service in any way. If you use a translator and there is any discrepancy, the English and original versions shall prevail.
 
