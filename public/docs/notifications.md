@@ -274,17 +274,17 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post time & date</td>
         </tr>
         <tr>
-            <td><code>creator.handle</code>\*\*</td>
+            <td><code>creator.handle</code>**</td>
             <td>shi.gg</td>
             <td>Creator handle</td>
         </tr>
         <tr>
-            <td><code>creator.posts</code>\*\*</td>
+            <td><code>creator.posts</code>**</td>
             <td>784</td>
             <td>Amount of posts</td>
         </tr>
         <tr>
-            <td><code>creator.followers</code>\*\*</td>
+            <td><code>creator.followers</code>**</td>
             <td>48</td>
             <td>Amount of followers</td>
         </tr>
@@ -293,7 +293,9 @@ Placeholders allow you to use variables that change from message to message, for
 <br />
 
 *If a post is a reply, and your custom message is `{post.type}ed` it will display `replied to`, instead of `replyed`.
-\*\* You may also use `{author.xxx}` to refer to the author for all `{creator.xxx}` placeholders. In non-reposts, `author` and `creator` will be the same — if a post is a repost, `creator` will be the user who reposted the post, while `author` will be the original author of the post.
+<br />
+<br />
+** You may also use `{author.xxx}` to refer to the author for all `{creator.xxx}` placeholders. In non-reposts, `author` and `creator` will be the same — if a post is a repost, `creator` will be the user who reposted the post, while `author` will be the original author of the post.
 
 <br />
 <br />
