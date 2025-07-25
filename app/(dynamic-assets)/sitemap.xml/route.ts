@@ -23,23 +23,7 @@ export async function GET() {
             priority: 1
         },
         {
-            url: getCanonicalUrl("bot", "pronouns"),
-            priority: 0.9
-        },
-        {
-            url: getCanonicalUrl("bot", "pronouns", "pronouns"),
-            priority: 0.9
-        },
-        {
-            url: getCanonicalUrl("bot", "pronouns", "sexualities"),
-            priority: 0.9
-        },
-        {
-            url: getCanonicalUrl("bot", "pronouns", "genders"),
-            priority: 0.9
-        },
-        {
-            url: getCanonicalUrl("ai-gallery"),
+            url: getCanonicalUrl("premium"),
             priority: 0.9
         },
         {
@@ -55,6 +39,10 @@ export async function GET() {
             priority: 0.8
         },
         {
+            url: getCanonicalUrl("team"),
+            priority: 0.7
+        },
+        {
             url: getCanonicalUrl("support"),
             priority: 0.7
         },
@@ -64,6 +52,10 @@ export async function GET() {
         },
         {
             url: getCanonicalUrl("terms"),
+            priority: 0.2
+        },
+        {
+            url: getCanonicalUrl("terms", "payments"),
             priority: 0.2
         },
         {
