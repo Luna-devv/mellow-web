@@ -62,18 +62,24 @@ const nextConfig = {
                 port: "",
                 pathname: "/jtv_user_pictures/**"
             },
-           {
-               protocol: "https",
-               hostname: "cdn.bsky.app",
-               port: "",
-               pathname: "/img/avatar/plain/**"
-           },
-          {
-              protocol: "https",
-              hostname: "i.scdn.co",
-              port: "",
-              pathname: "/image/**"
-          }
+            {
+                protocol: "https",
+                hostname: "static-cdn.jtvnw.net",
+                port: "",
+                pathname: "/user-default-pictures-uv/**"
+            },
+            {
+                protocol: "https",
+                hostname: "cdn.bsky.app",
+                port: "",
+                pathname: "/img/avatar/plain/**"
+            },
+            {
+                protocol: "https",
+                hostname: "i.scdn.co",
+                port: "",
+                pathname: "/image/**"
+            }
         ]
     }
 };
