@@ -9,6 +9,7 @@ interface Props {
     alt: string;
     className?: string;
     forceStatic?: boolean;
+    lazy?: boolean;
 }
 
 export default function ImageReduceMotion({
@@ -16,7 +17,8 @@ export default function ImageReduceMotion({
     size,
     alt,
     className,
-    forceStatic
+    forceStatic,
+    lazy = false
 }: Props) {
     const cookies = useCookies();
     const reduceMotions = cookies.get("reduceMotions") === "true";
@@ -29,7 +31,7 @@ export default function ImageReduceMotion({
             height={size}
             alt={alt}
             className={className}
-            loading="lazy"
+            loading={lazy ? "lazy" : "eager"}
             draggable={false}
         />
     );

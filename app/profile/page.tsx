@@ -15,7 +15,7 @@ import { useApi } from "@/lib/api/hook";
 import type { ApiV1UsersMeGuildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
-const MAX_GUILDS = 200 as const;
+const MAX_GUILDS = 50 as const;
 
 const springAnimation = {
     hidden: { y: 20, opacity: 0 },
@@ -41,6 +41,8 @@ export default function Home() {
         () => Array.isArray(data) ? data.sort(sort).filter((guild) => filter(guild, search)).slice(0, MAX_GUILDS) : [],
         [data, search]
     );
+
+    const isHuge = guilds.length > MAX_GUILDS;
 
     if (error) {
         return (
@@ -94,7 +96,7 @@ export default function Home() {
             </div>
         </div>
 
-        {!isLoading &&
+        {!isLoading && (
             <motion.ul
                 variants={{
                     hidden: { opacity: 1, scale: 0 },
@@ -111,17 +113,22 @@ export default function Home() {
                 animate="visible"
                 className="grid grid-cols-1 gap-3.5 w-full mt-3 lg:grid-cols-3 md:grid-cols-2"
             >
-                {guilds.map((guild) => <Guild key={"guild-" + guild.id} {...guild} />)}
+                {guilds.map((guild) => (
+                    <Guild
+                        key={"guild-" + guild.id}
+                        {...guild}
+                        isHugeGuildList={isHuge}
+                    />
+                ))}
             </motion.ul>
-        }
+        )}
 
-        {guilds.length > MAX_GUILDS &&
+        {isHuge && (
             <ScreenMessage
                 title="There are too many servers.."
                 description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ~${guilds.length < 1000 ? length : Math.round(length / 1000) * 1000}.`}
             />
-        }
-
+        )}
     </div>);
 }
 
@@ -143,7 +150,13 @@ function filter(guild: ApiV1UsersMeGuildsGetResponse, search: string) {
     return false;
 }
 
-function Guild({ id, name, icon, bot: hasBotInvited }: ApiV1UsersMeGuildsGetResponse) {
+function Guild({
+    id,
+    name,
+    icon,
+    bot: hasBotInvited,
+    isHugeGuildList
+}: ApiV1UsersMeGuildsGetResponse & { isHugeGuildList: boolean; }) {
     return (
         <motion.li
             className={cn(
@@ -157,7 +170,8 @@ function Guild({ id, name, icon, bot: hasBotInvited }: ApiV1UsersMeGuildsGetResp
                 className="absolute top-[-48px] left-0 w-full z-0 blur-xl opacity-30 pointer-events-none"
                 size={16}
                 url={`https://cdn.discordapp.com/icons/${id}/${icon}`}
-                forceStatic={true}
+                forceStatic
+                lazy={isHugeGuildList}
             />
 
             <ImageReduceMotion
@@ -165,6 +179,7 @@ function Guild({ id, name, icon, bot: hasBotInvited }: ApiV1UsersMeGuildsGetResp
                 className="rounded-lg size-15 z-1 relative drop-shadow-md"
                 size={56}
                 url={`https://cdn.discordapp.com/icons/${id}/${icon}`}
+                lazy={isHugeGuildList}
             />
 
             <div className="ml-3 text-sm relative bottom-0.5">
