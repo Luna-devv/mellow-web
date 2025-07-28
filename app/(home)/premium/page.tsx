@@ -81,16 +81,17 @@ export default async function Home() {
                 </span>
             </div>
 
-            {topGuilds &&
-                <ImageGrid images={topGuilds
-                    .sort((a, b) => b.memberCount - a.memberCount)
-                    .map((guild) => ({
-                        id: guild.id,
-                        url: guild.icon || "/discord.webp",
-                        link: getCanonicalUrl("leaderboard", guild.id)
-                    }))}
+            {topGuilds && (
+                <ImageGrid
+                    images={topGuilds
+                        .sort((a, b) => b.memberCount - a.memberCount)
+                        .map((guild) => ({
+                            id: guild.id,
+                            url: (guild.icon || "/discord.webp").replace("gif", "webp"),
+                            link: getCanonicalUrl("leaderboard", guild.id)
+                        }))}
                 />
-            }
+            ) }
 
             <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-10 w-full p-4 rounded-xl text-xl divide-y divide-wamellow">
 
@@ -115,8 +116,9 @@ export default async function Home() {
                 ))}
 
                 <div className="hidden md:flex items-center pt-4">
-                    <div className="w-1/2 text-sm text-neutral-400">
-                        support the project {"<3"}
+                    <div className="w-1/2 text-sm text-neutral-400 flex justify-between pr-4">
+                        <div />
+                        extra monthly donation
                     </div>
                     <div className="flex w-1/2 gap-4">
                         <Subscribe />
@@ -159,7 +161,7 @@ export default async function Home() {
             />
 
             <div className="p-2 fixed z-10 bottom-0 left-0 w-full md:hidden">
-                <div className="dark:bg-wamellow bg-wamellow-100 backdrop-blur-xl backdrop-brightness-50 rounded-lg shadow-md w-full flex flex-col gap-2 items-center justify-center p-3">
+                <div className="dark:bg-wamellow bg-wamellow-100 backdrop-blur-lg backdrop-brightness-50 rounded-lg shadow-md w-full flex flex-col gap-2 items-center justify-center p-3">
 
                     <div className="flex gap-2 items-center">
                         <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your experience further!</span>

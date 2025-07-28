@@ -7,6 +7,7 @@ import { userStore } from "@/common/user";
 import { Button } from "@/components/ui/button";
 import { InputBase, InputBaseAdornment, InputBaseAdornmentButton, InputBaseControl, InputBaseInput } from "@/components/ui/input-base";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/utils/cn";
 
 export function Subscribe() {
     const premium = userStore((u) => u?.premium || false);
@@ -20,7 +21,6 @@ export function Subscribe() {
             >
                 <Link
                     className="w-full"
-                    prefetch={false}
                     href="/profile/billing"
                 >
                     <HiLightningBolt />
@@ -31,26 +31,28 @@ export function Subscribe() {
     }
 
     return (
-        <div className="w-full flex gap-4">
+        <div className="w-full flex gap-2">
             <DonationSelect
-                className="w-56"
+                className="w-[164px] md:w-40 shrink-0"
                 donation={donation}
                 setDonation={setDonation}
             />
 
-            <Button
-                asChild
-                variant="secondary"
-            >
-                <Link
-                    className="w-full"
-                    prefetch={false}
-                    href={`/premium/checkout?donation=${donation}`}
+            <div className="w-full relative overflow-hidden rounded-lg border border-border group p-px">
+                <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_0%_50%,#8b5cf6_50%,hsl(var(--input)/30)_7%)]" />
+                <Button
+                    asChild
+                    className='w-full px-2 backdrop-blur-sm backdrop-brightness-50 md:backdrop-brightness-[25%] bg-none rounded-[6px] hover:bg-[#8b5cf6]/50'
                 >
-                    <HiLightningBolt />
-                    Subscribe
-                </Link>
-            </Button>
+                    <Link
+                        prefetch={false}
+                        href={`/premium/checkout?donation=${donation}`}
+                    >
+                        <HiLightningBolt />
+                        Subscribe
+                    </Link>
+                </Button>
+            </div>
         </div>
     );
 }
@@ -64,14 +66,14 @@ export function DonationSelect({ donation, setDonation, ...props }: DonationProp
     return (
         <InputBase {...props}>
             <InputBaseAdornment className="flex">
-                <div className="relative right-1 flex gap-1">
+                <div className="relative right-1.5 flex gap-1">
                     <Button
-                        className="h-7"
+                        className={cn("h-7", donation === 0 && "animate-bounce transition-all duration-800")}
                         size="icon"
                         onClick={() => setDonation(Math.min(donation + 1, 100))}
                         disabled={donation >= 100}
                     >
-                        <HiArrowUp className="!size-3" />
+                        <HiArrowUp className="!size-3 " />
                     </Button>
                     <Button
                         className="h-7"
