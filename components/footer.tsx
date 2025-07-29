@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HTMLProps } from "react";
-import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoReddit, BiLogoTiktok, BiLogoYoutube } from "react-icons/bi";
+import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoReddit, BiLogoYoutube } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
 import { FaBluesky } from "react-icons/fa6";
 import { HiBookOpen, HiCloud, HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
-import { SiKofi } from "react-icons/si";
+import { SiDiscord, SiKofi } from "react-icons/si";
 
 import TopggIcon from "@/components/icons/topgg";
 import { getUser } from "@/lib/discord/user";
@@ -90,8 +90,8 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
 function Socials() {
     return (
         <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
-            <Link href="https://tiktok.com/@wamellow.com" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow on TikTok">
-                <BiLogoTiktok />
+            <Link href="https://discord.com/discovery/applications/1125449347451068437" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow in the Discord Bot Directory">
+                <SiDiscord />
             </Link>
             <Link href="https://youtube.com/@wamellow" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow on YouTube">
                 <BiLogoYoutube />
