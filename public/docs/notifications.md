@@ -89,12 +89,17 @@ Notifications are typically sent within these time frames:
 - **Reddit**: up to 20 minutes
 
 ## Platform limitations
-YouTube keeps the video private for a few seconds to minutes after uploading, so the notification might be delayed by a few seconds.
+Each platform has specific technical constraints that may affect notification delivery:
+- **YouTube** processes videos privately for several seconds after upload, which can cause delays in notifications.
+- **Reddit** API pricing changes limit us to checking for new posts every 20 minutes, but this interval works well for most use cases.
 <br />
 <br />
 
-Due to changes in Reddits' API pricing in 2023, we can't offer faster notification speeds, but 20 minutes should be fine.
-Since Reddit is still in testing, you can only setup 4 subreddits per server.
+In addition to the overall limit of 30 notifications per server (1,000 with [premium](/premium)), each platform has specific restrictions:
+- **YouTube**: 30 channels maximum (1,000 with [premium](/premium))
+- **Twitch**: 30 channels maximum (100 with [premium](/premium))
+- **Bluesky**: 30 users maximum (100 with [premium](/premium))
+- **Reddit**: 4 subreddits maximum (10 with [premium](/premium))
 
 ## Placeholders
 Placeholders allow you to use variables that change from message to message, for example to display information about the uploaded video or creator. They are always enclosed in curly braces, such as `{creator.name}`.
@@ -108,7 +113,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="192">Placeholder (*1)</th>
+            <th width="199">Placeholder (*1)</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
@@ -170,7 +175,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="192">Placeholder (*2)</th>
+            <th width="199">Placeholder (*2)</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
@@ -232,7 +237,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="192">Placeholder (*3)</th>
+            <th width="199">Placeholder (*3)</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
@@ -249,14 +254,14 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post type</td>
         </tr>
         <tr>
-            <td><code>post.text</code>*</td>
+            <td><code>post.text</code></td>
             <td>“sorry I don’t listen to music, the songs aren’t FOSS”</td>
             <td>Post text</td>
         </tr>
         <tr>
-            <td><code>post.image</code>*</td>
+            <td><code>post.image</code>**</td>
             <td></td>
-            <td>Post image hyperlink</td>
+            <td>Post image (hyper)link</td>
         </tr>
         <tr>
             <td><code>post.link</code></td>
@@ -274,17 +279,17 @@ Placeholders allow you to use variables that change from message to message, for
             <td>Post time & date</td>
         </tr>
         <tr>
-            <td><code>creator.handle</code>**</td>
+            <td><code>creator.handle</code>***</td>
             <td>shi.gg</td>
             <td>Creator handle</td>
         </tr>
         <tr>
-            <td><code>creator.posts</code>**</td>
+            <td><code>creator.posts</code>***</td>
             <td>784</td>
             <td>Amount of posts</td>
         </tr>
         <tr>
-            <td><code>creator.followers</code>**</td>
+            <td><code>creator.followers</code>***</td>
             <td>48</td>
             <td>Amount of followers</td>
         </tr>
@@ -292,10 +297,13 @@ Placeholders allow you to use variables that change from message to message, for
 </table>
 <br />
 
-*If a post is a reply, and your custom message is `{post.type}ed` it will display `replied to`, instead of `replyed`.
+\* If a post is a reply, and your custom message is `{post.type}ed` it will display `replied to`, instead of `replyed`.
 <br />
 <br />
-** You may also use `{author.xxx}` to refer to the author for all `{creator.xxx}` placeholders. In non-reposts, `author` and `creator` will be the same — if a post is a repost, `creator` will be the user who reposted the post, while `author` will be the original author of the post.
+** If `{post.image}` is used within text fields of the custom message, it will be rendered as an invisible hyperlink to embed the image. If it's used within image url fields, it will be rendered as an image.
+<br />
+<br />
+*** You may also use `{author.xxx}` to refer to the author for all `{creator.xxx}` placeholders. In non-reposts, `author` and `creator` will be the same — if a post is a repost, `creator` will be the user who reposted the post, while `author` will be the original author of the post.
 
 <br />
 <br />
@@ -307,7 +315,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="192">Placeholder (*4)</th>
+            <th width="199">Placeholder (*4)</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
@@ -385,7 +393,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="192">Placeholder</th>
+            <th width="199">Placeholder</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
@@ -422,7 +430,7 @@ Placeholders allow you to use variables that change from message to message, for
 <table>
     <thead>
         <tr>
-            <th width="192">Placeholder</th>
+            <th width="199">Placeholder</th>
             <th>Example</th>
             <th width="181">Description</th>
         </tr>
