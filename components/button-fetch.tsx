@@ -1,4 +1,3 @@
-import { LoaderCircleIcon } from "lucide-react";
 import React, { useState } from "react";
 
 import { Button } from "./ui/button";
@@ -68,7 +67,7 @@ export default function Fetch({
     };
 
     return (
-        <div className={className} >
+        <div className={className}>
             <Button
                 className="w-full"
                 onClick={handle}
@@ -79,19 +78,17 @@ export default function Fetch({
                 }
                 disabled={state !== State.Idle}
                 size={size}
+                loading={state === State.Loading}
             >
-                {state === State.Loading
-                    ? <LoaderCircleIcon className="animate-spin" />
-                    : icon
-                }
+                {state !== State.Loading && icon}
                 {label}
             </Button>
 
-            {error &&
+            {error && (
                 <div className="text-red-500 text-sm mt-1">
                     {error}
                 </div>
-            }
+            )}
         </div>
     );
 }
