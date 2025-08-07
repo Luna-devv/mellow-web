@@ -110,6 +110,9 @@ export default function RootLayout({
                 className="dark flex justify-center max-w-screen overflow-x-hidden"
             >
                 <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.outbound-links.js" />
+                {process.env.NODE_ENV === "development" && (
+                    <Script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+                )}
 
                 <Script
                     id="reviews"
