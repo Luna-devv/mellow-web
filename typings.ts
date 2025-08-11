@@ -360,7 +360,8 @@ export interface ApiV1GuildsModulesTagsGetResponse {
 }
 
 export enum AutomodType {
-    BlockInvites = "invites",
+    BlockServerInvites = "server_invites",
+    BlockBotInvites = "bot_invites",
     BlockTwitter = "twitter"
 }
 
