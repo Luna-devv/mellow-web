@@ -96,44 +96,44 @@ export const generateMetadata = (): Metadata => {
     };
 };
 
-export default function RootLayout({
-    children
-}: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
     return (
         <CookiesProvider>
             <html
                 suppressHydrationWarning
                 data-theme="dark"
                 lang="en"
-                className="dark flex justify-center max-w-screen overflow-x-hidden"
+                className="dark max-w-screen overflow-x-hidden"
             >
-                <Script defer data-domain="wamellow.com" src="https://analytics.wamellow.com/js/script.outbound-links.js" />
-                {process.env.NODE_ENV === "development" && (
-                    <Script src="https://unpkg.com/react-scan/dist/auto.global.js" />
-                )}
-
+                <Script
+                    defer
+                    data-domain="wamellow.com"
+                    src="https://analytics.wamellow.com/js/script.outbound-links.js"
+                />
                 <Script
                     id="reviews"
                     type="application/ld+json"
                 >
                     {JSON.stringify(reviews)}
                 </Script>
+                {process.env.NODE_ENV === "development" && (
+                    <Script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+                )}
 
                 <body
-                    className={cn("w-full max-w-7xl overflow-x-hidden xl:!overflow-visible", outfit.variable, notosansJP.variable)}
-                    style={{ overflow: "visible" }}
+                    className={cn(
+                        "relative top-0 w-full flex justify-center overflow-x-hidden xl:!overflow-visible",
+                        outfit.variable,
+                        notosansJP.variable
+                    )}
                 >
                     <div id="bg" className="absolute top-0 right-0 w-screen h-screen -z-50" />
                     <Noise />
 
-                    <NavBar />
-
-                    <Provider>
-                        {children}
-                    </Provider>
-
+                    <div className="w-full max-w-7xl">
+                        <NavBar className="w-full" />
+                        <Provider className="w-full">{children}</Provider>
+                    </div>
                 </body>
             </html>
         </CookiesProvider>
@@ -143,7 +143,7 @@ export default function RootLayout({
 function Noise() {
     return (
         <svg
-            className="absolute top-0 left-0 w-screen h-full -z-40 blur-[1px] saturate-0"
+            className="absolute top-0 left-0 w-screen h-screen -z-40 blur-[1px] saturate-0"
             viewBox='0 0 142 158'
             xmlns='http://www.w3.org/2000/svg'
         >
@@ -171,11 +171,11 @@ function Noise() {
     );
 }
 
-async function NavBar() {
+async function NavBar({ className }: { className?: string; }) {
     const jar = await cookies();
 
     return (
-        <nav className="p-4 flex items-center gap-2 text-base text-neutral-300 select-none h-20 relative">
+        <nav className={cn("p-4 flex items-center gap-2 text-base text-neutral-300 select-none h-20 relative", className)}>
             <Link
                 aria-label="Go to Wamellow's homepage"
                 className={cn("font-semibold flex items-center shrink-0", lexend.className)}

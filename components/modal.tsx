@@ -1,17 +1,14 @@
 "use client";
 
-import { Progress } from "@nextui-org/react";
-import { Separator } from "@radix-ui/react-separator";
-import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useEffect, useState } from "react";
-import { HiX } from "react-icons/hi";
 
 import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 
-import { ClickOutside } from "./click-outside";
 import Notice, { NoticeType } from "./notice";
 import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Separator } from "./ui/separator";
 
 enum State {
     Idle = 0,
@@ -60,17 +57,6 @@ export default function Modal<T>({
     useEffect(() => {
         setError(null);
         setState(State.Idle);
-
-        const html = document.getElementsByTagName("html")?.[0];
-        if (isOpen) {
-            html.style.overflow = document.body.style.overflow = "hidden";
-        } else {
-            html.style.overflow = document.body.style.overflow = "";
-        }
-
-        return () => {
-            html.style.overflow = document.body.style.overflow = "";
-        };
     }, [isOpen]);
 
     async function submit() {
@@ -103,128 +89,57 @@ export default function Modal<T>({
         onError?.();
     }
 
-    function Header() {
-        return (<>
-            <div className="flex items-center">
-                <span className="text-2xl font-semibold dark:text-neutral-200 text-neutral-800">
-                    {title}
-                </span>
+    return (
+        <Dialog
+            open={isOpen}
+            onOpenChange={(open) => !open && onClose()}
+        >
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>{title}</DialogTitle>
+                    <Separator className="bg-muted h-[1px]" loading={state === State.Loading} />
+                </DialogHeader>
 
-                <Button
-                    onClick={() => state !== State.Loading && onClose()}
-                    className="ml-auto"
-                    size="icon"
-                >
-                    <HiX />
-                </Button>
-            </div>
-
-            <Progress
-                size="sm"
-                isIndeterminate={state === State.Loading}
-                aria-label="Loading..."
-                className="mt-3 mb-4 h-0.5"
-                classNames={{
-                    track: "bg-divider",
-                    indicator: "bg-violet-500"
-                }}
-                value={0}
-            />
-        </>);
-    }
-
-    function Footer() {
-        return (<div className="flex items-center w-full gap-6 p-4">
-            {footer}
-
-            {onSubmit &&
-                <button
-                    onClick={() => state !== State.Loading && onClose()}
+                <div
                     className={cn(
-                        "ml-auto text-sm font-medium dark:text-neutral-200 text-neutral-800",
-                        state === State.Idle && "cursort-not-allowed"
+                        "scrollbar-hide overflow-y-scroll overflow-x-hidden max-h-[70vh] py-2",
+                        className
                     )}
-                    disabled={state !== State.Idle}
                 >
-                    Cancel
-                </button>
-            }
+                    {error && (
+                        <Notice
+                            type={NoticeType.Error}
+                            message={error}
+                        />
+                    )}
 
-            <Button
-                variant={variant}
-                onClick={() => submit()}
-                className={cn(!onSubmit && "ml-auto")}
-                disabled={isDisabled}
-            >
-                {buttonName}
-            </Button>
+                    {children}
+                </div>
 
-            {isOpen && state !== State.Loading && <ClickOutside onClose={onClose} />}
-        </div>);
-    }
+                <DialogFooter>
+                    {footer}
 
-    return (<MotionConfig transition={{ type: "spring", bounce: 0.4, duration: 1 }}>
-        <AnimatePresence initial={false}>
+                    {onSubmit && (
+                        <Button
+                            variant="link"
+                            onClick={() => state !== State.Loading && onClose()}
+                            className="hidden md:block ml-auto text-sm font-medium"
+                            disabled={state !== State.Idle}
+                        >
+                            Cancel
+                        </Button>
+                    )}
 
-            {isOpen &&
-                <motion.div
-                    initial="closed"
-                    animate={isOpen ? "open" : "closed"}
-                    exit="closed"
-                    variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
-                    className="fixed top-0 left-0 h-screen w-full inset-0 backdrop-brightness-[25%] backdrop-blur flex items-center justify-center z-50 cursor-default"
-                    style={{ maxHeight: "100dvh" }}
-                >
-                    <motion.div
-                        initial="closed"
-                        animate={isOpen ? "open" : "closed"}
-                        exit="closed"
-                        variants={{
-                            closed: {
-                                y: "var(--y-closed, 0)",
-                                opacity: "var(--opacity-closed)",
-                                scale: "var(--scale-closed, 1)"
-                            },
-                            open: {
-                                y: "var(--y-open, 0)",
-                                opacity: "var(--opacity-open)",
-                                scale: "var(--scale-open, 1)"
-                            }
-                        }}
-                        className="
-                            md:relative fixed bottom-0 min-h-[333px] md:min-h-fit mb-2 wamellow-modal
-                            w-[97%] md:w-[480px] bg-popover rounded-xl shadow-md
-                            max-sm:[--y-closed:28px] [--opacity-closed:0%] sm:[--scale-closed:90%]
-                            max-sm:[--y-open:0px] [--opacity-open:100%] sm:[--scale-open:100%]
-                        "
+                    <Button
+                        variant={variant}
+                        onClick={() => submit()}
+                        className={cn(!onSubmit && "ml-auto")}
+                        disabled={isDisabled}
                     >
-
-                        <div className="p-4 pb-0">
-                            <Header />
-
-                            <div
-                                className={cn(
-                                    "scrollbar-none p-0.5 pb-8 md:pb-4 max-h-[512px] overflow-y-scroll md:overflow-y-visible overflow-x-hidden",
-                                    className
-                                )}
-                            >
-                                {error &&
-                                    <Notice
-                                        type={NoticeType.Error}
-                                        message={error}
-                                    />
-                                }
-
-                                {children}
-                            </div>
-                        </div>
-
-                        <Separator className="bg-muted h-[1px]" />
-
-                        <Footer />
-                    </motion.div>
-                </motion.div>
-            }
-        </AnimatePresence>
-    </MotionConfig>);
+                        {buttonName}
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    );
 }

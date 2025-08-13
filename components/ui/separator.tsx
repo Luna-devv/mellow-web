@@ -5,12 +5,16 @@ import * as React from "react";
 
 import { cn } from "@/utils/cn";
 
+interface SeparatorProps extends React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {
+    loading?: boolean;
+}
+
 const Separator = React.forwardRef<
     React.ElementRef<typeof SeparatorPrimitive.Root>,
-    React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>
+    SeparatorProps
 >(
     (
-        { className, orientation = "horizontal", decorative = true, ...props },
+        { className, orientation = "horizontal", decorative = true, loading = false, ...props },
         ref
     ) => (
         <SeparatorPrimitive.Root
@@ -18,12 +22,16 @@ const Separator = React.forwardRef<
             decorative={decorative}
             orientation={orientation}
             className={cn(
-                "shrink-0 bg-separator/15",
+                "shrink-0 bg-separator/15 relative overflow-hidden",
                 orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
                 className
             )}
             {...props}
-        />
+        >
+            {loading && (
+                <div className="animate-progress w-full h-full bg-violet-500 origin-left-right" />
+            )}
+        </SeparatorPrimitive.Root>
     )
 );
 Separator.displayName = SeparatorPrimitive.Root.displayName;

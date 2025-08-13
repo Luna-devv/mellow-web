@@ -63,10 +63,12 @@
         @apply cursor-pointer
     }
     html {
+        background: var(--background-rgb);
+    }
+    body {
         font-family: var(--font-outfit), var(--font-noto-sans-jp), sans-serif;
         scroll-behavior: smooth;
         min-height: 100svh;
-        background: var(--background-rgb);
     }
 }
 
@@ -247,4 +249,8 @@ audio {
 
 td:has(audio) {
     padding: 1px!important;
+}
+
+body[data-scroll-locked] {
+  position: static !important;
 }

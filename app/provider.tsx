@@ -8,14 +8,16 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import { guildStore } from "@/common/guilds";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { cn } from "@/utils/cn";
 
 const queryClient = new QueryClient();
 
 interface Props {
     children: React.ReactNode;
+    className?: string;
 }
 
-export function Provider({ children }: Props) {
+export function Provider({ children, className }: Props) {
     const cookies = useCookies();
     const path = usePathname();
 
@@ -38,7 +40,7 @@ export function Provider({ children }: Props) {
         <TooltipProvider>
             <NextUIProvider>
                 <QueryClientProvider client={queryClient}>
-                    <main className="dark:text-neutral-400 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-6xl max-w-full mt-2 md:mt-10">
+                    <main className={cn("dark:text-neutral-400 text-neutral-700 flex flex-col items-center justify-between md:p-5 p-3 w-full max-w-7xl mt-2 md:mt-10", className)}>
                         {children}
                     </main>
                 </QueryClientProvider>
