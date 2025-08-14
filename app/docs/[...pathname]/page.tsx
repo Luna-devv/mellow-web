@@ -1,10 +1,10 @@
-import { Code } from "@nextui-org/react";
 import { readFile } from "fs/promises";
 
 import { Faq } from "@/app/(home)/faq.component";
 import BeautifyMarkdown from "@/components/markdown";
 import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
+import { Badge } from "@/components/ui/badge";
 import metadata from "@/public/docs/meta.json";
 
 interface Props {
@@ -36,18 +36,17 @@ export default async function Home({ params }: Props) {
             {meta?.permissions?.bot &&
                 <Notice
                     type={NoticeType.Info}
-                    message="Wamellow requries permission:"
-                    location="bottom"
+                    message="Wamellow requires permissions"
                 >
                     <div className="flex flex-wrap gap-1">
                         {meta.permissions.bot.map((perm) => (
-                            <Code
+                            <Badge
                                 key={perm}
-                                className="font-semibold text-violet-400"
-                                color="secondary"
+                                className="-my-1"
+                                variant="flat"
                             >
                                 {perm}
-                            </Code>
+                            </Badge>
                         ))}
                     </div>
                 </Notice>
