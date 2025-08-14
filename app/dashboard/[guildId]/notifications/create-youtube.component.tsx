@@ -80,6 +80,7 @@ export function YoutubeNotificationModal({
                 setName("");
                 setChannelId(null);
             }}
+            isDisabled={!name || !channelId}
         >
             <DumbTextInput
                 name="Creator's @handle, id or URL"

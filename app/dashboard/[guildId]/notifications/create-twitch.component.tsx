@@ -71,6 +71,7 @@ export function TwitchNotificationModal({
                 setName("");
                 setChannelId(null);
             }}
+            isDisabled={!name || !channelId}
         >
             <DumbTextInput
                 name="Streamer's username"

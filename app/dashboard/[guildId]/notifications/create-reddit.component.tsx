@@ -6,6 +6,7 @@ import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
+import { Section } from "@/components/section";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
@@ -69,6 +70,7 @@ export function RedditNotificationModal({
                 setName("");
                 setChannelId(null);
             }}
+            isDisabled={!name || !channelId}
         >
             <DumbTextInput
                 name="Subreddit"
@@ -87,17 +89,13 @@ export function RedditNotificationModal({
                 }}
             />
 
-            <div className="mt-4">
-                <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a subreddits&apos; name</span>
-                <br />
-
-                The subreddit name is the string with the leading <code className="break-all">r/</code>, such as <code>r/wamellow</code>.
+            <Section tight title="How to get a users name">
+                The name is the string with the leading <code className="break-all">r/</code>, such as <code>r/wamellow</code>.
                 <br />
                 <br />
 
                 Though, you can also use the link of the subreddit.
-            </div>
-
+            </Section>
         </Modal>
     </>);
 }

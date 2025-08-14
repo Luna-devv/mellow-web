@@ -6,6 +6,7 @@ import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
+import { Section } from "@/components/section";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
@@ -78,6 +79,7 @@ export function BlueskyNotificationModal({
                 setName("");
                 setChannelId(null);
             }}
+            isDisabled={!name || !channelId}
         >
             <DumbTextInput
                 name="Bluesky user"
@@ -96,17 +98,13 @@ export function BlueskyNotificationModal({
                 }}
             />
 
-            <div className="mt-4">
-                <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a user&apos;s handle</span>
-                <br />
-
+            <Section tight title="How to get a users handle">
                 Your handle is likely something like <code className="break-all">tolgchu.bsky.social</code>, some others may have a handle like <code>shi.gg</code>.
                 <br />
                 <br />
 
                 Though, you can also use the link of the user&apos;s profile.
-            </div>
-
+            </Section>
         </Modal>
     </>);
 }
