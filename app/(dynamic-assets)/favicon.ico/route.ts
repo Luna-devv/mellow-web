@@ -33,11 +33,11 @@ export async function GET() {
 
     // does anything even care if it's an actual x-icon lol
     return new Response(
-        icon,
+        new Uint8Array(icon),
         {
             headers: {
                 "Content-Type": "image/png",
-                "Cache-Control": "public, s-maxage=691200, immutable"
+                "Cache-Control": "public, s-max-age=691200, immutable"
             }
         }
     );
