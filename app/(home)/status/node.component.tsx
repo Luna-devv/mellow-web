@@ -20,7 +20,7 @@ export function Node({ index, node }: { index: number; node: ApiNode; }) {
                 </span>
             </div>
 
-            <div>
+            <div className="text-primary-foreground">
                 <Row name="uptime">
                     {node.uptime}
                 </Row>
@@ -53,8 +53,8 @@ function Icon({ id }: { id: string; }) {
 function Row({ name, children }: { name: string; children: ReactNode; }) {
     return (
         <div>
-            <span className="text-neutral-300 font-medium">{children}</span>
-            {" "}{name}
+            {children}
+            <span className="text-muted-foreground mr-1 text-sm">{" "}{name}</span>
         </div>
     );
 }

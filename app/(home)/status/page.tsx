@@ -16,8 +16,7 @@ export default async function Home() {
         <div className="md:flex gap-4 mb-12">
             {error
                 ? <Notice message="Failed to fetch cluster status" />
-                :
-                <div className="space-y-2 w-full md:w-3/4">
+                : <div className="space-y-2 w-full md:w-3/4">
                     {status.clusters.map((cluster) => (
                         <Cluster
                             key={"cluster-" + cluster.id}

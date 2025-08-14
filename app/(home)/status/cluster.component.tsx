@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { HiLightningBolt } from "react-icons/hi";
 
 import { Badge } from "@/components/ui/badge";
@@ -27,26 +28,22 @@ export function Cluster(cluster: ApiCluster) {
             </div>
 
             <div className="md:flex w-2/3 justify-between text-primary-foreground">
-                <div className="md:w-1/4">
-                    <span className="text-muted-foreground mr-1 text-xs">Uptime:</span>
+                <Row name="uptime">
                     {cluster.uptime}
-                </div>
-                <div className="md:w-1/4">
-                    <span className="text-muted-foreground mr-1 text-xs">Memory:</span>
+                </Row>
+                <Row name="memory">
                     {intl.format(cluster.memory)}mb
-                </div>
-                <div className="md:w-1/4">
-                    <span className="text-muted-foreground mr-1 text-xs">Users:</span>
+                </Row>
+                <Row name="users">
                     {intl.format(cluster.users)}
-                </div>
-                <div className="md:w-1/5">
-                    <span className="text-muted-foreground mr-1 text-xs">Guilds:</span>
+                </Row>
+                <Row name="servers" className="w-1/5">
                     {intl.format(cluster.guilds)}
-                </div>
+                </Row>
             </div>
 
             <Badge
-                className={cn(cluster.ping > 0 && "text-neutral-400 bg-wamellow max-w-1/6")}
+                className={cn(cluster.ping > 0 && "max-w-1/6")}
                 variant={cluster.ping < 0 ? "destructive" : "default"}
                 radius="rounded"
             >
@@ -70,5 +67,15 @@ function Icon({ ping }: { ping: number; }) {
             width={32}
             height={32}
         />
+    );
+}
+
+
+function Row({ name, children, className }: { name: string; children: ReactNode; className?: string; }) {
+    return (
+        <div className={cn("md:w-1/5", className)}>
+            {children}
+            <span className="text-muted-foreground mr-1 text-sm">{" "}{name}</span>
+        </div>
     );
 }

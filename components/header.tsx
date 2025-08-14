@@ -134,7 +134,7 @@ export function Header() {
                         size={96}
                     />
 
-                    <p className="mr-1 relative bottom-[1px] truncate block">{user.globalName || user.username}</p>
+                    <p className="mr-1 relative bottom-[1px] truncate block text-primary-foreground font-medium tracking-tight">{user.globalName || user.username}</p>
                     <HiChevronDown />
                 </>
             }
