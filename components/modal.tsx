@@ -1,11 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { HiFire } from "react-icons/hi";
 
 import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 
 import Notice, { NoticeType } from "./notice";
+import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Separator } from "./ui/separator";
@@ -102,12 +105,12 @@ export default function Modal<T>({
 
                 <div
                     className={cn(
-                        "scrollbar-hide overflow-y-scroll overflow-x-hidden max-h-[70vh] py-2",
+                        "scrollbar-hide overflow-y-scroll overflow-x-hidden max-h-[70vh] py-2 px-0.5",
                         className
                     )}
                 >
                     {error && (
-                        <Notice
+                        <ModalNotice
                             type={NoticeType.Error}
                             message={error}
                         />
@@ -141,5 +144,56 @@ export default function Modal<T>({
                 </DialogFooter>
             </DialogContent>
         </Dialog>
+    );
+}
+
+function ModalNotice({
+    icon,
+    message,
+    type = NoticeType.Info,
+    location = "side",
+    children
+}: Parameters<typeof Notice>[0]) {
+    if (message.toLowerCase().includes("premium")) {
+        return (
+            <div className="relative">
+                <Notice
+                    icon={<HiFire className="size-4" />}
+                    message={message}
+                    type={NoticeType.Info}
+                    location="bottom"
+                >
+                    <Button
+                        asChild
+                        className="mt-2"
+                        size="sm"
+                    >
+                        <Link
+                            href={`/premium?utm_source=${window.location.hostname}&utm_medium=modal`}
+                            target="_blank"
+                        >
+                            Upgrade
+                        </Link>
+                    </Button>
+                </Notice>
+
+                <div className="absolute -top-2 -right-0.5 z-10">
+                    <Badge className="rotate-3 backdrop-blur-md backdrop-brightness-75">
+                        First Month Free!!
+                    </Badge>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <Notice
+            icon={icon}
+            message={message}
+            type={type}
+            location={location}
+        >
+            {children}
+        </Notice>
     );
 }

@@ -15,7 +15,9 @@ export async function GET(request: Request) {
     }
 
     const donationQuantity = parseInt(searchParams.get("donation") || "0");
-    const url = await createCheckout(session.value, donationQuantity)
+    const referer = request.headers.get("referer") || "";
+
+    const url = await createCheckout(session.value, donationQuantity, referer)
         .catch((e) => e);
 
     if (url instanceof Error) {

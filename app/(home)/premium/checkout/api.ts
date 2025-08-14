@@ -4,14 +4,14 @@ interface CheckoutResponse {
     url: string;
 }
 
-export async function createCheckout(session: string, donationQuantity: number) {
+export async function createCheckout(session: string, donationQuantity: number, referer: string) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/billing/checkout`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Cookie: `session=${session}`
         },
-        body: JSON.stringify({ donationQuantity })
+        body: JSON.stringify({ donationQuantity, referer })
     });
 
     const res = await response.json() as CheckoutResponse | ApiError;
