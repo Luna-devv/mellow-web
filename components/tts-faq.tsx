@@ -1,12 +1,14 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
-import { HiExternalLink } from "react-icons/hi";
+import { HiExternalLink, HiOutlineHand } from "react-icons/hi";
 
 import { Button } from "./ui/button";
 
 export function TTSFaq() {
     const cookies = useCookies();
+    const params = useParams();
 
     return (
         <Accordion
@@ -29,7 +31,7 @@ export function TTSFaq() {
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 />
 
-                <DocumentationLink />
+                <Buttons guildId={params.guildId as string} />
             </AccordionItem>
             <AccordionItem
                 key="2"
@@ -46,9 +48,18 @@ export function TTSFaq() {
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 />
 
-                <DocumentationLink />
+                <Buttons guildId={params.guildId as string} />
             </AccordionItem>
         </Accordion>
+    );
+}
+
+function Buttons({ guildId }: { guildId: string; }) {
+    return (
+        <div className="flex gap-1.5 my-2">
+            <DocumentationLink />
+            <BlockWordsAndSlursButton guildId={guildId} />
+        </div>
     );
 }
 
@@ -56,16 +67,32 @@ function DocumentationLink() {
     return (
         <Button
             asChild
-            className="my-2"
             size="sm"
         >
             <Link
-                className="flex items-center"
                 href="/docs/text-to-speech"
                 target="_blank"
             >
                 Read the documentation
                 <HiExternalLink />
+            </Link>
+        </Button>
+    );
+}
+
+function BlockWordsAndSlursButton({ guildId }: { guildId: string; }) {
+    return (
+        <Button
+            asChild
+            size="sm"
+        >
+            {/* it causes weird state issues with the pill bar without target="_top */}
+            <Link
+                href={`/dashboard/${guildId}/moderation`}
+                target="_top"
+            >
+                <HiOutlineHand className="size-4" />
+                Block words and slurs
             </Link>
         </Button>
     );

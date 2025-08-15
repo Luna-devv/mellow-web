@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { guildStore } from "@/common/guilds";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import Switch from "@/components/inputs/switch";
+import TextInput from "@/components/inputs/text-input";
 import Notice from "@/components/notice";
 import { useApi } from "@/lib/api/hook";
 import { type ApiV1GuildsModulesAutomodGetResponse, AutomodType } from "@/typings";
@@ -59,6 +60,9 @@ export default function Home() {
                     defaultState={data.whitelistChannelIds}
                     max={50}
                     disabled={!enabled}
+                    onSave={(value) => {
+                        edit("whitelistChannelIds", value.map((entry) => entry.value as string));
+                    }}
                 />
             </div>
             <div className="lg:w-1/2">
@@ -71,8 +75,23 @@ export default function Home() {
                     defaultState={data.whitelistRoleIds}
                     max={20}
                     disabled={!enabled}
+                    onSave={(value) => {
+                        edit("whitelistRoleIds", value.map((entry) => entry.value as string));
+                    }}
                 />
             </div>
         </div>
+
+        <TextInput
+            name="Keyword filter"
+            url={url}
+            dataName="keywordFilter"
+            description="Separate words or phrases with a comma (dog, cat, tiger) or new line. For each word, use * at the beginning, end, or both for partial matching."
+            defaultState={data.keywordFilter.join(", ")}
+            max={Infinity}
+            onSave={(value) => {
+                edit("keywordFilter", (value as string | null)?.split(",").map((word) => word.trim()) || []);
+            }}
+        />
     </>);
 }

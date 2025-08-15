@@ -369,6 +369,7 @@ export interface ApiV1GuildsModulesAutomodGetResponse {
     status: Record<AutomodType, boolean>;
     whitelistChannelIds: string[];
     whitelistRoleIds: string[];
+    keywordFilter: string[];
 }
 
 export interface Upload {
