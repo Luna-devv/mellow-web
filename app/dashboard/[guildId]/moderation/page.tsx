@@ -23,7 +23,7 @@ export default function Home() {
     const url = `/guilds/${params.guildId}/modules/automod` as const;
     const { data, isLoading, error, edit } = useApi<ApiV1GuildsModulesAutomodGetResponse>(url);
 
-    const enabled = data && !("message" in data) && Object.values(data.status).some(Boolean);
+    const enabled = data && !("message" in data) && (Object.values(data.status).some(Boolean) || data.keywordFilter.length);
 
     if (isLoading) return <></>;
 
@@ -90,7 +90,7 @@ export default function Home() {
             defaultState={data.keywordFilter.join(", ")}
             max={Infinity}
             onSave={(value) => {
-                edit("keywordFilter", (value as string | null)?.split(",").map((word) => word.trim()) || []);
+                edit("keywordFilter", (value as string | null)?.split(/,|\n/).map((word) => word.trim()) || []);
             }}
         />
     </>);

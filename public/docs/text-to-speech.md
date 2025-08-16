@@ -21,12 +21,6 @@ It's absolutely crucial for people with speech impairments like aphonia or dysph
 
 To get a quick **.mp3 file** of your message, use `/tts file` in any text channel.
 
-### 🌎 Auto Translate
-Automatically translate messages from any language to match your [current voice's language](/docs/text-to-speech#voices) for free.
-
-* **For Commands**: Set the `translate` option to `yes` (i.e.: `/tts voice text:Hello World translate:yes`)
-* **For Chat to Speech**: Append `-tr` to the end of your message (i.e.: `Hello World -tr`)
-
 ### 📑 Usage logs
 Pick a channel where any Text to Speech events from your server should be logged, mainly for moderation purposes.
 <br />
@@ -56,19 +50,22 @@ Discord Nitro members can send messages with up to 4,000 characters, while non-N
 <br />
 <br />
 
-While this feature is free, we would be grateful if you could consider [shooting us a donation](https://ko-fi.com/mwlica) or [voting on top.gg](/vote). Please note that messages longer than 300 characters are vote locked. Unfortunately, money and growth (sadly) don't grow on trees (money isn't exactly normal paper).
+While this feature is free, we would be grateful if you could consider [shooting us a donation](/premium) or [voting on top.gg](/vote). Please note that messages longer than 300 characters are vote locked. Unfortunately, money and growth (sadly) don't grow on trees (money isn't exactly normal paper).
 
 ### 🤚 Blacklist users & roles
 If you want to prevent certain users from using text or chat to speech, you can either use Discord's channel or integration permission system. ([watch a tutorial](/disable-commands))
 
-## Server nodes & regions
-For optimal latency and performance when using Text to Speech in voice channels, Wamellow has multiple server nodes in different regions.
-A list of available nodes and regions can be found [on the status page](/status).
+## Moderation
+You can use Wamellow's native **<:badge_automod:1307719909618225263> AutoMod** to block certain words or phrases for Text-to-Speech by [setting up rules on your server's Moderation tab](/profile?to=moderation).
+Separate words or phrases with a comma (e.g., `dog, cat, tiger`) or a new line. For each word, use an asterisk (`*`) at the beginning, end, or both for partial matching.
 <br />
 <br />
 
-If the voice channel's *Region Override* is set to `Automatic`, it will default to Frankfurt, Germany.
-If an override is set, it will use the selected region, if available.
+Members with `Manage Server` or `Administrator` permissions will bypass AutoMod. Separate whitelisted roles and channels can also be added to bypass AutoMod in the moderation settings.
+<br />
+<br />
+
+**Note:** For `/tts` commands, only Wamellow's native AutoMod can block messages. Chat-to-Speech messages can also be blocked by Discord's native AutoMod — and all other bots that rely on it —  in addition to Wamellow's own. If you're using a third-party moderation system, such as other bots, that only delete messages after they were sent, rather than blocking them directly, will not be able to block messages for Text-to-Speech.
 
 ## Avoiding Chat-to-Speech
 To prevent Wamellow from speaking your messages inside of Chat to Speech channels, simply take the following actions:
@@ -79,7 +76,7 @@ To prevent Wamellow from speaking your messages inside of Chat to Speech channel
 <br />
 
 **Note:** Any of those methods only apply to you and your own messages, and not to anyone else using chat to speech.
-If you want to disable it for everyone, read the [setup section of these docs](#setup).
+If you want to disable it for everyone, [read the setup section of these docs](#setup).
 
 ## Voice filters
 Filters are a way to tamper with the voices when using Wamellow in VCs, they can be toggled using `/tts set filter` by VC moderators.
@@ -99,24 +96,25 @@ All currently available filters:
 <br />
 
 To change the volume of the TTS or mute it entirely for yourself,
-- (desktop) Right-click Wamellow, and set the "User Volume" slider.
-- (mobile) Open Wamellows' profile, and set the "Volume" slider.
+- **(desktop)** Right-click Wamellow, and set the "User Volume" slider.
+- **(mobile)** Open Wamellows' profile, and set the "Volume" slider.
 
 ![how to change the volume of Wamellow TTS](/docs-assets/tts-volume.webp)
-
-## Troubleshooting
-If Wamellow joins the voice channel but doesn't speak, check that it has the `Connect` and `Speak` permissions in the channel settings. If it does, [please report the issue to us](/support).
-<br />
-<br />
-
-If Wamellow says that someone else's message is still being spoken, but it's not talking, use `/tts voice-stop`.
-You can also use this to stop any message that is currently being spoken (i.e.: because of spam).
 
 ## Voices
 You can change your default language and voice either by running `/tts set speaker` or by [setting it on the dashboard](/profile/text-to-speech).
 <br />
 <br />
-You can also change the voice on a per-message basis by setting the `voice` option when using `/tts file` or `/tts voice`, i.e.: `/tts voice text:Hello World voice:en_female_samc`. This can also be combined with the [auto translate](/docs/text-to-speech) flag.
+
+You can also change the voice on a per-message basis by setting the `voice` option when using `/tts file` or `/tts voice`, i.e.: `/tts voice text:Hello World voice:en_female_samc`. This can also be combined with the auto translate flag.
+
+### 🌎 Auto Translate
+Automatically translate messages from any language to match your current voice's language for free.
+
+* **For Commands**: Set the `translate` option to `yes` (i.e.: `/tts voice text:Hallo Welt translate:yes`)
+* **For Chat to Speech**: Append `-tr` to the end of your message (i.e.: `Hallo Welt -tr`)
+
+### <:YA_PepeStare:832631300132438046> List of Available Voices
 
 <table>
     <thead>
@@ -226,3 +224,20 @@ You can also change the voice on a per-message basis by setting the `voice` opti
         <tr><td>🇺🇸 English (singing)</td><td>Pop Lullaby (Female)</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_f08_twinkle.mp3" /></td></tr>
     </tbody>
 </table>
+
+## Server nodes & regions
+For optimal latency and performance when using Text to Speech in voice channels, Wamellow has multiple server nodes in different regions.
+A list of available nodes and regions can be found [on the status page](/status).
+<br />
+<br />
+
+If the voice channel's *Region Override* is set to `Automatic`, it will default to Frankfurt, Germany.
+If an override is set, it will use the selected region, if available.
+
+## Troubleshooting
+If Wamellow joins the voice channel but doesn't speak, check that it has the `Connect` and `Speak` permissions in the channel settings. If it does, [please report the issue to us](/support).
+<br />
+<br />
+
+If Wamellow says that someone else's message is still being spoken, but it's not talking, use `/tts voice-stop`.
+You can also use this to stop any message that is currently being spoken (i.e.: because of spam).
