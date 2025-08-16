@@ -90,7 +90,7 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
 function Socials() {
     return (
         <div className="ml-auto svg-max flex flex-wrap items-center gap-2 mt-2 md:mt-0">
-            <Link href="https://discord.com/discovery/applications/1125449347451068437" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow in the Discord Bot Directory">
+            <Link href="https://discord.com/discovery/applications/1125449347451068437" className="text-white/75 hover:text-white duration-200 size-5" aria-label="Wamellow in the Discord Bot Directory">
                 <SiDiscord />
             </Link>
             <Link href="https://youtube.com/@wamellow" className="text-white/75 hover:text-white duration-200 size-6" aria-label="Wamellow on YouTube">

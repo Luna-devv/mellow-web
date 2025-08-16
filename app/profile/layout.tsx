@@ -87,12 +87,11 @@ export default function RootLayout({
                                     {user.globalName || user.username}
                                 </div>
                                 <Link
-                                    className="font-bold"
                                     href="/vote"
                                     target="_blank"
                                 >
                                     <Badge
-                                        className="h-7 font-semibold"
+                                        className="h-7 font-bold"
                                         variant="flat"
                                     >
                                         <HiFire/>

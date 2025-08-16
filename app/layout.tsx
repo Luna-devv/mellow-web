@@ -10,6 +10,7 @@ import { CookiesProvider } from "next-client-cookies/server";
 
 import { Header } from "@/components/header";
 import { LoginButton } from "@/components/login-button";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
@@ -186,23 +187,30 @@ async function NavBar({ className }: { className?: string; }) {
             </Link>
 
             <Separator
-                className="h-10 rotate-6 mx-3"
+                className="h-10 rotate-6 ml-3"
                 orientation="vertical"
             />
 
-            <div className="flex shrink-0 gap-4">
-                <Link
-                    href="/docs/index"
-                    className="hover:text-neutral-100 duration-100"
+            <div className="flex shrink-0">
+                <Button
+                    asChild
+                    size="sm"
+                    variant="ghost"
                 >
-                    Documentation
-                </Link>
-                <Link
-                    href="/premium"
-                    className="hidden sm:block hover:text-neutral-100 duration-100"
+                    <Link href="/docs/index">
+                        Documentation
+                    </Link>
+                </Button>
+                <Button
+                    asChild
+                    className="hidden sm:flex"
+                    size="sm"
+                    variant="ghost"
                 >
-                    Premium
-                </Link>
+                    <Link href="/premium">
+                        Premium
+                    </Link>
+                </Button>
             </div>
 
             {jar.get("session")?.value
