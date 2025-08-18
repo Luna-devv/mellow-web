@@ -4,7 +4,7 @@ import type { HTMLProps } from "react";
 import { BiCopyright, BiLogoGithub, BiLogoGmail, BiLogoReddit, BiLogoYoutube } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
 import { FaBluesky } from "react-icons/fa6";
-import { HiBookOpen, HiCloud, HiCube, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
+import { HiBookOpen, HiCloud, HiCube, HiGlobe, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
 import { SiDiscord, SiKofi } from "react-icons/si";
 
 import TopggIcon from "@/components/icons/topgg";
@@ -136,6 +136,13 @@ function Links() {
                 >
                     <HiHand />
                     Privacy Policy
+                </Link>
+                <Link
+                    className="text-primary/75 hover:text-primary/65 duration-200 flex items-center gap-2"
+                    href="/impressum"
+                >
+                    <HiGlobe />
+                    Impressum
                 </Link>
             </div>
             <div>
