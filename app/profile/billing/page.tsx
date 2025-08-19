@@ -16,6 +16,7 @@ import InputSwitch from "@/components/inputs/switch";
 import Modal from "@/components/modal";
 import Notice from "@/components/notice";
 import { OverviewLink } from "@/components/overview-link";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -28,7 +29,7 @@ export default function Home() {
 
     const { data, isLoading, error, edit } = useApi<ApiV1UsersMeBillingGetResponse>("/users/@me/billing");
 
-    if ((isLoading && !user?.premium) || (!isLoading && !data) || (data && data.status !== "active")) {
+    if ((isLoading && !user?.premium) || (!isLoading && !data) || (data && data.status !== "active" && data.status !== "trialing")) {
         return (<>
             {(error && error !== "Not Found") && <Notice message={error} />}
 
@@ -52,6 +53,10 @@ export default function Home() {
         </>);
     }
 
+    const trialEndsInDays = data?.status === "trialing"
+        ? Math.floor(((data?.currentPeriodEnd - Date.now() / 1000) / (60 * 60 * 24)))
+        : 0;
+
     return (
         <div className="space-y-2">
             <Box
@@ -59,7 +64,16 @@ export default function Home() {
                 small
             >
                 <div className="flex flex-col">
-                    <h2 className="font-bold text-3xl bg-gradient-to-r bg-clip-text text-transparent from-violet-400/80 to-indigo-400/80">Wamellow Premium</h2>
+                    <h2 className="font-bold text-3xl bg-gradient-to-r bg-clip-text text-transparent from-violet-400/80 to-indigo-400/80">
+                        Wamellow Premium
+                        {data?.status === "trialing" && (
+                            <Badge
+                                className="relative bottom-1 ml-2"
+                            >
+                                trial — Ends {trialEndsInDays > 1 ? "in " : ""}{trialEndsInDays === 0 ? "Today" : trialEndsInDays === 1 ? "Tomorrow" : trialEndsInDays} {trialEndsInDays > 1 ? "days" : ""}
+                            </Badge>
+                        )}
+                    </h2>
                     <p className="text-muted-foreground">You have all premium features for <span className="font-semibold text-neutral-300">EUR {(4 + (data?.donationQuantity || 0)).toFixed(2)} / {data?.priceId.startsWith("monthly_") ? "Month" : "Year"}</span>!</p>
                 </div>
                 <div className="flex gap-1 mt-4 md:mt-0">
@@ -83,9 +97,9 @@ export default function Home() {
                                 Your subscription will expire on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span> and you will not be charged again.
                             </p>
                             : <p>
-                                Your subscription will be automatically renewed on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span> and you{"'"}ll be charged <span className="font-semibold text-neutral-300">EUR {(4 + (data!.donationQuantity || 0)).toFixed(2)}</span>.
+                                Your subscription will renew on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span>, for a total of <span className="font-semibold text-neutral-300">EUR {(4 + (data!.donationQuantity || 0)).toFixed(2)}</span>.
 
-                                You{"'"}re paying <span className="font-semibold text-neutral-300">EUR {(4).toFixed(2)} — Premium</span> and <span className="font-semibold text-neutral-300">EUR {(data!.donationQuantity || 0).toFixed(2)} — Donation{data!.donationQuantity ? "s" : ""}</span>
+                                You{"'"}re paying <span className="font-semibold text-neutral-300">EUR {(4).toFixed(2)} Premium</span> and <span className="font-semibold text-neutral-300">EUR {(data!.donationQuantity || 0).toFixed(2)} Donation{data!.donationQuantity ? "s" : ""}</span>
                                 {" "}
                                 (<Button
                                     className="text-sm p-0 m-0 h-3 text-violet-400"
@@ -136,6 +150,7 @@ export default function Home() {
                     open={changeDonationModalOpen}
                     setOpen={setChangeDonationModalOpen}
                     donationQuantity={data?.donationQuantity || 0}
+                    trialing={data.status === "trialing"}
                     edit={edit}
                 />
             )}
@@ -235,11 +250,13 @@ function ChangeDonationAmountModal({
     open,
     setOpen,
     donationQuantity: defaultDonationQuantity,
+    trialing,
     edit
 }: {
     open: boolean;
     setOpen: (open: boolean) => void;
     donationQuantity: number;
+    trialing: boolean;
     edit: ApiEdit<ApiV1UsersMeBillingGetResponse>;
 }) {
     const [donation, setDonation] = useState(defaultDonationQuantity);
@@ -294,10 +311,15 @@ function ChangeDonationAmountModal({
                     <div className="flex justify-between items-center mb-4">
                         <div>
                             <h2 className="text-lg font-medium text-neutral-100">Due Today</h2>
-                            <p className="text-sm text-neutral-500">You{"'"}ll recieve an invoice via email.</p>
+                            <p className="text-sm text-neutral-500">
+                                {trialing
+                                    ? "Due to your active trial, you will not be charged today."
+                                    : "You will receive an invoice via email."
+                                }
+                            </p>
                         </div>
 
-                        <span className="text-xl font-medium text-neutral-100">€{dueToday.toFixed(2)}</span>
+                        <span className="text-xl font-medium text-neutral-100">€{trialing ? 0 : dueToday.toFixed(2)}</span>
                     </div>
                 )}
 
