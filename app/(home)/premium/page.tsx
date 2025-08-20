@@ -33,6 +33,7 @@ const items = [
     { title: "Price", free: "€0 /forever", premium: "€4 /month" },
 
     { title: "Your Benefits", icon: <HiUser /> },
+    { title: "Text to Speech", free: Infinity, premium: Infinity, unit: "chars /month" },
     { title: "TTS Translations", free: 10_000, premium: 100_000, unit: "chars /month" },
     { title: "Bypass voting", free: false, premium: true, tooltip: <OtherBotsTooltip /> },
     { title: "Bypass passport", free: false, premium: true },
@@ -241,8 +242,13 @@ function displayState(is: string | number | boolean | null, unit?: string) {
         if (is === null) return <BsQuestionLg className="text-orange-400 dark:text-orange-600 w-6 h-6" title="To be discussed" />;
     }
 
-    if (is === Infinity) return <IoMdInfinite className="w-7 h-7" title="Infinite" />;
-    if (typeof is === "number") return <>{is.toLocaleString()} <span className="text-sm text-muted-foreground">{unit}</span></>;
+    if (typeof is === "number") {
+        return (<>
+            {is === Infinity ? <IoMdInfinite className="w-7 h-7" title="Infinite" /> : is.toLocaleString()}
+            <span className="text-sm text-muted-foreground ml-1">{unit}</span>
+        </>);
+    }
+
     return is;
 }
 

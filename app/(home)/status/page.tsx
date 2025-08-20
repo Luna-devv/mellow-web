@@ -6,7 +6,7 @@ import { Cluster } from "./cluster.component";
 import { Node } from "./node.component";
 import { Side } from "./side.component";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export default async function Home() {
     const status = await getStatus();
