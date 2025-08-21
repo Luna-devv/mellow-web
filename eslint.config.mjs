@@ -1,12 +1,12 @@
-import tseslint from "typescript-eslint";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
 import next from "@next/eslint-plugin-next";
-import reactCompiler from "eslint-plugin-react-compiler";
+import stylistic from "@stylistic/eslint-plugin";
 import pathAlias from "eslint-plugin-path-alias";
+import react from "eslint-plugin-react";
+import reactCompiler from "eslint-plugin-react-compiler";
+import reactHooks from "eslint-plugin-react-hooks";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unusedImports from "eslint-plugin-unused-imports";
-import stylistic from "@stylistic/eslint-plugin";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
     ...tseslint.configs.recommended,
@@ -38,7 +38,7 @@ export default tseslint.config(
             ...next.configs.recommended.rules,
             ...next.configs["core-web-vitals"].rules,
 
-            // Fixes 
+            // Fixes
             "react/prop-types": "off",
             "react-hooks/exhaustive-deps": "off",
 
