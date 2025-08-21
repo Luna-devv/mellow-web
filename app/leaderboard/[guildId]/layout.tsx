@@ -13,7 +13,7 @@ import { getCanonicalUrl } from "@/utils/urls";
 import { getDesign, getPagination } from "./api";
 import Side from "./side.component";
 
-export interface Props {
+interface Props {
     params: Promise<{ guildId: string; }>;
     children: React.ReactNode;
 }

@@ -12,7 +12,10 @@ import { getCanonicalUrl } from "@/utils/urls";
 
 import { getTopMembers } from "../api";
 import Icon from "../icon.component";
-import type { Props } from "../layout";
+
+interface Props {
+    params: Promise<{ guildId: string; }>;
+}
 
 export const revalidate = 3600; // 1 hour
 
