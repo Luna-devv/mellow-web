@@ -466,10 +466,13 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
         avatarUrl: string | null;
     };
 
-    style: {
-        name: string | null;
-        avatarUrl: string | null;
-    } | null
+    username: string | null;
+    avatar: string | null;
+}
+
+export interface ApiV1GuildsModulesNotificationStylePatchResponse {
+    username: string;
+    avatar: string | null;
 }
 
 export enum DailypostType {

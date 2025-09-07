@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { HiOutlineUpload, HiPencil, HiSparkles, HiX } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
@@ -10,7 +10,7 @@ import Modal from "@/components/modal";
 import { Section } from "@/components/section";
 import { UserAvatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import type { ApiV1GuildsModulesNotificationsGetResponse } from "@/typings";
+import type { ApiV1GuildsModulesNotificationsGetResponse, ApiV1GuildsModulesNotificationStylePatchResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 
 const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -23,7 +23,7 @@ export function NotificationStyle({
 }: {
     item: ApiV1GuildsModulesNotificationsGetResponse;
     premium: boolean;
-    onEdit: (opts: { name: string; avatarUrl: string | null; }) => void;
+    onEdit: (opts: ApiV1GuildsModulesNotificationStylePatchResponse) => void;
 }) {
     const [open, setOpen] = useState(false);
 
@@ -33,30 +33,32 @@ export function NotificationStyle({
 
             <div className="backdrop-blur-3xl backdrop-brightness-[25%] rounded-[6px] pr-4 py-4 pl-6 md:py-8 md:pl-10 flex gap-6 items-center">
                 <UserAvatar
-                    alt={premium && item.style ? (item.style.name || "") : "Wamellow"}
+                    alt={premium && item.username ? item.username : "Wamellow"}
                     className="size-24"
-                    src={premium && item.style ? (item.style.avatarUrl || "/discord.webp") : "/waya-v3.webp"}
+                    src={premium && item.username && item.avatar ? `https://r2.wamellow.com/avatars/webhooks/${item.avatar}` : "/waya-v3.webp"}
                 />
 
                 <div className="space-y-2">
                     <span className="text-3xl font-medium text-primary-foreground">
-                        {premium && item.style ? (item.style.name || "Unknown") : "Wamellow"}
+                        {premium && item.username ? item.username : "Wamellow"}
                     </span>
-                    {premium
-                        ? <Button onClick={() => setOpen(true)}>
-                            <HiPencil />
-                            Change Style
-                        </Button>
-                        : <Button asChild>
-                            <Link
-                                href={`/premium?utm_source=${window.location.hostname}&utm_medium=notification-styles`}
-                                target="_blank"
-                            >
-                                <HiSparkles />
+                    <div className="flex">
+                        {premium
+                            ? <Button onClick={() => setOpen(true)}>
+                                <HiPencil />
                                 Change Style
-                            </Link>
-                        </Button>
-                    }
+                            </Button>
+                            : <Button asChild>
+                                <Link
+                                    href={`/premium?utm_source=${window.location.hostname}&utm_medium=notification-styles`}
+                                    target="_blank"
+                                >
+                                    <HiSparkles />
+                                    Change Style
+                                </Link>
+                            </Button>
+                        }
+                    </div>
                 </div>
 
                 <ExampleMessages />
@@ -65,8 +67,8 @@ export function NotificationStyle({
 
         <ChangeStyleModal
             id={item.id}
-            username={item.style?.name || null}
-            avatarUrl={item.style?.avatarUrl || null}
+            username={item.username || null}
+            avatarUrl={item.avatar ? `https://r2.wamellow.com/avatars/webhooks/${item.avatar}` : null}
 
             isOpen={open}
             onClose={() => setOpen(false)}
@@ -116,7 +118,7 @@ interface Props {
 
     isOpen: boolean;
     onClose: () => void;
-    onEdit: (opts: { name: string; avatarUrl: string | null; }) => void;
+    onEdit: (opts: ApiV1GuildsModulesNotificationStylePatchResponse) => void;
 }
 
 export function ChangeStyleModal({
@@ -132,32 +134,41 @@ export function ChangeStyleModal({
     const avatarRef = useRef<HTMLInputElement | null>(null);
 
     const [name, setName] = useState(username);
-    const [avatar, setAvatar] = useState<string | null>(avatarUrl);
+    const [avatar, setAvatar] = useState<ArrayBuffer | string | null>(avatarUrl);
     const [error, setError] = useState<string | null>(null);
 
+    const renderable = useMemo(
+        () => !avatar || typeof avatar === "string"
+            ? avatar || "/waya-v3.webp"
+            : URL.createObjectURL(new Blob([avatar])),
+        [avatar]
+    );
+
     return (<>
-        <Modal<ApiV1GuildsModulesNotificationsGetResponse>
+        <Modal<ApiV1GuildsModulesNotificationStylePatchResponse>
             title="Edit Notification Style"
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={() => {
+                onClose();
+                setError(null);
+            }}
             onSubmit={() => {
                 const valid = isValidUsername(name);
-                if (!valid) return new Error("Invalid name");
+                if (!name || !valid) return new Error("Invalid name");
+
+                const formData = new FormData();
+                formData.append("json_payload", JSON.stringify({ username: name }));
+                if (avatar && typeof avatar !== "string") formData.append("file", new Blob([avatar]));
 
                 return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/notifications/${id}/style`, {
                     method: "PATCH",
                     credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name,
-                        avatar: avatar?.startsWith("data:") ? avatar : null
-                    })
+                    body: formData
                 });
             }}
-            onSuccess={() => {
-                onEdit({ name: name!, avatarUrl: avatar! });
+            onSuccess={(style) => {
+                onEdit(style);
+                setError(null);
             }}
             isDisabled={!name || Boolean(error)}
         >
@@ -187,19 +198,10 @@ export function ChangeStyleModal({
                         return;
                     }
 
-                    const reader = new FileReader();
 
-                    reader.onload = () => {
-                        if (typeof reader.result === "string") {
-                            setAvatar(reader.result);
-                        }
-                    };
-
-                    reader.onerror = () => {
-                        setError("Failed to read the file.");
-                    };
-
-                    reader.readAsDataURL(file);
+                    file.arrayBuffer().then((buffer) => {
+                        setAvatar(buffer);
+                    });
                 }}
                 ref={avatarRef}
                 type="file"
@@ -229,7 +231,7 @@ export function ChangeStyleModal({
                         mode="DARK"
                         user={{
                             username: name || "Wamellow",
-                            avatar: avatar || "/waya-v3.webp",
+                            avatar: renderable,
                             bot: true
                         }}
                     >

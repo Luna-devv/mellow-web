@@ -43,6 +43,7 @@ export default function Home() {
         items,
         setItemId,
         editItem,
+        editObj,
         addItem,
         removeItem,
         isLoading,
@@ -169,7 +170,7 @@ export default function Home() {
                 name="Channel"
                 url={url + "/" + item.id}
                 dataName="channelId"
-                items={createSelectableItems(guild?.channels)}
+                items={createSelectableItems(guild?.channels, ["ViewChannel", "SendMessages", "EmbedLinks", item.username ? "ManageWebhooks" : null, item.roleId ? "MentionEveryone" : null])}
                 description="Select a channel where notifications should be send into."
                 defaultState={item.channelId}
                 onSave={(o) => editItem("channelId", o.value as string)}
@@ -228,6 +229,7 @@ export default function Home() {
                     dataName="regex"
                     description="Posts that match the provided regex will be ignored."
                     defaultState={item.regex || ""}
+                    onSave={(value) => editItem("regex", value as string)}
                 />
             }
         </div>
@@ -240,13 +242,14 @@ export default function Home() {
                 dataName="regex"
                 description="Posts that match the provided regex will be ignored."
                 defaultState={item.regex || ""}
+                onSave={(value) => editItem("regex", value as string)}
             />
         )}
 
         <NotificationStyle
             item={item}
             premium={premium}
-            onEdit={(style) => editItem("style", style)}
+            onEdit={editObj}
         />
 
         <MessageCreatorEmbed
@@ -255,10 +258,10 @@ export default function Home() {
             url={url + "/" + item.id}
             dataName="message"
             defaultMessage={item.message}
-            user={premium && item.style
+            user={premium && item.username
                 ? {
-                    username: item.style.name || "",
-                    avatar: item.style.avatarUrl || "/discord.webp",
+                    username: item.username || "",
+                    avatar: item.avatar ? `https://r2.wamellow.com/avatars/webhooks/${item.avatar}` : "/discord.webp",
                     bot: true
                 }
                 : undefined

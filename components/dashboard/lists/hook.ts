@@ -55,6 +55,18 @@ export function useList<T extends { id: string; }>({ url }: UseDataQueryOptions)
         [item, data, url, queryClient]
     );
 
+    const editObj = useCallback(
+        <K extends keyof T>(payload: Record<K, T[K]>) => {
+            if (!item || !Array.isArray(data)) return;
+
+            queryClient.setQueryData<T[]>(url, () => [
+                ...(data?.filter((t) => t.id !== item.id) || []),
+                { ...item, ...payload }
+            ]);
+        },
+        [item, data, url, queryClient]
+    );
+
     const addItem = useCallback(
         (newItem: T) => {
             if (!Array.isArray(data)) return;
@@ -83,6 +95,7 @@ export function useList<T extends { id: string; }>({ url }: UseDataQueryOptions)
         items: Array.isArray(data) ? data : [],
         setItemId,
         editItem,
+        editObj,
         addItem,
         removeItem,
         isLoading,

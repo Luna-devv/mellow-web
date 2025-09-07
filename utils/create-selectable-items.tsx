@@ -18,7 +18,7 @@ function parsePermissions(permissions: number, required: PermissionNames[]) {
 
 export function createSelectableItems<T extends Item>(
     items: T[] | undefined,
-    requiredPermissions?: PermissionNames[],
+    requiredPermissions?: (PermissionNames | null)[],
     allowedTypes: ChannelType[] = [ChannelType.GuildText, ChannelType.GuildAnnouncement]
 ) {
     if (!items?.length) return [];
@@ -36,7 +36,7 @@ export function createSelectableItems<T extends Item>(
             value: item.id,
             color: "color" in item ? item.color : undefined,
             error: "permissions" in item
-                ? parsePermissions(item.permissions, requiredPermissions || []).join(", ")
+                ? parsePermissions(item.permissions, requiredPermissions?.filter((perm) => perm !== null) || []).join(", ")
                 : undefined
         }));
 }
