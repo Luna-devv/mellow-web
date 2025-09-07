@@ -23,6 +23,10 @@ export interface ApiV1UsersMeGuildsGetResponse {
     bot: boolean;
 }
 
+export enum GuildFlags {
+    Premium = 1 << 0,
+}
+
 export interface ApiV1GuildsGetResponse {
     id: string;
     name: string;
@@ -45,6 +49,7 @@ export interface ApiV1GuildsGetResponse {
         queue: boolean | null;
     };
     embedLinks: boolean;
+    flags: number;
 }
 
 export interface ApiV1GuildsTopmembersGetResponse {
@@ -460,6 +465,11 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
         customUrl: string;
         avatarUrl: string | null;
     };
+
+    style: {
+        name: string | null;
+        avatarUrl: string | null;
+    } | null
 }
 
 export enum DailypostType {

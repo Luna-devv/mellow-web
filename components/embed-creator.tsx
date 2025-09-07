@@ -32,6 +32,12 @@ interface Props {
     messageAttachmentComponent?: React.ReactNode;
     showMessageAttachmentComponentInEmbed?: boolean;
 
+    user?: {
+        username: string;
+        avatar: string;
+        bot: boolean;
+    };
+
     disabled?: boolean;
     onSave?: (state: { content?: string | null; embed?: GuildEmbed; }) => void;
 }
@@ -48,6 +54,8 @@ export default function MessageCreatorEmbed({
 
     messageAttachmentComponent,
     showMessageAttachmentComponentInEmbed,
+
+    user,
 
     disabled,
     onSave
@@ -231,7 +239,7 @@ export default function MessageCreatorEmbed({
 
                                 <DiscordMessage
                                     mode={mode}
-                                    user={{
+                                    user={user || {
                                         username: "Wamellow",
                                         avatar: "/waya-v3.webp",
                                         bot: true
@@ -255,9 +263,7 @@ export default function MessageCreatorEmbed({
                                     </DiscordMessageEmbed>
 
                                     {!showMessageAttachmentComponentInEmbed && messageAttachmentComponent}
-
                                 </DiscordMessage>
-
                             </div>
 
                         </div>

@@ -21,7 +21,7 @@ import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import { Button } from "@/components/ui/button";
 import { cacheOptions } from "@/lib/api";
-import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationFlags, NotificationType } from "@/typings";
+import { type ApiV1GuildsModulesNotificationsGetResponse, GuildFlags, NotificationFlags, NotificationType } from "@/typings";
 import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -29,10 +29,13 @@ import { getCanonicalUrl } from "@/utils/urls";
 import { hasBlueskyPost } from "./api";
 import { DeleteNotification } from "./delete.component";
 import { CreateNotificationSelect, Icon, Style } from "./select.component";
+import { NotificationStyle } from "./style.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);
     const params = useParams();
+
+    const premium = ((guild?.flags || 0) & GuildFlags.Premium) === GuildFlags.Premium;
 
     const url = `/guilds/${params.guildId}/modules/notifications` as const;
     const {
@@ -240,12 +243,26 @@ export default function Home() {
             />
         )}
 
+        <NotificationStyle
+            item={item}
+            premium={premium}
+            onEdit={(style) => editItem("style", style)}
+        />
+
         <MessageCreatorEmbed
             key={item.id}
             name="Message"
             url={url + "/" + item.id}
             dataName="message"
             defaultMessage={item.message}
+            user={premium && item.style
+                ? {
+                    username: item.style.name || "",
+                    avatar: item.style.avatarUrl || "/discord.webp",
+                    bot: true
+                }
+                : undefined
+            }
             onSave={(value) => editItem("message", { content: value.content ?? null, embed: value.embed })}
         />
     </>);

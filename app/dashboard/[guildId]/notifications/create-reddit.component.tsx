@@ -89,7 +89,7 @@ export function RedditNotificationModal({
                 }}
             />
 
-            <Section tight title="How to get a users name">
+            <Section tight title="How to get a subreddit name">
                 The name is the string with the leading <code className="break-all">r/</code>, such as <code>r/wamellow</code>.
                 <br />
                 <br />

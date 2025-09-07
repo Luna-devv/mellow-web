@@ -18,7 +18,7 @@ enum State {
 interface Props {
     className?: string;
 
-    name: string;
+    name?: string;
     url?: string;
     dataName?: string;
     disabled?: boolean;
@@ -119,7 +119,7 @@ export default function TextInput({
     return (
         <div className={cn("relative w-full", className)}>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
                 {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
 

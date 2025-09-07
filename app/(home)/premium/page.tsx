@@ -27,7 +27,6 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 const bots = ["1125449347451068437", "985213199248924722", "1097907896987160666"].map((userId) => getUser(userId));
-const maybe = null;
 
 const items = [
     { title: "Price", free: "€0 /forever", premium: "€4 /month" },
@@ -38,7 +37,7 @@ const items = [
     { title: "Bypass voting", free: false, premium: true, tooltip: <OtherBotsTooltip /> },
     { title: "Bypass passport", free: false, premium: true },
     { title: "Premium role", free: false, premium: true, url: "/support" },
-    { title: "Spotify control", free: maybe, premium: true, url: "/profile/connections" },
+    // { title: "Spotify control", free: maybe, premium: true, url: "/profile/connections" },
     { title: "Fast support", free: true, premium: true },
 
     { title: "For Your Server", icon: <HiUserGroup /> },
@@ -47,7 +46,8 @@ const items = [
     { title: "Dailyposts", free: 4, premium: 20 },
     { title: "Welcome pings", free: 5, premium: 15 },
     { title: "Welcome roles", free: 5, premium: 10 },
-    { title: "Crosspost notifications", free: false, premium: true }
+    { title: "Notification styles", free: false, premium: true },
+    { title: "Notification crosspost", free: false, premium: true }
 ];
 
 export const revalidate = 3600;

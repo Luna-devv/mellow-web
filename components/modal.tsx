@@ -169,7 +169,7 @@ function ModalNotice({
                         size="sm"
                     >
                         <Link
-                            href={`/premium?utm_source=${window.location.hostname}&utm_medium=modal`}
+                            href={`/premium?utm_source=${window.location.hostname}&utm_medium=notification-limit`}
                             target="_blank"
                         >
                             Upgrade
@@ -179,7 +179,7 @@ function ModalNotice({
 
                 <div className="absolute -top-2 -right-0.5 z-10">
                     <Badge className="rotate-3 backdrop-blur-md backdrop-brightness-75">
-                        First Month Free!!
+                        4€/month!!
                     </Badge>
                 </div>
             </div>

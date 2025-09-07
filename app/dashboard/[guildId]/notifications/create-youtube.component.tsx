@@ -7,6 +7,7 @@ import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
+import { Section } from "@/components/section";
 import TutorialPic from "@/public/docs-assets/notifications-channel-urls.webp";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
@@ -99,15 +100,13 @@ export function YoutubeNotificationModal({
                 }}
             />
 
-            <div className="mt-4">
-                <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">How to get a channel&apos;s @handle or Id</span>
+            <Section tight title="How to get a usersname">
                 <Image
                     alt="How to get a Creator's @handle, id or URL"
                     className="rounded-md"
                     src={TutorialPic}
                 />
-            </div>
-
+            </Section>
         </Modal>
     </>);
 }
