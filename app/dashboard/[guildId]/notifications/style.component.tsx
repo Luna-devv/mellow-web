@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { HiOutlineUpload, HiPencil, HiSparkles, HiX } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
@@ -10,7 +10,8 @@ import Modal from "@/components/modal";
 import { Section } from "@/components/section";
 import { UserAvatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import type { ApiV1GuildsModulesNotificationsGetResponse, ApiV1GuildsModulesNotificationStylePatchResponse } from "@/typings";
+import type { ApiError, ApiV1GuildsModulesNotificationsGetResponse, ApiV1GuildsModulesNotificationStylePatchResponse } from "@/typings";
+import { State } from "@/utils/captcha";
 import { cn } from "@/utils/cn";
 
 const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -23,8 +24,10 @@ export function NotificationStyle({
 }: {
     item: ApiV1GuildsModulesNotificationsGetResponse;
     premium: boolean;
-    onEdit: (opts: ApiV1GuildsModulesNotificationStylePatchResponse) => void;
+    onEdit: (opts: { username: string | null; avatar: string | null; }) => void;
 }) {
+    const guildId = guildStore((g) => g!.id);
+
     const [open, setOpen] = useState(false);
 
     return (<>
@@ -58,6 +61,13 @@ export function NotificationStyle({
                                 </Link>
                             </Button>
                         }
+                        {premium && (item.username || item.avatar) && (
+                            <DeleteStyleButton
+                                id={item.id}
+                                guildId={guildId}
+                                onDelete={() => onEdit({ username: null, avatar: null })}
+                            />
+                        )}
                     </div>
                 </div>
 
@@ -67,6 +77,8 @@ export function NotificationStyle({
 
         <ChangeStyleModal
             id={item.id}
+            guildId={guildId}
+
             username={item.username || null}
             avatarUrl={item.avatar ? `https://r2.wamellow.com/avatars/webhooks/${item.avatar}` : null}
 
@@ -113,6 +125,8 @@ function isValidUsername(value: string | null): boolean {
 
 interface Props {
     id: string;
+    guildId: string;
+
     username: string | null;
     avatarUrl: string | null;
 
@@ -123,6 +137,8 @@ interface Props {
 
 export function ChangeStyleModal({
     id,
+    guildId,
+
     username,
     avatarUrl,
 
@@ -130,7 +146,6 @@ export function ChangeStyleModal({
     onClose,
     onEdit
 }: Props) {
-    const guildId = guildStore((g) => g?.id);
     const avatarRef = useRef<HTMLInputElement | null>(null);
 
     const [name, setName] = useState(username);
@@ -241,5 +256,59 @@ export function ChangeStyleModal({
             </Section>
 
         </Modal>
+    </>);
+}
+
+function DeleteStyleButton({
+    id,
+    guildId,
+    onDelete
+}: {
+    id: string;
+    guildId: string;
+    onDelete: () => void;
+}) {
+    const [state, setState] = useState<State>(State.Idle);
+    const [error, setError] = useState<string | null>(null);
+
+    const del = useCallback(
+        async () => {
+            setState(State.Loading);
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/notifications/${id}/style`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (response.ok) {
+                onDelete();
+                setState(State.Success);
+                return;
+            }
+
+            setState(State.Idle);
+
+            const res = await response.json() as ApiError | null;
+            if (res && "message" in res) {
+                setError(res.message);
+                return;
+            }
+
+            setError("An unknown error occurred");
+        },
+        [guildId, id, onDelete]
+    );
+
+    return (<>
+        <Button
+            className="text-red-400"
+            variant="link"
+            onClick={del}
+            icon={<HiX />}
+            loading={state === State.Loading}
+        >
+            Delete
+        </Button>
+        {error && <p className="text-red-400">{error}</p>}
     </>);
 }
