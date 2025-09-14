@@ -34,40 +34,42 @@ export function NotificationStyle({
         <div className="w-full relative overflow-hidden rounded-lg border border-border group p-px mt-5">
             <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_0%_50%,#8b5cf6_50%,var(--wamellow-rgb)_100%)]" />
 
-            <div className="backdrop-blur-3xl backdrop-brightness-[25%] rounded-[6px] pr-4 py-4 pl-6 md:py-8 md:pl-10 flex gap-6 items-center">
-                <UserAvatar
-                    alt={premium && item.username ? item.username : "Wamellow"}
-                    className="size-24"
-                    src={premium && item.username && item.avatar ? `https://r2.wamellow.com/avatars/webhooks/${item.avatar}` : "/waya-v3.webp"}
-                />
+            <div className="backdrop-blur-3xl backdrop-brightness-[25%] rounded-[6px] p-5 md:py-8 md:pl-10 flex flex-col md:flex-row gap-5 md:gap-0">
+                <div className="flex gap-6 items-center">
+                    <UserAvatar
+                        alt={premium && item.username ? item.username : "Wamellow"}
+                        className="size-24"
+                        src={premium && item.username && item.avatar ? `https://r2.wamellow.com/avatars/webhooks/${item.avatar}` : "/waya-v3.webp"}
+                    />
 
-                <div className="space-y-2">
-                    <span className="text-3xl font-medium text-primary-foreground">
-                        {premium && item.username ? item.username : "Wamellow"}
-                    </span>
-                    <div className="flex">
-                        {premium
-                            ? <Button onClick={() => setOpen(true)}>
-                                <HiPencil />
-                                Change Style
-                            </Button>
-                            : <Button asChild>
-                                <Link
-                                    href={`/premium?utm_source=${window.location.hostname}&utm_medium=notification-styles`}
-                                    target="_blank"
-                                >
-                                    <HiSparkles />
+                    <div className="space-y-2">
+                        <span className="text-3xl font-medium text-primary-foreground">
+                            {premium && item.username ? item.username : "Wamellow"}
+                        </span>
+                        <div className="flex">
+                            {premium
+                                ? <Button onClick={() => setOpen(true)}>
+                                    <HiPencil />
                                     Change Style
-                                </Link>
-                            </Button>
-                        }
-                        {premium && (item.username || item.avatar) && (
-                            <DeleteStyleButton
-                                id={item.id}
-                                guildId={guildId}
-                                onDelete={() => onEdit({ username: null, avatar: null })}
-                            />
-                        )}
+                                </Button>
+                                : <Button asChild>
+                                    <Link
+                                        href={`/premium?utm_source=${window.location.hostname}&utm_medium=notification-styles`}
+                                        target="_blank"
+                                    >
+                                        <HiSparkles />
+                                        Upgrade to change style
+                                    </Link>
+                                </Button>
+                            }
+                            {premium && (item.username || item.avatar) && (
+                                <DeleteStyleButton
+                                    id={item.id}
+                                    guildId={guildId}
+                                    onDelete={() => onEdit({ username: null, avatar: null })}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -92,15 +94,15 @@ export function NotificationStyle({
 function ExampleMessages() {
     return (
         <div className="w-full relative">
-            <ExampleMessage className="bottom-0 right-0 rotate-2" username="Kurzgesagt" avatarUrl="https://yt3.googleusercontent.com/ytc/AIdro_n1Ribd7LwdP_qKtqWL3ZDfIgv9M1d6g78VwpHGXVR2Ir4=s176-c-k-c0x00ffffff-no-rj-mo" />
-            <ExampleMessage className="top-0 right-0" username="DarkViperAU" avatarUrl="https://yt3.googleusercontent.com/ytc/AIdro_lpNK9jpdw9D63LuUYt3SLbFpIQ5yD4DV0D5mwPrCp7cEw=s176-c-k-c0x00ffffff-no-rj-mo" />
+            <ExampleMessage className="top-1 md:-top-3 md:right-1 rotate-1 md:rotate-2 z-10" username="Kurzgesagt" avatarUrl="https://yt3.googleusercontent.com/ytc/AIdro_n1Ribd7LwdP_qKtqWL3ZDfIgv9M1d6g78VwpHGXVR2Ir4=s176-c-k-c0x00ffffff-no-rj-mo" />
+            <ExampleMessage className="md:-bottom-3 right-0 md:-rotate-1" username="DarkViperAU" avatarUrl="https://yt3.googleusercontent.com/ytc/AIdro_lpNK9jpdw9D63LuUYt3SLbFpIQ5yD4DV0D5mwPrCp7cEw=s176-c-k-c0x00ffffff-no-rj-mo" />
         </div>
     );
 }
 
 function ExampleMessage({ className, username, avatarUrl }: { className?: string; username?: string; avatarUrl?: string; }) {
     return (
-        <div className={cn("bg-discord-gray px-3 py-2 rounded-lg w-full max-w-sm absolute border border-wamellow shadow-lg", className)}>
+        <div className={cn("bg-discord-gray px-3 py-2 rounded-lg w-full md:max-w-sm relative md:absolute border border-wamellow shadow-lg", className)}>
             <DiscordMessage
                 mode="DARK"
                 user={{

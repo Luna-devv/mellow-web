@@ -21,7 +21,7 @@ import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import { Button } from "@/components/ui/button";
 import { cacheOptions } from "@/lib/api";
-import { type ApiV1GuildsModulesNotificationsGetResponse, GuildFlags, NotificationFlags, NotificationType } from "@/typings";
+import { type ApiV1GuildsModulesNotificationsGetResponse, BlueskyNotificationFlags, GuildFlags, NotificationType, YoutubeNotificationFlags } from "@/typings";
 import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -50,6 +50,7 @@ export default function Home() {
         error
     } = useList<ApiV1GuildsModulesNotificationsGetResponse>({ url });
 
+    const platformFlags = getFlags(item?.type || 0);
     const flags = useMemo(() => new BitfieldManager(item?.flags || 0), [item?.flags]);
 
     if (error) {
@@ -208,14 +209,17 @@ export default function Home() {
                 showClear
             />
 
-            {item.type === NotificationType.Bluesky
+            {platformFlags
                 ? <MultiSelectMenu
                     className="md:w-1/2 w-full"
                     name="Filter"
                     url={url + "/" + item.id}
                     dataName="flags"
-                    items={bitfieldToArray(NotificationFlags)}
-                    description="Select the types of posts to send in addition to regular posts."
+                    items={bitfieldToArray(platformFlags)}
+                    description={item.type === NotificationType.Bluesky
+                        ? "Select the types of posts to send in addition to regular posts."
+                        : "Select the types of content to send."
+                    }
                     defaultState={flags.toArray()}
                     onSave={(o) => {
                         const flags = o.map((flag) => Number(flag.value));
@@ -234,7 +238,7 @@ export default function Home() {
             }
         </div>
 
-        {item.type === NotificationType.Bluesky && (
+        {platformFlags && (
             <TextInput
                 className="md:w-1/2 w-full"
                 name="Ignore regex"
@@ -323,4 +327,12 @@ function TestButton(
     }
 
     return children;
+}
+
+function getFlags(type: NotificationType) {
+    switch (type) {
+        case NotificationType.Bluesky: return BlueskyNotificationFlags;
+        case NotificationType.YouTube: return YoutubeNotificationFlags;
+        default: return null;
+    }
 }

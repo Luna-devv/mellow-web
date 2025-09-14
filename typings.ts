@@ -44,6 +44,7 @@ export interface ApiV1GuildsGetResponse {
         channelId: string | null;
         announceUser: boolean;
         logChannelId: string | null;
+        blacklistRoleId: string | null;
         priorityRoleId: string | null;
         maxLength?: number | null;
         queue: boolean | null;
@@ -433,11 +434,16 @@ export enum NotificationType {
     Reddit = 3
 }
 
-export enum NotificationFlags {
+export enum BlueskyNotificationFlags {
     SendReposts = 1 << 0,
     SendReplies = 1 << 1,
     SendQuotes = 1 << 2,
     MustContainImage = 1 << 3
+}
+
+export enum YoutubeNotificationFlags {
+    SendVideos = 1 << 5,
+    SendShorts = 1 << 6
 }
 
 export interface ApiV1GuildsModulesNotificationsGetResponse {

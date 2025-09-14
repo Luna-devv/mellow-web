@@ -42,7 +42,7 @@ The role that should get notified about new uploads.
 **Note:** If Wamellow does not have the `Mention Everyone` permissions inside the channel, it might not be able to actually notify members with those roles.
 
 ### 📫 Filter
-Allows you to select additional types or filter notifications for Bluesky:
+Allows you to select additional types or filter notifications for **Bluesky**:
 - `Send Reposts` will also notify when the user reposts any post.
 - `Send Replies` will also notify when the user replies to any post.
 - `Send Quotes` will also notify when the user quotes any post.
@@ -50,16 +50,34 @@ Allows you to select additional types or filter notifications for Bluesky:
 <br />
 <br />
 
-For all other services, you can take advantage of a regex to blacklist posts:
+Allows you to select additional types or filter notifications for **YouTube**:
+- `Send Videos` will notify when the creator uploads a new video or stream.
+- `Send Shorts` will also notify when the creator uploads a new short.
+<br />
+<br />
+
+For every service, you can take advantage of a regex to blacklist posts:
 - `^\[live\]` will not post anything starting with `[live]`.
 - `insult|badword` will not post anything that includes either `insult` or `badword`.
-- `^(?!support$).+$` will only post that are `support`. (useful for reddit flairs)
+- `^(?!support$).+$` will only post that are `support`. (useful for Reddit flairs)
 <br />
 <br />
 
 You can use [regexr.com](https://regexr.com/) or [ChatGPT](https://chatgpt.com/) to create (JavaScript-like) regexs.
-You can use regex keywords to negate the condition, in order to create a whitelist filter.
-The flags used for string matching are `gi`, only the titles and reddit flairs are checked.
+Keep in mind that the regex is inverted, meaning, everything that matches the regex will be ignored.
+You can use a negative lookahead to negate the condition, in order to create a whitelist filter.
+The flags used for string matching are `gi`, only the YouTube and Twitch titles, Bluesky post bodies, and Reddit flairs are checked.
+
+### 🕵️‍♀️ Styles (whitelabel / webhook)
+Notification styles allow you to customise (or whitelabel) the username and avatar of the author (i.e. the sender of the message) separately for each notification. Wamellow will automatically manage the webhooks for you.
+<br />
+<br />
+
+The username must follow the [name constraints set by Discord](https://discord.com/developers/docs/resources/user#usernames-and-nicknames). The avatar must be a `.png`, `.jpg`, `.jpeg`, or `.webp` file and be less than 8MiB in size. (Animated formats like GIFs and APNGs are not supported by Discord)
+<br />
+<br />
+
+![wamellow whitelabeled notification](/docs-assets/notifications-style.webp)
 
 ### 🥳 Test notification
 Test notifications let you see how your message will look like when a video is uploaded or a streamer goes live, etc.
