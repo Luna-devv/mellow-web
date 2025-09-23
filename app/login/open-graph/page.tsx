@@ -18,7 +18,7 @@ export const generateMetadata = (): Metadata => {
         openGraph: {
             title,
             description,
-            url: `https://discord.com/api/v9/applications/${process.env.CLIENT_ID}/og.png`,
+            url: `https://discord.com/api/v9/applications/${process.env.NEXT_PUBLIC_CLIENT_ID}/og.png`,
             type: "website",
             images: {
                 url,
@@ -32,7 +32,7 @@ export const generateMetadata = (): Metadata => {
             title,
             description,
             images: {
-                url: `https://discord.com/api/v9/applications/${process.env.CLIENT_ID}/og.png`,
+                url: `https://discord.com/api/v9/applications/${process.env.NEXT_PUBLIC_CLIENT_ID}/og.png`,
                 alt: title
             }
         }

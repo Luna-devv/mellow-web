@@ -86,7 +86,7 @@ export async function GET(request: Request) {
 function generateOauthUrl(invite: boolean, redirectUrl: string | undefined, guildId: string | null) {
     const params = new URLSearchParams();
 
-    params.append("client_id", process.env.CLIENT_ID as string);
+    params.append("client_id", process.env.NEXT_PUBLIC_CLIENT_ID as string);
     params.append("redirect_uri", getCanonicalUrl("login"));
     params.append("permissions", permissions.reduce((acc, cur) => acc + Number(cur), 0).toString());
     params.append("prompt", "none");

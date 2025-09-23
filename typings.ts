@@ -51,6 +51,18 @@ export interface ApiV1GuildsGetResponse {
     };
     embedLinks: boolean;
     flags: number;
+    style: {
+        username: string | null;
+        avatar: string | null;
+        banner: string | null;
+    }
+}
+
+export interface ApiV1GuildsStylePatchResponse {
+    username: string | null;
+    avatar: string | null;
+    banner: string | null;
+    bio: string | null;
 }
 
 export interface ApiV1GuildsTopmembersGetResponse {

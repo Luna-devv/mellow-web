@@ -14,6 +14,7 @@ interface Props {
     max?: number;
     thin?: boolean;
     type?: string;
+    multiline?: boolean;
 
     dataName?: string;
 }
@@ -28,6 +29,7 @@ export default function DumbTextInput({
     max = 256,
     thin,
     type,
+    multiline,
     dataName
 }: Props) {
     const className = cn(
@@ -81,7 +83,7 @@ export default function DumbTextInput({
                     />
                 </div>
                 :
-                max > 300 ?
+                (max > 300 || multiline) ?
                     <textarea
                         className={className}
                         placeholder={placeholder}

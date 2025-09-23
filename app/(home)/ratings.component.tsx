@@ -11,7 +11,7 @@ export async function Ratings() {
     return (
         <Link
             className="flex gap-2 items-center w-fit !h-6"
-            href={`https://top.gg/bot/${process.env.CLIENT_ID}`}
+            href={`https://top.gg/bot/${process.env.NEXT_PUBLIC_CLIENT_ID}`}
             target="_blank"
             title={`Average review score of ${reviews.averageScore}/5 based on ${reviews.count} reviews`}
         >

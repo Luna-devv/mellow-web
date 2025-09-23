@@ -6,7 +6,7 @@ export interface TopggBot {
 }
 
 export async function getReviews() {
-    const res = await fetch(`https://top.gg/api/bots/${process.env.CLIENT_ID}`, {
+    const res = await fetch(`https://top.gg/api/bots/${process.env.NEXT_PUBLIC_CLIENT_ID}`, {
         headers: {
             authorization: process.env.TOPGG_TOKEN!
         },

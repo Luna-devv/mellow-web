@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HiOutlineUpload, HiPencil, HiSparkles, HiX } from "react-icons/hi";
 
 import { guildStore } from "@/common/guilds";
+import { DiscordMarkdown } from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Modal from "@/components/modal";
@@ -31,10 +32,10 @@ export function NotificationStyle({
     const [open, setOpen] = useState(false);
 
     return (<>
-        <div className="w-full relative overflow-hidden rounded-lg border border-border group p-px mt-5">
+        <div className="w-full relative overflow-hidden rounded-xl border border-border group p-px mb-5">
             <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_0%_50%,#8b5cf6_50%,var(--wamellow-rgb)_100%)]" />
 
-            <div className="backdrop-blur-3xl backdrop-brightness-[25%] rounded-[6px] p-5 md:py-8 md:pl-10 flex flex-col md:flex-row gap-5 md:gap-0">
+            <div className="backdrop-blur-3xl backdrop-brightness-[25%] rounded-[10px] p-5 md:py-8 md:pl-10 flex flex-col md:flex-row gap-5 md:gap-0">
                 <div className="flex gap-6 items-center">
                     <UserAvatar
                         alt={premium && item.username ? item.username : "Wamellow"}
@@ -111,7 +112,10 @@ function ExampleMessage({ className, username, avatarUrl }: { className?: string
                     bot: true
                 }}
             >
-                Woooooooo!
+                {username === "DarkViperAU"
+                    ? <DiscordMarkdown mode={"DARK"} text="[youtube.com/shorts/3zTsuUCGnN8](#)" />
+                    : "Woooooooo!"
+                }
             </DiscordMessage>
         </div>
     );
@@ -154,6 +158,14 @@ export function ChangeStyleModal({
     const [avatar, setAvatar] = useState<ArrayBuffer | string | null>(avatarUrl);
     const [error, setError] = useState<string | null>(null);
 
+    useEffect(
+        () => {
+            if (!isOpen) return;
+            setAvatar(avatarUrl);
+        },
+        [isOpen, avatarUrl]
+    );
+
     const renderable = useMemo(
         () => !avatar || typeof avatar === "string"
             ? avatar || "/waya-v3.webp"
@@ -194,6 +206,7 @@ export function ChangeStyleModal({
                 placeholder="DarkViperAU"
                 value={name}
                 setValue={setName}
+                max={32}
             />
 
             <input

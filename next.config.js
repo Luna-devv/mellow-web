@@ -30,6 +30,12 @@ const nextConfig = {
                 port: "",
                 pathname: "/banners/**"
             },
+            {
+                protocol: "https",
+                hostname: "cdn.discordapp.com",
+                port: "",
+                pathname: "/guilds/**"
+            },
 
             {
                 protocol: "https",

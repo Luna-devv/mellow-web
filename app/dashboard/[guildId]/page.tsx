@@ -8,6 +8,7 @@ import Switch from "@/components/inputs/switch";
 import { Section } from "@/components/section";
 
 import { OverviewLink } from "../../../components/overview-link";
+import { BotStyle } from "./style.component";
 import { TTSSettings } from "./tts.component";
 import FollowUpdates from "./updates.component";
 
@@ -22,6 +23,8 @@ export default function Home() {
             url={`/leaderboard/${params.guildId}`}
             icon={<HiChartBar />}
         />
+
+        <BotStyle />
 
         <FollowUpdates />
 

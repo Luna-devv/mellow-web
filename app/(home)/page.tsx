@@ -279,7 +279,7 @@ export default async function Home() {
                                 <div className="bg-[#313338] h-0.5 w-full sm:w-0.5 sm:h-32 md:h-0.5 md:w-full lg:w-0.5 lg:h-32 rounded-full ml-2" />
 
                                 <DiscordMessage {...messageProps("tts voice")}>
-                                    <DiscordMarkdown mode={"DARK"} text="Now talking..." />
+                                    Now talking...
                                 </DiscordMessage>
                             </div>
 
