@@ -40,7 +40,7 @@ export default function CardSyle() {
         setState(State.Loading);
 
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("file[0]", file);
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API}/users/@me/rank/emoji`, {
             method: "PUT",

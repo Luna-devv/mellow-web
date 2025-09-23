@@ -175,7 +175,7 @@ export function ChangeStyleModal({
 
                 const formData = new FormData();
                 formData.append("json_payload", JSON.stringify({ username: name }));
-                if (avatar && typeof avatar !== "string") formData.append("file", new Blob([avatar]));
+                if (avatar && typeof avatar !== "string") formData.append("file[0]", new Blob([avatar]));
 
                 return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guildId}/modules/notifications/${id}/style`, {
                     method: "PATCH",
