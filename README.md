@@ -45,7 +45,7 @@ PLAUSIBLE_API_KEY=""
 RATINGS_API="http://localhost:5002"
 
 # The Discord client ID and bot token
-CLIENT_ID="1125449347451068437"
+NEXT_PUBLIC_CLIENT_ID="1125449347451068437"
 DISCORD_TOKEN=""
 
 # A personal GitHub access token (read repositories)

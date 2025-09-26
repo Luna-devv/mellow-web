@@ -31,6 +31,9 @@ Pick a channel where any Text to Speech events from your server should be logged
 ### 😷 Priority role
 Pick a role that lets users override other messages that are currently being spoken. This lets users start talking right away without the "please wait..." message popping up. It's a good idea to give this role to people who are actually disabled.
 
+### 🤚 Blacklist role
+Specify a role that is restricted from using Text-to-Speech.
+
 ### 🔉 Announce user
 Wamellow will announce which user is currently talking through it. If a user says "hello there," the bot will speak "Luna says: hello there."
 <br />
@@ -81,7 +84,7 @@ If you want to disable it for everyone, [read the setup section of these docs](#
 ## Voice filters
 Filters are a way to tamper with the voices when using Wamellow in VCs, they can be toggled using `/tts set filter` by VC moderators.
 This setting applies to anyone currently using Wamellow in the VC, all filters will be removed once Wamellow leaves.
-Multiple filters can be enabled and used at the same time.
+Some filters can be enabled and used at the same time. Pitch and Speed may not be used with other filters. Choosing a filter may override the pitch and speed settings.
 <br />
 <br />
 
@@ -92,6 +95,8 @@ All currently available filters:
 - `Tremolo`
 - `Vibrato`
 - `LowPass`
+- `Pitch` (customizable between 0% and 100%; default 50%)
+- `Speed` (customizable between 1% and 100%; default 50%)
 <br />
 <br />
 

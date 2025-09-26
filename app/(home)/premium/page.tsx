@@ -16,6 +16,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { defaultFetchOptions } from "@/lib/api";
 import type User from "@/lib/discord/user";
 import { getUser } from "@/lib/discord/user";
+import BotStylePic from "@/public/docs-assets/bot-style.webp";
+import NotificationsStylePic from "@/public/docs-assets/notifications-style.webp";
 import ArrowPic from "@/public/icons/arroww.webp";
 import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
@@ -46,7 +48,8 @@ const items = [
     { title: "Dailyposts", free: 4, premium: 20 },
     { title: "Welcome pings", free: 5, premium: 15 },
     { title: "Welcome roles", free: 5, premium: 10 },
-    { title: "Notification styles", free: false, premium: true },
+    { title: "Customize Avatar & Banner", free: false, premium: true, tooltip: <Image alt="Custom Styling" src={BotStylePic} className="rounded-xl" /> },
+    { title: "Notification styles", free: false, premium: true, tooltip: <Image alt="Custom Styling" src={NotificationsStylePic} className="rounded-xl" /> },
     { title: "Notification crosspost", free: false, premium: true }
 ];
 
