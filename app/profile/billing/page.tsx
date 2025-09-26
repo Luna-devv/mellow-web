@@ -23,13 +23,18 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { type ApiEdit, useApi } from "@/lib/api/hook";
 import type { ApiV1UsersMeBillingGetResponse, ApiV1UsersMeGuildsGetResponse } from "@/typings";
 
+
+function isActive(status: ApiV1UsersMeBillingGetResponse["status"]): status is "active" | "trialing" | "past_due" {
+    return status === "active" || status === "trialing" || status === "past_due";
+}
+
 export default function Home() {
     const user = userStore((u) => u);
     const [changeDonationModalOpen, setChangeDonationModalOpen] = useState(false);
 
     const { data, isLoading, error, edit } = useApi<ApiV1UsersMeBillingGetResponse>("/users/@me/billing");
 
-    if ((isLoading && !user?.premium) || (!isLoading && !data) || (data && data.status !== "active" && data.status !== "trialing")) {
+    if ((isLoading && !user?.premium) || (!isLoading && !data) || (data && !isActive(data.status))) {
         return (<>
             {(error && error !== "Not Found") && <Notice message={error} />}
 
@@ -53,12 +58,15 @@ export default function Home() {
         </>);
     }
 
-    const trialEndsInDays = data?.status === "trialing"
-        ? Math.floor(((data?.currentPeriodEnd - Date.now() / 1000) / (60 * 60 * 24)))
-        : 0;
+    const periodEndsInDays = Math.floor((((data?.currentPeriodEnd || 0) - Date.now() / 1000) / (60 * 60 * 24)));
+    const periodEndsInStr = `${periodEndsInDays > 1 ? "in " : ""}${periodEndsInDays === 0 ? "Today" : periodEndsInDays === 1 ? "Tomorrow" : periodEndsInDays} ${periodEndsInDays > 1 ? "days" : ""}`;
 
     return (
         <div className="space-y-2">
+            {data?.status === "past_due" && (
+                <Notice message={`Your renew is over due! Please check your emails to renew your subscription or contact support. Your subscription will be canceled ${periodEndsInStr}.`} />
+            )}
+
             <Box
                 className="md:flex justify-between"
                 small
@@ -70,7 +78,7 @@ export default function Home() {
                             <Badge
                                 className="relative bottom-1 ml-2"
                             >
-                                trial — Ends {trialEndsInDays > 1 ? "in " : ""}{trialEndsInDays === 0 ? "Today" : trialEndsInDays === 1 ? "Tomorrow" : trialEndsInDays} {trialEndsInDays > 1 ? "days" : ""}
+                                trial — Ends {periodEndsInStr}
                             </Badge>
                         )}
                     </h2>
