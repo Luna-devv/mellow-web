@@ -24,7 +24,7 @@ interface Props {
     set: (id: string) => void;
 }
 
-export default function CreateDailypost({
+export function CreateDailypost({
     style,
     add,
     set
@@ -88,6 +88,7 @@ export default function CreateDailypost({
 
                 setChannelId(null);
             }}
+            isDisabled={!hours.length || !type || !channelId}
         >
             <SelectMenu
                 name="Channel"

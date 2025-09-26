@@ -15,7 +15,7 @@ interface Props {
     removeTag: (id: string) => void;
 }
 
-export default function DeleteTag({ guildId, id, name, removeTag }: Props) {
+export function DeleteTag({ guildId, id, name, removeTag }: Props) {
 
     const [open, setOpen] = useState(false);
 

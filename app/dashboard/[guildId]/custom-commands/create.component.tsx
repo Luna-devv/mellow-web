@@ -21,8 +21,7 @@ interface Props {
     setTagId: (id: string) => void;
 }
 
-export default function CreateTag({ guildId, style, addTag, setTagId }: Props) {
-
+export function CreateTag({ guildId, style, addTag, setTagId }: Props) {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState("");
 
@@ -64,6 +63,7 @@ export default function CreateTag({ guildId, style, addTag, setTagId }: Props) {
                 addTag(tag);
                 setTagId(tag.id);
             }}
+            isDisabled={!name}
         >
             <DumbTextInput
                 name="Name"

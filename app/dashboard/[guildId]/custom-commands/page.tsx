@@ -17,8 +17,8 @@ import { cacheOptions, getData } from "@/lib/api";
 import { Permissions } from "@/lib/discord/enum/permissions";
 import type { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
 
-import CreateTag, { Style } from "./create.component";
-import DeleteTag from "./delete.component";
+import { CreateTag, Style } from "./create.component";
+import { DeleteTag } from "./delete.component";
 
 export default function Home() {
     const guild = guildStore((g) => g);

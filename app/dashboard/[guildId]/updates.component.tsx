@@ -70,6 +70,7 @@ export default function FollowUpdates() {
                     return g;
                 });
             }}
+            isDisabled={!channelId}
         >
             <SelectMenu
                 name="Channel"

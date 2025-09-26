@@ -15,7 +15,7 @@ interface Props {
     remove: (id: string) => void;
 }
 
-export default function DeleteDailypost({
+export function DeleteDailypost({
     id,
     name,
 

@@ -16,8 +16,8 @@ import { ScreenMessage } from "@/components/screen-message";
 import type { ApiV1GuildsModulesDailypostsGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 
-import CreateNotification, { Style } from "./create.component";
-import DeleteDailypost from "./delete.component";
+import { CreateDailypost, Style } from "./create.component";
+import { DeleteDailypost } from "./delete.component";
 import { generateHourArray, typeToIcon, typeToName } from "./util";
 
 export default function Home() {
@@ -66,7 +66,7 @@ export default function Home() {
                 docs="/dailyposts"
 
                 createButton={(options) => (
-                    <CreateNotification
+                    <CreateDailypost
                         style={options.style}
                         add={addItem}
                         set={setItemId}
@@ -109,7 +109,7 @@ export default function Home() {
                     name="dailyposts"
                     description="Send cute characters into your channels daily."
                 >
-                    <CreateNotification
+                    <CreateDailypost
                         style={Style.Big}
                         add={addItem}
                         set={setItemId}
