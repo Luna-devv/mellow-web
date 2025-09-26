@@ -33,23 +33,6 @@ export function TTSFaq() {
 
                 <Buttons guildId={params.guildId as string} />
             </AccordionItem>
-            <AccordionItem
-                key="2"
-                aria-label="how to blacklist users"
-                title="How to blacklist users"
-            >
-                Blacklist a user using discord channel permissions.
-
-                <iframe
-                    className="mt-4 aspect-video rounded-lg"
-                    width="100%"
-                    src="https://www.youtube.com/embed/KLXm2vdH0ro?si=FyxofeytRb-LAOE6"
-                    title="Wamellow restrict Text to Speech access"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                />
-
-                <Buttons guildId={params.guildId as string} />
-            </AccordionItem>
         </Accordion>
     );
 }
