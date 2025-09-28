@@ -13,30 +13,30 @@ enum State {
     Success = 2
 }
 
-interface Item {
+interface Item<T extends string | number> {
     icon?: React.ReactNode;
     name: string;
-    value: string | number;
+    value: T;
     error?: string;
     color?: number;
 }
 
-interface Props {
+interface Props<T extends string | number> {
     className?: string;
 
     name: string;
     url?: string;
     dataName?: string;
-    items: Item[] | undefined;
+    items: Item<T>[];
     disabled?: boolean;
     max?: number;
     description?: string;
-    defaultState?: (string | number)[];
+    defaultState?: T[];
 
-    onSave?: (options: { name: string; value: string | number | null; error?: string; }[]) => void;
+    onSave?: (options: { name: string; value: T; error?: string; }[]) => void;
 }
 
-export default function MultiSelectMenu({
+export default function MultiSelectMenu<T extends string | number>({
     className,
     name,
     url,
@@ -47,13 +47,13 @@ export default function MultiSelectMenu({
     description,
     defaultState,
     onSave
-}: Props) {
+}: Props<T>) {
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<(string | number)[]>([]);
-    const [values, setValues] = useState<Item[]>([]);
+    const [defaultvalue, setDefaultalue] = useState<T[]>([]);
+    const [values, setValues] = useState<Item<T>[]>([]);
 
     useEffect(() => {
         if (!defaultState) return;

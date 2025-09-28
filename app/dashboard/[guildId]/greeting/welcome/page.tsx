@@ -72,9 +72,7 @@ export default function Home() {
             k="enabled"
             defaultState={data.enabled || false}
             disabled={false}
-            onSave={(s) => {
-                edit("enabled", s);
-            }}
+            onSave={(s) => edit("enabled", s)}
         />
 
         <Switch
@@ -83,6 +81,7 @@ export default function Home() {
             k="restore"
             defaultState={data.restore}
             disabled={!data.enabled}
+            onSave={(s) => edit("restore", s)}
         />
 
         <Switch
@@ -92,6 +91,7 @@ export default function Home() {
             k="deleteAfterLeave"
             defaultState={data.deleteAfterLeave || false}
             disabled={!data.enabled}
+            onSave={(s) => edit("deleteAfterLeave", s)}
         />
 
         <NumberInput
@@ -101,6 +101,7 @@ export default function Home() {
             dataName="deleteAfter"
             defaultState={data.deleteAfter ?? 0}
             disabled={!data.enabled}
+            onSave={(n) => edit("deleteAfter", n)}
         />
 
         <div className="flex md:gap-4 gap-2">
@@ -114,6 +115,7 @@ export default function Home() {
                 defaultState={data.channelId}
                 disabled={!data.enabled}
                 showClear
+                onSave={(o) => edit("channelId", o.value)}
             />
 
             <Fetch
@@ -137,6 +139,7 @@ export default function Home() {
                     defaultState={data.roleIds}
                     max={5}
                     disabled={!data.enabled}
+                    onSave={(o) => edit("roleIds", o.map(({ value }) => value))}
                 />
             </div>
 
@@ -150,6 +153,7 @@ export default function Home() {
                     defaultState={data.pingIds}
                     max={5}
                     disabled={!data.enabled}
+                    onSave={(o) => edit("pingIds", o.map(({ value }) => value))}
                 />
             </div>
         </div>
@@ -165,6 +169,12 @@ export default function Home() {
                     defaultState={data.reactions?.firstMessageEmojis}
                     max={2}
                     disabled={!data.enabled}
+                    onSave={(o) => {
+                        edit("reactions", {
+                            ...data.reactions,
+                            firstMessageEmojis: o.map(({ value }) => value)
+                        });
+                    }}
                 />
             </div>
 
@@ -178,6 +188,12 @@ export default function Home() {
                     defaultState={data.reactions?.welcomeMessageEmojis}
                     max={2}
                     disabled={!data.enabled}
+                    onSave={(o) => {
+                        edit("reactions", {
+                            ...data.reactions,
+                            welcomeMessageEmojis: o.map(({ value }) => value)
+                        });
+                    }}
                 />
             </div>
         </div>
@@ -189,8 +205,8 @@ export default function Home() {
             defaultMessage={data.message}
             messageAttachmentComponent={data.card.enabled && (
                 <Image
-                    src={`https://image-api.wamellow.com/?type=join&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
-                    width={1024 / 2}
+                    src={`https://image-api.wamellow.com/?type=join&username=${encodeURIComponent(user!.username)}&members=1090&hash=${encodeURIComponent(user!.id)}/${encodeURIComponent(user!.avatar!)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
+                    width={1_024 / 2}
                     height={(256 + 16) / 2}
                     loading="lazy"
                     alt=""
@@ -198,6 +214,7 @@ export default function Home() {
             )}
             showMessageAttachmentComponentInEmbed={data.card.inEmbed}
             disabled={!data.enabled}
+            onSave={(message) => edit("message", message)}
         >
 
             <div className={cn("mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6", !data.card.enabled && "pb-0")}>
@@ -257,6 +274,12 @@ export default function Home() {
             defaultMessage={data.dm?.message}
             isCollapseable={true}
             disabled={!data.enabled}
+            onSave={(message) => {
+                edit("dm", {
+                    ...data.dm,
+                    message
+                });
+            }}
         >
 
             <div className="m-2">
@@ -266,6 +289,12 @@ export default function Home() {
                     k="dm.enabled"
                     defaultState={data.dm?.enabled}
                     disabled={!data.enabled}
+                    onSave={(s) => {
+                        edit("dm", {
+                            ...data.dm,
+                            enabled: s
+                        });
+                    }}
                 />
             </div>
 
@@ -299,6 +328,12 @@ export default function Home() {
             k="button.ping"
             defaultState={data.button?.ping || false}
             disabled={!data.enabled || !data.button?.enabled}
+            onSave={(s) => {
+                edit("button", {
+                    ...data.button,
+                    ping: s
+                });
+            }}
         />
 
         <div className="lg:flex gap-3 pt-3">
@@ -321,8 +356,14 @@ export default function Home() {
                             }))
                     }
                     description="Select the color of the button."
-                    defaultState={data.button?.style}
+                    defaultState={data.button?.style || 1}
                     disabled={!data.enabled || !data.button?.enabled}
+                    onSave={(o) => {
+                        edit("button", {
+                            ...data.button,
+                            style: o.value as 1
+                        });
+                    }}
                 />
             </div>
             <div className="lg:w-1/2">
@@ -334,6 +375,12 @@ export default function Home() {
                     description="Select an emoji which will be used in the button."
                     defaultState={data.button?.emoji}
                     disabled={!data.enabled || !data.button?.enabled}
+                    onSave={(o) => {
+                        edit("button", {
+                            ...data.button,
+                            emoji: o.value
+                        });
+                    }}
                 />
             </div>
         </div>

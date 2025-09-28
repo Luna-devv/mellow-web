@@ -13,30 +13,30 @@ enum State {
     Success = 2
 }
 
-interface Item {
+interface Item<T extends string | number> {
     icon?: React.ReactNode;
     name: string;
-    value: string | number | null;
+    value: T | null;
     error?: string;
     color?: number;
 }
 
-interface Props {
+interface Props<T extends string | number> {
     className?: string;
 
     name: string;
     url?: string;
     dataName?: string;
-    items: Item[] | undefined;
+    items: Item<T>[];
     disabled?: boolean;
     description?: string;
-    defaultState?: string | number | null;
+    defaultState?: T | null;
     showClear?: boolean;
 
-    onSave?: (options: { name: string; value: string | number | null; error?: string; }) => void;
+    onSave?: (options: { name: string; value: T | null; error?: string; }) => void;
 }
 
-export default function SelectMenu({
+export default function SelectMenu<T extends string | number>({
     className,
     name,
     url,
@@ -47,13 +47,13 @@ export default function SelectMenu({
     defaultState,
     showClear,
     onSave
-}: Props) {
+}: Props<T>) {
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
     const [open, setOpen] = useState<boolean>(false);
-    const [defaultvalue, setDefaultalue] = useState<string | number | null | undefined>();
-    const [value, setValue] = useState<Item | undefined>();
+    const [defaultvalue, setDefaultalue] = useState<T | null | undefined>();
+    const [value, setValue] = useState<Item<T> | undefined>();
 
     useEffect(() => {
         setValue(items.find((i) => i.value === defaultState));

@@ -69,10 +69,7 @@ export default function Home() {
             endpoint={`/guilds/${guild?.id}/modules/bye`}
             k="enabled"
             defaultState={data.enabled || false}
-            disabled={false}
-            onSave={(s) => {
-                edit("enabled", s);
-            }}
+            onSave={(s) => edit("enabled", s)}
         />
 
         <NumberInput
@@ -82,6 +79,7 @@ export default function Home() {
             dataName="deleteAfter"
             defaultState={data.deleteAfter ?? 0}
             disabled={!data.enabled}
+            onSave={(n) => edit("deleteAfter", n)}
         />
 
         <div className="flex md:gap-4 gap-2">
@@ -93,6 +91,7 @@ export default function Home() {
                 description="Select the channel where the farewell message should be send into"
                 defaultState={data.channelId}
                 disabled={!data.enabled}
+                onSave={(o) => edit("channelId", o.value)}
             />
 
             <Fetch
@@ -121,6 +120,7 @@ export default function Home() {
             )}
             showMessageAttachmentComponentInEmbed={data.card.inEmbed}
             disabled={!data.enabled}
+            onSave={(message) => edit("message", message)}
         >
 
             <div className={cn("mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6", !data.card.enabled && "pb-0")}>

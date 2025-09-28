@@ -81,9 +81,7 @@ export default function Home() {
             k="enabled"
             defaultState={data.enabled}
             disabled={false}
-            onSave={(s) => {
-                edit("enabled", s);
-            }}
+            onSave={(s) => edit("enabled", s)}
         />
 
         <Switch
@@ -92,6 +90,7 @@ export default function Home() {
             k="sendFailedDm"
             defaultState={data.sendFailedDm}
             disabled={!data.enabled}
+            onSave={(s) => edit("sendFailedDm", s)}
         />
 
         <SelectInput
@@ -102,6 +101,7 @@ export default function Home() {
             description="Select the channel where verification logs should be send into."
             defaultState={data.channelId}
             disabled={!data.enabled}
+            onSave={(o) => edit("channelId", o.value)}
         />
 
         <div className="lg:flex gap-3">
@@ -115,6 +115,7 @@ export default function Home() {
                     defaultState={data.unverifiedRoleId}
                     showClear
                     disabled={!data.enabled}
+                    onSave={(o) => edit("unverifiedRoleId", o.value)}
                 />
             </div>
 
@@ -127,6 +128,7 @@ export default function Home() {
                     description="Select what role members should get when completing verification."
                     defaultState={data.successRoleId}
                     disabled={!data.enabled}
+                    onSave={(o) => edit("successRoleId", o.value)}
                 />
             </div>
         </div>
@@ -145,9 +147,7 @@ export default function Home() {
                     description="Choose what should happen if a member failes verification."
                     defaultState={data.punishment}
                     disabled={!data.enabled}
-                    onSave={(o) => {
-                        edit("punishment", o.value as ApiV1GuildsModulesPassportGetResponse["punishment"]);
-                    }}
+                    onSave={(o) => edit("punishment", o.value as ApiV1GuildsModulesPassportGetResponse["punishment"])}
                 />
             </div>
 
@@ -160,9 +160,7 @@ export default function Home() {
                     description="Select what role members should get when failing verification."
                     defaultState={data.punishmentRoleId}
                     disabled={!data.enabled || data.punishment !== 2}
-                    onSave={(o) => {
-                        edit("punishmentRoleId", o.value as string);
-                    }}
+                    onSave={(o) => edit("punishmentRoleId", o.value)}
                 />
             </div>
         </div>

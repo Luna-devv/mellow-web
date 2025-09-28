@@ -26,7 +26,7 @@ export default function CompleteSetup({
 }: Props) {
     const [modal, setModal] = useState<ModalType>(ModalType.None);
 
-    const [roleId, setRoleId] = useState<string>();
+    const [roleId, setRoleId] = useState<string | null>(null);
 
     useEffect(() => {
         if (!data.enabled) return;
@@ -60,18 +60,14 @@ export default function CompleteSetup({
                     })
                 });
             }}
-            onSuccess={() => {
-                edit("successRoleId", roleId);
-            }}
+            onSuccess={() => edit("successRoleId", roleId)}
         >
             <SelectMenu
                 name="Role"
                 items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                 description="Select what role members should get when completing verification."
                 defaultState={data.punishmentRoleId}
-                onSave={(o) => {
-                    setRoleId(o.value as string);
-                }}
+                onSave={(o) => setRoleId(o.value)}
             />
         </Modal>
 
@@ -92,18 +88,14 @@ export default function CompleteSetup({
                     })
                 });
             }}
-            onSuccess={() => {
-                edit("punishmentRoleId", roleId);
-            }}
+            onSuccess={() => edit("punishmentRoleId", roleId)}
         >
             <SelectMenu
                 name="Role"
                 items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                 description="Select what role members should get when failing verification."
                 defaultState={data.punishmentRoleId}
-                onSave={(o) => {
-                    setRoleId(o.value as string);
-                }}
+                onSave={(o) => setRoleId(o.value)}
             />
         </Modal>
     </>);
