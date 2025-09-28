@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { BsDiscord, BsGithub } from "react-icons/bs";
-import { HiUserAdd, HiViewGridAdd } from "react-icons/hi";
-
 import { Footer } from "@/components/footer";
 import { LinkButton } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import metadata from "@/public/docs/meta.json";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { BsDiscord, BsGithub } from "react-icons/bs";
+import { HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
 interface Props {
     params: Promise<{ pathname: string[]; }>;
@@ -26,8 +25,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     const images = {
         url: meta?.image || `${getBaseUrl()}/waya-v3.webp?v=2`,
         alt: meta?.description,
-        heigth: 1008,
-        width: 1935
+        heigth: 1_008,
+        width: 1_935
     };
 
     return {

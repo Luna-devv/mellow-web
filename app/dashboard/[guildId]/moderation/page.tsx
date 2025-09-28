@@ -1,8 +1,5 @@
 "use client";
 
-import { ChannelType } from "discord-api-types/v10";
-import { useParams } from "next/navigation";
-
 import { guildStore } from "@/common/guilds";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import Switch from "@/components/inputs/switch";
@@ -11,6 +8,8 @@ import Notice from "@/components/notice";
 import { useApi } from "@/lib/api/hook";
 import { type ApiV1GuildsModulesAutomodGetResponse, AutomodType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { ChannelType } from "discord-api-types/v10";
+import { useParams } from "next/navigation";
 
 const AUTOMOD_TYPES = Object
     .values(AutomodType)
@@ -61,7 +60,7 @@ export default function Home() {
                     max={50}
                     disabled={!enabled}
                     onSave={(value) => {
-                        edit("whitelistChannelIds", value.map((entry) => entry.value as string));
+                        edit("whitelistChannelIds", value.map((entry) => entry.value));
                     }}
                 />
             </div>
@@ -76,7 +75,7 @@ export default function Home() {
                     max={20}
                     disabled={!enabled}
                     onSave={(value) => {
-                        edit("whitelistRoleIds", value.map((entry) => entry.value as string));
+                        edit("whitelistRoleIds", value.map((entry) => entry.value));
                     }}
                 />
             </div>
@@ -90,7 +89,7 @@ export default function Home() {
             defaultState={data.keywordFilter.join(", ")}
             max={Infinity}
             onSave={(value) => {
-                edit("keywordFilter", (value as string | null)?.split(/,|\n/).map((word) => word.trim()) || []);
+                edit("keywordFilter", (value)?.split(/,|\n/).map((word) => word.trim()) || []);
             }}
         />
     </>);

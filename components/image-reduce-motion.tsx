@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useCookies } from "next-client-cookies";
 
-
 interface Props {
     url: string | null | undefined;
     size: number;

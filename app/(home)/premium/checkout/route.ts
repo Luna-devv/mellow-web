@@ -14,11 +14,11 @@ export async function GET(request: Request) {
         redirect("/login?callback=" + encodeURIComponent("/" + request.url.split("/").slice(3).join("/")));
     }
 
-    const donationQuantity = parseInt(searchParams.get("donation") || "0");
+    const donationQuantity = Number.parseInt(searchParams.get("donation") || "0", 10);
     const referer = request.headers.get("referer") || "";
 
     const url = await createCheckout(session.value, donationQuantity, referer)
-        .catch((e) => e);
+        .catch((error) => error);
 
     if (url instanceof Error) {
         console.log(url);

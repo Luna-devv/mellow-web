@@ -1,6 +1,5 @@
-import React, { type HTMLProps } from "react";
-
 import { cn } from "@/utils/cn";
+import React, { type HTMLProps } from "react";
 
 type Props = HTMLProps<HTMLDivElement> & {
     children: React.ReactNode;

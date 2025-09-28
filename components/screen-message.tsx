@@ -1,10 +1,9 @@
+import SadWumpusPic from "@/public/sad-wumpus.gif";
+import { cn } from "@/utils/cn";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiHome } from "react-icons/hi";
-
-import SadWumpusPic from "@/public/sad-wumpus.gif";
-import { cn } from "@/utils/cn";
 
 import { Button } from "./ui/button";
 

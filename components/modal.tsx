@@ -1,11 +1,10 @@
 "use client";
 
+import type { ApiError } from "@/typings";
+import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiFire } from "react-icons/hi";
-
-import type { ApiError } from "@/typings";
-import { cn } from "@/utils/cn";
 
 import Notice, { NoticeType } from "./notice";
 import { Badge } from "./ui/badge";
@@ -64,13 +63,19 @@ export default function Modal<T>({
 
     async function submit() {
         if (state === State.Loading) return;
-        if (!onSubmit) return onClose();
+        if (!onSubmit) {
+            onClose();
+            return;
+        }
 
         setError(null);
         setState(State.Loading);
         const data = onSubmit?.();
 
-        if (!data) return onClose();
+        if (!data) {
+            onClose();
+            return;
+        }
 
         if (data instanceof Error) {
             setError(data?.message || "something went wrong..");

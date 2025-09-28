@@ -1,13 +1,12 @@
-import type { RESTError, RESTGetAPIGuildWidgetJSONResult } from "discord-api-types/v10";
-import { useState } from "react";
-import { HiEmojiHappy, HiLockClosed } from "react-icons/hi";
-import { useQuery } from "react-query";
-
 import type { Guild } from "@/common/guilds";
 import Notice from "@/components/notice";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions } from "@/lib/api";
 import { cn } from "@/utils/cn";
+import type { RESTError, RESTGetAPIGuildWidgetJSONResult } from "discord-api-types/v10";
+import { useState } from "react";
+import { HiEmojiHappy, HiLockClosed } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 import DiscordWidgetButton from "./widget-button.component";
 
@@ -24,14 +23,14 @@ export default function DiscordWidget({ guild }: Props) {
         url,
         () => fetch(url).then((res) => res.json()) as Promise<RESTGetAPIGuildWidgetJSONResult | RESTError>,
         {
-            enabled: !!guild.id,
+            enabled: Boolean(guild.id),
             ...cacheOptions,
             onSuccess: (data) => setEnabled(!("code" in data)),
             refetchOnMount: true
         }
     );
 
-    if (error || (data && "message" in data && data.code !== 50004)) {
+    if (error || (data && "message" in data && data.code !== 50_004)) {
         return (
             <div className="md:w-1/2">
                 <Notice

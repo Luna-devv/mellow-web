@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
@@ -9,18 +7,19 @@ import Modal from "@/components/modal";
 import { Section } from "@/components/section";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { useState } from "react";
 
-const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?bsky\.app\/profile\/did:plc:[a-z0-9]{20,30}$/;
-const URL_HANDLE_REGEX = /^https?:\/\/((www|m)\.)?bsky\.app\/profile\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
-const CHANNEL_ID = /^did:plc:[a-z0-9]{20,30}$/;
-const CHANNE_HANDLE = /^@?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
+const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?bsky\.app\/profile\/did:plc:[\da-z]{20,30}$/;
+const URL_HANDLE_REGEX = /^https?:\/\/((www|m)\.)?bsky\.app\/profile\/[\dA-Za-z-]+(\.[\dA-Za-z-]+)+$/;
+const CHANNEL_ID = /^did:plc:[\da-z]{20,30}$/;
+const CHANNE_HANDLE = /^@?[\dA-Za-z-]+(\.[\dA-Za-z-]+)+$/;
 
 function validateAccount(input: string) {
-    if (URL_CHANNEL_REGEX.exec(input)) return input.split("/profile/")[1];
-    if (URL_HANDLE_REGEX.exec(input)) return input.split("/profile/")[1];
+    if (URL_CHANNEL_REGEX.test(input)) return input.split("/profile/")[1];
+    if (URL_HANDLE_REGEX.test(input)) return input.split("/profile/")[1];
 
-    if (CHANNEL_ID.exec(input)) return input;
-    if (CHANNE_HANDLE.exec(input)) return input.replace("@", "");
+    if (CHANNEL_ID.test(input)) return input;
+    if (CHANNE_HANDLE.test(input)) return input.replace("@", "");
 
     return null;
 }

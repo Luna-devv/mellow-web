@@ -1,13 +1,5 @@
 "use client";
 
-import Head from "next/head";
-import Link from "next/link";
-import { redirect, useParams } from "next/navigation";
-import { useCookies } from "next-client-cookies";
-import { Suspense, useEffect, useMemo, useState } from "react";
-import { HiArrowNarrowLeft, HiBell, HiChartBar, HiCode, HiEye, HiHome, HiPaperAirplane, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
-import { useQuery } from "react-query";
-
 import { guildStore } from "@/common/guilds";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
@@ -17,6 +9,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions, getData } from "@/lib/api";
 import type { ApiV1GuildsChannelsGetResponse, ApiV1GuildsEmojisGetResponse, ApiV1GuildsGetResponse, ApiV1GuildsRolesGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
+import Head from "next/head";
+import Link from "next/link";
+import { redirect, useParams } from "next/navigation";
+import { useCookies } from "next-client-cookies";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { HiArrowNarrowLeft, HiBell, HiChartBar, HiCode, HiEye, HiHome, HiPaperAirplane, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 function useGuildData<T extends unknown[]>(
     url: string,
@@ -26,7 +25,7 @@ function useGuildData<T extends unknown[]>(
         url,
         () => getData<T>(url),
         {
-            enabled: !!guildStore((g) => g)?.id,
+            enabled: Boolean(guildStore((g) => g)?.id),
             onSettled: (data) => {
                 const isError = !data || "message" in data;
                 onLoad(isError ? [] as unknown as T : data, isError);
@@ -59,7 +58,7 @@ export default function RootLayout({
         url,
         () => getData<ApiV1GuildsGetResponse>(url),
         {
-            enabled: !!params.guildId,
+            enabled: Boolean(params.guildId),
             ...cacheOptions,
             refetchOnMount: true
         }
@@ -191,7 +190,7 @@ export default function RootLayout({
                         }
                     ]}
                     url={`/dashboard/${params.guildId}`}
-                    disabled={!guild || !!error}
+                    disabled={!guild || Boolean(error)}
                 />
             </Suspense>
 

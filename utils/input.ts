@@ -1,8 +1,6 @@
+import type { ApiError } from "@/typings";
 import type { HTMLProps } from "react";
 import { useCallback, useRef, useState } from "react";
-
-import type { ApiError } from "@/typings";
-
 
 export enum InputState {
     Idle = 0,

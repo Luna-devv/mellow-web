@@ -1,8 +1,4 @@
 "use client";
-import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { HiOutlineUpload, HiPencil, HiSparkles, HiX } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import { DiscordMarkdown } from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
@@ -14,9 +10,12 @@ import { Button } from "@/components/ui/button";
 import type { ApiError, ApiV1GuildsModulesNotificationsGetResponse, ApiV1GuildsModulesNotificationStylePatchResponse } from "@/typings";
 import { State } from "@/utils/captcha";
 import { cn } from "@/utils/cn";
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { HiOutlineUpload, HiPencil, HiSparkles, HiX } from "react-icons/hi";
 
 const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/webp"];
-const MAX_FILE_SIZE = 8 * 1024 * 1024;
+const MAX_FILE_SIZE = 8 * 1_024 * 1_024;
 
 export function NotificationStyle({
     item,
@@ -224,10 +223,9 @@ export function ChangeStyleModal({
                     }
 
                     if (file.size > MAX_FILE_SIZE) {
-                        setError(`File size must be less than ${MAX_FILE_SIZE / 1024 / 1024}MiB`);
+                        setError(`File size must be less than ${MAX_FILE_SIZE / 1_024 / 1_024}MiB`);
                         return;
                     }
-
 
                     file.arrayBuffer().then((buffer) => {
                         setAvatar(buffer);

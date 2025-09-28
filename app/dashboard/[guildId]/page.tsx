@@ -1,16 +1,15 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { HiChartBar } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import Switch from "@/components/inputs/switch";
 import { Section } from "@/components/section";
+import { useParams } from "next/navigation";
+import { HiChartBar } from "react-icons/hi";
 
-import { OverviewLink } from "../../../components/overview-link";
 import { BotStyle } from "./style.component";
 import { TTSSettings } from "./tts.component";
 import FollowUpdates from "./updates.component";
+import { OverviewLink } from "../../../components/overview-link";
 
 export default function Home() {
     const guild = guildStore((g) => g);

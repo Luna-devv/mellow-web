@@ -44,7 +44,7 @@ export function getTimeAgo(date: Date): string {
     const now = new Date();
     const diff = now.getTime() - date.getTime();
 
-    const seconds = Math.floor(diff / 1000);
+    const seconds = Math.floor(diff / 1_000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
@@ -61,7 +61,7 @@ export function getTimeAgo(date: Date): string {
         return days === 1 ? "a day ago" : `${days} days ago`;
     } else if (months < 12) {
         return months === 1 ? "a month ago" : `${months} months ago`;
-    } else {
-        return years === 1 ? "a year ago" : `${years} years ago`;
     }
+    return years === 1 ? "a year ago" : `${years} years ago`;
+
 }

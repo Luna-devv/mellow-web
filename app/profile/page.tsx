@@ -1,12 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useCookies } from "next-client-cookies";
-import { useMemo, useState } from "react";
-import { HiChartBar, HiRefresh, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
-
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import { ScreenMessage } from "@/components/screen-message";
@@ -14,6 +7,12 @@ import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
 import type { ApiV1UsersMeGuildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useCookies } from "next-client-cookies";
+import { useMemo, useState } from "react";
+import { HiChartBar, HiRefresh, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
 const MAX_GUILDS = 50 as const;
 
@@ -126,7 +125,7 @@ export default function Home() {
         {isHuge && (
             <ScreenMessage
                 title="There are too many servers.."
-                description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ~${guilds.length < 1000 ? length : Math.round(length / 1000) * 1000}.`}
+                description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ~${guilds.length < 1_000 ? length : Math.round(length / 1_000) * 1_000}.`}
             />
         )}
     </div>);

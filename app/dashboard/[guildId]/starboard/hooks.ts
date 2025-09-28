@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-
 import { StarboardStyle } from "@/typings";
+import { useEffect, useState } from "react";
 
 interface Example {
     avatar: string | null;

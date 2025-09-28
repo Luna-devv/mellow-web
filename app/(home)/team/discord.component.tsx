@@ -1,10 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import { HiExternalLink } from "react-icons/hi";
-
 import { getGuild } from "@/lib/discord/guild";
 import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
+import Image from "next/image";
+import Link from "next/link";
+import { HiExternalLink } from "react-icons/hi";
 
 export async function DiscordServer({
     guildId

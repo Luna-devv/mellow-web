@@ -1,8 +1,7 @@
-import { createPublicKey } from "crypto";
-
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import { createPublicKey } from "node:crypto";
 
-export const revalidate = 691200; // 8 days
+export const revalidate = 691_200; // 8 days
 
 const PUB_KEY = "-----BEGIN PUBLIC KEY-----\n" + process.env.BLUESKY_PUBLIC_KEY + "\n-----END PUBLIC KEY-----";
 

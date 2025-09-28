@@ -1,11 +1,10 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { HiExternalLink } from "react-icons/hi";
-
 import { Section } from "@/components/section";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { HiExternalLink } from "react-icons/hi";
 
 export const revalidate = false;
 

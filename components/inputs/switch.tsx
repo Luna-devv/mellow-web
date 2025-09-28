@@ -1,8 +1,7 @@
-import Link from "next/link";
-import { TailSpin } from "react-loading-icons";
-
 import { cn } from "@/utils/cn";
 import { type InputProps, InputState, useInput } from "@/utils/input";
+import Link from "next/link";
+import { TailSpin } from "react-loading-icons";
 
 import { Badge } from "../ui/badge";
 import { Checkbox } from "../ui/checkbox";
@@ -87,7 +86,6 @@ export default function InputSwitch({
                     />
                 }
             </div>
-
 
             <div className="absolute top-6 mt-0.5">
                 {description &&

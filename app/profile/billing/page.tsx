@@ -1,12 +1,5 @@
 "use client";
 
-import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
-import Link from "next/link";
-import { useRef, useState } from "react";
-import { GrAmex } from "react-icons/gr";
-import { HiCreditCard, HiLightningBolt } from "react-icons/hi";
-import { SiDinersclub, SiDiscover, SiJcb, SiMastercard, SiStripe, SiVisa } from "react-icons/si";
-
 import { DonationSelect } from "@/app/(home)/premium/subscribe.component";
 import { userStore } from "@/common/user";
 import Box from "@/components/box";
@@ -22,7 +15,12 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { type ApiEdit, useApi } from "@/lib/api/hook";
 import type { ApiV1UsersMeBillingGetResponse, ApiV1UsersMeGuildsGetResponse } from "@/typings";
-
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import Link from "next/link";
+import { useRef, useState } from "react";
+import { GrAmex } from "react-icons/gr";
+import { HiCreditCard, HiLightningBolt } from "react-icons/hi";
+import { SiDinersclub, SiDiscover, SiJcb, SiMastercard, SiStripe, SiVisa } from "react-icons/si";
 
 function isActive(status: ApiV1UsersMeBillingGetResponse["status"]): status is "active" | "trialing" | "past_due" {
     return status === "active" || status === "trialing" || status === "past_due";
@@ -58,7 +56,7 @@ export default function Home() {
         </>);
     }
 
-    const periodEndsInDays = Math.floor((((data?.currentPeriodEnd || 0) - Date.now() / 1000) / (60 * 60 * 24)));
+    const periodEndsInDays = Math.floor((((data?.currentPeriodEnd || 0) - Date.now() / 1_000) / (60 * 60 * 24)));
     const periodEndsInStr = `${periodEndsInDays > 1 ? "in " : ""}${periodEndsInDays === 0 ? "Today" : periodEndsInDays === 1 ? "Tomorrow" : periodEndsInDays} ${periodEndsInDays > 1 ? "days" : ""}`;
 
     return (
@@ -102,10 +100,10 @@ export default function Home() {
                         ? <Skeleton className="h-12 w-full" />
                         : (data?.cancelAtPeriodEnd
                             ? <p>
-                                Your subscription will expire on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span> and you will not be charged again.
+                                Your subscription will expire on <span className="font-semibold text-neutral-300">{new Date(data.currentPeriodEnd * 1_000).toLocaleDateString()}</span> and you will not be charged again.
                             </p>
                             : <p>
-                                Your subscription will renew on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1000).toLocaleDateString()}</span>, for a total of <span className="font-semibold text-neutral-300">EUR {(4 + (data!.donationQuantity || 0)).toFixed(2)}</span>.
+                                Your subscription will renew on <span className="font-semibold text-neutral-300">{new Date(data!.currentPeriodEnd * 1_000).toLocaleDateString()}</span>, for a total of <span className="font-semibold text-neutral-300">EUR {(4 + (data!.donationQuantity || 0)).toFixed(2)}</span>.
 
                                 You{"'"}re paying <span className="font-semibold text-neutral-300">EUR {(4).toFixed(2)} Premium</span> and <span className="font-semibold text-neutral-300">EUR {(data!.donationQuantity || 0).toFixed(2)} Donation{data!.donationQuantity ? "s" : ""}</span>
                                 {" "}
@@ -233,8 +231,8 @@ function PremiumGuildSelect({
             name="Premium Guilds"
             url="/users/@me/billing/premium-guilds"
             dataName="guildIds"
-            items={data
-                ?.filter((guild) => guild.bot)
+            items={(data || [])
+                .filter((guild) => guild.bot)
                 .map((guild) => ({
                     icon: (
                         <ImageReduceMotion

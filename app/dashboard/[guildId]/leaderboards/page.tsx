@@ -1,9 +1,5 @@
 "use client";
 
-import { ChannelType } from "discord-api-types/v10";
-import { useParams } from "next/navigation";
-import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
-
 import { type Guild, guildStore } from "@/common/guilds";
 import ImageUrlInput from "@/components/inputs/image-url-input";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
@@ -12,12 +8,15 @@ import { Section, SubSection } from "@/components/section";
 import { useApi } from "@/lib/api/hook";
 import type { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { ChannelType } from "discord-api-types/v10";
+import { useParams } from "next/navigation";
+import { HiChartBar, HiViewGridAdd } from "react-icons/hi";
 
-import { OverviewLink } from "../../../../components/overview-link";
 import Permissions from "./permissions.component";
 import ResetLeaderboard from "./reset.component";
 import UpdatingLeaderboardCard from "./updating.component";
 import DiscordWidget from "./widget.component";
+import { OverviewLink } from "../../../../components/overview-link";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -39,7 +38,6 @@ export default function Home() {
             />
         );
     }
-
 
     return (<>
         <div className="flex flex-col-reverse md:flex-row gap-6">
@@ -121,7 +119,6 @@ export default function Home() {
             <UpdatingLeaderboardCard guild={guild as Guild} lb={data.updating.find((lb) => lb.type === "voiceminutes")} type="voiceminutes" />
             <UpdatingLeaderboardCard guild={guild as Guild} lb={data.updating.find((lb) => lb.type === "invites")} type="invites" />
         </div>
-
 
         <Section
             title="Privacy"

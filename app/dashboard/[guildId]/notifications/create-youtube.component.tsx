@@ -1,8 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
-
 import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
@@ -11,18 +8,20 @@ import { Section } from "@/components/section";
 import TutorialPic from "@/public/docs-assets/notifications-channel-urls.webp";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import Image from "next/image";
+import { useState } from "react";
 
-const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?youtube\.com\/channel\/UC([a-zA-Z0-9_-]{16,32})$/;
-const URL_HANDLE_REGEX = /^https?:\/\/((www|m)\.)?youtube\.com\/@([a-zA-Z0-9._-]{3,30})$/;
-const CHANNEL_ID = /^UC[a-zA-Z0-9_-]{16,32}$/;
-const CHANNE_HANDLE = /^@?[a-zA-Z0-9._-]{3,30}$/;
+const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?youtube\.com\/channel\/UC([\w-]{16,32})$/;
+const URL_HANDLE_REGEX = /^https?:\/\/((www|m)\.)?youtube\.com\/@([\w.-]{3,30})$/;
+const CHANNEL_ID = /^UC[\w-]{16,32}$/;
+const CHANNE_HANDLE = /^@?[\w.-]{3,30}$/;
 
 function validateAccount(input: string) {
-    if (URL_CHANNEL_REGEX.exec(input)) return input.split("/channel/")[1];
-    if (URL_HANDLE_REGEX.exec(input)) return input.split("/@")[1];
+    if (URL_CHANNEL_REGEX.test(input)) return input.split("/channel/")[1];
+    if (URL_HANDLE_REGEX.test(input)) return input.split("/@")[1];
 
-    if (CHANNEL_ID.exec(input)) return input;
-    if (CHANNE_HANDLE.exec(input)) return input.replace("@", "");
+    if (CHANNEL_ID.test(input)) return input;
+    if (CHANNE_HANDLE.test(input)) return input.replace("@", "");
 
     return null;
 }

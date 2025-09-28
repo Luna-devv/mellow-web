@@ -1,11 +1,10 @@
+import { webStore } from "@/common/webstore";
+import type { ApiError } from "@/typings";
+import { cn } from "@/utils/cn";
 import { Button } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
-
-import { webStore } from "@/common/webstore";
-import type { ApiError } from "@/typings";
-import { cn } from "@/utils/cn";
 
 enum State {
     Idle = 0,
@@ -206,7 +205,7 @@ export default function NumberInput({
                             (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-text"
                         )}
                         onChange={(e) => {
-                            if (/^[0-9]+$/.test(e.target.value) || !e.target.value) setValue(e.target.value ? parseInt(e.target.value) : undefined);
+                            if (/^\d+$/.test(e.target.value) || !e.target.value) setValue(e.target.value ? Number.parseInt(e.target.value, 10) : undefined);
                         }}
                         value={value}
                         disabled={state === State.Loading || disabled}

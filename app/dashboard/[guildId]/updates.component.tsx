@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { HiMail } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { useState } from "react";
+import { HiMail } from "react-icons/hi";
 
 export default function FollowUpdates() {
     const guild = guildStore((g) => g);
@@ -44,7 +43,7 @@ export default function FollowUpdates() {
         <Modal
             title="Wamellow updates"
             className="!overflow-visible"
-            isOpen={open && !!guild}
+            isOpen={open && Boolean(guild)}
             onClose={() => setOpen(false)}
             onSubmit={() => {
                 return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/follow-updates`, {
@@ -63,7 +62,7 @@ export default function FollowUpdates() {
                     if (!g) return g;
 
                     g.follownewsChannel = {
-                        name: g!.channels!.find((c) => c.id === channelId)!.name,
+                        name: g.channels!.find((c) => c.id === channelId)!.name,
                         id: channelId!
                     };
 

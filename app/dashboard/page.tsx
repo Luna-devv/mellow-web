@@ -13,12 +13,12 @@ function objectToSearchParams(obj: Record<string, string>): string {
 
     const params = new URLSearchParams();
 
-    Object.keys(obj).forEach((key) => {
+    for (const key of Object.keys(obj)) {
         const value = obj[key];
         if (value !== null && value !== undefined) {
             params.append(key, value.toString());
         }
-    });
+    }
 
     return params.toString();
 }

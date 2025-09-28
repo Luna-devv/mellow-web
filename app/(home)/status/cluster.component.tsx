@@ -1,10 +1,9 @@
-import Image from "next/image";
-import type { ReactNode } from "react";
-import { HiLightningBolt } from "react-icons/hi";
-
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
+import Image from "next/image";
+import type { ReactNode } from "react";
+import { HiLightningBolt } from "react-icons/hi";
 
 import type { ApiCluster } from "./api";
 
@@ -69,7 +68,6 @@ function Icon({ ping }: { ping: number; }) {
         />
     );
 }
-
 
 function Row({ name, children, className }: { name: string; children: ReactNode; className?: string; }) {
     return (

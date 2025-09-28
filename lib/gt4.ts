@@ -27,7 +27,7 @@ interface CaptchaOptions {
     userInfo?: string;
 }
 
-export function GT4Init() {
+export function gt4init() {
     "use strict";
     if (typeof window === "undefined") {
         throw new Error("Geetest requires browser environment");

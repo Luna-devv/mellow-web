@@ -1,11 +1,10 @@
-import { readFile } from "fs/promises";
-
 import { Faq } from "@/app/(home)/faq.component";
 import BeautifyMarkdown from "@/components/markdown";
 import Notice, { NoticeType } from "@/components/notice";
 import { ScreenMessage } from "@/components/screen-message";
 import { Badge } from "@/components/ui/badge";
 import metadata from "@/public/docs/meta.json";
+import { readFile } from "fs/promises";
 
 interface Props {
     params: Promise<{ pathname: string[]; }>;

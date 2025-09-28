@@ -1,7 +1,6 @@
+import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { HiEmojiHappy, HiLockClosed } from "react-icons/hi";
-
-import { Button } from "@/components/ui/button";
 
 enum State {
     Idle = 0,
@@ -38,7 +37,7 @@ export default function DiscordWidgetButton({
 
         if (res.status === 429) {
             setState(State.Ratelimited);
-            setTimeout(() => setState(State.Idle), 6 * 1000);
+            setTimeout(() => setState(State.Idle), 6 * 1_000);
         } else setState(State.Idle);
 
         if (res.ok) {

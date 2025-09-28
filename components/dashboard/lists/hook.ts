@@ -1,8 +1,7 @@
+import { cacheOptions, getData } from "@/lib/api";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { useQuery, useQueryClient } from "react-query";
-
-import { cacheOptions, getData } from "@/lib/api";
 
 interface UseDataQueryOptions {
     url: string;
@@ -20,7 +19,7 @@ export function useList<T extends { id: string; }>({ url }: UseDataQueryOptions)
         url,
         () => getData<T[]>(url),
         {
-            enabled: !!params.guildId,
+            enabled: Boolean(params.guildId),
             ...cacheOptions
         }
     );

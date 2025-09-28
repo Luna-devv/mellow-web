@@ -1,8 +1,7 @@
+import { type ApiV1GuildsChannelsGetResponse, type ApiV1GuildsEmojisGetResponse, type ApiV1GuildsRolesGetResponse, PermissionFlagsBits } from "@/typings";
 import { ChannelType } from "discord-api-types/v10";
 import Image from "next/image";
 import { HiAtSymbol, HiHashtag, HiMenuAlt2, HiNewspaper, HiVolumeUp } from "react-icons/hi";
-
-import { type ApiV1GuildsChannelsGetResponse, type ApiV1GuildsEmojisGetResponse, type ApiV1GuildsRolesGetResponse, PermissionFlagsBits } from "@/typings";
 
 type Item = ApiV1GuildsChannelsGetResponse | ApiV1GuildsRolesGetResponse;
 type PermissionNames = keyof typeof PermissionFlagsBits | "RoleHirachy";
@@ -12,7 +11,7 @@ function parsePermissions(permissions: number, required: PermissionNames[]) {
 
     return required
         .filter((perm) => perm !== "RoleHirachy")
-        .map((perm) => (permissions & PermissionFlagsBits[perm as keyof typeof PermissionFlagsBits]) === 0 ? perm : false)
+        .map((perm) => (permissions & PermissionFlagsBits[perm]) === 0 ? perm : false)
         .filter(Boolean);
 }
 

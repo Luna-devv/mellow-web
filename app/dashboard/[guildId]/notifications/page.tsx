@@ -1,12 +1,5 @@
 "use client";
 
-import { LoaderCircleIcon } from "lucide-react";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { type ReactNode, useMemo } from "react";
-import { HiChat, HiViewGridAdd } from "react-icons/hi";
-import { useQuery } from "react-query";
-
 import { guildStore } from "@/common/guilds";
 import Fetch from "@/components/button-fetch";
 import { ClientBadge } from "@/components/client";
@@ -25,6 +18,12 @@ import { type ApiV1GuildsModulesNotificationsGetResponse, BlueskyNotificationFla
 import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
+import { LoaderCircleIcon } from "lucide-react";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { type ReactNode, useMemo } from "react";
+import { HiChat, HiViewGridAdd } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 import { hasBlueskyPost } from "./api";
 import { DeleteNotification } from "./delete.component";

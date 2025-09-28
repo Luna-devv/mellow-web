@@ -1,12 +1,11 @@
-import { PermissionFlagsBits } from "discord-api-types/v10";
-import { useMemo } from "react";
-import { HiExclamation } from "react-icons/hi";
-
 import type { Guild } from "@/common/guilds";
 import DiscordChannel from "@/components/discord/channel";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { ApiV1GuildsChannelsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
+import { PermissionFlagsBits } from "discord-api-types/v10";
+import { useMemo } from "react";
+import { HiExclamation } from "react-icons/hi";
 
 interface Props {
     className: string;

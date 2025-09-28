@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { HiPencil } from "react-icons/hi";
-
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import type { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
+import { useState } from "react";
+import { HiPencil } from "react-icons/hi";
 
 export enum Style {
     Compact = 1,

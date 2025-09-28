@@ -1,13 +1,5 @@
 "use client";
 
-import { Accordion, AccordionItem, Code } from "@nextui-org/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCookies } from "next-client-cookies";
-import { useState } from "react";
-import { BsDiscord } from "react-icons/bs";
-import { HiAnnotation, HiLink, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
-
 import Ad from "@/components/ad";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
@@ -16,6 +8,13 @@ import { Button } from "@/components/ui/button";
 import type { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
+import { Accordion, AccordionItem, Code } from "@nextui-org/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCookies } from "next-client-cookies";
+import { useState } from "react";
+import { BsDiscord } from "react-icons/bs";
+import { HiAnnotation, HiLink, HiTrash, HiViewGridAdd, HiVolumeUp } from "react-icons/hi";
 
 export default function Side({
     guild,
@@ -83,7 +82,7 @@ export default function Side({
                             className="w-full justify-start mt-2"
                         >
                             <Link
-                                href={getCanonicalUrl("dashboard", guild.id as string)}
+                                href={getCanonicalUrl("dashboard", guild.id)}
                             >
                                 <HiViewGridAdd />
                                 Dashboard
@@ -133,9 +132,9 @@ export default function Side({
                     <br />
                     <br />
                     The percentage {
-                        cookies.get("lbc") !== "server"
-                            ? "indicates the gap in messages needed to surpass the next user"
-                            : "reflects the contribution of server activity from that user"
+                        cookies.get("lbc") === "server"
+                            ? "reflects the contribution of server activity from that user"
+                            : "indicates the gap in messages needed to surpass the next user"
                     }.
                 </AccordionItem>
 

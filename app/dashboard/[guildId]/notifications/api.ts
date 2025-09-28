@@ -14,5 +14,5 @@ export async function hasBlueskyPost(did: string) {
         .catch(() => null) as ApiGetPost | null;
 
     if (!res) return false;
-    return !!res.feed.length;
+    return Boolean(res.feed.length);
 }

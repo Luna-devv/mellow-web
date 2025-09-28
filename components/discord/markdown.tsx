@@ -1,8 +1,6 @@
 import "./markdown.css";
-
-import * as md from "@odiffey/discord-markdown";
-
 import { cn } from "@/utils/cn";
+import * as md from "@odiffey/discord-markdown";
 
 export function DiscordMarkdown({
     text,

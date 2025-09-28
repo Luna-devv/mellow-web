@@ -1,13 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
 import { composeEventHandlers } from "@radix-ui/primitive";
 import { useComposedRefs } from "@radix-ui/react-compose-refs";
 import { Primitive } from "@radix-ui/react-primitive";
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
-
-import { Button } from "@/components/ui/button";
-import { cn } from "@/utils/cn";
 
 export type InputBaseContextProps = Pick<
     InputBaseProps,

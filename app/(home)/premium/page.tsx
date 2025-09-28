@@ -1,11 +1,3 @@
-import type { Metadata } from "next";
-import { Montserrat, Patrick_Hand } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
-import { BsQuestionLg } from "react-icons/bs";
-import { HiArrowRight, HiLightningBolt, HiOutlineCheck, HiOutlineInformationCircle, HiUser, HiUserGroup, HiX } from "react-icons/hi";
-import { IoMdInfinite } from "react-icons/io";
-
 import Comment from "@/components/comment";
 import ImageGrid from "@/components/image-grid";
 import { OverviewLink } from "@/components/overview-link";
@@ -22,6 +14,13 @@ import ArrowPic from "@/public/icons/arroww.webp";
 import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import { Montserrat, Patrick_Hand } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+import { BsQuestionLg } from "react-icons/bs";
+import { HiArrowRight, HiLightningBolt, HiOutlineCheck, HiOutlineInformationCircle, HiUser, HiUserGroup, HiX } from "react-icons/hi";
+import { IoMdInfinite } from "react-icons/io";
 
 import { Subscribe } from "./subscribe.component";
 
@@ -53,7 +52,7 @@ const items = [
     { title: "Notification crosspost", free: false, premium: true }
 ];
 
-export const revalidate = 3600;
+export const revalidate = 3_600;
 
 export const generateMetadata = (): Metadata => {
 

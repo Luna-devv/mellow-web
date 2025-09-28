@@ -1,6 +1,5 @@
+import { gt4init } from "@/lib/gt4";
 import { useEffect, useRef, useState } from "react";
-
-import { GT4Init } from "@/lib/gt4";
 
 export enum State {
     Idle = 0,
@@ -16,7 +15,7 @@ export function useCaptcha(path: string, userId?: string) {
 
     useEffect(() => {
         if (!userId) return;
-        const { init } = GT4Init();
+        const { init } = gt4init();
 
         init(
             {

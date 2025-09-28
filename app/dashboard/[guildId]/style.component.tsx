@@ -1,8 +1,4 @@
 "use client";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { HiOutlineUpload, HiPencil, HiX } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import DiscordMessage from "@/components/discord/message";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
@@ -13,9 +9,12 @@ import { Button } from "@/components/ui/button";
 import { type ApiError, type ApiV1GuildsGetResponse, type ApiV1GuildsStylePatchResponse, GuildFlags } from "@/typings";
 import { State } from "@/utils/captcha";
 import { cn } from "@/utils/cn";
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { HiOutlineUpload, HiPencil, HiX } from "react-icons/hi";
 
 const ALLOWED_FILE_TYPES = ["image/jpg", "image/jpeg", "image/png", "image/webp", "image/gif", "image/apng"];
-const MAX_FILE_SIZE = 8 * 1024 * 1024;
+const MAX_FILE_SIZE = 8 * 1_024 * 1_024;
 
 export function BotStyle() {
     const guild = guildStore((g) => g!);
@@ -40,7 +39,7 @@ export function BotStyle() {
 
                     <div className="space-y-2">
                         <span className="text-3xl font-medium text-primary-foreground">
-                            {guild.style.username ? guild.style.username : "Wamellow"}
+                            {guild.style.username || "Wamellow"}
                         </span>
                         <div className="flex">
                             <Button onClick={() => setOpen(true)}>
@@ -186,7 +185,7 @@ export function ChangeStyleModal({
                 if (!name || !valid) return new Error("Invalid name");
 
                 const formData = new FormData();
-                formData.append("json_payload", JSON.stringify({ username: name, bio: bio }));
+                formData.append("json_payload", JSON.stringify({ username: name, bio }));
                 if (avatar && typeof avatar !== "string") formData.append("file[0]", new Blob([avatar]), "avatar");
                 if (banner && typeof banner !== "string") formData.append("file[1]", new Blob([banner]), "banner");
 
@@ -293,10 +292,9 @@ function FileUpload({
                 }
 
                 if (file.size > MAX_FILE_SIZE) {
-                    setError(`File size must be less than ${MAX_FILE_SIZE / 1024 / 1024}MiB`);
+                    setError(`File size must be less than ${MAX_FILE_SIZE / 1_024 / 1_024}MiB`);
                     return;
                 }
-
 
                 file.arrayBuffer().then((buffer) => {
                     setBuf(buffer);

@@ -1,12 +1,3 @@
-import { Code } from "@nextui-org/react";
-import { Montserrat, Patrick_Hand } from "next/font/google";
-import { headers } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense } from "react";
-import { BsYoutube } from "react-icons/bs";
-import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
-
 import Box from "@/components/box";
 import Comment from "@/components/comment";
 import DiscordAppBadge from "@/components/discord/app-badge";
@@ -34,6 +25,14 @@ import { cn } from "@/utils/cn";
 import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { actor } from "@/utils/tts";
 import { getCanonicalUrl } from "@/utils/urls";
+import { Code } from "@nextui-org/react";
+import { Montserrat, Patrick_Hand } from "next/font/google";
+import { headers } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import { BsYoutube } from "react-icons/bs";
+import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
 import { Commands } from "./commands.component";
 import { Faq } from "./faq.component";
@@ -42,7 +41,7 @@ import { Ratings } from "./ratings.component";
 const montserrat = Montserrat({ subsets: ["latin"] });
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
-export const revalidate = 43200;
+export const revalidate = 43_200;
 
 const styles = {
     h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-bold mb-4"),
@@ -356,7 +355,7 @@ export default async function Home() {
                                 <DiscordMessageEmbed
                                     mode="DARK"
                                     title="My wife insisted I do this for her"
-                                    color={0x8a57ff}
+                                    color={0x8A_57_FF}
                                 >
                                     <Image
                                         alt=""
@@ -467,10 +466,10 @@ export default async function Home() {
                                 <Image
                                     alt="example leaderboard card"
                                     src={LeaderboardPic}
-                                    height={1024 / 4}
+                                    height={1_024 / 4}
                                     itemProp="image"
                                     loading="lazy"
-                                    width={2048 / 4}
+                                    width={2_048 / 4}
                                 />
                             </DiscordMessage>
                         </div>
@@ -515,7 +514,7 @@ export default async function Home() {
                             <DiscordMessage {...messageProps()}>
                                 <DiscordMessageEmbed
                                     mode={"DARK"}
-                                    color={0xbd7fd6}
+                                    color={0xBD_7F_D6}
                                     author={{
                                         text: "@mwlica",
                                         icon_url: "/luna.webp"
@@ -579,7 +578,7 @@ export default async function Home() {
                                     height={(256 + 16) / 2}
                                     itemProp="image"
                                     loading="lazy"
-                                    width={1024 / 2}
+                                    width={1_024 / 2}
                                 />
                             </DiscordMessage>
                         </div>
@@ -634,10 +633,10 @@ export default async function Home() {
                                 alt="anime captcha verification example"
                                 className="max-w-56"
                                 src={CaptchaPic}
-                                height={1530 / 5}
+                                height={1_530 / 5}
                                 itemProp="image"
                                 loading="lazy"
-                                width={1070 / 5}
+                                width={1_070 / 5}
                             />
                         </div>
                     </Box>
@@ -700,7 +699,7 @@ export default async function Home() {
                             >
                                 <DiscordMessageEmbed
                                     mode={"DARK"}
-                                    color={0xbc7ed4}
+                                    color={0xBC_7E_D4}
                                 >
                                     <DiscordMarkdown mode={"DARK"} text="To create a custom command, go to [your server's dashboard](/dashboard?to=custom-commands), click on `Create`, fill in the response **content**, **embed title**, **embed description**, **embed color**, **embed images**, command **permissions** and more. When you're done you can start using the command 🎉" />
                                 </DiscordMessageEmbed>

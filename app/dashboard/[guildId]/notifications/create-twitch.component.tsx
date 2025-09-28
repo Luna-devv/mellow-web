@@ -1,8 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
-
 import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
@@ -11,13 +8,15 @@ import { Section } from "@/components/section";
 import TutorialPic from "@/public/docs-assets/notifications-channel-urls.webp";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import Image from "next/image";
+import { useState } from "react";
 
-const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?twitch\.tv\/([a-zA-Z0-9_-]{1,32})$/;
-const CHANNE_HANDLE = /^@?[a-zA-Z0-9._-]{1,32}$/;
+const URL_CHANNEL_REGEX = /^https?:\/\/((www|m)\.)?twitch\.tv\/([\w-]{1,32})$/;
+const CHANNE_HANDLE = /^@?[\w.-]{1,32}$/;
 
 function validateAccount(input: string) {
-    if (URL_CHANNEL_REGEX.exec(input)) return input.split(".tv/")[1];
-    if (CHANNE_HANDLE.exec(input)) return input.replace("@", "");
+    if (URL_CHANNEL_REGEX.test(input)) return input.split(".tv/")[1];
+    if (CHANNE_HANDLE.test(input)) return input.replace("@", "");
     return null;
 }
 

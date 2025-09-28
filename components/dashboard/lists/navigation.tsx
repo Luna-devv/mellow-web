@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { HiArrowLeft, HiExternalLink } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { HiArrowLeft, HiExternalLink } from "react-icons/hi";
 
 interface Props {
     href: `/${string}`;

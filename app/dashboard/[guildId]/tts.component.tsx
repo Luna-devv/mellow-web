@@ -1,13 +1,12 @@
-import { ChannelType } from "discord-api-types/v10";
-import { useParams } from "next/navigation";
-import { useCallback } from "react";
-
 import { type Guild, guildStore } from "@/common/guilds";
 import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import { TTSFaq } from "@/components/tts-faq";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { ChannelType } from "discord-api-types/v10";
+import { useParams } from "next/navigation";
+import { useCallback } from "react";
 
 export function TTSSettings() {
     const guild = guildStore((g) => g);
@@ -89,8 +88,8 @@ export function TTSSettings() {
                     description="The maximum length of a message that can be spoken."
                     url={`/guilds/${params.guildId}`}
                     dataName="tts.maxLength"
-                    defaultState={guild?.tts.maxLength || 4000}
-                    max={4000}
+                    defaultState={guild?.tts.maxLength || 4_000}
+                    max={4_000}
                     onSave={(value) => edit("maxLength", value)}
                 />
             </div>

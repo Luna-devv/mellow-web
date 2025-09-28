@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
-import { cookies, headers } from "next/headers";
-import { HiTrash } from "react-icons/hi";
-
 import { Shiggy } from "@/components/shiggy";
 import { Button } from "@/components/ui/button";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
+import { HiTrash } from "react-icons/hi";
 
 import Panel from "./panel.component";
 

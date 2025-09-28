@@ -1,5 +1,6 @@
-import { ChannelType } from "discord-api-types/v10";
-import { actor } from "./utils/tts";
+import type { ChannelType } from "discord-api-types/v10";
+
+import type { actor } from "./utils/tts";
 
 export interface ApiError {
     status: number;
@@ -24,7 +25,7 @@ export interface ApiV1UsersMeGuildsGetResponse {
 }
 
 export enum GuildFlags {
-    Premium = 1 << 0,
+    Premium = 1 << 0
 }
 
 export interface ApiV1GuildsGetResponse {
@@ -55,7 +56,7 @@ export interface ApiV1GuildsGetResponse {
         username: string | null;
         avatar: string | null;
         banner: string | null;
-    }
+    };
 }
 
 export interface ApiV1GuildsStylePatchResponse {
@@ -72,7 +73,7 @@ export interface ApiV1GuildsTopmembersGetResponse {
     avatar: string | null;
     bot: true;
     emoji: string | null;
-    activity: ApiV1UsersMeGetResponse["activity"] & { formattedVoicetime: string };
+    activity: ApiV1UsersMeGetResponse["activity"] & { formattedVoicetime: string; };
 }
 
 export interface ApiV1GuildsTopmembersPaginationGetResponse {
@@ -128,7 +129,7 @@ export interface GuildEmbed {
     footer: {
         text: string | null;
         icon_url: string | null;
-    }
+    };
 }
 
 export interface ApiV1GuildsModulesWelcomeGetResponse {
@@ -137,7 +138,7 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
 
     message: {
         content?: string;
-        embed?: GuildEmbed
+        embed?: GuildEmbed;
     };
 
     roleIds: string[];
@@ -155,8 +156,8 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
     };
 
     reactions: {
-        welcomeMessageEmojis: string[],
-        firstMessageEmojis: string[],
+        welcomeMessageEmojis: string[];
+        firstMessageEmojis: string[];
     };
 
     card: {
@@ -183,7 +184,7 @@ export interface ApiV1GuildsModulesByeGetResponse {
 
     message: {
         content?: string;
-        embed?: GuildEmbed
+        embed?: GuildEmbed;
     };
 
     deleteAfter?: number;
@@ -243,7 +244,7 @@ export interface ApiV1GuildsModulesLeaderboardUpdatingPostResponse {
         rank: "**" | "__" | "*" | "`" | null;
         number: "**" | "__" | "*" | "`" | null;
         user: "**" | "__" | "*" | "`" | null;
-    }
+    };
 
     range: "daily" | "weekly" | "monthly" | "alltime";
     display: "mention" | "username" | "nickname" | "id";
@@ -270,7 +271,7 @@ export interface ApiV1GuildsModulesLeaderboardGetResponse {
 
 export interface ApiV1GuildsModulesPassportGetResponse {
     enabled: boolean;
-    channelId?: string;
+    channelId: string | null;
     /**
      * We're currently on free tier
      */
@@ -281,13 +282,13 @@ export interface ApiV1GuildsModulesPassportGetResponse {
      * 2 - Assign role
      */
     punishment: 0 | 1 | 2;
-    punishmentRoleId?: string;
+    punishmentRoleId: string | null;
 
-    successRoleId?: string;
-    unverifiedRoleId?: string;
+    successRoleId: string | null;
+    unverifiedRoleId: string | null;
 
     sendFailedDm: boolean;
-    alsoFailIf: ("disposableEmailAddress")[]
+    alsoFailIf: ("disposableEmailAddress")[];
 }
 
 export enum UserFlags {
@@ -308,7 +309,7 @@ export interface ApiV1UsersMeGetResponse {
         barColor?: number;
         useLeaderboardList?: boolean;
         subText?: {
-            type: 0 | 1 | 2 | 3 // 0: off, 1: date, 2: relative, 3: custom
+            type: 0 | 1 | 2 | 3; // 0: off, 1: date, 2: relative, 3: custom
             content?: string;
         };
     };
@@ -336,14 +337,14 @@ export interface ApiV1UsersMeConnectionsGetResponse {
 
 export interface ApiV1UsersMeBillingGetResponse {
     subscriptionId: string;
-    status: 'active'
-    | 'canceled'
-    | 'incomplete'
-    | 'incomplete_expired'
-    | 'past_due'
-    | 'paused'
-    | 'trialing'
-    | 'unpaid';
+    status: "active"
+    | "canceled"
+    | "incomplete"
+    | "incomplete_expired"
+    | "past_due"
+    | "paused"
+    | "trialing"
+    | "unpaid";
     priceId: string;
     created: number;
     currentPeriodEnd: number;
@@ -355,7 +356,7 @@ export interface ApiV1UsersMeBillingGetResponse {
         last4: string | null;
     } | string | null;
     portalUrl: string;
-    guildIds: string[]
+    guildIds: string[];
 }
 
 export interface ApiV1GuildsModulesTagsGetResponse {
@@ -410,7 +411,7 @@ export interface ApiV1UploadsGetResponse {
     pagination: {
         total: number;
         pages: number;
-    }
+    };
 }
 
 export interface ApiV1UploadGetResponse extends Upload {
@@ -529,59 +530,59 @@ export interface PronounsResponse {
 export interface NekosticResponse {
     event: string;
     name: string;
-    uses: number
+    uses: number;
     users: number;
     snapshot: string;
 }
 
 export enum PermissionFlagsBits {
-    CreateInstantInvite = 0x0000000000000001,
-    KickMembers = 0x0000000000000002,
-    BanMembers = 0x0000000000000004,
-    Administrator = 0x0000000000000008,
-    ManageChannels = 0x0000000000000010,
-    ManageGuild = 0x0000000000000020,
-    AddReactions = 0x0000000000000040,
-    ViewAuditLog = 0x0000000000000080,
-    PrioritySpeaker = 0x0000000000000100,
-    Stream = 0x0000000000000200,
-    ViewChannel = 0x0000000000000400,
-    SendMessages = 0x0000000000000800,
-    SendTtsMessages = 0x0000000000001000,
-    ManageMessages = 0x0000000000002000,
-    EmbedLinks = 0x0000000000004000,
-    AttachFiles = 0x0000000000008000,
-    ReadMessageHistory = 0x0000000000010000,
-    MentionEveryone = 0x0000000000020000,
-    UseExternalEmojis = 0x0000000000040000,
-    ViewGuildInsights = 0x0000000000080000,
-    Connect = 0x0000000000100000,
-    Speak = 0x0000000000200000,
-    MuteMembers = 0x0000000000400000,
-    DeafenMembers = 0x0000000000800000,
-    MoveMembers = 0x0000000001000000,
-    UseVad = 0x0000000002000000,
-    ChangeNickname = 0x0000000004000000,
-    ManageNicknames = 0x0000000008000000,
-    ManageRoles = 0x0000000010000000,
-    ManageWebhooks = 0x0000000020000000,
-    ManageGuildExpressions = 0x0000000040000000,
-    UseApplicationCommands = 0x0000000080000000,
-    RequestToSpeak = 0x0000000100000000,
-    ManageEvents = 0x0000000200000000,
-    ManageThreads = 0x0000000400000000,
-    CreatePublicThreads = 0x0000000800000000,
-    CreatePrivateThreads = 0x0000001000000000,
-    UseExternalStickers = 0x0000002000000000,
-    SendMessagesInThreads = 0x0000004000000000,
-    UseEmbeddedActivities = 0x0000008000000000,
-    ModerateMembers = 0x0000010000000000,
-    ViewCreatorMonetizationAnalytics = 0x0000020000000000,
-    UseSoundboard = 0x0000040000000000,
-    CreateGuildExpressions = 0x0000080000000000,
-    CreateEvents = 0x0000100000000000,
-    UseExternalSounds = 0x0000200000000000,
-    SendVoiceMessages = 0x0000400000000000,
-    SendPolls = 0x0002000000000000,
-    UseExternalApps = 0x0004000000000000,
+    CreateInstantInvite = 0x00_00_00_00_00_00_00_01,
+    KickMembers = 0x00_00_00_00_00_00_00_02,
+    BanMembers = 0x00_00_00_00_00_00_00_04,
+    Administrator = 0x00_00_00_00_00_00_00_08,
+    ManageChannels = 0x00_00_00_00_00_00_00_10,
+    ManageGuild = 0x00_00_00_00_00_00_00_20,
+    AddReactions = 0x00_00_00_00_00_00_00_40,
+    ViewAuditLog = 0x00_00_00_00_00_00_00_80,
+    PrioritySpeaker = 0x00_00_00_00_00_00_01_00,
+    Stream = 0x00_00_00_00_00_00_02_00,
+    ViewChannel = 0x00_00_00_00_00_00_04_00,
+    SendMessages = 0x00_00_00_00_00_00_08_00,
+    SendTtsMessages = 0x00_00_00_00_00_00_10_00,
+    ManageMessages = 0x00_00_00_00_00_00_20_00,
+    EmbedLinks = 0x00_00_00_00_00_00_40_00,
+    AttachFiles = 0x00_00_00_00_00_00_80_00,
+    ReadMessageHistory = 0x00_00_00_00_00_01_00_00,
+    MentionEveryone = 0x00_00_00_00_00_02_00_00,
+    UseExternalEmojis = 0x00_00_00_00_00_04_00_00,
+    ViewGuildInsights = 0x00_00_00_00_00_08_00_00,
+    Connect = 0x00_00_00_00_00_10_00_00,
+    Speak = 0x00_00_00_00_00_20_00_00,
+    MuteMembers = 0x00_00_00_00_00_40_00_00,
+    DeafenMembers = 0x00_00_00_00_00_80_00_00,
+    MoveMembers = 0x00_00_00_00_01_00_00_00,
+    UseVad = 0x00_00_00_00_02_00_00_00,
+    ChangeNickname = 0x00_00_00_00_04_00_00_00,
+    ManageNicknames = 0x00_00_00_00_08_00_00_00,
+    ManageRoles = 0x00_00_00_00_10_00_00_00,
+    ManageWebhooks = 0x00_00_00_00_20_00_00_00,
+    ManageGuildExpressions = 0x00_00_00_00_40_00_00_00,
+    UseApplicationCommands = 0x00_00_00_00_80_00_00_00,
+    RequestToSpeak = 0x00_00_00_01_00_00_00_00,
+    ManageEvents = 0x00_00_00_02_00_00_00_00,
+    ManageThreads = 0x00_00_00_04_00_00_00_00,
+    CreatePublicThreads = 0x00_00_00_08_00_00_00_00,
+    CreatePrivateThreads = 0x00_00_00_10_00_00_00_00,
+    UseExternalStickers = 0x00_00_00_20_00_00_00_00,
+    SendMessagesInThreads = 0x00_00_00_40_00_00_00_00,
+    UseEmbeddedActivities = 0x00_00_00_80_00_00_00_00,
+    ModerateMembers = 0x00_00_01_00_00_00_00_00,
+    ViewCreatorMonetizationAnalytics = 0x00_00_02_00_00_00_00_00,
+    UseSoundboard = 0x00_00_04_00_00_00_00_00,
+    CreateGuildExpressions = 0x00_00_08_00_00_00_00_00,
+    CreateEvents = 0x00_00_10_00_00_00_00_00,
+    UseExternalSounds = 0x00_00_20_00_00_00_00_00,
+    SendVoiceMessages = 0x00_00_40_00_00_00_00_00,
+    SendPolls = 0x00_02_00_00_00_00_00_00,
+    UseExternalApps = 0x00_04_00_00_00_00_00_00
 }

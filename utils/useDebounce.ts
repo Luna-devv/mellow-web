@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 const debounce = <T>(fn: (...args: T[]) => void, delay: number) => {
-    let timeout: NodeJS.Timeout | undefined = undefined;
+    let timeout: NodeJS.Timeout | undefined;
     return (...args: T[]) => {
         if (timeout !== undefined) {
             clearTimeout(timeout);

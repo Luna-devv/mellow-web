@@ -1,8 +1,3 @@
-import { cookies } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
-import { HiBadgeCheck } from "react-icons/hi";
-
 import { ClientBadge, ClientCircularProgress } from "@/components/client";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import ImageReduceMotion from "@/components/image-reduce-motion";
@@ -11,6 +6,10 @@ import type { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationG
 import getAverageColor from "@/utils/average-color";
 import { cn } from "@/utils/cn";
 import { intl } from "@/utils/numbers";
+import { cookies } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
+import { HiBadgeCheck } from "react-icons/hi";
 
 import Icon from "./icon.component";
 
@@ -42,9 +41,9 @@ export default async function Member({
 
         jar.set(
             "lbc",
-            currentCircular !== "server"
-                ? "server"
-                : "next"
+            currentCircular === "server"
+                ? "next"
+                : "server"
         );
     }
 
@@ -108,7 +107,7 @@ export default async function Member({
             {member.emoji &&
                 <div className="w-full hidden sm:block relative mr-6 -ml-48 md:-ml-6 lg:ml-6">
                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-6 w-full gap-2 absolute -bottom-9 rotate-1">
-                        {new Array(12).fill(0).map((_, i) =>
+                        {Array.from({ length: 12 }).fill(0).map((_, i) =>
                             <Emoji
                                 key={"emoji-" + member.id + i}
                                 index={i}
@@ -148,7 +147,7 @@ export default async function Member({
                     value={
                         currentCircular === "next"
                             ? (member.activity[type] * 100) / (members[index - 1]?.activity[type] || 1)
-                            : (member.activity[type] * 100) / parseInt(pagination[type].total.toString())
+                            : (member.activity[type] * 100) / Number.parseInt(pagination[type].total.toString(), 10)
                             || 100
                     }
                     showValueLabel={true}

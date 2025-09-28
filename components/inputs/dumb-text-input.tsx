@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-
 import { cn } from "@/utils/cn";
+import React, { useEffect, useState } from "react";
 
 interface Props {
     name?: string;
     placeholder?: string;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    value: any; setValue: React.Dispatch<React.SetStateAction<any>>;
+    value: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setValue: React.Dispatch<React.SetStateAction<any>>;
 
     disabled?: boolean;
     description?: string;
@@ -71,7 +72,7 @@ export default function DumbTextInput({
                         type="color"
                         value={`#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}`}
                         onChange={(e) => {
-                            const color = parseInt(e.target.value.replace(/#/, ""), 16);
+                            const color = Number.parseInt(e.target.value.replace(/#/, ""), 16);
 
                             if (dataName) {
                                 setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: color || null })));

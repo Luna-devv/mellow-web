@@ -1,8 +1,5 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { HiPencil } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
@@ -10,6 +7,8 @@ import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { type ApiV1GuildsModulesDailypostsGetResponse, DailypostType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { useMemo, useState } from "react";
+import { HiPencil } from "react-icons/hi";
 
 import { generateHourArray, typeToName } from "./util";
 
@@ -105,7 +104,7 @@ export function CreateDailypost({
                 items={hoursArray}
                 description="Select one or multiple hours when posts should be made."
                 onSave={(o) => {
-                    setHours(o.map((i) => i.value as number));
+                    setHours(o.map((i) => i.value));
                 }}
             />
 
@@ -115,7 +114,7 @@ export function CreateDailypost({
                 items={
                     Object.entries(DailypostType)
                         .filter(([key]) => key.length > 2)
-                        .map(([, value]) => ({ name: typeToName(parseInt(value as string)), value }))
+                        .map(([, value]) => ({ name: typeToName(Number.parseInt(value as string, 10)), value }))
                 }
                 description="Select what type of content should be posted daily."
                 onSave={(o) => {

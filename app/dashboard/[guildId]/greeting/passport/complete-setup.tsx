@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-
 import type { Guild } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
 import type { ApiEdit } from "@/lib/api/hook";
 import type { ApiV1GuildsModulesPassportGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { useEffect, useState } from "react";
 
 enum ModalType {
     None = 0,
@@ -38,7 +37,7 @@ export default function CompleteSetup({
 
         if (data.punishment === 2 && !data.punishmentRoleId) {
             setModal(ModalType.PunishmentRole);
-            return;
+
         }
     }, [data]);
 
@@ -46,7 +45,7 @@ export default function CompleteSetup({
         <Modal
             title="Verified role"
             className="!overflow-visible"
-            isOpen={!!guild && modal === ModalType.VerifiedRole}
+            isOpen={Boolean(guild) && modal === ModalType.VerifiedRole}
             onClose={() => setModal(ModalType.None)}
             onSubmit={() => {
                 return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {
@@ -74,7 +73,7 @@ export default function CompleteSetup({
         <Modal
             title="Punishment role"
             className="!overflow-visible"
-            isOpen={!!guild && modal === ModalType.PunishmentRole}
+            isOpen={Boolean(guild) && modal === ModalType.PunishmentRole}
             onClose={() => setModal(ModalType.None)}
             onSubmit={() => {
                 return fetch(`${process.env.NEXT_PUBLIC_API}/guilds/${guild?.id}/modules/passport`, {

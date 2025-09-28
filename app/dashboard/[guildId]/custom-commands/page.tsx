@@ -1,10 +1,5 @@
 "use client";
 
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
-import { HiViewGridAdd } from "react-icons/hi";
-import { useQuery, useQueryClient } from "react-query";
-
 import { guildStore } from "@/common/guilds";
 import { StatsBar } from "@/components/counter";
 import MessageCreatorEmbed from "@/components/embed-creator";
@@ -16,6 +11,10 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { cacheOptions, getData } from "@/lib/api";
 import { Permissions } from "@/lib/discord/enum/permissions";
 import type { ApiV1GuildsModulesTagsGetResponse } from "@/typings";
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect } from "react";
+import { HiViewGridAdd } from "react-icons/hi";
+import { useQuery, useQueryClient } from "react-query";
 
 import { CreateTag, Style } from "./create.component";
 import { DeleteTag } from "./delete.component";
@@ -34,7 +33,7 @@ export default function Home() {
         url,
         () => getData<ApiV1GuildsModulesTagsGetResponse[]>(url),
         {
-            enabled: !!params.guildId,
+            enabled: Boolean(params.guildId),
             ...cacheOptions
         }
     );
@@ -98,7 +97,6 @@ export default function Home() {
     };
 
     return (<>
-
         <div className="flex flex-wrap items-center gap-2 -mt-2 mb-5">
             {data
                 .sort((a, b) => a.name.localeCompare(b.name))
@@ -157,7 +155,7 @@ export default function Home() {
                         },
                         {
                             name: "All time Command Uses",
-                            number: 69420,
+                            number: 69_420,
                             gained: 42,
                             append: "yesterday"
                         }
@@ -180,7 +178,7 @@ export default function Home() {
                         description="The name of the custom command."
                         defaultState={tag.name}
                         resetState={tag.name}
-                        onSave={(value) => editTag("name", value as string)}
+                        onSave={(value) => editTag("name", value)}
                     />
                 </div>
 
@@ -197,7 +195,7 @@ export default function Home() {
                         dataName="permission"
                         description="The permissions needed to execute this tag."
                         defaultState={tag.permission}
-                        onSave={(option) => editTag("permission", option.value as string)}
+                        onSave={(option) => editTag("permission", option.value)}
                         showClear
                     />
                 </div>
@@ -209,9 +207,9 @@ export default function Home() {
                 url={url + "/" + tag.id}
                 dataName="message"
                 defaultMessage={tag.message}
-                onSave={(value) => editTag("message", value as string)}
+                onSave={(value) => editTag("message", value)}
             />
-        </> }
+        </>}
 
         {!data.length &&
             <div

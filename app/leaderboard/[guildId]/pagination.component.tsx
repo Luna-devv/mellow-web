@@ -1,10 +1,9 @@
 "use client";
 
+import { LoginButton } from "@/components/login-button";
 import { Pagination as UiPagination } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
-
-import { LoginButton } from "@/components/login-button";
 
 interface Props {
     searchParams: {
@@ -30,7 +29,7 @@ export default function Pagination({ searchParams, pages }: Props) {
             showControls
             total={pages}
             size="lg"
-            page={parseInt(searchParams.page || "0")}
+            page={Number.parseInt(searchParams.page || "0", 10)}
             onChange={(now) => {
                 const params = new URLSearchParams(searchParams);
                 params.delete("page");

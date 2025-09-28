@@ -1,9 +1,8 @@
+import { getUser } from "@/lib/discord/user";
+import { cn } from "@/utils/cn";
 import Image from "next/image";
 import Link from "next/link";
 import type { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
-
-import { getUser } from "@/lib/discord/user";
-import { cn } from "@/utils/cn";
 
 type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 type LinkProps = DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
@@ -46,7 +45,7 @@ export async function Person({
 }
 
 function isLinkProps(props: DivProps | LinkProps): props is LinkProps {
-    return "href" in props && !!props.href;
+    return "href" in props && Boolean(props.href);
 }
 
 function Component(props: DivProps | LinkProps) {

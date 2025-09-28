@@ -1,6 +1,5 @@
-import { LoaderCircleIcon } from "lucide-react";
-
 import { cn } from "@/utils/cn";
+import { LoaderCircleIcon } from "lucide-react";
 
 export function LoadingCircle({ className = "" }: { className?: string; }) {
     return (

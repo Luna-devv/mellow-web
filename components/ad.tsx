@@ -1,11 +1,10 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import type { FunctionComponent } from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
-
-import { cn } from "@/utils/cn";
 
 import { Button } from "./ui/button";
 

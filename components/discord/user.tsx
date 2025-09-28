@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 
-import { UserAvatar } from "../ui/avatar";
 import DiscordAppBadge from "./app-badge";
+import { UserAvatar } from "../ui/avatar";
 
 interface Props {
     username: string;

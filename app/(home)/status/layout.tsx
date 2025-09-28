@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
-import type { ReactNode } from "react";
-
 import { Section } from "@/components/section";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
+import type { ReactNode } from "react";
 
 import { Commands } from "../commands.component";
 

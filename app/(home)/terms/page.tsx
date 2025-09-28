@@ -1,8 +1,7 @@
-import { readFile } from "fs/promises";
-import type { Metadata } from "next";
-
 import BeautifyMarkdown from "@/components/markdown";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import { readFile } from "fs/promises";
+import type { Metadata } from "next";
 
 export const revalidate = false;
 

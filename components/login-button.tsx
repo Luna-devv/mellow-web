@@ -1,11 +1,10 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import { Lexend } from "next/font/google";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
 import { HiExclamation } from "react-icons/hi";
-
-import { cn } from "@/utils/cn";
 
 import { Button } from "./ui/button";
 
@@ -41,7 +40,9 @@ export function LoginButton({
                 prefetch={false}
             >
                 <Icon state={state} />
-                {!state ?
+                {state ?
+                    <span>Authorization failed</span>
+                    :
                     <span className={cn(lexend.className, "font-semibold")}>
                         {message ||
                                 <>
@@ -50,8 +51,6 @@ export function LoginButton({
                                 </>
                         }
                     </span>
-                    :
-                    <span>Authorization failed</span>
                 }
             </Link>
         </Button>

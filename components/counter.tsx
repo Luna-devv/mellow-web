@@ -51,7 +51,7 @@ export function StatsBar(options: Options) {
     const ref = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        ref.current = setInterval(() => setWidth(window.innerWidth), 1000);
+        ref.current = setInterval(() => setWidth(window.innerWidth), 1_000);
         return () => {
             if (ref.current) clearInterval(ref.current);
         };

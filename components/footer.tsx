@@ -1,3 +1,7 @@
+import TopggIcon from "@/components/icons/topgg";
+import { getUser } from "@/lib/discord/user";
+import BlahajPic from "@/public/blahaj.webp";
+import { cn } from "@/utils/cn";
 import Image from "next/image";
 import Link from "next/link";
 import type { HTMLProps } from "react";
@@ -6,11 +10,6 @@ import { BsDiscord } from "react-icons/bs";
 import { FaBluesky } from "react-icons/fa6";
 import { HiBookOpen, HiCloud, HiCube, HiGlobe, HiHand, HiLibrary, HiUserAdd } from "react-icons/hi";
 import { SiDiscord, SiKofi } from "react-icons/si";
-
-import TopggIcon from "@/components/icons/topgg";
-import { getUser } from "@/lib/discord/user";
-import BlahajPic from "@/public/blahaj.webp";
-import { cn } from "@/utils/cn";
 
 import { Badge } from "./ui/badge";
 
@@ -38,7 +37,7 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
                         <span className="flex gap-1 items-center">
                             <BiCopyright />
                             <span>
-                                <Link href="/" className="hover:underline">Wamellow {new Date(1635609600000).getFullYear()} - {new Date().getFullYear()}</Link>,
+                                <Link href="/" className="hover:underline">Wamellow {new Date(1_635_609_600_000).getFullYear()} - {new Date().getFullYear()}</Link>,
                                 not affiliated with Discord Inc.
                             </span>
                         </span>
@@ -80,7 +79,7 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
                     alt="Blahaj"
                     src={BlahajPic}
                     height={Math.round(775 / 2)}
-                    width={1500 / 2}
+                    width={1_500 / 2}
                 />
             </Link>
         </div>

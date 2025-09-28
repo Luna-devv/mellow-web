@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { guildStore } from "@/common/guilds";
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import SelectMenu from "@/components/inputs/select-menu";
@@ -9,13 +7,14 @@ import Modal from "@/components/modal";
 import { Section } from "@/components/section";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import { useState } from "react";
 
-const URL_CHANNEL_REGEX = /^https?:\/\/((www|m|old|oauth)\.)?reddit\.com\/r\/(?=.{3,21}$)[A-Za-z][A-Za-z0-9_]*\/?$/;
-const CHANNE_HANDLE = /^((\/)?r\/)?(?=.{3,21}$)[A-Za-z][A-Za-z0-9_]*$/;
+const URL_CHANNEL_REGEX = /^https?:\/\/((www|m|old|oauth)\.)?reddit\.com\/r\/(?=.{3,21}$)[A-Za-z]\w*\/?$/;
+const CHANNE_HANDLE = /^((\/)?r\/)?(?=.{3,21}$)[A-Za-z]\w*$/;
 
 function validateAccount(input: string) {
-    if (URL_CHANNEL_REGEX.exec(input)) return input.split("/r/")[1].replace(/\/$/, "");
-    if (CHANNE_HANDLE.exec(input)) return input.replace(/^(\/)?r\//, "");
+    if (URL_CHANNEL_REGEX.test(input)) return input.split("/r/")[1].replace(/\/$/, "");
+    if (CHANNE_HANDLE.test(input)) return input.replace(/^(\/)?r\//, "");
     return null;
 }
 

@@ -1,11 +1,10 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import React from "react";
 
-import { cn } from "@/utils/cn";
-
-import { UserAvatar } from "../ui/avatar";
 import DiscordAppBadge from "./app-badge";
+import { UserAvatar } from "../ui/avatar";
 
 interface Props {
     children: React.ReactNode;
@@ -82,9 +81,9 @@ export default function DiscordMessage({
                         }
                         <time
                             className="mt-[2px] text-xs opacity-50 truncate"
-                            dateTime={new Date(1019060317).toISOString()}
+                            dateTime={new Date(1_019_060_317).toISOString()}
                         >
-                            {formatTime(new Date(1019060317))}
+                            {formatTime(new Date(1_019_060_317))}
                         </time>
                     </div>
 

@@ -1,11 +1,10 @@
+import { defaultCookieOptions } from "@/lib/cookies";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { defaultCookieOptions } from "@/lib/cookies";
-
 import { connect, disconnect, getAuthorizeUrl } from "./api";
 
-const SOCIALS = ["spotify", "bluesky"];
+const SOCIALS = new Set(["spotify", "bluesky"]);
 
 export async function GET(
     request: Request,
@@ -13,7 +12,7 @@ export async function GET(
 ) {
     const { social } = await params;
 
-    if (!SOCIALS.includes(social)) {
+    if (!SOCIALS.has(social)) {
         return Response.json({
             status: 400,
             message: "Invalid social"
@@ -61,7 +60,7 @@ export async function GET(
                 res.verifier,
                 {
                     ...defaultCookieOptions,
-                    expires: new Date(Date.now() + 1000 * 600)
+                    expires: new Date(Date.now() + 1_000 * 600)
                 }
             );
         }

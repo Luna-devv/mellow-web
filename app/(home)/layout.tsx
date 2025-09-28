@@ -1,8 +1,7 @@
+import { Footer } from "@/components/footer";
 import { Suspense } from "react";
 
-import { Footer } from "@/components/footer";
-
-export const revalidate = 43200;
+export const revalidate = 43_200;
 
 export default function RootLayout({
     children

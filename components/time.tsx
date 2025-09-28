@@ -15,7 +15,7 @@ export function formatDate(dateString: string, userLanguage: string): string {
         return `Today at ${dateFormatter.format(date)}`;
     } else if (date.toDateString() === yesterday.toDateString()) {
         return `Yesterday at ${dateFormatter.format(date)}`;
-    } else {
-        return date.toLocaleDateString(userLanguage);
     }
+    return date.toLocaleDateString(userLanguage);
+
 }

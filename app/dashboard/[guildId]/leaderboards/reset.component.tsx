@@ -1,12 +1,11 @@
-import { useState } from "react";
-import { HiTrash, HiUsers } from "react-icons/hi";
-
 import type { Guild } from "@/common/guilds";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
 import { Button } from "@/components/ui/button";
 import { intl } from "@/utils/numbers";
+import { useState } from "react";
+import { HiTrash, HiUsers } from "react-icons/hi";
 
 interface Props {
     guild: Guild;

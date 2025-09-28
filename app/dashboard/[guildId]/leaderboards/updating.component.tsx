@@ -1,11 +1,5 @@
 "use client";
 
-import { Tab, Tabs } from "@nextui-org/react";
-import Link from "next/link";
-import { useCookies } from "next-client-cookies";
-import { useState } from "react";
-import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
-
 import type { Guild } from "@/common/guilds";
 import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
@@ -13,6 +7,11 @@ import TextInput from "@/components/inputs/text-input";
 import Modal from "@/components/modal";
 import type { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
 import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
+import { Tab, Tabs } from "@nextui-org/react";
+import Link from "next/link";
+import { useCookies } from "next-client-cookies";
+import { useState } from "react";
+import { HiExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 
 interface Props {
     guild: Guild;
@@ -111,7 +110,7 @@ export default function UpdatingLeaderboardCard({
         <Modal
             className="flex flex-col gap-3"
             title={`${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
-            isOpen={modal === ModalType.CreateAndEdit && !!guild}
+            isOpen={modal === ModalType.CreateAndEdit && Boolean(guild)}
             isDisabled={!channelId}
             onClose={() => {
                 setModal(undefined);
@@ -141,7 +140,9 @@ export default function UpdatingLeaderboardCard({
                     ...leaderboard,
                     type,
                     // @ts-expect-error it works
-                    channelId, structure, emoji,
+                    channelId,
+                    structure,
+                    emoji: emoji || null,
                     display,
                     styles
                 });
@@ -169,10 +170,8 @@ export default function UpdatingLeaderboardCard({
                 name="Channel"
                 items={createSelectableItems(guild.channels, ["ViewChannel", "SendMessages", "EmbedLinks", "AttachFiles"])}
                 description="Select a channel where the leaderboard should be send into."
-                defaultState={leaderboard?.channelId || undefined}
-                onSave={(o) => {
-                    setChannelId(o.value as string);
-                }}
+                defaultState={leaderboard?.channelId}
+                onSave={(o) => setChannelId(o.value as string)}
             />
 
             <div className="mb-3">
@@ -183,7 +182,7 @@ export default function UpdatingLeaderboardCard({
                     color="secondary"
                     variant="bordered"
                     defaultSelectedKey={structure?.toString()}
-                    onSelectionChange={(i) => setStructure(parseInt(i as string))}
+                    onSelectionChange={(i) => setStructure(Number.parseInt(i as string, 10))}
                     fullWidth
                 >
                     <Tab
@@ -218,7 +217,7 @@ export default function UpdatingLeaderboardCard({
                     <TextInput
                         name="Title"
                         description="The title of the embed"
-                        defaultState={"☕ " + `${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
+                        defaultState={`☕ ${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
                         max={256}
                         onSave={(v) => {
                             setEmbed({
@@ -299,7 +298,7 @@ export default function UpdatingLeaderboardCard({
             buttonName="Delete"
             variant="destructive"
             title={`Delete ${type.replace(/^\w/, (match) => match.toUpperCase())} leaderboard`}
-            isOpen={modal === ModalType.Delete && !!guild}
+            isOpen={modal === ModalType.Delete && Boolean(guild)}
             onClose={() => {
                 setModal(undefined);
             }}

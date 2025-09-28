@@ -1,11 +1,10 @@
 "use client";
 
+import decimalToRgb from "@/utils/decimalToRgb";
 import { Tab, Tabs } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-
-import decimalToRgb from "@/utils/decimalToRgb";
 
 interface ListProps {
     tabs: {

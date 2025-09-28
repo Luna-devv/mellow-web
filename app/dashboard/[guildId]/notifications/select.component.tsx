@@ -1,13 +1,12 @@
-import { PopoverClose } from "@radix-ui/react-popover";
-import React, { useState } from "react";
-import { BsReddit, BsTwitch, BsYoutube } from "react-icons/bs";
-import { FaBluesky } from "react-icons/fa6";
-
 import { badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { type ApiV1GuildsModulesNotificationsGetResponse, NotificationType } from "@/typings";
 import { cn } from "@/utils/cn";
+import { PopoverClose } from "@radix-ui/react-popover";
+import React, { useState } from "react";
+import { BsReddit, BsTwitch, BsYoutube } from "react-icons/bs";
+import { FaBluesky } from "react-icons/fa6";
 
 import { BlueskyNotificationModal } from "./create-bluesky.component";
 import { RedditNotificationModal } from "./create-reddit.component";

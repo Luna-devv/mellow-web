@@ -1,12 +1,11 @@
 "use client";
 
-import { Accordion, AccordionItem } from "@nextui-org/react";
-import { useCookies } from "next-client-cookies";
-import { type ReactNode, useEffect, useMemo, useState } from "react";
-
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import { Badge } from "@/components/ui/badge";
 import { intl } from "@/utils/numbers";
+import { Accordion, AccordionItem } from "@nextui-org/react";
+import { useCookies } from "next-client-cookies";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 
 import type { ApiV1StatusGetResponse } from "./api";
 

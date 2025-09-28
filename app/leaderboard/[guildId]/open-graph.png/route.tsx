@@ -1,14 +1,13 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
 
-import { readFile } from "fs/promises";
-import { ImageResponse } from "next/og";
-import type { NextRequest } from "next/server";
-
 import { getGuild } from "@/lib/api";
 import { intl } from "@/utils/numbers";
 import { truncate } from "@/utils/truncate";
 import { getCanonicalUrl } from "@/utils/urls";
+import { readFile } from "fs/promises";
+import { ImageResponse } from "next/og";
+import type { NextRequest } from "next/server";
 
 import { getTopMembers } from "../api";
 import Icon from "../icon.component";
@@ -17,7 +16,7 @@ interface Props {
     params: Promise<{ guildId: string; }>;
 }
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 3_600; // 1 hour
 
 export async function GET(request: NextRequest, { params }: Props) {
     const { guildId } = await params;
@@ -88,7 +87,7 @@ export async function GET(request: NextRequest, { params }: Props) {
             </div>
         ),
         {
-            width: 1200,
+            width: 1_200,
             height: 630,
             fonts: [
                 {

@@ -1,10 +1,3 @@
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
-import { BsDiscord } from "react-icons/bs";
-import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiUsers, HiX } from "react-icons/hi";
-
 import { ClientButton } from "@/components/client";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListFeature } from "@/components/list";
@@ -14,6 +7,12 @@ import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
+import { BsDiscord } from "react-icons/bs";
+import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiUsers, HiX } from "react-icons/hi";
 
 import { getPassport } from "./api";
 import { Verify } from "./verify.component";
@@ -165,10 +164,10 @@ export default async function Home({ params }: Props) {
                     <div className="mb-4 text-neutral-100 font-semibold text-xl">Modern, Simple, Wamellow 👋</div>
                     <ListFeature
                         items={[
-                            { icon: <HiLockClosed />, title: "Secure", description: "Wamellow does not store your IP, Geolocation or similar, nothing is kept, no logs.", color: 0xa84b56 },
-                            { icon: <BsDiscord />, title: "Integration", description: "Unparalleled Discord integration, setting us apart from the rest.", color: 0x4752c4 },
-                            { icon: <HiStar />, title: "Easy", description: "The most user-friendly and visually appealing verification process.", color: 0x7f43d8 },
-                            { icon: <HiLightningBolt />, title: "Fast", description: "Welcome new members easily with the fastest verification method available.", color: 0xff9156 }
+                            { icon: <HiLockClosed />, title: "Secure", description: "Wamellow does not store your IP, Geolocation or similar, nothing is kept, no logs.", color: 0xA8_4B_56 },
+                            { icon: <BsDiscord />, title: "Integration", description: "Unparalleled Discord integration, setting us apart from the rest.", color: 0x47_52_C4 },
+                            { icon: <HiStar />, title: "Easy", description: "The most user-friendly and visually appealing verification process.", color: 0x7F_43_D8 },
+                            { icon: <HiLightningBolt />, title: "Fast", description: "Welcome new members easily with the fastest verification method available.", color: 0xFF_91_56 }
                         ]}
                     />
                 </div>

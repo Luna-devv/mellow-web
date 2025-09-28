@@ -1,9 +1,8 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
 import * as React from "react";
-
-import { cn } from "@/utils/cn";
 
 interface SeparatorProps extends React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {
     loading?: boolean;

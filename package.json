@@ -65,12 +65,12 @@
     "@types/react-dom": "^19.1.9",
     "eslint": "^9.36.0",
     "eslint-config-next": "^15.5.4",
-    "eslint-plugin-path-alias": "^2.1.0",
+    "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-unused-imports": "^4.2.0",
+    "eslint-plugin-unicorn": "^61.0.2",
     "typescript-eslint": "^8.44.1"
   }
 }

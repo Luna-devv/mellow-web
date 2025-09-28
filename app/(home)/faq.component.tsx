@@ -1,11 +1,10 @@
 "use client";
 
+import LinkTag from "@/components/link-tag";
+import { Section } from "@/components/section";
 import { Accordion, AccordionItem, Code } from "@nextui-org/react";
 import { useCookies } from "next-client-cookies";
 import { HiBell, HiCash, HiChat, HiLockClosed, HiUserAdd } from "react-icons/hi";
-
-import LinkTag from "@/components/link-tag";
-import { Section } from "@/components/section";
 
 const data = [
     {

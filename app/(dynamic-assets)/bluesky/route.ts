@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-export const revalidate = 691200; // 8 days
+export const revalidate = 691_200; // 8 days
 
 export function GET(request: Request) {
     const agent = request.headers.get("user-agent");

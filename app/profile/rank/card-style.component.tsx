@@ -1,8 +1,3 @@
-import type { ApiError } from "next/dist/server/api-utils";
-import Image from "next/image";
-import { type ChangeEvent, useRef, useState } from "react";
-import { HiUpload } from "react-icons/hi";
-
 import { type User, userStore } from "@/common/user";
 import Box from "@/components/box";
 import { Shiggy } from "@/components/shiggy";
@@ -11,6 +6,10 @@ import type { ApiV1UsersMeRankEmojiDeleteResponse, ApiV1UsersMeRankEmojiPutRespo
 import { cn } from "@/utils/cn";
 import { deepMerge } from "@/utils/deepMerge";
 import sleep from "@/utils/sleep";
+import type { ApiError } from "next/dist/server/api-utils";
+import Image from "next/image";
+import { type ChangeEvent, useRef, useState } from "react";
+import { HiUpload } from "react-icons/hi";
 
 enum State {
     Idle = 0,
@@ -60,7 +59,7 @@ export default function CardSyle() {
             return;
         }
 
-        await sleep(1000 * 3);
+        await sleep(1_000 * 3);
         setState(State.Success);
 
         userStore.setState({
@@ -145,7 +144,7 @@ export default function CardSyle() {
                 </div>
 
                 <div className="absolute blur-sm gap-4 grid grid-cols-6 left-4 lg:grid-cols-6 md:blur-none md:bottom-4 md:left-0 md:opacity-100 md:relative md:scale-100 md:top-0 md:w-1/2 opacity-45 rotate-1 scale-105 top-6 w-full">
-                    {new Array(18).fill(0).map((_, i) =>
+                    {Array.from({ length: 18 }).fill(0).map((_, i) =>
                         <Emoji
                             key={"emoji-" + i}
                             index={i}

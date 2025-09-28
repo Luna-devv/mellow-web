@@ -1,13 +1,14 @@
 "use client";
 
+import type { ApiError } from "@/typings";
+import { cn } from "@/utils/cn";
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import type { ApiError } from "@/typings";
-import { cn } from "@/utils/cn";
-
-import { useStateDebounced } from "../../utils/useDebounce";
 import DumbTextInput from "./dumb-text-input";
+import { useStateDebounced } from "../../utils/useDebounce";
+
+type Type<T extends "text" | "color"> = T extends "text" ? string : number;
 
 enum State {
     Idle = 0,
@@ -15,7 +16,7 @@ enum State {
     Success = 2
 }
 
-interface Props {
+interface Props<T extends "text" | "color"> {
     className?: string;
 
     name?: string;
@@ -23,17 +24,17 @@ interface Props {
     dataName?: string;
     disabled?: boolean;
     description?: string;
-    defaultState: string | number;
-    resetState?: string | number;
+    defaultState: Type<T>;
+    resetState?: Type<T>;
 
-    type?: string;
+    type?: T;
     max?: number;
     placeholder?: string;
 
-    onSave?: (value: string | number | null) => void;
+    onSave?: (value: Type<T> | null) => void;
 }
 
-export default function TextInput({
+export default function TextInput<T extends "text" | "color" = "text">({
     className,
     name,
     url,
@@ -42,17 +43,17 @@ export default function TextInput({
     description,
     defaultState,
     resetState,
-    type,
+    type = "text" as T,
     max,
     placeholder,
     onSave
-}: Props) {
+}: Props<T>) {
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
-    const [valuedebounced, setValueDebounced] = useStateDebounced<string | number>("", 1000);
-    const [value, setValue] = useState<string | number>("");
-    const [defaultStateValue, setdefaultStateValue] = useState<string | number>("");
+    const [valuedebounced, setValueDebounced] = useStateDebounced<T extends "text" ? string : number>((type === "text" ? "" : 0) as Type<T>, 1_000);
+    const [value, setValue] = useState<T extends "text" ? string : number>((type === "text" ? "" : 0) as Type<T>);
+    const [defaultStateValue, setdefaultStateValue] = useState<T extends "text" ? string : number>((type === "text" ? "" : 0) as Type<T>);
 
     useEffect(() => {
         if (!defaultStateValue) setdefaultStateValue(defaultState);
@@ -93,9 +94,9 @@ export default function TextInput({
 
                 switch (res.status) {
                     case 200: {
-                        setValue(value || def || "");
-                        onSave?.(value || def);
-                        setdefaultStateValue(value || def || "");
+                        setValue(value || def || (type === "text" ? "" : 0) as Type<T>);
+                        onSave?.(value || def || (type === "text" ? "" : 0) as Type<T>);
+                        setdefaultStateValue(value || def || (type === "text" ? "" : 0) as Type<T>);
 
                         setState(State.Success);
                         setTimeout(() => setState(State.Idle), 1_000 * 8);
@@ -151,7 +152,6 @@ export default function TextInput({
                 type={type}
                 description={description}
             />
-
 
             <div className="flex absolute right-0 bottom-0">
                 {error &&

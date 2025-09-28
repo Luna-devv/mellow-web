@@ -1,10 +1,9 @@
+import type { GuildEmbed } from "@/typings";
+import { cn } from "@/utils/cn";
 import React, { useState } from "react";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { FaFloppyDisk } from "react-icons/fa6";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
-
-import type { GuildEmbed } from "@/typings";
-import { cn } from "@/utils/cn";
 
 import { DiscordMarkdown } from "./discord/markdown";
 import DiscordMessage from "./discord/message";
@@ -39,7 +38,7 @@ interface Props {
     };
 
     disabled?: boolean;
-    onSave?: (state: { content?: string | null; embed?: GuildEmbed; }) => void;
+    onSave?: (state: { content: string; embed: GuildEmbed; }) => void;
 }
 
 export default function MessageCreatorEmbed({
@@ -188,9 +187,9 @@ export default function MessageCreatorEmbed({
 
                             <div className="lg:w-3/6 m-1">
 
-                                <DumbTextInput placeholder="Content" value={content} setValue={setContent} max={2000} disabled={disabled} />
+                                <DumbTextInput placeholder="Content" value={content} setValue={setContent} max={2_000} disabled={disabled} />
                                 <DumbTextInput placeholder="Embed Title" value={embed} setValue={setEmbed} max={256} dataName="title" disabled={disabled} />
-                                <DumbTextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4096} dataName="description" disabled={disabled} />
+                                <DumbTextInput placeholder="Embed Description" value={embed} setValue={setEmbed} max={4_096} dataName="description" disabled={disabled} />
                                 <div className="flex gap-2">
                                     <DumbColorInput placeholder="Embed Color" value={embed} setValue={setEmbed} dataName="color" disabled={disabled} />
                                     <DumbTextInput placeholder="Embed Thumbnail" value={embed} setValue={setEmbed} max={256} dataName="thumbnail" disabled={disabled} />

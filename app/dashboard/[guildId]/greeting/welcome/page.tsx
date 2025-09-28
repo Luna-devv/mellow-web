@@ -1,9 +1,4 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { HiArrowLeft, HiChat, HiExternalLink } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import Fetch from "@/components/button-fetch";
@@ -20,6 +15,10 @@ import { useApi } from "@/lib/api/hook";
 import type { ApiV1GuildsModulesWelcomeGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { HiArrowLeft, HiChat, HiExternalLink } from "react-icons/hi";
 
 export default function Home() {
     const guild = guildStore((g) => g);

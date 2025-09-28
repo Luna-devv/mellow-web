@@ -1,12 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { BsSpotify } from "react-icons/bs";
-import { HiFingerPrint, HiTrash } from "react-icons/hi";
-import { SiBluesky } from "react-icons/si";
-
 import DumbTextInput from "@/components/inputs/dumb-text-input";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
@@ -15,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
 import { type ApiV1UsersMeConnectionsGetResponse, ConnectionType } from "@/typings";
 import { cn } from "@/utils/cn";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { BsSpotify } from "react-icons/bs";
+import { HiFingerPrint, HiTrash } from "react-icons/hi";
+import { SiBluesky } from "react-icons/si";
 
 const CONNECTION_TYPES = Object
     .entries(ConnectionType)

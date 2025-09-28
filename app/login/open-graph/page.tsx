@@ -1,8 +1,7 @@
+import { getCanonicalUrl } from "@/utils/urls";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-
-import { getCanonicalUrl } from "@/utils/urls";
 
 export const generateMetadata = (): Metadata => {
     const title = "Login with Discord";
@@ -22,7 +21,7 @@ export const generateMetadata = (): Metadata => {
             type: "website",
             images: {
                 url,
-                width: 1200,
+                width: 1_200,
                 height: 630,
                 type: "image/png"
             }

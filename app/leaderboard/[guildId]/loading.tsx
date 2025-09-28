@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
-    return new Array(20).fill(null).map((_, i) => (
+    return Array.from({ length: 20 }).fill(null).map((_, i) => (
         <div
             key={"leaderboard-loading-" + i}
             className="mb-4 rounded-md p-3 flex items-center dark:bg-wamellow bg-wamellow-100 w-full"

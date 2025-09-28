@@ -1,7 +1,6 @@
+import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import Image from "next/image";
 import Link from "next/link";
-
-import { toFixedArrayLength } from "@/utils/fixed-array-length";
 
 import ImageReduceMotion from "./image-reduce-motion";
 

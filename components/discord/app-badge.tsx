@@ -1,7 +1,6 @@
+import { cn } from "@/utils/cn";
 import type { HTMLProps } from "react";
 import { HiCheck } from "react-icons/hi";
-
-import { cn } from "@/utils/cn";
 
 export default function DiscordAppBadge({
     className,

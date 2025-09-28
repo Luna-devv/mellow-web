@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { HiTrash } from "react-icons/hi";
-
 import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useState } from "react";
+import { HiTrash } from "react-icons/hi";
 
 interface Props {
     guildId: string;

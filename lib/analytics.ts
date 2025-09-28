@@ -19,7 +19,7 @@ export async function getPageAnalytics(page: string): Promise<{ results: Analyti
     };
 
     const res = await fetch(`${process.env.PLAUSIBLE_API}/v1/stats/breakdown?${objectToQueryString(params)}`, {
-        headers: { Authorization: "Bearer " + process.env.PLAUSIBLE_API_KEY as string },
+        headers: { Authorization: "Bearer " + process.env.PLAUSIBLE_API_KEY },
         next: { revalidate: 60 }
     });
 

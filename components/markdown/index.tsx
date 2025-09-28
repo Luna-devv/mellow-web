@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { getUser } from "@/lib/discord/user";
+import { cn } from "@/utils/cn";
+import { filterDuplicates } from "@/utils/filter-duplicates";
+import { getBaseUrl } from "@/utils/urls";
 import { Code } from "@nextui-org/react";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -7,17 +11,12 @@ import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
-import { getUser } from "@/lib/discord/user";
-import { cn } from "@/utils/cn";
-import { filterDuplicates } from "@/utils/filter-duplicates";
-import { getBaseUrl } from "@/utils/urls";
-
-import Notice, { NoticeType } from "../notice";
-import { Separator } from "../ui/separator";
 import Channel from "./channel";
 import Emoji from "./emoji";
 import Timestamp from "./timestamp";
 import User from "./user";
+import Notice, { NoticeType } from "../notice";
+import { Separator } from "../ui/separator";
 
 const ALLOWED_IFRAMES = [
     "https://www.youtube.com/embed/",
@@ -37,7 +36,7 @@ export default async function BeautifyMarkdown({
     async function parseDiscordMarkdown(content: string) {
         const users = await Promise.all(
             filterDuplicates(content.match(/<@!?\d{15,21}>/g) || [])
-                .map((match) => match.replace(/<|!|>|@/g, ""))
+                .map((match) => match.replace(/[!<>@]/g, ""))
                 .map((userId) => getUser(userId))
         );
 
@@ -49,7 +48,7 @@ export default async function BeautifyMarkdown({
                 return renderToString(<Emoji emojiId={emojiId} />);
             })
             .replace(/<(@!?)\d{15,21}>/g, (match) => {
-                const userId = match.replace(/<|!|>|@/g, "");
+                const userId = match.replace(/[!<>@]/g, "");
                 const username = users.find((user) => user?.id === userId)?.username || "user";
 
                 return renderToString(<User username={username} />);
@@ -66,21 +65,11 @@ export default async function BeautifyMarkdown({
 
                 return renderToString(
                     <Timestamp
-                        unix={parseInt(timestamp)}
+                        unix={Number.parseInt(timestamp, 10)}
                         format={format.slice(1, -1)}
                     />
                 );
             });
-    }
-
-    function createHId(text: ReactNode) {
-        return text
-            ?.toString()
-            .toLowerCase()
-            .replace("[object object],[object object],", "")
-            .replace(EMOJI_REGEX, "")
-            .trim()
-            .replace(/ +/g, "-");
     }
 
     return (
@@ -121,7 +110,6 @@ export default async function BeautifyMarkdown({
                 del: (props) => <span className="line-through" {...props} />,
                 ins: (props) => <span className="underline" {...props} />,
 
-                // eslint-disable-next-line unused-imports/no-unused-vars
                 code: ({ ref, color, ...props }) => {
                     return <Code color="secondary" {...props} />;
                 },
@@ -194,5 +182,14 @@ export default async function BeautifyMarkdown({
             {await parseDiscordMarkdown(markdown)}
         </ReactMarkdown>
     );
+}
 
+function createHId(text: ReactNode) {
+    return text
+        ?.toString()
+        .toLowerCase()
+        .replace("[object object],[object object],", "")
+        .replace(EMOJI_REGEX, "")
+        .trim()
+        .replace(/ +/g, "-");
 }

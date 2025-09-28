@@ -1,17 +1,16 @@
 "use client";
 
+import { userStore } from "@/common/user";
+import { webStore } from "@/common/webstore";
+import { LoginButton } from "@/components/login-button";
+import { authorize } from "@/utils/authorize-user";
+import { cn } from "@/utils/cn";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { HiAdjustments, HiBeaker, HiChartPie, HiChevronDown, HiEyeOff, HiFire, HiIdentification, HiLogout, HiTrendingUp, HiViewGridAdd } from "react-icons/hi";
-
-import { userStore } from "@/common/user";
-import { webStore } from "@/common/webstore";
-import { LoginButton } from "@/components/login-button";
-import { authorize } from "@/utils/authorize-user";
-import { cn } from "@/utils/cn";
 
 import ImageReduceMotion from "./image-reduce-motion";
 import { Button } from "./ui/button";
@@ -68,8 +67,11 @@ export function Header() {
             icon: <HiEyeOff />,
             value: reduceMotions,
             onChange: () => {
-                if (!reduceMotions) cookies.set("reduceMotions", "true", { expires: 365 });
-                else cookies.remove("reduceMotions");
+                if (reduceMotions) {
+                    cookies.remove("reduceMotions");
+                } else {
+                    cookies.set("reduceMotions", "true", { expires: 365 });
+                }
                 router.refresh();
             }
         },
@@ -101,8 +103,11 @@ export function Header() {
                     icon: <HiBeaker />,
                     value: devTools,
                     onChange: () => {
-                        if (!devTools) cookies.set("devTools", "true", { expires: 365 });
-                        else cookies.remove("devTools");
+                        if (devTools) {
+                            cookies.remove("devTools");
+                        } else {
+                            cookies.set("devTools", "true", { expires: 365 });
+                        }
                         router.refresh();
                     }
                 }
@@ -120,12 +125,7 @@ export function Header() {
             )}
             onClick={() => setMenu(!menu)}
         >
-            {!user?.id ?
-                <>
-                    <Skeleton className="rounded-full mr-2 size-[30p]" />
-                    <Skeleton className="rounded-xl w-20 h-4" />
-                </>
-                :
+            {user?.id ?
                 <>
                     <ImageReduceMotion
                         alt="your avatar"
@@ -136,6 +136,11 @@ export function Header() {
 
                     <p className="mr-1 relative bottom-[1px] truncate block text-primary-foreground font-medium tracking-tight">{user.globalName || user.username}</p>
                     <HiChevronDown />
+                </>
+                :
+                <>
+                    <Skeleton className="rounded-full mr-2 size-[30p]" />
+                    <Skeleton className="rounded-xl w-20 h-4" />
                 </>
             }
         </button>

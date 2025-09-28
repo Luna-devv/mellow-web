@@ -1,10 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { HiExternalLink } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import { DiscordMarkdown } from "@/components/discord/markdown";
 import DiscordMessage from "@/components/discord/message";
@@ -19,6 +14,10 @@ import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
 import { type ApiV1GuildsModulesStarboardGetResponse, StarboardStyle } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { HiExternalLink } from "react-icons/hi";
 
 import { useExample } from "./hooks";
 
@@ -222,7 +221,7 @@ export default function Home() {
                     defaultState={data.blacklistChannelIds || []}
                     max={500}
                     disabled={!data.enabled}
-                    onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value as string))}
+                    onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value))}
                 />
             </div>
             <div className="lg:w-1/2">
@@ -235,7 +234,7 @@ export default function Home() {
                     defaultState={data.blacklistRoleIds || []}
                     max={500}
                     disabled={!data.enabled}
-                    onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value as string))}
+                    onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value))}
                 />
             </div>
         </div>

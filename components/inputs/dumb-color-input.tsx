@@ -1,15 +1,16 @@
+import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
-
-import { cn } from "@/utils/cn";
 
 interface Props {
     name?: string;
     placeholder?: string;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    value: any; setValue: React.Dispatch<React.SetStateAction<any>>;
+    value: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setValue: React.Dispatch<React.SetStateAction<any>>;
 
     disabled?: boolean;
     description?: string;
@@ -38,7 +39,7 @@ export default function DumbColorInput({
     // this cuz there can be multiple color inputs on the same page, so it will bug, so we need to identify them
     const [inputId, setInputId] = useState<string>("");
     useEffect(() => {
-        setInputId(Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+        setInputId(Math.random().toString(36).slice(2, 15) + Math.random().toString(36).slice(2, 15));
     }, []);
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -57,9 +58,9 @@ export default function DumbColorInput({
                 placeholder={placeholder}
                 onChange={(e) => {
                     if (dataName) {
-                        setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: parseInt(e.target.value.slice(1), 16) })));
+                        setValue(JSON.stringify(Object.assign(JSON.parse(value), { [dataName]: Number.parseInt(e.target.value.slice(1), 16) })));
                     } else {
-                        setValue(parseInt(e.target.value.slice(1), 16));
+                        setValue(Number.parseInt(e.target.value.slice(1), 16));
                     }
                 }}
                 value={(dataName ? JSON.parse(value)[dataName] : value) ? `#${(dataName ? JSON.parse(value)[dataName] : value)?.toString(16)}` : "#ffffff"}

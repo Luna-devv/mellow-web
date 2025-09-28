@@ -1,9 +1,8 @@
+import type { ApiError } from "@/typings";
+import { cn } from "@/utils/cn";
 import { useEffect, useState } from "react";
 import { HiCheck, HiChevronDown, HiExclamationCircle, HiX } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
-
-import type { ApiError } from "@/typings";
-import { cn } from "@/utils/cn";
 
 import { ClickOutside } from "../click-outside";
 
@@ -63,7 +62,7 @@ export default function MultiSelectMenu<T extends string | number>({
     }, [defaultState, items]);
 
     useEffect(() => {
-        if (values.find((v) => !!v.error) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
+        if (values.some((v) => Boolean(v.error)) || JSON.stringify(values.map((v) => v.value)) === JSON.stringify(defaultvalue)) {
             setState(State.Idle);
             return;
         }
@@ -129,7 +128,7 @@ export default function MultiSelectMenu<T extends string | number>({
                 className={cn(
                     "mt-1 min-h-12 w-full bg-wamellow rounded-lg flex items-center px-3 duration-100 wamellow-modal",
                     open && "outline outline-violet-400 outline-2",
-                    (values.find((v) => !!v.error) || error) && !open && "outline outline-red-500 outline-1",
+                    (values.some((v) => Boolean(v.error)) || error) && !open && "outline outline-red-500 outline-1",
                     state === State.Success && !open && "outline outline-green-500 outline-1",
                     (state === State.Loading || disabled) && "cursor-not-allowed opacity-50"
                 )}
@@ -168,7 +167,7 @@ export default function MultiSelectMenu<T extends string | number>({
                     ))}
                 </div>
                 <div className="ml-auto flex items-center gap-2">
-                    {values.find((v) => !!v.error) &&
+                    {values.some((v) => Boolean(v.error)) &&
                         <div className="text-sm flex items-center gap-1 text-red-500">
                             <HiExclamationCircle /> {values.find((v) => v.error)?.error}
                         </div>
@@ -196,7 +195,7 @@ export default function MultiSelectMenu<T extends string | number>({
                             onClick={() => {
                                 setState(State.Idle);
                                 setValues((v) => {
-                                    if (v.length >= max || v.find((i) => i.value === item.value)) return v.filter((i) => i.value !== item.value);
+                                    if (v.length >= max || v.some((i) => i.value === item.value)) return v.filter((i) => i.value !== item.value);
                                     return [...v, item];
                                 });
                             }}

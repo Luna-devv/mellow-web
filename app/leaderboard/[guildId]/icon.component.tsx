@@ -1,9 +1,8 @@
-import type { SVGProps } from "react";
-
 import InvitesIcon from "@/components/icons/invites";
 import MessagesIcon from "@/components/icons/messages";
 import VoiceIcon from "@/components/icons/voice";
 import { cn } from "@/utils/cn";
+import type { SVGProps } from "react";
 
 type Props = SVGProps<SVGSVGElement> & {
     type: "messages" | "voiceminutes" | "invites";

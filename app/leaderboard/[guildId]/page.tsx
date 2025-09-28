@@ -1,14 +1,13 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-
 import { ScreenMessage } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 import { getPagination, getTopMembers } from "./api";
 import Member from "./member.component";
 import Pagination from "./pagination.component";
 
-export const revalidate = 3600;
+export const revalidate = 3_600;
 
 interface Props {
     params: Promise<{ guildId: string; }>;
@@ -25,7 +24,7 @@ export default async function Home({ searchParams, params }: Props) {
     const jar = await cookies();
 
     const type = search.type || "messages";
-    const page = parseInt(search.page || "1");
+    const page = Number.parseInt(search.page || "1", 10);
 
     if (page !== 1 && !jar.get("session")) {
         redirect(`/login?callback=/leaderboard/${guildId}%3Ftype%3Dmessages%3Fpage=${page}`);

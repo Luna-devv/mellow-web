@@ -1,9 +1,8 @@
-import { HiFire, HiInformationCircle } from "react-icons/hi";
-
 import Box from "@/components/box";
 import { Badge } from "@/components/ui/badge";
 import { defaultFetchOptions } from "@/lib/api";
 import { intl } from "@/utils/numbers";
+import { HiFire, HiInformationCircle } from "react-icons/hi";
 
 interface Commands {
     name: string;

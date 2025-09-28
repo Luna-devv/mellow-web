@@ -1,9 +1,4 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { HiArrowLeft, HiChat, HiExternalLink } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import { userStore } from "@/common/user";
 import Fetch from "@/components/button-fetch";
@@ -18,6 +13,10 @@ import { useApi } from "@/lib/api/hook";
 import type { ApiV1GuildsModulesByeGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { createSelectableItems } from "@/utils/create-selectable-items";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { HiArrowLeft, HiChat, HiExternalLink } from "react-icons/hi";
 
 export default function Home() {
     const guild = guildStore((g) => g);
@@ -111,8 +110,8 @@ export default function Home() {
             defaultMessage={data.message}
             messageAttachmentComponent={data.card.enabled && (
                 <Image
-                    src={`https://image-api.wamellow.com/?type=leave&username=${encodeURIComponent(user?.username as string)}&members=1090&hash=${encodeURIComponent(user?.id as string)}/${encodeURIComponent(user?.avatar as string)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
-                    width={1024 / 2}
+                    src={`https://image-api.wamellow.com/?type=leave&username=${encodeURIComponent(user!.username)}&members=1090&hash=${encodeURIComponent(user!.id)}/${encodeURIComponent(user!.avatar!)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
+                    width={1_024 / 2}
                     height={(256 + 16) / 2}
                     loading="lazy"
                     alt=""

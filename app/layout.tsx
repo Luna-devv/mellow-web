@@ -1,5 +1,10 @@
 import "./globals.css";
-
+import { Header } from "@/components/header";
+import { LoginButton } from "@/components/login-button";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/utils/cn";
+import { getBaseUrl } from "@/utils/urls";
 import type { Metadata, Viewport } from "next";
 import { Lexend, Noto_Sans_JP, Outfit } from "next/font/google";
 import { cookies } from "next/headers";
@@ -7,13 +12,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { CookiesProvider } from "next-client-cookies/server";
-
-import { Header } from "@/components/header";
-import { LoginButton } from "@/components/login-button";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { cn } from "@/utils/cn";
-import { getBaseUrl } from "@/utils/urls";
 
 import { Provider } from "./provider";
 

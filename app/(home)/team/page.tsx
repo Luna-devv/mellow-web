@@ -1,15 +1,14 @@
-import type { Metadata } from "next";
-import { BsDiscord, BsGithub } from "react-icons/bs";
-
 import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import { BsDiscord, BsGithub } from "react-icons/bs";
 
 import { members, repos } from "./constants";
 import { DiscordServer } from "./discord.component";
 import { Person } from "./person.component";
 import { Repository } from "./repository.component";
 
-export const revalidate = 3600;
+export const revalidate = 3_600;
 
 export const generateMetadata = (): Metadata => {
     const title = "Team";

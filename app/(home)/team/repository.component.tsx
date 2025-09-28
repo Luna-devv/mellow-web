@@ -1,9 +1,8 @@
-import Link from "next/link";
-import { HiBeaker, HiExternalLink, HiStar } from "react-icons/hi";
-
 import { Badge } from "@/components/ui/badge";
 import { getRepository } from "@/lib/github";
 import { cn } from "@/utils/cn";
+import Link from "next/link";
+import { HiBeaker, HiExternalLink, HiStar } from "react-icons/hi";
 
 export async function Repository({
     fullname

@@ -1,8 +1,4 @@
 "use client";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { HiArrowLeft, HiExternalLink, HiFingerPrint } from "react-icons/hi";
-
 import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import SelectInput from "@/components/inputs/select-menu";
@@ -14,6 +10,9 @@ import { useApi } from "@/lib/api/hook";
 import type { ApiV1GuildsModulesPassportGetResponse } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { HiArrowLeft, HiExternalLink, HiFingerPrint } from "react-icons/hi";
 
 import CompleteSetup from "./complete-setup";
 
@@ -61,13 +60,13 @@ export default function Home() {
     return (<>
         <Head />
 
-        {data.enabled && data.punishment === 2 && !data.punishmentRoleId &&
+        {data.enabled && data.punishment === 2 && !data.punishmentRoleId && (
             <Notice message="A punishment role must be set when using 'Assign role to member'." />
-        }
+        )}
 
-        {data.enabled && !data.successRoleId &&
+        {data.enabled && !data.successRoleId && (
             <Notice message="A verified role must be set for passport to work." />
-        }
+        )}
 
         <CompleteSetup
             guild={guild}
@@ -176,6 +175,5 @@ export default function Home() {
         <div className="w-fit">
             <CopyToClipboardButton title="Copy link to passport" text={getCanonicalUrl("passport", guild?.id as string)} />
         </div>
-
     </>);
 }

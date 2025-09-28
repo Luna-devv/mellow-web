@@ -1,13 +1,12 @@
 "use client";
-import Link from "next/link";
-import { type HTMLProps, useState } from "react";
-import { HiArrowDown, HiArrowUp, HiLightningBolt, HiOutlineInformationCircle } from "react-icons/hi";
-
 import { userStore } from "@/common/user";
 import { Button } from "@/components/ui/button";
 import { InputBase, InputBaseAdornment, InputBaseAdornmentButton, InputBaseControl, InputBaseInput } from "@/components/ui/input-base";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/utils/cn";
+import Link from "next/link";
+import { type HTMLProps, useState } from "react";
+import { HiArrowDown, HiArrowUp, HiLightningBolt, HiOutlineInformationCircle } from "react-icons/hi";
 
 export function Subscribe() {
     const premium = userStore((u) => u?.premium || false);
@@ -92,7 +91,7 @@ export function DonationSelect({ donation, setDonation, ...props }: DonationProp
                     defaultValue={0}
                     onChange={(e) => {
                         const num = Number(e.target.value);
-                        if (isNaN(num)) return;
+                        if (Number.isNaN(num)) return;
 
                         setDonation(Math.max(Math.min(num, 100), 0));
                     }}

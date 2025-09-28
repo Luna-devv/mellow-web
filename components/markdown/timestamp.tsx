@@ -7,7 +7,7 @@ export default function Timestamp({
     unix: number;
     format: string;
 }) {
-    const date = new Date(unix * 1000);
+    const date = new Date(unix * 1_000);
     const str = getDateString(date, format);
 
     return (

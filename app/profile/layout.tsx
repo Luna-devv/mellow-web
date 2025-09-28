@@ -1,13 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import { useCookies } from "next-client-cookies";
-import { Suspense } from "react";
-import CountUp from "react-countup";
-import { HiCreditCard, HiCubeTransparent, HiFire, HiHome, HiPhotograph, HiTranslate } from "react-icons/hi";
-import { useQuery } from "react-query";
-
 import { userStore } from "@/common/user";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
@@ -17,6 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cacheOptions, getData } from "@/lib/api";
 import type { ApiV1UsersMeGetResponse } from "@/typings";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useCookies } from "next-client-cookies";
+import { Suspense } from "react";
+import CountUp from "react-countup";
+import { HiCreditCard, HiCubeTransparent, HiFire, HiHome, HiPhotograph, HiTranslate } from "react-icons/hi";
+import { useQuery } from "react-query";
 
 export default function RootLayout({
     children
@@ -36,7 +35,7 @@ export default function RootLayout({
         url,
         () => getData<ApiV1UsersMeGetResponse>(url),
         {
-            enabled: !!user?.id,
+            enabled: Boolean(user?.id),
             onSuccess: (d) => userStore.setState({
                 ...user,
                 extended: "status" in d ? {} : d
@@ -76,12 +75,7 @@ export default function RootLayout({
                             />
                         </Skeleton>
 
-                        {!user?.id ?
-                            <div className="flex flex-col mt-2">
-                                <Skeleton className="rounded-xl w-32 h-5 mb-2" />
-                                <Skeleton className="rounded-md w-[90px] h-7" />
-                            </div>
-                            :
+                        {user?.id ?
                             <div className="flex flex-col gap-1">
                                 <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">
                                     {user.globalName || user.username}
@@ -98,6 +92,11 @@ export default function RootLayout({
                                         {user.extended?.voteCount} VOTE{user.extended?.voteCount === 1 ? "" : "S"}
                                     </Badge>
                                 </Link>
+                            </div>
+                            :
+                            <div className="flex flex-col mt-2">
+                                <Skeleton className="rounded-xl w-32 h-5 mb-2" />
+                                <Skeleton className="rounded-md w-[90px] h-7" />
                             </div>
                         }
                     </div>

@@ -1,7 +1,6 @@
+import { cacheOptions, getData } from "@/lib/api";
 import { useCallback } from "react";
 import { useQuery, useQueryClient } from "react-query";
-
-import { cacheOptions, getData } from "@/lib/api";
 
 export type ApiEdit<T> = <K extends keyof T>(key: K, value: T[K]) => void;
 

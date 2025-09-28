@@ -1,10 +1,9 @@
+import type { ApiError } from "@/typings";
 import { useEffect, useState } from "react";
 import { TailSpin } from "react-loading-icons";
 
-import type { ApiError } from "@/typings";
-
-import { useStateDebounced } from "../../utils/useDebounce";
 import DumbColorInput from "./dumb-color-input";
+import { useStateDebounced } from "../../utils/useDebounce";
 
 enum State {
     Idle = 0,
@@ -26,7 +25,6 @@ interface Props {
     onSave?: (value: string | number) => void;
 }
 
-
 export default function ColorInput({
     name,
     url,
@@ -41,7 +39,7 @@ export default function ColorInput({
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
-    const [valuedebounced, setValuedebounced] = useStateDebounced<string | number>("", 1000);
+    const [valuedebounced, setValuedebounced] = useStateDebounced<string | number>("", 1_000);
     const [value, setValue] = useState<string | number>("");
     const [defaultStatealue, setdefaultStatealue] = useState<string | number>("");
 
@@ -61,7 +59,7 @@ export default function ColorInput({
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ [dataName]: value || 0x000000 })
+            body: JSON.stringify({ [dataName]: value || 0x00_00_00 })
         })
             .then(async (res) => {
                 const response = await res.json();
@@ -69,9 +67,9 @@ export default function ColorInput({
 
                 switch (res.status) {
                     case 200: {
-                        setValue(value || 0x000000);
-                        onSave?.(value || 0x000000);
-                        setdefaultStatealue(value || 0x000000);
+                        setValue(value || 0x00_00_00);
+                        onSave?.(value || 0x00_00_00);
+                        setdefaultStatealue(value || 0x00_00_00);
 
                         setState(State.Success);
                         setTimeout(() => setState(State.Idle), 1_000 * 8);

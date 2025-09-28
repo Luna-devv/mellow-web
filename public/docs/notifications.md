@@ -69,7 +69,7 @@ You can use a negative lookahead to negate the condition, in order to create a w
 The flags used for string matching are `gi`, only the YouTube and Twitch titles, Bluesky post bodies, and Reddit flairs are checked.
 
 ### 🕵️‍♀️ Styles (whitelabel / webhook)
-Notification styles allow you to customise (or whitelabel) the username and avatar of the author (i.e. the sender of the message) separately for each notification. Wamellow will automatically manage the webhooks for you.
+Notification styles allow you to customize (or whitelabel) the username and avatar of the author (i.e. the sender of the message) separately for each notification. Wamellow will automatically manage the webhooks for you.
 <br />
 <br />
 

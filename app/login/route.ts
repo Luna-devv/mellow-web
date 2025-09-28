@@ -1,9 +1,8 @@
+import { defaultCookieOptions } from "@/lib/cookies";
+import { getCanonicalUrl } from "@/utils/urls";
 import { PermissionFlagsBits } from "discord-api-types/v10";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
-import { defaultCookieOptions } from "@/lib/cookies";
-import { getCanonicalUrl } from "@/utils/urls";
 
 import { createSession } from "./api";
 

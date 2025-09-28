@@ -1,7 +1,3 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import { HiAnnotation, HiLink, HiUsers, HiVolumeUp } from "react-icons/hi";
-
 import { ClientImageWall } from "@/components/client";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
@@ -9,6 +5,9 @@ import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
+import type { Metadata } from "next";
+import Image from "next/image";
+import { HiAnnotation, HiLink, HiUsers, HiVolumeUp } from "react-icons/hi";
 
 import { getDesign, getPagination } from "./api";
 import Side from "./side.component";
@@ -18,7 +17,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-export const revalidate = 3600;
+export const revalidate = 3_600;
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
     const { guildId } = await params;
@@ -46,7 +45,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
             type: "profile",
             images: {
                 url: getCanonicalUrl("leaderboard", guildId, `open-graph.png?ca=${cacheQuery}`),
-                width: 1200,
+                width: 1_200,
                 height: 630,
                 type: "image/png"
             }
@@ -85,8 +84,8 @@ export default async function RootLayout({ params, children }: Props) {
                     classNames={{ img: "!h-36 md:!h-64", blurredImg: "!h-40 md:!h-72 -top-5" }}
                     isBlurred
                     src={design && "bannerUrl" in design && design.bannerUrl ? design.bannerUrl : paintPic.src}
-                    width={3840 / 2}
-                    height={2160 / 2}
+                    width={3_840 / 2}
+                    height={2_160 / 2}
                 />
 
                 <div

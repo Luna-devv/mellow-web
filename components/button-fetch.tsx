@@ -36,7 +36,7 @@ export default function Fetch({
         setError(null);
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
-            method: method,
+            method,
             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
@@ -46,12 +46,12 @@ export default function Fetch({
 
         if (res.status === 429) {
             setState(State.Ratelimited);
-            setTimeout(() => setState(State.Idle), 6 * 1000);
+            setTimeout(() => setState(State.Idle), 6 * 1_000);
         }
 
         if (res.ok) {
             setState(State.Success);
-            setTimeout(() => setState(State.Idle), 6 * 1000);
+            setTimeout(() => setState(State.Idle), 6 * 1_000);
             return;
         }
 

@@ -1,8 +1,7 @@
+import { cn } from "@/utils/cn";
 import { Patrick_Hand } from "next/font/google";
 import Image, { type StaticImageData } from "next/image";
 import { HiChevronRight } from "react-icons/hi";
-
-import { cn } from "@/utils/cn";
 
 const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
