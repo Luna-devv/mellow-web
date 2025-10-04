@@ -84,9 +84,9 @@ export default async function Home() {
 
                     <h1 className={cn(montserrat.className, "lg:text-7xl md:text-6xl text-5xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
                         <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">
-                            Next generation
+                            Accessibility
                         </span>
-                        {" of "}
+                        {" for "}
                         <span className="break-keep inline-flex items-center">
                             Discord
                             <DiscordAppBadge className="mt-1 scale-[250%] md:scale-[300%] lg:scale-[360%] relative left-12 md:left-14 lg:left-20" />
@@ -94,9 +94,9 @@ export default async function Home() {
                     </h1>
 
                     <span className="text-lg font-medium max-w-[38rem] mb-4">
-                        Engage in leaderboards, starboards, and a welcoming atmosphere.
-                        Dive into /anime&apos;s, free chat ai, and the power of Text-to-Speech.
-                        Stay updated with dailyposts and receive social notifications!
+                        Accessibility where it&apos;s needed the most: Discord Voice Chats.
+                        Social notifications to stay connected and up to date with anyone, anywhere.
+                        Simple, customizable, free, and built in public.
                     </span>
 
                     <AvatarGroup className="mr-auto md:hidden">
