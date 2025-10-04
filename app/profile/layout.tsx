@@ -62,10 +62,10 @@ export default function RootLayout({
             <div className="flex flex-col gap-5 mb-3">
 
                 <div className="text-lg flex flex-col md:flex-row md:items-center">
-                    <div className="flex gap-5">
+                    <div className="text-lg flex gap-6">
                         <Skeleton
                             isLoading={!user?.id}
-                            className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
+                            className="rounded-full size-16 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1 left-1"
                         >
                             <ImageReduceMotion
                                 alt="you"

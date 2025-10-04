@@ -16,7 +16,7 @@ export function TTSSettings() {
         <K extends keyof Guild["tts"]>(key: K, value: Guild["tts"][K]) => {
             guildStore.setState((g) => {
                 if (!g) return g;
-                g.tts[key] = value;
+                g.tts = { ...g.tts, [key]: value };
                 return g;
             });
         },
@@ -33,7 +33,7 @@ export function TTSSettings() {
                     items={createSelectableItems(guild?.channels, ["ViewChannel", "SendMessages", "EmbedLinks"], [ChannelType.GuildText, ChannelType.GuildVoice])}
                     description="Select a channel what channel should be used for tts."
                     defaultState={guild?.tts.channelId}
-                    onSave={(o) => edit("channelId", o.value as string)}
+                    onSave={(o) => edit("channelId", o.value)}
                     showClear
                 />
                 <SelectMenu
@@ -43,7 +43,7 @@ export function TTSSettings() {
                     items={createSelectableItems(guild?.channels)}
                     description="Select a channel where usage logs should be posted into."
                     defaultState={guild?.tts.logChannelId}
-                    onSave={(o) => edit("logChannelId", o.value as string)}
+                    onSave={(o) => edit("logChannelId", o.value)}
                     showClear
                 />
                 <SelectMenu
@@ -53,7 +53,7 @@ export function TTSSettings() {
                     items={createSelectableItems(guild?.roles)}
                     description="People with this role bypass the queue and speak immediately."
                     defaultState={guild?.tts.priorityRoleId}
-                    onSave={(o) => edit("priorityRoleId", o.value as string)}
+                    onSave={(o) => edit("priorityRoleId", o.value)}
                     showClear
                 />
                 <SelectMenu
@@ -63,7 +63,7 @@ export function TTSSettings() {
                     items={createSelectableItems(guild?.roles)}
                     description="People with this role are not allowed to use tts."
                     defaultState={guild?.tts.blacklistRoleId}
-                    onSave={(o) => edit("blacklistRoleId", o.value as string)}
+                    onSave={(o) => edit("blacklistRoleId", o.value)}
                     showClear
                 />
                 <Switch

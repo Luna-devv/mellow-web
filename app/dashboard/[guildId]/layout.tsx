@@ -14,7 +14,7 @@ import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { HiArrowNarrowLeft, HiBell, HiChartBar, HiCode, HiEye, HiHome, HiPaperAirplane, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
+import { HiBell, HiChartBar, HiChevronLeft, HiCode, HiEye, HiHome, HiPaperAirplane, HiStar, HiUserAdd, HiUsers, HiViewGridAdd } from "react-icons/hi";
 import { useQuery } from "react-query";
 
 function useGuildData<T extends unknown[]>(
@@ -105,13 +105,14 @@ export default function RootLayout({
                 </Head>
             )}
 
-            <div className="flex flex-col gap-5 mb-3">
+            <div className="flex flex-col gap-3 mb-3">
                 <Button
                     asChild
-                    className="w-fit"
+                    variant="ghost"
+                    className="w-fit pl-0 group"
                 >
                     <Link href="/profile">
-                        <HiArrowNarrowLeft />
+                        <HiChevronLeft className="mt-0.5 group-hover:translate-x-1 duration-200" />
                         Serverlist
                     </Link>
                 </Button>
@@ -119,11 +120,11 @@ export default function RootLayout({
                 <div className="text-lg flex gap-5">
                     <Skeleton
                         isLoading={!guild?.id}
-                        className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1"
+                        className="rounded-xl size-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1 left-1"
                     >
                         <ImageReduceMotion
                             alt="this server's icon"
-                            className="rounded-full"
+                            className="rounded-xl"
                             url={`https://cdn.discordapp.com/icons/${guild?.id}/${guild?.icon}`}
                             size={128}
                         />
@@ -135,14 +136,12 @@ export default function RootLayout({
                             <Skeleton className="rounded-xl w-10 h-3.5" />
                         </div>
                         :
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col mt-[6px]">
                             <div className="text-2xl dark:text-neutral-200 text-neutral-800 font-medium">{guild?.name || "Unknown Server"}</div>
-                            <div className="text-sm font-semibold flex items-center gap-1"> <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
+                            <div className="text-xs font-semibold flex items-center gap-1">  <HiUsers /> {intl.format(guild?.memberCount || 0)}</div>
                         </div>
                     }
-
                 </div>
-
             </div>
 
             <Suspense>

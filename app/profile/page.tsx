@@ -14,7 +14,7 @@ import { useCookies } from "next-client-cookies";
 import { useMemo, useState } from "react";
 import { HiChartBar, HiRefresh, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
-const MAX_GUILDS = 50 as const;
+const MAX_GUILDS = 20 as const;
 
 const springAnimation = {
     hidden: { y: 20, opacity: 0 },
@@ -41,7 +41,7 @@ export default function Home() {
         [data, search]
     );
 
-    const isHuge = guilds.length > MAX_GUILDS;
+    const isHuge = Array.isArray(data) && data.length > MAX_GUILDS;
 
     if (error) {
         return (
@@ -118,14 +118,15 @@ export default function Home() {
                         {...guild}
                         isHugeGuildList={isHuge}
                     />
-                ))}
+                ))
+                }
             </motion.ul>
         )}
 
         {isHuge && (
             <ScreenMessage
                 title="There are too many servers.."
-                description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ~${guilds.length < 1_000 ? length : Math.round(length / 1_000) * 1_000}.`}
+                description={`To save some performance, use the search to find a guild. Showing ${MAX_GUILDS} out of ~${data.length < 1_000 ? data.length : Math.round(data.length / 1_000) * 1_000}.`}
             />
         )}
     </div>);
