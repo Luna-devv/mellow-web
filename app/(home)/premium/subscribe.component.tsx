@@ -2,6 +2,7 @@
 import { userStore } from "@/common/user";
 import { Button } from "@/components/ui/button";
 import { InputBase, InputBaseAdornment, InputBaseAdornmentButton, InputBaseControl, InputBaseInput } from "@/components/ui/input-base";
+import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
@@ -30,14 +31,8 @@ export function Subscribe() {
     }
 
     return (
-        <div className="w-full flex gap-2">
-            <DonationSelect
-                className="w-[164px] md:w-40 shrink-0"
-                donation={donation}
-                setDonation={setDonation}
-            />
-
-            <div className="w-full relative overflow-hidden rounded-lg border border-border group p-px">
+        <div className="w-full">
+            <div className="w-full relative overflow-hidden rounded-lg border border-border group p-px h-fit">
                 <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_0%_50%,#8b5cf6_50%,hsl(var(--input)/30)_7%)]" />
                 <Button
                     asChild
@@ -51,6 +46,23 @@ export function Subscribe() {
                         Subscribe
                     </Link>
                 </Button>
+            </div>
+
+            <div className="relative w-full gap-2 h-3">
+                <Separator className="w-full mt-4" />
+                <span className="absolute bg-[#0d0d0d] px-2 -top-1.5 left-1/2 -translate-x-1/2 text-muted-foreground font-medium text-xs uppercase">choose what to pay</span>
+            </div>
+
+            <div className="flex gap-1 w-full mt-2">
+                {[4, 8, 12, 18, 25].map((amount) => (
+                    <Button
+                        key={amount}
+                        className={cn("h-7 w-1/5", amount === (donation + 4) && "bg-violet-400/20 hover:bg-violet-400/40")}
+                        onClick={() => setDonation(amount - 4)}
+                    >
+                        {amount}€
+                    </Button>
+                ))}
             </div>
         </div>
     );

@@ -10,12 +10,11 @@ import type User from "@/lib/discord/user";
 import { getUser } from "@/lib/discord/user";
 import BotStylePic from "@/public/docs-assets/bot-style.webp";
 import NotificationsStylePic from "@/public/docs-assets/notifications-style.webp";
-import ArrowPic from "@/public/icons/arroww.webp";
 import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 import type { Metadata } from "next";
-import { Montserrat, Patrick_Hand } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { BsQuestionLg } from "react-icons/bs";
@@ -25,7 +24,6 @@ import { IoMdInfinite } from "react-icons/io";
 import { Subscribe } from "./subscribe.component";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
-const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 const bots = ["1125449347451068437", "985213199248924722", "1097907896987160666"].map((userId) => getUser(userId));
 
@@ -168,13 +166,7 @@ export default async function Home() {
                     ))}
 
                     <div className="hidden md:flex items-center pt-4">
-                        <div className="w-1/2 text-sm text-neutral-400 flex justify-between pr-4">
-                            <div />
-                            <div className={cn("text-medium text-neutral-500 font-medium rotate-2 flex items-center gap-1 mt-4", handwritten.className)}>
-                                extra monthly donation
-                                <Image src={ArrowPic} width={24} height={24} alt="arrow up" className="size-5 -scale-x-100 mb-1.5 rotate-6" draggable={false} />
-                            </div>
-                        </div>
+                        <div className="w-1/2" />
                         <div className="flex w-1/2 gap-4">
                             <Subscribe />
                         </div>
