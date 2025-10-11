@@ -59,6 +59,7 @@ export default function CompleteSetup({
                     })
                 });
             }}
+            isDisabled={!roleId}
             onSuccess={() => edit("successRoleId", roleId)}
         >
             <SelectMenu
@@ -87,6 +88,7 @@ export default function CompleteSetup({
                     })
                 });
             }}
+            isDisabled={!roleId}
             onSuccess={() => edit("punishmentRoleId", roleId)}
         >
             <SelectMenu
