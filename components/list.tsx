@@ -1,10 +1,12 @@
 "use client";
 
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import decimalToRgb from "@/utils/decimalToRgb";
-import { Tab, Tabs } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+
+import { Button } from "./ui/button";
 
 interface ListProps {
     tabs: {
@@ -28,9 +30,7 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
 
     const ref = useRef<HTMLDivElement | null>(null);
 
-    function handleChange(key: unknown) {
-        if (!key && typeof key !== "string") return;
-
+    function handleChange(key: string) {
         if (!searchParamName) {
             router.push(`${url}${key}?${params.toString()}`);
             return;
@@ -38,7 +38,7 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
 
         const newparams = new URLSearchParams();
 
-        if (key) newparams.append(searchParamName, key as string);
+        if (key) newparams.append(searchParamName, key);
         else newparams.delete(searchParamName);
 
         router[params.get(searchParamName) ? "push" : "replace"](`${url}?${newparams.toString()}`);
@@ -47,11 +47,11 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
     function scroll(direction: "left" | "right") {
         if (!ref.current) return;
 
+        const scrollAmount = ref.current.clientWidth * 0.8; // Scroll 80% of the visible width
+
         ref.current.scrollBy({
             top: 0,
-            left: direction === "right"
-                ? ref.current.clientWidth - position
-                : -position,
+            left: direction === "right" ? scrollAmount : -scrollAmount,
             behavior: "smooth"
         });
     }
@@ -61,6 +61,8 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
         const { scrollLeft } = ref.current;
         setPosition(scrollLeft);
     }
+
+    const isScrollable = ref.current ? ref.current.scrollWidth > ref.current.clientWidth : false;
 
     useEffect(() => {
         if (!ref.current) return;
@@ -73,58 +75,56 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
         };
     }, []);
 
+    const defaultValue = searchParamName
+        ? params.get(searchParamName)
+        : path.split(url)[1].split("/").slice(0, 2).join("/");
+
     return (
-        <div className="font-medium mt-2 mb-6 flex items-center relative">
+        <div className="mt-2 mb-4 flex items-center relative">
             <Tabs
-                ref={ref}
-                className="flex w-full"
-                classNames={{
-                    tabList: "w-full relative rounded-none p-0 border-b border-divider",
-                    tab: "w-fit px-4 h-12 relative right-2.5"
-                }}
-                defaultSelectedKey={
-                    searchParamName
-                        ? (params.get(searchParamName) || "")
-                        : path.split(url)[1].split("/").slice(0, 2).join("/")
-                }
-                onSelectionChange={handleChange}
-                variant="underlined"
-                color="secondary"
-                isDisabled={disabled}
+                className="w-full"
+                defaultValue={defaultValue || tabs[0].value}
+                onValueChange={handleChange}
             >
-                {tabs.map((tab) =>
-                    <Tab
-                        key={tab.value}
-                        title={
-                            <div className="flex items-center space-x-2">
-                                {tab.icon}
-                                <span>{tab.name}</span>
-                            </div>
-                        }
-                    />
-                )}
+                <TabsList
+                    ref={ref}
+                    className="bg-inherit border-b-2 border-wamellow p-0 w-full justify-start rounded-none overflow-y-auto overflow-x-auto scrollbar-hide"
+                >
+                    {tabs.map((tab) => (
+                        <TabsTrigger
+                            key={tab.value}
+                            value={tab.value}
+                            className='data-[state=active]:border-violet-500 hover:text-foreground h-full rounded-b-none border-b-2 border-transparent flex gap-2 whitespace-nowrap'
+                            disabled={disabled}
+                        >
+                            {tab.icon}
+                            {tab.name}
+                        </TabsTrigger>
+                    ))}
+                </TabsList>
             </Tabs>
 
-            {tabs.length > 4 && position > 0 &&
-                <button
-                    className="absolute xl:hidden top-1 left-0 bg-wamellow backdrop-blur-lg rounded-xl p-2"
+            {isScrollable && position > 0 && (
+                <Button
+                    className="absolute bottom-2 left-0 backdrop-blur-lg"
                     onClick={() => scroll("left")}
+                    size="icon"
                 >
                     <HiChevronLeft className="size-5" />
-                </button>
-            }
+                </Button>
+            )}
 
-            {tabs.length > 4 && position < (ref.current?.clientWidth || 0) &&
-                <button
-                    className="absolute xl:hidden top-1 right-0 bg-wamellow backdrop-blur-lg rounded-xl p-2"
+            {isScrollable && ref.current && position < (ref.current.scrollWidth - (ref.current.clientWidth + 10)) && (
+                <Button
+                    className="absolute bottom-2 right-0 backdrop-blur-lg"
                     onClick={() => scroll("right")}
+                    size="icon"
                 >
                     <HiChevronRight className="size-5" />
-                </button>
-            }
+                </Button>
+            )}
         </div>
     );
-
 }
 
 interface FeatureProps {

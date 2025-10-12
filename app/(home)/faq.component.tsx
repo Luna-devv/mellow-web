@@ -1,9 +1,14 @@
 "use client";
 
-import LinkTag from "@/components/link-tag";
 import { Section } from "@/components/section";
-import { Accordion, AccordionItem, Code } from "@nextui-org/react";
-import { useCookies } from "next-client-cookies";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from "@/components/ui/accordion";
+import { Anchor, Code, Ol } from "@/components/ui/typography";
+import { isValidElement } from "react";
 import { HiBell, HiCash, HiChat, HiLockClosed, HiUserAdd } from "react-icons/hi";
 
 const data = [
@@ -12,15 +17,12 @@ const data = [
         title: "How do I invite Wamellow to my Server?",
         subtitle: "Invite Wamellow to your server to get started!",
         content: (
-            <ol
-                className="list-decimal list-inside marker:text-neutral-500"
-                itemProp="text"
-            >
+            <Ol itemProp="text">
                 <li>
-                    Be sure to have the <Code color="secondary">Manage Server</Code> permission on the server you want <LinkTag href="/login?invite=true">invite Wamellow</LinkTag> into.
+                    Be sure to have the <Code>Manage Server</Code> permission on the server you want <Anchor href="/login?invite=true" target="_blank">invite Wamellow</Anchor> into.
                 </li>
                 <li>
-                    Open Discord{"'"}s add-app flow at <LinkTag href="/login?invite=true">wamellow.com/invite</LinkTag>.
+                    Open Discord{"'"}s add-app flow at <Anchor href="/login?invite=true" target="_blank">wamellow.com/invite</Anchor>.
                 </li>
                 <li>
                     Select a server and click on {"\""}Continue{"\""}.
@@ -31,15 +33,15 @@ const data = [
                 <li>
                     <span className="font-semibold">Done!</span> 🎉 You should now find yourself on the Dashboard for your server!
                 </li>
-            </ol>
+            </Ol>
         )
     },
     {
         startContent: <HiCash />,
         title: "Is Text to Speech free to use?",
         content: (
-            <div>
-                Yes, Text to Speech is free to use. However, you might have to <LinkTag href="/vote">vote for Wamellow on top.gg</LinkTag> if you start using it a lot.
+            <div itemProp="text">
+                Yes, Text to Speech is free to use. However, you might have to <Anchor href="/vote" target="_blank">vote for Wamellow on top.gg</Anchor> if you start using it a lot.
             </div>
         )
     },
@@ -50,10 +52,10 @@ const data = [
             <div itemProp="text">
                 <ol className="list-decimal list-inside marker:text-neutral-500 mb-4">
                     <li>
-                        <LinkTag href="/login?invite=true">Invite Wamellow</LinkTag> to your Server. If you do not own it, ask the server Administrators to add Wamellow.
+                        <Anchor href="/login?invite=true" target="_blank">Invite Wamellow</Anchor> to your Server. If you do not own it, ask the server Administrators to add Wamellow.
                     </li>
                     <li>
-                        Go to the <LinkTag href="/login?invite=true">Dashboard on wamellow.com/dashboard</LinkTag>, find your server and click {"\""}manage{"\""}.
+                        Go to the <Anchor href="/login?invite=true" target="_blank">Dashboard on wamellow.com/dashboard</Anchor>, find your server and click {"\""}manage{"\""}.
                     </li>
                     <li>
                         Select a channel to be used in the {"\""}Text to Speech{"\""} section.
@@ -69,7 +71,7 @@ const data = [
                     </li>
                 </ol>
 
-                You can also watch the video tutorial below or <LinkTag href="https://youtu.be/NS5fZ1ltovE?si=8hE1o6BBELxAxJbH">watch it on YouTube</LinkTag>.
+                You can also watch the video tutorial below or <Anchor href="https://youtu.be/NS5fZ1ltovE?si=8hE1o6BBELxAxJbH" target="_blank">watch it on YouTube</Anchor>.
                 <iframe
                     className="mt-2 aspect-video rounded-lg"
                     width="100%"
@@ -103,7 +105,7 @@ const data = [
                     </li>
                 </ol>
 
-                You can also watch the video tutorial below or <LinkTag href="https://youtu.be/ehc0_whydu8?si=8hE1o6BBELxAxJbH">watch it on YouTube</LinkTag>.
+                You can also watch the video tutorial below or <Anchor href="https://youtu.be/ehc0_whydu8?si=8hE1o6BBELxAxJbH" target="_blank">watch it on YouTube</Anchor>.
                 <iframe
                     className="mt-2 aspect-video rounded-lg"
                     width="100%"
@@ -125,69 +127,91 @@ const data = [
     }
 ];
 
-interface Props {
-    showTitle?: boolean;
-}
+const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: data.map((item) => ({
+        "@type": "Question",
+        name: item.title,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: extractText(item.content)
+        }
+    }))
+};
 
 export function Faq({
     showTitle = false
-}: Props) {
-    const cookies = useCookies();
-
+}: {
+    showTitle?: boolean;
+}) {
     return (
-        <div
-            className="my-4 w-full"
-            itemType="https://schema.org/FAQPage"
-            itemScope
-        >
+        <div>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(schema)
+                }}
+            />
 
-            {showTitle
-                ?
+            {showTitle && (
                 <Section
                     className="mb-4"
                     title="Frequently Asked Questions about Wamellow"
                 >
                     Commonly asked questions about Wamellow and how to use it.
                 </Section>
-                :
-                <b className="sr-only">
-                    Frequently Asked Questions for Wamellow
-                </b>
-            }
+            )}
 
             <Accordion
-                className="rounded-lg overflow-hidden"
-                variant="splitted"
-                defaultExpandedKeys={["0"]}
-                disableAnimation={cookies.get("reduceMotions") === "true"}
+                type="single"
+                collapsible
+                defaultValue="0"
             >
                 {data.map((item, index) => (
                     <AccordionItem
-                        aria-label={item.title}
-                        className="!bg-wamellow"
-                        classNames={{ content: "mb-2 space-y-4" }}
+                        value={index.toString()}
                         key={index}
-                        startContent={item.startContent}
-                        subtitle={item.subtitle}
-                        title={
-                            <span itemProp="name">
-                                {item.title}
-                            </span>
-                        }
-                        itemType="https://schema.org/Question"
-                        itemProp="mainEntity"
-                        itemScope
                     >
-                        <span
-                            itemType="https://schema.org/Answer"
-                            itemProp="acceptedAnswer"
-                            itemScope
-                        >
+                        <AccordionTrigger className="text-left">
+                            <div className="flex items-start gap-3">
+                                <div className="mt-1 text-lg">
+                                    {item.startContent}
+                                </div>
+                                <div>
+                                    <div itemProp="name">
+                                        {item.title}
+                                    </div>
+                                    {item.subtitle && (
+                                        <div className="text-sm text-muted-foreground font-normal">
+                                            {item.subtitle}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="mb-2 space-y-4">
                             {item.content}
-                        </span>
+                        </AccordionContent>
                     </AccordionItem>
                 ))}
             </Accordion>
         </div>
     );
+}
+
+function extractText(content: React.ReactNode): string {
+    if (typeof content === "string") return content;
+    if (typeof content === "number") return content.toString();
+
+    if (isValidElement(content)) {
+        if ((content.props as React.PropsWithChildren).children) {
+            return extractText((content.props as React.PropsWithChildren).children);
+        }
+    }
+    if (!Array.isArray(content)) return "";
+
+    return content
+        .map((child) => extractText(child))
+        .join(" ");
 }

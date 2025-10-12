@@ -60,8 +60,6 @@ bun install
 bun dev
 ```
 
-If you work on this project, please note that nextui is being phased out in favor of shadcn/ui, so please use the latter for new components.
-
 ## Deploy
 To build and run the website use
 ```bash

@@ -1,6 +1,7 @@
-import { ClientBadge, ClientCircularProgress } from "@/components/client";
 import DiscordAppBadge from "@/components/discord/app-badge";
 import ImageReduceMotion from "@/components/image-reduce-motion";
+import { CircularProgress } from "@/components/progress";
+import { AvatarBadge } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import type { ApiV1GuildsTopmembersGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import getAverageColor from "@/utils/average-color";
@@ -52,12 +53,10 @@ export default async function Member({
 
     return (
         <div
-            className={cn(
-                "mb-4 rounded-xl p-3 flex items-center dark:bg-wamellow bg-wamellow-100 w-full overflow-hidden"
-            )}
+            className="mb-4 rounded-xl p-3 flex items-center bg-wamellow w-full overflow-hidden"
             style={averageColor ? { backgroundColor: averageColor + "50" } : {}}
         >
-            <ClientBadge
+            <AvatarBadge
                 className={cn(
                     "size-6 font-bold",
                     (() => {
@@ -67,44 +66,38 @@ export default async function Member({
                         return "bg-[#1c1b1f]";
                     })()
                 )}
-                showOutline={false}
                 content={
-                    <span className="px-[3px]">
+                    <span className="text-sm">
                         {intl.format(index)}
                     </span>
                 }
-                size="sm"
-                placement="bottom-left"
             >
                 <ImageReduceMotion
                     alt={`${member.username}'s profile picture`}
-                    className="rounded-full h-12 w-12 mr-3"
+                    className="rounded-full size-12 mr-2"
                     url={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}`}
                     size={128}
                 />
-            </ClientBadge>
+            </AvatarBadge>
 
             <div className="w-full md:max-w-fit">
                 <div className="flex items-center gap-2">
                     <span className="text-xl font-medium dark:text-neutral-200 text-neutral-800 truncate">
                         {member.globalName || member.username || "Unknown user"}
                     </span>
-                    {member.bot &&
+                    {member.bot && (
                         <DiscordAppBadge />
-                    }
-                    {member.id === "821472922140803112" &&
+                    )}
+                    {member.id === "821472922140803112" && (
                         <UserBadge>Developer</UserBadge>
-                    }
-                    {member.id === "845287163712372756" &&
-                        <UserBadge>WOMEN</UserBadge>
-                    }
+                    )}
                 </div>
-                <div className="text-sm dark:text-neutral-300 text-neutral-700 truncate">
+                <span className="text-sm text-muted-foreground font-medium truncate relative bottom-0.5">
                     @{member.username}
-                </div>
+                </span>
             </div>
 
-            {member.emoji &&
+            {member.emoji && (
                 <div className="w-full hidden sm:block relative mr-6 -ml-48 md:-ml-6 lg:ml-6">
                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-6 w-full gap-2 absolute -bottom-9 rotate-1">
                         {Array.from({ length: 12 }).fill(0).map((_, i) =>
@@ -116,7 +109,7 @@ export default async function Member({
                         )}
                     </div>
                 </div>
-            }
+            )}
 
             <div className="ml-auto flex text-xl font-medium dark:text-neutral-200 text-neutral-800">
                 <span className="mr-1 break-keep text-nowrap">
@@ -130,27 +123,22 @@ export default async function Member({
             </div>
 
             <form action={publish}>
-                <ClientCircularProgress
+                <CircularProgress
                     as="button"
-                    type="submit"
-                    className="ml-4"
-                    aria-label="progress"
-                    size="lg"
-                    color={
-                        currentCircular === "next"
-                            ? "default"
-                            : "secondary"
+                    className="ml-4 relative top-1"
+                    progressClassName={currentCircular === "next"
+                        ? "stroke-primary"
+                        : "stroke-secondary"
                     }
-                    classNames={{
-                        svg: "drop-shadow-md"
-                    }}
-                    value={
-                        currentCircular === "next"
-                            ? (member.activity[type] * 100) / (members[index - 1]?.activity[type] || 1)
-                            : (member.activity[type] * 100) / Number.parseInt(pagination[type].total.toString(), 10)
-                            || 100
+                    value={currentCircular === "next"
+                        ? Math.round(((member.activity[type] - (members[index]?.activity[type] || 0)) / ((members[index - 2]?.activity[type] || member.activity[type]) - (members[index]?.activity[type] || 0))) * 100)
+                        : (member.activity[type] * 100) / Number.parseInt(pagination[type].total.toString(), 10)
                     }
-                    showValueLabel={true}
+                    size={46}
+                    strokeWidth={6}
+                    showLabel
+                    labelClassName="text-xxs font-semibold"
+                    renderLabel={(progress) => `${Math.round(progress)}%`}
                 />
             </form>
 

@@ -4,11 +4,17 @@ import Ad from "@/components/ad";
 import Modal from "@/components/modal";
 import Notice, { NoticeType } from "@/components/notice";
 import { Share } from "@/components/share";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Code } from "@/components/ui/typography";
 import type { ApiError, ApiV1GuildsGetResponse, ApiV1GuildsTopmembersPaginationGetResponse } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
-import { Accordion, AccordionItem, Code } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
@@ -58,101 +64,86 @@ export default function Side({
             <Ad />
 
             <Accordion
-                selectionMode="multiple"
-                defaultExpandedKeys={["1", "2", "3"]}
-                disableAnimation={cookies.get("reduceMotions") === "true"}
+                type="multiple"
+                defaultValue={["1", "2", "3"]}
             >
-
-                {guild && "id" in guild && cookies.get("devTools") ?
-                    <AccordionItem
-                        key="1"
-                        aria-label="admin tools"
-                        title="Admin tools"
-                        classNames={{ content: "mb-2" }}
-                    >
-                        <Button
-                            className="w-full justify-start"
-                            onClick={() => setModal(true)}
-                        >
-                            <HiTrash />
-                            Reset member stats
-                        </Button>
-                        <Button
-                            asChild
-                            className="w-full justify-start mt-2"
-                        >
-                            <Link
-                                href={getCanonicalUrl("dashboard", guild.id)}
+                {guild && "id" in guild && cookies.get("devTools") && (
+                    <AccordionItem value="1">
+                        <AccordionTrigger>Admin tools</AccordionTrigger>
+                        <AccordionContent className="mb-2">
+                            <Button
+                                className="w-full justify-start"
+                                onClick={() => setModal(true)}
                             >
-                                <HiViewGridAdd />
-                                Dashboard
-                            </Link>
-                        </Button>
+                                <HiTrash />
+                                Reset member stats
+                            </Button>
+                            <Button
+                                asChild
+                                className="w-full justify-start mt-2"
+                            >
+                                <Link
+                                    href={getCanonicalUrl("dashboard", guild.id)}
+                                >
+                                    <HiViewGridAdd />
+                                    Dashboard
+                                </Link>
+                            </Button>
+                        </AccordionContent>
                     </AccordionItem>
-                    :
-                    undefined as unknown as React.JSX.Element
-                }
+                )}
 
-                {pagination && "messages" in pagination ?
-                    <AccordionItem
-                        key="3"
-                        aria-label="about this server"
-                        title={`About ${guild && "name" in guild ? guild?.name : "this server"}`}
-                        classNames={{ content: "mb-2" }}
-                    >
-                        {guild && "description" in guild && guild?.description &&
-                            <p className="mb-6">
-                                {guild.description}
-                            </p>
-                        }
+                {pagination && "messages" in pagination && (
+                    <AccordionItem value="3">
+                        <AccordionTrigger>About {guild && "name" in guild ? guild?.name : "this server"}</AccordionTrigger>
+                        <AccordionContent className="mb-2">
+                            {guild && "description" in guild && guild?.description && (
+                                <p className="mb-6">
+                                    {guild.description}
+                                </p>
+                            )}
 
-                        <div className="flex items-center gap-1">
-                            <HiAnnotation className="mr-1" />
-                            <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <HiVolumeUp className="mr-1" />
-                            <span className="font-semibold">{pagination.voiceminutes.formattedTotal}</span> in voice
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <HiLink className="mr-1" />
-                            <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
-                        </div>
+                            <div className="flex items-center gap-1">
+                                <HiAnnotation className="mr-1" />
+                                <span className="font-semibold">{intl.format(pagination.messages.total)}</span> messages
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <HiVolumeUp className="mr-1" />
+                                <span className="font-semibold">{pagination.voiceminutes.formattedTotal}</span> in voice
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <HiLink className="mr-1" />
+                                <span className="font-semibold"> {intl.format(pagination.invites.total)}</span> invites
+                            </div>
+                        </AccordionContent>
                     </AccordionItem>
-                    : undefined as unknown as React.JSX.Element
-                }
+                )}
 
-                <AccordionItem
-                    key="2"
-                    aria-label="how this works"
-                    title="How this works"
-                    classNames={{ content: "mb-2" }}
-                >
-                    Users are sorted from most to least active for each category, updates once per minute.
-                    <br />
-                    <br />
-                    The percentage {
-                        cookies.get("lbc") === "server"
-                            ? "reflects the contribution of server activity from that user"
-                            : "indicates the gap in messages needed to surpass the next user"
-                    }.
+                <AccordionItem value="2">
+                    <AccordionTrigger>How this works</AccordionTrigger>
+                    <AccordionContent className="mb-2">
+                        Users are sorted from most to least active for each category, updates once per minute.
+                        <br />
+                        <br />
+                        The percentage {
+                            cookies.get("lbc") === "server"
+                                ? "reflects the contribution of server activity from that user"
+                                : "indicates the gap in messages needed to surpass the next user"
+                        }.
+                    </AccordionContent>
                 </AccordionItem>
 
-                {guild && "id" in guild && guild?.inviteUrl ?
-                    <AccordionItem
-                        key="4"
-                        aria-label="invite privacy"
-                        title="Invite privacy"
-                        classNames={{ content: "mb-2" }}
-                    >
-                        The invite on this sidebar is taken from the widget, if you want to remove the invite from this page, disable the widget in your discord server settings or remove <Code color="secondary">Manage Guild</Code> permission from the bot.
-                        <br />
-                        <br />
-                        <strong>NOTE: </strong> It might take up to an hour for this page to update.
+                {guild && "id" in guild && guild?.inviteUrl && (
+                    <AccordionItem value="4">
+                        <AccordionTrigger>Invite privacy</AccordionTrigger>
+                        <AccordionContent className="mb-2">
+                            The invite on this sidebar is taken from the widget, if you want to remove the invite from this page, disable the widget in your discord server settings or remove <Code>Manage Guild</Code> permission from the bot.
+                            <br />
+                            <br />
+                            <strong>NOTE: </strong> It might take up to an hour for this page to update.
+                        </AccordionContent>
                     </AccordionItem>
-                    :
-                    undefined as unknown as React.JSX.Element
-                }
+                )}
             </Accordion>
 
             <Modal
@@ -180,8 +171,6 @@ export default function Side({
                 />
                 Are you sure you want to delete the leaderboard? It will be gone forever, probably, who knows.
             </Modal>
-
         </div>
     );
-
 }

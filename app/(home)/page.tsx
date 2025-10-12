@@ -12,6 +12,7 @@ import { AvatarGroup, UserAvatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Code } from "@/components/ui/typography";
 import { defaultFetchOptions } from "@/lib/api";
 import CaptchaPic from "@/public/captcha.webp";
 import ArrowPic from "@/public/icons/arroww.webp";
@@ -25,13 +26,12 @@ import { cn } from "@/utils/cn";
 import { toFixedArrayLength } from "@/utils/fixed-array-length";
 import { actor } from "@/utils/tts";
 import { getCanonicalUrl } from "@/utils/urls";
-import { Code } from "@nextui-org/react";
 import { Montserrat, Patrick_Hand } from "next/font/google";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { BsYoutube } from "react-icons/bs";
+import { BsDiscord, BsYoutube } from "react-icons/bs";
 import { HiArrowNarrowRight, HiArrowRight, HiCash, HiCheck, HiFire, HiLockOpen, HiUserAdd } from "react-icons/hi";
 
 import { Commands } from "./commands.component";
@@ -130,7 +130,7 @@ export default async function Home() {
                                     prefetch={false}
                                     href="/login?invite=true"
                                 >
-                                    <HiUserAdd />
+                                    <HiUserAdd className="mx-1" />
                                     <span className="block sm:hidden">Invite</span>
                                     <span className="hidden sm:block">Invite Wamellow</span>
                                 </Link>
@@ -143,7 +143,7 @@ export default async function Home() {
                                     prefetch={false}
                                     href="/support"
                                 >
-                                    <HiUserAdd />
+                                    <BsDiscord className="mx-1 mt-px" />
                                     <span className="block sm:hidden">Support</span>
                                     <span className="hidden sm:block">Join Support</span>
                                 </Link>
@@ -220,7 +220,7 @@ export default async function Home() {
                             <h3 className={styles.h3}>97 Voices in 10 Languages</h3>
 
                             <div className="pt-6">
-                                You can either generate files using <Code color="secondary">/tts file</Code>, talk in voice chats with <Code color="secondary">/tts voice</Code> or setup a dedicated channel!
+                                You can either generate files using <Code>/tts file</Code>, talk in voice chats with <Code>/tts voice</Code> or setup a dedicated channel!
                                 Great for people with aphonia, dysphonia, or other speech impairments.
                             </div>
 

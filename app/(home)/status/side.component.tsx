@@ -1,10 +1,14 @@
 "use client";
 
 import DumbTextInput from "@/components/inputs/dumb-text-input";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { intl } from "@/utils/numbers";
-import { Accordion, AccordionItem } from "@nextui-org/react";
-import { useCookies } from "next-client-cookies";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 
 import type { ApiV1StatusGetResponse } from "./api";
@@ -14,7 +18,6 @@ export function Side({
 }: {
     status: ApiV1StatusGetResponse;
 }) {
-    const cookies = useCookies();
     const [guildId, setGuildId] = useState<string>("");
 
     const clusterId = useMemo(
@@ -35,40 +38,37 @@ export function Side({
     return (
         <div className="flex flex-col gap-5">
             <Accordion
-                variant="shadow"
-                className="bg-wamellow"
-                selectionMode="multiple"
-                defaultExpandedKeys={["1"]}
-                disableAnimation={cookies.get("reduceMotions") === "true"}
+                type="multiple"
+                defaultValue={["1"]}
+                variant="primary"
             >
-                <AccordionItem
-                    key="1"
-                    aria-label="about"
-                    title="Performance & Usage"
-                    classNames={{ content: "mb-2 space-y-4" }}
-                >
-                    <Row name="Uptime">
-                        {status.clusters[0].uptime}
-                    </Row>
-                    <Row name="Latency avg">
-                        {~~(status.clusters.reduce((prev, cur) => prev + cur.ping, 0) / status.clusters.length)}ms
-                    </Row>
-                    <Row name="Memory">
-                        {intl.format(~~(status.clusters.reduce((prev, cur) => prev + cur.memory, 0)))}mb
-                    </Row>
+                <AccordionItem value="1">
+                    <AccordionTrigger>Performance & Usage</AccordionTrigger>
+                    <AccordionContent className="mb-2 space-y-2">
+                        <Row name="Uptime">
+                            {status.clusters[0].uptime}
+                        </Row>
+                        <Row name="Latency avg">
+                            {~~(status.clusters.reduce((prev, cur) => prev + cur.ping, 0) / status.clusters.length)}ms
+                        </Row>
+                        <Row name="Memory">
+                            {intl.format(~~(status.clusters.reduce((prev, cur) => prev + cur.memory, 0)))}mb
+                        </Row>
+                    </AccordionContent>
                 </AccordionItem>
             </Accordion>
 
             <div>
                 <DumbTextInput
-                    name="Find your Server's Cluster"
-                    placeholder="Copy & Paste your Server Id"
+                    placeholder="Paste your Server Id"
                     value={guildId}
                     setValue={setGuildId}
                     description={/^\d{15,20}$/.test(guildId) ? `Your guild is on cluster #${clusterId}.` : ""}
                 />
 
-                Discord bots are divided into clusters or shards, which are logical processes running on the CPU, akin to multithreading.
+                <p className="text-muted-foreground text-sm -mt-2 px-0.5">
+                    Discord bots are divided into clusters or shards, which are logical processes running on the CPU, akin to multithreading.
+                </p>
             </div>
         </div>
     );

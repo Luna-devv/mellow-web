@@ -130,13 +130,13 @@ Automatically translate messages from any language to match your current voice's
         </tr>
     </thead>
     <tbody>
-        <tr><td>🇺🇸 English (us)</td><td>Jessie</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_001.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Jessie <strong>(TikTok, default until September 2025)</strong></td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_001.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Joey</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_006.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Professor</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_007.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Scientist</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_009.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Confidence</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_us_010.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Emotional</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_emotional.mp3" /></td></tr>
-        <tr><td>🇺🇸 English (us)</td><td>Empathetic</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_samc.mp3" /></td></tr>
+        <tr><td>🇺🇸 English (us)</td><td>Empathetic <strong>(default)</strong></td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_female_samc.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Serious</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_cody.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Narration</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_narration.mp3" /></td></tr>
         <tr><td>🇺🇸 English (us)</td><td>Funny</td><td><audio controls src="https://r2.wamellow.com/tts-preview/en_male_funny.mp3" /></td></tr>
@@ -244,5 +244,5 @@ If Wamellow joins the voice channel but doesn't speak, check that it has the `Co
 <br />
 <br />
 
-If Wamellow says that someone else's message is still being spoken, but it's not talking, use `/tts voice-stop`.
+If Wamellow says that someone else's message is still being spoken, but it's not talking, use `/tts stop`.
 You can also use this to stop any message that is currently being spoken (i.e.: because of spam).

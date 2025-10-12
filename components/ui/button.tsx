@@ -14,7 +14,6 @@ const buttonVariants = cva(
                 default: "bg-wamellow text-primary-foreground hover:bg-wamellow-200",
                 destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
                 success: "bg-success text-success-foreground hover:bg-success/90",
-                outline: "border border-secondary bg-background hover:bg-primary hover:text-primary-foreground",
                 secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 flat: "bg-secondary/60 text-secondary-foreground hover:bg-secondary/50",
                 ghost: "hover:bg-wamellow text-accent-foreground/85 hover:text-accent-foreground",

@@ -1,8 +1,9 @@
-import { ClientButton } from "@/components/client";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListFeature } from "@/components/list";
 import Notice, { NoticeType } from "@/components/notice";
 import { OverviewLink } from "@/components/overview-link";
+import { Alert, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
 import { intl } from "@/utils/numbers";
@@ -12,7 +13,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiscord } from "react-icons/bs";
-import { HiChartBar, HiCheck, HiLightningBolt, HiLockClosed, HiStar, HiUsers, HiX } from "react-icons/hi";
+import { HiChartBar, HiCheck, HiExclamation, HiLightningBolt, HiLockClosed, HiStar, HiUsers, HiX } from "react-icons/hi";
 
 import { getPassport } from "./api";
 import { Verify } from "./verify.component";
@@ -72,22 +73,27 @@ export default async function Home({ params }: Props) {
             <Notice type={NoticeType.Error} message={passport.message} />
         }
 
-        {guildExists && guild?.id === "1125063180801036329" &&
-            <Notice
-                type={NoticeType.Info}
-                message="This is a demo server to test out passport verification."
+        {guildExists && guild?.id === "1125063180801036329" && (
+            <Alert
+                className="mb-4 flex items-center justify-between"
+                variant="secondary"
             >
-                <ClientButton
-                    as={Link}
-                    color="secondary"
-                    href="https://discord.gg/2nrK8DfjPt"
-                    target="_blank"
-                    startContent={<BsDiscord />}
-                >
-                    Join Server
-                </ClientButton>
-            </Notice>
-        }
+                <AlertTitle className="flex gap-3">
+                    <HiExclamation className="size-4" />
+                    This is a demo server to test out passport verification.
+                </AlertTitle>
+
+                <Button asChild>
+                    <Link
+                        href="https://discord.gg/2nrK8DfjPt"
+                        target="_blank"
+                    >
+                        <BsDiscord className="relative right-1 mt-px" />
+                        Join Server
+                    </Link>
+                </Button>
+            </Alert>
+        ) }
 
         <div className="grid md:flex md:gap-6">
 

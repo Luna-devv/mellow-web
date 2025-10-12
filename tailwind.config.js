@@ -1,32 +1,27 @@
-import { nextui } from "@nextui-org/react";
 import twa from "tailwindcss-animate";
-
-const wamellow = "rgba(255, 255, 255, 0.05)";
-const violet = "rgb(139 92 246)";
 
 /** @type {import('tailwindcss').Config} */
 const config = {
     content: [
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
+        "./app/**/*.{js,ts,jsx,tsx,mdx}"
     ],
     theme: {
     	extend: {
     		colors: {
-    			'blurple': '#5865f2',
+    			blurple: '#5865f2',
     			'blurple-dark': '#454fbf',
     			'discord-gray': '#1c1d23',
     			foreground: 'hsl(var(--foreground))',
-                wamellow: {
-                    DEFAULT: 'var(--wamellow)'
-                },
-                "wamellow-100": {
-                    DEFAULT: 'var(--wamellow-100)'
-                },
-                "wamellow-200": {
-                    DEFAULT: 'var(--wamellow-200)'
-                },
+    			wamellow: {
+    				DEFAULT: 'var(--wamellow)'
+    			},
+    			'wamellow-100': {
+    				DEFAULT: 'var(--wamellow-100)'
+    			},
+    			'wamellow-200': {
+    				DEFAULT: 'var(--wamellow-200)'
+    			},
     			card: {
     				DEFAULT: 'hsl(var(--card))',
     				foreground: 'hsl(var(--card-foreground))'
@@ -43,10 +38,10 @@ const config = {
     				DEFAULT: 'hsl(var(--secondary))',
     				foreground: 'hsl(var(--secondary-foreground))'
     			},
-                flat: {
-                    DEFAULT: 'hsl(var(--flat))',
-                    foreground: 'hsl(var(--flat-foreground))'
-                },
+    			flat: {
+    				DEFAULT: 'hsl(var(--flat))',
+    				foreground: 'hsl(var(--flat-foreground))'
+    			},
     			muted: {
     				DEFAULT: 'hsl(var(--muted))',
     				foreground: 'hsl(var(--muted-foreground))'
@@ -76,73 +71,53 @@ const config = {
     			'160': '40rem'
     		},
     		fontSize: {
-    			'xxs': '0.6rem'
+    			xxs: '0.6rem',
+                medium: "1rem"
     		},
-            animation: {
-                progress: 'progress 1s infinite linear',
+            lineHeight: {
+                medium: "1.5rem"
             },
-            keyframes: {
-                progress: {
-                    '0%': { transform: ' translateX(0) scaleX(0)' },
-                    '40%': { transform: 'translateX(0) scaleX(0.4)' },
-                    '100%': { transform: 'translateX(100%) scaleX(0.5)' },
-                },
-            },
-            transformOrigin: {
-                'left-right': '0% 50%',
-            }
+    		animation: {
+    			progress: 'progress 1s infinite linear',
+    			'accordion-down': 'accordion-down 0.2s ease-out',
+    			'accordion-up': 'accordion-up 0.2s ease-out'
+    		},
+    		keyframes: {
+    			progress: {
+    				'0%': {
+    					transform: ' translateX(0) scaleX(0)'
+    				},
+    				'40%': {
+    					transform: 'translateX(0) scaleX(0.4)'
+    				},
+    				'100%': {
+    					transform: 'translateX(100%) scaleX(0.5)'
+    				}
+    			},
+    			'accordion-down': {
+    				from: {
+    					height: '0'
+    				},
+    				to: {
+    					height: 'var(--radix-accordion-content-height)'
+    				}
+    			},
+    			'accordion-up': {
+    				from: {
+    					height: 'var(--radix-accordion-content-height)'
+    				},
+    				to: {
+    					height: '0'
+    				}
+    			}
+    		},
+    		transformOrigin: {
+    			'left-right': '0% 50%'
+    		}
     	}
     },
     darkMode: ["class"],
-    plugins: [nextui({
-        addCommonColors: false,
-        layout: {
-            radius: {
-                small: "0.375rem",
-                medium: "0.5rem",
-                large: "0.75rem"
-            },
-            fontSize: {
-                small: "0.875rem",
-                medium: "1rem",
-                large: "1.125rem"
-            }
-        },
-        themes: {
-            dark: {
-                colors: {
-                    secondary: {
-                        foreground: "rgb(255 255 255)",
-                        background: wamellow,
-                        DEFAULT: violet,
-                        divider: wamellow,
-                        focus: violet
-                    },
-                    default: {
-                        foreground: "rgb(212 212 212)",
-                        background: wamellow,
-                        DEFAULT: wamellow,
-                        focus: violet
-                    },
-                    overlay: wamellow,
-                    content1: wamellow,
-                    content2: wamellow,
-                    content3: wamellow,
-                    content4: wamellow
-                }
-            },
-            violet: {
-                extends: "dark",
-                colors: {
-                    default: {
-                        foreground: "rgb(255 255 255)",
-                        background: wamellow,
-                        DEFAULT: violet
-                    }
-                }
-            }
-        }
-    }),
+    plugins: [
         twa
     ]
 };

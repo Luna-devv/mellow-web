@@ -5,9 +5,9 @@ import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import TextInput from "@/components/inputs/text-input";
 import Modal from "@/components/modal";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { ApiV1GuildsModulesLeaderboardUpdatingPostResponse } from "@/typings";
 import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
-import { Tab, Tabs } from "@nextui-org/react";
 import Link from "next/link";
 import { useCookies } from "next-client-cookies";
 import { useState } from "react";
@@ -177,38 +177,27 @@ export default function UpdatingLeaderboardCard({
             <div className="mb-3">
                 <div className="text-lg dark:text-neutral-300 text-neutral-700 font-medium mb-1">Leaderboard syle</div>
 
-                <Tabs
-                    aria-label="Display format"
-                    color="secondary"
-                    variant="bordered"
-                    defaultSelectedKey={structure?.toString()}
-                    onSelectionChange={(i) => setStructure(Number.parseInt(i as string, 10))}
-                    fullWidth
-                >
-                    <Tab
-                        key="0"
-                        title={
-                            <div className="flex items-center space-x-2">
-                                Embed
-                            </div>
-                        }
-                    />
-                    <Tab
-                        key="1"
-                        title={
-                            <div className="flex items-center space-x-2">
-                                Image Grid
-                            </div>
-                        }
-                    />
-                    <Tab
-                        key="2"
-                        title={
-                            <div className="flex items-center space-x-2">
-                                Image List
-                            </div>
-                        }
-                    />
+                <Tabs defaultValue={structure?.toString() || "1"}>
+                    <TabsList className="grid w-full grid-cols-3">
+                        <TabsTrigger
+                            value="0"
+                            onClick={() => setStructure(0)}
+                        >
+                            Embed
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="1"
+                            onClick={() => setStructure(1)}
+                        >
+                            Image Grid
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="2"
+                            onClick={() => setStructure(2)}
+                        >
+                            Image List
+                        </TabsTrigger>
+                    </TabsList>
                 </Tabs>
             </div>
 

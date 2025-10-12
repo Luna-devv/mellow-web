@@ -1,4 +1,4 @@
-import { cn } from "@nextui-org/react";
+import { cn } from "@/utils/cn";
 import { HiExclamation, HiExclamationCircle } from "react-icons/hi";
 
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";

@@ -2,6 +2,7 @@
 
 import { cn } from "@/utils/cn";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import type Image from "next/image";
 import * as React from "react";
 
 const Avatar = React.forwardRef<
@@ -85,4 +86,23 @@ function AvatarGroup({
     );
 }
 
-export { Avatar, AvatarFallback, AvatarGroup, AvatarImage, UserAvatar };
+function AvatarBadge({
+    className,
+    children,
+    content
+}: {
+    className?: string;
+    children: ReturnType<typeof Image> | ReturnType<typeof UserAvatar>;
+    content: React.ReactNode;
+}) {
+    return (
+        <div className="relative inline-flex shrink-0">
+            {children}
+            <div className={cn("flex z-10 flex-wrap absolute rounded-full whitespace-nowrap place-content-center origin-center items-center select-none subpixel-antialiased bottom-[5%] left-[5%] -translate-x-1/2 translate-y-1/2 aspect-square overflow-hidden size-6", className)}>
+                {content}
+            </div>
+        </div>
+    );
+}
+
+export { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarImage, UserAvatar };

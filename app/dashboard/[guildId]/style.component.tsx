@@ -199,7 +199,7 @@ export function ChangeStyleModal({
                 onEdit(style);
                 setError(null);
             }}
-            isDisabled={!name || Boolean(error)}
+            isDisabled={(!name && typeof avatar === "string" && typeof banner === "string") || Boolean(error)}
         >
             <DumbTextInput
                 name="Username"

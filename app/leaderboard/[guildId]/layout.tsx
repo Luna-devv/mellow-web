@@ -1,4 +1,4 @@
-import { ClientImageWall } from "@/components/client";
+import { GlowingImage } from "@/components/glowing-image";
 import ImageReduceMotion from "@/components/image-reduce-motion";
 import { ListTab } from "@/components/list";
 import { getGuild } from "@/lib/api";
@@ -78,11 +78,9 @@ export default async function RootLayout({ params, children }: Props) {
         <div className="w-full">
 
             <div className="relative mb-14 w-full">
-                <ClientImageWall
+                <GlowingImage
                     alt=""
                     className="w-full object-cover"
-                    classNames={{ img: "!h-36 md:!h-64", blurredImg: "!h-40 md:!h-72 -top-5" }}
-                    isBlurred
                     src={design && "bannerUrl" in design && design.bannerUrl ? design.bannerUrl : paintPic.src}
                     width={3_840 / 2}
                     height={2_160 / 2}

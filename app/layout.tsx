@@ -28,14 +28,14 @@ const reviews = {
     aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: "5",
-        reviewCount: "100",
+        reviewCount: "110",
         bestRating: "5"
     }
 };
 
 export const viewport: Viewport = {
     themeColor: "#8957ff",
-    initialScale: 0.9
+    initialScale: 1
 };
 
 export const generateMetadata = (): Metadata => {

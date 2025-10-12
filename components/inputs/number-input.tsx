@@ -1,10 +1,11 @@
 import { webStore } from "@/common/webstore";
 import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
-import { Button } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import { TailSpin } from "react-loading-icons";
+
+import { Button } from "../ui/button";
 
 enum State {
     Idle = 0,
@@ -171,13 +172,12 @@ export default function NumberInput({
                     {def !== value &&
                         <Button
                             onClick={handleSave}
-                            className="mr-2"
-                            isLoading={state === State.Loading}
-                            isDisabled={disabled}
+                            className="mr-2 h-8 rounded-xl"
+                            loading={state === State.Loading}
+                            disabled={disabled}
                             size="sm"
                             color="secondary"
                             variant="flat"
-                            radius="lg"
                         >
                             Save
                         </Button>

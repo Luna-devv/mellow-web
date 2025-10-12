@@ -212,37 +212,6 @@ div[id="bg"] {
 
 }
 
-button.subpixel-antialiased:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline),
-a[role="button"]:not(.w-unit-10):not(.default):not(.bg-secondary):not(.button-primary):not(.button-blurple):not(.button-underline) {
-    @apply py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
-}
-
-.text-sm button.subpixel-antialiased,
-.text-sm a[role="button"] {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-}
-
-.button {
-    @apply flex text-white bg-wamellow-100 hover:bg-wamellow-200 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
-}
-
-.button-primary {
-    @apply flex text-neutral-200 bg-violet-600 hover:bg-violet-600/80 py-2 px-4 duration-200 justify-center gap-2 items-center text-medium
-}
-
-.button-blurple {
-    @apply flex text-neutral-100 bg-blurple hover:bg-blurple-dark py-2 px-4 duration-200 justify-center gap-2 items-center font-medium text-medium
-}
-
-.button-underline {
-    @apply dark:text-neutral-300/90 text-neutral-700/90 border-b border-transparent hover:border-neutral-300/90 my-1.5 mx-3 flex items-center gap-2 w-min text-medium
-}
-
-.before\:border-t::before {
-    border-top-width: 0px !important;
-}
-
 audio {
     max-height: 2rem;
 }
@@ -253,4 +222,12 @@ td:has(audio) {
 
 body[data-scroll-locked] {
   position: static !important;
+}
+
+.scrollbar-hide {
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }

@@ -2,7 +2,6 @@
 
 import { guildStore } from "@/common/guilds";
 import Fetch from "@/components/button-fetch";
-import { ClientBadge } from "@/components/client";
 import { CreateSplash } from "@/components/dashboard/lists/create-splash";
 import { useList } from "@/components/dashboard/lists/hook";
 import { Navigation } from "@/components/dashboard/lists/navigation";
@@ -12,6 +11,7 @@ import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
 import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
+import { AvatarBadge } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cacheOptions } from "@/lib/api";
 import { type ApiV1GuildsModulesNotificationsGetResponse, BlueskyNotificationFlags, GuildFlags, NotificationType, YoutubeNotificationFlags } from "@/typings";
@@ -97,12 +97,9 @@ export default function Home() {
                     const channel = guild?.channels?.find((channel) => channel.id === item.channelId);
 
                     return (<>
-                        <ClientBadge
+                        <AvatarBadge
                             className="aspect-square bg-[#1c1b1f]"
                             content={<Icon type={item.type} className="size-4 mt-0.5" />}
-                            showOutline={false}
-                            size="sm"
-                            placement="bottom-left"
                         >
                             {item.creator.avatarUrl
                                 ? <Image
@@ -116,7 +113,7 @@ export default function Home() {
                                     {item.creator.username.slice(0, 2)}
                                 </div>
                             }
-                        </ClientBadge>
+                        </AvatarBadge>
 
                         <div className="flex flex-col items-start">
                             <span className="flex gap-2 text-neutral-100 text-lg font-medium -mb-[0.5]">

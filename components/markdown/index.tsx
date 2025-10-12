@@ -4,10 +4,8 @@ import { getUser } from "@/lib/discord/user";
 import { cn } from "@/utils/cn";
 import { filterDuplicates } from "@/utils/filter-duplicates";
 import { getBaseUrl } from "@/utils/urls";
-import { Code } from "@nextui-org/react";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { HiExternalLink } from "react-icons/hi";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
@@ -17,6 +15,7 @@ import Timestamp from "./timestamp";
 import User from "./user";
 import Notice, { NoticeType } from "../notice";
 import { Separator } from "../ui/separator";
+import { Anchor, Code } from "../ui/typography";
 
 const ALLOWED_IFRAMES = [
     "https://www.youtube.com/embed/",
@@ -110,9 +109,7 @@ export default async function BeautifyMarkdown({
                 del: (props) => <span className="line-through" {...props} />,
                 ins: (props) => <span className="underline" {...props} />,
 
-                code: ({ ref, color, ...props }) => {
-                    return <Code color="secondary" {...props} />;
-                },
+                code: ({ ref, color, ...props }) => <Code {...props}>{props.children}</Code>,
                 img: ({ alt = "image", ...props }) => {
                     const isFullWidth = typeof props.src === "string" && props.src?.includes("fullwidth=true");
 
@@ -130,16 +127,7 @@ export default async function BeautifyMarkdown({
                         </span>
                     );
                 },
-                a: ({ href, children, ...props }) => (
-                    <Link
-                        href={href || "#"}
-                        target="_blank"
-                        className="text-violet-400 hover:underline"
-                        {...props}
-                    >
-                        {children} <HiExternalLink className="inline" />
-                    </Link>
-                ),
+                a: ({ href, children }) => <Anchor href={href || "#"} target="_blank">{children}</Anchor>,
 
                 table: (props) => <table className="mt-4 table-auto w-full divide-y-1 divide-wamellow overflow-scroll" {...props} />,
                 th: (props) => <th className=" px-2 pb-2 font-medium text-neutral-800 dark:text-neutral-200 text-left" {...props} />,
