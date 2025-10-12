@@ -42,7 +42,7 @@ export default function DiscordMessageEmbed({
         <div
             className={cn(
                 mode === "DARK" ? "text-neutral-200" : "text-neutral-800",
-                "w-full font-light p-3 rounded border-l-4",
+                "w-full font-light p-3 rounded-sm border-l-4",
                 className
             )}
             style={{

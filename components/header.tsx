@@ -134,7 +134,7 @@ export function Header() {
                         size={96}
                     />
 
-                    <p className="mr-1 relative bottom-[1px] truncate block text-primary-foreground font-medium tracking-tight">{user.globalName || user.username}</p>
+                    <p className="mr-1 relative bottom-px truncate block text-primary-foreground font-medium tracking-tight">{user.globalName || user.username}</p>
                     <HiChevronDown />
                 </>
                 :
@@ -206,7 +206,7 @@ export function Header() {
                     <Button
                         key={"headerButton-" + button.name + button.url}
                         asChild
-                        className="w-full font-medium justify-start text-xl my-1 sm:my-0 sm:text-medium bg-transparent hover:bg-wamellow rounded-sm"
+                        className="w-full font-medium justify-start text-xl my-1 sm:my-0 sm:text-medium bg-transparent hover:bg-wamellow rounded-xs"
                         onClick={() => setMenu(false)}
                     >
                         <Link href={button.url!}>

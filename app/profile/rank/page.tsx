@@ -82,7 +82,7 @@ export default function Home() {
         <ImageUrlInput
             name="Background"
             url="/users/@me/rank"
-            ratio="aspect-[4/1]"
+            ratio="aspect-4/1"
             dataName="background"
             description="Enter a url which should be the background of your /rank card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
             defaultState={user?.extended?.rank?.background || ""}

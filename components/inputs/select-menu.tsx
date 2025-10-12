@@ -126,9 +126,9 @@ export default function SelectMenu<T extends string | number>({
             <button
                 className={cn(
                     "mt-1 h-12 w-full bg-wamellow rounded-lg flex items-center px-3 wamellow-modal",
-                    open && "outline outline-violet-400 outline-offset-2 outline-2",
-                    (value?.error || error) && !open && "outline outline-red-500 outline-1",
-                    state === State.Success && !open && "outline outline-green-500 outline-1",
+                    open && "outline-solid outline-violet-400 outline-offset-2 outline-2",
+                    (value?.error || error) && !open && "outline-solid outline-red-500 outline-1",
+                    state === State.Success && !open && "outline-solid outline-green-500 outline-1",
                     (state === State.Loading || disabled) && "cursor-not-allowed opacity-50"
                 )}
                 onClick={() => setOpen(!open)}
@@ -172,7 +172,7 @@ export default function SelectMenu<T extends string | number>({
                             key={"select-" + item.value}
                             className={cn(
                                 "p-4 py-2 w-full text-left duration-200 flex items-center hover:bg-wamellow",
-                                item.error && "dark:bg-red-500/10 hover:dark:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
+                                item.error && "dark:bg-red-500/10 dark:hover:bg-red-500/25 bg-red-500/30 hover:bg-red-500/40"
                             )}
                             style={item.color ? { color: `#${item.color.toString(16)}` } : {}}
                             onClick={() => {

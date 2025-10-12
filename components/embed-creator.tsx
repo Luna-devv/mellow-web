@@ -148,7 +148,7 @@ export default function MessageCreatorEmbed({
             <div
                 className={cn(
                     "mt-8 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl md:px-4 md:pb-4 px-2 py-2",
-                    error && "outline outline-red-500 outline-1"
+                    error && "outline-solid outline-red-500 outline-1"
                 )}
             >
                 <div className="text-lg py-2 dark:text-neutral-700 text-neutral-300 font-medium px-2">{name}</div>

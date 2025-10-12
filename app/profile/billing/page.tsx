@@ -70,7 +70,7 @@ export default function Home() {
                 small
             >
                 <div className="flex flex-col">
-                    <h2 className="font-bold text-3xl bg-gradient-to-r bg-clip-text text-transparent from-violet-400/80 to-indigo-400/80">
+                    <h2 className="font-bold text-3xl bg-linear-to-r bg-clip-text text-transparent from-violet-400/80 to-indigo-400/80">
                         Wamellow Premium
                         {data?.status === "trialing" && (
                             <Badge

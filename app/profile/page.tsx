@@ -160,7 +160,7 @@ function Guild({
     return (
         <motion.li
             className={cn(
-                "dark:bg-wamellow bg-wamellow-100 p-3.5 flex items-center rounded-xl drop-shadow-md overflow-hidden relative duration-100 outline-violet-500 hover:outline group/card",
+                "dark:bg-wamellow bg-wamellow-100 p-3.5 flex items-center rounded-xl drop-shadow-md overflow-hidden relative duration-100 outline-violet-500 hover:outline-solid group/card",
                 !hasBotInvited && "saturate-50 brightness-50"
             )}
             variants={springAnimation}

@@ -114,7 +114,7 @@ export default async function Home({ params }: Props) {
                 <div className="text-lg flex gap-5 items-center absolute top-[146px] rounded-3xl z-20 left-[4px] md:left-1.5 py-4 px-5 backdrop-blur-3xl backdrop-brightness-90 shadow-md">
                     <ImageReduceMotion
                         alt="Server icon"
-                        className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40"
+                        className="rounded-full h-14 w-14 ring-offset-(--background-rgb) ring-2 ring-offset-2 ring-violet-400/40"
                         url={guildExists ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : "/discord"}
                         size={128}
                     />
@@ -140,12 +140,12 @@ export default async function Home({ params }: Props) {
                             `${guildExists ? intl.format(guild?.memberCount) : 0} members`
                         ].map((name) => (
                             <li key={name} className="flex gap-1 items-center">
-                                <HiCheck className="text-violet-400 relative top-[1px]" />
+                                <HiCheck className="text-violet-400 relative top-px" />
                                 {name}
                             </li>
                         ))}
                         <li className="flex gap-1 items-center" title="The cake is a lie">
-                            <HiX className="text-red-400 relative top-[1px]" />
+                            <HiX className="text-red-400 relative top-px" />
                             Cakes
                         </li>
                     </ul>

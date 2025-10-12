@@ -18,7 +18,7 @@ interface Props {
     disabled?: boolean;
     description?: string;
     defaultState: string;
-    ratio: `aspect-[${number}/${number}]`;
+    ratio: `aspect-${number}/${number}`;
 
     onSave?: (value: string) => void;
 }
@@ -126,7 +126,7 @@ export default function ImageUrlInput({
                         <img
                             src={value}
                             alt="upload"
-                            className={cn("w-full", "rounded-md", "aspect-[4/1]")}
+                            className={cn("w-full", "rounded-md", "aspect-4/1")}
                             onError={() => setImagestate("ERRORED")}
                             onLoad={() => setImagestate("SUCCESS")}
                         />

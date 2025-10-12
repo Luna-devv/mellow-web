@@ -82,7 +82,7 @@ export default async function RootLayout({ params, children }: Props) {
                     </ul>
 
                     <LinkButton
-                        className="w-full !justify-start"
+                        className="w-full justify-start!"
                         href="/support"
                         target="_blank"
                         variant="blurple"
@@ -91,7 +91,7 @@ export default async function RootLayout({ params, children }: Props) {
                         Join Support
                     </LinkButton>
                     <LinkButton
-                        className="w-full !justify-start"
+                        className="w-full justify-start!"
                         href="/invite"
                         target="_blank"
                         variant="secondary"
@@ -100,7 +100,7 @@ export default async function RootLayout({ params, children }: Props) {
                         Invite Wamellow
                     </LinkButton>
                     <LinkButton
-                        className="w-full !justify-start"
+                        className="w-full justify-start!"
                         href="/profile"
                         target="_blank"
                     >
@@ -138,7 +138,7 @@ function NavButton({
     return (
         <li>
             <LinkButton
-                className="w-full !justify-start bg-transparent h-[30px]"
+                className="w-full justify-start! bg-transparent h-[30px]"
                 href={`/docs/${file}`}
                 size="sm"
             >

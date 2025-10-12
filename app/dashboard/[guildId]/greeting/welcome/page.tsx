@@ -249,7 +249,7 @@ export default function Home() {
                     <ImageUrlInput
                         name="Card Background"
                         url={`/guilds/${guild?.id}/modules/welcome`}
-                        ratio="aspect-[4/1]"
+                        ratio="aspect-4/1"
                         dataName="card.background"
                         description="Enter a url which should be the background for the image card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
                         defaultState={data.card.background || ""}

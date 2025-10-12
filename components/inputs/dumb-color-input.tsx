@@ -30,7 +30,7 @@ export default function DumbColorInput({
     dataName
 }: Props) {
     const className = cn(
-        "mt-1 resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-lg flex items-center px-4 py-2 focus:outline outline-violet-400 outline-2",
+        "mt-1 resize-none w-full dark:bg-wamellow bg-wamellow-100 rounded-lg flex items-center px-4 py-2 focus:outline-solid outline-violet-400 outline-2",
         thin ? "h-10" : "h-12",
         thin && "relative bottom-1",
         disabled && "cursor-not-allowed opacity-50"

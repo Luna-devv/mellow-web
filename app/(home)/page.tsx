@@ -44,8 +44,8 @@ const handwritten = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 export const revalidate = 43_200;
 
 const styles = {
-    h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-bold mb-4"),
-    h3: cn(montserrat.className, "lg:text-2xl text-xl bg-gradient-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
+    h2: cn(montserrat.className, "lg:text-5xl text-4xl bg-linear-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-bold mb-4"),
+    h3: cn(montserrat.className, "lg:text-2xl text-xl bg-linear-to-b bg-clip-text text-transparent from-neutral-200 from-40% to-neutral-300 font-semibold")
 };
 
 const messageProps = (command?: string) => ({
@@ -78,12 +78,12 @@ export default async function Home() {
             <div className="flex w-full items-center gap-8 mb-16 md:mb-12 min-h-[500px] h-[calc(100svh-14rem)] md:h-[calc(100dvh-16rem)]">
                 <div className="md:min-w-96 w-full md:w-2/3 xl:w-1/2 flex flex-col space-y-6">
 
-                    <Suspense fallback={<Skeleton className="w-[15rem] !h-6 !m-0" isLoading={true} />}>
+                    <Suspense fallback={<Skeleton className="w-60 h-6! m-0!" isLoading={true} />}>
                         <Ratings />
                     </Suspense>
 
                     <h1 className={cn(montserrat.className, "lg:text-7xl md:text-6xl text-5xl font-semibold dark:text-neutral-100 text-neutral-900 break-words")}>
-                        <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">
+                        <span className="bg-linear-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent h-20 break-keep">
                             Accessibility
                         </span>
                         {" for "}
@@ -93,7 +93,7 @@ export default async function Home() {
                         </span>
                     </h1>
 
-                    <span className="text-lg font-medium max-w-[38rem] mb-4">
+                    <span className="text-lg font-medium max-w-152 mb-4">
                         Accessibility where it&apos;s needed the most: Discord Voice Chats.
                         Social notifications to stay connected and up to date with anyone, anywhere.
                         Simple, customizable, free, and built in public.

@@ -36,7 +36,7 @@ export function Subscribe() {
                 <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_0%_50%,#8b5cf6_50%,hsl(var(--input)/30)_7%)]" />
                 <Button
                     asChild
-                    className='w-full px-2 backdrop-blur-sm backdrop-brightness-50 md:backdrop-brightness-[25%] bg-none rounded-[6px] hover:bg-[#8b5cf6]/50'
+                    className='w-full px-2 backdrop-blur-xs backdrop-brightness-50 md:backdrop-brightness-25 bg-none rounded-[6px] hover:bg-[#8b5cf6]/50'
                 >
                     <Link
                         prefetch={false}
@@ -84,7 +84,7 @@ export function DonationSelect({ donation, setDonation, ...props }: DonationProp
                         onClick={() => setDonation(Math.min(donation + 1, 100))}
                         disabled={donation >= 100}
                     >
-                        <HiArrowUp className="!size-3 " />
+                        <HiArrowUp className="size-3! " />
                     </Button>
                     <Button
                         className="h-7"
@@ -92,7 +92,7 @@ export function DonationSelect({ donation, setDonation, ...props }: DonationProp
                         onClick={() => setDonation(Math.max(donation - 1, 0))}
                         disabled={donation <= 0}
                     >
-                        <HiArrowDown className="!size-3" />
+                        <HiArrowDown className="size-3!" />
                     </Button>
                 </div>
                 €

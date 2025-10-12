@@ -65,7 +65,7 @@ export default function RootLayout({
                     <div className="text-lg flex gap-6">
                         <Skeleton
                             isLoading={!user?.id}
-                            className="rounded-full size-16 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1 left-1"
+                            className="rounded-full size-16 ring-offset-(--background-rgb) ring-2 ring-offset-2 ring-violet-400/40 shrink-0 relative top-1 left-1"
                         >
                             <ImageReduceMotion
                                 alt="you"

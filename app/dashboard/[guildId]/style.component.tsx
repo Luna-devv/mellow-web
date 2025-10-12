@@ -29,7 +29,7 @@ export function BotStyle() {
         <div className="w-full relative overflow-hidden rounded-xl border border-border group p-px mb-5">
             <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_0%_50%,#8b5cf6_50%,var(--wamellow-rgb)_100%)]" />
 
-            <div className="backdrop-blur-3xl backdrop-brightness-[25%] rounded-[10px] p-5 md:py-8 md:pl-10 flex flex-col md:flex-row gap-5 md:gap-0">
+            <div className="backdrop-blur-3xl backdrop-brightness-25 rounded-[10px] p-5 md:py-8 md:pl-10 flex flex-col md:flex-row gap-5 md:gap-0">
                 <div className="flex gap-6 items-center">
                     <UserAvatar
                         alt={premium && guild.style.username ? guild.style.username : "Wamellow"}
@@ -254,7 +254,7 @@ export function ChangeStyleModal({
                     <Image
                         alt="Guild Banner"
                         src={renderableBanner}
-                        className="w-full h-auto aspect-[599/251] object-cover rounded-lg mt-4"
+                        className="w-full h-auto aspect-599/251 object-cover rounded-lg mt-4"
                         width={599}
                         height={251}
                     />

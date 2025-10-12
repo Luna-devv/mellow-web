@@ -310,7 +310,7 @@ function Emoji({ emoji }: { emoji: string; }) {
     return (
         <Image
             alt=""
-            className="rounded size-[18px] mr-1"
+            className="rounded-sm size-[18px] mr-1"
             src={`https://cdn.discordapp.com/emojis/${emoji}.webp?size=64`}
             height={32}
             width={32}

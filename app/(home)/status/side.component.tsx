@@ -31,8 +31,8 @@ export function Side({
         const element = document.getElementById("cluster-" + clusterId);
         if (!element) return;
 
-        element.classList.add("outline");
-        return () => element.classList.remove("outline");
+        element.classList.add("outline-solid");
+        return () => element.classList.remove("outline-solid");
     }, [clusterId]);
 
     return (

@@ -41,8 +41,8 @@ const Ad: FunctionComponent<Props> = ({
     };
 
     return (
-        <div className={cn("w-full bg-gradient-to-br from-40% rounded-md py-3 px-4", colorVariants[color].bg)}>
-            <div className={cn("font-bold text-2xl bg-gradient-to-b bg-clip-text text-transparent mb-2", colorVariants[color].t, poppins.className)}>{title}</div>
+        <div className={cn("w-full bg-linear-to-br from-40% rounded-md py-3 px-4", colorVariants[color].bg)}>
+            <div className={cn("font-bold text-2xl bg-linear-to-b bg-clip-text text-transparent mb-2", colorVariants[color].t, poppins.className)}>{title}</div>
             <div className="text-violet-100/60">
                 {description}
             </div>

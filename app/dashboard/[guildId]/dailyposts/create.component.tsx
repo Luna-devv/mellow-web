@@ -60,7 +60,7 @@ export function CreateDailypost({
         }
 
         <Modal<ApiV1GuildsModulesDailypostsGetResponse>
-            className="!overflow-visible"
+            className="overflow-visible!"
             title="Create new dailypost"
             isOpen={open}
             onClose={() => setOpen(false)}

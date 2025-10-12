@@ -91,7 +91,7 @@ export default function Home() {
                 ))}
             </div>
 
-            <h2 className="text-2xl font-medium text-neutral-200">Discord Community <BsDiscord className="inline ml-1 mb-1 text-[#5865f2]" /></h2>
+            <h2 className="text-2xl font-medium text-neutral-200">Discord Community <BsDiscord className="inline ml-1 mb-1 text-blurple" /></h2>
             <div className="max-w-xl mt-1">
                 Join our Discord server to chat with other members of the community, ask questions, and get help with our products.
             </div>

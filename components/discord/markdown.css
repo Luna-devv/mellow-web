@@ -1,3 +1,7 @@
+@reference "../../app/globals.css"
+
+.discord-md {}
+
 .discord-md a {
     @apply text-blurple hover:underline
 }

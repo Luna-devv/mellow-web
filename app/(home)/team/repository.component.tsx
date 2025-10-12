@@ -17,7 +17,7 @@ export async function Repository({
         <Link
             className={cn(
                 "flex items-center gap-3 p-4 bg-wamellow rounded-xl cursor-default",
-                "duration-100 outline-violet-500 hover:outline cursor-pointer"
+                "duration-100 outline-violet-500 hover:outline-solid cursor-pointer"
             )}
             href={repo.html_url}
             target="_blank"

@@ -44,7 +44,7 @@ export default function CompleteSetup({
     return (<>
         <Modal
             title="Verified role"
-            className="!overflow-visible"
+            className="overflow-visible!"
             isOpen={Boolean(guild) && modal === ModalType.VerifiedRole}
             onClose={() => setModal(ModalType.None)}
             onSubmit={() => {
@@ -73,7 +73,7 @@ export default function CompleteSetup({
 
         <Modal
             title="Punishment role"
-            className="!overflow-visible"
+            className="overflow-visible!"
             isOpen={Boolean(guild) && modal === ModalType.PunishmentRole}
             onClose={() => setModal(ModalType.None)}
             onSubmit={() => {

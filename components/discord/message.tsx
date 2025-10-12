@@ -61,7 +61,7 @@ export default function DiscordMessage({
                 : null
             }
 
-            <div className="flex flex-row items-start pointer-events-none [&>*]:pointer-events-auto">
+            <div className="flex flex-row items-start pointer-events-none *:pointer-events-auto">
                 <div className="flex justify-start items-center w-[52px] shrink-0">
                     <UserAvatar
                         alt={`${user.username}'s avatar`}

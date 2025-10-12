@@ -129,10 +129,10 @@ export default async function BeautifyMarkdown({
                 },
                 a: ({ href, children }) => <Anchor href={href || "#"} target="_blank">{children}</Anchor>,
 
-                table: (props) => <table className="mt-4 table-auto w-full divide-y-1 divide-wamellow overflow-scroll" {...props} />,
+                table: (props) => <table className="mt-4 table-auto w-full divide-y divide-wamellow overflow-scroll" {...props} />,
                 th: (props) => <th className=" px-2 pb-2 font-medium text-neutral-800 dark:text-neutral-200 text-left" {...props} />,
                 tbody: (props) => <tbody className="[&>*:nth-child(odd)]:bg-neutral-800/15" {...props} />,
-                tr: (props) => <tr className="divide-x-1 divide-wamellow" {...props} />,
+                tr: (props) => <tr className="divide-x divide-wamellow" {...props} />,
                 td: (props) => <td className="px-2 py-1 divide-x-8 divide-wamellow break-all" {...props} />,
 
                 iframe: ({ className, ...props }) => {

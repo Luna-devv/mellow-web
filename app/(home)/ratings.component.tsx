@@ -9,7 +9,7 @@ export async function Ratings() {
 
     return (
         <Link
-            className="flex gap-2 items-center w-fit !h-6"
+            className="flex gap-2 items-center w-fit h-6!"
             href={`https://top.gg/bot/${process.env.NEXT_PUBLIC_CLIENT_ID}`}
             target="_blank"
             title={`Average review score of ${reviews.averageScore}/5 based on ${reviews.count} reviews`}
@@ -38,7 +38,7 @@ export async function Ratings() {
                 on
                 <Image
                     alt="Top.gg"
-                    className="ml-1.5 h-3.5 relative top-[5px] rounded-sm"
+                    className="ml-1.5 h-3.5 relative top-[5px] rounded-xs"
                     height={230 / 16.428}
                     src={TopggIcon}
                     width={338 / 16.428}

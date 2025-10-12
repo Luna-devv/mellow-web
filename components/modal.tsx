@@ -105,7 +105,7 @@ export default function Modal<T>({
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
-                    <Separator className="bg-muted h-[1px]" loading={state === State.Loading} />
+                    <Separator className="bg-muted h-px" loading={state === State.Loading} />
                 </DialogHeader>
 
                 <div

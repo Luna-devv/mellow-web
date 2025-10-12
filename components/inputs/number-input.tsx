@@ -201,7 +201,7 @@ export default function NumberInput({
 
                     <input
                         className={cn(
-                            "outline-none text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-lg flex items-center text-neutral-500 rounded-none",
+                            "outline-hidden text-center w-12 min-h-full dark:bg-wamellow bg-wamellow-100 font-semibold text-lg flex items-center text-neutral-500 rounded-none",
                             (state === State.Loading || disabled) ? "cursor-not-allowed" : "cursor-text"
                         )}
                         onChange={(e) => {

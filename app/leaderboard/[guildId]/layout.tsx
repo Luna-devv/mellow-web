@@ -91,7 +91,7 @@ export default async function RootLayout({ params, children }: Props) {
                 >
                     <ImageReduceMotion
                         alt="Server icon"
-                        className="rounded-full h-14 w-14 ring-offset-[var(--background-rgb)] ring-2 ring-offset-2 ring-violet-400/40"
+                        className="rounded-full h-14 w-14 ring-offset-(--background-rgb) ring-2 ring-offset-2 ring-violet-400/40"
                         url={guildExists ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : "/discord"}
                         size={128}
                     />
