@@ -76,7 +76,7 @@ export function ItemSelector<T extends TBase>({
                         buttons={<>
                             <Button
                                 variant="secondary"
-                                className="bg-secondary/30 text-secondary-800"
+                                className="bg-secondary/30"
                                 onClick={() => set(i.id)}
                             >
                                 <HiPencil />

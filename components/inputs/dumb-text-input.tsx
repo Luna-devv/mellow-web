@@ -34,7 +34,7 @@ export default function DumbTextInput({
     dataName
 }: Props) {
     const className = cn(
-        "resize-y w-full dark:bg-wamellow bg-wamellow-100 rounded-lg flex items-center px-3.5 py-2 focus:outline-solid outline-violet-400 caret-violet-400 outline-2",
+        "resize-y w-full dark:bg-wamellow bg-wamellow-100 rounded-lg flex items-center px-3.5 py-2 focus:outline-violet-400 focus:outline-2",
         max > 300 ? "h-28" : (thin ? "h-10" : "h-12"),
         thin && "relative bottom-1",
         disabled && "cursor-not-allowed opacity-50"

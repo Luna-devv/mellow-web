@@ -43,7 +43,6 @@ export default function Home() {
 
         <Switch
             label="Embed message links"
-            badge="Experimental"
             endpoint={`/guilds/${params.guildId}`}
             k="embedLinks"
             description="Reply with the original content of a message if a message link is sent."
