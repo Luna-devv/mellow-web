@@ -25,7 +25,35 @@ export interface ApiV1UsersMeGuildsGetResponse {
 }
 
 export enum GuildFlags {
-    Premium = 1 << 0
+    Premium = 1 << 0,
+    PrivateLeaderboard = 1 << 1,
+    EmbedDiscordLinks = 1 << 2,
+
+    WelcomeEnabled = 1 << 4,
+    FarewellEnabled = 1 << 5,
+    StarboardEnabled = 1 << 6,
+    PassportEnabled = 1 << 7,
+
+    TextToSpeechAnnounceUsers = 1 << 8,
+    TextToSpeechQueueMessages = 1 << 9,
+    TextToSpeechAllowBots = 1 << 10,
+
+    WelcomeRestore = 1 << 11,
+    WelcomeDirectMessage = 1 << 12,
+    WelcomeCard = 1 << 13,
+    WelcomeCardInEmbed = 1 << 14,
+    WelcomeButton = 1 << 15,
+    WelcomeButtonPing = 1 << 16,
+
+    FarewellCard = 1 << 17,
+    FarewellCardInEmbed = 1 << 18,
+
+    StarboardAllowNSFW = 1 << 19,
+    StarboardAllowBots = 1 << 20,
+    StarboardAllowEdits = 1 << 21,
+    StarboardAllowSelf = 1 << 22,
+    StarboardDisplayReference = 1 << 23,
+    StarboardDeleteOnLoss = 1 << 24
 }
 
 export interface ApiV1GuildsGetResponse {
@@ -43,15 +71,12 @@ export interface ApiV1GuildsGetResponse {
     };
     tts: {
         channelId: string | null;
-        announceUser: boolean;
         logChannelId: string | null;
         blacklistRoleId: string | null;
         priorityRoleId: string | null;
-        maxLength?: number | null;
-        queue: boolean | null;
+        maxLength: number | null;
     };
-    embedLinks: boolean;
-    flags: number;
+    flags: GuildFlags;
     style: {
         username: string | null;
         avatar: string | null;
@@ -73,7 +98,9 @@ export interface ApiV1GuildsTopmembersGetResponse {
     avatar: string | null;
     bot: true;
     emoji: string | null;
-    activity: ApiV1UsersMeGetResponse["activity"] & { formattedVoicetime: string; };
+    activity: ApiV1UsersMeGetResponse["activity"] & {
+        formattedVoicetime: string;
+    };
 }
 
 export interface ApiV1GuildsTopmembersPaginationGetResponse {
@@ -133,7 +160,6 @@ export interface GuildEmbed {
 }
 
 export interface ApiV1GuildsModulesWelcomeGetResponse {
-    enabled: boolean;
     channelId: string | null;
 
     message: {
@@ -145,10 +171,8 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
     pingIds: string[];
     deleteAfter?: number;
     deleteAfterLeave?: boolean;
-    restore: boolean;
 
     dm: {
-        enabled: boolean;
         message: {
             content?: string;
             embed?: GuildEmbed;
@@ -161,26 +185,19 @@ export interface ApiV1GuildsModulesWelcomeGetResponse {
     };
 
     card: {
-        enabled: boolean;
-        inEmbed: boolean;
         background?: string;
-        textColor?: number;
     };
 
     button: {
-        enabled: boolean;
         style: 1 | 2 | 3 | 4;
         emoji?: string | null;
         label?: string | null;
-        ping?: boolean;
         type: 0;
     };
 }
 
 export interface ApiV1GuildsModulesByeGetResponse {
-    enabled: boolean;
     channelId: string | null;
-    webhookURL?: string;
 
     message: {
         content?: string;
@@ -190,10 +207,7 @@ export interface ApiV1GuildsModulesByeGetResponse {
     deleteAfter?: number;
 
     card: {
-        enabled: boolean;
-        inEmbed: boolean;
         background?: string;
-        textColor?: number;
     };
 }
 
@@ -206,22 +220,14 @@ export enum StarboardStyle {
 }
 
 export interface ApiV1GuildsModulesStarboardGetResponse {
-    enabled: boolean;
     channelId?: string;
     emoji: string;
     requiredEmojis: number;
     embedColor: number;
     style: StarboardStyle;
 
-    allowNSFW: boolean;
-    allowBots: boolean;
-    allowEdits: boolean;
-    allowSelfReact: boolean;
-    displayReference: boolean;
-
     blacklistRoleIds: string[];
     blacklistChannelIds: string[];
-    delete: boolean;
 }
 
 export interface ApiV1GuildsModulesLeaderboardUpdatingPostResponse {
@@ -261,21 +267,18 @@ export interface ApiV1GuildsModulesLeaderboardGetResponse {
 
     blacklistChannelIds: string[];
 
-    roles: {
+    roles:
+    | {
         messages: string[];
         voiceminutes: string[];
-    } | undefined;
+    }
+    | undefined;
 
     updating: ApiV1GuildsModulesLeaderboardUpdatingPostResponse[];
 }
 
 export interface ApiV1GuildsModulesPassportGetResponse {
-    enabled: boolean;
     channelId: string | null;
-    /**
-     * We're currently on free tier
-     */
-    captchaType: "slide" | "word" | "icon" | "match" | "winlinze" | "nine" | "random";
     /**
      * 0 - Ban
      * 1 - Kick
@@ -286,36 +289,28 @@ export interface ApiV1GuildsModulesPassportGetResponse {
 
     successRoleId: string | null;
     unverifiedRoleId: string | null;
-
-    sendFailedDm: boolean;
-    alsoFailIf: ("disposableEmailAddress")[];
 }
 
 export enum UserFlags {
     Premium = 1 << 0,
-    VoteReminderNotifications = 1 << 1,
-    VoteReminderNotificationSent = 1 << 2,
-    IgnoreChatToSpeech = 1 << 3,
-    LeaderboardAlternateStyle = 1 << 4
+    ChatToSpeechIgnore = 1 << 4,
+    LeaderboardAlternateStyle = 1 << 5
 }
 
 export interface ApiV1UsersMeGetResponse {
+    flags: UserFlags;
     voteCount?: number;
-
     rank?: {
         background?: string | null;
         emoji?: string | null;
         textColor?: number;
         barColor?: number;
-        useLeaderboardList?: boolean;
         subText?: {
             type: 0 | 1 | 2 | 3; // 0: off, 1: date, 2: relative, 3: custom
             content?: string;
         };
     };
-    tts?: {
-        defaultVoice?: keyof typeof actor;
-    };
+    voice?: keyof typeof actor;
     activity?: {
         messages: number;
         voiceminutes: number;
@@ -337,7 +332,8 @@ export interface ApiV1UsersMeConnectionsGetResponse {
 
 export interface ApiV1UsersMeBillingGetResponse {
     subscriptionId: string;
-    status: "active"
+    status:
+    | "active"
     | "canceled"
     | "incomplete"
     | "incomplete_expired"
@@ -351,10 +347,13 @@ export interface ApiV1UsersMeBillingGetResponse {
     currentPeriodStart: number;
     cancelAtPeriodEnd: boolean;
     donationQuantity: number;
-    paymentMethod: {
+    paymentMethod:
+    | {
         brand: string | null;
         last4: string | null;
-    } | string | null;
+    }
+    | string
+    | null;
     portalUrl: string;
     guildIds: string[];
 }
@@ -389,38 +388,6 @@ export interface ApiV1GuildsModulesAutomodGetResponse {
     whitelistChannelIds: string[];
     whitelistRoleIds: string[];
     keywordFilter: string[];
-}
-
-export interface Upload {
-    id: string;
-    guildId?: string | null;
-    authorId: string;
-
-    prompt: string;
-    negativePrompt?: string | null;
-    model: string;
-
-    verified: boolean;
-    nsfw: boolean;
-
-    createdAt: string;
-}
-
-export interface ApiV1UploadsGetResponse {
-    results: Upload[];
-    pagination: {
-        total: number;
-        pages: number;
-    };
-}
-
-export interface ApiV1UploadGetResponse extends Upload {
-    author: {
-        username: string;
-        globalName: string;
-        avatar: string | null;
-        bot?: boolean;
-    };
 }
 
 export interface ApiV1UsersGetResponse {
@@ -466,7 +433,7 @@ export interface ApiV1GuildsModulesNotificationsGetResponse {
     roleId: string | null;
 
     type: NotificationType;
-    flags: number;
+    flags: BlueskyNotificationFlags | YoutubeNotificationFlags;
     regex: string | null;
 
     creatorId: string;

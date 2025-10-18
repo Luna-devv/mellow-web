@@ -3,6 +3,8 @@ import NumberInput from "@/components/inputs/number-input";
 import SelectMenu from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import { TTSFaq } from "@/components/tts-faq";
+import { GuildFlags } from "@/typings";
+import { transformer } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { ChannelType } from "discord-api-types/v10";
 import { useParams } from "next/navigation";
@@ -70,18 +72,26 @@ export function TTSSettings() {
                     label="Announce user"
                     badge="Experimental"
                     endpoint={`/guilds/${params.guildId}`}
-                    k="tts.announceUser"
-                    description="If I should say who is currently speaking via tts."
-                    defaultState={guild?.tts.announceUser || false}
-                    onSave={(value) => edit("announceUser", value)}
+                    k="flags"
+                    defaultState={(guild!.flags & GuildFlags.TextToSpeechAnnounceUsers) !== 0}
+                    transform={(value) => transformer(value, guild!.flags, GuildFlags.TextToSpeechAnnounceUsers)}
+                    onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.TextToSpeechAnnounceUsers) })}
                 />
                 <Switch
                     label="Queue messages"
                     endpoint={`/guilds/${params.guildId}`}
-                    k="tts.queue"
-                    description="Queue sent messages instead of refusing to speak."
-                    defaultState={guild?.tts.queue || false}
-                    onSave={(value) => edit("queue", value)}
+                    k="flags"
+                    defaultState={(guild!.flags & GuildFlags.TextToSpeechQueueMessages) !== 0}
+                    transform={(value) => transformer(value, guild!.flags, GuildFlags.TextToSpeechQueueMessages)}
+                    onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.TextToSpeechQueueMessages) })}
+                />
+                <Switch
+                    label="Allow bots, apps and webhooks"
+                    endpoint={`/guilds/${params.guildId}`}
+                    k="flags"
+                    defaultState={(guild!.flags & GuildFlags.TextToSpeechAllowBots) !== 0}
+                    transform={(value) => transformer(value, guild!.flags, GuildFlags.TextToSpeechAllowBots)}
+                    onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.TextToSpeechAllowBots) })}
                 />
                 <NumberInput
                     name="Max message length"

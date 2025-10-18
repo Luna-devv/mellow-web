@@ -3,10 +3,12 @@
 import { type Guild, guildStore } from "@/common/guilds";
 import ImageUrlInput from "@/components/inputs/image-url-input";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
+import Switch from "@/components/inputs/switch";
 import { ScreenMessage } from "@/components/screen-message";
 import { Section, SubSection } from "@/components/section";
 import { useApi } from "@/lib/api/hook";
-import type { ApiV1GuildsModulesLeaderboardGetResponse } from "@/typings";
+import { type ApiV1GuildsModulesLeaderboardGetResponse, GuildFlags } from "@/typings";
+import { transformer } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { ChannelType } from "discord-api-types/v10";
 import { useParams } from "next/navigation";
@@ -126,6 +128,16 @@ export default function Home() {
             Manage the privacy of the leaderboard.
         </Section>
 
+        <Switch
+            label="Hide leaderboard website"
+            description="Disable the public website for the leaderboard."
+            endpoint={`/guilds/${params.guildId}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.PrivateLeaderboard) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.PrivateLeaderboard)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.PrivateLeaderboard) })}
+        />
+
         <DiscordWidget guild={guild as Guild} />
 
         <SubSection
@@ -134,6 +146,5 @@ export default function Home() {
         >
             <ResetLeaderboard guild={guild as Guild} />
         </SubSection>
-
     </>);
 }

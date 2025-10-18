@@ -3,6 +3,8 @@
 import { guildStore } from "@/common/guilds";
 import Switch from "@/components/inputs/switch";
 import { Section } from "@/components/section";
+import { GuildFlags } from "@/typings";
+import { transformer } from "@/utils/bitfields";
 import { useParams } from "next/navigation";
 import { HiChartBar } from "react-icons/hi";
 
@@ -16,12 +18,14 @@ export default function Home() {
     const params = useParams();
 
     return (<>
-        <OverviewLink
-            title="View Leaderboard"
-            message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
-            url={`/leaderboard/${params.guildId}`}
-            icon={<HiChartBar />}
-        />
+        {(guild!.flags & GuildFlags.PrivateLeaderboard) !== 0 && (
+            <OverviewLink
+                title="View Leaderboard"
+                message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
+                url={`/leaderboard/${params.guildId}`}
+                icon={<HiChartBar />}
+            />
+        )}
 
         <BotStyle />
 
@@ -43,11 +47,12 @@ export default function Home() {
 
         <Switch
             label="Embed message links"
-            endpoint={`/guilds/${params.guildId}`}
-            k="embedLinks"
             description="Reply with the original content of a message if a message link is sent."
-            defaultState={guild?.embedLinks || false}
+            endpoint={`/guilds/${params.guildId}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.EmbedDiscordLinks) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.EmbedDiscordLinks)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.EmbedDiscordLinks) })}
         />
-
     </>);
 }

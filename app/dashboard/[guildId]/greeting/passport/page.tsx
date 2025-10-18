@@ -1,13 +1,16 @@
 "use client";
+
 import { guildStore } from "@/common/guilds";
 import { CopyToClipboardButton } from "@/components/copy-to-clipboard";
 import SelectInput from "@/components/inputs/select-menu";
 import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { OverviewLink } from "@/components/overview-link";
+import { Section } from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
-import type { ApiV1GuildsModulesPassportGetResponse } from "@/typings";
+import { type ApiV1GuildsModulesPassportGetResponse, GuildFlags } from "@/typings";
+import { transformer } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
 import Link from "next/link";
@@ -22,49 +25,25 @@ export default function Home() {
     const params = useParams();
     const { data, isLoading, error, edit } = useApi<ApiV1GuildsModulesPassportGetResponse>(`/guilds/${params.guildId}/modules/passport`);
 
-    const Head = () => (
-        <div className="flex justify-between relative bottom-2 mb-3">
-            <Button
-                asChild
-                size="sm"
-            >
-                <Link href={`/dashboard/${guild?.id}/greeting`}>
-                    <HiArrowLeft />
-                    Back
-                </Link>
-            </Button>
-            <Button
-                asChild
-                size="sm"
-            >
-                <Link
-                    href="/docs/passport"
-                    target="_blank"
-                >
-                    <HiExternalLink />
-                    Read docs & view placeholders
-                </Link>
-            </Button>
-        </div>
-    );
+    const enabled = (guild!.flags & GuildFlags.PassportEnabled) !== 0;
 
     if (isLoading) return <></>;
 
     if (!data || error) return (
         <div>
-            <Head />
+            <Head guildId={params.guildId as string} />
             {error && <Notice message={error} />}
         </div>
     );
 
     return (<>
-        <Head />
+        <Head guildId={params.guildId as string} />
 
-        {data.enabled && data.punishment === 2 && !data.punishmentRoleId && (
+        {enabled && data.punishment === 2 && !data.punishmentRoleId && (
             <Notice message="A punishment role must be set when using 'Assign role to member'." />
         )}
 
-        {data.enabled && !data.successRoleId && (
+        {enabled && !data.successRoleId && (
             <Notice message="A verified role must be set for passport to work." />
         )}
 
@@ -75,21 +54,12 @@ export default function Home() {
         />
 
         <Switch
-            label="Passport module enabled"
-            endpoint={`/guilds/${guild?.id}/modules/passport`}
-            k="enabled"
-            defaultState={data.enabled}
-            disabled={false}
-            onSave={(s) => edit("enabled", s)}
-        />
-
-        <Switch
-            label="Send direct message to member on fail"
-            endpoint={`/guilds/${guild?.id}/modules/passport`}
-            k="sendFailedDm"
-            defaultState={data.sendFailedDm}
-            disabled={!data.enabled}
-            onSave={(s) => edit("sendFailedDm", s)}
+            label="Enable Passport"
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={enabled}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.PassportEnabled)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.PassportEnabled) })}
         />
 
         <SelectInput
@@ -99,7 +69,7 @@ export default function Home() {
             items={createSelectableItems(guild?.channels)}
             description="Select the channel where verification logs should be send into."
             defaultState={data.channelId}
-            disabled={!data.enabled}
+            disabled={!enabled}
             onSave={(o) => edit("channelId", o.value)}
         />
 
@@ -113,7 +83,7 @@ export default function Home() {
                     description="Select what role members should get when joining."
                     defaultState={data.unverifiedRoleId}
                     showClear
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("unverifiedRoleId", o.value)}
                 />
             </div>
@@ -126,7 +96,7 @@ export default function Home() {
                     items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                     description="Select what role members should get when completing verification."
                     defaultState={data.successRoleId}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("successRoleId", o.value)}
                 />
             </div>
@@ -145,7 +115,7 @@ export default function Home() {
                     ]}
                     description="Choose what should happen if a member failes verification."
                     defaultState={data.punishment}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("punishment", o.value as ApiV1GuildsModulesPassportGetResponse["punishment"])}
                 />
             </div>
@@ -158,22 +128,58 @@ export default function Home() {
                     items={createSelectableItems(guild?.roles, ["RoleHirachy"])}
                     description="Select what role members should get when failing verification."
                     defaultState={data.punishmentRoleId}
-                    disabled={!data.enabled || data.punishment !== 2}
+                    disabled={!enabled || data.punishment !== 2}
                     onSave={(o) => edit("punishmentRoleId", o.value)}
                 />
             </div>
         </div>
 
+        <Section
+            title="Verification Page"
+        >
+            Copy and paste the link to your verification page in a publicly accessible channel within your server.
+        </Section>
+
         <OverviewLink
-            className="mt-8"
+            className="mt-2"
             title="View Passport"
             message="Easily verify your members with a simple and secure CAPTCHA in the web."
             url={`/passport/${params.guildId}`}
             icon={<HiFingerPrint />}
         />
 
-        <div className="w-fit">
-            <CopyToClipboardButton title="Copy link to passport" text={getCanonicalUrl("passport", guild?.id as string)} />
-        </div>
+        <CopyToClipboardButton
+            className="w-fit"
+            title="Copy link to passport"
+            text={getCanonicalUrl("passport", guild?.id as string)}
+        />
     </>);
+}
+
+function Head({ guildId }: { guildId: string; }) {
+    return (
+        <div className="flex justify-between relative bottom-2 mb-3">
+            <Button
+                asChild
+                size="sm"
+            >
+                <Link href={`/dashboard/${guildId}/greeting`}>
+                    <HiArrowLeft />
+                    Back
+                </Link>
+            </Button>
+            <Button
+                asChild
+                size="sm"
+            >
+                <Link
+                    href="/docs/greetings"
+                    target="_blank"
+                >
+                    <HiExternalLink />
+                    Read docs & view placeholders
+                </Link>
+            </Button>
+        </div>
+    );
 }

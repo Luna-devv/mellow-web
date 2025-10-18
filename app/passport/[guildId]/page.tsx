@@ -6,6 +6,7 @@ import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getGuild } from "@/lib/api";
 import paintPic from "@/public/paint.webp";
+import { GuildFlags } from "@/typings";
 import { intl } from "@/utils/numbers";
 import { getCanonicalUrl } from "@/utils/urls";
 import type { Metadata } from "next";
@@ -93,7 +94,7 @@ export default async function Home({ params }: Props) {
                     </Link>
                 </Button>
             </Alert>
-        ) }
+        )}
 
         <div className="grid md:flex md:gap-6">
 
@@ -178,13 +179,14 @@ export default async function Home({ params }: Props) {
                     />
                 </div>
 
-                <OverviewLink
-                    className="mt-6"
-                    title="View Leaderboard"
-                    message="Easily access and view the top chatters, voice timers, and inviters from this server."
-                    url={`/leaderboard/${guildId}`}
-                    icon={<HiChartBar />}
-                />
+                {guildExists && (guild.flags & GuildFlags.PrivateLeaderboard) !== 0 && (
+                    <OverviewLink
+                        title="View Leaderboard"
+                        message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
+                        url={`/leaderboard/${guildId}`}
+                        icon={<HiChartBar />}
+                    />
+                )}
             </div>
 
         </div>

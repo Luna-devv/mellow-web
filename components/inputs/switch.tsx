@@ -11,6 +11,7 @@ interface Props {
     link: string;
     badge: string;
     isTickbox: boolean;
+    inverted: boolean;
 }
 
 export default function InputSwitch({
@@ -21,6 +22,7 @@ export default function InputSwitch({
     badge,
     description,
     isTickbox,
+    inverted,
     disabled,
 
     endpoint,
@@ -73,14 +75,14 @@ export default function InputSwitch({
                 {isTickbox ?
                     <Checkbox
                         className={description && "relative top-1"}
-                        checked={value}
-                        onCheckedChange={update}
+                        checked={inverted ? !value : value}
+                        onCheckedChange={(now) => update(inverted ? !now : Boolean(now))}
                         disabled={disabled}
                     />
                     :
                     <Switch
-                        checked={value}
-                        onCheckedChange={update}
+                        checked={inverted ? !value : value}
+                        onCheckedChange={(now) => update(inverted ? !now : now)}
                         aria-label={label}
                         disabled={disabled}
                     />

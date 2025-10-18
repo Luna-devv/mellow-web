@@ -1,10 +1,12 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import { useRef, useState } from "react";
 
 import { Button } from "./ui/button";
 
 interface Props {
+    className?: string;
     icon?: React.ReactNode;
     text: string;
     title?: string;
@@ -12,6 +14,7 @@ interface Props {
 }
 
 export function CopyToClipboardButton({
+    className,
     icon,
     text,
     title
@@ -30,7 +33,7 @@ export function CopyToClipboardButton({
 
     return (
         <Button
-            className="w-full justify-start! truncate"
+            className={cn("w-full justify-start! truncate", className)}
             variant={saved
                 ? "secondary"
                 : undefined

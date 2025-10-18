@@ -1,5 +1,6 @@
 import { ScreenMessage } from "@/components/screen-message";
 import { getGuild } from "@/lib/api";
+import { GuildFlags } from "@/typings";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -50,7 +51,7 @@ export default async function Home({ searchParams, params }: Props) {
         );
     }
 
-    if (!Array.isArray(members) || !members.length) {
+    if (!Array.isArray(members) || !members.length || ("flags" in guild && (guild.flags & GuildFlags.PrivateLeaderboard))) {
         return (
             <ScreenMessage
                 top="14rem"

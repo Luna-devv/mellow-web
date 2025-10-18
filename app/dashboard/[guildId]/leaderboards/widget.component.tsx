@@ -12,9 +12,10 @@ import DiscordWidgetButton from "./widget-button.component";
 
 interface Props {
     guild: Guild;
+    disabled?: boolean;
 }
 
-export default function DiscordWidget({ guild }: Props) {
+export default function DiscordWidget({ guild, disabled }: Props) {
     const [isEnabled, setEnabled] = useState<boolean>(false);
 
     const url = `https://discord.com/api/guilds/${guild.id}/widget.json` as const;
@@ -23,14 +24,14 @@ export default function DiscordWidget({ guild }: Props) {
         url,
         () => fetch(url).then((res) => res.json()) as Promise<RESTGetAPIGuildWidgetJSONResult | RESTError>,
         {
-            enabled: Boolean(guild.id),
+            enabled: Boolean(guild.id) && !disabled,
             ...cacheOptions,
             onSuccess: (data) => setEnabled(!("code" in data)),
             refetchOnMount: true
         }
     );
 
-    if (error || (data && "message" in data && data.code !== 50_004)) {
+    if ((error || (data && "message" in data && data.code !== 50_004)) && !disabled) {
         return (
             <div className="md:w-1/2">
                 <Notice

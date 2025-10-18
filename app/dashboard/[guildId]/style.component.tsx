@@ -37,7 +37,7 @@ export function BotStyle() {
                         src={avatarUrl}
                     />
 
-                    <div className="space-y-2">
+                    <div className="flex flex-col gap-2">
                         <span className="text-3xl font-medium text-primary-foreground">
                             {guild.style.username || "Wamellow"}
                         </span>

@@ -1,4 +1,8 @@
-export function deepMerge<T>(target: T | undefined, source: Partial<T>): T | undefined {
+type RecursivePartial<T> = {
+    [P in keyof T]?: RecursivePartial<T[P]>;
+};
+
+export function deepMerge<T>(target: T | undefined, source: RecursivePartial<T>): T | undefined {
     if (typeof target !== "object" || typeof source !== "object" || !target) {
         return target;
     }

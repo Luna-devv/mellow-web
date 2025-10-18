@@ -71,10 +71,9 @@ export default function Fetch({
             <Button
                 className="w-full"
                 onClick={handle}
-                variant={
-                    state === State.Success
-                        ? "success"
-                        : "flat"
+                variant={state === State.Success
+                    ? "success"
+                    : "flat"
                 }
                 disabled={state !== State.Idle}
                 size={size}

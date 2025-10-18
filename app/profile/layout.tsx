@@ -38,7 +38,7 @@ export default function RootLayout({
             enabled: Boolean(user?.id),
             onSuccess: (d) => userStore.setState({
                 ...user,
-                extended: "status" in d ? {} : d
+                extended: "status" in d ? undefined : d
             }),
             ...cacheOptions
         }
@@ -88,7 +88,7 @@ export default function RootLayout({
                                         className="h-7 font-bold"
                                         variant="flat"
                                     >
-                                        <HiFire/>
+                                        <HiFire />
                                         {user.extended?.voteCount} VOTE{user.extended?.voteCount === 1 ? "" : "S"}
                                     </Badge>
                                 </Link>

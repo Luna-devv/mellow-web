@@ -12,7 +12,8 @@ import TextInput from "@/components/inputs/text-input";
 import Notice from "@/components/notice";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
-import { type ApiV1GuildsModulesStarboardGetResponse, StarboardStyle } from "@/typings";
+import { type ApiV1GuildsModulesStarboardGetResponse, GuildFlags, StarboardStyle } from "@/typings";
+import { transformer } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,6 +28,8 @@ export default function Home() {
 
     const url = `/guilds/${params.guildId}/modules/starboard` as const;
     const { data, isLoading, error, edit } = useApi<ApiV1GuildsModulesStarboardGetResponse>(url);
+
+    const enabled = (guild!.flags & GuildFlags.StarboardEnabled) !== 0;
 
     const example = useExample(data && !("message" in data)
         ? data.style
@@ -58,70 +61,70 @@ export default function Home() {
         </div>
 
         <Switch
-            label="Starboard module enabled"
-            endpoint={url}
-            k="enabled"
-            defaultState={data.enabled}
-            disabled={false}
-            onSave={(v) => edit("enabled", v)}
+            label="Enable Starboard"
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={enabled}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.StarboardEnabled)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.StarboardEnabled) })}
         />
 
         <Switch
             label="Allow bots, apps and webhooks"
-            endpoint={url}
-            k="allowBots"
-            defaultState={data.allowBots}
-            disabled={!data.enabled}
-            onSave={(v) => edit("allowBots", v)}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.StarboardAllowBots) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.StarboardAllowBots)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.StarboardAllowBots) })}
         />
 
         <Switch
             label="Allow NSFW channels"
-            endpoint={url}
-            k="allowNSFW"
-            defaultState={data.allowNSFW}
-            disabled={!data.enabled}
-            onSave={(v) => edit("allowNSFW", v)}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.StarboardAllowNSFW) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.StarboardAllowNSFW)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.StarboardAllowNSFW) })}
         />
 
         <Switch
             label="Allow message edits"
             description="If a message is being edited, update it in the data."
-            endpoint={url}
-            k="allowEdits"
-            defaultState={data.allowEdits}
-            disabled={!data.enabled}
-            onSave={(v) => edit("allowEdits", v)}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.StarboardAllowEdits) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.StarboardAllowEdits)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.StarboardAllowEdits) })}
         />
 
         <Switch
             label="Allow author reaction"
             description="Lets the message author star their own messages."
-            endpoint={url}
-            k="allowSelfReact"
-            defaultState={data.allowSelfReact}
-            disabled={!data.enabled}
-            onSave={(v) => edit("allowSelfReact", v)}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.StarboardAllowSelf) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.StarboardAllowSelf)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.StarboardAllowSelf) })}
         />
 
         <Switch
             label="Display stared message reference"
             description="Repost the message reply in the data."
-            endpoint={url}
-            k="displayReference"
-            defaultState={data.displayReference}
-            disabled={!data.enabled}
-            onSave={(v) => edit("displayReference", v)}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.StarboardDisplayReference) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.StarboardDisplayReference)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.StarboardDisplayReference) })}
         />
 
         <Switch
             label="Delete message from starboard upon losing reactions"
             description="If a message in the starboard looses the required reactions, it gets deleted."
-            endpoint={url}
-            k="delete"
-            defaultState={data.delete}
-            disabled={!data.enabled}
-            onSave={(v) => edit("delete", v)}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.StarboardDeleteOnLoss) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.StarboardDeleteOnLoss)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.StarboardDeleteOnLoss) })}
         />
 
         <NumberInput
@@ -130,7 +133,7 @@ export default function Home() {
             url={url}
             dataName="requiredEmojis"
             defaultState={data.requiredEmojis ?? 0}
-            disabled={!data.enabled}
+            disabled={!enabled}
             min={2}
             onSave={(v) => edit("requiredEmojis", v)}
         />
@@ -142,7 +145,7 @@ export default function Home() {
             items={createSelectableItems(guild?.channels)}
             description="Select the channel where the starboard messages should be send into."
             defaultState={data.channelId}
-            disabled={!data.enabled}
+            disabled={!enabled}
             onSave={(o) => edit("channelId", o.value as string)}
         />
 
@@ -171,7 +174,7 @@ export default function Home() {
                     ]}
                     description="Select the emoji that needs to be reacted with."
                     defaultState={data.emoji}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("emoji", o.value as string)}
                 />
             </div>
@@ -204,7 +207,7 @@ export default function Home() {
                     ]}
                     description="The style members profile gets displayed."
                     defaultState={data.style}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("style", o.value as number)}
                 />
             </div>
@@ -220,7 +223,7 @@ export default function Home() {
                     description="Select channels which should not be able to get into the starboard."
                     defaultState={data.blacklistChannelIds || []}
                     max={500}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value))}
                 />
             </div>
@@ -233,7 +236,7 @@ export default function Home() {
                     description="Select roles which should not be able to star or be starred."
                     defaultState={data.blacklistRoleIds || []}
                     max={500}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value))}
                 />
             </div>

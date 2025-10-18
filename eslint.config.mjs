@@ -43,6 +43,7 @@ export default tseslint.config(
             // Fixes
             "react/prop-types": "off",
             "react-hooks/exhaustive-deps": "off",
+            "react-hooks/preserve-manual-memoization": "off",
 
             // stylistic Rules
             "@stylistic/array-bracket-newline": ["error", "consistent"],

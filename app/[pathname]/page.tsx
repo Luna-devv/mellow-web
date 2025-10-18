@@ -22,7 +22,10 @@ export default async function Home({ params }: Props) {
         case "disable-commands": return redirect("https://youtube.com/watch?v=ehc0_whydu8");
         case "youtube": return redirect("https://www.youtube.com/channel/UClWBeVcz5LUmcCN1gHG_GCg");
         case "translate": return redirect("https://crowdin.com/project/wamellow");
-        case "ref": return redirect("https://datalix.eu/a/luna" + utm);
+        case "ref":
+        case "server":
+        case "kvm":
+        case "vps": return redirect("https://datalix.eu/a/luna" + utm);
         case "deref": return redirect("https://datalix.de/a/luna" + utm);
     }
 

@@ -15,6 +15,10 @@ export class BitfieldManager {
         return (this.flags & flag) === flag;
     }
 
+    get() {
+        return this.flags;
+    }
+
     toArray() {
         const flags: number[] = [];
         let field = this.flags;
@@ -39,4 +43,8 @@ export function bitfieldToArray(bitfield: Record<string | number, string | numbe
             name: name.replace(/[a-z][A-Z]/g, (s) => s[0] + " " + s[1]),
             value
         }));
+}
+
+export function transformer(value: boolean, flags: number, flag: number) {
+    return value ? flags | flag : flags & ~flag;
 }

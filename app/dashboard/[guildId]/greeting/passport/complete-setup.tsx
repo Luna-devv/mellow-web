@@ -2,7 +2,7 @@ import type { Guild } from "@/common/guilds";
 import SelectMenu from "@/components/inputs/select-menu";
 import Modal from "@/components/modal";
 import type { ApiEdit } from "@/lib/api/hook";
-import type { ApiV1GuildsModulesPassportGetResponse } from "@/typings";
+import { type ApiV1GuildsModulesPassportGetResponse, GuildFlags } from "@/typings";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { useEffect, useState } from "react";
 
@@ -24,11 +24,12 @@ export default function CompleteSetup({
     edit
 }: Props) {
     const [modal, setModal] = useState<ModalType>(ModalType.None);
-
     const [roleId, setRoleId] = useState<string | null>(null);
 
+    const enabled = (guild!.flags & GuildFlags.PassportEnabled) !== 0;
+
     useEffect(() => {
-        if (!data.enabled) return;
+        if (!enabled) return;
 
         if (!data.successRoleId) {
             setModal(ModalType.VerifiedRole);
@@ -37,7 +38,6 @@ export default function CompleteSetup({
 
         if (data.punishment === 2 && !data.punishmentRoleId) {
             setModal(ModalType.PunishmentRole);
-
         }
     }, [data]);
 

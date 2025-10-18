@@ -49,9 +49,6 @@ Which role members should recive when failing verification. This role should hav
 
 **Note:** This requires the failed verification action to be set to "Assign role to member".
 
-### 💬 Send direct message to member on fail
-If the member should recieve a DM if they failed verification, along with the following punishment (eg.: a ban).
-
 ## Permissions
 Here is a quick reference on how permissions should be setup so everything works as expected.
 
@@ -66,6 +63,10 @@ There are a few reasons why a member might fail verification. These may include 
 <br />
 
 Once people have failed verification due to any reason, they will not be able to verify again at any time, and manual approval by server moderators or admins is required. Wamellow developers cannot verify or punish members in any server.
+<br />
+<br />
+
+The user will be sent a direct message when they fail verification containing the reason for the failure and the punishment taken.
 
 ## Troubleshooting
 If you joined a server, received a Direct Message (DM) from Wamellow, clicked on "Start Verification", and now receive the error message "**You are not a member of this guild**", please make sure that you are logged in with the same Discord account in your browser as you are in the Discord application. Should you be logged in with the wrong account, click on your username in the top right corner and click the `->` (red logout) button.

@@ -10,7 +10,8 @@ import Switch from "@/components/inputs/switch";
 import Notice from "@/components/notice";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
-import type { ApiV1GuildsModulesByeGetResponse } from "@/typings";
+import { type ApiV1GuildsModulesByeGetResponse, GuildFlags } from "@/typings";
+import { transformer } from "@/utils/bitfields";
 import { cn } from "@/utils/cn";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import Image from "next/image";
@@ -25,50 +26,27 @@ export default function Home() {
     const params = useParams();
     const { data, isLoading, error, edit } = useApi<ApiV1GuildsModulesByeGetResponse>(`/guilds/${params.guildId}/modules/bye`);
 
-    const Head = () => (
-        <div className="flex justify-between relative bottom-2 mb-3">
-            <Button
-                asChild
-                size="sm"
-            >
-                <Link href={`/dashboard/${guild?.id}/greeting`}>
-                    <HiArrowLeft />
-                    Back
-                </Link>
-            </Button>
-            <Button
-                asChild
-                size="sm"
-            >
-                <Link
-                    href="/docs/greetings"
-                    target="_blank"
-                >
-                    <HiExternalLink />
-                    Read docs & view placeholders
-                </Link>
-            </Button>
-        </div>
-    );
+    const enabled = (guild!.flags & GuildFlags.FarewellEnabled) !== 0;
 
     if (isLoading) return <></>;
 
     if (!data || error) return (
         <div>
-            <Head />
+            <Head guildId={params.guildId as string} />
             {error && <Notice message={error} />}
         </div>
     );
 
     return (<>
-        <Head />
+        <Head guildId={params.guildId as string} />
 
         <Switch
-            label="Farewell module enabled"
-            endpoint={`/guilds/${guild?.id}/modules/bye`}
-            k="enabled"
-            defaultState={data.enabled || false}
-            onSave={(s) => edit("enabled", s)}
+            label="Enable Farewell"
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={enabled}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.FarewellEnabled)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.FarewellEnabled) })}
         />
 
         <NumberInput
@@ -77,7 +55,7 @@ export default function Home() {
             url={`/guilds/${guild?.id}/modules/bye`}
             dataName="deleteAfter"
             defaultState={data.deleteAfter ?? 0}
-            disabled={!data.enabled}
+            disabled={!enabled}
             onSave={(n) => edit("deleteAfter", n)}
         />
 
@@ -89,7 +67,7 @@ export default function Home() {
                 items={createSelectableItems(guild?.channels)}
                 description="Select the channel where the farewell message should be send into"
                 defaultState={data.channelId}
-                disabled={!data.enabled}
+                disabled={!enabled}
                 onSave={(o) => edit("channelId", o.value)}
             />
 
@@ -108,7 +86,7 @@ export default function Home() {
             url={`/guilds/${guild?.id}/modules/bye`}
             dataName="message"
             defaultMessage={data.message}
-            messageAttachmentComponent={data.card.enabled && (
+            messageAttachmentComponent={(guild!.flags & GuildFlags.FarewellCard) !== 0 && (
                 <Image
                     src={`https://image-api.wamellow.com/?type=leave&username=${encodeURIComponent(user!.username)}&members=1090&hash=${encodeURIComponent(user!.id)}/${encodeURIComponent(user!.avatar!)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
                     width={1_024 / 2}
@@ -117,39 +95,31 @@ export default function Home() {
                     alt=""
                 />
             )}
-            showMessageAttachmentComponentInEmbed={data.card.inEmbed}
-            disabled={!data.enabled}
+            showMessageAttachmentComponentInEmbed={(guild!.flags & GuildFlags.FarewellCardInEmbed) !== 0}
+            disabled={!enabled}
             onSave={(message) => edit("message", message)}
         >
 
-            <div className={cn("mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6", !data.card.enabled && "pb-0")}>
+            <div className={cn("mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6", (guild!.flags & GuildFlags.FarewellCard) === 0 && "pb-0")}>
                 <Switch
                     label="Show image card"
-                    endpoint={`/guilds/${guild?.id}/modules/bye`}
-                    k="card.enabled"
-                    defaultState={data.card.enabled}
-                    disabled={!data.enabled}
-                    onSave={(s) => {
-                        edit("card", {
-                            ...data.card,
-                            enabled: s
-                        });
-                    }}
+                    endpoint={`/guilds/${guild?.id}`}
+                    k="flags"
+                    defaultState={(guild!.flags & GuildFlags.FarewellCard) !== 0}
+                    disabled={!enabled}
+                    transform={(value) => transformer(value, guild!.flags, GuildFlags.FarewellCard)}
+                    onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.FarewellCard) })}
                 />
 
-                {data.card.enabled && <>
+                {(guild!.flags & GuildFlags.FarewellCard) !== 0 && (<>
                     <Switch
                         label="Set image inside embed"
-                        endpoint={`/guilds/${guild?.id}/modules/bye`}
-                        k="card.inEmbed"
-                        defaultState={data.card.inEmbed || false}
-                        disabled={!data.card.enabled || !data.enabled}
-                        onSave={(s) => {
-                            edit("card", {
-                                ...data.card,
-                                inEmbed: s
-                            });
-                        }}
+                        endpoint={`/guilds/${guild?.id}`}
+                        k="flags"
+                        defaultState={(guild!.flags & GuildFlags.FarewellCardInEmbed) !== 0}
+                        disabled={!enabled || (guild!.flags & GuildFlags.FarewellCard) === 0}
+                        transform={(value) => transformer(value, guild!.flags, GuildFlags.FarewellCardInEmbed)}
+                        onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.FarewellCardInEmbed) })}
                     />
 
                     <ImageUrlInput
@@ -157,9 +127,9 @@ export default function Home() {
                         url={`/guilds/${guild?.id}/modules/bye`}
                         ratio="aspect-4/1"
                         dataName="card.background"
-                        description="Enter a url which should be the background for the image card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
+                        description="Enter a url which should be the background for the image card. The recommended image ratio is 4:1 and recommended resolution 1024x256px."
                         defaultState={data.card.background || ""}
-                        disabled={!data.card.enabled || !data.enabled}
+                        disabled={!enabled || (guild!.flags & GuildFlags.FarewellCard) === 0}
                         onSave={(s) => {
                             edit("card", {
                                 ...data.card,
@@ -167,9 +137,37 @@ export default function Home() {
                             });
                         }}
                     />
-                </>}
+                </>)}
             </div>
 
         </MessageCreatorEmbed>
     </>);
+}
+
+function Head({ guildId }: { guildId: string; }) {
+    return (
+        <div className="flex justify-between relative bottom-2 mb-3">
+            <Button
+                asChild
+                size="sm"
+            >
+                <Link href={`/dashboard/${guildId}/greeting`}>
+                    <HiArrowLeft />
+                    Back
+                </Link>
+            </Button>
+            <Button
+                asChild
+                size="sm"
+            >
+                <Link
+                    href="/docs/greetings"
+                    target="_blank"
+                >
+                    <HiExternalLink />
+                    Read docs & view placeholders
+                </Link>
+            </Button>
+        </div>
+    );
 }

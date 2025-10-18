@@ -12,7 +12,8 @@ import Notice from "@/components/notice";
 import { Section } from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { useApi } from "@/lib/api/hook";
-import type { ApiV1GuildsModulesWelcomeGetResponse } from "@/typings";
+import { type ApiV1GuildsModulesWelcomeGetResponse, GuildFlags } from "@/typings";
+import { transformer } from "@/utils/bitfields";
 import { cn } from "@/utils/cn";
 import { createSelectableEmojiItems, createSelectableItems } from "@/utils/create-selectable-items";
 import Image from "next/image";
@@ -27,60 +28,36 @@ export default function Home() {
     const params = useParams();
     const { data, isLoading, error, edit } = useApi<ApiV1GuildsModulesWelcomeGetResponse>(`/guilds/${params.guildId}/modules/welcome`);
 
-    const Head = () => (
-        <div className="flex justify-between relative bottom-2 mb-3">
-            <Button
-                asChild
-                size="sm"
-            >
-                <Link href={`/dashboard/${guild?.id}/greeting`}>
-                    <HiArrowLeft />
-                    Back
-                </Link>
-            </Button>
-            <Button
-                asChild
-                size="sm"
-            >
-                <Link
-                    href="/docs/farewell"
-                    target="_blank"
-                >
-                    <HiExternalLink />
-                    Read docs & view placeholders
-                </Link>
-            </Button>
-        </div>
-    );
+    const enabled = (guild!.flags & GuildFlags.WelcomeEnabled) !== 0;
 
     if (isLoading) return <></>;
 
     if (!data || error) return (
         <div>
-            <Head />
+            <Head guildId={params.guildId as string} />
             {error && <Notice message={error} />}
         </div>
     );
 
     return (<>
-        <Head />
+        <Head guildId={params.guildId as string} />
 
         <Switch
-            label="Welcome module enabled"
-            endpoint={`/guilds/${guild?.id}/modules/welcome`}
-            k="enabled"
-            defaultState={data.enabled || false}
-            disabled={false}
-            onSave={(s) => edit("enabled", s)}
+            label="Enable Welcome"
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={enabled}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.WelcomeEnabled)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.WelcomeEnabled) })}
         />
 
         <Switch
-            label="Restore members roles and nickname on rejoin"
-            endpoint={`/guilds/${guild?.id}/modules/welcome`}
-            k="restore"
-            defaultState={data.restore}
-            disabled={!data.enabled}
-            onSave={(s) => edit("restore", s)}
+            label="Restore roles and nickname on rejoin"
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.WelcomeRestore) !== 0}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.WelcomeRestore)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.WelcomeRestore) })}
         />
 
         <Switch
@@ -89,7 +66,7 @@ export default function Home() {
             endpoint={`/guilds/${guild?.id}/modules/welcome`}
             k="deleteAfterLeave"
             defaultState={data.deleteAfterLeave || false}
-            disabled={!data.enabled}
+            disabled={!enabled}
             onSave={(s) => edit("deleteAfterLeave", s)}
         />
 
@@ -99,7 +76,7 @@ export default function Home() {
             url={`/guilds/${guild?.id}/modules/welcome`}
             dataName="deleteAfter"
             defaultState={data.deleteAfter ?? 0}
-            disabled={!data.enabled}
+            disabled={!enabled}
             onSave={(n) => edit("deleteAfter", n)}
         />
 
@@ -112,7 +89,7 @@ export default function Home() {
                 items={createSelectableItems(guild?.channels)}
                 description="Select the channel where the welcome message should be send into."
                 defaultState={data.channelId}
-                disabled={!data.enabled}
+                disabled={!enabled}
                 showClear
                 onSave={(o) => edit("channelId", o.value)}
             />
@@ -137,7 +114,7 @@ export default function Home() {
                     description="Select roles which members should get."
                     defaultState={data.roleIds}
                     max={5}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("roleIds", o.map(({ value }) => value))}
                 />
             </div>
@@ -151,7 +128,7 @@ export default function Home() {
                     description="Select in what channels user should get ghostpinged."
                     defaultState={data.pingIds}
                     max={5}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => edit("pingIds", o.map(({ value }) => value))}
                 />
             </div>
@@ -167,7 +144,7 @@ export default function Home() {
                     description="Select emotes which will be reacted with on members first message."
                     defaultState={data.reactions?.firstMessageEmojis}
                     max={2}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => {
                         edit("reactions", {
                             ...data.reactions,
@@ -186,7 +163,7 @@ export default function Home() {
                     description="Select emotes which will be reacted with on welcome messages."
                     defaultState={data.reactions?.welcomeMessageEmojis}
                     max={2}
-                    disabled={!data.enabled}
+                    disabled={!enabled}
                     onSave={(o) => {
                         edit("reactions", {
                             ...data.reactions,
@@ -202,7 +179,7 @@ export default function Home() {
             url={`/guilds/${guild?.id}/modules/welcome`}
             dataName="message"
             defaultMessage={data.message}
-            messageAttachmentComponent={data.card.enabled && (
+            messageAttachmentComponent={(guild!.flags & GuildFlags.WelcomeCard) !== 0 && (
                 <Image
                     src={`https://image-api.wamellow.com/?type=join&username=${encodeURIComponent(user!.username)}&members=1090&hash=${encodeURIComponent(user!.id)}/${encodeURIComponent(user!.avatar!)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
                     width={1_024 / 2}
@@ -211,39 +188,31 @@ export default function Home() {
                     alt=""
                 />
             )}
-            showMessageAttachmentComponentInEmbed={data.card.inEmbed}
-            disabled={!data.enabled}
+            showMessageAttachmentComponentInEmbed={(guild!.flags & GuildFlags.WelcomeCardInEmbed) !== 0}
+            disabled={!enabled}
             onSave={(message) => edit("message", message)}
         >
 
-            <div className={cn("mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6", !data.card.enabled && "pb-0")}>
+            <div className={cn("mt-2 mb-4 border-2 dark:border-wamellow border-wamellow-100 rounded-xl p-6", (guild!.flags & GuildFlags.WelcomeCard) === 0 && "pb-0")}>
                 <Switch
                     label="Show image card"
-                    endpoint={`/guilds/${guild?.id}/modules/welcome`}
-                    k="card.enabled"
-                    defaultState={data.card.enabled}
-                    disabled={!data.enabled}
-                    onSave={(s) => {
-                        edit("card", {
-                            ...data.card,
-                            enabled: s
-                        });
-                    }}
+                    endpoint={`/guilds/${guild?.id}`}
+                    k="flags"
+                    defaultState={(guild!.flags & GuildFlags.WelcomeCard) !== 0}
+                    disabled={!enabled}
+                    transform={(value) => transformer(value, guild!.flags, GuildFlags.WelcomeCard)}
+                    onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.WelcomeCard) })}
                 />
 
-                {data.card.enabled && <>
+                {(guild!.flags & GuildFlags.WelcomeCard) !== 0 && (<>
                     <Switch
                         label="Set image inside embed"
-                        endpoint={`/guilds/${guild?.id}/modules/welcome`}
-                        k="card.inEmbed"
-                        defaultState={data.card.inEmbed || false}
-                        disabled={!data.card.enabled || !data.enabled}
-                        onSave={(s) => {
-                            edit("card", {
-                                ...data.card,
-                                inEmbed: s
-                            });
-                        }}
+                        endpoint={`/guilds/${guild?.id}`}
+                        k="flags"
+                        defaultState={(guild!.flags & GuildFlags.WelcomeCardInEmbed) !== 0}
+                        disabled={!enabled || (guild!.flags & GuildFlags.WelcomeCard) === 0}
+                        transform={(value) => transformer(value, guild!.flags, GuildFlags.WelcomeCardInEmbed)}
+                        onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.WelcomeCardInEmbed) })}
                     />
 
                     <ImageUrlInput
@@ -251,9 +220,9 @@ export default function Home() {
                         url={`/guilds/${guild?.id}/modules/welcome`}
                         ratio="aspect-4/1"
                         dataName="card.background"
-                        description="Enter a url which should be the background for the image card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
+                        description="Enter a url which should be the background for the image card. The recommended image ratio is 4:1 and recommended resolution 1024x256px."
                         defaultState={data.card.background || ""}
-                        disabled={!data.card.enabled || !data.enabled}
+                        disabled={!enabled || (guild!.flags & GuildFlags.WelcomeCard) === 0}
                         onSave={(s) => {
                             edit("card", {
                                 ...data.card,
@@ -261,7 +230,7 @@ export default function Home() {
                             });
                         }}
                     />
-                </>}
+                </>)}
             </div>
 
         </MessageCreatorEmbed>
@@ -272,7 +241,7 @@ export default function Home() {
             dataName="dm.message"
             defaultMessage={data.dm?.message}
             isCollapseable={true}
-            disabled={!data.enabled}
+            disabled={!enabled}
             onSave={(message) => {
                 edit("dm", {
                     ...data.dm,
@@ -283,17 +252,13 @@ export default function Home() {
 
             <div className="m-2">
                 <Switch
-                    label="Enabled"
-                    endpoint={`/guilds/${guild?.id}/modules/welcome`}
-                    k="dm.enabled"
-                    defaultState={data.dm?.enabled}
-                    disabled={!data.enabled}
-                    onSave={(s) => {
-                        edit("dm", {
-                            ...data.dm,
-                            enabled: s
-                        });
-                    }}
+                    label="Enable DM"
+                    endpoint={`/guilds/${guild?.id}`}
+                    k="flags"
+                    defaultState={(guild!.flags & GuildFlags.WelcomeDirectMessage) !== 0}
+                    disabled={!enabled}
+                    transform={(value) => transformer(value, guild!.flags, GuildFlags.WelcomeDirectMessage)}
+                    onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.WelcomeDirectMessage) })}
                 />
             </div>
 
@@ -308,31 +273,23 @@ export default function Home() {
 
         <Switch
             label="Enable button"
-            endpoint={`/guilds/${guild?.id}/modules/welcome`}
-            k="button.enabled"
-            defaultState={data.button?.enabled}
-            disabled={!data.enabled}
-            onSave={(s) => {
-                edit("button", {
-                    ...data.button,
-                    enabled: s
-                });
-            }}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.WelcomeButton) !== 0}
+            disabled={!enabled}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.WelcomeButton)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.WelcomeButton) })}
         />
 
         <Switch
             label="Ping new member"
             description="Whenever the mention in the greet message should ping or not."
-            endpoint={`/guilds/${guild?.id}/modules/welcome`}
-            k="button.ping"
-            defaultState={data.button?.ping || false}
-            disabled={!data.enabled || !data.button?.enabled}
-            onSave={(s) => {
-                edit("button", {
-                    ...data.button,
-                    ping: s
-                });
-            }}
+            endpoint={`/guilds/${guild?.id}`}
+            k="flags"
+            defaultState={(guild!.flags & GuildFlags.WelcomeButtonPing) !== 0}
+            disabled={!enabled}
+            transform={(value) => transformer(value, guild!.flags, GuildFlags.WelcomeButtonPing)}
+            onSave={(value) => guildStore.setState({ flags: transformer(value, guild!.flags, GuildFlags.WelcomeButtonPing) })}
         />
 
         <div className="lg:flex gap-3 pt-3">
@@ -356,7 +313,7 @@ export default function Home() {
                     }
                     description="Select the color of the button."
                     defaultState={data.button?.style || 1}
-                    disabled={!data.enabled || !data.button?.enabled}
+                    disabled={!enabled || (guild!.flags & GuildFlags.WelcomeButtonPing) === 0}
                     onSave={(o) => {
                         edit("button", {
                             ...data.button,
@@ -373,7 +330,7 @@ export default function Home() {
                     items={createSelectableEmojiItems(guild?.emojis)}
                     description="Select an emoji which will be used in the button."
                     defaultState={data.button?.emoji}
-                    disabled={!data.enabled || !data.button?.enabled}
+                    disabled={!enabled || (guild!.flags & GuildFlags.WelcomeButtonPing) === 0}
                     onSave={(o) => {
                         edit("button", {
                             ...data.button,
@@ -386,4 +343,32 @@ export default function Home() {
 
         <div className="h-[138px]" />
     </>);
+}
+
+function Head({ guildId }: { guildId: string; }) {
+    return (
+        <div className="flex justify-between relative bottom-2 mb-3">
+            <Button
+                asChild
+                size="sm"
+            >
+                <Link href={`/dashboard/${guildId}/greeting`}>
+                    <HiArrowLeft />
+                    Back
+                </Link>
+            </Button>
+            <Button
+                asChild
+                size="sm"
+            >
+                <Link
+                    href="/docs/greetings"
+                    target="_blank"
+                >
+                    <HiExternalLink />
+                    Read docs & view placeholders
+                </Link>
+            </Button>
+        </div>
+    );
 }
