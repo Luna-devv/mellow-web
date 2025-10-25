@@ -51,8 +51,8 @@ export function useInput<T>(options: InputOptions<T>) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(options.k.includes(".")
-                    ? { [options.k.split(".")[0]]: { [options.k.split(".")[1]]: options.transform?.(val) || val } }
-                    : { [options.k]: options.transform?.(val) || val }
+                    ? { [options.k.split(".")[0]]: { [options.k.split(".")[1]]: options.transform?.(val) ?? val } }
+                    : { [options.k]: options.transform?.(val) ?? val }
                 )
             })
                 .catch((error) => String(error));

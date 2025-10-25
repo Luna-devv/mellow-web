@@ -18,7 +18,7 @@ export default function Home() {
     const params = useParams();
 
     return (<>
-        {(guild!.flags & GuildFlags.PrivateLeaderboard) !== 0 && (
+        {(guild!.flags & GuildFlags.PrivateLeaderboard) === 0 && (
             <OverviewLink
                 title="View Leaderboard"
                 message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."

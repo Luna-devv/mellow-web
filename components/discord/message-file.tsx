@@ -1,5 +1,4 @@
 import { Fira_Code } from "next/font/google";
-import React from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { HiVolumeUp } from "react-icons/hi";
 

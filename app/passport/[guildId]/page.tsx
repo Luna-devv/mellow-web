@@ -179,7 +179,7 @@ export default async function Home({ params }: Props) {
                     />
                 </div>
 
-                {guildExists && (guild.flags & GuildFlags.PrivateLeaderboard) !== 0 && (
+                {guildExists && (guild.flags & GuildFlags.PrivateLeaderboard) === 0 && (
                     <OverviewLink
                         title="View Leaderboard"
                         message="Easily access and view the top chatters, voice timers, and inviters from this server in the web."
