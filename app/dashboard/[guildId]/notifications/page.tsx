@@ -9,13 +9,14 @@ import { ItemSelector } from "@/components/dashboard/lists/selector";
 import MessageCreatorEmbed from "@/components/embed-creator";
 import MultiSelectMenu from "@/components/inputs/multi-select-menu";
 import SelectMenu from "@/components/inputs/select-menu";
+import Switch from "@/components/inputs/switch";
 import TextInput from "@/components/inputs/text-input";
 import { ScreenMessage } from "@/components/screen-message";
 import { AvatarBadge } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cacheOptions } from "@/lib/api";
-import { type ApiV1GuildsModulesNotificationsGetResponse, BlueskyNotificationFlags, GuildFlags, NotificationType, YoutubeNotificationFlags } from "@/typings";
-import { BitfieldManager, bitfieldToArray } from "@/utils/bitfields";
+import { type ApiV1GuildsModulesNotificationsGetResponse, BlueskyNotificationFlags, GuildFlags, NotificationType, TwitchNotificationFlags, YoutubeNotificationFlags } from "@/typings";
+import { BitfieldManager, bitfieldToArray, transformer } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
 import { LoaderCircleIcon } from "lucide-react";
@@ -234,6 +235,18 @@ export default function Home() {
             }
         </div>
 
+        {item.type === NotificationType.Twitch && (
+            <Switch
+                className="mt-2"
+                label="Delete after stream ends"
+                endpoint={url + "/" + item.id}
+                k="flags"
+                defaultState={(item.flags & TwitchNotificationFlags.DeleteAfterStream) !== 0}
+                transform={(value) => value ? [TwitchNotificationFlags.DeleteAfterStream] : []} // very fucked up
+                onSave={(value) => editItem("flags", transformer(value, item.flags, TwitchNotificationFlags.DeleteAfterStream))}
+            />
+        )}
+
         {platformFlags && (
             <TextInput
                 className="md:w-1/2 w-full"
@@ -294,7 +307,7 @@ function TestButton(
                 }}
                 size="lg"
                 variant="flat"
-                disabled={isLoading }
+                disabled={isLoading}
             >
                 {isLoading
                     ? <LoaderCircleIcon className="animate-spin" />

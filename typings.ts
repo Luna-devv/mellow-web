@@ -421,6 +421,10 @@ export enum BlueskyNotificationFlags {
     MustContainImage = 1 << 3
 }
 
+export enum TwitchNotificationFlags {
+    DeleteAfterStream = 1 << 4
+}
+
 export enum YoutubeNotificationFlags {
     SendVideos = 1 << 5,
     SendShorts = 1 << 6
