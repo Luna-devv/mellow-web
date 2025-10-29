@@ -11,6 +11,11 @@ enum State {
     Success = 2
 }
 
+enum ImageState {
+    Errored = 1,
+    Success = 2
+}
+
 interface Props {
     name: string;
     url: string;
@@ -38,7 +43,7 @@ export default function ImageUrlInput({
 
     const [value, setValue] = useState<string>("");
     const [defaultStatealue, setdefaultStatealue] = useState<string>("");
-    const [imagestate, setImagestate] = useState<"ERRORED" | "SUCCESS" | undefined>(undefined);
+    const [imagestate, setImagestate] = useState<ImageState | undefined>(undefined);
 
     useEffect(() => {
         if (!defaultStatealue) setdefaultStatealue(defaultState);
@@ -46,12 +51,11 @@ export default function ImageUrlInput({
     }, [defaultState]);
 
     useEffect(() => {
-        if (!value?.length) setImagestate("SUCCESS");
-        // else setImagestate(undefind);
+        if (!value?.length) setImagestate(ImageState.Success);
     }, [value]);
 
     useEffect(() => {
-        if (imagestate !== "SUCCESS" || defaultStatealue === value) return;
+        if (imagestate !== ImageState.Success || defaultStatealue === value) return;
         setError(null);
         setState(State.Loading);
 
@@ -101,7 +105,7 @@ export default function ImageUrlInput({
 
             <div className="flex items-center gap-2">
                 <span className="text-lg dark:text-neutral-300 text-neutral-700 font-medium">{name}</span>
-                {state === State.Success && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
+                {state === State.Loading && <TailSpin stroke="#d4d4d4" strokeWidth={8} className="relative h-3 w-3 overflow-visible" />}
             </div>
 
             <div className="lg:flex mt-1 w-full gap-4">
@@ -111,7 +115,7 @@ export default function ImageUrlInput({
                     setValue={(v) => {
                         setValue(v);
                         setState(State.Idle);
-                        if (imagestate === "SUCCESS") setImagestate(undefined);
+                        if (imagestate === ImageState.Success) setImagestate(undefined);
                     }}
                     disabled={disabled}
                     placeholder="Paste a direct image url..."
@@ -121,34 +125,33 @@ export default function ImageUrlInput({
 
                 <div className="max-w-1/2 w-full">
 
-                    {value && imagestate !== "ERRORED" ?
+                    {value && imagestate !== ImageState.Errored ?
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
                             src={value}
                             alt="upload"
-                            className={cn("w-full", "rounded-md", "aspect-4/1")}
-                            onError={() => setImagestate("ERRORED")}
-                            onLoad={() => setImagestate("SUCCESS")}
+                            className={cn("rounded-lg w-full h-full object-cover aspect-906/256", ratio)}
+                            onError={() => setImagestate(ImageState.Errored)}
+                            onLoad={() => setImagestate(ImageState.Success)}
                         />
                         :
                         <div className={cn(
                             "w-full border-2 rounded-md flex items-center justify-center dark:border-wamellow border-wamellow-100",
-                            imagestate === "ERRORED" && "dark:border-red-500 border-red-300",
+                            imagestate === ImageState.Errored && "dark:border-red-500 border-red-300",
                             ratio
                         )}>
-                            {imagestate === "ERRORED" ?
+                            {imagestate === ImageState.Errored ?
                                 <div className="text-red-400 m-4">
-                                    <div className="font-medium">Enter a <span className="underline underline-red-400">valid</span> image url!</div>
+                                    <div className="font-medium">Enter a valid image url!</div>
                                     <div className="text-xs">
                                         <div>Recommended resolution: 1024x256</div>
-                                        <div>Recommended type: .png</div>
+                                        <div>Supported types: .png, .jpg, .jpeg, .webp</div>
                                     </div>
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
                                         src={value}
-                                        alt="upload"
                                         className="w-0 h-0"
-                                        onLoad={() => setImagestate("SUCCESS")}
+                                        onLoad={() => setImagestate(ImageState.Success)}
                                     />
                                 </div>
                                 :
@@ -162,13 +165,12 @@ export default function ImageUrlInput({
             </div>
 
             <div className="flex">
-                {error &&
+                {error && (
                     <div className="ml-auto text-red-500 text-sm">
                         {error}
                     </div>
-                }
+                )}
             </div>
-
         </div>
     );
 }

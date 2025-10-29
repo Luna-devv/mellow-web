@@ -88,7 +88,7 @@ export default function Home() {
             defaultMessage={data.message}
             messageAttachmentComponent={(guild!.flags & GuildFlags.FarewellCard) !== 0 && (
                 <Image
-                    src={`https://image-api.wamellow.com/?type=leave&username=${encodeURIComponent(user!.username)}&members=1090&hash=${encodeURIComponent(user!.id)}/${encodeURIComponent(user!.avatar!)}${data.card.background ? `&background=${encodeURIComponent(data.card.background)}` : ""}`}
+                    src={`https://images-v2.wamellow.com/api/greet?type=leave&username=${encodeURIComponent(user!.username)}&member_count=${guild!.memberCount}&avatar_url=${encodeURIComponent(`https://cdn.discordapp.com/avatars/${user!.id}/${user!.avatar!}.png`)}${data.card.background ? `&background_url=${encodeURIComponent(data.card.background)}` : ""}`}
                     width={1_024 / 2}
                     height={(256 + 16) / 2}
                     loading="lazy"
