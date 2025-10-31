@@ -3,6 +3,7 @@ import { Header } from "@/components/header";
 import { LoginButton } from "@/components/login-button";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import Icon from "@/public/icon.svg";
 import { cn } from "@/utils/cn";
 import { getBaseUrl } from "@/utils/urls";
 import type { Metadata, Viewport } from "next";
@@ -109,12 +110,14 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
                     data-domain="wamellow.com"
                     src="https://analytics.wamellow.com/js/script.outbound-links.js"
                 />
+
                 <Script
                     id="reviews"
                     type="application/ld+json"
                 >
                     {JSON.stringify(reviews)}
                 </Script>
+
                 {process.env.NODE_ENV === "development" && (
                     <Script src="https://unpkg.com/react-scan/dist/auto.global.js" />
                 )}
@@ -177,10 +180,10 @@ async function NavBar({ className }: { className?: string; }) {
         <nav className={cn("p-4 flex items-center gap-2 text-base text-neutral-300 select-none h-20 relative", className)}>
             <Link
                 aria-label="Go to Wamellow's homepage"
-                className={cn("font-semibold flex items-center shrink-0", lexend.className)}
+                className={cn("font-semibold flex items-center shrink-0 group", lexend.className)}
                 href="/"
             >
-                <Image src="/waya-v3.webp" width={64} height={64} alt="" className="rounded-full size-8 shrink-0 mr-3" />
+                <Image src={Icon} alt="wamellow icon" className="size-8 shrink-0 mr-4 pt-1 group-hover:rotate-45 duration-200" />
                 <span className="text-xl dark:text-neutral-100 text-neutral-900 hidden sm:block">Wamellow</span>
             </Link>
 

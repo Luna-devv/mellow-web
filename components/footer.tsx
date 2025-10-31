@@ -51,7 +51,7 @@ export async function Footer(props: HTMLProps<HTMLDivElement>) {
                                         radius="rounded"
                                     >
                                         <Image
-                                            src={dev?.avatarUrl as string}
+                                            src={dev?.avatarUrl || "/discord.webp"}
                                             alt="avatar"
                                             width={18}
                                             height={18}
