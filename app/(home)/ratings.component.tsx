@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export async function Ratings() {
     const reviews = await getReviews();
+    const score = Math.round(reviews.averageScore);
 
     return (
         <Link
@@ -15,18 +16,18 @@ export async function Ratings() {
             title={`Average review score of ${reviews.averageScore}/5 based on ${reviews.count} reviews`}
         >
             <div className="flex gap-1">
-                {reviews.averageScore ?
+                {score ?
                     <div className="flex gap-1">
-                        {Array.from({ length: reviews.averageScore }).fill(0).map((_, i) =>
+                        {Array.from({ length: score }).fill(0).map((_, i) =>
                             <StarIcon key={i} className="w-6 h-6 stroke-violet-500 fill-violet-400/20" />
                         )}
                     </div>
                     :
                     <></>
                 }
-                {5 - reviews.averageScore ?
+                {5 - score ?
                     <div className="flex gap-1">
-                        {Array.from({ length: Math.max(5 - reviews.averageScore, 0) }).fill(0).map((_, i) =>
+                        {Array.from({ length: Math.max(5 - score, 0) }).fill(0).map((_, i) =>
                             <StarIcon key={i} className="w-6 h-6 stroke-violet-500 fill-transparent opacity-40" />
                         )}
                     </div>
