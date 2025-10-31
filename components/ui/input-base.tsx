@@ -10,7 +10,7 @@ import * as React from "react";
 
 export type InputBaseContextProps = Pick<
     InputBaseProps,
-  "autoFocus" | "disabled"
+    "autoFocus" | "disabled"
 > & {
     controlRef: React.RefObject<HTMLElement | null>;
     onFocusedChange: (focused: boolean) => void;

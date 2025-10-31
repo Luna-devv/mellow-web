@@ -6,7 +6,7 @@ export type ApiEdit<T> = <K extends keyof T>(key: K, value: T[K]) => void;
 
 export function useApi<T>(url: string, enabled?: boolean) {
 
-    const { data, isLoading, error } = useQuery(
+    const { data, isLoading, error, ...props } = useQuery(
         url,
         () => getData<T>(url),
         {
@@ -28,13 +28,14 @@ export function useApi<T>(url: string, enabled?: boolean) {
     );
 
     if (data && typeof data === "object" && "message" in data && typeof data.message === "string") {
-        return { data: undefined, isLoading, error: data.message || "unknown error", edit };
+        return { data: undefined, isLoading, error: data.message || "unknown error", edit, ...props };
     }
 
     return {
         data: data as T,
         isLoading,
         error: error ? `${error}` : undefined,
-        edit
+        edit,
+        ...props
     };
 }

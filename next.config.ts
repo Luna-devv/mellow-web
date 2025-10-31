@@ -1,10 +1,18 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import { withSentryConfig } from "@sentry/nextjs";
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+    output: "standalone",
     reactStrictMode: true,
-    eslint: {
-        ignoreDuringBuilds: true
+    experimental: {
+        turbopackFileSystemCacheForDev: true
     },
     images: {
+        localPatterns: [
+            {
+                pathname: "/**"
+            }
+        ],
         remotePatterns: [
             {
                 protocol: "https",
@@ -45,9 +53,9 @@ const nextConfig = {
             },
             {
                 protocol: "https",
-                hostname: "image-api.wamellow.com",
+                hostname: "images-v2.wamellow.com",
                 port: "",
-                pathname: "/"
+                pathname: "/api/greet"
             },
             {
                 protocol: "https",
@@ -90,20 +98,14 @@ const nextConfig = {
     }
 };
 
-module.exports = nextConfig;
-
-// Injected content via Sentry wizard below
-
-const { withSentryConfig } = require("@sentry/nextjs");
-
-module.exports = withSentryConfig(
-    module.exports,
+export default withSentryConfig(
+    nextConfig,
     {
         org: "wamellow-kc",
         project: "web",
         silent: !process.env.CI,
         widenClientFileUpload: true,
         disableLogger: true,
-        automaticVercelMonitors: true,
+        automaticVercelMonitors: true
     }
 );

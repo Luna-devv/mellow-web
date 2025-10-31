@@ -9,44 +9,37 @@
             "dom.iterable",
             "esnext"
         ],
-
         /* Strict Type-Checking Options */
-		"strict": true,
-		"noImplicitAny": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"strictBindCallApply": true,
-		"strictPropertyInitialization": true,
-		"noImplicitThis": true,
-		"alwaysStrict": true,
-
-		/* Additional Checks */
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noImplicitReturns": false,
-		"noFallthroughCasesInSwitch": true,
-
-		/* Module Resolution Options */
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"baseUrl": ".",
-
-		"declaration": true,
-		"skipLibCheck": true,
-		"resolveJsonModule": true,
-		"noUncheckedIndexedAccess": false,
-
-		/* Experimental Options */
-		"experimentalDecorators": false,
-
-		/* Advanced Options */
-		"forceConsistentCasingInFileNames": true,
-
-		/* Other Options */
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        /* Additional Checks */
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": false,
+        "noFallthroughCasesInSwitch": true,
+        /* Module Resolution Options */
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "declaration": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "noUncheckedIndexedAccess": false,
+        /* Experimental Options */
+        "experimentalDecorators": false,
+        /* Advanced Options */
+        "forceConsistentCasingInFileNames": true,
+        /* Other Options */
         "allowJs": true,
         "noEmit": true,
         "isolatedModules": true,
-        "jsx": "preserve",
+        "jsx": "react-jsx",
         "plugins": [
             {
                 "name": "next"
@@ -62,7 +55,8 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts"
+        ".next/types/**/*.ts",
+        ".next/dev/types/**/*.ts"
     ],
     "exclude": [
         "node_modules"

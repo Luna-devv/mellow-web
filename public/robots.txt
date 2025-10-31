@@ -1,5 +1,6 @@
 User-Agent: *
 Allow: /
+Disallow: /impressum
 
 User-agent: nsa
 Disallow: /
