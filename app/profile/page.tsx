@@ -10,7 +10,6 @@ import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCookies } from "next-client-cookies";
 import { useMemo, useState } from "react";
 import { HiChartBar, HiRefresh, HiUserAdd, HiViewGridAdd } from "react-icons/hi";
 
@@ -30,11 +29,10 @@ const springAnimation = {
 } as const;
 
 export default function Home() {
-    const cookies = useCookies();
-
     const [search, setSearch] = useState<string>("");
+    const [time] = useState<number>(() => Date.now());
 
-    const { isLoading, data, error } = useApi<ApiV1UsersMeGuildsGetResponse[]>("/users/@me/guilds");
+    const { isLoading, data, error, dataUpdatedAt } = useApi<ApiV1UsersMeGuildsGetResponse[]>("/users/@me/guilds");
 
     const guilds = useMemo(
         () => Array.isArray(data) ? data.sort(sort).filter((guild) => filter(guild, search)).slice(0, MAX_GUILDS) : [],
@@ -108,7 +106,7 @@ export default function Home() {
                         }
                     }
                 }}
-                initial={cookies.get("reduceMotions") === "true" ? "visible" : "hidden"}
+                initial={(dataUpdatedAt + 1_000) < time ? "visible" : "hidden"}
                 animate="visible"
                 className="grid grid-cols-1 gap-3.5 w-full mt-3 lg:grid-cols-3 md:grid-cols-2"
             >
