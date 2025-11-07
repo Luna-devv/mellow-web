@@ -56,17 +56,33 @@ Allows you to select additional types or filter notifications for **YouTube**:
 <br />
 <br />
 
-For every service, you can take advantage of a regex to blacklist posts:
-- `^\[live\]` will not post anything starting with `[live]`.
-- `insult|badword` will not post anything that includes either `insult` or `badword`.
-- `^(?!support$).+$` will only post that are `support`. (useful for Reddit flairs)
-<br />
+For **every service**, you can take advantage of a regex to whitelist and blacklist posts.
 <br />
 
 You can use [regexr.com](https://regexr.com/) or [ChatGPT](https://chatgpt.com/) to create (JavaScript-like) regexs.
-Keep in mind that the regex is inverted, meaning, everything that matches the regex will be ignored.
-You can use a negative lookahead to negate the condition, in order to create a whitelist filter.
-The flags used for string matching are `gi`, only the YouTube and Twitch titles, Bluesky post bodies, and Reddit flairs are checked.
+<br />
+<br />
+
+The following values are matched against:
+- YouTube titles
+- Twitch titles and game name*
+- Bluesky post bodies
+- Reddit post title and flair*
+
+*In case of a Whitelist, it's enough for one of the values to match. In case of a Blacklist, no value must match the regex.
+<br />
+<br />
+
+**Whitelist examples**
+- `^\[live\]` will only post anything starting with `[live]`.
+- `Grand Theft Auto` will only post anything that includes `Grand Theft Auto`. (useful for Twitch games)
+<br />
+<br />
+
+**Blacklist examples**
+- `^\[live\]` will not post anything starting with `[live]`.
+- `insult|badword` will not post anything that includes either `insult` or `badword`.
+- `^(?!support$).+$` will only post that are `support`. (useful for Reddit flairs)
 
 ### 🕵️‍♀️ Styles (whitelabel / webhook)
 Notification styles allow you to customize (or whitelabel) the username and avatar of the author (i.e. the sender of the message) separately for each notification. Wamellow will automatically manage the webhooks for you.

@@ -414,15 +414,16 @@ export enum NotificationType {
     Reddit = 3
 }
 
+export enum NotificationFlags {
+    DeleteAfterStream = 1 << 4,
+    MustNotMatchRegex = 1 << 8
+}
+
 export enum BlueskyNotificationFlags {
     SendReposts = 1 << 0,
     SendReplies = 1 << 1,
     SendQuotes = 1 << 2,
     MustContainImage = 1 << 3
-}
-
-export enum TwitchNotificationFlags {
-    DeleteAfterStream = 1 << 4
 }
 
 export enum YoutubeNotificationFlags {
