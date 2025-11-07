@@ -56,7 +56,7 @@ export default function Home() {
                     url={url}
                     ratio="aspect-4/1"
                     dataName="banner"
-                    description="Enter a url which should be the banner of the leaderboard web page. The recomended image ration is 4:1 and recommended resolution 1024x256px."
+                    description="Enter a url which should be the banner of the leaderboard web page. The recommended resolution is 906x256px."
                     defaultState={data.bannerUrl || ""}
                 />
             </div>

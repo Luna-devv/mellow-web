@@ -127,7 +127,7 @@ export default function Home() {
                         url={`/guilds/${guild?.id}/modules/bye`}
                         ratio="aspect-4/1"
                         dataName="card.background"
-                        description="Enter a url which should be the background for the image card. The recommended image ratio is 4:1 and recommended resolution 1024x256px."
+                        description="Enter a url which should be the background for the image card. The recommended resolution is 906x256px."
                         defaultState={data.card.background || ""}
                         disabled={!enabled || (guild!.flags & GuildFlags.FarewellCard) === 0}
                         onSave={(s) => {

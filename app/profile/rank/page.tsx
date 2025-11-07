@@ -84,7 +84,7 @@ export default function Home() {
             url="/users/@me/rank"
             ratio="aspect-4/1"
             dataName="background"
-            description="Enter a url which should be the background of your /rank card. The recomended image ration is 4:1 and recommended resolution 1024x256px."
+            description="Enter a url which should be the background of your /rank card. The recommended resolution is 906x256px."
             defaultState={user?.extended?.rank?.background || ""}
             onSave={(value) => {
                 userStore.setState(deepMerge<User>(user, { extended: { rank: { background: value } } }));

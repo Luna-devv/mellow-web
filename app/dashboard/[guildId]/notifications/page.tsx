@@ -15,7 +15,7 @@ import { ScreenMessage } from "@/components/screen-message";
 import { AvatarBadge } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cacheOptions } from "@/lib/api";
-import { type ApiV1GuildsModulesNotificationsGetResponse, BlueskyNotificationFlags, GuildFlags, NotificationType, TwitchNotificationFlags, YoutubeNotificationFlags } from "@/typings";
+import { type ApiV1GuildsModulesNotificationsGetResponse, BlueskyNotificationFlags, GuildFlags, NotificationFlags, NotificationType, YoutubeNotificationFlags } from "@/typings";
 import { BitfieldManager, bitfieldToArray, transformer } from "@/utils/bitfields";
 import { createSelectableItems } from "@/utils/create-selectable-items";
 import { getCanonicalUrl } from "@/utils/urls";
@@ -155,7 +155,7 @@ export default function Home() {
                     width={24}
                     height={24}
                 />
-                : <div className="size-[24px] flex items-center justify-center bg-wamellow rounded-full select-none font-medium text-sm text-neutral-200">
+                : <div className="size-6 flex items-center justify-center bg-wamellow rounded-full select-none font-medium text-sm text-neutral-200">
                     {item.creator.username.slice(0, 2)}
                 </div>
             }
@@ -225,15 +225,49 @@ export default function Home() {
                 />
                 : <TextInput
                     className="md:w-1/2 w-full"
-                    name="Ignore regex"
+                    name={flags.has(NotificationFlags.MustNotMatchRegex)
+                        ? "Blacklist regex"
+                        : "Whitelist regex"
+                    }
                     url={url + "/" + item.id}
                     dataName="regex"
-                    description="Posts that match the provided regex will be ignored."
+                    description={flags.has(NotificationFlags.MustNotMatchRegex)
+                        ? "Posts that match the provided regex will be ignored."
+                        : "Only posts that match the provided regex will be sent."
+                    }
                     defaultState={item.regex || ""}
                     onSave={(value) => editItem("regex", value as string)}
                 />
             }
         </div>
+
+        {platformFlags && (
+            <TextInput
+                className="md:w-1/2 w-full"
+                name={flags.has(NotificationFlags.MustNotMatchRegex)
+                    ? "Blacklist regex"
+                    : "Whitelist regex"
+                }
+                url={url + "/" + item.id}
+                dataName="regex"
+                description={flags.has(NotificationFlags.MustNotMatchRegex)
+                    ? "Posts that match the provided regex will be ignored."
+                    : "Only posts that match the provided regex will be sent."
+                }
+                defaultState={item.regex || ""}
+                onSave={(value) => editItem("regex", value as string)}
+            />
+        )}
+
+        <Switch
+            className="mt-2"
+            label="Inverted regex (blacklist)"
+            endpoint={url + "/" + item.id}
+            k="flags"
+            defaultState={(item.flags & NotificationFlags.MustNotMatchRegex) !== 0}
+            transform={(value) => value ? [NotificationFlags.MustNotMatchRegex] : []} // very fucked up
+            onSave={(value) => editItem("flags", transformer(value, item.flags, NotificationFlags.MustNotMatchRegex))}
+        />
 
         {item.type === NotificationType.Twitch && (
             <Switch
@@ -241,21 +275,9 @@ export default function Home() {
                 label="Delete after stream ends"
                 endpoint={url + "/" + item.id}
                 k="flags"
-                defaultState={(item.flags & TwitchNotificationFlags.DeleteAfterStream) !== 0}
-                transform={(value) => value ? [TwitchNotificationFlags.DeleteAfterStream] : []} // very fucked up
-                onSave={(value) => editItem("flags", transformer(value, item.flags, TwitchNotificationFlags.DeleteAfterStream))}
-            />
-        )}
-
-        {platformFlags && (
-            <TextInput
-                className="md:w-1/2 w-full"
-                name="Ignore regex"
-                url={url + "/" + item.id}
-                dataName="regex"
-                description="Posts that match the provided regex will be ignored."
-                defaultState={item.regex || ""}
-                onSave={(value) => editItem("regex", value as string)}
+                defaultState={(item.flags & NotificationFlags.DeleteAfterStream) !== 0}
+                transform={(value) => value ? [NotificationFlags.DeleteAfterStream] : []} // very fucked up
+                onSave={(value) => editItem("flags", transformer(value, item.flags, NotificationFlags.DeleteAfterStream))}
             />
         )}
 
