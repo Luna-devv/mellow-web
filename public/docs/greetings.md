@@ -31,6 +31,9 @@ Please note that `cdn.discordapp.com` no longer works due to [attachment authent
 
 ### 🧨 Auto delete
 Automatically delete the welcome message after a certain amount of time. Set to 0 seconds to not delete.
+<br />
+<br />
+The message can also be set to be deleted once the member leaves the server. This only works if the member has joined in the last two days.
 
 ### 🏓 Pings
 Ghost ping members in up to 5 channels when they join, the ghost pings will be instantly deleted.
@@ -45,7 +48,7 @@ You can re-assign all roles and past nickname when a member left and rejoins you
 If you want to send a direct message to your new members, Wamellow also allows you to do so with a fully custom message and/or embed.
 
 ### 🎉 Reactions
-If you want, you can also make Wamellow react with up to 2 emojis to your custom welcome message or to your members's first message.
+If you want, you can also make Wamellow react with up to 2 emojis to your custom welcome message and/or to your members's first message.
 
 **Note:** The emojis must be from the same server.
 

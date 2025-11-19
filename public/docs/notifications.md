@@ -84,6 +84,13 @@ The following values are matched against:
 - `insult|badword` will not post anything that includes either `insult` or `badword`.
 - `^(?!support$).+$` will only post that are `support`. (useful for Reddit flairs)
 
+### Delete after stream
+<mark>
+    Delete after stream currently only works with Twitch
+</mark>
+
+This allows you to delete the notification after the stream has ended.
+
 ### 🕵️‍♀️ Styles (whitelabel / webhook)
 Notification styles allow you to customize (or whitelabel) the username and avatar of the author (i.e. the sender of the message) separately for each notification. Wamellow will automatically manage the webhooks for you.
 <br />

@@ -121,7 +121,8 @@
                     "View Channel",
                     "Send Messages",
                     "Embed Links",
-                    "Mention Everyone"
+                    "Mention Everyone",
+                    "Read Message History"
                 ],
                 "user": [
                     "Manage Server"

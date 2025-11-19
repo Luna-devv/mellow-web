@@ -58,5 +58,11 @@ You can find the full list of supported voices in the [Text-to-Speech documentat
 ## Funding
 Wamellow is essentially a one-(wo)man show. I — [Luna](https://shi.gg) — plan, develop, maintain, host and fund the project alone, as I see it as a hobby and use programming is my form of therapy. I would be very grateful if you could support my work with a generous donation on [ko-fi.com/mwlica](https://ko-fi.com/mwlica) or by subscribing to our [premium plan](/premium) — but obviously there's no pressure!
 
+## Premium
+The pricing and list of premium features can be found on [wamellow.com/premium](/premium). You can learn more about your rights in the [Payment Terms](/terms/payment). Payments are handled in EUR, but your bank usually should do currency conversion automatically.
+<br />
+<br />
+Some premium features only apply to the user who has subscribed to the premium plan, while some other features apply to the selected server.
+
 ## Security
-Wamellow develops and maintains many tools, utilities and APIs in-house on its own infrastructure. Therefore, there is always a risk of security vulnerabilities and the like. You are welcome to search for and report bugs and vulnerabilities in all of our programmes, tools and APIs, as long as you do not gain any advantage, cause us any harm, abuse the system, disrupt service or impact any other user, and do not disclose the issue to third parties until it is resolved. Please report any issues to either Luna@Wamellow.com or mwlica on Discord. Please do not report the following: brute force attacks; DDoS attacks; publicly accessible login panels; reports from scanners and automated tools; reports on the subdomain status.wamellow.com; self-exploitation; or social engineering of users.
+Wamellow develops and maintains many tools, utilities and APIs in-house on its own infrastructure. Therefore, there is always a risk of security vulnerabilities and the like. You are welcome to search for and report bugs and vulnerabilities in all of our programmes, tools and APIs, as long as you do not gain any advantage, cause us any harm, abuse the system, disrupt service or impact any other user, and do not disclose the issue to third parties until it is resolved. Please report any issues to either [luna@wamellow.com](mailto:luna@wamellow.com) or mwlica on Discord. Please do not report the following: brute force attacks; DDoS attacks; publicly accessible login panels; reports from scanners and automated tools; reports on the subdomain status.wamellow.com; self-exploitation; or social engineering of users.

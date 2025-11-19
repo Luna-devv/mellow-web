@@ -67,6 +67,12 @@ Once people have failed verification due to any reason, they will not be able to
 <br />
 
 The user will be sent a direct message when they fail verification containing the reason for the failure and the punishment taken.
+<br />
+<br />
+
+Server owners and moderators with the `Moderate Members` permission can manually override the verification outcome for a member via two ways by using the:
+- select menu on a passport log message.
+- "Override Passport" context menu option by right-clicking on the user > "Apps" > "Override Passport".
 
 ## Troubleshooting
 If you joined a server, received a Direct Message (DM) from Wamellow, clicked on "Start Verification", and now receive the error message "**You are not a member of this guild**", please make sure that you are logged in with the same Discord account in your browser as you are in the Discord application. Should you be logged in with the wrong account, click on your username in the top right corner and click the `->` (red logout) button.
