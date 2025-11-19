@@ -145,59 +145,58 @@ export function Faq({
 }: {
     showTitle?: boolean;
 }) {
-    return (
-        <div>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(schema)
-                }}
-            />
+    return (<>
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+                __html: JSON.stringify(schema)
+            }}
+        />
 
-            {showTitle && (
-                <Section
-                    className="mb-4"
-                    title="Frequently Asked Questions about Wamellow"
-                >
-                    Commonly asked questions about Wamellow and how to use it.
-                </Section>
-            )}
-
-            <Accordion
-                type="single"
-                collapsible
-                defaultValue="0"
+        {showTitle && (
+            <Section
+                className="mb-4"
+                title="Frequently Asked Questions about Wamellow"
             >
-                {data.map((item, index) => (
-                    <AccordionItem
-                        value={index.toString()}
-                        key={index}
-                    >
-                        <AccordionTrigger className="text-left">
-                            <div className="flex items-start gap-3">
-                                <div className="mt-1 text-lg">
-                                    {item.startContent}
-                                </div>
-                                <div>
-                                    <div itemProp="name">
-                                        {item.title}
-                                    </div>
-                                    {item.subtitle && (
-                                        <div className="text-sm text-muted-foreground font-normal">
-                                            {item.subtitle}
-                                        </div>
-                                    )}
-                                </div>
+                Commonly asked questions about Wamellow and how to use it.
+            </Section>
+        )}
+
+        <Accordion
+            className="w-full"
+            type="single"
+            collapsible
+            defaultValue="0"
+        >
+            {data.map((item, index) => (
+                <AccordionItem
+                    value={index.toString()}
+                    key={index}
+                >
+                    <AccordionTrigger className="text-left">
+                        <div className="flex items-start gap-3">
+                            <div className="mt-1 text-lg">
+                                {item.startContent}
                             </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="mb-2 space-y-4">
-                            {item.content}
-                        </AccordionContent>
-                    </AccordionItem>
-                ))}
-            </Accordion>
-        </div>
-    );
+                            <div>
+                                <div itemProp="name">
+                                    {item.title}
+                                </div>
+                                {item.subtitle && (
+                                    <div className="text-sm text-muted-foreground font-normal">
+                                        {item.subtitle}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="mb-2 space-y-4">
+                        {item.content}
+                    </AccordionContent>
+                </AccordionItem>
+            ))}
+        </Accordion>
+    </>);
 }
 
 function extractText(content: React.ReactNode): string {
