@@ -31,6 +31,10 @@ export async function GET() {
             priority: 0.9
         },
         {
+            url: getCanonicalUrl("text-to-speech"),
+            priority: 0.9
+        },
+        {
             url: getCanonicalUrl("dashboard"),
             priority: 0.8
         },

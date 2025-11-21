@@ -15,7 +15,7 @@ export function getDateString(date: Date, format: string) {
     });
 
     const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const month = date.getMonth();
     const year = date.getFullYear();
 
     switch (format) {
@@ -63,5 +63,4 @@ export function getTimeAgo(date: Date): string {
         return months === 1 ? "a month ago" : `${months} months ago`;
     }
     return years === 1 ? "a year ago" : `${years} years ago`;
-
 }
