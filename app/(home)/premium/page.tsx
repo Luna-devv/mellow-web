@@ -1,16 +1,13 @@
 import Comment from "@/components/comment";
-import ImageGrid from "@/components/image-grid";
 import { OverviewLink } from "@/components/overview-link";
 import { UserAvatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { InputBaseAdornment, InputBaseAdornmentButton } from "@/components/ui/input-base";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { defaultFetchOptions } from "@/lib/api";
 import type User from "@/lib/discord/user";
 import { getUser } from "@/lib/discord/user";
 import BotStylePic from "@/public/docs-assets/bot-style.webp";
 import NotificationsStylePic from "@/public/docs-assets/notifications-style.webp";
-import type { ApiV1TopguildsGetResponse } from "@/typings";
 import { cn } from "@/utils/cn";
 import { getBaseUrl, getCanonicalUrl } from "@/utils/urls";
 import type { Metadata } from "next";
@@ -28,7 +25,7 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 const bots = ["1125449347451068437", "985213199248924722", "1097907896987160666"].map((userId) => getUser(userId));
 
 const items = [
-    { title: "Price", free: "€0 /forever", premium: "€4 /month" },
+    { title: "Price", free: 0, premium: 4, unit: "€/month" },
 
     { title: "Your Benefits", icon: <HiUser /> },
     { title: "Text to Speech", free: Infinity, premium: Infinity, unit: "chars /month" },
@@ -81,9 +78,7 @@ export const generateMetadata = (): Metadata => {
     };
 };
 
-export default async function Home() {
-    const topGuilds = await fetch(`${process.env.NEXT_PUBLIC_API}/top-guilds`, defaultFetchOptions).then((res) => res.json()) as ApiV1TopguildsGetResponse[];
-
+export default function Home() {
     return (
         <div className="w-full">
 
@@ -97,21 +92,7 @@ export default async function Home() {
                 </span>
             </div>
 
-            {topGuilds && (
-                <ImageGrid
-                    images={
-                        topGuilds
-                            .sort((a, b) => b.memberCount - a.memberCount)
-                            .map((guild) => ({
-                                id: guild.id,
-                                url: (guild.icon || "/discord.webp").replace("gif", "webp"),
-                                link: getCanonicalUrl("leaderboard", guild.id)
-                            }))
-                    }
-                />
-            ) }
-
-            <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-10 w-full rounded-xl overflow-hidden">
+            <div className="dark:bg-wamellow bg-wamellow-100 dark:text-neutral-300 text-neutral-700 mt-2 w-full rounded-xl overflow-hidden">
 
                 <div className="flex items-center pb-4 text-2xl p-4 font-semibold bg-wamellow">
                     <span className="dark:text-neutral-100 text-neutral-900 w-2/4 block md:hidden">Features</span>
@@ -209,19 +190,8 @@ export default async function Home() {
             />
 
             <div className="p-2 fixed z-10 bottom-0 left-0 w-full md:hidden">
-                <div className="dark:bg-wamellow bg-wamellow-100 backdrop-blur-lg backdrop-brightness-50 rounded-lg shadow-md w-full flex flex-col gap-2 items-center justify-center p-3">
-
-                    <div className="flex gap-2 items-center">
-                        <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your experience further!</span>
-                        <Badge
-                            variant="flat"
-                            radius="rounded"
-                        >
-                            €4 /month
-                        </Badge>
-                    </div>
-
-                    <Subscribe />
+                <div className="dark:bg-wamellow bg-wamellow-100 backdrop-blur-lg backdrop-brightness-50 rounded-lg shadow-md w-full p-3 ">
+                    <Subscribe header />
                 </div>
             </div>
 
@@ -238,7 +208,7 @@ function displayState(is: string | number | boolean | null, unit?: string) {
 
     if (typeof is === "number") {
         return (<>
-            {is === Infinity ? <IoMdInfinite className="w-7 h-7" title="Infinite" /> : is.toLocaleString()}
+            {is === Infinity ? <IoMdInfinite className="size-7" title="Infinite" /> : is.toLocaleString()}
             <span className="text-sm text-muted-foreground ml-1">{unit}</span>
         </>);
     }

@@ -1,15 +1,15 @@
 "use client";
 import { userStore } from "@/common/user";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InputBase, InputBaseAdornment, InputBaseAdornmentButton, InputBaseControl, InputBaseInput } from "@/components/ui/input-base";
-import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { type HTMLProps, useState } from "react";
 import { HiArrowDown, HiArrowUp, HiLightningBolt, HiOutlineInformationCircle } from "react-icons/hi";
 
-export function Subscribe() {
+export function Subscribe({ header }: { header?: boolean; }) {
     const premium = userStore((u) => u?.premium || false);
     const [donation, setDonation] = useState(0);
 
@@ -32,11 +32,23 @@ export function Subscribe() {
 
     return (
         <div className="w-full">
+            {header && (
+                <div className="flex gap-2 justify-center mb-2">
+                    <span className="dark:text-neutral-200 text-neutral-800 font-medium text-sm">Upgrade your experience further!</span>
+                    <Badge
+                        variant="flat"
+                        radius="rounded"
+                    >
+                        €{donation + 4} /month
+                    </Badge>
+                </div>
+            )}
+
             <div className="w-full relative overflow-hidden rounded-lg border border-border group p-px h-fit">
                 <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_0%_50%,#8b5cf6_50%,hsl(var(--input)/30)_7%)]" />
                 <Button
                     asChild
-                    className='w-full px-2 backdrop-blur-xs backdrop-brightness-50 md:backdrop-brightness-25 bg-none rounded-[6px] hover:bg-[#8b5cf6]/50'
+                    className='w-full px-2 backdrop-blur-xs backdrop-brightness-50 md:backdrop-brightness-25 bg-none rounded-md hover:bg-[#8b5cf6]/50'
                 >
                     <Link
                         prefetch={false}
@@ -48,12 +60,11 @@ export function Subscribe() {
                 </Button>
             </div>
 
-            <div className="relative w-full gap-2 h-3">
-                <Separator className="w-full mt-4" />
-                <span className="absolute bg-[#0d0d0d] px-2 -top-1.5 left-1/2 -translate-x-1/2 text-muted-foreground font-medium text-xs uppercase">choose what to pay</span>
+            <div className="w-full flex justify-center my-2">
+                <span className="text-muted-foreground font-medium text-xs uppercase">choose what to pay</span>
             </div>
 
-            <div className="flex gap-1 w-full mt-2">
+            <div className="flex gap-1 w-full">
                 {[4, 8, 12, 18, 25].map((amount) => (
                     <Button
                         key={amount}
