@@ -20,7 +20,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { GrAmex } from "react-icons/gr";
 import { HiCreditCard, HiLightningBolt } from "react-icons/hi";
-import { SiDinersclub, SiDiscover, SiJcb, SiMastercard, SiStripe, SiVisa } from "react-icons/si";
+import { SiDinersclub, SiDiscover, SiJcb, SiMastercard, SiPaypal, SiStripe, SiVisa } from "react-icons/si";
 
 function isActive(status: ApiV1UsersMeBillingGetResponse["status"]): status is "active" | "trialing" | "past_due" {
     return status === "active" || status === "trialing" || status === "past_due";
@@ -31,6 +31,7 @@ export default function Home() {
     const [changeDonationModalOpen, setChangeDonationModalOpen] = useState(false);
 
     const { data, isLoading, error, edit } = useApi<ApiV1UsersMeBillingGetResponse>("/users/@me/billing");
+    const [nowInSeconds] = useState(() => Date.now() / 1_000);
 
     if ((isLoading && !user?.premium) || (!isLoading && !data) || (data && !isActive(data.status))) {
         return (<>
@@ -56,7 +57,7 @@ export default function Home() {
         </>);
     }
 
-    const periodEndsInDays = Math.floor((((data?.currentPeriodEnd || 0) - Date.now() / 1_000) / (60 * 60 * 24)));
+    const periodEndsInDays = Math.floor(((data?.currentPeriodEnd || 0) - nowInSeconds) / (60 * 60 * 24));
     const periodEndsInStr = `${periodEndsInDays > 1 ? "in " : ""}${periodEndsInDays === 0 ? "Today" : periodEndsInDays === 1 ? "Tomorrow" : periodEndsInDays} ${periodEndsInDays > 1 ? "days" : ""}`;
 
     return (
@@ -126,10 +127,10 @@ export default function Home() {
                     <h2 className="font-semibold text-xl text-neutral-300 mb-2 lg:mb-0  lg:relative lg:bottom-2">Payment Method</h2>
                     {isLoading
                         ? <Skeleton className="h-12 w-full" />
-                        :
-                        <div className="flex gap-2 items-center bg-wamellow-100 px-4 py-1 rounded-lg">
+                        : <div className="flex gap-2 items-center bg-wamellow-100 px-4 py-1 rounded-lg">
                             <PaymentMethodIcon method={data!.paymentMethod} />
-                            {typeof data?.paymentMethod === "string" ? data?.paymentMethod : "**** **** **** " + data?.paymentMethod?.last4}
+                            {getPaymentMethodInfo(data!.paymentMethod)}
+
                             <Button
                                 asChild
                                 className="ml-auto"
@@ -184,22 +185,29 @@ function getPortalPath(data: ApiV1UsersMeBillingGetResponse) {
     return "subscriptions/" + data.subscriptionId + "/cancel";
 }
 
-function PaymentMethodIcon({ method }: { method: ApiV1UsersMeBillingGetResponse["paymentMethod"]; }) {
-    if (typeof method === "string") {
-        return <HiCreditCard className="size-6" />;
-    }
+function PaymentMethodIcon({ method }: { method?: ApiV1UsersMeBillingGetResponse["paymentMethod"]; }) {
+    if (!method) return <HiCreditCard className="size-6" />;
 
-    switch (method?.brand) {
+    switch (method.brand) {
+        case "paypal": return <SiPaypal className="size-6" />;
         case "amex": return <GrAmex className="size-6" />;
         case "diners": return <SiDinersclub className="size-6" />;
         case "discover": return <SiDiscover className="size-6" />;
         case "jcb": return <SiJcb className="size-6" />;
         case "link": return <SiStripe className="size-6" />;
         case "mastercard": return <SiMastercard className="size-6" />;
-        case "visa": return <SiVisa className="size-6"/>;
+        case "visa": return <SiVisa className="size-6" />;
+        default: return <HiCreditCard className="size-6" />;
     }
+}
 
-    return <HiCreditCard className="size-6" />;
+function getPaymentMethodInfo(method?: ApiV1UsersMeBillingGetResponse["paymentMethod"]) {
+    if (!method) return "Unknown";
+
+    if ("email" in method) return method.email ?? "PayPal";
+    if ("last4" in method) return method.last4 ? `•••• •••• •••• ${method.last4}` : "Card";
+
+    return "Unknown";
 }
 
 function PremiumGuildSelect({

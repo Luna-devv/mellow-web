@@ -330,6 +330,18 @@ export interface ApiV1UsersMeConnectionsGetResponse {
     type: ConnectionType;
 }
 
+interface PaymentMethodCard {
+    brand: string | null;
+    last4: string | null;
+}
+
+interface PaymentMethodPaypal {
+    brand: "paypal";
+    email: string | null;
+}
+
+type PaymentMethod = PaymentMethodCard | PaymentMethodPaypal;
+
 export interface ApiV1UsersMeBillingGetResponse {
     subscriptionId: string;
     status:
@@ -347,13 +359,7 @@ export interface ApiV1UsersMeBillingGetResponse {
     currentPeriodStart: number;
     cancelAtPeriodEnd: boolean;
     donationQuantity: number;
-    paymentMethod:
-    | {
-        brand: string | null;
-        last4: string | null;
-    }
-    | string
-    | null;
+    paymentMethod: PaymentMethod | null;
     portalUrl: string;
     guildIds: string[];
 }
