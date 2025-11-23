@@ -49,6 +49,13 @@ function InputBase({
 }: InputBaseProps) {
     const [focused, setFocused] = React.useState(false);
     const controlRef = React.useRef<HTMLElement>(null);
+    const handleClick = React.useCallback<React.MouseEventHandler<HTMLDivElement>>((event) => {
+        onClick?.(event);
+        if (event.defaultPrevented) return;
+        if (controlRef.current && event.currentTarget === event.target) {
+            controlRef.current.focus();
+        }
+    }, [onClick]);
 
     return (
         <InputBaseContext.Provider
@@ -61,11 +68,7 @@ function InputBase({
         >
             <Primitive.div
                 data-slot="input-base"
-                onClick={composeEventHandlers(onClick, (event) => {
-                    if (controlRef.current && event.currentTarget === event.target) {
-                        controlRef.current.focus();
-                    }
-                })}
+                onClick={handleClick}
                 className={cn(
                     "border-input dark:bg-input/30 flex min-h-9 cursor-text items-center gap-2 rounded-lg border bg-transparent px-3 py-1 text-base shadow-2xs transition-[color,box-shadow] outline-hidden md:text-sm",
                     disabled && "pointer-events-none cursor-not-allowed opacity-50",

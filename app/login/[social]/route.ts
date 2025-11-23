@@ -84,5 +84,4 @@ export async function GET(
     }
 
     redirect("/profile/connections?success=true");
-
 }

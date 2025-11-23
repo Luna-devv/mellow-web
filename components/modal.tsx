@@ -3,7 +3,7 @@
 import type { ApiError } from "@/typings";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiFire } from "react-icons/hi";
 
 import Notice, { NoticeType } from "./notice";
@@ -56,24 +56,29 @@ export default function Modal<T>({
     const [state, setState] = useState<State>(State.Idle);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
+    const reset = () => {
         setError(null);
         setState(State.Idle);
-    }, [isOpen]);
+    };
+
+    const handleClose = () => {
+        reset();
+        onClose();
+    };
 
     async function submit() {
         if (state === State.Loading) return;
         if (!onSubmit) {
-            onClose();
+            handleClose();
             return;
         }
 
-        setError(null);
+        reset();
         setState(State.Loading);
         const data = onSubmit?.();
 
         if (!data) {
-            onClose();
+            handleClose();
             return;
         }
 
@@ -88,7 +93,7 @@ export default function Modal<T>({
         setState(State.Idle);
 
         if (res.ok) {
-            onClose();
+            handleClose();
             onSuccess?.(res.status === 204 ? null : await res.json());
             return;
         }
@@ -100,7 +105,11 @@ export default function Modal<T>({
     return (
         <Dialog
             open={isOpen}
-            onOpenChange={(open) => !open && onClose()}
+            onOpenChange={(open) => {
+                if (!open) {
+                    handleClose();
+                }
+            }}
         >
             <DialogContent>
                 <DialogHeader>
@@ -130,7 +139,7 @@ export default function Modal<T>({
                     {onSubmit && (
                         <Button
                             variant="link"
-                            onClick={() => state !== State.Loading && onClose()}
+                            onClick={() => state !== State.Loading && handleClose()}
                             className="hidden md:block ml-auto text-sm font-medium"
                             disabled={state !== State.Idle}
                         >

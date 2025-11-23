@@ -1,6 +1,6 @@
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 
 interface Props {
@@ -37,10 +37,7 @@ export default function DumbColorInput({
     );
 
     // this cuz there can be multiple color inputs on the same page, so it will bug, so we need to identify them
-    const [inputId, setInputId] = useState<string>("");
-    useEffect(() => {
-        setInputId(Math.random().toString(36).slice(2, 15) + Math.random().toString(36).slice(2, 15));
-    }, []);
+    const [inputId] = useState<string>(() => Math.random().toString(36).slice(2, 15) + Math.random().toString(36).slice(2, 15));
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
 

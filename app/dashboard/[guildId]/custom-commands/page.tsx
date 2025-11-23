@@ -48,6 +48,10 @@ export default function Home() {
         return params.toString();
     }, [search]);
 
+    const setTagId = (id: string) => {
+        router.push(pathname + "?" + createQueryString("id", id));
+    };
+
     useEffect(() => {
         if (!Array.isArray(data)) return;
         if (data && !tag && data[0]) setTagId(data[0].id);
@@ -69,10 +73,6 @@ export default function Home() {
     }
 
     if (isLoading || !data) return <></>;
-
-    const setTagId = (id: string) => {
-        router.push(pathname + "?" + createQueryString("id", id));
-    };
 
     const editTag = <T extends keyof ApiV1GuildsModulesTagsGetResponse>(k: keyof ApiV1GuildsModulesTagsGetResponse, value: ApiV1GuildsModulesTagsGetResponse[T]) => {
         if (!tag) return;

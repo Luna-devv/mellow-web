@@ -98,6 +98,7 @@ export default function MultiSelectMenu<T extends string | number>({
 
                 switch (res.status) {
                     case 200: {
+                        onSave?.(values);
                         setState(State.Success);
                         setTimeout(() => setState(State.Idle), 1_000 * 8);
                         break;

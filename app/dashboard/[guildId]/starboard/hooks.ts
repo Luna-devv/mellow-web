@@ -1,5 +1,5 @@
 import { StarboardStyle } from "@/typings";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 interface Example {
     avatar: string | null;
@@ -7,63 +7,33 @@ interface Example {
 }
 
 export function useExample(style: StarboardStyle) {
-    const [example, setExample] = useState<Example>({
-        avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-        username: "@spacewolf."
-    });
-
-    useEffect(
-        () => {
-            switch (style) {
-                case StarboardStyle.Username:
-                    setExample((e) => {
-                        return {
-                            ...e,
-                            avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                            username: "@spacewolf."
-                        };
-                    });
-                    break;
-                case StarboardStyle.GlobalName:
-                    setExample((e) => {
-                        return {
-                            ...e,
-                            avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                            username: "Space Wolf"
-                        };
-                    });
-                    break;
-                case StarboardStyle.Nickname:
-                    setExample((e) => {
-                        return {
-                            ...e,
-                            avatar: "https://cdn.waya.one/r/823554a71e92ca6192ab500d9b597a7f.png",
-                            username: "Luna’s Grandpa <3"
-                        };
-                    });
-                    break;
-                case StarboardStyle.NicknameAndGuildAvatar:
-                    setExample((e) => {
-                        return {
-                            ...e,
-                            avatar: "https://cdn.waya.one/r/a_3a2fa421f079827d31f4fd1b7a9971ba.gif",
-                            username: "Luna’s Grandpa <3"
-                        };
-                    });
-                    break;
-                case StarboardStyle.Anonymous:
-                    setExample((e) => {
-                        return {
-                            ...e,
-                            avatar: null,
-                            username: null
-                        };
-                    });
-                    break;
-            }
-        },
-        [style]
-    );
-
-    return example;
+    return useMemo<Example>(() => {
+        switch (style) {
+            case StarboardStyle.GlobalName:
+                return {
+                    avatar: "/space.webp",
+                    username: "Space Wolf"
+                };
+            case StarboardStyle.Nickname:
+                return {
+                    avatar: "/space.webp",
+                    username: "Luna’s Grandpa <3"
+                };
+            case StarboardStyle.NicknameAndGuildAvatar:
+                return {
+                    avatar: "/shiggy.gif",
+                    username: "Luna’s Grandpa <3"
+                };
+            case StarboardStyle.Anonymous:
+                return {
+                    avatar: null,
+                    username: null
+                };
+            default:
+                return {
+                    avatar: "/space.webp",
+                    username: "@spacewolf."
+                };
+        }
+    }, [style]);
 }

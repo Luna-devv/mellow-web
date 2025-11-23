@@ -237,7 +237,7 @@ export default function Home() {
                     defaultState={data.blacklistRoleIds || []}
                     max={500}
                     disabled={!enabled}
-                    onSave={(o) => edit("blacklistChannelIds", o.map(({ value }) => value))}
+                    onSave={(o) => edit("blacklistRoleIds", o.map(({ value }) => value))}
                 />
             </div>
         </div>

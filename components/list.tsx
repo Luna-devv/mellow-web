@@ -23,6 +23,7 @@ interface ListProps {
 
 export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
     const [position, setPosition] = useState(0);
+    const [scrollMetrics, setScrollMetrics] = useState<{ canScroll: boolean; maxScroll: number; }>({ canScroll: false, maxScroll: 0 });
 
     const path = usePathname();
     const params = useSearchParams();
@@ -47,7 +48,7 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
     function scroll(direction: "left" | "right") {
         if (!ref.current) return;
 
-        const scrollAmount = ref.current.clientWidth * 0.8; // Scroll 80% of the visible width
+        const scrollAmount = ref.current.clientWidth * 0.8;
 
         ref.current.scrollBy({
             top: 0,
@@ -62,16 +63,34 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
         setPosition(scrollLeft);
     }
 
-    const isScrollable = ref.current ? ref.current.scrollWidth > ref.current.clientWidth : false;
-
     useEffect(() => {
-        if (!ref.current) return;
+        const element = ref.current;
+        if (!element) return;
 
-        ref.current.addEventListener("scroll", setScrollPosition);
-        setScrollPosition();
+        const updateMetrics = () => {
+            const canScroll = element.scrollWidth > element.clientWidth;
+            const maxScroll = Math.max(element.scrollWidth - (element.clientWidth + 10), 0);
+            setScrollMetrics((prev) => {
+                if (prev.canScroll === canScroll && prev.maxScroll === maxScroll) return prev;
+                return { canScroll, maxScroll };
+            });
+            setPosition(element.scrollLeft);
+        };
+
+        const handleScroll = () => {
+            setScrollPosition();
+            updateMetrics();
+        };
+
+        const resizeObserver = new ResizeObserver(updateMetrics);
+
+        element.addEventListener("scroll", handleScroll);
+        resizeObserver.observe(element);
+        updateMetrics();
 
         return () => {
-            ref.current?.removeEventListener("scroll", setScrollPosition);
+            element.removeEventListener("scroll", handleScroll);
+            resizeObserver.disconnect();
         };
     }, []);
 
@@ -88,7 +107,7 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
             >
                 <TabsList
                     ref={ref}
-                    className="bg-inherit border-b-2 border-wamellow p-0 w-full justify-start rounded-none overflow-y-auto overflow-x-auto scrollbar-hide"
+                    className="bg-inherit border-b-2 border-wamellow p-0 w-full justify-start rounded-none overflow-y-auto overflow-x-auto scrollbar-none"
                 >
                     {tabs.map((tab) => (
                         <TabsTrigger
@@ -104,7 +123,7 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
                 </TabsList>
             </Tabs>
 
-            {isScrollable && position > 0 && (
+            {scrollMetrics.canScroll && position > 0 && (
                 <Button
                     className="absolute bottom-2 left-0 backdrop-blur-lg"
                     onClick={() => scroll("left")}
@@ -114,7 +133,7 @@ export function ListTab({ tabs, url, searchParamName, disabled }: ListProps) {
                 </Button>
             )}
 
-            {isScrollable && ref.current && position < (ref.current.scrollWidth - (ref.current.clientWidth + 10)) && (
+            {scrollMetrics.canScroll && position < scrollMetrics.maxScroll && (
                 <Button
                     className="absolute bottom-2 right-0 backdrop-blur-lg"
                     onClick={() => scroll("right")}

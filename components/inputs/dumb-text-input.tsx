@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 
 interface Props {
     name?: string;
@@ -40,11 +40,7 @@ export default function DumbTextInput({
         disabled && "cursor-not-allowed opacity-50"
     );
 
-    const [length, setLength] = useState(0);
-
-    useEffect(() => {
-        setLength(dataName ? JSON.parse(value)[dataName]?.length : value?.length || 0);
-    }, [value]);
+    const length = useMemo(() => dataName ? JSON.parse(value)[dataName]?.length : value?.length || 0, [dataName, value]);
 
     return (
         <div className="relative select-none w-full max-w-full mb-3">

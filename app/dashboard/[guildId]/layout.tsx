@@ -43,7 +43,6 @@ export default function RootLayout({
     const cookies = useCookies();
     const params = useParams();
 
-    const [error, setError] = useState<string>();
     const [loaded, setLoaded] = useState<string[]>([]);
 
     const guild = guildStore((g) => g);
@@ -88,12 +87,10 @@ export default function RootLayout({
         }
     );
 
-    useEffect(() => {
-        if (data && "message" in data) {
-            setError(data?.message);
-            return;
-        }
+    const error = data && "message" in data ? data.message : undefined;
 
+    useEffect(() => {
+        if (!data || "message" in data) return;
         guildStore.setState(data);
     }, [data]);
 
