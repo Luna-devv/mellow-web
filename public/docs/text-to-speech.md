@@ -19,7 +19,7 @@ It's absolutely crucial for people with speech impairments like aphonia or dysph
 <br />
 <br />
 
-To get a quick **.mp3 file** of your message, use `/tts file` in any text channel.
+To get a quick **.mp3 file** of your message, use `/tts file` in any text channel. You can also [generate Text to Speech files online](/text-to-speech).
 
 ### 📑 Usage logs
 Pick a channel where any Text to Speech events from your server should be logged, mainly for moderation purposes.

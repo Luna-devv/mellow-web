@@ -15,6 +15,7 @@ import { actor, getVoices, voices } from "@/utils/tts";
 import type { TurnstileInstance } from "@marsidev/react-turnstile";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { useRef, useState } from "react";
+import { HiDownload } from "react-icons/hi";
 
 import { getSpeech } from "./api";
 import { History } from "./history";
@@ -30,7 +31,7 @@ export default function Home() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const { history, error: historyError, state, addEntry, ensureUrl } = useHistory();
+    const { history, error: historyError, state, addEntry, deleteEntry, ensureUrl } = useHistory();
     const captcha = useRef<TurnstileInstance>(null);
 
     const handleGenerate = async () => {
@@ -128,12 +129,19 @@ export default function Home() {
                     <div className="rounded-xl bg-linear-to-br from-violet-300/8 to-violet-200/5 p-5 mt-4">
                         <AudioPlayerProvider>
                             <div className="flex items-center gap-4">
-                                <AudioPlayerButton
-                                    item={{
-                                        id: audioUrl,
-                                        src: audioUrl
-                                    }}
-                                />
+                                <div className="flex items-center gap-2">
+                                    <Button asChild>
+                                        <a href={audioUrl} download>
+                                            <HiDownload />
+                                        </a>
+                                    </Button>
+                                    <AudioPlayerButton
+                                        item={{
+                                            id: audioUrl,
+                                            src: audioUrl
+                                        }}
+                                    />
+                                </div>
                                 <AudioPlayerProgress className="flex-1" />
                                 <AudioPlayerTime />
                                 <span>/</span>
@@ -161,6 +169,7 @@ export default function Home() {
                         setText(newText);
                         setVoice(newVoice);
                     }}
+                    onDelete={(id) => deleteEntry(id)}
                 />
             </div>
         </div>

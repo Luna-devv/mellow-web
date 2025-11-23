@@ -5,13 +5,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getDateString, getTimeAgo } from "@/utils/time";
 import { actor, getVoices } from "@/utils/tts";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
-    useEffect,
-    useRef
-} from "react";
-import { HiPencil, HiPlay, HiRefresh, HiSpeakerphone } from "react-icons/hi";
+    HiDownload,
+    HiPencil, HiPlay, HiSpeakerphone
+} from "react-icons/hi";
+import { HiTrash } from "react-icons/hi2";
 
-import { HistoryItem, State } from "./use-history";
+import { type HistoryItem, State } from "./use-history";
 
 const springAnimation = {
     hidden: { y: 20, opacity: 0 },
@@ -33,7 +34,8 @@ export function History({
     ensureUrl,
     fallbackVoice,
     onPlay,
-    onRefill
+    onRefill,
+    onDelete
 }: {
     history: HistoryItem[];
     error: string | null;
@@ -42,23 +44,24 @@ export function History({
     fallbackVoice: string;
     onPlay: (url: string) => void;
     onRefill: (text: string, voice: string) => void;
+    onDelete: (id: number) => void;
 }) {
-    const init = useRef(false);
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const isLoading = state === State.Loading;
+    const shouldAnimate = !hasAnimated && !isLoading && history.length > 0;
 
     useEffect(() => {
-        if (state === State.Loading) return;
-        init.current = true;
-
-        return () => {
-            init.current = false;
-        };
-    }, [state]);
+        if (hasAnimated || isLoading) return;
+        if (history.length) {
+            queueMicrotask(() => setHasAnimated(true));
+        }
+    }, [hasAnimated, history.length, isLoading]);
 
     if (error) {
         return <div className="text-sm text-red-400">{error}</div>;
     }
 
-    if (state === State.Loading) {
+    if (isLoading) {
         return (
             <div className="flex flex-col gap-3">
                 {Array.from({ length: 3 }).map((_, i) => (
@@ -90,8 +93,8 @@ export function History({
                         }
                     }
                 }}
-                initial={init.current ? "visible" : "hidden"}
-                animate="visible"
+                initial={shouldAnimate ? "hidden" : false}
+                animate={shouldAnimate ? "visible" : false}
                 className="flex flex-col gap-3"
             >
                 {history.map((item) => (
@@ -101,6 +104,7 @@ export function History({
                         fallbackVoice={fallbackVoice}
                         onPlay={onPlay}
                         onRefill={onRefill}
+                        onDelete={onDelete}
                         ensureUrl={ensureUrl}
                     />
                 ))}
@@ -114,12 +118,14 @@ function HistoryItem({
     fallbackVoice,
     onPlay,
     onRefill,
+    onDelete,
     ensureUrl
 }: {
     item: HistoryItem;
     fallbackVoice: string;
     onPlay: (url: string) => void;
     onRefill: (text: string, voice: string) => void;
+    onDelete: (id: number) => void;
     ensureUrl: (item: HistoryItem) => string;
 }) {
     const createdAt = new Date(item.createdAt);
@@ -160,6 +166,24 @@ function HistoryItem({
                     }}
                 >
                     <HiPencil className="mr-1" /> Edit
+                </Button>
+                <Button
+                    className="p-4.5"
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => onDelete(item.id)}
+                >
+                    <HiTrash />
+                </Button>
+                <Button
+                    className="p-4.5"
+                    size="icon"
+                    variant="ghost"
+                    asChild
+                >
+                    <a href={ensureUrl(item)} download>
+                        <HiDownload />
+                    </a>
                 </Button>
             </div>
         </motion.div>

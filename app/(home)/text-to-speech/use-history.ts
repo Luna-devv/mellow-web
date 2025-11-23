@@ -24,9 +24,11 @@ const base64ToUrl = (base64: string) => {
 };
 
 export function useHistory() {
-    const [state, setState] = useState<State>(State.Loading);
+    const isIndexDbSupported = typeof window !== "undefined" && "indexedDB" in window;
+
+    const [state, setState] = useState<State>(() => isIndexDbSupported ? State.Loading : State.Success);
     const [history, setHistory] = useState<HistoryItem[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(() => isIndexDbSupported ? null : "IndexedDB is not available in this browser.");
 
     const dbRef = useRef<IDBDatabase | null>(null);
     const urlCache = useRef<Map<number, string>>(new Map());
@@ -34,10 +36,7 @@ export function useHistory() {
     useEffect(() => {
         let mounted = true;
 
-        if (typeof window === "undefined" || !("indexedDB" in window)) {
-            setError("IndexedDB is not available in this browser.");
-            return;
-        }
+        if (!isIndexDbSupported) return;
 
         const openDb = () => new Promise<IDBDatabase>((resolve, reject) => {
             const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -87,7 +86,7 @@ export function useHistory() {
             dbRef.current?.close();
             for (const [, url] of urlCache.current) URL.revokeObjectURL(url);
         };
-    }, []);
+    }, [isIndexDbSupported]);
 
     const addEntry = async (entry: Omit<HistoryItem, "id">, cachedUrl?: string) => {
         const db = dbRef.current;
@@ -113,6 +112,22 @@ export function useHistory() {
         return persistId;
     };
 
+    const deleteEntry = async (id: number) => {
+        const db = dbRef.current;
+        if (!db) return;
+
+        const tx = db.transaction(STORE_NAME, "readwrite");
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.delete(id);
+
+        await new Promise<void>((resolve, reject) => {
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+        });
+
+        setHistory((prev) => prev.filter((item) => item.id !== id));
+    };
+
     const ensureUrl = (item: HistoryItem) => {
         if (urlCache.current.has(item.id)) return urlCache.current.get(item.id)!;
         const url = base64ToUrl(item.base64);
@@ -125,6 +140,7 @@ export function useHistory() {
         error,
         state,
         addEntry,
+        deleteEntry,
         ensureUrl
     };
 }
